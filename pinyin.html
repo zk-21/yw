@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>拼音学习 - 小学语文基础</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .pinyin-hero {
+      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+      padding: 60px 5vw;
+      text-align: center;
+      color: white;
+    }
+    .pinyin-hero h1 {
+      color: white;
+      margin-bottom: 15px;
+    }
+    .pinyin-hero p {
+      opacity: 0.9;
+      font-size: 18px;
+    }
+    
+    /* 拼音表格 */
+    .pinyin-section {
+      padding: 50px 5vw;
+    }
+    .pinyin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .pinyin-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .pinyin-card h3 {
+      text-align: center;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      color: white;
+    }
+    .pinyin-card.initial h3 { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .pinyin-card.final h3 { background: linear-gradient(135deg, #11998e, #38ef7d); }
+    .pinyin-card.whole h3 { background: linear-gradient(135deg, #fc466b, #3f5efb); }
+    .pinyin-card.tone h3 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    
+    .pinyin-table {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+      gap: 8px;
+    }
+    .pinyin-item {
+      padding: 12px 8px;
+      text-align: center;
+      background: #f7f8fb;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .pinyin-item:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    .pinyin-item.important {
+      background: linear-gradient(135deg, #ff6b6b, #feca57);
+      color: white;
+    }
+    
+    /* 声调练习 */
+    .tone-practice {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      padding: 40px 5vw;
+      text-align: center;
+    }
+    .tone-display {
+      font-size: 100px;
+      margin: 30px 0;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .tone-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .tone-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid white;
+      background: white;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .tone-btn:nth-child(1) { color: #667eea; }
+    .tone-btn:nth-child(2) { color: #11998e; }
+    .tone-btn:nth-child(3) { color: #f093fb; }
+    .tone-btn:nth-child(4) { color: #fc466b; }
+    .tone-btn:hover, .tone-btn.active {
+      transform: scale(1.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .tone-btn.correct {
+      background: #4caf50;
+      color: white;
+      border-color: #4caf50;
+    }
+    
+    /* 音调动画 */
+    .tone-lines {
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin: 20px 0;
+    }
+    .tone-line {
+      width: 8px;
+      background: #ddd;
+      border-radius: 4px;
+      margin: 0 20px;
+      transition: all 0.3s;
+    }
+    .tone-line.active {
+      background: linear-gradient(to top, #667eea, #764ba2);
+    }
+    .tone-line.tone1 { height: 20px; }
+    .tone-line.tone2 { height: 50px; }
+    .tone-line.tone3 { height: 80px; }
+    .tone-line.tone4 { height: 100px; }
+
+    /* 易错拼音 */
+    .mistake-section {
+      padding: 50px 5vw;
+      background: #f7f8fb;
+    }
+    .mistake-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    .mistake-compare {
+      display: flex;
+      gap: 10px;
+    }
+    .mistake-item {
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .mistake-item.wrong {
+      background: #ffebee;
+      color: #f44336;
+    }
+    .mistake-item.correct {
+      background: #e8f5e9;
+      color: #4caf50;
+    }
+    .vs {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      color: #999;
+    }
+    .mistake-tip {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .mistake-tip strong {
+      color: #333;
+    }
+
+    /* 拼读练习 */
+    .spell-practice {
+      padding: 50px 5vw;
+    }
+    .spell-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .spell-display {
+      margin: 30px 0;
+    }
+    .spell-syllable {
+      font-size: 80px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .spell-hint {
+      font-size: 16px;
+      color: #999;
+    }
+    .spell-input {
+      padding: 15px 25px;
+      font-size: 24px;
+      border: 3px solid #667eea;
+      border-radius: 15px;
+      text-align: center;
+      width: 100%;
+      max-width: 300px;
+    }
+    .spell-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .tone-display {
+        font-size: 60px;
+      }
+      .tone-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+      }
+      .mistake-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .mistake-compare {
+        justify-content: center;
+      }
+      .spell-syllable {
+        font-size: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html" class="active">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <!-- 拼音学习英雄区 -->
+  <section class="pinyin-hero">
+    <h1>&#128407; 拼音学习</h1>
+    <p>汉语拼音是学习汉字的基础，跟着我们一起掌握拼音吧！</p>
+  </section>
+
+  <!-- 声母表 -->
+  <section class="pinyin-section">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">声母</p>
+      <h2>声母表 - 23个声母</h2>
+    </div>
+    <div class="pinyin-grid">
+      <div class="pinyin-card initial">
+        <h3>&#128260; 双唇音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">b</div>
+          <div class="pinyin-item important">p</div>
+          <div class="pinyin-item important">m</div>
+          <div class="pinyin-item important">f</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128261; 舌尖音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">d</div>
+          <div class="pinyin-item important">t</div>
+          <div class="pinyin-item important">n</div>
+          <div class="pinyin-item important">l</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128262; 舌根音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">g</div>
+          <div class="pinyin-item important">k</div>
+          <div class="pinyin-item important">h</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128263; 舌面音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">j</div>
+          <div class="pinyin-item important">q</div>
+          <div class="pinyin-item important">x</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128264; 舌尖后音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">zh</div>
+          <div class="pinyin-item important">ch</div>
+          <div class="pinyin-item important">sh</div>
+          <div class="pinyin-item important">r</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128265; 舌尖前音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">z</div>
+          <div class="pinyin-item important">c</div>
+          <div class="pinyin-item important">s</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128266; 半元音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">y</div>
+          <div class="pinyin-item important">w</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 韵母表 -->
+  <section class="pinyin-section" style="background: #f7f8fb;">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">韵母</p>
+      <h2>韵母表 - 24个韵母</h2>
+    </div>
+    <div class="pinyin-grid">
+      <div class="pinyin-card final">
+        <h3>&#127795; 单韵母</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">a</div>
+          <div class="pinyin-item important">o</div>
+          <div class="pinyin-item important">e</div>
+          <div class="pinyin-item important">i</div>
+          <div class="pinyin-item important">u</div>
+          <div class="pinyin-item important">&#252;</div>
+        </div>
+      </div>
+      <div class="pinyin-card final">
+        <h3>&#127796; 复韵母</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">ai</div>
+          <div class="pinyin-item important">ei</div>
+          <div class="pinyin-item important">ao</div>
+          <div class="pinyin-item important">ou</div>
+          <div class="pinyin-item important">ie</div>
+          <div class="pinyin-item important">&#252;e</div>
+          <div class="pinyin-item important">er</div>
+        </div>
+      </div>
+      <div class="pinyin-card final">
+        <h3>&#127797; 前鼻韵母</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">an</div>
+          <div class="pinyin-item important">en</div>
+          <div class="pinyin-item important">in</div>
+          <div class="pinyin-item important">un</div>
+          <div class="pinyin-item important">&#252;n</div>
+        </div>
+      </div>
+      <div class="pinyin-card final">
+        <h3>&#127798; 后鼻韵母</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">ang</div>
+          <div class="pinyin-item important">eng</div>
+          <div class="pinyin-item important">ing</div>
+          <div class="pinyin-item important">ong</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 声调练习 -->
+  <section class="tone-practice">
+    <div class="section-title">
+      <p class="eyebrow" style="color: rgba(255,255,255,0.8);">声调练习</p>
+      <h2 style="color: white;">四声练习 - 点击选择正确的声调</h2>
+    </div>
+    <div class="tone-display" id="toneDisplay">m&#257;</div>
+    <div class="tone-lines">
+      <div class="tone-line tone1" data-tone="1"></div>
+      <div class="tone-line tone2" data-tone="2"></div>
+      <div class="tone-line tone3" data-tone="3"></div>
+      <div class="tone-line tone4" data-tone="4"></div>
+    </div>
+    <div class="tone-buttons">
+      <button class="tone-btn" data-tone="1">第一声 &#8212;</button>
+      <button class="tone-btn" data-tone="2">第二声 /</button>
+      <button class="tone-btn" data-tone="3">第三声 &#711;</button>
+      <button class="tone-btn" data-tone="4">第四声 \</button>
+    </div>
+    <p style="margin-top: 20px; color: white;">请选择"妈"字的声调</p>
+  </section>
+
+  <!-- 易错拼音 -->
+  <section class="mistake-section">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">易错辨析</p>
+      <h2>这些拼音很容易混淆</h2>
+    </div>
+    <div class="mistake-card">
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">n - l</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">n&#259;o (脑) - l&#259;o (老)</div>
+      </div>
+      <div class="mistake-tip">
+        <strong>记忆口诀：</strong>"脑袋"用n，"老师"用l。<br>
+        <strong>区分方法：</strong>舌尖抵住上腭前端，能发出声音的是n，发不出的是l。
+      </div>
+    </div>
+    <div class="mistake-card">
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">zh/ch/sh - z/c/s</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">zh&#464; (扎) - z&#257; (咂)</div>
+      </div>
+      <div class="mistake-tip">
+        <strong>记忆口诀：</strong>"知蚩诗"翘舌音，"资雌思"平舌音。<br>
+        <strong>区分方法：</strong>舌尖翘起抵住硬腭前部是翘舌音，舌尖平抵上齿背是平舌音。
+      </div>
+    </div>
+    <div class="mistake-card">
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">b - d</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">b&#224; (爸) - d&#224; (大)</div>
+      </div>
+      <div class="mistake-tip">
+        <strong>记忆口诀：</strong>"左下半圆bbb，右上半圆ddd"。<br>
+        <strong>区分方法：</strong>看字母形状，像右括号的是b，像左括号的是d。
+      </div>
+    </div>
+    <div class="mistake-card">
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">p - q</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">p&#237; (皮) - q&#237; (旗)</div>
+      </div>
+      <div class="mistake-tip">
+        <strong>记忆口诀：</strong>"左下劈叉ppp，右下劈叉qqq"。<br>
+        <strong>区分方法：</strong>p的右半边像向下开口，q的右半边像向下开口的钩子。
+      </div>
+    </div>
+    <div class="mistake-card">
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">an - ang</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">m&#462;n (慢) - m&#257;ng (忙)</div>
+      </div>
+      <div class="mistake-tip">
+        <strong>记忆口诀：</strong>"前鼻音an在前面读安，后鼻音ang在后面读昂"。<br>
+        <strong>区分方法：</strong>发an时舌尖抵上齿背，发ang时舌根抵软腭。
+      </div>
+    </div>
+  </section>
+
+  <!-- 拼读练习 -->
+  <section class="spell-practice">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">拼读练习</p>
+      <h2>试着拼读这些音节</h2>
+    </div>
+    <div class="spell-card">
+      <p style="color: #999; margin-bottom: 10px;">根据声母和韵母组合拼读</p>
+      <div class="spell-display">
+        <div class="spell-syllable">b &#257;</div>
+        <div class="spell-hint">声母 b + 单韵母 &#257; = ?</div>
+      </div>
+      <input type="text" class="spell-input" id="spellInput" placeholder="输入拼音">
+      <button class="next-btn" style="margin-top: 20px;" onclick="checkSpell()">检查</button>
+      <p style="margin-top: 15px; color: #4caf50; font-size: 18px; display: none;" id="spellHint">提示：这就是"爸爸"的"ba"字哦！</p>
+    </div>
+  </section>
+
+  <script>
+    // 声调练习数据
+    const toneExercises = [
+      { syllable: 'm\u0101', answer: 1, hint: '妈' },
+      { syllable: 'm\u00E1', answer: 2, hint: '麻' },
+      { syllable: 'm\u01CE', answer: 3, hint: '马' },
+      { syllable: 'm\u00E0', answer: 4, hint: '骂' },
+      { syllable: 'b\u0101', answer: 1, hint: '八' },
+      { syllable: 'b\u00E0', answer: 4, hint: '爸' },
+    ];
+    let currentTone = 0;
+
+    // 初始化声调练习
+    function initToneExercise() {
+      const display = document.getElementById('toneDisplay');
+      display.textContent = toneExercises[currentTone].syllable;
+    }
+
+    // 声调按钮点击
+    document.querySelectorAll('.tone-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tone = parseInt(btn.dataset.tone);
+        const correct = toneExercises[currentTone].answer;
+        
+        document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active', 'correct'));
+        btn.classList.add('active');
+        
+        if (tone === correct) {
+          btn.classList.add('correct');
+          // 显示正确的声调线条
+          document.querySelectorAll('.tone-line').forEach(line => {
+            if (parseInt(line.dataset.tone) === correct) {
+              line.classList.add('active');
+            }
+          });
+          
+          setTimeout(() => {
+            document.querySelectorAll('.tone-line').forEach(line => line.classList.remove('active'));
+            currentTone = (currentTone + 1) % toneExercises.length;
+            document.getElementById('toneDisplay').textContent = toneExercises[currentTone].syllable;
+            document.querySelectorAll('.tone-btn').forEach(b => {
+              b.classList.remove('active', 'correct');
+            });
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+          }, 500);
+        }
+      });
+    });
+
+    // 拼读练习
+    function checkSpell() {
+      const input = document.getElementById('spellInput').value.trim().toLowerCase();
+      const hint = document.getElementById('spellHint');
+      
+      if (input === 'ba' || input === 'b\u0101') {
+        hint.style.display = 'block';
+        hint.style.color = '#4caf50';
+        hint.textContent = '正确！这就是"ba"音节！';
+      } else {
+        hint.style.display = 'block';
+        hint.style.color = '#f44336';
+        hint.textContent = '再想想，声母是b，韵母是\u0101，合起来是...';
+      }
+    }
+
+    // 页面加载时初始化
+    document.addEventListener('DOMContentLoaded', initToneExercise);
+  </script>
+</body>
+</html>

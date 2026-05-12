@@ -1,0 +1,2581 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>词语学习 - 小学语文互动版</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .interactive-section {
+      padding: 40px 5vw;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+    }
+    .interactive-section h2 {
+      color: white;
+      margin-bottom: 30px;
+    }
+    .mode-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .mode-btn {
+      padding: 12px 28px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    .mode-btn:hover, .mode-btn.active {
+      background: white;
+      color: #667eea;
+    }
+    
+    /* 词语卡片翻转 */
+    .flashcard-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .flashcard {
+      width: 100%;
+      height: 240px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flashcard:hover .flashcard-inner,
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .flashcard-front {
+      background: white;
+      color: #333;
+    }
+    .flashcard-front .word {
+      font-size: 32px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .flashcard-front .hint {
+      font-size: 14px;
+      color: #999;
+      margin-top: 10px;
+    }
+    .flashcard-back {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .flashcard-back .meaning {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .flashcard-back .example {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    /* 练习区域 */
+    .quiz-section {
+      padding: 60px 5vw;
+      background: #f7f8fb;
+    }
+    .quiz-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+    .progress-text {
+      font-size: 14px;
+      color: #666;
+      white-space: nowrap;
+    }
+    .quiz-question {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    .quiz-options {
+      display: grid;
+      gap: 15px;
+    }
+    .quiz-option {
+      padding: 18px 24px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 18px;
+    }
+    .quiz-option:hover {
+      border-color: #667eea;
+      background: #f0f0ff;
+    }
+    .quiz-option.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    .quiz-option.correct {
+      border-color: #4caf50;
+      background: #4caf50;
+      color: white;
+    }
+    .quiz-option.wrong {
+      border-color: #f44336;
+      background: #f44336;
+      color: white;
+    }
+    .quiz-result {
+      text-align: center;
+      padding: 30px;
+    }
+    .result-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .result-text {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .next-btn {
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .next-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    /* 填空题 */
+    .fill-blank {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 30px;
+      line-height: 1.8;
+    }
+    .fill-blank input {
+      padding: 8px 16px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      font-size: 18px;
+      min-width: 150px;
+      text-align: center;
+    }
+    .fill-blank input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* 成就系统 */
+    .achievement-bar {
+      background: white;
+      padding: 20px 5vw;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .achievement-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: #f7f8fb;
+      border-radius: 30px;
+    }
+    .achievement-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .achievement-icon.unlocked {
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+    }
+    .achievement-icon.locked {
+      background: #ddd;
+      filter: grayscale(1);
+    }
+    .achievement-text {
+      font-size: 14px;
+      color: #666;
+    }
+    .achievement-text strong {
+      display: block;
+      color: #333;
+    }
+
+    /* 分类标签 */
+    .category-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      justify-content: center;
+    }
+    .category-tab {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .category-tab.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .category-tab:not(.active) {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    @media (max-width: 768px) {
+      .flashcard {
+        width: 150px;
+        height: 190px;
+      }
+      .flashcard-front .word {
+        font-size: 26px;
+      }
+      .quiz-card {
+        padding: 25px;
+        margin: 0 20px;
+      }
+      .quiz-question {
+        font-size: 18px;
+      }
+      .quiz-option {
+        font-size: 16px;
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="practice.html">练习计划</a>
+      <a class="active" href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <!-- 成就系统 -->
+  <div class="achievement-bar">
+    <div class="achievement-item">
+      <div class="achievement-icon unlocked" id="ach1">&#9733;</div>
+      <div class="achievement-text">
+        <strong id="ach1-title">今日开始</strong>
+        <span>开始今日学习</span>
+      </div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon locked" id="ach2">&#128218;</div>
+      <div class="achievement-text">
+        <strong id="ach2-title">词语达人</strong>
+        <span>学习10个词语</span>
+      </div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon locked" id="ach3">&#10004;</div>
+      <div class="achievement-text">
+        <strong id="ach3-title">答题高手</strong>
+        <span>答对5道题</span>
+      </div>
+    </div>
+    <div class="achievement-item">
+      <div class="achievement-icon locked" id="ach4">&#127942;</div>
+      <div class="achievement-text">
+        <strong id="ach4-title">学习之星</strong>
+        <span>完成所有练习</span>
+      </div>
+    </div>
+    <div style="margin-left: auto; font-size: 14px; color: #666;">
+      今日学习：<strong id="todayCount">0</strong> 个词语 | 
+      正确率：<strong id="accuracy">0%</strong>
+    </div>
+  </div>
+
+  <!-- 互动学习区域 -->
+  <section class="interactive-section">
+    <p class="eyebrow" style="color: rgba(255,255,255,0.8);">互动学习</p>
+    <h2>点击卡片学习词语</h2>
+    
+    <div style="margin-bottom: 25px;">
+      <input type="text" id="searchInput" placeholder="搜索词语或拼音..." style="width: 300px; padding: 12px 20px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.2); color: white; font-size: 16px; outline: none; transition: all 0.3s;">
+      <button id="searchBtn" style="padding: 12px 25px; border-radius: 30px; border: none; background: white; color: #667eea; font-weight: bold; margin-left: 10px; cursor: pointer;">搜索</button>
+    </div>
+    
+    <div class="category-tabs">
+      <button class="category-tab active" data-category="all">全部</button>
+      <button class="category-tab" data-category="nature">自然季节</button>
+      <button class="category-tab" data-category="emotion">心情情绪</button>
+      <button class="category-tab" data-category="character">人物品质</button>
+      <button class="category-tab" data-category="study">学习成长</button>
+      <button class="category-tab" data-category="fable">寓言成语</button>
+      <button class="category-tab" data-category="action">动作行为</button>
+    </div>
+    
+    <div class="flashcard-container" id="flashcards">
+      <!-- 词语卡片将由JS生成 -->
+    </div>
+  </section>
+
+  <!-- 练习区域 -->
+  <section class="quiz-section">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">词语练习</p>
+      <h2>学以致用</h2>
+    </div>
+    
+    <div class="quiz-card">
+      <div class="quiz-progress">
+        <span class="progress-text" id="quizProgress">第 1 题 / 共 22 题</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
+        </div>
+      </div>
+      
+      <div id="quizContent">
+        <!-- 题目内容将由JS生成 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 课后词语表 -->
+  <main>
+    <section class="page-head practice-head">
+      <p class="eyebrow">词语积累</p>
+      <h1>小学三到五年级词语大全</h1>
+      <p>按年级和类型整理，方便孩子系统积累和复习</p>
+    </section>
+
+    <style>
+      .word-tag-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .word-tag {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        color: #333;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .word-tag:hover {
+        background: #eee;
+      }
+      .word-tag .word-text {
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .word-tag .word-pinyin {
+        font-size: 12px;
+        color: #666;
+        margin-top: 2px;
+      }
+      .section-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        margin-bottom: 25px;
+      }
+      .section-card h3 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+      .section-card .lesson-title {
+        color: #667eea;
+        font-weight: bold;
+        margin-bottom: 12px;
+        font-size: 15px;
+      }
+    </style>
+
+    <!-- 一年级上册词语 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">课后词语表</p>
+        <h2>一年级上册词语</h2>
+      </div>
+      
+      <div class="section-card">
+        <h3>📚 一年级上册 - 第一单元·识字</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 天地人</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">天</span><span class="word-pinyin">tiān</span></span>
+            <span class="word-tag"><span class="word-text">地</span><span class="word-pinyin">dì</span></span>
+            <span class="word-tag"><span class="word-text">人</span><span class="word-pinyin">rén</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 金木水火土</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">金</span><span class="word-pinyin">jīn</span></span>
+            <span class="word-tag"><span class="word-text">木</span><span class="word-pinyin">mù</span></span>
+            <span class="word-tag"><span class="word-text">水</span><span class="word-pinyin">shuǐ</span></span>
+            <span class="word-tag"><span class="word-text">火</span><span class="word-pinyin">huǒ</span></span>
+            <span class="word-tag"><span class="word-text">土</span><span class="word-pinyin">tǔ</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">3. 口耳目手足</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">口</span><span class="word-pinyin">kǒu</span></span>
+            <span class="word-tag"><span class="word-text">耳</span><span class="word-pinyin">ěr</span></span>
+            <span class="word-tag"><span class="word-text">目</span><span class="word-pinyin">mù</span></span>
+            <span class="word-tag"><span class="word-text">手</span><span class="word-pinyin">shǒu</span></span>
+            <span class="word-tag"><span class="word-text">足</span><span class="word-pinyin">zú</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">4. 日月山川</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">日</span><span class="word-pinyin">rì</span></span>
+            <span class="word-tag"><span class="word-text">月</span><span class="word-pinyin">yuè</span></span>
+            <span class="word-tag"><span class="word-text">山</span><span class="word-pinyin">shān</span></span>
+            <span class="word-tag"><span class="word-text">川</span><span class="word-pinyin">chuān</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 一年级上册 - 第五单元·阅读</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 秋天</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">秋天</span><span class="word-pinyin">qiū tiān</span></span>
+            <span class="word-tag"><span class="word-text">天气</span><span class="word-pinyin">tiān qì</span></span>
+            <span class="word-tag"><span class="word-text">树叶</span><span class="word-pinyin">shù yè</span></span>
+            <span class="word-tag"><span class="word-text">一片片</span><span class="word-pinyin">yī piàn piàn</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 江南</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">江南</span><span class="word-pinyin">jiāng nán</span></span>
+            <span class="word-tag"><span class="word-text">采莲</span><span class="word-pinyin">cǎi lián</span></span>
+            <span class="word-tag"><span class="word-text">鱼</span><span class="word-pinyin">yú</span></span>
+            <span class="word-tag"><span class="word-text">戏</span><span class="word-pinyin">xì</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">3. 雪地里的小画家</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">雪地</span><span class="word-pinyin">xuě dì</span></span>
+            <span class="word-tag"><span class="word-text">画家</span><span class="word-pinyin">huà jiā</span></span>
+            <span class="word-tag"><span class="word-text">小鸡</span><span class="word-pinyin">xiǎo jī</span></span>
+            <span class="word-tag"><span class="word-text">小狗</span><span class="word-pinyin">xiǎo gǒu</span></span>
+            <span class="word-tag"><span class="word-text">小鸭</span><span class="word-pinyin">xiǎo yā</span></span>
+            <span class="word-tag"><span class="word-text">小马</span><span class="word-pinyin">xiǎo mǎ</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">4. 四季</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">春天</span><span class="word-pinyin">chūn tiān</span></span>
+            <span class="word-tag"><span class="word-text">夏天</span><span class="word-pinyin">xià tiān</span></span>
+            <span class="word-tag"><span class="word-text">秋天</span><span class="word-pinyin">qiū tiān</span></span>
+            <span class="word-tag"><span class="word-text">冬天</span><span class="word-pinyin">dōng tiān</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 一年级上册 - 第六单元·识字</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 对韵歌</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">云</span><span class="word-pinyin">yún</span></span>
+            <span class="word-tag"><span class="word-text">雨</span><span class="word-pinyin">yǔ</span></span>
+            <span class="word-tag"><span class="word-text">风</span><span class="word-pinyin">fēng</span></span>
+            <span class="word-tag"><span class="word-text">花</span><span class="word-pinyin">huā</span></span>
+            <span class="word-tag"><span class="word-text">鸟</span><span class="word-pinyin">niǎo</span></span>
+            <span class="word-tag"><span class="word-text">虫</span><span class="word-pinyin">chóng</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 日月明</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">明</span><span class="word-pinyin">míng</span></span>
+            <span class="word-tag"><span class="word-text">田</span><span class="word-pinyin">tián</span></span>
+            <span class="word-tag"><span class="word-text">力</span><span class="word-pinyin">lì</span></span>
+            <span class="word-tag"><span class="word-text">男</span><span class="word-pinyin">nán</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">3. 小书包</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">书包</span><span class="word-pinyin">shū bāo</span></span>
+            <span class="word-tag"><span class="word-text">课本</span><span class="word-pinyin">kè běn</span></span>
+            <span class="word-tag"><span class="word-text">作业本</span><span class="word-pinyin">zuò yè běn</span></span>
+            <span class="word-tag"><span class="word-text">铅笔</span><span class="word-pinyin">qiān bǐ</span></span>
+            <span class="word-tag"><span class="word-text>橡皮</span><span class="word-pinyin">xiàng pí</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">4. 升国旗</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">国旗</span><span class="word-pinyin">guó qí</span></span>
+            <span class="word-tag"><span class="word-text">升起</span><span class="word-pinyin">shēng qǐ</span></span>
+            <span class="word-tag"><span class="word-text">敬礼</span><span class="word-pinyin">jìng lǐ</span></span>
+            <span class="word-tag"><span class="word-text">国歌</span><span class="word-pinyin">guó gē</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 一年级上册 - 第七单元·阅读</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 小小的船</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">小船</span><span class="word-pinyin">xiǎo chuán</span></span>
+            <span class="word-tag"><span class="word-text">月亮</span><span class="word-pinyin">yuè liang</span></span>
+            <span class="word-tag"><span class="word-text">星星</span><span class="word-pinyin">xīng xing</span></span>
+            <span class="word-tag"><span class="word-text">蓝天</span><span class="word-pinyin">lán tiān</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 影子</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">影子</span><span class="word-pinyin">yǐng zi</span></span>
+            <span class="word-tag"><span class="word-text">前后</span><span class="word-pinyin">qián hòu</span></span>
+            <span class="word-tag"><span class="word-text">左右</span><span class="word-pinyin">zuǒ yòu</span></span>
+            <span class="word-tag"><span class="word-text">朋友</span><span class="word-pinyin">péng you</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 两件宝</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">双手</span><span class="word-pinyin">shuāng shǒu</span></span>
+            <span class="word-tag"><span class="word-text">大脑</span><span class="word-pinyin">dà nǎo</span></span>
+            <span class="word-tag"><span class="word-text">劳动</span><span class="word-pinyin">láo dòng</span></span>
+            <span class="word-tag"><span class="word-text">创造</span><span class="word-pinyin">chuàng zào</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 一年级上册 - 第八单元·阅读</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 比尾巴</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">尾巴</span><span class="word-pinyin">wěi ba</span></span>
+            <span class="word-tag"><span class="word-text">长</span><span class="word-pinyin">cháng</span></span>
+            <span class="word-tag"><span class="word-text">短</span><span class="word-pinyin">duǎn</span></span>
+            <span class="word-tag"><span class="word-text">扁</span><span class="word-pinyin">biǎn</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 乌鸦喝水</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">乌鸦</span><span class="word-pinyin">wū yā</span></span>
+            <span class="word-tag"><span class="word-text">喝水</span><span class="word-pinyin">hē shuǐ</span></span>
+            <span class="word-tag"><span class="word-text">瓶子</span><span class="word-pinyin">píng zi</span></span>
+            <span class="word-tag"><span class="word-text">石子</span><span class="word-pinyin">shí zi</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 雨点儿</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">雨点</span><span class="word-pinyin">yǔ diǎn</span></span>
+            <span class="word-tag"><span class="word-text">云彩</span><span class="word-pinyin">yún cai</span></span>
+            <span class="word-tag"><span class="word-text">飘落</span><span class="word-pinyin">piāo luò</span></span>
+            <span class="word-tag"><span class="word-text">地方</span><span class="word-pinyin">dì fang</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二年级上册词语 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">课后词语表</p>
+        <h2>二年级上册词语</h2>
+      </div>
+      
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第一单元·自然之美</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 小蝌蚪找妈妈</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">蝌蚪</span><span class="word-pinyin">kē dǒu</span></span>
+            <span class="word-tag"><span class="word-text">脑袋</span><span class="word-pinyin">nǎo dai</span></span>
+            <span class="word-tag"><span class="word-text">眼睛</span><span class="word-pinyin">yǎn jing</span></span>
+            <span class="word-tag"><span class="word-text">尾巴</span><span class="word-pinyin">wěi ba</span></span>
+            <span class="word-tag"><span class="word-text">青蛙</span><span class="word-pinyin">qīng wā</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 我是什么</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">水滴</span><span class="word-pinyin">shuǐ dī</span></span>
+            <span class="word-tag"><span class="word-text">变成</span><span class="word-pinyin">biàn chéng</span></span>
+            <span class="word-tag"><span class="word-text">云</span><span class="word-pinyin">yún</span></span>
+            <span class="word-tag"><span class="word-text">雨</span><span class="word-pinyin">yǔ</span></span>
+            <span class="word-tag"><span class="word-text">雪</span><span class="word-pinyin">xuě</span></span>
+            <span class="word-tag"><span class="word-text">冰雹</span><span class="word-pinyin">bīng báo</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 植物妈妈有办法</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">植物</span><span class="word-pinyin">zhí wù</span></span>
+            <span class="word-tag"><span class="word-text">办法</span><span class="word-pinyin">bàn fǎ</span></span>
+            <span class="word-tag"><span class="word-text">蒲公英</span><span class="word-pinyin">pú gōng yīng</span></span>
+            <span class="word-tag"><span class="word-text">苍耳</span><span class="word-pinyin">cāng ěr</span></span>
+            <span class="word-tag"><span class="word-text">豌豆</span><span class="word-pinyin">wān dòu</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第二单元·识字</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 场景歌</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">帆船</span><span class="word-pinyin">fān chuán</span></span>
+            <span class="word-tag"><span class="word-text">军舰</span><span class="word-pinyin">jūn jiàn</span></span>
+            <span class="word-tag"><span class="word-text">海鸥</span><span class="word-pinyin">hǎi ōu</span></span>
+            <span class="word-tag"><span class="word-text">沙滩</span><span class="word-pinyin">shā tān</span></span>
+            <span class="word-tag"><span class="word-text">稻田</span><span class="word-pinyin">dào tián</span></span>
+            <span class="word-tag"><span class="word-text">鱼塘</span><span class="word-pinyin">yú táng</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 树之歌</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">杨树</span><span class="word-pinyin">yáng shù</span></span>
+            <span class="word-tag"><span class="word-text">榕树</span><span class="word-pinyin">róng shù</span></span>
+            <span class="word-tag"><span class="word-text">枫树</span><span class="word-pinyin">fēng shù</span></span>
+            <span class="word-tag"><span class="word-text">松树</span><span class="word-pinyin">sōng shù</span></span>
+            <span class="word-tag"><span class="word-text">柏树</span><span class="word-pinyin">bǎi shù</span></span>
+            <span class="word-tag"><span class="word-text">桦树</span><span class="word-pinyin">huà shù</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">3. 拍手歌</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">动物</span><span class="word-pinyin">dòng wù</span></span>
+            <span class="word-tag"><span class="word-text">老虎</span><span class="word-pinyin">lǎo hǔ</span></span>
+            <span class="word-tag"><span class="word-text">孔雀</span><span class="word-pinyin">kǒng què</span></span>
+            <span class="word-tag"><span class="word-text">雄鹰</span><span class="word-pinyin">xióng yīng</span></span>
+            <span class="word-tag"><span class="word-text">大雁</span><span class="word-pinyin">dà yàn</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">4. 田家四季歌</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">农事</span><span class="word-pinyin">nóng shì</span></span>
+            <span class="word-tag"><span class="word-text">插秧</span><span class="word-pinyin">chā yāng</span></span>
+            <span class="word-tag"><span class="word-text">采桑</span><span class="word-pinyin">cǎi sāng</span></span>
+            <span class="word-tag"><span class="word-text">除草</span><span class="word-pinyin">chú cǎo</span></span>
+            <span class="word-tag"><span class="word-text">打谷</span><span class="word-pinyin">dǎ gǔ</span></span>
+            <span class="word-tag"><span class="word-text">丰收</span><span class="word-pinyin">fēng shōu</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第三单元·儿童生活</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 曹冲称象</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">大象</span><span class="word-pinyin">dà xiàng</span></span>
+            <span class="word-tag"><span class="word-text">重量</span><span class="word-pinyin">zhòng liàng</span></span>
+            <span class="word-tag"><span class="word-text">石头</span><span class="word-pinyin">shí tou</span></span>
+            <span class="word-tag"><span class="word-text">办法</span><span class="word-pinyin">bàn fǎ</span></span>
+            <span class="word-tag"><span class="word-text">聪明</span><span class="word-pinyin">cōng ming</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 玲玲的画</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">画画</span><span class="word-pinyin">huà huà</span></span>
+            <span class="word-tag"><span class="word-text">弄脏</span><span class="word-pinyin">nòng zāng</span></span>
+            <span class="word-tag"><span class="word-text">脑筋</span><span class="word-pinyin">nǎo jīn</span></span>
+            <span class="word-tag"><span class="word-text">满意</span><span class="word-pinyin">mǎn yì</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 父亲和鸟</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">父亲</span><span class="word-pinyin">fù qīn</span></span>
+            <span class="word-tag"><span class="word-text">树林</span><span class="word-pinyin">shù lín</span></span>
+            <span class="word-tag"><span class="word-text">黎明</span><span class="word-pinyin">lí míng</span></span>
+            <span class="word-tag"><span class="word-text">羽毛</span><span class="word-pinyin">yǔ máo</span></span>
+            <span class="word-tag"><span class="word-text">喜爱</span><span class="word-pinyin">xǐ ài</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第四单元·风景名胜</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 古诗二首</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">白日</span><span class="word-pinyin">bái rì</span></span>
+            <span class="word-tag"><span class="word-text">黄河</span><span class="word-pinyin">huáng hé</span></span>
+            <span class="word-tag"><span class="word-text">千里</span><span class="word-pinyin">qiān lǐ</span></span>
+            <span class="word-tag"><span class="word-text">庐山</span><span class="word-pinyin">lú shān</span></span>
+            <span class="word-tag"><span class="word-text">瀑布</span><span class="word-pinyin">pù bù</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 黄山奇石</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">黄山</span><span class="word-pinyin">huáng shān</span></span>
+            <span class="word-tag"><span class="word-text">石头</span><span class="word-pinyin">shí tou</span></span>
+            <span class="word-tag"><span class="word-text">奇特</span><span class="word-pinyin">qí tè</span></span>
+            <span class="word-tag"><span class="word-text">闻名</span><span class="word-pinyin">wén míng</span></span>
+            <span class="word-tag"><span class="word-text">秀丽</span><span class="word-pinyin">xiù lì</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">3. 日月潭</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">日月潭</span><span class="word-pinyin">rì yuè tán</span></span>
+            <span class="word-tag"><span class="word-text">群山</span><span class="word-pinyin">qún shān</span></span>
+            <span class="word-tag"><span class="word-text">树木</span><span class="word-pinyin">shù mù</span></span>
+            <span class="word-tag"><span class="word-text>美景</span><span class="word-pinyin">měi jǐng</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">4. 葡萄沟</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">葡萄</span><span class="word-pinyin">pú tao</span></span>
+            <span class="word-tag"><span class="word-text">梯田</span><span class="word-pinyin">tī tián</span></span>
+            <span class="word-tag"><span class="word-text">枝叶</span><span class="word-pinyin">zhī yè</span></span>
+            <span class="word-tag"><span class="word-text">香甜</span><span class="word-pinyin">xiāng tián</span></span>
+            <span class="word-tag"><span class="word-text">热情</span><span class="word-pinyin">rè qíng</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第五单元·寓言故事</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 坐井观天</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">青蛙</span><span class="word-pinyin">qīng wā</span></span>
+            <span class="word-tag"><span class="word-text">井口</span><span class="word-pinyin">jǐng kǒu</span></span>
+            <span class="word-tag"><span class="word-text">天空</span><span class="word-pinyin">tiān kōng</span></span>
+            <span class="word-tag"><span class="word-text">无边无际</span><span class="word-pinyin">wú biān wú jì</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 寒号鸟</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">寒号鸟</span><span class="word-pinyin">hán hào niǎo</span></span>
+            <span class="word-tag"><span class="word-text">懒惰</span><span class="word-pinyin">lǎn duò</span></span>
+            <span class="word-tag"><span class="word-text">冬天</span><span class="word-pinyin">dōng tiān</span></span>
+            <span class="word-tag"><span class="word-text">温暖</span><span class="word-pinyin">wēn nuǎn</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 我要的是葫芦</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">葫芦</span><span class="word-pinyin">hú lu</span></span>
+            <span class="word-tag"><span class="word-text">叶子</span><span class="word-pinyin">yè zi</span></span>
+            <span class="word-tag"><span class="word-text">蚜虫</span><span class="word-pinyin">yá chóng</span></span>
+            <span class="word-tag"><span class="word-text">奇怪</span><span class="word-pinyin">qí guài</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第六单元·革命传统教育</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 八角楼上</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">八角楼</span><span class="word-pinyin">bā jiǎo lóu</span></span>
+            <span class="word-tag"><span class="word-text">灯火</span><span class="word-pinyin">dēng huǒ</span></span>
+            <span class="word-tag"><span class="word-text">深夜</span><span class="word-pinyin">shēn yè</span></span>
+            <span class="word-tag"><span class="word-text">思考</span><span class="word-pinyin">sī kǎo</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 刘胡兰</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">英雄</span><span class="word-pinyin">yīng xióng</span></span>
+            <span class="word-tag"><span class="word-text">勇敢</span><span class="word-pinyin">yǒng gǎn</span></span>
+            <span class="word-tag"><span class="word-text">坚强</span><span class="word-pinyin">jiān qiáng</span></span>
+            <span class="word-tag"><span class="word-text">牺牲</span><span class="word-pinyin">xī shēng</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 难忘的泼水节</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">泼水节</span><span class="word-pinyin">pō shuǐ jié</span></span>
+            <span class="word-tag"><span class="word-text">幸福</span><span class="word-pinyin">xìng fú</span></span>
+            <span class="word-tag"><span class="word-text">欢乐</span><span class="word-pinyin">huān lè</span></span>
+            <span class="word-tag"><span class="word-text">祝福</span><span class="word-pinyin">zhù fú</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第七单元·想象世界</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 古诗二首</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">高楼</span><span class="word-pinyin">gāo lóu</span></span>
+            <span class="word-tag"><span class="word-text">星辰</span><span class="word-pinyin">xīng chén</span></span>
+            <span class="word-tag"><span class="word-text">草原</span><span class="word-pinyin">cǎo yuán</span></span>
+            <span class="word-tag"><span class="word-text">牛羊</span><span class="word-pinyin">niú yáng</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 雾在哪里</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">雾</span><span class="word-pinyin">wù</span></span>
+            <span class="word-tag"><span class="word-text">藏起来</span><span class="word-pinyin">cáng qǐ lái</span></span>
+            <span class="word-tag"><span class="word-text">消失</span><span class="word-pinyin">xiāo shī</span></span>
+            <span class="word-tag"><span class="word-text">出现</span><span class="word-pinyin">chū xiàn</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">3. 雪孩子</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">雪人</span><span class="word-pinyin">xuě rén</span></span>
+            <span class="word-tag"><span class="word-text">融化</span><span class="word-pinyin">róng huà</span></span>
+            <span class="word-tag"><span class="word-text">勇敢</span><span class="word-pinyin">yǒng gǎn</span></span>
+            <span class="word-tag"><span class="word-text">美丽</span><span class="word-pinyin">měi lì</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 二年级上册 - 第八单元·关爱与成长</h3>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 狐假虎威</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">狐狸</span><span class="word-pinyin">hú li</span></span>
+            <span class="word-tag"><span class="word-text">老虎</span><span class="word-pinyin">lǎo hǔ</span></span>
+            <span class="word-tag"><span class="word-text">威风</span><span class="word-pinyin">wēi fēng</span></span>
+            <span class="word-tag"><span class="word-text">百兽</span><span class="word-pinyin">bǎi shòu</span></span>
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 纸船和风筝</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">纸船</span><span class="word-pinyin">zhǐ chuán</span></span>
+            <span class="word-tag"><span class="word-text">风筝</span><span class="word-pinyin">fēng zheng</span></span>
+            <span class="word-tag"><span class="word-text">友谊</span><span class="word-pinyin">yǒu yì</span></span>
+            <span class="word-tag"><span class="word-text">和好</span><span class="word-pinyin">hé hǎo</span></span>
+          </div>
+        </div>
+        <div>
+          <p class="lesson-title">3. 风娃娃</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">风娃娃</span><span class="word-pinyin">fēng wá wa</span></span>
+            <span class="word-tag"><span class="word-text">帮助</span><span class="word-pinyin">bāng zhù</span></span>
+            <span class="word-tag"><span class="word-text">力气</span><span class="word-pinyin">lì qi</span></span>
+            <span class="word-tag"><span class="word-text">愿望</span><span class="word-pinyin">yuàn wàng</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三年级词语 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">课后词语表</p>
+        <h2>三年级词语</h2>
+      </div>
+      
+      <div class="section-card">
+        <h3>📚 三年级上册 - 第一单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 大青树下的小学</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">坪坝</span><span class="word-pinyin">píng bà</span></span>
+            <span class="word-tag"><span class="word-text">穿戴</span><span class="word-pinyin">chuān dài</span></span>
+            <span class="word-tag"><span class="word-text">打扮</span><span class="word-pinyin">dǎ ban</span></span>
+            <span class="word-tag"><span class="word-text">欢唱</span><span class="word-pinyin">huān chàng</span></span>
+            <span class="word-tag"><span class="word-text">招呼</span><span class="word-pinyin">zhāo hu</span></span>
+            <span class="word-tag"><span class="word-text">飘扬</span><span class="word-pinyin">piāo yáng</span></span>
+            <span class="word-tag"><span class="word-text">敬礼</span><span class="word-pinyin">jìng lǐ</span></span>
+            <span class="word-tag"><span class="word-text">蝴蝶</span><span class="word-pinyin">hú dié</span></span>
+            <span class="word-tag"><span class="word-text">好奇</span><span class="word-pinyin">hào qí</span></span>
+            <span class="word-tag"><span class="word-text">孔雀舞</span><span class="word-pinyin">kǒng què wǔ</span></span>
+            <span class="word-tag"><span class="word-text">游戏</span><span class="word-pinyin">yóu xì</span></span>
+            <span class="word-tag"><span class="word-text">招引</span><span class="word-pinyin">zhāo yǐn</span></span>
+            <span class="word-tag"><span class="word-text">热闹</span><span class="word-pinyin">rè nao</span></span>
+            <span class="word-tag"><span class="word-text">古老</span><span class="word-pinyin">gǔ lǎo</span></span>
+            <span class="word-tag"><span class="word-text">铜钟</span><span class="word-pinyin">tóng zhōng</span></span>
+            <span class="word-tag"><span class="word-text">粗壮</span><span class="word-pinyin">cū zhuàng</span></span>
+            <span class="word-tag"><span class="word-text">凤尾竹</span><span class="word-pinyin">fèng wěi zhú</span></span>
+            <span class="word-tag"><span class="word-text">洁白</span><span class="word-pinyin">jié bái</span></span>
+            <span class="word-tag"><span class="word-text">摇晃</span><span class="word-pinyin">yáo huàng</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 花的学校</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">阵雨</span><span class="word-pinyin">zhèn yǔ</span></span>
+            <span class="word-tag"><span class="word-text">荒野</span><span class="word-pinyin">huāng yě</span></span>
+            <span class="word-tag"><span class="word-text">绿草</span><span class="word-pinyin">lǜ cǎo</span></span>
+            <span class="word-tag"><span class="word-text">跳舞</span><span class="word-pinyin">tiào wǔ</span></span>
+            <span class="word-tag"><span class="word-text">狂欢</span><span class="word-pinyin">kuáng huān</span></span>
+            <span class="word-tag"><span class="word-text">功课</span><span class="word-pinyin">gōng kè</span></span>
+            <span class="word-tag"><span class="word-text">放假</span><span class="word-pinyin">fàng jià</span></span>
+            <span class="word-tag"><span class="word-text">互相</span><span class="word-pinyin">hù xiāng</span></span>
+            <span class="word-tag"><span class="word-text">狂风</span><span class="word-pinyin">kuáng fēng</span></span>
+            <span class="word-tag"><span class="word-text">急急忙忙</span><span class="word-pinyin">jí jí máng máng</span></span>
+            <span class="word-tag"><span class="word-text">自然</span><span class="word-pinyin">zì rán</span></span>
+            <span class="word-tag"><span class="word-text">能够</span><span class="word-pinyin">néng gòu</span></span>
+            <span class="word-tag"><span class="word-text">双臂</span><span class="word-pinyin">shuāng bì</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">3. 不懂就要问</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">孙中山</span><span class="word-pinyin">Sūn Zhōng shān</span></span>
+            <span class="word-tag"><span class="word-text">照例</span><span class="word-pinyin">zhào lì</span></span>
+            <span class="word-tag"><span class="word-text">流利</span><span class="word-pinyin">liú lì</span></span>
+            <span class="word-tag"><span class="word-text">私塾</span><span class="word-pinyin">sī shú</span></span>
+            <span class="word-tag"><span class="word-text">先生</span><span class="word-pinyin">xiān sheng</span></span>
+            <span class="word-tag"><span class="word-text">戒尺</span><span class="word-pinyin">jiè chǐ</span></span>
+            <span class="word-tag"><span class="word-text">厉声</span><span class="word-pinyin">lì shēng</span></span>
+            <span class="word-tag"><span class="word-text">问题</span><span class="word-pinyin">wèn tí</span></span>
+            <span class="word-tag"><span class="word-text">背诵</span><span class="word-pinyin">bèi sòng</span></span>
+            <span class="word-tag"><span class="word-text">清楚</span><span class="word-pinyin">qīng chu</span></span>
+            <span class="word-tag"><span class="word-text">鸦雀无声</span><span class="word-pinyin">yā què wú shēng</span></span>
+            <span class="word-tag"><span class="word-text">摇头晃脑</span><span class="word-pinyin">yáo tóu huàng nǎo</span></span>
+            <span class="word-tag"><span class="word-text">一字不漏</span><span class="word-pinyin">yī zì bù lòu</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 三年级上册 - 第二单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">4. 古诗三首</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">寒山</span><span class="word-pinyin">hán shān</span></span>
+            <span class="word-tag"><span class="word-text">石径</span><span class="word-pinyin">shí jìng</span></span>
+            <span class="word-tag"><span class="word-text">斜</span><span class="word-pinyin">xié</span></span>
+            <span class="word-tag"><span class="word-text">生处</span><span class="word-pinyin">shēng chù</span></span>
+            <span class="word-tag"><span class="word-text">枫林</span><span class="word-pinyin">fēng lín</span></span>
+            <span class="word-tag"><span class="word-text">霜叶</span><span class="word-pinyin">shuāng yè</span></span>
+            <span class="word-tag"><span class="word-text">二月</span><span class="word-pinyin">èr yuè</span></span>
+            <span class="word-tag"><span class="word-text">春风</span><span class="word-pinyin">chūn fēng</span></span>
+            <span class="word-tag"><span class="word-text">剪刀</span><span class="word-pinyin">jiǎn dāo</span></span>
+            <span class="word-tag"><span class="word-text">毕竟</span><span class="word-pinyin">bì jìng</span></span>
+            <span class="word-tag"><span class="word-text">西湖</span><span class="word-pinyin">Xī Hú</span></span>
+            <span class="word-tag"><span class="word-text">淡妆浓抹</span><span class="word-pinyin">dàn zhuāng nóng mǒ</span></span>
+            <span class="word-tag"><span class="word-text">相宜</span><span class="word-pinyin">xiāng yí</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">5. 铺满金色巴掌的水泥道</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">水泥</span><span class="word-pinyin">shuǐ ní</span></span>
+            <span class="word-tag"><span class="word-text">排列</span><span class="word-pinyin">pái liè</span></span>
+            <span class="word-tag"><span class="word-text">规则</span><span class="word-pinyin">guī zé</span></span>
+            <span class="word-tag"><span class="word-text">图案</span><span class="word-pinyin">tú àn</span></span>
+            <span class="word-tag"><span class="word-text">凌乱</span><span class="word-pinyin">líng luàn</span></span>
+            <span class="word-tag"><span class="word-text">棕红</span><span class="word-pinyin">zōng hóng</span></span>
+            <span class="word-tag"><span class="word-text">雨靴</span><span class="word-pinyin">yǔ xuē</span></span>
+            <span class="word-tag"><span class="word-text">枫叶</span><span class="word-pinyin">fēng yè</span></span>
+            <span class="word-tag"><span class="word-text">熨帖</span><span class="word-pinyin">yù tiē</span></span>
+            <span class="word-tag"><span class="word-text">平展</span><span class="word-pinyin">píng zhǎn</span></span>
+            <span class="word-tag"><span class="word-text">亮晶晶</span><span class="word-pinyin">liàng jīng jīng</span></span>
+            <span class="word-tag"><span class="word-text">湿漉漉</span><span class="word-pinyin">shī lù lù</span></span>
+            <span class="word-tag"><span class="word-text">明朗</span><span class="word-pinyin">míng lǎng</span></span>
+            <span class="word-tag"><span class="word-text">金黄</span><span class="word-pinyin">jīn huáng</span></span>
+            <span class="word-tag"><span class="word-text">歌唱</span><span class="word-pinyin">gē chàng</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">6. 秋天的雨</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">清凉</span><span class="word-pinyin">qīng liáng</span></span>
+            <span class="word-tag"><span class="word-text">留意</span><span class="word-pinyin">liú yì</span></span>
+            <span class="word-tag"><span class="word-text">扇子</span><span class="word-pinyin">shàn zi</span></span>
+            <span class="word-tag"><span class="word-text">炎热</span><span class="word-pinyin">yán rè</span></span>
+            <span class="word-tag"><span class="word-text">邮票</span><span class="word-pinyin">yóu piào</span></span>
+            <span class="word-tag"><span class="word-text">凉爽</span><span class="word-pinyin">liáng shuǎng</span></span>
+            <span class="word-tag"><span class="word-text">柿子</span><span class="word-pinyin">shì zi</span></span>
+            <span class="word-tag"><span class="word-text">仙子</span><span class="word-pinyin">xiān zi</span></span>
+            <span class="word-tag"><span class="word-text">菠萝</span><span class="word-pinyin">bō luó</span></span>
+            <span class="word-tag"><span class="word-text">气味</span><span class="word-pinyin">qì wèi</span></span>
+            <span class="word-tag"><span class="word-text">香甜</span><span class="word-pinyin">xiāng tián</span></span>
+            <span class="word-tag"><span class="word-text">粮食</span><span class="word-pinyin">liáng shi</span></span>
+            <span class="word-tag"><span class="word-text">加紧</span><span class="word-pinyin">jiā jǐn</span></span>
+            <span class="word-tag"><span class="word-text">油亮亮</span><span class="word-pinyin">yóu liàng liàng</span></span>
+            <span class="word-tag"><span class="word-text">杨树</span><span class="word-pinyin">yáng shù</span></span>
+            <span class="word-tag"><span class="word-text">丰收</span><span class="word-pinyin">fēng shōu</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三年级上册第三单元 -->
+    <div class="section-card">
+        <h3>📚 三年级上册 - 第三单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">7. 听听，秋的声音</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">振动</span><span class="word-pinyin">zhèn dòng</span></span>
+            <span class="word-tag"><span class="word-text">歌韵</span><span class="word-pinyin">gē yùn</span></span>
+            <span class="word-tag"><span class="word-text">叮咛</span><span class="word-pinyin">dīng níng</span></span>
+            <span class="word-tag"><span class="word-text">掠过</span><span class="word-pinyin">lüè guò</span></span>
+            <span class="word-tag"><span class="word-text">歌吟</span><span class="word-pinyin">gē yín</span></span>
+            <span class="word-tag"><span class="word-text">辽阔</span><span class="word-pinyin">liáo kuò</span></span>
+            <span class="word-tag"><span class="word-text">绽开</span><span class="word-pinyin">zhàn kāi</span></span>
+            <span class="word-tag"><span class="word-text">匆匆</span><span class="word-pinyin">cōng cōng</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">8. 卖火柴的小女孩</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">围裙</span><span class="word-pinyin">wéi qún</span></span>
+            <span class="word-tag"><span class="word-text">可怜</span><span class="word-pinyin">kě lián</span></span>
+            <span class="word-tag"><span class="word-text">饥饿</span><span class="word-pinyin">jī è</span></span>
+            <span class="word-tag"><span class="word-text>寒冷</span><span class="word-pinyin">hán lěng</span></span>
+            <span class="word-tag"><span class="word-text">火焰</span><span class="word-pinyin">huǒ yàn</span></span>
+            <span class="word-tag"><span class="word-text">蜡烛</span><span class="word-pinyin">là zhú</span></span>
+            <span class="word-tag"><span class="word-text">富商</span><span class="word-pinyin">fù shāng</span></span>
+            <span class="word-tag"><span class="word-text">橱窗</span><span class="word-pinyin">chú chuāng</span></span>
+            <span class="word-tag"><span class="word-text">闪烁</span><span class="word-pinyin">shǎn shuò</span></span>
+            <span class="word-tag"><span class="word-text">精致</span><span class="word-pinyin">jīng zhì</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">9. 那一定会很好</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">种子</span><span class="word-pinyin">zhǒng zi</span></span>
+            <span class="word-tag"><span class="word-text">努力</span><span class="word-pinyin">nǔ lì</span></span>
+            <span class="word-tag"><span class="word-text">生长</span><span class="word-pinyin">shēng zhǎng</span></span>
+            <span class="word-tag"><span class="word-text">舒服</span><span class="word-pinyin">shū fu</span></span>
+            <span class="word-tag"><span class="word-text">摇晃</span><span class="word-pinyin">yáo huàng</span></span>
+            <span class="word-tag"><span class="word-text">旅行</span><span class="word-pinyin">lǚ xíng</span></span>
+            <span class="word-tag"><span class="word-text">吱吱嘎嘎</span><span class="word-pinyin">zhī zhī gā gā</span></span>
+            <span class="word-tag"><span class="word-text">暖洋洋</span><span class="word-pinyin">nuǎn yáng yáng</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三年级上册第四单元 -->
+      <div class="section-card">
+        <h3>📚 三年级上册 - 第四单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">10. 在牛肚子里旅行</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">咱们</span><span class="word-pinyin">zán men</span></span>
+            <span class="word-tag"><span class="word-text">旅行</span><span class="word-pinyin">lǚ xíng</span></span>
+            <span class="word-tag"><span class="word-text">可怜</span><span class="word-pinyin">kě lián</span></span>
+            <span class="word-tag"><span class="word-text">救命</span><span class="word-pinyin">jiù mìng</span></span>
+            <span class="word-tag"><span class="word-text">拼命</span><span class="word-pinyin">pīn mìng</span></span>
+            <span class="word-tag"><span class="word-text">消化</span><span class="word-pinyin">xiāo huà</span></span>
+            <span class="word-tag"><span class="word-text">当然</span><span class="word-pinyin">dāng rán</span></span>
+            <span class="word-tag"><span class="word-text">计算</span><span class="word-pinyin">jì suàn</span></span>
+            <span class="word-tag"><span class="word-text">刚才</span><span class="word-pinyin">gāng cái</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">11. 一块奶酪</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">集合</span><span class="word-pinyin">jí hé</span></span>
+            <span class="word-tag"><span class="word-text">奶酪</span><span class="word-pinyin">nǎi lào</span></span>
+            <span class="word-tag"><span class="word-text">宣布</span><span class="word-pinyin">xuān bù</span></span>
+            <span class="word-tag"><span class="word-text">处罚</span><span class="word-pinyin">chǔ fá</span></span>
+            <span class="word-tag"><span class="word-text">毅力</span><span class="word-pinyin">yì lì</span></span>
+            <span class="word-tag"><span class="word-text">诱人</span><span class="word-pinyin">yòu rén</span></span>
+            <span class="word-tag"><span class="word-text">禁令</span><span class="word-pinyin">jìn lìng</span></span>
+            <span class="word-tag"><span class="word-text">犹豫</span><span class="word-pinyin">yóu yù</span></span>
+            <span class="word-tag"><span class="word-text">跺脚</span><span class="word-pinyin">duò jiǎo</span></span>
+            <span class="word-tag"><span class="word-text">聚精会神</span><span class="word-pinyin">jù jīng huì shén</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三年级下册第一单元 -->
+    <div class="section-card">
+        <h3>📚 三年级下册 - 第一单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">1. 古诗三首</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">迟日</span><span class="word-pinyin">chí rì</span></span>
+            <span class="word-tag"><span class="word-text">江山</span><span class="word-pinyin">jiāng shān</span></span>
+            <span class="word-tag"><span class="word-text">春风</span><span class="word-pinyin">chūn fēng</span></span>
+            <span class="word-tag"><span class="word-text">花草</span><span class="word-pinyin">huā cǎo</span></span>
+            <span class="word-tag"><span class="word-text">泥融</span><span class="word-pinyin">ní róng</span></span>
+            <span class="word-tag"><span class="word-text">燕子</span><span class="word-pinyin">yàn zi</span></span>
+            <span class="word-tag"><span class="word-text">鸳鸯</span><span class="word-pinyin">yuān yāng</span></span>
+            <span class="word-tag"><span class="word-text">惠崇</span><span class="word-pinyin">huì chóng</span></span>
+            <span class="word-tag"><span class="word-text">蒌蒿</span><span class="word-pinyin">lóu hāo</span></span>
+            <span class="word-tag"><span class="word-text">芦芽</span><span class="word-pinyin">lú yá</span></span>
+            <span class="word-tag"><span class="word-text">河豚</span><span class="word-pinyin">hé tún</span></span>
+            <span class="word-tag"><span class="word-text">梅子</span><span class="word-pinyin">méi zi</span></span>
+            <span class="word-tag"><span class="word-text">小溪</span><span class="word-pinyin">xiǎo xī</span></span>
+            <span class="word-tag"><span class="word-text">泛尽</span><span class="word-pinyin">fàn jìn</span></span>
+            <span class="word-tag"><span class="word-text">却山行</span><span class="word-pinyin">què shān xíng</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">2. 燕子</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">乌黑</span><span class="word-pinyin">wū hēi</span></span>
+            <span class="word-tag"><span class="word-text">剪刀</span><span class="word-pinyin">jiǎn dāo</span></span>
+            <span class="word-tag"><span class="word-text">活泼</span><span class="word-pinyin">huó pō</span></span>
+            <span class="word-tag"><span class="word-text">聚拢</span><span class="word-pinyin">jù lǒng</span></span>
+            <span class="word-tag"><span class="word-text">轻快</span><span class="word-pinyin">qīng kuài</span></span>
+            <span class="word-tag"><span class="word-text">翅膀</span><span class="word-pinyin">chì bǎng</span></span>
+            <span class="word-tag"><span class="word-text">掠过</span><span class="word-pinyin">lüè guò</span></span>
+            <span class="word-tag"><span class="word-text">稻田</span><span class="word-pinyin">dào tián</span></span>
+            <span class="word-tag"><span class="word-text">尾尖</span><span class="word-pinyin">wěi jiān</span></span>
+            <span class="word-tag"><span class="word-text">偶尔</span><span class="word-pinyin">ǒu ěr</span></span>
+            <span class="word-tag"><span class="word-text">沾水</span><span class="word-pinyin">zhān shuǐ</span></span>
+            <span class="word-tag"><span class="word-text">一圈</span><span class="word-pinyin">yī quān</span></span>
+            <span class="word-tag"><span class="word-text">荡漾</span><span class="word-pinyin">dàng yàng</span></span>
+            <span class="word-tag"><span class="word-text">烂漫</span><span class="word-pinyin">làn màn</span></span>
+            <span class="word-tag"><span class="word-text">伶俐</span><span class="word-pinyin">líng lì</span></span>
+            <span class="word-tag"><span class="word-text">光彩夺目</span><span class="word-pinyin">guāng cǎi duó mù</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">3. 荷花</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">荷花</span><span class="word-pinyin">hé huā</span></span>
+            <span class="word-tag"><span class="word-text">清香</span><span class="word-pinyin">qīng xiāng</span></span>
+            <span class="word-tag"><span class="word-text">圆盘</span><span class="word-pinyin">yuán pán</span></span>
+            <span class="word-tag"><span class="word-text">挨挨挤挤</span><span class="word-pinyin">āi āi jǐ jǐ</span></span>
+            <span class="word-tag"><span class="word-text">碧绿</span><span class="word-pinyin">bì lǜ</span></span>
+            <span class="word-tag"><span class="word-text">莲蓬</span><span class="word-pinyin">lián peng</span></span>
+            <span class="word-tag"><span class="word-text">破裂</span><span class="word-pinyin">pò liè</span></span>
+            <span class="word-tag"><span class="word-text">姿势</span><span class="word-pinyin">zī shì</span></span>
+            <span class="word-tag"><span class="word-text">仿佛</span><span class="word-pinyin">fǎng fú</span></span>
+            <span class="word-tag"><span class="word-text">随风</span><span class="word-pinyin">suí fēng</span></span>
+            <span class="word-tag"><span class="word-text">舞蹈</span><span class="word-pinyin">wǔ dǎo</span></span>
+            <span class="word-tag"><span class="word-text">停止</span><span class="word-pinyin">tíng zhǐ</span></span>
+            <span class="word-tag"><span class="word-text">翩翩起舞</span><span class="word-pinyin">piān piān qǐ wǔ</span></span>
+            <span class="word-tag"><span class="word-text">饱胀</span><span class="word-pinyin">bǎo zhàng</span></span>
+            <span class="word-tag"><span class="word-text">嫩黄色</span><span class="word-pinyin">nèn huáng sè</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 三年级下册 - 第二单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">4. 昆虫备忘录</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">昆虫</span><span class="word-pinyin">kūn chóng</span></span>
+            <span class="word-tag"><span class="word-text">备忘录</span><span class="word-pinyin">bèi wàng lù</span></span>
+            <span class="word-tag"><span class="word-text">复眼</span><span class="word-pinyin">fù yǎn</span></span>
+            <span class="word-tag"><span class="word-text">花大姐</span><span class="word-pinyin">huā dà jiě</span></span>
+            <span class="word-tag"><span class="word-text">独角仙</span><span class="word-pinyin">dú jiǎo xiān</span></span>
+            <span class="word-tag"><span class="word-text">蚂蚱</span><span class="word-pinyin">mà zha</span></span>
+            <span class="word-tag"><span class="word-text">瓢虫</span><span class="word-pinyin">piáo chóng</span></span>
+            <span class="word-tag"><span class="word-text">朱红</span><span class="word-pinyin">zhū hóng</span></span>
+            <span class="word-tag"><span class="word-text">圆点</span><span class="word-pinyin">yuán diǎn</span></span>
+            <span class="word-tag"><span class="word-text">硬翅</span><span class="word-pinyin">yìng chì</span></span>
+            <span class="word-tag"><span class="word-text">益虫</span><span class="word-pinyin">yì chóng</span></span>
+            <span class="word-tag"><span class="word-text">琢磨</span><span class="word-pinyin">zuó mo</span></span>
+            <span class="word-tag"><span class="word-text">距离</span><span class="word-pinyin">jù lí</span></span>
+            <span class="word-tag"><span class="word-text">款款</span><span class="word-pinyin">kuǎn kuǎn</span></span>
+            <span class="word-tag"><span class="word-text">收拢</span><span class="word-pinyin">shōu lǒng</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">5. 守株待兔</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">守株待兔</span><span class="word-pinyin">shǒu zhū dài tù</span></span>
+            <span class="word-tag"><span class="word-text">宋国</span><span class="word-pinyin">Sòng guó</span></span>
+            <span class="word-tag"><span class="word-text">耕田</span><span class="word-pinyin">gēng tián</span></span>
+            <span class="word-tag"><span class="word-text">触株</span><span class="word-pinyin">chù zhū</span></span>
+            <span class="word-tag"><span class="word-text">折颈</span><span class="word-pinyin">zhé jǐng</span></span>
+            <span class="word-tag"><span class="word-text">复得</span><span class="word-pinyin">fù dé</span></span>
+            <span class="word-tag"><span class="word-text">身为宋国笑</span><span class="word-pinyin">shēn wéi Sòng guó xiào</span></span>
+            <span class="word-tag"><span class="word-text">冀复得兔</span><span class="word-pinyin">jì fù dé tù</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">6. 陶罐和铁罐</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">骄傲</span><span class="word-pinyin">jiāo ào</span></span>
+            <span class="word-tag"><span class="word-text">傲慢</span><span class="word-pinyin">ào màn</span></span>
+            <span class="word-tag"><span class="word-text">谦虚</span><span class="word-pinyin">qiān xū</span></span>
+            <span class="word-tag"><span class="word-text">懦弱</span><span class="word-pinyin">nuò ruò</span></span>
+            <span class="word-tag"><span class="word-text">轻蔑</span><span class="word-pinyin">qīng miè</span></span>
+            <span class="word-tag"><span class="word-text">争辩</span><span class="word-pinyin">zhēng biàn</span></span>
+            <span class="word-tag"><span class="word-text">恼怒</span><span class="word-pinyin">nǎo nù</span></span>
+            <span class="word-tag"><span class="word-text">羞耻</span><span class="word-pinyin">xiū chǐ</span></span>
+            <span class="word-tag"><span class="word-text">流逝</span><span class="word-pinyin">liú shì</span></span>
+            <span class="word-tag"><span class="word-text">覆灭</span><span class="word-pinyin">fù miè</span></span>
+            <span class="word-tag"><span class="word-text">翻来覆去</span><span class="word-pinyin">fān lái fù qù</span></span>
+            <span class="word-tag"><span class="word-text">相提并论</span><span class="word-pinyin">xiāng tí bìng lùn</span></span>
+            <span class="word-tag"><span class="word-text">和睦相处</span><span class="word-pinyin">hé mù xiāng chǔ</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三年级下册第三单元 -->
+      <div class="section-card">
+        <h3>📚 三年级下册 - 第三单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">7. 鹿角和鹿腿</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">池塘</span><span class="word-pinyin">chí táng</span></span>
+            <span class="word-tag"><span class="word-text">倒映</span><span class="word-pinyin">dào yìng</span></span>
+            <span class="word-tag"><span class="word-text">欣赏</span><span class="word-pinyin">xīn shǎng</span></span>
+            <span class="word-tag"><span class="word-text">匀称</span><span class="word-pinyin">yún chèn</span></span>
+            <span class="word-tag"><span class="word-text">精美</span><span class="word-pinyin">jīng měi</span></span>
+            <span class="word-tag"><span class="word-text">别致</span><span class="word-pinyin">bié zhì</span></span>
+            <span class="word-tag"><span class="word-text">机灵</span><span class="word-pinyin">jī ling</span></span>
+            <span class="word-tag"><span class="word-text">凶猛</span><span class="word-pinyin">xiōng měng</span></span>
+            <span class="word-tag"><span class="word-text">挣脱</span><span class="word-pinyin">zhèng tuō</span></span>
+            <span class="word-tag"><span class="word-text">抱怨</span><span class="word-pinyin">bào yuàn</span></span>
+            <span class="word-tag"><span class="word-text">没精打采</span><span class="word-pinyin">méi jīng dǎ cǎi</span></span>
+            <span class="word-tag"><span class="word-text">灰心丧气</span><span class="word-pinyin">huī xīn sàng qì</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">8. 池子与河流</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">滔滔不绝</span><span class="word-pinyin">tāo tāo bù jué</span></span>
+            <span class="word-tag"><span class="word-text">蜿蜒</span><span class="word-pinyin">wān yán</span></span>
+            <span class="word-tag"><span class="word-text">贯穿</span><span class="word-pinyin">guàn chuān</span></span>
+            <span class="word-tag"><span class="word-text">遵循</span><span class="word-pinyin">zūn xún</span></span>
+            <span class="word-tag"><span class="word-text">安逸</span><span class="word-pinyin">ān yì</span></span>
+            <span class="word-tag"><span class="word-text">懒惰</span><span class="word-pinyin">lǎn duò</span></span>
+            <span class="word-tag"><span class="word-text">淤塞</span><span class="word-pinyin">yū sè</span></span>
+            <span class="word-tag"><span class="word-text">衰退</span><span class="word-pinyin">shuāi tuì</span></span>
+            <span class="word-tag"><span class="word-text">遗忘</span><span class="word-pinyin">yí wàng</span></span>
+            <span class="word-tag"><span class="word-text">忙碌</span><span class="word-pinyin">máng lù</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">9. 寓言二则</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">揠苗助长</span><span class="word-pinyin">yà miáo zhù zhǎng</span></span>
+            <span class="word-tag"><span class="word-text">焦急</span><span class="word-pinyin">jiāo jí</span></span>
+            <span class="word-tag"><span class="word-text">盼望</span><span class="word-pinyin">pàn wàng</span></span>
+            <span class="word-tag"><span class="word-text">纳闷</span><span class="word-pinyin">nà mèn</span></span>
+            <span class="word-tag"><span class="word-text">筋疲力尽</span><span class="word-pinyin">jīn pí lì jìn</span></span>
+            <span class="word-tag"><span class="word-text">亡羊补牢</span><span class="word-pinyin">wáng yáng bǔ láo</span></span>
+            <span class="word-tag"><span class="word-text">街坊</span><span class="word-pinyin">jiē fang</span></span>
+            <span class="word-tag"><span class="word-text">后悔</span><span class="word-pinyin">hòu huǐ</span></span>
+            <span class="word-tag"><span class="word-text">劝告</span><span class="word-pinyin">quàn gào</span></span>
+            <span class="word-tag"><span class="word-text">把式</span><span class="word-pinyin">bǎ shi</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三年级下册第四单元 -->
+      <div class="section-card">
+        <h3>📚 三年级下册 - 第四单元</h3>
+        
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">10. 花钟</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">争奇斗艳</span><span class="word-pinyin">zhēng qí dòu yàn</span></span>
+            <span class="word-tag"><span class="word-text">芬芳</span><span class="word-pinyin">fēn fāng</span></span>
+            <span class="word-tag"><span class="word-text">苏醒</span><span class="word-pinyin">sū xǐng</span></span>
+            <span class="word-tag"><span class="word-text">湿度</span><span class="word-pinyin">shī dù</span></span>
+            <span class="word-tag"><span class="word-text">娇嫩</span><span class="word-pinyin">jiāo nèn</span></span>
+            <span class="word-tag"><span class="word-text">适宜</span><span class="word-pinyin">shì yí</span></span>
+            <span class="word-tag"><span class="word-text">淡雅</span><span class="word-pinyin">dàn yǎ</span></span>
+            <span class="word-tag"><span class="word-text">暮色</span><span class="word-pinyin">mù sè</span></span>
+            <span class="word-tag"><span class="word-text">吻合</span><span class="word-pinyin">wěn hé</span></span>
+            <span class="word-tag"><span class="word-text">干燥</span><span class="word-pinyin">gān zào</span></span>
+            <span class="word-tag"><span class="word-text">灼伤</span><span class="word-pinyin">zhuó shāng</span></span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <p class="lesson-title">11. 蜜蜂</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">辨认</span><span class="word-pinyin">biàn rèn</span></span>
+            <span class="word-tag"><span class="word-text">大概</span><span class="word-pinyin">dà gài</span></span>
+            <span class="word-tag"><span class="word-text">阻力</span><span class="word-pinyin">zǔ lì</span></span>
+            <span class="word-tag"><span class="word-text">准确</span><span class="word-pinyin">zhǔn què</span></span>
+            <span class="word-tag"><span class="word-text">无误</span><span class="word-pinyin">wú wù</span></span>
+            <span class="word-tag"><span class="word-text">沿途</span><span class="word-pinyin">yán tú</span></span>
+            <span class="word-tag"><span class="word-text">陌生</span><span class="word-pinyin">mò shēng</span></span>
+            <span class="word-tag"><span class="word-text">超常</span><span class="word-pinyin">chāo cháng</span></span>
+            <span class="word-tag"><span class="word-text">本能</span><span class="word-pinyin">běn néng</span></span>
+            <span class="word-tag"><span class="word-text">证实</span><span class="word-pinyin">zhèng shí</span></span>
+          </div>
+        </div>
+
+        <div>
+          <p class="lesson-title">12. 小昆虫记</p>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">琢磨</span><span class="word-pinyin">zuó mo</span></span>
+            <span class="word-tag"><span class="word-text">巡视</span><span class="word-pinyin">xún shì</span></span>
+            <span class="word-tag"><span class="word-text">调整</span><span class="word-pinyin">tiáo zhěng</span></span>
+            <span class="word-tag"><span class="word-text">拥有</span><span class="word-pinyin">yōng yǒu</span></span>
+            <span class="word-tag"><span class="word-text">钳子</span><span class="word-pinyin">qián zi</span></span>
+            <span class="word-tag"><span class="word-text">搏斗</span><span class="word-pinyin">bó dòu</span></span>
+            <span class="word-tag"><span class="word-text">激烈</span><span class="word-pinyin">jī liè</span></span>
+            <span class="word-tag"><span class="word-text">撤退</span><span class="word-pinyin">chè tuì</span></span>
+            <span class="word-tag"><span class="word-text">腹部</span><span class="word-pinyin">fù bù</span></span>
+            <span class="word-tag"><span class="word-text">匀称</span><span class="word-pinyin">yún chèn</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">课后词语表</p>
+        <h2>四年级词语</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block grade-four">
+          <h3>四年级上册 - 第一单元</h3>
+          <div class="routine">
+            <p><strong>1.观潮：</strong>奇观(qí guān)、农历(nóng lì)、据说(jù shuō)、宽阔(kuān kuò)、笼罩(lǒng zhào)、薄雾(báo wù)、若隐若现(ruò yǐn ruò xiàn)、昂首(áng shǒu)、沸腾(fèi téng)、横贯(héng guàn)、霎时(shà shí)、余波(yú bō)、依旧(yī jiù)、恢复(huī fù)、齐头并进(qí tóu bìng jìn)、浩浩荡荡(hào hào dàng dàng)、山崩地裂(shān bēng dì liè)</p>
+            <p><strong>2.走月亮：</strong>柔和(róu hé)、鹅卵石(é luǎn shí)、河床(hé chuáng)、新鲜(xīn xiān)、修补(xiū bǔ)、风俗(fēng sú)、甜香(tián xiāng)、浇灌(jiāo guàn)、照耀(zhào yào)、满意(mǎn yì)、坑坑洼洼(kēng kēng wā wā)、闪闪烁烁(shǎn shǎn shuò shuò)、月光闪闪(yuè guāng shǎn shǎn)、月影团团(yuè yǐng tuán tuán)</p>
+            <p><strong>3.现代诗二首：</strong>鸟巢(niǎo cháo)、芦苇(lú wěi)、剪秋罗(jiǎn qiū luó)、霸占(bà zhàn)、睡眠(shuì mián)、偷渡(tōu dù)、滴溜溜(dī liū liū)、斜阳(xié yáng)、青峰(qīng fēng)、一瞬(yī shùn)、红颜(hóng yán)、沉醉(chén zuì)</p>
+          </div>
+        </article>
+        <article class="study-block grade-four">
+          <h3>四年级上册 - 第二单元</h3>
+          <div class="routine">
+            <p><strong>4.繁星：</strong>静寂(jìng jì)、密密麻麻(mì mì má má)、萤火虫(yíng huǒ chóng)、微小(wēi xiǎo)、仰望(yǎng wàng)、半明半昧(bàn míng bàn mèi)、摇摇欲坠(yáo yáo yù zhuì)、梦幻(mèng huàn)、怀抱(huái bào)、沉睡(chén shuì)、模糊(mó hu)</p>
+            <p><strong>5.一个豆荚里的五粒豆：</strong>豌豆(wān dòu)、僵硬(jiāng yìng)、丰满(fēng mǎn)、虚弱(xū ruò)、耐心(nài xīn)、温和(wēn hé)、暖和(nuǎn huo)、愉快(yú kuài)、兴奋(xīng fèn)、曾经(céng jīng)、预感(yù gǎn)、揭晓(jiē xiǎo)、盘绕(pán rào)、按照(àn zhào)、洋溢(yáng yì)</p>
+            <p><strong>6.蝙蝠和雷达：</strong>蝙蝠(biān fú)、雷达(léi dá)、捕捉(bǔ zhuō)、飞蛾(fēi é)、蚊子(wén zi)、避开(bì kāi)、敏锐(mǐn ruì)、铃铛(líng dang)、揭开(jiē kāi)、推进(tuī jìn)、障碍物(zhàng ài wù)、荧光屏(yíng guāng píng)、横七竖八(héng qī shù bā)、超声波(chāo shēng bō)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 四年级上册第三单元 -->
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block grade-four">
+          <h3>四年级上册 - 第三单元</h3>
+          <div class="routine">
+            <p><strong>7.呼风唤雨的世纪：</strong>呼唤(hū huàn)、世纪(shì jì)、技术(jì shù)、改变(gǎi biàn)、程度(chéng dù)、超过(chāo guò)、腾云驾雾(téng yún jià wù)、幻想(huàn xiǎng)、原子核(yuán zǐ hé)、程控电话(chéng kòng diàn huà)、因特网(yīn tè wǎng)、依赖(yī lài)、潜入(qián rù)、物质(wù zhì)、哲学(zhé xué)、归根到底(guī gēn dào dǐ)</p>
+            <p><strong>8.蝴蝶的家：</strong>躲避(duǒ bì)、震撼(zhèn hàn)、喧嚷(xuān rǎng)、轻盈(qīng yíng)、素洁(sù jié)、猛烈(měng liè)、柔弱(róu ruò)、秘密(mì mì)、确信(què xìn)、推测(tuī cè)、屋檐(wū yán)、斑斓(bān lán)、湿漉漉(shī lù lù)</p>
+          </div>
+        </article>
+        <article class="study-block grade-four">
+          <h3>四年级上册 - 第四单元</h3>
+          <div class="routine">
+            <p><strong>9.古诗三首：</strong>暮江吟(mù jiāng yín)、吟(yín)、瑟瑟(sè sè)、可怜(kě lián)、珍珠(zhēn zhū)、题西林壁(tí xī lín bì)、缘(yuán)、庐山(lú shān)、横看(héng kàn)、侧看(cè kàn)、各不同(gè bù tóng)、游山西村(yóu shān xī cūn)、腊酒(là jiǔ)、豚(tún)、疑无路(yí wú lù)、又一村(yòu yī cūn)</p>
+            <p><strong>10.爬山虎的脚：</strong>爬山虎(pá shān hǔ)、均匀(jūn yún)、重叠(chóng dié)、空隙(kòng xì)、叶柄(yè bǐng)、触角(chù jiǎo)、弯曲(wān qū)、痕迹(hén jì)、牢固(láo gù)、休想(xiū xiǎng)、瞧不起(qiáo bù qǐ)、漾起(yàng qǐ)</p>
+            <p><strong>11.蟋蟀的住宅：</strong>慎重(shèn zhòng)、选择(xuǎn zé)、住址(zhù zhǐ)、洞穴(dòng xué)、优良(yōu liáng)、搜索(sōu suǒ)、倾斜(qīng xié)、隧道(suì dào)、平坦(píng tǎn)、挖掘(wā jué)、耙扫(pá sǎo)、宽敞(kuān chang)、光滑(guāng huá)、简朴(jiǎn pǔ)、清洁(qīng jié)、干燥(gān zào)、卫生(wèi shēng)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 四年级下册第一单元 -->
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block grade-four">
+          <h3>四年级下册 - 第一单元</h3>
+          <div class="routine">
+            <p><strong>1.古诗词三首：</strong>杂兴(zá xìng)、篱落(lí luò)、疏疏(shū shū)、未成阴(wèi chéng yīn)、蜻蜓(qīng tíng)、蛱蝶(jiá dié)、茅檐(máo yán)、翁媪(wēng ǎo)、吴音(Wú yīn)、相媚好(xiāng mèi hǎo)、莲蓬(lián peng)、芍药(sháo yào)、朴素(pǔ sù)、华丽(huá lì)、独特(dú tè)、照例(zhào lì)</p>
+            <p><strong>2.乡下人家：</strong>棚架(péng jià)、装饰(zhuāng shì)、照例(zhào lì)、率领(shuài lǐng)、觅食(mì shí)、踏步(tà bù)、倘若(tǎng ruò)、和谐(hé xié)、甜蜜(tián mì)、梦乡(mèng xiāng)、催眠曲(cuī mián qǔ)、天高地阔(tiān gāo dì kuò)、月明人静(yuè míng rén jìng)、房前屋后(fáng qián wū hòu)</p>
+            <p><strong>3.天窗：</strong>慰藉(wèi jiè)、扫荡(sǎo dàng)、威力(wēi lì)、锐利(ruì lì)、河滩(hé tān)、帐子(zhàng zi)、闪烁(shǎn shuò)、奇幻(qí huàn)、蝙蝠(biān fú)、霸气(bà qì)、复杂(fù zá)</p>
+          </div>
+        </article>
+        <article class="study-block grade-four">
+          <h3>四年级下册 - 第二单元</h3>
+          <div class="routine">
+            <p><strong>4.三月桃花水：</strong>应和(yìng hè)、纤细(xiān xì)、沉醉(chén zuì)、回旋(huí xuán)、竖琴(shù qín)、丝绸(sī chóu)、低语(dī yǔ)、叮当(dīng dāng)、绮丽(qǐ lì)</p>
+            <p><strong>5.琥珀：</strong>琥珀(hǔ pò)、怒吼(nù hǒu)、松脂(sōng zhī)、拂拭(fú shì)、灰尘(huī chén)、美餐(měi cān)、晌午(shǎng wǔ)、热辣辣(rè là là)、淹没(yān mò)、挣扎(zhēng zhá)、冲刷(chōng shuā)、推测(tuī cè)、详细(xiáng xì)、澎湃(péng pài)、黏稠(nián chóu)</p>
+            <p><strong>6.飞向蓝天的恐龙：</strong>恐龙(kǒng lóng)、笨重(bèn zhòng)、迟钝(chí dùn)、鸽子(gē zi)、根据(gēn jù)、末期(mò qī)、描绘(miáo huì)、隧道(suì dào)、形态(xíng tài)、膨大(péng dà)、前肢(qián zhī)、具备(jù bèi)、开辟(kāi pì)、脱离(tuō lí)、欣喜若狂(xīn xǐ ruò kuáng)、茹毛饮血(rú máo yǐn xuè)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 四年级下册第三单元 -->
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block grade-four">
+          <h3>四年级下册 - 第三单元</h3>
+          <div class="routine">
+            <p><strong>7.纳米技术就在我们身边：</strong>纳米(nà mǐ)、技术(jì shù)、微米(wēi mǐ)、特性(tè xìng)、神奇(shén qí)、普通(pǔ tōng)、检测(jiǎn cè)、预防(yù fáng)、病灶(bìng zào)、释放(shì fàng)、除臭(chú chòu)、功能(gōng néng)、蔬菜(shū cài)、钢铁(gāng tiě)、隐形(yǐn xíng)、碳纳米管(tàn nà mǐ guǎn)</p>
+            <p><strong>8.千年梦圆在今朝：</strong>先驱(xiān qū)、实践(shí jiàn)、实施(shí shī)、里程碑(lǐ chéng bēi)、遨游(áo yóu)、苍穹(cāng qióng)、着陆(zhuó lù)、清晰(qīng xī)、震撼(zhèn hàn)、穿越(chuān yuè)、振奋(zhèn fèn)、火焰(huǒ yàn)、喷射(pēn shè)、捆绑(kǔn bǎng)、呼啸(hū xiào)、绚丽(xuàn lì)</p>
+          </div>
+        </article>
+        <article class="study-block grade-four">
+          <h3>四年级下册 - 第四单元</h3>
+          <div class="routine">
+            <p><strong>9.古诗三首：</strong>独坐敬亭山(dú zuò jìng tíng shān)、众鸟(zhòng niǎo)、孤云(gū yún)、相看(xiāng kàn)、不厌(bù yàn)、望洞庭(wàng dòng tíng)、湖光(hú guāng)、秋月(qiū yuè)、两相和(liǎng xiāng hé)、潭面(tán miàn)、青螺(qīng luó)、忆江南(yì jiāng nán)、旧曾谙(jiù céng ān)、红胜火(hóng shèng huǒ)、绿如蓝(lǜ rú lán)</p>
+            <p><strong>10.母鸡：</strong>讨厌(tǎo yàn)、欺侮(qī wǔ)、凄惨(qī cǎn)、慈爱(cí ài)、勇敢(yǒng gǎn)、辛苦(xīn kǔ)、警戒(jǐng jiè)、成绩(chéng jì)、孵卵(fū luǎn)、啼叫(tí jiào)、率领(shuài lǐng)、凄惨(qī cǎn)、疙瘩(gē da)、反抗(fǎn kàng)</p>
+            <p><strong>11.白鹅：</strong>高傲(gāo ào)、郑重(zhèng zhòng)、京剧(jīng jù)、从容(cóng róng)、大模大样(dà mú dà yàng)、看守(kān shǒu)、供养(gōng yǎng)、侍候(shì hòu)、窥伺(kuī sì)、敏捷(mǐn jié)、倘若(tǎng ruò)、脾气(pí qi)、叫嚣(jiào xiāo)、引吭(yǐn háng)、奢侈(shē chǐ)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 五年级词语 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">课后词语表</p>
+        <h2>五年级词语</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block grade-five">
+          <h3>五年级上册 - 第一单元</h3>
+          <div class="routine">
+            <p><strong>1.白鹭：</strong>精巧(jīng qiǎo)、配合(pèi hé)、身段(shēn duàn)、适宜(shì yí)、白鹤(bái hè)、生硬(shēng yìng)、寻常(xún cháng)、忘却(wàng què)、悠然(yōu rán)、黄昏(huáng hūn)、恩惠(ēn huì)、美中不足(měi zhōng bù zú)、铿锵(kēng qiāng)、镜匣(jìng xiá)、嗜好(shì hào)、清澄(qīng chéng)</p>
+            <p><strong>2.落花生：</strong>吩咐(fēn fù)、榨油(zhà yóu)、便宜(pián yi)、可贵(kě guì)、石榴(shí liu)、爱慕(ài mù)、分辨(fēn biàn)、体面(tǐ mian)、居然(jū rán)、开辟(kāi pì)、收获(shōu huò)</p>
+            <p><strong>3.桂花雨：</strong>姿态(zī tài)、迷人(mí rén)、至少(zhì shǎo)、邻居(lín jū)、成熟(chéng shú)、完整(wán zhěng)、尤其(yóu qí)、提前(tí qián)、吩咐(fēn fù)、糕饼(gāo bǐng)、新鲜(xīn xiān)、泡茶(pào chá)、盛开(shèng kāi)、欣赏(xīn shǎng)</p>
+          </div>
+        </article>
+        <article class="study-block grade-five">
+          <h3>五年级上册 - 第二单元</h3>
+          <div class="routine">
+            <p><strong>4.珍珠鸟：</strong>舒适(shū shì)、温暖(wēn nuǎn)、蓬松(péng sōng)、繁茂(fán mào)、隐约(yǐn yuē)、熟悉(shú xi)、索性(suǒ xìng)、淘气(táo qì)、陪伴(péi bàn)、信赖(xìn lài)、眸子(móu zi)、流泻(liú xiè)、境界(jìng jiè)、斑斑驳驳(bān bān bó bó)、生意葱茏(shēng yì cōng lóng)、不动声色(bù dòng shēng sè)</p>
+            <p><strong>5.搭石：</strong>汛期(xùn qī)、间隔(jiàn gé)、懒惰(lǎn duò)、俗语(sú yǔ)、平衡(píng héng)、协调(xié tiáo)、美感(měi gǎn)、示意(shì yì)、家常(jiā cháng)、假如(jiǎ rú)、联结(lián jié)、人影绰绰(rén yǐng chuò chuò)、清波漾漾(qīng bō yàng yàng)、理所当然(lǐ suǒ dāng rán)、脱鞋挽裤(tuō xié wǎn kù)</p>
+            <p><strong>6.将相和：</strong>和氏璧(Hé shì bì)、廉颇(Lían pō)、侮辱(wǔ rǔ)、推辞(tuī cí)、抵御(dǐ yù)、示弱(shì ruò)、无价之宝(wú jià zhī bǎo)、理直气壮(lǐ zhí qì zhuàng)、完璧归赵(wán bì guī zhào)、攻无不克(gōng wú bù kè)、战无不胜(zhàn wú bù shèng)、负荆请罪(fù jīng qǐng zuì)、同心协力(tóng xīn xié lì)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block grade-five">
+          <h3>五年级下册 - 第一单元</h3>
+          <div class="routine">
+            <p><strong>1.古诗三首：</strong>昼夜(zhòu yè)、耘田(yún tián)、绩麻(jì má)、稚子(zhì zǐ)、银钲(yín zhēng)、玉磬(yù qìng)、寒漪(hán yī)、牧童(mù tóng)、蓑衣(suō yī)、箬笠(ruò lì)、翁媪(wēng ǎo)、亡赖(wú lài)、莲蓬(lián peng)</p>
+            <p><strong>2.祖父的园子：</strong>蝴蝶(hú dié)、蜻蜓(qīng tíng)、蚂蚱(mà zha)、樱桃(yīng táo)、榆树(yú shù)、锄头(chú tou)、随意(suí yì)、铲地(chǎn dì)、承认(chéng rèn)、瞎闹(xiā nào)、倭瓜(wō guā)、黄瓜(huáng guā)、玉米(yù mǐ)、随心所欲(suí xīn suǒ yù)、自由自在(zì yóu zì zài)</p>
+            <p><strong>3.月是故乡明：</strong>徘徊(pái huái)、澄澈(chéng chè)、巍峨(wēi é)、点缀(diǎn zhuì)、烟波浩渺(yān bō hào miǎo)、篝火(gōu huǒ)、萌动(méng dòng)、晶莹(jīng yíng)、风光旖旎(fēng guāng yǐ nǐ)、巍峨雄奇(wēi é xióng qí)、相映成趣(xiāng yìng chéng qù)</p>
+          </div>
+        </article>
+        <article class="study-block grade-five">
+          <h3>五年级下册 - 第二单元</h3>
+          <div class="routine">
+            <p><strong>4.梅花魂：</strong>漂泊(piāo bó)、幽芳(yōu fāng)、眷恋(juàn liàn)、唯独(wéi dú)、玷污(diàn wū)、欺凌(qī líng)、秉性(bǐng xìng)、华侨(huá qiáo)、衰老(shuāi lǎo)、珍藏(zhēn cáng)、码头(mǎ tou)、境遇(jìng yù)、泪眼蒙眬(lèi yǎn méng lóng)、能书善画(néng shū shàn huà)、颇负盛名(pō fù shèng míng)</p>
+            <p><strong>5.草船借箭：</strong>妒忌(dù jì)、推却(tuī què)、调度(diào dù)、呐喊(nà hǎn)、支援(zhī yuán)、丞相(chéng xiàng)、军令状(jūn lìng zhuàng)、限期(xiàn qī)、擂鼓(léi gǔ)</p>
+            <p><strong>6.景阳冈：</strong>一饮而尽(yī yǐn ér jìn)、榜文(bǎng wén)、客官(kè guān)、脊梁(jǐ liang)、咆哮(páo xiào)、霹雳(pī lì)、踉踉跄跄(liàng liàng qiàng qiàng)、酥软(sū ruǎn)、半夜三更(bàn yè sān gēng)、请勿自误(qǐng wù zì wù)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 五年级上册第三单元 -->
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block grade-five">
+          <h3>五年级上册 - 第三单元</h3>
+          <div class="routine">
+            <p><strong>7.古诗词三首：</strong>枫桥夜泊(fēng qiáo yè bó)、愁眠(chóu mián)、姑苏(gū sū)、寒山寺(hán shān sì)、夜半钟声(yè bàn zhōng shēng)、题临安邸(tí lín ān dǐ)、山外青山(shān wài qīng shān)、楼外楼(lóu wài lóu)、暖风(nuǎn fēng)、几时休(jǐ shí xiū)、已亥杂诗(yǐ hài zá shī)、九州(jiǔ zhōu)、生气(shēng qì)、恃风雷(shì fēng léi)</p>
+            <p><strong>8.少年中国说（节选）：</strong>潜龙腾渊(qián lóng téng yuān)、鳞爪飞扬(lín zhǎo fēi yáng)、乳虎啸谷(rǔ hǔ xiào gǔ)、百兽震惶(bǎi shòu zhèn huáng)、鹰隼试翼(yīng sǔn shì yì)、风尘翕张(fēng chén xī zhāng)、奇花初胎(qí huā chū tāi)、矞矞皇皇(yù yù huáng huáng)、干将发硎(gān jiāng fā xíng)、有作其芒(yǒu zuò qí máng)</p>
+            <p><strong>9.小岛：</strong>礁石(jiāo shí)、海域(hǎi yù)、快艇(kuài tǐng)、哨兵(shào bīng)、罐头(guàn tou)、巡逻(xún luó)、拘束(jū shù)、哼歌(hēng gē)、屹立(yì lì)、礁石(jiāo shí)、盘旋(pán xuán)、眺望(tiào wàng)</p>
+          </div>
+        </article>
+        <article class="study-block grade-five">
+          <h3>五年级上册 - 第四单元</h3>
+          <div class="routine">
+            <p><strong>10.猎人海力布：</strong>酬谢(chóu xiè)、叮嘱(dīng zhǔ)、发誓(fā shì)、崩塌(bēng tā)、焦急(jiāo jí)、催促(cuī cù)、牺牲(xī shēng)、镇定(zhèn dìng)、流传(liú chuán)、纪念(jì niàn)、搬家(bān jiā)、议论(yì lùn)、延迟(yán chí)</p>
+            <p><strong>11.牛郎织女（一）：</strong>爹娘(diē niáng)、嫂子(sǎo zi)、剩饭(shèng fàn)、稀罕(xī han)、好歹(hǎo dǎi)、妻子(qī zi)、一趟(yī tàng)、结婚(jié hūn)、梭子(suō zi)、蒲扇(pú shàn)、彩锦(cǎi jǐn)、装饰(zhuāng shì)、笑眯眯(xiào mī mī)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 五年级下册第三单元 -->
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block grade-five">
+          <h3>五年级下册 - 第三单元</h3>
+          <div class="routine">
+            <p><strong>7.古诗三首：</strong>凉州词(liáng zhōu cí)、葡萄(pú tao)、琵琶(pí pa)、沙场(shā chǎng)、醉卧(zuì wò)、君莫笑(jūn mò xiào)、别董大(bié dǒng dà)、千里黄云(qiān lǐ huáng yún)、白日曛(bái rì xūn)、莫愁前路(mò chóu qián lù)、天下谁人(tiān xià shuí rén)、送元二使安西(sòng yuán èr shǐ ān xī)、渭城朝雨(wèi chéng zhāo yǔ)、客舍青青(kè shè qīng qīng)、阳关(yáng guān)</p>
+            <p><strong>8.《史记》故事：</strong>廉颇(Lían pō)、蔺相如(Lìn xiàng rú)、和氏璧(Hé shì bì)、侮辱(wǔ rǔ)、拒绝(jù jué)、廉颇(Lían pō)、荆条(jīng tiáo)、饶恕(ráo shù)、击缶(jī fǒu)、上卿(shàng qīng)</p>
+            <p><strong>9.童年的发现：</strong>胚胎(pēi tāi)、祸患(huò huàn)、天赋(tiān fù)、妨碍(fáng ài)、岂止(qǐ zhǐ)、痴迷(chī mí)、澄澈(chéng chè)、困窘(kùn jiǒng)、羞愧(xiū kuì)、驱逐(qū zhú)、随心所欲(suí xīn suǒ yù)、运转自如(yùn zhuǎn zì rú)</p>
+          </div>
+        </article>
+        <article class="study-block grade-five">
+          <h3>五年级下册 - 第四单元</h3>
+          <div class="routine">
+            <p><strong>10.青山处处埋忠骨：</strong>拟定(nǐ dìng)、殉职(xùn zhí)、奔赴(bēn fù)、踌躇(chóu chú)、黯然(àn rán)、情不自禁(qíng bù zì jīn)、若有所思(ruò yǒu suǒ sī)、血肉之躯(xuè ròu zhī qū)</p>
+            <p><strong>11.军神：</strong>重庆(chóng qìng)、诊所(zhěn suǒ)、绷带(bēng dài)、审视(shěn shì)、施行(shī xíng)、麻醉剂(má zuì jì)、崭新(zhǎn xīn)、由衷(yóu zhōng)、慈祥(cí xiáng)、肃然起敬(sù rán qǐ jìng)、一声不吭(yī shēng bù kēng)</p>
+            <p><strong>12.清贫：</strong>矜持(jīn chí)、不苟(bù gǒu)、热望(rè wàng)、威吓(wēi hè)、企望(qǐ wàng)、搜寻(sōu xún)、被俘(bèi fú)、钱财(qián cái)、朴素(pǔ sù)、齿冷(chǐ lěng)、奢侈(shē chǐ)</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 词语分类表 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">词语分类</p>
+        <h2>常考词语分类表</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>类别</th><th>词语</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>天气气象</td><td>晴朗、阴沉、乌云密布、风和日丽、倾盆大雨、蒙蒙细雨</td></tr>
+              <tr><td>季节时间</td><td>春暖花开、烈日炎炎、秋高气爽、冰天雪地、清晨、傍晚</td></tr>
+              <tr><td>心情情绪</td><td>开心、难过、紧张、兴奋、着急、愉快、伤心、害怕</td></tr>
+              <tr><td>人物品质</td><td>善良、勇敢、聪明、勤劳、诚实、谦虚、助人为乐</td></tr>
+              <tr><td>学习态度</td><td>认真、专心、积极、主动、仔细、努力、勤奋、刻苦</td></tr>
+              <tr><td>动作行为</td><td>观察、思考、讨论、研究、练习、探索、奔跑、跳跃</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">四字词语</p>
+        <h2>常考四字词语</h2>
+      </div>
+      <div class="cards-row">
+        <article class="mini-card">
+          <h3>描写景色</h3>
+          <p>春暖花开、秋高气爽、山清水秀、鸟语花香、郁郁葱葱、五彩缤纷、万里无云</p>
+        </article>
+        <article class="mini-card">
+          <h3>描写人物</h3>
+          <p>眉清目秀、心灵手巧、助人为乐、勤学好问、一心一意、拾金不昧</p>
+        </article>
+        <article class="mini-card">
+          <h3>说明道理</h3>
+          <p>滴水穿石、持之以恒、实事求是、举一反三、循序渐进</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">近反义词</p>
+        <h2>常考近义词反义词</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>常考近义词</h3>
+          <div class="routine">
+            <p>开心—快乐 | 著名—有名 | 特别—非常</p>
+            <p>美丽—漂亮 | 高兴—愉快 | 立刻—马上</p>
+            <p>喜欢—喜爱 | 突然—忽然 | 认真—仔细</p>
+            <p>渐渐—慢慢 | 著名—闻名 | 立刻—立即</p>
+            <p>茂密—茂盛 | 满意—满足 | 展开—张开</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>常考反义词</h3>
+          <div class="routine">
+            <p>高—矮 | 胖—瘦 | 早—晚 | 快—慢</p>
+            <p>黑—白 | 甜—苦 | 南—北 | 东—西</p>
+            <p>进—出 | 开—关 | 买—卖 | 借—还</p>
+            <p>冷—热 | 远—近 | 重—轻 | 软—硬</p>
+            <p>真—假 | 动—静 | 升—降 | 成功—失败</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">特殊格式词语</p>
+        <h2>ABB和AABB式词语</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>ABB式词语</h3>
+          <div class="routine">
+            <p><strong>颜色类：</strong>红彤彤、黄澄澄、绿油油、白茫茫、黑乎乎、金灿灿、紫莹莹</p>
+            <p><strong>形状类：</strong>圆溜溜、方方正正、弯弯曲曲、直勾勾、皱巴巴、亮晶晶</p>
+            <p><strong>动作类：</strong>笑呵呵、乐呵呵、笑嘻嘻、喜洋洋、气冲冲、慢悠悠、急匆匆</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>AABB式词语</h3>
+          <div class="routine">
+            <p><strong>形容外貌：</strong>高高兴兴、干干净净、整整齐齐、清清楚楚、漂漂亮亮</p>
+            <p><strong>形容动作：</strong>蹦蹦跳跳、来来往往、进进出出、摇摇晃晃、端端正正</p>
+            <p><strong>形容状态：</strong>仔仔细细、马马虎虎、认认真真、欢欢喜喜、隐隐约约</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">词语搭配</p>
+        <h2>常考词语搭配</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>修饰词</th><th>可搭配的词语</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>认真地</td><td>学习、听讲、完成作业、思考、读书、检查</td></tr>
+              <tr><td>开心地</td><td>笑、说、跳、跑、玩、唱、拍手</td></tr>
+              <tr><td>慢慢地</td><td>走、说、吃、爬、飘、流、靠近</td></tr>
+              <tr><td>静静地</td><td>想、坐、听、等、看、思考、等待</td></tr>
+              <tr><td>高高地</td><td>举、飘、飞、挂、跳、抬、升起</td></tr>
+              <tr><td>轻轻地</td><td>说、走、敲、摸、吹、拉、推</td></tr>
+              <tr><td>绿绿的</td><td>叶子、草、树、湖水、禾苗、草原</td></tr>
+              <tr><td>红红的</td><td>太阳、花、苹果、脸蛋、枫叶、晚霞</td></tr>
+              <tr><td>金黄的</td><td>麦田、稻谷、叶子、阳光、油菜花、玉米</td></tr>
+              <tr><td>雪白的</td><td>云、棉花、羽毛、雪、浪花、鸽子</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 多音字辨析 -->
+    <section class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 5vw;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 style="color: white; text-align: center; margin-bottom: 10px;">🔤 多音字辨析</h2>
+        <p style="color: rgba(255,255,255,0.7); text-align: center; margin-bottom: 30px;">高级教师精讲 · 掌握一字多音</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 50%; font-size: 20px; font-weight: bold; margin-right: 12px;">行</span>
+              <div>
+                <p style="font-weight: bold; color: #333; margin: 0;">xíng / háng</p>
+                <p style="font-size: 12px; color: #666;">行走 / 银行</p>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>xíng（第二声）：</strong>行走、行动、行李、言行</p>
+              <p style="font-size: 13px; color: #666;"><strong>háng（第二声）：</strong>银行、行业、行列、排行</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 50%; font-size: 20px; font-weight: bold; margin-right: 12px;">好</span>
+              <div>
+                <p style="font-weight: bold; color: #333; margin: 0;">hǎo / hào</p>
+                <p style="font-size: 12px; color: #666;">好人 / 爱好</p>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>hǎo（第三声）：</strong>好人、好看、好处、好像</p>
+              <p style="font-size: 13px; color: #666;"><strong>hào（第四声）：</strong>爱好、好学、好奇、嗜好</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 50%; font-size: 20px; font-weight: bold; margin-right: 12px;">乐</span>
+              <div>
+                <p style="font-weight: bold; color: #333; margin: 0;">lè / yuè</p>
+                <p style="font-size: 12px; color: #666;">快乐 / 音乐</p>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>lè（第四声）：</strong>快乐、乐意、乐观、乐趣</p>
+              <p style="font-size: 13px; color: #666;"><strong>yuè（第四声）：</strong>音乐、乐器、乐曲、乐谱</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 50%; font-size: 20px; font-weight: bold; margin-right: 12px;">着</span>
+              <div>
+                <p style="font-weight: bold; color: #333; margin: 0;">zhe / zhuó / zháo</p>
+                <p style="font-size: 12px; color: #666;">看着 / 穿着 / 着火</p>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>zhe（轻声）：</strong>看着、想着、说着、走着</p>
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>zhuó（第二声）：</strong>穿着、着陆、着想、着手</p>
+              <p style="font-size: 13px; color: #666;"><strong>zháo（第二声）：</strong>着火、着凉、着急、着迷</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 50%; font-size: 20px; font-weight: bold; margin-right: 12px;">应</span>
+              <div>
+                <p style="font-weight: bold; color: #333; margin: 0;">yīng / yìng</p>
+                <p style="font-size: 12px; color: #666;">应该 / 答应</p>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>yīng（第一声）：</strong>应该、应当、应有尽有、应届</p>
+              <p style="font-size: 13px; color: #666;"><strong>yìng（第四声）：</strong>答应、回应、适应、应用</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 50%; font-size: 20px; font-weight: bold; margin-right: 12px;">分</span>
+              <div>
+                <p style="font-weight: bold; color: #333; margin: 0;">fēn / fèn</p>
+                <p style="font-size: 12px; color: #666;">分开 / 水分</p>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin-bottom: 5px;"><strong>fēn（第一声）：</strong>分开、分数、分钟、分享</p>
+              <p style="font-size: 13px; color: #666;"><strong>fèn（第四声）：</strong>水分、成分、过分、本分</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 形近字辨析 -->
+    <section class="section" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 40px 5vw;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 style="color: white; text-align: center; margin-bottom: 10px;">🔍 形近字辨析</h2>
+        <p style="color: rgba(255,255,255,0.7); text-align: center; margin-bottom: 30px;">仔细观察 · 区分细微差别</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px;">
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #11998e;">辨</p>
+                <p style="font-size: 12px; color: #666;">biàn</p>
+              </div>
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #e65100;">辩</p>
+                <p style="font-size: 12px; color: #666;">biàn</p>
+              </div>
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #4caf50;">辫</p>
+                <p style="font-size: 12px; color: #666;">biàn</p>
+              </div>
+            </div>
+            <div style="background: #e8f5e9; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 12px; color: #2e7d32; margin-bottom: 4px;"><strong>辨（辛字旁）：</strong>区分、辨别、辨认、辨析</p>
+              <p style="font-size: 12px; color: #2e7d32; margin-bottom: 4px;"><strong>辩（言字旁）：</strong>辩论、争辩、辩解、辩护</p>
+              <p style="font-size: 12px; color: #2e7d32;"><strong>辫（绞丝旁）：</strong>辫子、发辫、小辫</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px;">
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #11998e;">渴</p>
+                <p style="font-size: 12px; color: #666;">kě</p>
+              </div>
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #e65100;">喝</p>
+                <p style="font-size: 12px; color: #666;">hē</p>
+              </div>
+            </div>
+            <div style="background: #e8f5e9; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 12px; color: #2e7d32; margin-bottom: 4px;"><strong>渴（三点水）：</strong>口渴、渴望、饥渴、干渴</p>
+              <p style="font-size: 12px; color: #2e7d32;"><strong>喝（口字旁）：</strong>喝水、喝茶、喝酒、喝彩</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px;">
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #11998e;">晴</p>
+                <p style="font-size: 12px; color: #666;">qíng</p>
+              </div>
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #e65100;">睛</p>
+                <p style="font-size: 12px; color: #666;">jīng</p>
+              </div>
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #4caf50;">清</p>
+                <p style="font-size: 12px; color: #666;">qīng</p>
+              </div>
+            </div>
+            <div style="background: #e8f5e9; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 12px; color: #2e7d32; margin-bottom: 4px;"><strong>晴（日字旁）：</strong>晴天、晴朗、晴空</p>
+              <p style="font-size: 12px; color: #2e7d32; margin-bottom: 4px;"><strong>睛（目字旁）：</strong>眼睛、定睛、点睛</p>
+              <p style="font-size: 12px; color: #2e7d32;"><strong>清（三点水）：</strong>清水、清洁、清楚</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px;">
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #11998e;">作</p>
+                <p style="font-size: 12px; color: #666;">zuò</p>
+              </div>
+              <div style="text-align: center;">
+                <p style="font-size: 32px; font-weight: bold; color: #e65100;">做</p>
+                <p style="font-size: 12px; color: #666;">zuò</p>
+              </div>
+            </div>
+            <div style="background: #e8f5e9; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 12px; color: #2e7d32; margin-bottom: 4px;"><strong>作（亻字旁）：</strong>作业、作文、作品、写作</p>
+              <p style="font-size: 12px; color: #2e7d32;"><strong>做（亻字旁+故）：</strong>做事、做饭、做工、做客</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 近义词辨析 -->
+    <section class="section" style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%); padding: 40px 5vw;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 style="color: white; text-align: center; margin-bottom: 10px;">📖 近义词辨析</h2>
+        <p style="color: rgba(255,255,255,0.7); text-align: center; margin-bottom: 30px;">掌握细微差别 · 准确运用词语</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 16px;">「美丽」vs「漂亮」</h3>
+            <div style="background: #fff3e0; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>美丽：</strong>范围更广，可形容风景、艺术品、抽象事物，更书面化。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>例句：</strong>美丽的风景、美丽的心灵</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>漂亮：</strong>多指外貌好看，也可形容事情做得好，更口语化。</p>
+              <p style="font-size: 13px; color: #e65100;"><strong>例句：</strong>漂亮的女孩、这件事做得漂亮</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 16px;">「高兴」vs「快乐」</h3>
+            <div style="background: #fff3e0; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>高兴：</strong>情绪短暂，因具体事情而产生。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>例句：</strong>我今天很高兴，因为考试得了满分。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>快乐：</strong>情绪持久，是一种心境。</p>
+              <p style="font-size: 13px; color: #e65100;"><strong>例句：</strong>童年是快乐的时光。</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 16px;">「安静」vs「宁静」</h3>
+            <div style="background: #fff3e0; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>安静：</strong>指没有声音，环境不吵闹。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>例句：</strong>教室里很安静。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>宁静：</strong>指内心平静，没有杂念。</p>
+              <p style="font-size: 13px; color: #e65100;"><strong>例句：</strong>宁静的夜晚让人心情舒畅。</p>
+            </div>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px;">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 16px;">「继续」vs「连续」</h3>
+            <div style="background: #fff3e0; padding: 12px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>继续：</strong>中断后再进行。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>例句：</strong>休息一下，我们继续工作。</p>
+              <p style="font-size: 13px; color: #e65100; margin-bottom: 8px;"><strong>连续：</strong>不间断地进行。</p>
+              <p style="font-size: 13px; color: #e65100;"><strong>例句：</strong>他连续工作了三天。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 成语学习 -->
+    <section class="section" style="background: #f7f8fb; padding: 40px 5vw;">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <div class="section-title" style="text-align: center;">
+          <p class="eyebrow">成语积累</p>
+          <h2>📚 小学必学成语大全</h2>
+          <p style="font-size: 16px; color: #666;">按主题分类，每天积累一组，丰富语言表达</p>
+        </div>
+
+        <div class="section-card">
+          <h3>🌿 描写景色</h3>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">春暖花开</span><span class="word-pinyin">chūn nuǎn huā kāi</span></span>
+            <span class="word-tag"><span class="word-text">秋高气爽</span><span class="word-pinyin">qiū gāo qì shuǎng</span></span>
+            <span class="word-tag"><span class="word-text">鸟语花香</span><span class="word-pinyin">niǎo yǔ huā xiāng</span></span>
+            <span class="word-tag"><span class="word-text">山清水秀</span><span class="word-pinyin">shān qīng shuǐ xiù</span></span>
+            <span class="word-tag"><span class="word-text">花红柳绿</span><span class="word-pinyin">huā hóng liǔ lǜ</span></span>
+            <span class="word-tag"><span class="word-text">层林尽染</span><span class="word-pinyin">céng lín jìn rǎn</span></span>
+            <span class="word-tag"><span class="word-text">冰天雪地</span><span class="word-pinyin">bīng tiān xuě dì</span></span>
+            <span class="word-tag"><span class="word-text">风和日丽</span><span class="word-pinyin">fēng hé rì lì</span></span>
+            <span class="word-tag"><span class="word-text">姹紫嫣红</span><span class="word-pinyin">chà zǐ yān hóng</span></span>
+            <span class="word-tag"><span class="word-text">银装素裹</span><span class="word-pinyin">yín zhuāng sù guǒ</span></span>
+            <span class="word-tag"><span class="word-text">蒙蒙细雨</span><span class="word-pinyin">méng méng xì yǔ</span></span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>😊 心情情绪</h3>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">心花怒放</span><span class="word-pinyin">xīn huā nù fàng</span></span>
+            <span class="word-tag"><span class="word-text">迫不及待</span><span class="word-pinyin">pò bù jí dài</span></span>
+            <span class="word-tag"><span class="word-text">兴致勃勃</span><span class="word-pinyin">xìng zhì bó bó</span></span>
+            <span class="word-tag"><span class="word-text">闷闷不乐</span><span class="word-pinyin">mèn mèn bù lè</span></span>
+            <span class="word-tag"><span class="word-text">眉开眼笑</span><span class="word-pinyin">méi kāi yǎn xiào</span></span>
+            <span class="word-tag"><span class="word-text">兴高采烈</span><span class="word-pinyin">xìng gāo cǎi liè</span></span>
+            <span class="word-tag"><span class="word-text">垂头丧气</span><span class="word-pinyin">chuí tóu sàng qì</span></span>
+            <span class="word-tag"><span class="word-text">提心吊胆</span><span class="word-pinyin">tí xīn diào dǎn</span></span>
+            <span class="word-tag"><span class="word-text">惊慌失措</span><span class="word-pinyin">jīng huāng shī cuò</span></span>
+            <span class="word-tag"><span class="word-text">欣喜若狂</span><span class="word-pinyin">xīn xǐ ruò kuáng</span></span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>🌟 人物品质</h3>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">助人为乐</span><span class="word-pinyin">zhù rén wéi lè</span></span>
+            <span class="word-tag"><span class="word-text">拾金不昧</span><span class="word-pinyin">shí jīn bú mèi</span></span>
+            <span class="word-tag"><span class="word-text">勤学好问</span><span class="word-pinyin">qín xué hào wèn</span></span>
+            <span class="word-tag"><span class="word-text">坚持不懈</span><span class="word-pinyin">jiān chí bú xiè</span></span>
+            <span class="word-tag"><span class="word-text">自强不息</span><span class="word-pinyin">zì qiáng bù xī</span></span>
+            <span class="word-tag"><span class="word-text">勇敢无畏</span><span class="word-pinyin">yǒng gǎn wú wèi</span></span>
+            <span class="word-tag"><span class="word-text">诚实守信</span><span class="word-pinyin">chéng shí shǒu xìn</span></span>
+            <span class="word-tag"><span class="word-text">谦虚谨慎</span><span class="word-pinyin">qiān xū jǐn shèn</span></span>
+            <span class="word-tag"><span class="word-text">坚韧不拔</span><span class="word-pinyin">jiān rèn bù bá</span></span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>📖 学习成长</h3>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">专心致志</span><span class="word-pinyin">zhuān xīn zhì zhì</span></span>
+            <span class="word-tag"><span class="word-text">废寝忘食</span><span class="word-pinyin">fèi qǐn wàng shí</span></span>
+            <span class="word-tag"><span class="word-text">持之以恒</span><span class="word-pinyin">chí zhī yǐ héng</span></span>
+            <span class="word-tag"><span class="word-text">博览群书</span><span class="word-pinyin">bó lǎn qún shū</span></span>
+            <span class="word-tag"><span class="word-text">学以致用</span><span class="word-pinyin">xué yǐ zhì yòng</span></span>
+            <span class="word-tag"><span class="word-text">温故知新</span><span class="word-pinyin">wēn gù zhī xīn</span></span>
+            <span class="word-tag"><span class="word-text">举一反三</span><span class="word-pinyin">jǔ yī fǎn sān</span></span>
+            <span class="word-tag"><span class="word-text">水滴石穿</span><span class="word-pinyin">shuǐ dī shí chuān</span></span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>📜 寓言成语</h3>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">守株待兔</span><span class="word-pinyin">shǒu zhū dài tù</span></span>
+            <span class="word-tag"><span class="word-text">画蛇添足</span><span class="word-pinyin">huà shé tiān zú</span></span>
+            <span class="word-tag"><span class="word-text">亡羊补牢</span><span class="word-pinyin">wáng yáng bǔ láo</span></span>
+            <span class="word-tag"><span class="word-text">刻舟求剑</span><span class="word-pinyin">kè zhōu qiú jiàn</span></span>
+            <span class="word-tag"><span class="word-text">掩耳盗铃</span><span class="word-pinyin">yǎn ěr dào líng</span></span>
+            <span class="word-tag"><span class="word-text">自相矛盾</span><span class="word-pinyin">zì xiāng máo dùn</span></span>
+            <span class="word-tag"><span class="word-text">坐井观天</span><span class="word-pinyin">zuò jǐng guān tiān</span></span>
+            <span class="word-tag"><span class="word-text">叶公好龙</span><span class="word-pinyin">yè gōng hào lóng</span></span>
+            <span class="word-tag"><span class="word-text">狐假虎威</span><span class="word-pinyin">hú jiǎ hǔ wēi</span></span>
+            <span class="word-tag"><span class="word-text">揠苗助长</span><span class="word-pinyin">yà miáo zhù zhǎng</span></span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>🏃 动作行为</h3>
+          <div class="word-tag-container">
+            <span class="word-tag"><span class="word-text">手忙脚乱</span><span class="word-pinyin">shǒu máng jiǎo luàn</span></span>
+            <span class="word-tag"><span class="word-text">争先恐后</span><span class="word-pinyin">zhēng xiān kǒng hòu</span></span>
+            <span class="word-tag"><span class="word-text">络绎不绝</span><span class="word-pinyin">luò yì bù jué</span></span>
+            <span class="word-tag"><span class="word-text">日新月异</span><span class="word-pinyin">rì xīn yuè yì</span></span>
+            <span class="word-tag"><span class="word-text">大步流星</span><span class="word-pinyin">dà bù liú xīng</span></span>
+            <span class="word-tag"><span class="word-text">目不转睛</span><span class="word-pinyin">mù bù zhuǎn jīng</span></span>
+            <span class="word-tag"><span class="word-text">东张西望</span><span class="word-pinyin">dōng zhāng xī wàng</span></span>
+            <span class="word-tag"><span class="word-text">五光十色</span><span class="word-pinyin">wǔ guāng shí sè</span></span>
+            <span class="word-tag"><span class="word-text">成群结队</span><span class="word-pinyin">chéng qún jié duì</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 词语学习方法 -->
+    <section class="section" style="background: #f7f8fb; padding: 40px 5vw;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 style="color: #333; text-align: center; margin-bottom: 10px;">🎯 词语学习方法</h2>
+        <p style="color: #666; text-align: center; margin-bottom: 30px;">高级教师推荐 · 高效记忆技巧</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+          <div style="background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+              <span style="color: white; font-size: 24px;">📝</span>
+            </div>
+            <h3 style="color: #333; margin-bottom: 10px;">多写多练</h3>
+            <p style="font-size: 13px; color: #666;">每天坚持听写词语，加深记忆</p>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #11998e, #38ef7d); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+              <span style="color: white; font-size: 24px;">📖</span>
+            </div>
+            <h3 style="color: #333; margin-bottom: 10px;">阅读积累</h3>
+            <p style="font-size: 13px; color: #666;">在阅读中遇到新词，及时记录</p>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #ff6b6b, #feca57); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+              <span style="color: white; font-size: 24px;">💬</span>
+            </div>
+            <h3 style="color: #333; margin-bottom: 10px;">口头运用</h3>
+            <p style="font-size: 13px; color: #666;">日常交流中尝试使用新学的词语</p>
+          </div>
+
+          <div style="background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #00838f, #006064); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+              <span style="color: white; font-size: 24px;">🔗</span>
+            </div>
+            <h3 style="color: #333; margin-bottom: 10px;">联系记忆</h3>
+            <p style="font-size: 13px; color: #666;">把词语和生活经验联系起来</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 词语数据（带拼音）
+    const vocabularies = [
+      // 自然季节
+      { word: "春暖花开", pinyin: "chūn nuǎn huā kāi", meaning: "春天暖和，花儿开放，形容春天美丽的景色", example: "春天到了，公园里春暖花开。", category: "nature" },
+      { word: "秋高气爽", pinyin: "qiū gāo qì shuǎng", meaning: "秋天天气晴朗，空气清爽", example: "秋高气爽的早晨，我们去爬山。", category: "nature" },
+      { word: "鸟语花香", pinyin: "niǎo yǔ huā xiāng", meaning: "鸟儿鸣叫，花儿飘香，形容春天美好的景象", example: "走进森林，到处鸟语花香。", category: "nature" },
+      { word: "山清水秀", pinyin: "shān qīng shuǐ xiù", meaning: "山美水美，风景优美", example: "我的家乡山清水秀，真美！", category: "nature" },
+      { word: "花红柳绿", pinyin: "huā hóng liǔ lǜ", meaning: "红花绿柳，形容春天美丽的景色", example: "春天来了，花红柳绿，美不胜收。", category: "nature" },
+      { word: "层林尽染", pinyin: "céng lín jìn rǎn", meaning: "一层层树林被染上颜色，形容秋天山林色彩丰富", example: "秋天到了，香山层林尽染。", category: "nature" },
+      { word: "冰天雪地", pinyin: "bīng tiān xuě dì", meaning: "到处是冰和雪，形容非常寒冷的冬天", example: "北方的冬天，到处都是冰天雪地。", category: "nature" },
+      { word: "风和日丽", pinyin: "fēng hé rì lì", meaning: "微风和煦，阳光明亮，形容天气晴朗", example: "今天风和日丽，适合出去游玩。", category: "nature" },
+      { word: "姹紫嫣红", pinyin: "chà zǐ yān hóng", meaning: "形容各种颜色的花朵，非常好看", example: "花园里姹紫嫣红，漂亮极了。", category: "nature" },
+      { word: "银装素裹", pinyin: "yín zhuāng sù guǒ", meaning: "形容雪后的白色世界", example: "大雪过后，大地银装素裹。", category: "nature" },
+      { word: "蒙蒙细雨", pinyin: "méng méng xì yǔ", meaning: "细密的小雨", example: "春天里，蒙蒙细雨滋润着大地。", category: "nature" },
+      // 心情情绪
+      { word: "心花怒放", pinyin: "xīn huā nù fàng", meaning: "心里高兴得像花一样开放，形容非常开心", example: "听到这个消息，我心花怒放。", category: "emotion" },
+      { word: "迫不及待", pinyin: "pò bù jí dài", meaning: "急得不能等待，形容非常着急", example: "我迫不及待地想见到爷爷。", category: "emotion" },
+      { word: "兴致勃勃", pinyin: "xìng zhì bó bó", meaning: "兴趣很高的样子", example: "同学们兴致勃勃地参观博物馆。", category: "emotion" },
+      { word: "闷闷不乐", pinyin: "mèn mèn bù lè", meaning: "心里不高兴，愁眉苦脸的样子", example: "小华没考好，整天闷闷不乐。", category: "emotion" },
+      { word: "眉开眼笑", pinyin: "méi kāi yǎn xiào", meaning: "眉头舒展，眼含笑意，形容高兴的样子", example: "奶奶看到我们回来，眉开眼笑。", category: "emotion" },
+      { word: "兴高采烈", pinyin: "xìng gāo cǎi liè", meaning: "非常高兴，很兴奋的样子", example: "同学们兴高采烈地去春游。", category: "emotion" },
+      { word: "垂头丧气", pinyin: "chuí tóu sàng qì", meaning: "低着头，无精打采，形容失望沮丧", example: "比赛输了，他垂头丧气地回到家。", category: "emotion" },
+      { word: "提心吊胆", pinyin: "tí xīn diào dǎn", meaning: "形容非常担心、害怕", example: "他提心吊胆地等着考试成绩。", category: "emotion" },
+      { word: "惊慌失措", pinyin: "jīng huāng shī cuò", meaning: "惊慌害怕，不知道怎么办才好", example: "突然停电了，大家惊慌失措。", category: "emotion" },
+      { word: "欣喜若狂", pinyin: "xīn xǐ ruò kuáng", meaning: "高兴到了极点，像发了狂一样", example: "听到获奖的消息，他欣喜若狂。", category: "emotion" },
+      // 人物品质
+      { word: "助人为乐", pinyin: "zhù rén wéi lè", meaning: "把帮助别人当作快乐的事", example: "小明是个助人为乐的好孩子。", category: "character" },
+      { word: "拾金不昧", pinyin: "shí jīn bú mèi", meaning: "捡到东西不藏起来，归还失主", example: "小红拾金不昧，值得大家学习。", category: "character" },
+      { word: "勤学好问", pinyin: "qín xué hào wèn", meaning: "勤奋学习，不懂就问", example: "小华勤学好问，成绩很好。", category: "character" },
+      { word: "坚持不懈", pinyin: "jiān chí bú xiè", meaning: "坚持下去，从不松懈", example: "他坚持不懈地练习，终于成功了。", category: "character" },
+      { word: "自强不息", pinyin: "zì qiáng bù xī", meaning: "自己努力向上，永不停止", example: "我们要做自强不息的人。", category: "character" },
+      { word: "勇敢无畏", pinyin: "yǒng gǎn wú wèi", meaning: "非常勇敢，不害怕任何困难", example: "消防员勇敢无畏地冲进火场。", category: "character" },
+      { word: "诚实守信", pinyin: "chéng shí shǒu xìn", meaning: "说话诚实，守信用", example: "我们要做一个诚实守信的人。", category: "character" },
+      { word: "谦虚谨慎", pinyin: "qiān xū jǐn shèn", meaning: "虚心、慎重，不骄傲自满", example: "即使考了第一名，也要谦虚谨慎。", category: "character" },
+      { word: "坚韧不拔", pinyin: "jiān rèn bù bá", meaning: "意志坚定，不可动摇", example: "他以坚韧不拔的毅力登上了山顶。", category: "character" },
+      // 学习成长
+      { word: "专心致志", pinyin: "zhuān xīn zhì zhì", meaning: "一心一意，集中精神", example: "他专心致志地写作业。", category: "study" },
+      { word: "废寝忘食", pinyin: "fèi qǐn wàng shí", meaning: "顾不上吃饭和睡觉，形容非常专心", example: "他废寝忘食地研究科学问题。", category: "study" },
+      { word: "持之以恒", pinyin: "chí zhī yǐ héng", meaning: "坚持做某事，一直不放弃", example: "学习任何本领都要持之以恒。", category: "study" },
+      { word: "博览群书", pinyin: "bó lǎn qún shū", meaning: "广泛阅读各种书籍", example: "多读书、博览群书，能增长见识。", category: "study" },
+      { word: "学以致用", pinyin: "xué yǐ zhì yòng", meaning: "学到了知识就要用到实践中", example: "学习要学以致用，不能只背不做。", category: "study" },
+      { word: "温故知新", pinyin: "wēn gù zhī xīn", meaning: "复习旧知识能获得新理解", example: "温故知新是个好学习方法。", category: "study" },
+      { word: "举一反三", pinyin: "jǔ yī fǎn sān", meaning: "从一件事类推而知道其他很多事", example: "学习要会举一反三，灵活运用。", category: "study" },
+      { word: "水滴石穿", pinyin: "shuǐ dī shí chuān", meaning: "水不断滴落能穿透石头，比喻坚持就能成功", example: "只要坚持，水滴石穿，你一定能学会。", category: "study" },
+      // 寓言成语
+      { word: "守株待兔", pinyin: "shǒu zhū dài tù", meaning: "比喻不努力，存侥幸心理，坐等意外收获", example: "我们要主动学习，不能守株待兔。", category: "fable" },
+      { word: "画蛇添足", pinyin: "huà shé tiān zú", meaning: "比喻做了多余的事情，反而不好", example: "这已经写得很好了，不要再画蛇添足了。", category: "fable" },
+      { word: "亡羊补牢", pinyin: "wáng yáng bǔ láo", meaning: "出了问题后及时补救，防止继续损失", example: "这次没考好没关系，亡羊补牢还来得及。", category: "fable" },
+      { word: "刻舟求剑", pinyin: "kè zhōu qiú jiàn", meaning: "比喻办事刻板，不知道随情况变化而变通", example: "社会发展了，我们的想法也要跟上，不能刻舟求剑。", category: "fable" },
+      { word: "掩耳盗铃", pinyin: "yǎn ěr dào líng", meaning: "比喻自己欺骗自己，明明掩盖不了的事却要掩盖", example: "他犯错不承认，真是掩耳盗铃。", category: "fable" },
+      { word: "自相矛盾", pinyin: "zì xiāng máo dùn", meaning: "比喻言语或行为前后抵触", example: "他的发言自相矛盾，大家都不相信了。", category: "fable" },
+      { word: "坐井观天", pinyin: "zuò jǐng guān tiān", meaning: "比喻眼界狭窄，见识有限", example: "我们要多读书，不能坐井观天。", category: "fable" },
+      { word: "叶公好龙", pinyin: "yè gōng hào lóng", meaning: "比喻表面上爱好某事物，实际上并不是真的爱好", example: "学习不能叶公好龙，要真正去行动。", category: "fable" },
+      { word: "狐假虎威", pinyin: "hú jiǎ hǔ wēi", meaning: "比喻借别人的力量来吓唬人", example: "他总喜欢狐假虎威，仗势欺人。", category: "fable" },
+      { word: "揠苗助长", pinyin: "yà miáo zhù zhǎng", meaning: "比喻急于求成，反而坏了事", example: "学习要循序渐进，不能揠苗助长。", category: "fable" },
+      // 动作行为
+      { word: "手忙脚乱", pinyin: "shǒu máng jiǎo luàn", meaning: "做事慌张，没有条理", example: "时间不够了，他急得手忙脚乱。", category: "action" },
+      { word: "争先恐后", pinyin: "zhēng xiān kǒng hòu", meaning: "争着向前，唯恐落后", example: "下课铃响了，同学们争先恐后地跑出教室。", category: "action" },
+      { word: "络绎不绝", pinyin: "luò yì bù jué", meaning: "来来往往，连续不断", example: "节假日里，游人络绎不绝。", category: "action" },
+      { word: "日新月异", pinyin: "rì xīn yuè yì", meaning: "每天每月都有新变化，进步很快", example: "科技发展日新月异。", category: "action" },
+      { word: "大步流星", pinyin: "dà bù liú xīng", meaning: "形容步伐矫健，走得很快", example: "他大步流星地走进了教室。", category: "action" },
+      { word: "目不转睛", pinyin: "mù bù zhuǎn jīng", meaning: "不转眼地看，形容注意力很集中", example: "他目不转睛地盯着黑板。", category: "action" },
+      { word: "东张西望", pinyin: "dōng zhāng xī wàng", meaning: "向四处张望，形容心神不安或到处看", example: "上课要专心，不要东张西望。", category: "action" },
+      { word: "五光十色", pinyin: "wǔ guāng shí sè", meaning: "形容色彩鲜艳，花样繁多", example: "夜晚的灯光五光十色，漂亮极了。", category: "action" },
+      { word: "成群结队", pinyin: "chéng qún jié duì", meaning: "一群一队地聚集在一起", example: "同学们成群结队地去操场。", category: "action" },
+    ];
+
+    // 练习题数据
+    const quizData = [
+      {
+        type: "choice",
+        question: "\"春暖花开\"是描写哪个季节的词语？",
+        options: ["春天", "夏天", "秋天", "冬天"],
+        answer: 0
+      },
+      {
+        type: "choice",
+        question: "下列词语中，哪个是形容人物品质的？",
+        options: ["春暖花开", "助人为乐", "山清水秀", "蒙蒙细雨"],
+        answer: 1
+      },
+      {
+        type: "fill",
+        question: "小明把捡到的钱包还给了失主，真是______的好孩子。（拾金不昧）",
+        answer: "拾金不昧"
+      },
+      {
+        type: "choice",
+        question: "\"闷闷不乐\"的意思是？",
+        options: ["非常开心", "很着急", "心里不高兴", "很害怕"],
+        answer: 2
+      },
+      {
+        type: "choice",
+        question: "下列哪个不是描写心情的词语？",
+        options: ["心花怒放", "眉开眼笑", "兴致勃勃", "山清水秀"],
+        answer: 3
+      },
+      {
+        type: "fill",
+        question: "科技发展______，人们的生活越来越方便。（日新月异）",
+        answer: "日新月异"
+      },
+      {
+        type: "choice",
+        question: "\"迫不及待\"的意思是？",
+        options: ["很有兴趣", "急得不能等待", "很高兴", "很认真"],
+        answer: 1
+      },
+      {
+        type: "choice",
+        question: "下列词语中，哪两个是反义词？",
+        options: ["春暖花开 - 秋高气爽", "冰天雪地 - 春暖花开", "闷闷不乐 - 心花怒放", "助人为乐 - 拾金不昧"],
+        answer: 2
+      },
+      {
+        type: "fill",
+        question: "他______地练习，终于学会了游泳。（坚持不懈）",
+        answer: "坚持不懈"
+      },
+      {
+        type: "choice",
+        question: "\"举一反三\"是哪种类型的词语？",
+        options: ["描写景色", "描写心情", "学习成长", "描写动作"],
+        answer: 2
+      },
+      // 学习成长
+      {
+        type: "fill",
+        question: "他______地写作业，连妈妈叫他吃饭都没听到。（专心致志）",
+        answer: "专心致志"
+      },
+      {
+        type: "choice",
+        question: "\"持之以恒\"的意思是什么？",
+        options: ["三心二意", "坚持到底不放弃", "变化很快", "非常着急"],
+        answer: 1
+      },
+      {
+        type: "choice",
+        question: "下列哪个词语是告诉我们要把学到的知识用起来？",
+        options: ["学以致用", "博览群书", "废寝忘食", "温故知新"],
+        answer: 0
+      },
+      {
+        type: "fill",
+        question: "学习要______，多读课外书才能增长见识。（博览群书）",
+        answer: "博览群书"
+      },
+      // 寓言成语
+      {
+        type: "choice",
+        question: "\"守株待兔\"告诉我们什么道理？",
+        options: ["要耐心等待", "不要存侥幸心理，要努力", "要学会捉兔子", "要保护树木"],
+        answer: 1
+      },
+      {
+        type: "choice",
+        question: "图画得很好了，再加一笔反而多余，用哪个成语形容？",
+        options: ["自相矛盾", "掩耳盗铃", "画蛇添足", "刻舟求剑"],
+        answer: 2
+      },
+      {
+        type: "fill",
+        question: "做事情要及时补救，______，为时未晚。（亡羊补牢）",
+        answer: "亡羊补牢"
+      },
+      {
+        type: "choice",
+        question: "\"坐井观天\"比喻什么样的人？",
+        options: ["知识渊博", "眼界狭窄", "勤劳勇敢", "聪明伶俐"],
+        answer: 1
+      },
+      // 新增描写景色
+      {
+        type: "choice",
+        question: "\"风和日丽\"是用来描写什么的？",
+        options: ["暴风雨", "天气晴朗", "夜晚", "冬天"],
+        answer: 1
+      },
+      {
+        type: "choice",
+        question: "描写雪后白色世界用的是哪个词语？",
+        options: ["姹紫嫣红", "层林尽染", "银装素裹", "花红柳绿"],
+        answer: 2
+      },
+      {
+        type: "fill",
+        question: "花园里百花盛开，______，美丽极了。（姹紫嫣红）",
+        answer: "姹紫嫣红"
+      },
+    ];
+
+    // 状态管理
+    let currentQuiz = 0;
+    let correctCount = 0;
+    let learnedWords = 0;
+    let selectedAnswer = null;
+
+    // 初始化卡片
+    function initFlashcards(category = 'all') {
+      const container = document.getElementById('flashcards');
+      container.innerHTML = '';
+      
+      const filteredWords = category === 'all' 
+        ? vocabularies 
+        : vocabularies.filter(v => v.category === category);
+      
+      filteredWords.forEach((voc, index) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.innerHTML = `
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <span class="word">${voc.word}</span>
+              <span class="hint">${voc.pinyin}</span>
+            </div>
+            <div class="flashcard-back">
+              <div class="meaning">${voc.meaning}</div>
+              <div class="example">${voc.example}</div>
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => {
+          if (!card.classList.contains('flipped')) {
+            card.classList.add('flipped');
+            learnedWords++;
+            document.getElementById('todayCount').textContent = learnedWords;
+            updateAchievements();
+          }
+        });
+        container.appendChild(card);
+      });
+    }
+
+    // 搜索功能
+    function searchWords() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      if (!searchTerm.trim()) {
+        const activeTab = document.querySelector('.category-tab.active');
+        initFlashcards(activeTab ? activeTab.dataset.category : 'all');
+        return;
+      }
+      
+      const container = document.getElementById('flashcards');
+      container.innerHTML = '';
+      
+      const matchedWords = vocabularies.filter(v => 
+        v.word.toLowerCase().includes(searchTerm) || 
+        v.pinyin.toLowerCase().includes(searchTerm) ||
+        v.meaning.toLowerCase().includes(searchTerm)
+      );
+      
+      if (matchedWords.length === 0) {
+        container.innerHTML = '<p style="color: white; font-size: 18px;">没有找到匹配的词语</p>';
+        return;
+      }
+      
+      matchedWords.forEach((voc) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.innerHTML = `
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <span class="word">${voc.word}</span>
+              <span class="hint">${voc.pinyin}</span>
+            </div>
+            <div class="flashcard-back">
+              <div class="meaning">${voc.meaning}</div>
+              <div class="example">${voc.example}</div>
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => {
+          if (!card.classList.contains('flipped')) {
+            card.classList.add('flipped');
+            learnedWords++;
+            document.getElementById('todayCount').textContent = learnedWords;
+            updateAchievements();
+          }
+        });
+        container.appendChild(card);
+      });
+    }
+
+    // 初始化分类标签
+    function initCategoryTabs() {
+      const tabs = document.querySelectorAll('.category-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById('searchInput').value = '';
+          initFlashcards(tab.dataset.category);
+        });
+      });
+    }
+
+    // 初始化搜索功能
+    function initSearch() {
+      const searchBtn = document.getElementById('searchBtn');
+      const searchInput = document.getElementById('searchInput');
+      
+      searchBtn.addEventListener('click', searchWords);
+      searchInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          searchWords();
+        }
+      });
+    }
+
+    // 初始化练习
+    function initQuiz() {
+      renderQuiz();
+    }
+
+    function renderQuiz() {
+      const content = document.getElementById('quizContent');
+      const quiz = quizData[currentQuiz];
+      
+      document.getElementById('quizProgress').textContent = `第 ${currentQuiz + 1} 题 / 共 ${quizData.length} 题`;
+      document.getElementById('progressFill').style.width = `${((currentQuiz + 1) / quizData.length) * 100}%`;
+      
+      if (quiz.type === 'choice') {
+        content.innerHTML = `
+          <div class="quiz-question">${quiz.question}</div>
+          <div class="quiz-options">
+            ${quiz.options.map((opt, i) => `
+              <div class="quiz-option" data-index="${i}">${opt}</div>
+            `).join('')}
+          </div>
+        `;
+        
+        document.querySelectorAll('.quiz-option').forEach(opt => {
+          opt.addEventListener('click', () => selectAnswer(parseInt(opt.dataset.index)));
+        });
+      } else if (quiz.type === 'fill') {
+        content.innerHTML = `
+          <div class="fill-blank">${quiz.question.replace(/（.*?）/g, '<input type="text" id="fillAnswer" placeholder="请输入答案">')}</div>
+          <button class="next-btn" onclick="checkFillAnswer()">提交答案</button>
+        `;
+      }
+      
+      selectedAnswer = null;
+    }
+
+    function selectAnswer(index) {
+      if (selectedAnswer !== null) return;
+      
+      selectedAnswer = index;
+      const quiz = quizData[currentQuiz];
+      const options = document.querySelectorAll('.quiz-option');
+      
+      options.forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if (i === index) opt.classList.add('selected');
+      });
+      
+      setTimeout(() => {
+        if (index === quiz.answer) {
+          options[index].classList.remove('selected');
+          options[index].classList.add('correct');
+          correctCount++;
+        } else {
+          options[index].classList.remove('selected');
+          options[index].classList.add('wrong');
+          options[quiz.answer].classList.add('correct');
+        }
+        
+        document.getElementById('accuracy').textContent = `${Math.round((correctCount / (currentQuiz + 1)) * 100)}%`;
+        updateAchievements();
+        
+        setTimeout(() => {
+          nextQuestion();
+        }, 1500);
+      }, 500);
+    }
+
+    function checkFillAnswer() {
+      const input = document.getElementById('fillAnswer');
+      const answer = input.value.trim();
+      const quiz = quizData[currentQuiz];
+      
+      if (answer === quiz.answer) {
+        correctCount++;
+        input.style.borderColor = '#4caf50';
+        input.style.background = '#e8f5e9';
+      } else {
+        input.style.borderColor = '#f44336';
+        input.style.background = '#ffebee';
+        alert(`正确答案是：${quiz.answer}`);
+      }
+      
+      document.getElementById('accuracy').textContent = `${Math.round((correctCount / (currentQuiz + 1)) * 100)}%`;
+      updateAchievements();
+      
+      setTimeout(() => {
+        nextQuestion();
+      }, 1500);
+    }
+
+    function nextQuestion() {
+      currentQuiz++;
+      if (currentQuiz >= quizData.length) {
+        showFinalResult();
+      } else {
+        renderQuiz();
+      }
+    }
+
+    function showFinalResult() {
+      const content = document.getElementById('quizContent');
+      const percentage = Math.round((correctCount / quizData.length) * 100);
+      let emoji = percentage >= 80 ? '&#127942;' : percentage >= 60 ? '&#128579;' : '&#128549;';
+      let message = percentage >= 80 ? '太棒了！继续保持！' : percentage >= 60 ? '还不错，继续加油！' : '多练习，你会越来越好！';
+      
+      content.innerHTML = `
+        <div class="quiz-result">
+          <div class="result-icon">${emoji}</div>
+          <div class="result-text">你答对了 ${correctCount} / ${quizData.length} 题</div>
+          <p style="font-size: 18px; color: #666; margin-bottom: 30px;">${message}</p>
+          <button class="next-btn" onclick="restartQuiz()">再练一次</button>
+        </div>
+      `;
+    }
+
+    function restartQuiz() {
+      currentQuiz = 0;
+      correctCount = 0;
+      document.getElementById('accuracy').textContent = '0%';
+      renderQuiz();
+    }
+
+    function updateAchievements() {
+      // 词语达人：学习10个词语
+      if (learnedWords >= 10) {
+        document.getElementById('ach2').classList.remove('locked');
+        document.getElementById('ach2').classList.add('unlocked');
+      }
+      
+      // 答题高手：答对5道题
+      if (correctCount >= 5) {
+        document.getElementById('ach3').classList.remove('locked');
+        document.getElementById('ach3').classList.add('unlocked');
+      }
+      
+      // 学习之星：完成所有练习
+      if (currentQuiz >= quizData.length - 1) {
+        document.getElementById('ach4').classList.remove('locked');
+        document.getElementById('ach4').classList.add('unlocked');
+      }
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      initFlashcards();
+      initCategoryTabs();
+      initSearch();
+      initQuiz();
+      updateAchievements();
+    });
+  </script>
+</body>
+</html>

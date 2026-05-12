@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>语文练习计划 - 互动学习版</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* 互动练习区域样式 */
+    .interactive-practice {
+      padding: 40px 5vw;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+    }
+    .interactive-practice h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .practice-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* 句子改写 */
+    .sentence-transform {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .sentence-question {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f0f9ff;
+      border-radius: 10px;
+    }
+    .sentence-question strong {
+      color: #11998e;
+    }
+    .transform-options {
+      display: grid;
+      gap: 12px;
+    }
+    .transform-btn {
+      padding: 15px 20px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+    .transform-btn:hover {
+      border-color: #11998e;
+      background: #f0fff4;
+    }
+    .transform-btn.selected {
+      border-color: #11998e;
+      background: #11998e;
+      color: white;
+    }
+    .transform-btn.correct {
+      border-color: #4caf50;
+      background: #4caf50;
+      color: white;
+    }
+    .transform-btn.wrong {
+      border-color: #f44336;
+      background: #f44336;
+      color: white;
+    }
+    
+    /* 修辞判断 */
+    .rhetoric-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .rhetoric-sentence {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 25px;
+      line-height: 1.8;
+      padding: 20px;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      border-radius: 15px;
+      border-left: 5px solid #11998e;
+    }
+    .rhetoric-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .rhetoric-btn {
+      padding: 12px 25px;
+      border: 2px solid #e0e0e0;
+      border-radius: 25px;
+      background: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    .rhetoric-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .rhetoric-btn.correct {
+      border-color: #4caf50;
+      background: #4caf50;
+      color: white;
+    }
+    
+    /* 古诗填空 */
+    .poem-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .poem-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .poem-text {
+      font-size: 20px;
+      color: #555;
+      line-height: 2;
+      margin-bottom: 25px;
+    }
+    .poem-text input {
+      padding: 8px 15px;
+      border: 2px solid #11998e;
+      border-radius: 8px;
+      font-size: 18px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .poem-text input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.3);
+    }
+    
+    /* 进度追踪 */
+    .progress-tracker {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .progress-row:last-child {
+      border-bottom: none;
+    }
+    .progress-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .progress-icon.completed {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: white;
+    }
+    .progress-icon.current {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+      animation: pulse 2s infinite;
+    }
+    .progress-icon.pending {
+      background: #e0e0e0;
+      color: #999;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .progress-info h4 {
+      margin: 0 0 5px 0;
+      color: #333;
+    }
+    .progress-info p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+    .progress-check {
+      margin-left: auto;
+      font-size: 24px;
+    }
+    
+    /* 错题本样式 */
+    .wrong-notebook {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .wrong-notebook h3 {
+      color: #333;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wrong-item {
+      background: #fff5f5;
+      border-left: 4px solid #f44336;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 0 10px 10px 0;
+    }
+    .wrong-item:last-child {
+      margin-bottom: 0;
+    }
+    .wrong-question {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .wrong-answer {
+      color: #f44336;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .correct-answer {
+      color: #4caf50;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .wrong-tip {
+      color: #666;
+      font-size: 13px;
+      font-style: italic;
+    }
+    .retry-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .retry-btn:hover {
+      background: #5a6fd6;
+    }
+    .clear-wrong-btn {
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      float: right;
+      font-size: 14px;
+    }
+    .clear-wrong-btn:hover {
+      background: #d32f2f;
+    }
+    
+    /* 每日打卡 */
+    .checkin-section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .checkin-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .checkin-days {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .checkin-day {
+      width: 50px;
+      height: 70px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+      transition: all 0.3s;
+    }
+    .checkin-day.checked {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: white;
+    }
+    .checkin-day.today {
+      border: 3px solid #f5576c;
+    }
+    .checkin-day .day-name {
+      font-size: 12px;
+      color: #999;
+    }
+    .checkin-day.checked .day-name {
+      color: rgba(255,255,255,0.8);
+    }
+    .checkin-day .day-num {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .checkin-btn {
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .checkin-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
+    }
+    .checkin-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* 学习模式切换 */
+    .mode-switch {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .mode-btn {
+      padding: 12px 24px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+    .mode-btn:hover, .mode-btn.active {
+      background: white;
+      color: #11998e;
+    }
+
+    /* 反馈动画 */
+    .feedback {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 30px 50px;
+      border-radius: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      animation: feedbackPop 1s forwards;
+      z-index: 1000;
+    }
+    .feedback.correct {
+      background: #4caf50;
+      color: white;
+    }
+    .feedback.wrong {
+      background: #f44336;
+      color: white;
+    }
+    @keyframes feedbackPop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* 奖励弹窗 */
+    .reward-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .reward-modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .reward-content {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      max-width: 400px;
+      transform: scale(0.8);
+      transition: transform 0.3s;
+    }
+    .reward-modal.show .reward-content {
+      transform: scale(1);
+    }
+    .reward-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .reward-title {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .reward-text {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    /* 思维进阶 - 分析对比 */
+    .thinking-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .thinking-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .thinking-badge.upgrade { background: #fff3e0; color: #e65100; }
+    .thinking-badge.compare { background: #e3f2fd; color: #1565c0; }
+    .thinking-badge.analyze { background: #f3e5f5; color: #7b1fa2; }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .compare-box {
+      padding: 16px;
+      border-radius: 12px;
+      min-height: 80px;
+    }
+    .compare-box.low {
+      background: #fff5f5;
+      border: 2px solid #ffcdd2;
+    }
+    .compare-box.high {
+      background: #f1f8e9;
+      border: 2px solid #c8e6c9;
+    }
+    .compare-label {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .compare-label.low { color: #e53935; }
+    .compare-label.high { color: #43a047; }
+    .compare-content {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #333;
+    }
+    .thinking-question {
+      font-size: 17px;
+      font-weight: bold;
+      color: #333;
+      margin: 16px 0;
+      padding: 14px;
+      background: #f7f8fb;
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+    }
+    .thinking-options {
+      display: grid;
+      gap: 12px;
+    }
+    .thinking-opt {
+      padding: 16px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 15px;
+      line-height: 1.6;
+      text-align: left;
+    }
+    .thinking-opt:hover {
+      border-color: #667eea;
+      background: #f0f0ff;
+    }
+    .thinking-opt.correct {
+      border-color: #4caf50;
+      background: #4caf50;
+      color: white;
+    }
+    .thinking-opt.wrong {
+      border-color: #f44336;
+      background: #f44336;
+      color: white;
+    }
+    .thinking-explanation {
+      margin-top: 16px;
+      padding: 16px;
+      background: #fff8e1;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555;
+    }
+    .thinking-explanation strong {
+      color: #333;
+    }
+
+    @media (max-width: 768px) {
+      .rhetoric-buttons {
+        flex-direction: column;
+      }
+      .rhetoric-btn {
+        width: 100%;
+      }
+      .checkin-days {
+        flex-wrap: wrap;
+      }
+      .compare-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a class="active" href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <!-- 互动练习区域 -->
+  <section class="interactive-practice">
+    <p class="eyebrow" style="color: rgba(255,255,255,0.8); text-align: center;">互动练习</p>
+    <h2>趣味练习，提升语文能力</h2>
+    
+    <div class="mode-switch">
+      <button class="mode-btn active" data-mode="transform">句式转换</button>
+      <button class="mode-btn" data-mode="rhetoric">修辞判断</button>
+      <button class="mode-btn" data-mode="poem">古诗填空</button>
+      <button class="mode-btn" data-mode="reading">阅读练习</button>
+      <button class="mode-btn" data-mode="vocabulary">词语选择</button>
+      <button class="mode-btn" data-mode="thinking">🧠 思维进阶</button>
+    </div>
+    
+    <!-- 难度选择 -->
+    <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px;">
+      <span style="color: rgba(255,255,255,0.8); font-size: 15px;">难度：</span>
+      <button class="mode-btn active" data-level="easy" style="padding: 8px 16px; font-size: 13px;">简单</button>
+      <button class="mode-btn" data-level="medium" style="padding: 8px 16px; font-size: 13px;">中等</button>
+      <button class="mode-btn" data-level="hard" style="padding: 8px 16px; font-size: 13px;">困难</button>
+    </div>
+    
+    <div class="practice-container" id="practiceArea">
+      <!-- 句式转换 -->
+      <div class="sentence-transform" id="transformPractice">
+        <div class="sentence-question">
+          <strong>题目：</strong><span id="transformQuestion">把下面的句子改写成"被字句"</span>
+        </div>
+        <p class="rhetoric-sentence" id="transformSentence">小明打死了蚊子。</p>
+        <div class="transform-options" id="transformOptions">
+          <!-- 选项由JS生成 -->
+        </div>
+        <button class="next-btn" style="margin-top: 20px; width: 100%;" onclick="nextTransform()">下一题</button>
+      </div>
+
+      <!-- 修辞判断 -->
+      <div class="rhetoric-card" id="rhetoricPractice" style="display: none;">
+        <p class="rhetoric-sentence" id="rhetoricSentence">弯弯的月亮像小船。</p>
+        <div class="rhetoric-buttons" id="rhetoricOptions">
+          <!-- 选项由JS生成 -->
+        </div>
+      </div>
+
+      <!-- 古诗填空 -->
+      <div class="poem-card" id="poemPractice" style="display: none;">
+        <div class="poem-title" id="poemTitle">静夜思</div>
+        <div class="poem-text" id="poemText">
+          <!-- 古诗由JS生成 -->
+        </div>
+        <button class="next-btn" style="margin-top: 20px;" onclick="checkPoem()">检查答案</button>
+      </div>
+
+      <!-- 阅读练习 -->
+      <div class="rhetoric-card" id="readingPractice" style="display: none;">
+        <div class="poem-title">短文阅读练习</div>
+        <div class="rhetoric-sentence" style="border-left: none; background: #fff; padding: 10px 20px;">
+          <p style="margin: 0; font-size: 16px; line-height: 1.8;" id="readingText">
+            春天的公园真美啊！柳树发出了嫩绿的新芽，桃花绽开了粉红的笑脸。小河解冻了，哗哗地唱着歌。草地上，小朋友们在放风筝、做游戏，开心极了！
+          </p>
+        </div>
+        <div style="margin-top: 20px;">
+          <p style="font-size: 18px; color: #333; margin-bottom: 15px;"><strong>问题：</strong>这段话主要写了什么？</p>
+          <div id="readingOptions" class="transform-options">
+            <!-- 选项由JS生成 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 词语选择练习 -->
+      <div class="sentence-transform" id="vocabularyPractice" style="display: none;">
+        <div class="sentence-question">
+          <strong>题目：</strong><span id="vocabQuestion">选择合适的词语填空</span>
+        </div>
+        <p class="rhetoric-sentence" id="vocabSentence">春天来了，小草______从土里钻出来。</p>
+        <div class="transform-options" id="vocabOptions">
+          <!-- 选项由JS生成 -->
+        </div>
+        <button class="next-btn" style="margin-top: 20px; width: 100%;" onclick="nextVocab()">下一题</button>
+      </div>
+
+      <!-- 思维进阶练习 -->
+      <div class="thinking-card" id="thinkingPractice" style="display: none;">
+        <div style="margin-bottom: 15px;">
+          <span class="thinking-badge upgrade" id="thinkingBadge">升格训练</span>
+        </div>
+        <div id="thinkingContent">
+          <!-- 由JS生成 -->
+        </div>
+        <div id="thinkingExplanation" class="thinking-explanation" style="display: none;">
+          <!-- 解析内容 -->
+        </div>
+        <button class="next-btn" style="margin-top: 20px; width: 100%;" id="thinkingNextBtn" onclick="nextThinking()">下一题</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 错题本 -->
+  <section class="section" style="background: #f7f8fb;">
+    <div class="wrong-notebook" style="max-width: 800px; margin: 0 auto;">
+      <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button></h3>
+      <div id="wrongList">
+        <!-- 错题列表由JS生成 -->
+        <p style="color: #666; text-align: center; padding: 20px;">暂无错题，继续加油！</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 每日打卡 -->
+  <section class="section" style="background: #f7f8fb;">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">学习打卡</p>
+      <h2>坚持学习，养成好习惯</h2>
+    </div>
+    <div class="checkin-section" style="max-width: 600px; margin: 0 auto;">
+      <div class="checkin-days">
+        <div class="checkin-day checked"><span class="day-name">一</span><span class="day-num">1</span></div>
+        <div class="checkin-day checked"><span class="day-name">二</span><span class="day-num">2</span></div>
+        <div class="checkin-day checked"><span class="day-name">三</span><span class="day-num">3</span></div>
+        <div class="checkin-day checked"><span class="day-name">四</span><span class="day-num">4</span></div>
+        <div class="checkin-day today"><span class="day-name">五</span><span class="day-num">5</span></div>
+        <div class="checkin-day"><span class="day-name">六</span><span class="day-num">6</span></div>
+        <div class="checkin-day"><span class="day-name">日</span><span class="day-num">7</span></div>
+      </div>
+      <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">今日打卡</button>
+    </div>
+  </section>
+
+  <!-- 学习进度 -->
+  <section class="section" style="background: white;">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">学习进度</p>
+      <h2>看看今天完成了什么</h2>
+    </div>
+    <div class="progress-tracker" style="max-width: 600px; margin: 0 auto;">
+      <div class="progress-row">
+        <div class="progress-icon completed">&#10004;</div>
+        <div class="progress-info">
+          <h4>朗读古诗</h4>
+          <p>完成5分钟朗读</p>
+        </div>
+        <span class="progress-check">&#9989;</span>
+      </div>
+      <div class="progress-row">
+        <div class="progress-icon completed">&#10004;</div>
+        <div class="progress-info">
+          <h4>词语学习</h4>
+          <p>学习10个新词语</p>
+        </div>
+        <span class="progress-check">&#9989;</span>
+      </div>
+      <div class="progress-row">
+        <div class="progress-icon current">&#9998;</div>
+        <div class="progress-info">
+          <h4>阅读练习</h4>
+          <p>完成1篇阅读</p>
+        </div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-icon pending">&#9898;</div>
+        <div class="progress-info">
+          <h4>作文片段</h4>
+          <p>写一个段落</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="page-head practice-head">
+      <p class="eyebrow">每日练习</p>
+      <h1>用 30 到 45 分钟完成一次有效复习</h1>
+      <p>时间不需要很长，关键是每天覆盖朗读、积累、阅读和表达，让语文能力持续生长。</p>
+    </section>
+
+    <section class="section plan-grid">
+      <article class="plan-card">
+        <span class="time-pill">10 分钟</span>
+        <h2>朗读与背诵</h2>
+        <p>朗读课文或古诗，标出停顿和重音。背诵时先理解画面，再默写。</p>
+      </article>
+      <article class="plan-card">
+        <span class="time-pill">8 分钟</span>
+        <h2>词句积累</h2>
+        <p>积累 3 个词语、1 个好句。每个词至少造一个生活化句子。</p>
+      </article>
+      <article class="plan-card">
+        <span class="time-pill">15 分钟</span>
+        <h2>阅读短练</h2>
+        <p>做一篇短文阅读，答案必须能在原文找到线索或依据。</p>
+      </article>
+      <article class="plan-card">
+        <span class="time-pill">10 分钟</span>
+        <h2>口头表达</h2>
+        <p>复述文章内容，或围绕一个话题说清原因、经过和感受。</p>
+      </article>
+    </section>
+
+    <section class="section weekly">
+      <div>
+        <p class="eyebrow">一周节奏</p>
+        <h2>周一到周日学习安排</h2>
+      </div>
+      <div class="week-list">
+        <p><strong>周一：</strong>字词复习和听写</p>
+        <p><strong>周二：</strong>阅读理解专项</p>
+        <p><strong>周三：</strong>句子训练和仿写</p>
+        <p><strong>周四：</strong>古诗文朗读和默写</p>
+        <p><strong>周五：</strong>作文片段练习</p>
+        <p><strong>周六：</strong>完整作文或整本书阅读</p>
+        <p><strong>周日：</strong>错题复盘和一周总结</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">词语学习</p>
+        <h2>课后词语表</h2>
+        <p style="font-size: 16px; color: #666;">完整的课后词语表已集中到 <a href="vocabulary.html" style="color: #667eea;">词语学习页面</a>，包含三到五年级全部课后词语</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>类别</th><th>词语</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>天气气象</td><td>晴朗、阴沉、乌云密布、风和日丽、倾盆大雨、蒙蒙细雨</td></tr>
+              <tr><td>季节时间</td><td>春暖花开、烈日炎炎、秋高气爽、冰天雪地、清晨、傍晚</td></tr>
+              <tr><td>心情情绪</td><td>开心、难过、紧张、兴奋、着急、愉快、伤心、害怕</td></tr>
+              <tr><td>人物品质</td><td>善良、勇敢、聪明、勤劳、诚实、谦虚、助人为乐</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">作文训练</p>
+        <h2>分层作文练习</h2>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>片段扩写训练</h3>
+          <div class="routine">
+            <p><strong>基础题：</strong>妈妈做饭。</p>
+            <p><strong>提优题：</strong>妈妈在厨房里做饭，香喷喷的饭菜味道飘满了整个屋子。</p>
+            <p><strong>拔高题：</strong>妈妈系着围裙，在厨房里忙碌着。锅里的菜发出滋滋的响声，金黄色的香气弥漫开来，让人垂涎欲滴。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>句子润色训练</h3>
+          <div class="routine">
+            <p><strong>原句：</strong>我很开心。</p>
+            <p><strong>润色后：</strong>我的心里像吃了蜜一样甜，嘴角忍不住向上扬。</p>
+            <p><strong>技巧：</strong>用比喻和动作描写代替直接表达心情</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>开头结尾改写</h3>
+          <div class="routine">
+            <p><strong>普通开头：</strong>今天我去了公园。</p>
+            <p><strong>精彩开头：</strong>阳光明媚的周末，我和小伙伴们兴高采烈地来到了美丽的公园。</p>
+            <p><strong>普通结尾：</strong>今天玩得很开心。</p>
+            <p><strong>精彩结尾：</strong>夕阳西下，我们依依不舍地离开了公园，今天的快乐时光将永远留在我的记忆里。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>审题立意训练</h3>
+          <div class="routine">
+            <p><strong>题目：</strong>一件难忘的事</p>
+            <p><strong>立意1：</strong>通过这件事，我学会了勇敢</p>
+            <p><strong>立意2：</strong>这件事让我感受到了友情的珍贵</p>
+            <p><strong>立意3：</strong>从这件事中，我明白了坚持就是胜利</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>作文四步法</h3>
+          <div class="routine">
+            <p><strong>第一步：列提纲</strong>（开头、中间、结尾）</p>
+            <p><strong>第二步：找素材</strong>（选一件具体的事）</p>
+            <p><strong>第三步：写片段</strong>（重点部分详细写）</p>
+            <p><strong>第四步：连成篇</strong>（加上开头结尾）</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>详略安排技巧</h3>
+          <div class="routine">
+            <p><strong>详写：</strong>事情的经过、人物的动作和对话</p>
+            <p><strong>略写：</strong>事情的起因、结果、环境描写</p>
+            <p><strong>原则：</strong>重点突出，主次分明</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">提优训练</p>
+        <h2>分层练习题</h2>
+        <p style="font-size: 16px; color: #666;">每个知识点都有基础→提优→拔高三个难度，帮孩子逐步提升</p>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>句子扩写训练</h3>
+          <div class="routine">
+            <p><strong>基础题：</strong>小鸟飞。→ 可爱的小鸟在天上飞。</p>
+            <p><strong>提优题：</strong>把句子写具体，但不能改变原意。</p>
+            <p><strong>拔高题：</strong>用动作、声音、颜色写出画面感。</p>
+            <p><strong>示例：</strong>清晨，一只羽毛金黄的小鸟扑棱着翅膀，在枝头欢快地歌唱，然后"嗖"地一下飞向蓝天。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>阅读分析训练</h3>
+          <div class="routine">
+            <p><strong>基础题：</strong>这段话主要写了什么？</p>
+            <p><strong>提优题：</strong>这句话在文中有什么作用？</p>
+            <p><strong>拔高题：</strong>如果删掉这一句，表达效果有什么变化？</p>
+            <p><strong>示例：</strong>删掉环境描写，就无法烘托人物心情，故事氛围会变淡。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>人物描写训练</h3>
+          <div class="routine">
+            <p><strong>基础题：</strong>妈妈很辛苦。→ 妈妈每天做家务，很辛苦。</p>
+            <p><strong>提优题：</strong>妈妈弯着腰拖地，额头上冒出细细的汗珠。</p>
+            <p><strong>拔高题：</strong>那一刻，我忽然明白，妈妈的辛苦藏在每天重复的小事里。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>修辞赏析训练</h3>
+          <div class="routine">
+            <p><strong>基础题：</strong>这句话用了什么修辞？</p>
+            <p><strong>提优题：</strong>这个修辞写出了什么特点？</p>
+            <p><strong>拔高题：</strong>作者为什么要用这个修辞，不用会怎么样？</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔高表达</p>
+        <h2>从普通到精彩</h2>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>佳句仿写</h3>
+          <div class="routine">
+            <p><strong>例句：</strong>书是钥匙，能打开知识的大门。</p>
+            <p><strong>仿写：</strong>书是______，能______。</p>
+            <p><strong>答案：</strong>书是明灯，能照亮前行的道路。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>片段升级</h3>
+          <div class="routine">
+            <p><strong>原句：</strong>今天天气很好，我出去玩。</p>
+            <p><strong>升级后：</strong>阳光明媚的午后，微风轻轻吹拂着我的脸颊，我哼着歌蹦蹦跳跳地跑向公园。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>答案升级对比</h3>
+          <div class="routine">
+            <p><strong>题目：</strong>从哪里能看出小明很勇敢？</p>
+            <p><strong>低分答案：</strong>小明很勇敢。</p>
+            <p><strong>满分答案：</strong>从"小明毫不犹豫地冲进火海救小猫"这句话可以看出，小明是一个勇敢的人。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>多角度立意</h3>
+          <div class="routine">
+            <p><strong>材料：</strong>蚂蚁搬食物</p>
+            <p><strong>角度1：</strong>团结就是力量</p>
+            <p><strong>角度2：</strong>坚持就能成功</p>
+            <p><strong>角度3：</strong>小蚂蚁也有大智慧</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">答题模板</p>
+        <h2>阅读题答题模板</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题模板</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概括内容</td><td>谁 + 在什么情况下 + 做了什么 + 结果怎么样</td></tr>
+              <tr><td>理解词语</td><td>这句话中"XX"的意思是...，从文中第X段可以看出</td></tr>
+              <tr><td>人物特点</td><td>从"..."可以看出，他是一个...的人</td></tr>
+              <tr><td>句子作用</td><td>这句话在文中起到了（总起/过渡/总结）的作用</td></tr>
+              <tr><td>赏析句子</td><td>这句话用了（比喻/拟人）的修辞，写出了...，表达了...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">家长话术</p>
+        <h2>陪学提问话术</h2>
+      </div>
+      <div class="table-card">
+        <ul class="check-list">
+          <li>"这道题问的是什么？"</li>
+          <li>"答案在文章哪一句？"</li>
+          <li>"你能用自己的话说一遍吗？"</li>
+          <li>"这个词换个说法是什么？"</li>
+          <li>"这里还能写得更具体吗？"</li>
+          <li>"人物为什么会这样做？"</li>
+          <li>"这句话让你想到什么画面？"</li>
+          <li>"这次错在哪里？下次准备怎么避免？"</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">复盘表</p>
+        <h2>每周复盘表</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>项目</th><th>本周做得好的</th><th>需要改进的</th><th>下周计划</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>字词</td><td></td><td></td><td></td></tr>
+              <tr><td>阅读</td><td></td><td></td><td></td></tr>
+              <tr><td>作文</td><td></td><td></td><td></td></tr>
+              <tr><td>古诗</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 奖励弹窗 -->
+  <div class="reward-modal" id="rewardModal">
+    <div class="reward-content">
+      <div class="reward-icon">&#127942;</div>
+      <div class="reward-title" id="rewardTitle">恭喜获得成就！</div>
+      <div class="reward-text" id="rewardText">你已经连续打卡5天了！</div>
+      <button class="next-btn" id="closeRewardBtn">继续学习</button>
+    </div>
+  </div>
+
+  <script src="practice.js"></script>
+</body>
+</html>

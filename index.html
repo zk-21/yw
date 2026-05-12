@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>小学语文学习平台 - 知识导航</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* 欢迎横幅 */
+    .welcome-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px 5vw;
+      text-align: center;
+    }
+    .welcome-banner h2 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    .welcome-banner p {
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    .welcome-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: white;
+      color: #667eea;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+    .welcome-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    /* 年级提优路线表 */
+    .grade-roadmap {
+      padding: 40px 5vw;
+      background: #f7f8fb;
+    }
+    .grade-roadmap h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .roadmap-table {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .roadmap-table th, .roadmap-table td {
+      padding: 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    .roadmap-table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: bold;
+    }
+    .roadmap-table tr:last-child td {
+      border-bottom: none;
+    }
+    .roadmap-table tr:hover {
+      background: #f9f9f9;
+    }
+    
+    /* 学习路线图 */
+    .learning-path {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 40px 5vw;
+      background: #fff;
+      overflow-x: auto;
+    }
+    .path-item {
+      text-align: center;
+      min-width: 120px;
+    }
+    .path-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 auto 10px;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      transition: transform 0.3s;
+    }
+    .path-item:hover .path-circle {
+      transform: scale(1.1);
+    }
+    .path-label {
+      font-size: 14px;
+      color: #666;
+    }
+    .path-arrow {
+      font-size: 24px;
+      color: #ccc;
+    }
+    
+    /* 快速开始模块 */
+    .quick-start {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 5vw 40px;
+    }
+    .quick-card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .quick-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+    .quick-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .quick-icon.blue { background: #e3f2fd; }
+    .quick-icon.green { background: #e8f5e9; }
+    .quick-icon.yellow { background: #fff8e1; }
+    .quick-icon.purple { background: #f3e5f5; }
+    .quick-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+    .quick-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #999;
+    }
+    
+    /* 学习小贴士 */
+    .tips-section {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      padding: 40px 5vw;
+    }
+    .tips-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .tip-card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      display: flex;
+      gap: 15px;
+    }
+    .tip-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fcb69f, #ffecd2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .tip-content h4 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+    }
+    .tip-content p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    /* 动画效果 */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* 脉冲动画 */
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+      50% { box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6); }
+    }
+    .pulse-animation {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    /* 进度条动画 */
+    @keyframes progress {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+    
+    /* 交互提示 */
+    .hover-hint {
+      position: relative;
+    }
+    .hover-hint::after {
+      content: '点击进入';
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    .hover-hint:hover::after {
+      opacity: 1;
+    }
+    
+    /* 今日学习进度 */
+    .progress-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 30px;
+      color: white;
+      text-align: center;
+      margin: 30px 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .progress-title {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+    .progress-percent {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .progress-bar-container {
+      height: 10px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: white;
+      border-radius: 5px;
+      animation: progress 2s ease-out forwards;
+    }
+    .progress-stats {
+      display: flex;
+      justify-content: space-around;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    
+    @media (max-width: 768px) {
+      .learning-path {
+        justify-content: flex-start;
+      }
+      .path-arrow {
+        display: none;
+      }
+      .progress-card {
+        margin: 20px 20px;
+        padding: 20px;
+      }
+      .progress-percent {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="回到首页">
+      <span class="brand-mark">文</span>
+      <span>语文成长地图</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a class="active" href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <!-- 欢迎横幅 -->
+  <div class="welcome-banner">
+    <h2>&#127775; 欢迎来到语文学习乐园！</h2>
+    <p>在这里，你可以学习词语、练习句式、阅读短文、背诵古诗</p>
+    <a href="vocabulary.html" class="welcome-btn">开始学习词语 &#8594;</a>
+  </div>
+
+  <!-- 学习路线图 -->
+  <div class="learning-path">
+    <div class="path-item">
+      <div class="path-circle float-animation">&#127991;<br>识字</div>
+      <p class="path-label">一二年级</p>
+    </div>
+    <span class="path-arrow">&#8594;</span>
+    <div class="path-item">
+      <div class="path-circle float-animation" style="animation-delay: 0.2s;">&#128221;<br>词语</div>
+      <p class="path-label">三年级</p>
+    </div>
+    <span class="path-arrow">&#8594;</span>
+    <div class="path-item">
+      <div class="path-circle float-animation" style="animation-delay: 0.4s;">&#128214;<br>阅读</div>
+      <p class="path-label">四年级</p>
+    </div>
+    <span class="path-arrow">&#8594;</span>
+    <div class="path-item">
+      <div class="path-circle float-animation" style="animation-delay: 0.6s;">&#128378;<br>表达</div>
+      <p class="path-label">五年级</p>
+    </div>
+    <span class="path-arrow">&#8594;</span>
+    <div class="path-item">
+      <div class="path-circle float-animation" style="animation-delay: 0.8s; background: linear-gradient(135deg, #f093fb, #f5576c);">&#127942;<br>成功</div>
+      <p class="path-label">掌握语文</p>
+    </div>
+  </div>
+
+  <!-- 快速开始模块 -->
+  <div class="quick-start">
+    <a href="vocabulary.html" class="quick-card hover-hint">
+      <div class="quick-icon blue">&#128221;</div>
+      <h3>词语学习</h3>
+      <p>点击卡片学习词语释义</p>
+    </a>
+    <a href="practice.html" class="quick-card hover-hint">
+      <div class="quick-icon green">&#10067;</div>
+      <h3>互动练习</h3>
+      <p>句式转换、修辞判断</p>
+    </a>
+    <a href="grade3.html" class="quick-card hover-hint">
+      <div class="quick-icon yellow">&#128214;</div>
+      <h3>三年级知识</h3>
+      <p>打好语文基础</p>
+    </a>
+    <a href="knowledge-map.html" class="quick-card hover-hint">
+      <div class="quick-icon purple">&#128202;</div>
+      <h3>知识图谱</h3>
+      <p>了解语文全貌</p>
+    </a>
+  </div>
+
+  <!-- 今日学习进度 -->
+  <div class="progress-card">
+    <div class="progress-header">
+      <span class="progress-title">&#128190; 今日学习进度</span>
+      <span class="progress-percent" id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progressBar" style="width: 0%;"></div>
+    </div>
+    <div class="progress-stats">
+      <div class="stat-item">
+        <div class="stat-number" id="wordsLearned">0</div>
+        <div class="stat-label">已学词语</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="exercisesDone">0</div>
+        <div class="stat-label">完成练习</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="daysStreak">0</div>
+        <div class="stat-label">连续天数</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 年级提优路线表 -->
+  <div class="grade-roadmap">
+    <h3>📚 年级提优路线表</h3>
+    <table class="roadmap-table">
+      <thead>
+        <tr>
+          <th>年级</th>
+          <th>基础重点</th>
+          <th>提优重点</th>
+          <th>拔高目标</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>三年级</strong></td>
+          <td>字词句、自然段</td>
+          <td>写具体、找中心句</td>
+          <td>能写完整片段</td>
+        </tr>
+        <tr>
+          <td><strong>四年级</strong></td>
+          <td>概括、修辞、描写</td>
+          <td>找依据、析作用</td>
+          <td>阅读答案有层次</td>
+        </tr>
+        <tr>
+          <td><strong>五年级</strong></td>
+          <td>中心、人物、说明文</td>
+          <td>分析主题和结构</td>
+          <td>作文有中心有详略</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="text-align: center; margin-top: 15px; color: #666; font-size: 14px;">
+      <strong>梯度特点：</strong>三年级重表达完整，四年级重阅读依据，五年级重分析深度
+    </p>
+  </div>
+
+  <main>
+    <section class="hero dashboard-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">小学三至五年级</p>
+        <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
+        <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="practice.html">查看今日练习</a>
+          <a class="button ghost" href="#map">浏览知识地图</a>
+        </div>
+      </div>
+      <div class="learning-card" aria-label="今日学习卡片">
+        <div class="card-header">
+          <span>今日 35 分钟</span>
+          <strong>轻量学习</strong>
+        </div>
+        <ol class="timeline">
+          <li><span>08 分钟</span>朗读一段课文，标出停顿</li>
+          <li><span>10 分钟</span>积累 3 个词语并造句</li>
+          <li><span>12 分钟</span>做一篇短阅读</li>
+          <li><span>05 分钟</span>复述文章主要内容</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="map" class="section">
+      <div class="section-title">
+        <p class="eyebrow">知识地图</p>
+        <h2>三步找到孩子当前要补的点</h2>
+      </div>
+      <div class="grade-grid">
+        <a class="grade-panel grade-three" href="grade3.html">
+          <span class="grade-number">3</span>
+          <h3>三年级：从会读到会说</h3>
+          <p>重点建立段落意识、词句积累和观察表达，作文从"写完整"开始。</p>
+          <span class="panel-link">进入三年级</span>
+        </a>
+        <a class="grade-panel grade-four" href="grade4.html">
+          <span class="grade-number">4</span>
+          <h3>四年级：从理解到归纳</h3>
+          <p>训练概括、修辞、人物描写和文章结构，让阅读答案有依据。</p>
+          <span class="panel-link">进入四年级</span>
+        </a>
+        <a class="grade-panel grade-five" href="grade5.html">
+          <span class="grade-number">5</span>
+          <h3>五年级：从积累到表达</h3>
+          <p>加强主题理解、说明方法、文言启蒙和有层次的习作表达。</p>
+          <span class="panel-link">进入五年级</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">能力成长路径</p>
+        <h2>三到五年级语文能力发展路径</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>年级</th><th>一句话目标</th><th>学习重点</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>三年级</td><td>把句子写具体，把一件事说完整</td><td>字词积累、句子训练、自然段理解、基础习作</td></tr>
+              <tr><td>四年级</td><td>读文章会概括，答题能找依据</td><td>概括内容、修辞理解、细节描写、阅读答题</td></tr>
+              <tr><td>五年级</td><td>理解文章主题，表达有结构</td><td>中心思想、人物分析、说明文、文言启蒙、作文结构</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">核心目标</p>
+        <h2>每个年级孩子要逐步做到</h2>
+      </div>
+      <div class="cards-row">
+        <article class="mini-card grade-three">
+          <span class="grade-number">3</span>
+          <h3>三年级</h3>
+          <ul>
+            <li>读懂一段话，能找到中心句</li>
+            <li>写清一件事的时间、地点、人物、经过和结果</li>
+            <li>正确使用逗号、句号、冒号和引号</li>
+          </ul>
+        </article>
+        <article class="mini-card grade-four">
+          <span class="grade-number">4</span>
+          <h3>四年级</h3>
+          <ul>
+            <li>读完文章能概括主要内容</li>
+            <li>回答阅读题时能说出"从哪里看出来"</li>
+            <li>能识别比喻、拟人、排比等修辞手法</li>
+          </ul>
+        </article>
+        <article class="mini-card grade-five">
+          <span class="grade-number">5</span>
+          <h3>五年级</h3>
+          <ul>
+            <li>能理解文章想表达的意思</li>
+            <li>作文有开头、中间、结尾，详略比较清楚</li>
+            <li>能读懂简单说明文和文言文</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">知识总览</p>
+        <h2>各年级必考知识点</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>三年级</th><th>四年级</th><th>五年级</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>字词</td><td>多音字、形近字、近反义词</td><td>词语理解、词语搭配</td><td>词语运用、语境理解</td></tr>
+              <tr><td>句子</td><td>扩句、缩句、标点符号</td><td>把字句、被字句、病句修改</td><td>句子作用、句式变换</td></tr>
+              <tr><td>阅读</td><td>找中心句、找关键词</td><td>概括内容、理解词语、找依据</td><td>中心思想、人物形象、情感变化</td></tr>
+              <tr><td>修辞</td><td>比喻、拟人（认识）</td><td>比喻、拟人、排比、夸张、反问</td><td>修辞赏析、表达效果</td></tr>
+              <tr><td>描写</td><td>观察描写</td><td>动作、语言、神态、心理、环境</td><td>环境作用、人物对比</td></tr>
+              <tr><td>作文</td><td>六要素、观察日记</td><td>详写经过、细节描写</td><td>详略安排、过渡句、点题</td></tr>
+              <tr><td>说明文</td><td>-</td><td>-</td><td>说明方法、说明顺序、准确性</td></tr>
+              <tr><td>文言文</td><td>-</td><td>-</td><td>朗读停顿、注释理解、常见实词</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">家长诊断</p>
+        <h2>怎么判断孩子卡在哪个环节</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>表现</th><th>可能卡点</th><th>可以怎么观察</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>听写常错，作文错别字多</td><td>字词基础</td><td>看孩子是否能读准、写对、会组词</td></tr>
+              <tr><td>阅读题答不全</td><td>阅读理解</td><td>问孩子"答案在文章哪里"</td></tr>
+              <tr><td>作文像流水账</td><td>表达能力</td><td>看是否有具体动作、语言、心理或景物描写</td></tr>
+              <tr><td>会读但说不出意思</td><td>概括能力</td><td>让孩子用一句话说文章讲了什么</td></tr>
+              <tr><td>答案凭感觉</td><td>答题习惯</td><td>让孩子先圈题目关键词，再回原文找依据</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">学习流程</p>
+        <h2>诊断-练习-复盘三步法</h2>
+      </div>
+      <div class="plan-grid">
+        <article class="plan-card">
+          <span class="time-pill">5分钟</span>
+          <h3>诊断</h3>
+          <p>读一段短文，回答2个问题，找出卡点</p>
+        </article>
+        <article class="plan-card">
+          <span class="time-pill">20-30分钟</span>
+          <h3>练习</h3>
+          <p>只练一个薄弱点，例如词语、概括、修辞或作文片段</p>
+        </article>
+        <article class="plan-card">
+          <span class="time-pill">5分钟</span>
+          <h3>复盘</h3>
+          <p>看错在哪里，说出下次怎么改</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">核心能力</p>
+        <h2>每个年级都围绕五条线反复练</h2>
+      </div>
+      <div class="skill-list">
+        <article>
+          <span class="skill-icon">字</span>
+          <h3>字词基础</h3>
+          <p>生字、多音字、近反义词、成语与词语搭配。</p>
+        </article>
+        <article>
+          <span class="skill-icon">句</span>
+          <h3>句段运用</h3>
+          <p>扩句缩句、修辞、病句、过渡句和中心句。</p>
+        </article>
+        <article>
+          <span class="skill-icon">读</span>
+          <h3>阅读理解</h3>
+          <p>概括内容、提取信息、理解人物与体会情感。</p>
+        </article>
+        <article>
+          <span class="skill-icon">写</span>
+          <h3>习作表达</h3>
+          <p>观察、选材、结构、细节描写和修改习惯。</p>
+        </article>
+        <article>
+          <span class="skill-icon">诗</span>
+          <h3>古诗文</h3>
+          <p>背诵默写、关键词理解、画面想象和文言启蒙。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 学习小贴士 -->
+    <section class="tips-section">
+      <h2>&#127891; 学习小贴士</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">&#128214;</div>
+          <div class="tip-content">
+            <h4>每天朗读10分钟</h4>
+            <p>朗读可以帮助你更好地理解和记忆课文内容</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">&#128221;</div>
+          <div class="tip-content">
+            <h4>学习3个新词语</h4>
+            <p>每天积累3个新词语，试着在生活中使用它们</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">&#128172;</div>
+          <div class="tip-content">
+            <h4>大声说出答案</h4>
+            <p>回答问题时大声说出来，可以加深记忆</p>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">&#128564;</div>
+          <div class="tip-content">
+            <h4>劳逸结合</h4>
+            <p>学习30分钟后休息一下，效率更高</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // 页面加载动画
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.grade-panel, .mini-card, .plan-card');
+        cards.forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.transition = 'all 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
+        
+        // 更新进度数据（模拟数据）
+        updateProgress();
+      });
+      
+      // 更新学习进度
+      function updateProgress() {
+        const wordsLearned = 15;
+        const exercisesDone = 8;
+        const daysStreak = 5;
+        const totalProgress = Math.min(Math.round((wordsLearned * 4 + exercisesDone * 6) / 10), 100);
+        
+        document.getElementById('wordsLearned').textContent = wordsLearned;
+        document.getElementById('exercisesDone').textContent = exercisesDone;
+        document.getElementById('daysStreak').textContent = daysStreak;
+        
+        // 动画更新进度条
+        const progressBar = document.getElementById('progressBar');
+        const progressPercent = document.getElementById('progressPercent');
+        
+        let currentWidth = 0;
+        const interval = setInterval(() => {
+          currentWidth += 2;
+          if (currentWidth >= totalProgress) {
+            currentWidth = totalProgress;
+            clearInterval(interval);
+          }
+          progressBar.style.width = currentWidth + '%';
+          progressPercent.textContent = currentWidth + '%';
+        }, 30);
+      }
+      
+      // 年级卡片点击效果
+      document.querySelectorAll('.grade-panel').forEach(panel => {
+        panel.addEventListener('click', () => {
+          panel.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            panel.style.transform = 'scale(1)';
+          }, 100);
+        });
+      });
+      
+      // 路径动画
+      const pathCircles = document.querySelectorAll('.path-circle');
+      pathCircles.forEach((circle, index) => {
+        circle.addEventListener('mouseenter', () => {
+          circle.style.transform = 'scale(1.2)';
+        });
+        circle.addEventListener('mouseleave', () => {
+          circle.style.transform = 'scale(1)';
+        });
+      });
+    </script>
+  </main>
+</body>
+</html>

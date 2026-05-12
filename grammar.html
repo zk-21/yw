@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>语法知识 - 小学语文基础</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .grammar-hero {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      padding: 60px 5vw;
+      text-align: center;
+      color: white;
+    }
+    .grammar-hero h1 {
+      color: white;
+      margin-bottom: 15px;
+    }
+    .grammar-hero p {
+      opacity: 0.9;
+      font-size: 18px;
+    }
+
+    .grade-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 5vw;
+      background: #f7f8fb;
+      flex-wrap: wrap;
+    }
+    .grade-tab {
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: all 0.3s;
+      background: white;
+      color: #666;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .grade-tab.active {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: white;
+    }
+    .grade-tab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .grammar-section {
+      padding: 40px 5vw;
+    }
+    .grammar-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    .grammar-card h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .grammar-card .tip {
+      background: #e8f5e9;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #2e7d32;
+    }
+    .grammar-card .warning {
+      background: #fff3e0;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #e65100;
+    }
+    .example-box {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 10px 0;
+      font-style: italic;
+    }
+    .example-box strong {
+      color: #11998e;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a class="active" href="grammar.html">语法知识</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="grammar-hero">
+      <h1>📚 语法知识</h1>
+      <p>掌握语法规则，让表达更准确、更规范</p>
+    </section>
+
+    <section class="grade-tabs">
+      <button class="grade-tab active" onclick="showGrade('grade3')">三年级</button>
+      <button class="grade-tab" onclick="showGrade('grade4')">四年级</button>
+      <button class="grade-tab" onclick="showGrade('grade5')">五年级</button>
+    </section>
+
+    <!-- 三年级语法 -->
+    <section id="grade3" class="grammar-section">
+      <div class="grammar-card">
+        <h3>🔤 词性认识</h3>
+        <p><strong>名词：</strong>表示人、事物、地点或抽象概念的名称。</p>
+        <div class="example-box"><strong>例子：</strong>学生、书包、学校、快乐</div>
+        <p><strong>动词：</strong>表示动作、行为、心理活动或存在变化。</p>
+        <div class="example-box"><strong>例子：</strong>跑、看、想、有</div>
+        <p><strong>形容词：</strong>表示事物的性质、状态或特征。</p>
+        <div class="example-box"><strong>例子：</strong>美丽、高兴、认真、可爱</div>
+        <div class="tip">💡 小贴士：名词回答"什么"或"谁"，动词回答"做什么"，形容词回答"什么样"</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📝 句子成分</h3>
+        <p><strong>主语：</strong>句子中表示动作的发出者。</p>
+        <div class="example-box"><strong>例子：</strong><span style="color: #e91e63;">小明</span>在读书。</div>
+        <p><strong>谓语：</strong>表示主语的动作或状态。</p>
+        <div class="example-box"><strong>例子：</strong>小明<span style="color: #2196f3;">在读书</span>。</div>
+        <p><strong>宾语：</strong>表示动作的对象。</p>
+        <div class="example-box"><strong>例子：</strong>小明在读<span style="color: #4caf50;">书</span>。</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔄 句式变换</h3>
+        <p><strong>把字句：</strong>主动者 + 把 + 被动者 + 动作</p>
+        <div class="example-box"><strong>例子：</strong>我把作业写完了。</div>
+        <p><strong>被字句：</strong>被动者 + 被 + 主动者 + 动作</p>
+        <div class="example-box"><strong>例子：</strong>作业被我写完了。</div>
+        <div class="warning">⚠️ 注意：把字句和被字句可以互相转换，但意思不变</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>❓ 疑问句与陈述句</h3>
+        <p><strong>陈述句：</strong>用来陈述事实，句末用句号。</p>
+        <div class="example-box"><strong>例子：</strong>今天天气很好。</div>
+        <p><strong>疑问句：</strong>用来提出问题，句末用问号。</p>
+        <div class="example-box"><strong>例子：</strong>今天天气好吗？</div>
+      </div>
+    </section>
+
+    <!-- 四年级语法 -->
+    <section id="grade4" class="grammar-section" style="display: none;">
+      <div class="grammar-card">
+        <h3>🔤 复杂词性</h3>
+        <p><strong>副词：</strong>修饰动词或形容词，表示程度、时间、频率等。</p>
+        <div class="example-box"><strong>例子：</strong>他<strong>非常</strong>高兴地跑过来。</div>
+        <p><strong>介词：</strong>表示时间、地点、方式等，不能单独作谓语。</p>
+        <div class="example-box"><strong>例子：</strong>我在教室里学习。（在、里）</div>
+        <p><strong>连词：</strong>连接词、短语或句子。</p>
+        <div class="example-box"><strong>例子：</strong>小明和小红一起去上学。</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📝 缩句与扩句</h3>
+        <p><strong>缩句：</strong>去掉修饰成分，保留主干（谁+做+什么）。</p>
+        <div class="example-box"><strong>原句：</strong>可爱的小狗在公园里欢快地奔跑。<br><strong>缩句：</strong>小狗奔跑。</div>
+        <p><strong>扩句：</strong>添加修饰成分，让句子更具体生动。</p>
+        <div class="example-box"><strong>原句：</strong>小鸟唱歌。<br><strong>扩句：</strong>美丽的小鸟在树上欢快地唱歌。</div>
+        <div class="tip">💡 缩句技巧："的""地"前面的修饰词都去掉，保留主谓宾</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🎯 修辞手法（续）</h3>
+        <p><strong>排比：</strong>结构相似、意思相关的句子并排使用。</p>
+        <div class="example-box"><strong>例子：</strong>下课了，同学们有的跳绳，有的打球，有的跑步。</div>
+        <p><strong>夸张：</strong>故意夸大或缩小事物的特征。</p>
+        <div class="example-box"><strong>例子：</strong>他饿得能吃下一头牛。</div>
+        <p><strong>反问：</strong>用疑问的形式表达确定的意思。</p>
+        <div class="example-box"><strong>例子：</strong>难道我们不应该好好学习吗？</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📋 修改病句</h3>
+        <p><strong>成分残缺：</strong>缺少主语、谓语或宾语。</p>
+        <div class="example-box"><strong>病句：</strong>在公园里玩。<br><strong>修改：</strong>我在公园里玩。</div>
+        <p><strong>搭配不当：</strong>词语之间搭配不合适。</p>
+        <div class="example-box"><strong>病句：</strong>我穿着漂亮的帽子。<br><strong>修改：</strong>我戴着漂亮的帽子。</div>
+        <p><strong>语序颠倒：</strong>词语顺序不对。</p>
+        <div class="example-box"><strong>病句：</strong>我把书包忘记在家里了。<br><strong>修改：</strong>我忘记把书包放在家里了。</div>
+      </div>
+    </section>
+
+    <!-- 五年级语法 -->
+    <section id="grade5" class="grammar-section" style="display: none;">
+      <div class="grammar-card">
+        <h3>🔤 复句类型</h3>
+        <p><strong>并列复句：</strong>两个或多个分句并列。</p>
+        <div class="example-box"><strong>例子：</strong>小明喜欢画画，小红喜欢唱歌。</div>
+        <p><strong>递进复句：</strong>后一分句意思更进一层。</p>
+        <div class="example-box"><strong>例子：</strong>他不仅学习好，而且乐于助人。</div>
+        <p><strong>转折复句：</strong>后一分句与前一分句意思相反。</p>
+        <div class="example-box"><strong>例子：</strong>虽然天气很冷，但是他还是坚持锻炼。</div>
+        <p><strong>因果复句：</strong>分句之间有因果关系。</p>
+        <div class="example-box"><strong>例子：</strong>因为今天下雨，所以我们取消了户外活动。</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📝 关联词语</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+          <div style="background: #e3f2fd; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #1976d2;">并列关系</p>
+            <p style="font-size: 13px; color: #666;">既...又...、一边...一边...</p>
+          </div>
+          <div style="background: #e8f5e9; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #388e3c;">递进关系</p>
+            <p style="font-size: 13px; color: #666;">不仅...而且...、不但...还...</p>
+          </div>
+          <div style="background: #fff3e0; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #f57c00;">转折关系</p>
+            <p style="font-size: 13px; color: #666;">虽然...但是...、尽管...可是...</p>
+          </div>
+          <div style="background: #fce4ec; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #c2185b;">因果关系</p>
+            <p style="font-size: 13px; color: #666;">因为...所以...、之所以...是因为...</p>
+          </div>
+          <div style="background: #f3e5f5; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #7b1fa2;">假设关系</p>
+            <p style="font-size: 13px; color: #666;">如果...就...、假如...就...</p>
+          </div>
+          <div style="background: #e0f2f1; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #00897b;">条件关系</p>
+            <p style="font-size: 13px; color: #666;">只要...就...、只有...才...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔄 句式变换进阶</h3>
+        <p><strong>肯定句改否定句：</strong>添加否定词，注意双重否定表示肯定。</p>
+        <div class="example-box"><strong>肯定句：</strong>他是好学生。<br><strong>否定句：</strong>他不是坏学生。</div>
+        <p><strong>陈述句改反问句：</strong>添加反问词，句末用问号。</p>
+        <div class="example-box"><strong>陈述句：</strong>我们应该珍惜时间。<br><strong>反问句：</strong>我们难道不应该珍惜时间吗？</div>
+        <p><strong>直接引语变间接引语：</strong>改变人称和标点。</p>
+        <div class="example-box"><strong>直接引语：</strong>妈妈说："我今天不回家吃饭。"<br><strong>间接引语：</strong>妈妈说她今天不回家吃饭。</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🎯 标点符号专项</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #333;">引号 "" ''</p>
+            <p style="font-size: 12px; color: #666;">① 直接引用别人的话<br>② 表示特殊含义<br>③ 表示特定称谓</p>
+          </div>
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #333;">冒号 :</p>
+            <p style="font-size: 12px; color: #666;">① 提示下文<br>② 总结上文<br>③ 用在称呼后面</p>
+          </div>
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #333;">分号 ;</p>
+            <p style="font-size: 12px; color: #666;">① 分隔并列分句<br>② 分隔并列的长句</p>
+          </div>
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #333;">破折号 ——</p>
+            <p style="font-size: 12px; color: #666;">① 解释说明<br>② 表示转折<br>③ 表示声音延长</p>
+          </div>
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #333;">省略号 ...</p>
+            <p style="font-size: 12px; color: #666;">① 省略内容<br>② 表示说话断断续续<br>③ 表示语意未尽</p>
+          </div>
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #333;">书名号 《》</p>
+            <p style="font-size: 12px; color: #666;">① 书籍、文章名称<br>② 影视作品名称<br>③ 歌曲名称</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showGrade(grade) {
+      document.querySelectorAll('.grade-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.grammar-section').forEach(section => section.style.display = 'none');
+      
+      event.target.classList.add('active');
+      document.getElementById(grade).style.display = 'block';
+    }
+  </script>
+</body>
+</html>
