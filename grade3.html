@@ -8,7 +8,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
@@ -249,6 +249,64 @@
 
     <section class="section">
       <div class="section-title">
+        <p class="eyebrow">古诗文入门</p>
+        <h2>三年级古诗重点：读懂画面，体会简单情感</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>古诗学习四步</h3>
+          <div class="routine">
+            <p><strong>读准：</strong>读准字音，不添字、不漏字。</p>
+            <p><strong>找景物：</strong>诗里写了月亮、山水、花草、鸟、雨、雪等什么景物。</p>
+            <p><strong>想画面：</strong>闭上眼睛想一想诗句描写的景象。</p>
+            <p><strong>说情感：</strong>诗人是喜爱、思念、赞美，还是舍不得。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>常见诗人情感</h3>
+          <div class="routine">
+            <p><strong>思乡：</strong>看到月亮，想起家乡和亲人。</p>
+            <p><strong>喜爱自然：</strong>看到春天、花草、鸟鸣，心里高兴。</p>
+            <p><strong>赞美景物：</strong>写山水、田园、季节之美。</p>
+            <p><strong>惜别：</strong>送朋友离开，心里舍不得。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card">
+        <h2>古诗情感答题示例</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题方法</th><th>示例答案</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>这句诗写了什么画面？</td><td>景物 + 样子</td><td>写了月光洒在床前，好像地上结了一层霜的画面。</td></tr>
+              <tr><td>表达了什么情感？</td><td>画面 + 情感</td><td>诗人看到明月，想起家乡，表达了思念家乡的感情。</td></tr>
+              <tr><td>你喜欢哪句？为什么？</td><td>喜欢的句子 + 画面 + 感受</td><td>我喜欢“小荷才露尖尖角”，因为它写出了荷叶刚长出来时可爱的样子。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card">
+        <h2>诗人怎样表达情感</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>表达方式</th><th>孩子要看什么</th><th>例子</th><th>表达的情感</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>借景表达</td><td>看诗里写了什么景物</td><td>明月、春风、花、鸟、雨</td><td>思乡、喜爱自然、赞美春天</td></tr>
+              <tr><td>借动作表达</td><td>看诗人做了什么</td><td>举头、低头、望、送、看</td><td>思念、舍不得、留恋</td></tr>
+              <tr><td>借画面表达</td><td>把诗句想成一幅图</td><td>小荷刚露出尖尖角</td><td>喜爱新生事物、赞美自然</td></tr>
+              <tr><td>借关键词表达</td><td>圈出最能表现心情的词</td><td>思、愁、喜、怜、惜</td><td>直接点出诗人的感受</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
         <p class="eyebrow">每周训练</p>
         <h2>三年级训练要短、准、反复</h2>
       </div>
@@ -272,5 +330,6 @@
       </div>
     </section>
   </main>
+<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
 </body>
 </html>

@@ -547,7 +547,304 @@
       color: #333;
     }
 
+    /* 诊断测评区域样式 */
+    .diagnosis-area {
+      padding: 50px 5vw;
+      background: #f7f8fb;
+    }
+    .diagnosis-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .diagnosis-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .diagnosis-header h2 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .diagnosis-header p {
+      font-size: 16px;
+      color: #666;
+    }
+    .diagnosis-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .intro-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .intro-card h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .intro-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .intro-card li {
+      padding: 8px 0;
+      color: #555;
+      font-size: 14px;
+    }
+    .start-diagnosis-btn {
+      grid-column: 1 / -1;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    .start-diagnosis-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* 测评题目样式 */
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      font-size: 14px;
+      color: #666;
+      white-space: nowrap;
+    }
+    .question-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+    .question-type {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e3f2fd;
+      color: #667eea;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .question-text {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .question-options {
+      display: grid;
+      gap: 12px;
+    }
+    .option-btn {
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.3s;
+      font-size: 15px;
+      color: #333;
+    }
+    .option-btn:hover {
+      border-color: #667eea;
+      background: #f0f0ff;
+    }
+    .option-btn.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    .quiz-btn {
+      padding: 12px 30px;
+      border: 2px solid #667eea;
+      background: white;
+      color: #667eea;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .quiz-btn:hover {
+      background: #f0f0ff;
+    }
+    .quiz-btn.primary {
+      background: #667eea;
+      color: white;
+    }
+    .quiz-btn.primary:hover {
+      background: #5a6fd6;
+    }
+    .quiz-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* 测评结果样式 */
+    .result-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .result-header h2 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .result-summary {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .score-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .score-number {
+      font-size: 48px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .score-label {
+      font-size: 14px;
+      color: #666;
+    }
+    .skill-scores {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .skill-item:last-child {
+      border-bottom: none;
+    }
+    .skill-name {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+    .skill-bar {
+      width: 60%;
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+    .skill-fill.good {
+      background: #4caf50;
+    }
+    .skill-fill.medium {
+      background: #ff9800;
+    }
+    .skill-fill.weak {
+      background: #f44336;
+    }
+    .skill-score {
+      font-size: 14px;
+      color: #666;
+      width: 60px;
+      text-align: right;
+    }
+    .suggestions {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+    .suggestions h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .suggestion-item {
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+    .suggestion-item:last-child {
+      margin-bottom: 0;
+    }
+    .suggestion-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .suggestion-text {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .result-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
     @media (max-width: 768px) {
+      .diagnosis-intro {
+        grid-template-columns: 1fr;
+      }
+      .result-summary {
+        grid-template-columns: 1fr;
+      }
+      .skill-bar {
+        width: 50%;
+      }
       .rhetoric-buttons {
         flex-direction: column;
       }
@@ -565,7 +862,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
@@ -577,6 +874,78 @@
       <a href="vocabulary.html">词语学习</a>
     </nav>
   </header>
+
+  <!-- 入门诊断测评区域 -->
+  <section class="diagnosis-area" id="diagnosis">
+    <div class="diagnosis-container">
+      <div class="diagnosis-header">
+        <h2>🔍 入门诊断测评</h2>
+        <p>通过15分钟的测评，快速了解孩子的语文薄弱环节</p>
+      </div>
+      
+      <!-- 诊断说明 -->
+      <div class="diagnosis-intro" id="diagnosisIntro">
+        <div class="intro-card">
+          <h3>测评说明</h3>
+          <ul>
+            <li>📝 测评包含15道题目，覆盖字词、阅读、写作三个方面</li>
+            <li>⏱️ 建议用时：15分钟</li>
+            <li>🎯 测评完成后将生成个性化学习建议</li>
+          </ul>
+        </div>
+        <div class="intro-card">
+          <h3>测评内容</h3>
+          <ul>
+            <li>字词基础（5题）：考察词语理解和运用</li>
+            <li>阅读理解（5题）：考察概括、分析能力</li>
+            <li>写作表达（5题）：考察表达和修辞能力</li>
+          </ul>
+        </div>
+        <button class="start-diagnosis-btn" onclick="startDiagnosis()">开始诊断测评</button>
+      </div>
+      
+      <!-- 诊断测评题目 -->
+      <div class="diagnosis-quiz" id="diagnosisQuiz" style="display: none;">
+        <div class="quiz-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="quizProgress" style="width: 0%"></div>
+          </div>
+          <span class="progress-text">题目 <span id="currentQ">1</span>/15</span>
+        </div>
+        
+        <div class="question-card" id="questionCard"></div>
+        
+        <div class="quiz-nav">
+          <button class="quiz-btn" id="prevBtn" onclick="prevQuestion()" style="display: none;">上一题</button>
+          <button class="quiz-btn primary" id="nextBtn" onclick="nextQuestion()">下一题</button>
+          <button class="quiz-btn primary" id="submitBtn" onclick="submitDiagnosis()" style="display: none;">提交测评</button>
+        </div>
+      </div>
+      
+      <!-- 诊断结果 -->
+      <div class="diagnosis-result" id="diagnosisResult" style="display: none;">
+        <div class="result-header">
+          <h2>📊 测评结果分析</h2>
+          <p>根据您的答题情况，为您生成以下学习建议</p>
+        </div>
+        
+        <div class="result-summary">
+          <div class="score-card">
+            <div class="score-number" id="totalScore">0</div>
+            <div class="score-label">总得分</div>
+          </div>
+          <div class="skill-scores" id="skillScores"></div>
+        </div>
+        
+        <div class="suggestions" id="suggestions"></div>
+        
+        <div class="result-actions">
+          <button class="quiz-btn" onclick="resetDiagnosis()">重新测评</button>
+          <button class="quiz-btn primary" onclick="goToPractice()">开始针对性练习</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- 互动练习区域 -->
   <section class="interactive-practice">
@@ -676,8 +1045,23 @@
 
   <!-- 错题本 -->
   <section class="section" style="background: #f7f8fb;">
-    <div class="wrong-notebook" style="max-width: 800px; margin: 0 auto;">
+    <div class="wrong-notebook" style="max-width: 900px; margin: 0 auto;">
       <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button></h3>
+      
+      <!-- 错题分析 -->
+      <div id="wrongAnalysis" style="display: none; background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e0e0e0;">
+        <h4 style="margin-top: 0; color: #667eea;">📊 错题分析</h4>
+        <div id="wrongStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;"></div>
+        <div id="wrongSuggestions" style="padding: 15px; background: #f0f4ff; border-radius: 8px;"></div>
+      </div>
+      
+      <!-- 分类筛选 -->
+      <div id="wrongFilter" style="display: none; margin-bottom: 15px;">
+        <span style="margin-right: 10px; color: #666;">分类筛选：</span>
+        <button class="filter-btn active" onclick="filterWrong('all')" style="padding: 8px 16px; margin-right: 8px; border: 1px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer;">全部</button>
+        <div id="filterButtons"></div>
+      </div>
+      
       <div id="wrongList">
         <!-- 错题列表由JS生成 -->
         <p style="color: #666; text-align: center; padding: 20px;">暂无错题，继续加油！</p>
@@ -825,67 +1209,139 @@
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">作文训练</p>
-        <h2>分层作文练习</h2>
+        <h2>分层作文训练</h2>
+        <p style="font-size: 16px; color: #666; margin-top: 10px;">按年级循序渐进，从基础到提高</p>
+      </div>
+      
+      <!-- 年级选择 -->
+      <div style="text-align: center; margin-bottom: 30px;">
+        <button class="grade-filter-btn active" onclick="filterWriting(3)" style="padding: 10px 25px; margin: 0 10px; border: 2px solid #667eea; background: #667eea; color: white; border-radius: 25px; cursor: pointer; font-size: 16px;">三年级</button>
+        <button class="grade-filter-btn" onclick="filterWriting(4)" style="padding: 10px 25px; margin: 0 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 25px; cursor: pointer; font-size: 16px;">四年级</button>
+        <button class="grade-filter-btn" onclick="filterWriting(5)" style="padding: 10px 25px; margin: 0 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 25px; cursor: pointer; font-size: 16px;">五年级</button>
       </div>
 
-      <div class="content-grid">
-        <article class="study-block">
-          <h3>片段扩写训练</h3>
-          <div class="routine">
-            <p><strong>基础题：</strong>妈妈做饭。</p>
-            <p><strong>提优题：</strong>妈妈在厨房里做饭，香喷喷的饭菜味道飘满了整个屋子。</p>
-            <p><strong>拔高题：</strong>妈妈系着围裙，在厨房里忙碌着。锅里的菜发出滋滋的响声，金黄色的香气弥漫开来，让人垂涎欲滴。</p>
-          </div>
-        </article>
-        <article class="study-block accent">
-          <h3>句子润色训练</h3>
-          <div class="routine">
-            <p><strong>原句：</strong>我很开心。</p>
-            <p><strong>润色后：</strong>我的心里像吃了蜜一样甜，嘴角忍不住向上扬。</p>
-            <p><strong>技巧：</strong>用比喻和动作描写代替直接表达心情</p>
-          </div>
-        </article>
+      <!-- 三年级训练 -->
+      <div id="writing-grade-3" class="writing-content">
+        <div class="content-grid">
+          <article class="study-block">
+            <h3>🏆 三年级重点：把句子写具体</h3>
+            <div class="routine">
+              <p><strong>训练目标：</strong>写清时间、地点、人物、事情</p>
+              <p><strong>基础题：</strong>妈妈做饭。</p>
+              <p><strong>提优题：</strong>晚上，妈妈在厨房里做饭。</p>
+              <p><strong>拔高题：</strong>晚上，勤劳的妈妈在厨房里认真地做饭。</p>
+            </div>
+          </article>
+          <article class="study-block accent">
+            <h3>📝 三年级重点：把事情写完整</h3>
+            <div class="routine">
+              <p><strong>训练目标：</strong>学会六要素（时间、地点、人物、起因、经过、结果）</p>
+              <p><strong>例文：</strong>今天（时间），我和小明（人物）在公园里（地点）玩。因为我们比赛跑步（起因），结果我赢了（结果）。</p>
+              <p><strong>技巧：</strong>问自己"什么时候？谁？在哪里？为什么？做了什么？结果怎样？"</p>
+            </div>
+          </article>
+        </div>
+        
+        <div class="content-grid">
+          <article class="study-block">
+            <h3>✏️ 片段扩写训练</h3>
+            <div class="routine">
+              <p><strong>原句：</strong>小鸟飞。</p>
+              <p><strong>扩写1（基础）：</strong>一只小鸟在天上飞。</p>
+              <p><strong>扩写2（提高）：</strong>一只美丽的小鸟在蓝天上快乐地飞。</p>
+              <p><strong>扩写3（拔高）：</strong>早上，一只美丽的小鸟在蓝天上快乐地飞来飞去，唱着动听的歌。</p>
+            </div>
+          </article>
+          <article class="study-block accent">
+            <h3>📖 写作小课堂</h3>
+            <div class="routine">
+              <p><strong>技巧1：</strong>加上形容词，让事物更具体</p>
+              <p><strong>技巧2：</strong>加上时间、地点，让场景更清晰</p>
+              <p><strong>技巧3：</strong>加上动作、表情，让人物更生动</p>
+            </div>
+          </article>
+        </div>
       </div>
-
-      <div class="content-grid">
-        <article class="study-block">
-          <h3>开头结尾改写</h3>
-          <div class="routine">
-            <p><strong>普通开头：</strong>今天我去了公园。</p>
-            <p><strong>精彩开头：</strong>阳光明媚的周末，我和小伙伴们兴高采烈地来到了美丽的公园。</p>
-            <p><strong>普通结尾：</strong>今天玩得很开心。</p>
-            <p><strong>精彩结尾：</strong>夕阳西下，我们依依不舍地离开了公园，今天的快乐时光将永远留在我的记忆里。</p>
-          </div>
-        </article>
-        <article class="study-block accent">
-          <h3>审题立意训练</h3>
-          <div class="routine">
-            <p><strong>题目：</strong>一件难忘的事</p>
-            <p><strong>立意1：</strong>通过这件事，我学会了勇敢</p>
-            <p><strong>立意2：</strong>这件事让我感受到了友情的珍贵</p>
-            <p><strong>立意3：</strong>从这件事中，我明白了坚持就是胜利</p>
-          </div>
-        </article>
+      
+      <!-- 四年级训练 -->
+      <div id="writing-grade-4" class="writing-content" style="display: none;">
+        <div class="content-grid">
+          <article class="study-block">
+            <h3>🏆 四年级重点：把过程写生动</h3>
+            <div class="routine">
+              <p><strong>训练目标：</strong>加入动作、语言、心理描写</p>
+              <p><strong>原句：</strong>我很着急。</p>
+              <p><strong>改写后：</strong>我急得直跺脚，嘴里念叨着："怎么办？怎么办？"心里像揣了只小兔子，怦怦直跳。</p>
+            </div>
+          </article>
+          <article class="study-block accent">
+            <h3>🎭 细节描写训练</h3>
+            <div class="routine">
+              <p><strong>动作描写：</strong>他迅速地跑过去，一把抓住了快要掉下来的杯子。</p>
+              <p><strong>语言描写：</strong>"小心！"他大声喊道，"别碰那个！"</p>
+              <p><strong>心理描写：</strong>我心想：要是能考一百分，妈妈一定会很高兴的。</p>
+            </div>
+          </article>
+        </div>
+        
+        <div class="content-grid">
+          <article class="study-block">
+            <h3>🌿 环境描写训练</h3>
+            <div class="routine">
+              <p><strong>描写心情的环境：</strong>阳光明媚，小鸟在枝头唱歌，我的心情也格外好。</p>
+              <p><strong>渲染气氛的环境：</strong>天空阴沉沉的，冷风呼呼地吹，让人感到有些害怕。</p>
+            </div>
+          </article>
+          <article class="study-block accent">
+            <h3>📝 句子润色训练</h3>
+            <div class="routine">
+              <p><strong>原句：</strong>我很开心。</p>
+              <p><strong>润色后：</strong>我的心里像吃了蜜一样甜，嘴角忍不住向上扬。</p>
+              <p><strong>技巧：</strong>用比喻和动作描写代替直接表达心情</p>
+            </div>
+          </article>
+        </div>
       </div>
-
-      <div class="content-grid">
-        <article class="study-block">
-          <h3>作文四步法</h3>
-          <div class="routine">
-            <p><strong>第一步：列提纲</strong>（开头、中间、结尾）</p>
-            <p><strong>第二步：找素材</strong>（选一件具体的事）</p>
-            <p><strong>第三步：写片段</strong>（重点部分详细写）</p>
-            <p><strong>第四步：连成篇</strong>（加上开头结尾）</p>
-          </div>
-        </article>
-        <article class="study-block accent">
-          <h3>详略安排技巧</h3>
-          <div class="routine">
-            <p><strong>详写：</strong>事情的经过、人物的动作和对话</p>
-            <p><strong>略写：</strong>事情的起因、结果、环境描写</p>
-            <p><strong>原则：</strong>重点突出，主次分明</p>
-          </div>
-        </article>
+      
+      <!-- 五年级训练 -->
+      <div id="writing-grade-5" class="writing-content" style="display: none;">
+        <div class="content-grid">
+          <article class="study-block">
+            <h3>🏆 五年级重点：围绕中心选材</h3>
+            <div class="routine">
+              <p><strong>训练目标：</strong>围绕一个中心，选择合适的材料，详略得当</p>
+              <p><strong>题目示例：</strong>一件难忘的事</p>
+              <p><strong>立意选择：</strong>通过这件事，我学会了勇敢/友情/坚持</p>
+            </div>
+          </article>
+          <article class="study-block accent">
+            <h3>⚖️ 详略安排技巧</h3>
+            <div class="routine">
+              <p><strong>详写（重点部分）：</strong>事情的经过、人物的动作和对话</p>
+              <p><strong>略写（次要部分）：</strong>事情的起因、结果、一般的环境描写</p>
+              <p><strong>原则：</strong>与中心有关的详写，与中心关系不大的略写</p>
+            </div>
+          </article>
+        </div>
+        
+        <div class="content-grid">
+          <article class="study-block">
+            <h3>🔄 开头结尾训练</h3>
+            <div class="routine">
+              <p><strong>精彩开头：</strong>往事像一颗颗珍珠，串起了我美好的童年，其中最闪亮的一颗，让我至今难忘。</p>
+              <p><strong>精彩结尾：</strong>这件事虽然过去很久了，但它深深印在我的脑海里，时刻提醒着我……</p>
+            </div>
+          </article>
+          <article class="study-block accent">
+            <h3>💡 立意提升训练</h3>
+            <div class="routine">
+              <p><strong>题目：</strong>蚂蚁搬食物</p>
+              <p><strong>立意1（基础）：</strong>蚂蚁真勤劳</p>
+              <p><strong>立意2（提高）：</strong>团结就是力量</p>
+              <p><strong>立意3（拔高）：</strong>小小的蚂蚁让我明白了，只要坚持，就能成功</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1058,5 +1514,6 @@
   </div>
 
   <script src="practice.js"></script>
+<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
 </body>
 </html>

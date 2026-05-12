@@ -462,12 +462,15 @@ h3 {
 
 .responsive-table {
   overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
 table {
   width: 100%;
-  min-width: 680px;
+  min-width: 500px;
   border-collapse: collapse;
+  background: white;
 }
 
 th,
@@ -475,11 +478,19 @@ td {
   padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid var(--line);
+  white-space: nowrap;
 }
 
 th {
   color: #2b3a4d;
   background: #edf2f6;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+td {
+  font-size: 14px;
+  color: #444;
 }
 
 .cards-row,
@@ -691,5 +702,397 @@ th {
   /* 卡片标题字号 */
   .section h3 {
     font-size: 20px !important;
+  }
+}
+
+/* ===== 汉堡菜单 - 移动端导航 ===== */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 2px 8px;
+  line-height: 1;
+  color: var(--ink);
+  user-select: none;
+  margin-left: auto;
+  z-index: 20;
+}
+
+@media (max-width: 900px) {
+  .hamburger { display: block; }
+  .topbar { position: relative; }
+  .topbar .nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    margin-top: 10px;
+  }
+  .topbar.nav-visible .nav { display: flex; }
+  .topbar .nav a {
+    padding: 12px 16px;
+    font-size: 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .topbar .nav a:last-child { border-bottom: none; }
+}
+
+/* ===== 知识图谱页面 ===== */
+.graph-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  align-items: center;
+}
+.graph-center {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.graph-center span {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+.graph-lanes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.graph-lane {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.graph-lane h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #eee;
+}
+.lane-blue h2 { color: #1976d2; }
+.lane-green h2 { color: #388e3c; }
+.lane-yellow h2 { color: #f57c00; }
+.lane-rose h2 { color: #e91e63; }
+.lane-purple h2 { color: #7b1fa2; }
+.lane-gray h2 { color: #607d8b; }
+.graph-lane a {
+  display: block;
+  padding: 6px 0;
+  color: #666;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.graph-lane a:hover { color: #333; }
+
+.stage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.stage-grid article {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.stage-grid h3 {
+  color: #667eea;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.stage-grid p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.atlas-section {
+  border-top: 1px solid #eee;
+}
+.atlas-section.alt-bg {
+  background: #f7f8fb;
+}
+.atlas-title {
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+.atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.atlas-grid article {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.atlas-grid h3 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.atlas-grid p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.atlas-grid strong {
+  color: #667eea;
+  font-size: 13px;
+}
+.atlas-grid span {
+  color: #555;
+  font-size: 13px;
+}
+
+/* ===== 知识图谱响应式 ===== */
+@media (max-width: 900px) {
+  .graph-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .graph-center {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+  }
+  .graph-center span { font-size: 18px; }
+  .graph-lanes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .atlas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .graph-lanes {
+    grid-template-columns: 1fr;
+  }
+  .stage-grid {
+    grid-template-columns: 1fr;
+  }
+  .graph-lane {
+    padding: 16px;
+  }
+  .stage-grid article {
+    padding: 18px;
+  }
+  .atlas-grid article {
+    padding: 16px;
+  }
+}
+
+/* ===== 语法页面响应式 ===== */
+@media (max-width: 768px) {
+  .grammar-hero {
+    padding: 40px 5vw !important;
+  }
+  .grammar-hero h1 {
+    font-size: 24px !important;
+  }
+  .grammar-card {
+    padding: 18px !important;
+  }
+  .grammar-card h3 {
+    font-size: 16px !important;
+  }
+  .example-box {
+    font-size: 14px !important;
+    padding: 12px !important;
+  }
+  .grammar-card .tip,
+  .grammar-card .warning {
+    font-size: 14px !important;
+    padding: 10px !important;
+  }
+}
+
+/* ===== 词汇页面响应式改进 ===== */
+@media (max-width: 768px) {
+  .section-card {
+    padding: 18px !important;
+  }
+  .section-card h3 {
+    font-size: 16px !important;
+  }
+  .word-tag {
+    padding: 8px 14px !important;
+  }
+  .word-tag .word-text {
+    font-size: 13px !important;
+  }
+  .word-tag .word-pinyin {
+    font-size: 11px !important;
+  }
+  .flashcard-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    gap: 16px !important;
+    padding: 0 15px !important;
+  }
+  .category-tab {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+  }
+  .quiz-card {
+    margin: 0 15px !important;
+    padding: 20px !important;
+  }
+  .quiz-question {
+    font-size: 17px !important;
+  }
+  .achievement-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .achievement-item {
+    width: 100%;
+    text-align: center;
+  }
+  .search-input {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+  .search-btn {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}
+
+/* ===== 练习页面响应式改进 ===== */
+@media (max-width: 768px) {
+  .interactive-practice,
+  .thinking-section,
+  .checkin-section {
+    padding: 30px 4vw !important;
+  }
+  .practice-container {
+    padding: 0 10px;
+  }
+  .sentence-transform,
+  .rhetoric-card,
+  .fill-card,
+  .reading-card,
+  .word-select-card,
+  .thinking-card {
+    padding: 20px !important;
+  }
+  .sentence-question {
+    font-size: 16px !important;
+    padding: 12px !important;
+  }
+  .transform-btn {
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+  }
+  .thinking-title {
+    font-size: 16px !important;
+  }
+  .thinking-opt {
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+  }
+  .thinking-explanation {
+    font-size: 13px !important;
+    padding: 12px !important;
+  }
+}
+
+/* ===== 拼音页面响应式 ===== */
+@media (max-width: 768px) {
+  .pinyin-hero {
+    padding: 40px 5vw !important;
+  }
+  .pinyin-hero h1 {
+    font-size: 24px !important;
+  }
+  .pinyin-section {
+    padding: 30px 4vw !important;
+  }
+  .pinyin-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .pinyin-card {
+    padding: 20px !important;
+  }
+  .pinyin-table {
+    grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)) !important;
+    gap: 6px !important;
+  }
+  .pinyin-item {
+    padding: 10px 6px !important;
+    font-size: 15px !important;
+  }
+  .tone-btn {
+    width: 64px !important;
+    height: 64px !important;
+    font-size: 18px !important;
+  }
+  .tone-display {
+    font-size: 72px !important;
+  }
+}
+
+/* ===== 三年级/四年级/五年级页面响应式 ===== */
+@media (max-width: 768px) {
+  .page-head {
+    padding: 50px 5vw 40px !important;
+  }
+  .page-head h1 {
+    font-size: 22px !important;
+  }
+  .page-head p:last-child {
+    font-size: 16px !important;
+  }
+  .study-block {
+    padding: 18px !important;
+  }
+  .check-list li {
+    font-size: 14px !important;
+  }
+  .routine p {
+    padding: 12px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* ===== index 页面响应式改进 ===== */
+@media (max-width: 768px) {
+  .welcome-banner {
+    padding: 24px 4vw !important;
+  }
+  .welcome-banner h2 {
+    font-size: 20px !important;
+  }
+  .welcome-btn {
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+  }
+  .learning-card {
+    padding: 18px !important;
+  }
+  .card-header {
+    flex-direction: column;
+    gap: 6px;
   }
 }

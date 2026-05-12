@@ -6,7 +6,9 @@ const transformData = [
     sentence: '小明打死了蚊子。',
     options: ['蚊子被小明打死了。', '蚊子打了小明。', '小明被蚊子打死了。', '蚊子是小明打死的。'],
     answer: 0,
-    level: 'easy'
+    level: 'easy',
+    explanation: '把字句改被字句的方法是：将动作的承受者（蚊子）放到前面，加上"被"字，再加上动作的发出者（小明）。',
+    mistakeReason: '容易把施动者和受动者弄反。被字句的结构是"受动者+被+施动者+动作"。'
   },
   {
     type: '被字句',
@@ -1161,24 +1163,115 @@ function clearWrongAnswers() {
   }
 }
 
+// 当前筛选类型
+let currentFilter = 'all';
+
 function renderWrongList() {
   const wrongList = getWrongAnswers();
   const container = document.getElementById('wrongList');
+  const analysisDiv = document.getElementById('wrongAnalysis');
+  const filterDiv = document.getElementById('wrongFilter');
   
   if (wrongList.length === 0) {
     container.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">暂无错题，继续加油！</p>';
+    analysisDiv.style.display = 'none';
+    filterDiv.style.display = 'none';
     return;
   }
   
-  container.innerHTML = wrongList.map((item, index) => `
+  // 显示分析和筛选
+  analysisDiv.style.display = 'block';
+  filterDiv.style.display = 'block';
+  
+  // 按类型统计错题
+  const typeStats = {};
+  wrongList.forEach(item => {
+    const type = item.type || '其他';
+    typeStats[type] = (typeStats[type] || 0) + 1;
+  });
+  
+  // 生成统计数据
+  const statsDiv = document.getElementById('wrongStats');
+  let statsHTML = '';
+  for (const [type, count] of Object.entries(typeStats)) {
+    statsHTML += `
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: bold; color: #667eea;">${count}</div>
+        <div style="font-size: 14px; color: #666;">${type}</div>
+      </div>
+    `;
+  }
+  statsDiv.innerHTML = statsHTML;
+  
+  // 生成复习建议
+  const suggestionsDiv = document.getElementById('wrongSuggestions');
+  let suggestionsHTML = '<strong>💡 复习建议：</strong><ul style="margin: 10px 0 0 20px;">';
+  for (const [type, count] of Object.entries(typeStats)) {
+    if (count >= 3) {
+      suggestionsHTML += `<li>你在${type}方面错题较多，建议重点复习这部分内容。</li>`;
+    }
+  }
+  suggestionsHTML += '<li>定期回顾错题，巩固薄弱知识点。</li>';
+  suggestionsHTML += '</ul>';
+  suggestionsDiv.innerHTML = suggestionsHTML;
+  
+  // 生成筛选按钮
+  const filterButtonsDiv = document.getElementById('filterButtons');
+  let filterButtonsHTML = '';
+  for (const type of Object.keys(typeStats)) {
+    filterButtonsHTML += `
+      <button class="filter-btn" onclick="filterWrong('${type}')" 
+              style="padding: 8px 16px; margin-right: 8px; border: 1px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer;">
+        ${type}
+      </button>
+    `;
+  }
+  filterButtonsDiv.innerHTML = filterButtonsHTML;
+  
+  // 根据筛选显示错题
+  let filteredList = wrongList;
+  if (currentFilter !== 'all') {
+    filteredList = wrongList.filter(item => item.type === currentFilter);
+  }
+  
+  container.innerHTML = filteredList.map((item, index) => `
     <div class="wrong-item">
       <div class="wrong-question">${index + 1}. ${item.question}</div>
       <div class="wrong-answer">我的答案：${item.userAnswer}</div>
       <div class="correct-answer">正确答案：${item.correctAnswer}</div>
       ${item.tip ? `<div class="wrong-tip">提示：${item.tip}</div>` : ''}
-      <button class="retry-btn" onclick="retryWrong(${index})">再练一次</button>
+      <div style="margin-top: 10px;">
+        <button class="retry-btn" onclick="retryWrong(${wrongList.indexOf(item)})">再练一次</button>
+        <button class="retry-btn" onclick="removeWrong(${wrongList.indexOf(item)})" style="background: #f44336; margin-left: 10px;">移除</button>
+      </div>
     </div>
   `).join('');
+}
+
+// 筛选错题
+function filterWrong(type) {
+  currentFilter = type;
+  
+  // 更新按钮状态
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.background = 'white';
+    btn.style.color = '#667eea';
+  });
+  
+  event.target.classList.add('active');
+  event.target.style.background = '#667eea';
+  event.target.style.color = 'white';
+  
+  renderWrongList();
+}
+
+// 移除错题
+function removeWrong(index) {
+  const wrongList = getWrongAnswers();
+  wrongList.splice(index, 1);
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  renderWrongList();
 }
 
 function retryWrong(index) {
@@ -1696,3 +1789,437 @@ document.addEventListener('DOMContentLoaded', () => {
   // 关闭奖励按钮
   document.getElementById('closeRewardBtn').addEventListener('click', closeReward);
 });
+
+// ==================== 诊断测评功能 ====================
+
+// 诊断测评题目数据
+const diagnosisQuestions = [
+  // 字词基础（1-5题）
+  {
+    type: '字词基础',
+    question: '下列词语中，与"安静"意思最相近的是：',
+    options: ['吵闹', '宁静', '热闹', '活泼'],
+    answer: 1,
+    explanation: '正确答案：宁静。"安静"和"宁静"都表示没有声音、安稳平静的意思，是近义词。',
+    mistakeReason: '容易混淆"安静"与其他词的含义，"吵闹""热闹"与"安静"是反义词，"活泼"形容的是人的性格。'
+  },
+  {
+    type: '字词基础',
+    question: '下列句子中，哪个词语用得不恰当？',
+    options: [
+      '春天来了，大地一片生机勃勃。',
+      '他说话总是夸夸其谈，很有学问。',
+      '这次考试，我胸有成竹。',
+      '她的歌声悦耳动听。'
+    ],
+    answer: 1,
+    explanation: '正确答案：第二句。"夸夸其谈"是贬义词，形容说话浮夸不切实际，不能用来赞美别人有学问。',
+    mistakeReason: '没有理解"夸夸其谈"的感情色彩，误用了贬义词。'
+  },
+  {
+    type: '字词基础',
+    question: '"情不自禁"的"禁"，意思是：',
+    options: ['禁止', '忍住', '禁止的地方', '忍受'],
+    answer: 1,
+    explanation: '正确答案：忍住。"情不自禁"意思是感情激动得不能控制。',
+    mistakeReason: '不熟悉成语中单个字的意思。'
+  },
+  {
+    type: '字词基础',
+    question: '下列哪个词与其他三个不是同一类？',
+    options: ['菊花', '梅花', '雪花', '桃花'],
+    answer: 2,
+    explanation: '正确答案：雪花。其他都是植物的花，雪花是自然现象。',
+    mistakeReason: '没有正确分类，把自然现象和植物的花混在一起了。'
+  },
+  {
+    type: '字词基础',
+    question: '把句子补充完整：太阳像______一样挂在天空。',
+    options: ['小船', '圆盘', '月牙', '镰刀'],
+    answer: 1,
+    explanation: '正确答案：圆盘。用圆盘最贴切地描述了太阳的形状。',
+    mistakeReason: '比喻不贴切，小船、月牙、镰刀常用来形容月亮。'
+  },
+  // 阅读理解（6-10题）
+  {
+    type: '阅读理解',
+    question: '春天到了，公园里的花都开了。有红的、黄的、白的，五颜六色，美丽极了。这段话主要写了：',
+    options: [
+      '春天来了',
+      '公园里的花很美',
+      '花的颜色很多',
+      '公园很美'
+    ],
+    answer: 1,
+    explanation: '正确答案：公园里的花很美。这段话描述了春天公园里花开的美丽景象。',
+    mistakeReason: '概括不全面，只看到部分内容而没有抓住主要意思。'
+  },
+  {
+    type: '阅读理解',
+    question: '小明每天早上都坚持跑步，从不间断。这句话主要表现了小明的什么品质？',
+    options: ['勤劳', '勇敢', '有毅力', '善良'],
+    answer: 2,
+    explanation: '正确答案：有毅力。"从不间断"体现了他有毅力。',
+    mistakeReason: '没有抓住关键词"从不间断"来理解人物品质。'
+  },
+  {
+    type: '阅读理解',
+    question: '读书可以让我们学到很多知识，可以让我们明白很多道理。这句话的主要意思是：',
+    options: [
+      '读书很有趣',
+      '读书有很多好处',
+      '读书要认真',
+      '读书可以解闷'
+    ],
+    answer: 1,
+    explanation: '正确答案：读书有很多好处。这句话列举了读书的两个好处。',
+    mistakeReason: '没有正确理解句子要表达的主要观点。'
+  },
+  {
+    type: '阅读理解',
+    question: '下列哪句话是比喻句？',
+    options: [
+      '小鸟在树上唱歌。',
+      '他长得像他爸爸。',
+      '弯弯的月亮像小船。',
+      '我好像认识他。'
+    ],
+    answer: 2,
+    explanation: '正确答案：弯弯的月亮像小船。把月亮比作小船，有比喻词"像"。',
+    mistakeReason: '把比较和比喻混淆了，不是所有有"像"的句子都是比喻句。'
+  },
+  {
+    type: '阅读理解',
+    question: '"这件事真让人感动。"这句话中的"感动"可以换成哪个词？',
+    options: ['难过', '激动', '生气', '高兴'],
+    answer: 1,
+    explanation: '正确答案：激动。感动和激动在某些语境下可以互换。',
+    mistakeReason: '不理解词语在具体语境中的意思。'
+  },
+  // 写作表达（11-15题）
+  {
+    type: '写作表达',
+    question: '写人的文章，一般要先写什么？',
+    options: ['人物的外貌', '人物的品质', '具体事例', '人物的爱好'],
+    answer: 0,
+    explanation: '正确答案：人物的外貌。写人通常先介绍外貌，让读者对人物有初步印象。',
+    mistakeReason: '不熟悉写人文章的基本结构。'
+  },
+  {
+    type: '写作表达',
+    question: '下列哪个结尾方式不恰当？',
+    options: [
+      '首尾呼应',
+      '点明中心',
+      '画蛇添足',
+      '总结全文'
+    ],
+    answer: 2,
+    explanation: '正确答案：画蛇添足。画蛇添足是贬义词，指做多余的事，反而不好。',
+    mistakeReason: '不理解成语的意思和写作方法。'
+  },
+  {
+    type: '写作表达',
+    question: '写一件事，最重要的是写清楚：',
+    options: ['时间、地点、人物', '事情的经过', '事情的结果', '以上都是'],
+    answer: 3,
+    explanation: '正确答案：以上都是。写事要写清楚六要素。',
+    mistakeReason: '不知道写事的六要素。'
+  },
+  {
+    type: '写作表达',
+    question: '下列哪句话写得最生动？',
+    options: [
+      '花开了。',
+      '花开了，真好看。',
+      '花儿张开了笑脸。',
+      '有很多花开了。'
+    ],
+    answer: 2,
+    explanation: '正确答案：花儿张开了笑脸。用了拟人的手法，写得很生动。',
+    mistakeReason: '不会运用修辞手法让句子更生动。'
+  },
+  {
+    type: '写作表达',
+    question: '作文题目"一件______的事"，横线处填哪个词最合适？',
+    options: ['难忘', '美丽', '高大', '明亮'],
+    answer: 0,
+    explanation: '正确答案：难忘。只有"难忘"能用来形容事。',
+    mistakeReason: '词语搭配不当，不理解哪些词可以修饰"事"。'
+  }
+];
+
+// 诊断测评状态
+let currentDiagnosisQuestion = 0;
+let diagnosisAnswers = [];
+let diagnosisScores = {
+  '字词基础': 0,
+  '阅读理解': 0,
+  '写作表达': 0
+};
+
+// 开始诊断测评
+function startDiagnosis() {
+  currentDiagnosisQuestion = 0;
+  diagnosisAnswers = new Array(diagnosisQuestions.length).fill(null);
+  document.getElementById('diagnosisIntro').style.display = 'grid';
+  document.getElementById('diagnosisQuiz').style.display = 'block';
+  document.getElementById('diagnosisResult').style.display = 'none';
+  renderDiagnosisQuestion();
+}
+
+// 渲染诊断测评题目
+function renderDiagnosisQuestion() {
+  const question = diagnosisQuestions[currentDiagnosisQuestion];
+  const questionCard = document.getElementById('questionCard');
+  
+  let optionsHTML = '';
+  question.options.forEach((option, index) => {
+    const isSelected = diagnosisAnswers[currentDiagnosisQuestion] === index;
+    optionsHTML += `
+      <button class="option-btn ${isSelected ? 'selected' : ''}" 
+              onclick="selectDiagnosisOption(${index})">
+        ${option}
+      </button>
+    `;
+  });
+  
+  questionCard.innerHTML = `
+    <div class="question-type">${question.type}</div>
+    <div class="question-text">${currentDiagnosisQuestion + 1}. ${question.question}</div>
+    <div class="question-options">${optionsHTML}</div>
+  `;
+  
+  // 更新进度
+  const progress = ((currentDiagnosisQuestion + 1) / diagnosisQuestions.length) * 100;
+  document.getElementById('quizProgress').style.width = progress + '%';
+  document.getElementById('currentQ').textContent = currentDiagnosisQuestion + 1;
+  
+  // 更新导航按钮
+  updateDiagnosisNav();
+}
+
+// 选择诊断选项
+function selectDiagnosisOption(index) {
+  diagnosisAnswers[currentDiagnosisQuestion] = index;
+  renderDiagnosisQuestion();
+}
+
+// 更新诊断导航按钮
+function updateDiagnosisNav() {
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  prevBtn.style.display = currentDiagnosisQuestion > 0 ? 'inline-block' : 'none';
+  
+  if (currentDiagnosisQuestion < diagnosisQuestions.length - 1) {
+    nextBtn.style.display = 'inline-block';
+    submitBtn.style.display = 'none';
+  } else {
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'inline-block';
+  }
+  
+  // 如果当前题已作答则启用按钮
+  nextBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
+  submitBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
+}
+
+// 上一题
+function prevQuestion() {
+  if (currentDiagnosisQuestion > 0) {
+    currentDiagnosisQuestion--;
+    renderDiagnosisQuestion();
+  }
+}
+
+// 下一题
+function nextQuestion() {
+  if (currentDiagnosisQuestion < diagnosisQuestions.length - 1) {
+    currentDiagnosisQuestion++;
+    renderDiagnosisQuestion();
+  }
+}
+
+// 提交诊断测评
+function submitDiagnosis() {
+  // 检查是否所有题都已作答
+  const unanswered = diagnosisAnswers.includes(null);
+  if (unanswered) {
+    alert('请完成所有题目后再提交！');
+    return;
+  }
+  
+  // 计算得分
+  let totalScore = 0;
+  diagnosisScores = {
+    '字词基础': 0,
+    '阅读理解': 0,
+    '写作表达': 0
+  };
+  
+  diagnosisQuestions.forEach((q, index) => {
+    const isCorrect = diagnosisAnswers[index] === q.answer;
+    if (isCorrect) {
+      totalScore++;
+      diagnosisScores[q.type]++;
+    }
+  });
+  
+  // 保存到错题本
+  saveDiagnosisMistakes();
+  
+  // 显示结果
+  showDiagnosisResult(totalScore);
+}
+
+// 保存诊断错题
+function saveDiagnosisMistakes() {
+  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  
+  diagnosisQuestions.forEach((q, index) => {
+    if (diagnosisAnswers[index] !== q.answer) {
+      const wrongItem = {
+        type: '诊断测评 - ' + q.type,
+        question: q.question,
+        userAnswer: q.options[diagnosisAnswers[index]],
+        correctAnswer: q.options[q.answer],
+        tip: q.explanation,
+        timestamp: new Date().toISOString()
+      };
+      wrongList.push(wrongItem);
+    }
+  });
+  
+  if (wrongList.length > 50) {
+    wrongList.splice(0, wrongList.length - 50);
+  }
+  
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  renderWrongList();
+}
+
+// 显示诊断结果
+function showDiagnosisResult(totalScore) {
+  document.getElementById('diagnosisQuiz').style.display = 'none';
+  document.getElementById('diagnosisResult').style.display = 'block';
+  
+  // 设置总得分
+  document.getElementById('totalScore').textContent = totalScore;
+  
+  // 渲染技能得分
+  const skills = [
+    { name: '字词基础', score: diagnosisScores['字词基础'], max: 5 },
+    { name: '阅读理解', score: diagnosisScores['阅读理解'], max: 5 },
+    { name: '写作表达', score: diagnosisScores['写作表达'], max: 5 }
+  ];
+  
+  const skillScoresDiv = document.getElementById('skillScores');
+  let skillScoresHTML = '';
+  skills.forEach(skill => {
+    const percentage = (skill.score / skill.max) * 100;
+    let levelClass = 'good';
+    if (percentage < 60) levelClass = 'weak';
+    else if (percentage < 80) levelClass = 'medium';
+    
+    skillScoresHTML += `
+      <div class="skill-item">
+        <div class="skill-name">${skill.name}</div>
+        <div class="skill-bar">
+          <div class="skill-fill ${levelClass}" style="width: ${percentage}%"></div>
+        </div>
+        <div class="skill-score">${skill.score}/${skill.max}</div>
+      </div>
+    `;
+  });
+  skillScoresDiv.innerHTML = skillScoresHTML;
+  
+  // 生成学习建议
+  generateSuggestions(skills);
+  
+  // 保存诊断结果
+  localStorage.setItem('lastDiagnosisResult', JSON.stringify({
+    totalScore: totalScore,
+    skills: diagnosisScores,
+    date: new Date().toISOString()
+  }));
+}
+
+// 生成学习建议
+function generateSuggestions(skills) {
+  const suggestionsDiv = document.getElementById('suggestions');
+  let suggestionsHTML = '<h3>📝 个性化学习建议</h3>';
+  
+  skills.forEach(skill => {
+    const percentage = (skill.score / skill.max) * 100;
+    
+    if (percentage < 60) {
+      suggestionsHTML += `
+        <div class="suggestion-item">
+          <div class="suggestion-title">⚠️ ${skill.name}需要加强</div>
+          <div class="suggestion-text">
+            建议加强${skill.name}练习，每天花更多时间在这方面。可以先从基础题开始，循序渐进。
+          </div>
+        </div>
+      `;
+    } else if (percentage < 80) {
+      suggestionsHTML += `
+        <div class="suggestion-item">
+          <div class="suggestion-title">📚 ${skill.name}有提升空间</div>
+          <div class="suggestion-text">
+            ${skill.name}基础还不错，可以多做些提高题，巩固知识掌握得更牢固。
+          </div>
+        </div>
+      `;
+    } else {
+      suggestionsHTML += `
+        <div class="suggestion-item">
+          <div class="suggestion-title">🎉 ${skill.name}表现优秀</div>
+          <div class="suggestion-text">
+            ${skill.name}学得很好！可以挑战一些更难的题目，保持优势。
+          </div>
+        </div>
+      `;
+    }
+  });
+  
+  suggestionsDiv.innerHTML = suggestionsHTML;
+}
+
+// 重置诊断测评
+function resetDiagnosis() {
+  document.getElementById('diagnosisIntro').style.display = 'grid';
+  document.getElementById('diagnosisQuiz').style.display = 'none';
+  document.getElementById('diagnosisResult').style.display = 'none';
+  currentDiagnosisQuestion = 0;
+  diagnosisAnswers = [];
+}
+
+// 跳转到练习
+function goToPractice() {
+  // 滚动到练习区域
+  document.querySelector('.interactive-practice').scrollIntoView({ behavior: 'smooth' });
+}
+
+// 作文筛选功能
+function filterWriting(grade) {
+  // 更新按钮状态
+  document.querySelectorAll('.grade-filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.background = 'white';
+    btn.style.color = '#667eea';
+  });
+  
+  event.target.classList.add('active');
+  event.target.style.background = '#667eea';
+  event.target.style.color = 'white';
+  
+  // 隐藏所有年级内容
+  document.querySelectorAll('.writing-content').forEach(content => {
+    content.style.display = 'none';
+  });
+  
+  // 显示选中年级内容
+  document.getElementById('writing-grade-' + grade).style.display = 'block';
+}

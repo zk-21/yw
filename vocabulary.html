@@ -322,7 +322,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
@@ -2577,5 +2577,6 @@
       updateAchievements();
     });
   </script>
+<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
 </body>
 </html>
