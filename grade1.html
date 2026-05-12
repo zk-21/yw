@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>一年级语文 - 小学语文基础</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .grade-one-hero {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fdfcfb 100%);
+      padding: 60px 5vw;
+      text-align: center;
+    }
+    .grade-one-hero h1 { color: #d63384; margin-bottom: 15px; }
+    .grade-one-hero p { color: #7c3a6e; font-size: 18px; max-width: 700px; margin: 0 auto; }
+    .section-title h2 { color: #d63384; }
+    .study-block { border-left: 4px solid #ff9a9e; }
+    .study-block.accent { border-left: 4px solid #d63384; }
+    .study-block h2 { color: #d63384; }
+
+    /* 拼音快捷参考 */
+    .pinyin-ref { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 10px; }
+    .pinyin-group { flex: 1; min-width: 180px; background: #f8f9fa; border-radius: 14px; padding: 16px; }
+    .pinyin-group h4 { margin: 0 0 10px; font-size: 14px; color: #d63384; }
+    .pinyin-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pinyin-tags .tag {
+      display: inline-block; padding: 4px 12px; border-radius: 12px;
+      font-size: 15px; font-weight: bold; background: white; color: #555;
+      border: 1px solid #e0e0e0;
+    }
+    .pinyin-tags .tag.vowel { background: #fff3e0; border-color: #ffcc02; color: #e65100; }
+    .pinyin-tags .tag.cons  { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
+    .pinyin-tags .tag.whole { background: #fce4ec; border-color: #f48fb1; color: #d63384; }
+    .rules-box {
+      background: #fff3e0; border-radius: 14px; padding: 18px 22px;
+      border-left: 4px solid #ff9a9e; margin-top: 18px;
+    }
+    .rules-box p { margin: 6px 0; font-size: 14px; color: #555; }
+    .rules-box strong { color: #d63384; }
+
+    /* 笔画表 */
+    .stroke-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+    .stroke-card {
+      background: white; border-radius: 12px; padding: 14px; text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .stroke-card .char { font-size: 28px; font-weight: bold; color: #d63384; }
+    .stroke-card .name { font-size: 13px; color: #666; margin-top: 4px; }
+    .stroke-card .example { font-size: 24px; color: #333; margin-top: 6px; }
+
+    /* 古诗 */
+    .poem-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .poem-card {
+      background: #fef7f9; border-radius: 14px; padding: 16px; text-align: center;
+      border: 1px solid #fce4ec;
+    }
+    .poem-card h4 { color: #d63384; margin: 0 0 4px; font-size: 15px; }
+    .poem-card .author { color: #999; font-size: 12px; }
+    .poem-card .line { color: #555; font-size: 13px; margin-top: 6px; }
+
+    /* 年级口诀 */
+    .routine p { font-size: 15px; }
+
+    /* 拼音易错专项 */
+    .error-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .error-card {
+      background: #fff3e0; border-radius: 12px; padding: 14px; border-left: 4px solid #ff9a9e;
+    }
+    .error-card h4 { margin: 0 0 6px; font-size: 14px; color: #d63384; }
+    .error-card p { margin: 3px 0; font-size: 13px; color: #555; }
+    .error-card .ex { font-weight: bold; color: #d63384; }
+
+    /* 识字方法 */
+    .method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .method-card {
+      background: #fef7f9; border-radius: 14px; padding: 16px; text-align: center;
+      border: 1px solid #fce4ec;
+    }
+    .method-card h4 { color: #d63384; margin: 0 0 6px; font-size: 14px; }
+    .method-card p { color: #666; font-size: 13px; margin: 0; }
+
+    /* 看图说话模板 */
+    .speaking-steps { display: grid; gap: 10px; }
+    .speaking-step {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: white; border-radius: 12px; padding: 12px 16px;
+      border-left: 4px solid #ff9a9e;
+    }
+    .speaking-step .sn {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: #ff9a9e; color: white; display: flex; align-items: center;
+      justify-content: center; font-size: 13px; font-weight: bold;
+    }
+    .speaking-step .st { font-size: 14px; color: #555; }
+    .speaking-step .st strong { color: #d63384; }
+    .speaking-demo {
+      background: #fef7f9; border-radius: 12px; padding: 14px 18px;
+      border: 1px dashed #f48fb1; margin-top: 12px;
+    }
+    .speaking-demo p { margin: 4px 0; font-size: 13px; color: #555; }
+    .speaking-demo .from { color: #999; font-size: 12px; }
+
+    /* 朗读评价标准 */
+    .rubric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .rubric-card {
+      background: white; border-radius: 12px; padding: 16px; text-align: center;
+      border: 1px solid #fce4ec;
+    }
+    .rubric-card .icon { font-size: 28px; margin-bottom: 4px; }
+    .rubric-card h4 { color: #d63384; margin: 0 0 4px; font-size: 14px; }
+    .rubric-card p { color: #666; font-size: 12px; margin: 0; line-height: 1.5; }
+
+    /* 家长误区 */
+    .warning-box {
+      background: #fff3e0; border-left: 4px solid #e65100; border-radius: 10px;
+      padding: 16px 20px; margin-top: 20px;
+    }
+    .warning-box h4 { color: #e65100; margin: 0 0 8px; font-size: 15px; }
+    .warning-box p { margin: 5px 0; font-size: 14px; color: #555; }
+
+    /* 衔接路线图 */
+    .bridge-row { display: flex; gap: 0; align-items: center; }
+    .bridge-node {
+      flex: 1; background: white; border-radius: 14px; padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #fce4ec;
+    }
+    .bridge-node .stage { font-size: 14px; font-weight: bold; color: #d63384; margin-bottom: 6px; }
+    .bridge-node ul { margin: 0; padding-left: 18px; }
+    .bridge-node li { font-size: 13px; color: #555; margin: 3px 0; }
+    .bridge-arrow { padding: 0 10px; font-size: 22px; color: #ff9a9e; }
+
+    /* 每日10分钟拔尖训练 */
+    .daily-plan { display: flex; gap: 10px; margin: 16px 0; }
+    .daily-step {
+      flex: 1; background: white; border-radius: 12px; padding: 14px 12px;
+      text-align: center; border: 1px solid #fce4ec;
+    }
+    .daily-step .time { font-size: 20px; font-weight: bold; color: #d63384; }
+    .daily-step .task { font-size: 13px; color: #555; margin-top: 4px; }
+    .daily-step .hint { font-size: 11px; color: #999; margin-top: 2px; }
+
+    /* 看图说话普通vs拔尖对比 */
+    .g1-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .g1-box {
+      background: white; border-radius: 10px; padding: 14px;
+      border: 1px solid #fce4ec;
+    }
+    .g1-box .tag { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+    .g1-box.basic .tag { color: #e74c3c; }
+    .g1-box.advanced .tag { color: #27ae60; }
+    .g1-box p { margin: 3px 0; font-size: 13px; color: #555; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .grade-one-hero { padding: 40px 5vw; }
+      .grade-one-hero h1 { font-size: 24px; }
+      .pinyin-ref { flex-direction: column; }
+      .stroke-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+      .poem-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .error-grid,
+      .rubric-grid { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+      .daily-plan { flex-direction: column; }
+      .g1-compare { grid-template-columns: 1fr; }
+      .bridge-row { flex-direction: column; gap: 12px; }
+      .bridge-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a class="active" href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="grade-one-hero">
+      <p class="eyebrow" style="color: #d63384;">零基础起步</p>
+      <h1>一年级语文学习指导</h1>
+      <p>从认识"天地人"开始，到学会拼音能自己读书，再到读懂课文、背诵古诗。一年级是孩子语文学习的起点，<strong>最重要的是保护兴趣、养成习惯</strong>。</p>
+    </section>
+
+    <!-- ===== 5个能力 ===== -->
+    <section class="section content-grid">
+      <article class="study-block">
+        <h2>一年级必须形成的 5 个能力</h2>
+        <ul class="check-list">
+          <li><strong>拼音拼读能力：</strong>能准确认读声母、韵母、整体认读音节，能正确拼读两拼音节和三拼音节。</li>
+          <li><strong>识字认读能力：</strong>认识常用汉字 400 个左右，能借助拼音独立阅读简短的句子和儿歌。</li>
+          <li><strong>正确书写能力：</strong>掌握基本笔画和笔顺规则，能正确书写 200 个左右常用汉字，写字姿势正确。</li>
+          <li><strong>朗读表达能力：</strong>能用普通话正确、流利地朗读课文，能大胆说出自己想说的话，把一句话说完整。</li>
+          <li><strong>倾听专注能力：</strong>能认真听别人说话，听懂内容并做出回应，上课能集中注意力 15-20 分钟。</li>
+        </ul>
+      </article>
+      <article class="study-block accent">
+        <h2>一年级提优总口诀</h2>
+        <div class="routine">
+          <p><strong>拼音：</strong>多听多读，每天见面；先认字母再拼读，嘴巴动起来。</p>
+          <p><strong>识字：</strong>多认少写，字不离词；生活中认字，处处是课堂。</p>
+          <p><strong>写字：</strong>看准再写，姿势第一；一笔一画慢慢来，不在于多在精。</p>
+          <p><strong>朗读：</strong>指读跟读，大声自信；每天 10 分钟，读完说一遍。</p>
+          <p><strong>古诗：</strong>多听多背，感受画面；不要求逐字翻译，读出节奏就好。</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== 知识点总表 ===== -->
+    <section class="section">
+      <div class="table-card">
+        <h2>一年级知识点总表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>基础必会</th><th>学习要点</th><th>家长怎么做</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>拼音</td><td>23个声母、24个韵母、16个整体认读音节、4个声调</td><td>先认读字母，再练两拼三拼，最后拼读词语</td><td>每天抽 5 分钟听孩子读拼音卡片</td></tr>
+              <tr><td>识字</td><td>认识约 400 个常用字，理解基本意思</td><td>看字形、读字音、组词语，在课文中巩固</td><td>生活中指认路牌、包装盒上的字</td></tr>
+              <tr><td>写字</td><td>会写约 200 个汉字，掌握基本笔画和笔顺</td><td>先练笔画，再写独体字，最后写合体字</td><td>督促正确坐姿和握笔姿势</td></tr>
+              <tr><td>朗读</td><td>能正确朗读课文，不读错字、不拖读</td><td>指读跟上节奏，注意停顿和语气</td><td>让孩子每天读一篇课文给你听</td></tr>
+              <tr><td>古诗</td><td>背诵一年级必背古诗约 10 首</td><td>感受画面和节奏，能说出诗句写了什么</td><td>睡前陪孩子一起读古诗、唱古诗</td></tr>
+              <tr><td>口语交际</td><td>能说完整一句话，能简单介绍自己和家人</td><td>先想再说，用"谁+做什么"说完整</td><td>常问孩子"今天学校发生了什么有趣的事"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 拼音学习 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">拼音基础</p>
+        <h2>拼音学习要点</h2>
+        <p style="color: #666;">拼音是一年级最重要的工具，也是孩子自己读字的"拐杖"。详细学习请前往 <a href="pinyin.html" style="color: #d63384;">拼音学习页面 &rarr;</a></p>
+      </div>
+      <div class="pinyin-ref">
+        <div class="pinyin-group">
+          <h4>23 个声母</h4>
+          <div class="pinyin-tags">
+            <span class="tag cons">b</span><span class="tag cons">p</span><span class="tag cons">m</span><span class="tag cons">f</span>
+            <span class="tag cons">d</span><span class="tag cons">t</span><span class="tag cons">n</span><span class="tag cons">l</span>
+            <span class="tag cons">g</span><span class="tag cons">k</span><span class="tag cons">h</span>
+            <span class="tag cons">j</span><span class="tag cons">q</span><span class="tag cons">x</span>
+            <span class="tag cons">zh</span><span class="tag cons">ch</span><span class="tag cons">sh</span><span class="tag cons">r</span>
+            <span class="tag cons">z</span><span class="tag cons">c</span><span class="tag cons">s</span>
+            <span class="tag cons">y</span><span class="tag cons">w</span>
+          </div>
+        </div>
+        <div class="pinyin-group">
+          <h4>24 个韵母</h4>
+          <div class="pinyin-tags">
+            <span class="tag vowel">a</span><span class="tag vowel">o</span><span class="tag vowel">e</span><span class="tag vowel">i</span><span class="tag vowel">u</span><span class="tag vowel">&uuml;</span>
+            <span class="tag vowel">ai</span><span class="tag vowel">ei</span><span class="tag vowel">ao</span><span class="tag vowel">ou</span><span class="tag vowel">ie</span><span class="tag vowel">&uuml;e</span><span class="tag vowel">er</span>
+            <span class="tag vowel">an</span><span class="tag vowel">en</span><span class="tag vowel">in</span><span class="tag vowel">un</span><span class="tag vowel">&uuml;n</span>
+            <span class="tag vowel">ang</span><span class="tag vowel">eng</span><span class="tag vowel">ing</span><span class="tag vowel">ong</span>
+          </div>
+        </div>
+        <div class="pinyin-group">
+          <h4>16 个整体认读音节</h4>
+          <div class="pinyin-tags">
+            <span class="tag whole">zhi</span><span class="tag whole">chi</span><span class="tag whole">shi</span><span class="tag whole">ri</span>
+            <span class="tag whole">zi</span><span class="tag whole">ci</span><span class="tag whole">si</span>
+            <span class="tag whole">yi</span><span class="tag whole">wu</span><span class="tag whole">yu</span>
+            <span class="tag whole">ye</span><span class="tag whole">yue</span><span class="tag whole">yuan</span>
+            <span class="tag whole">yin</span><span class="tag whole">yun</span><span class="tag whole">ying</span>
+          </div>
+        </div>
+      </div>
+      <div class="rules-box">
+        <p><strong>📐 标调规则：</strong>有 <strong>a</strong> 找 a，没 a 找 <strong>o e</strong>，i u 并列标在后。</p>
+        <p><strong>🤝 jqx 小&uuml; 规则：</strong>j q x y 见到 &uuml;，去掉两点还读 &uuml;。</p>
+        <p><strong>🔤 两拼音节：</strong>声母 + 韵母，前音轻短后音重，两音相连猛一碰。</p>
+        <p><strong>🔤 三拼音节：</strong>声母 + 介母 + 韵母，声轻介快韵母响。</p>
+      </div>
+    </section>
+
+    <!-- ===== 拼音易错专项 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">拼音易错</p>
+        <h2>拼音易错专项表</h2>
+        <p style="color: #666;">一年级拼音最大难点是"形近音近混淆"，下面 8 组易错音一定要逐个过关，每组都配有辨音方法和练习短句。</p>
+      </div>
+      <div class="error-grid">
+        <div class="error-card">
+          <h4>b / p</h4>
+          <p><strong>辨音方法：</strong>b双唇紧闭不送气，p气流从嘴里冲出来</p>
+          <p><span class="ex">b&#257;</span> 八、爸爸 <span class="ex">p&#225;</span> 爬、怕</p>
+          <p>短句：爸爸<b>爬</b>上山。</p>
+        </div>
+        <div class="error-card">
+          <h4>d / t</h4>
+          <p><strong>辨音方法：</strong>d舌尖顶住上齿龈不送气，t送气有风声</p>
+          <p><span class="ex">d&#224;</span> 大、打 <span class="ex">t&#257;</span> 他、她</p>
+          <p>短句：<b>他打</b>了一个大西瓜。</p>
+        </div>
+        <div class="error-card">
+          <h4>n / l</h4>
+          <p><strong>辨音方法：</strong>n气流从鼻腔出（鼻子震动），l气流从舌头两边出</p>
+          <p><span class="ex">n&#462;</span> 拿、哪 <span class="ex">l&#462;</span> 拉、辣</p>
+          <p>短句：你<b>拿</b>着<b>辣</b>椒。</p>
+        </div>
+        <div class="error-card">
+          <h4>zh / ch / sh / r</h4>
+          <p><strong>辨音方法：</strong>zh ch sh r都是翘舌音，舌尖卷起对上颚前部</p>
+          <p><span class="ex">zh&#464;</span> 这、着 <span class="ex">ch&#299;</span> 吃、出</p>
+          <p><span class="ex">sh&#299;</span> 十、是 <span class="ex">r&#232;</span> 热、日</p>
+          <p>短句：<b>这</b>是<b>十</b>个<b>热</b>包子。</p>
+        </div>
+        <div class="error-card">
+          <h4>z / c / s</h4>
+          <p><strong>辨音方法：</strong>z c s是平舌音，舌尖抵住下齿背，z不送气c送气</p>
+          <p><span class="ex">z&#236;</span> 字、子 <span class="ex">c&#257;</span> 擦、猜</p>
+          <p><span class="ex">s&#236;</span> 四、丝</p>
+          <p>短句：<b>字</b>写错了要<b>擦</b>掉重写。</p>
+        </div>
+        <div class="error-card">
+          <h4>an / ang</h4>
+          <p><strong>辨音方法：</strong>an舌尖抵上齿龈（嘴闭），ang舌根抬起（嘴微张鼻腔共鸣）</p>
+          <p><span class="ex">b&#462;n</span> 班、半 <span class="ex">b&#257;ng</span> 帮、旁</p>
+          <p>短句：我<b>帮</b>同学搬<b>板</b>凳。</p>
+        </div>
+        <div class="error-card">
+          <h4>en / eng</h4>
+          <p><strong>辨音方法：</strong>en嘴巴自然合拢（"嗯"的音），eng嘴巴微张（"哼"的音）</p>
+          <p><span class="ex">b&#275;n</span> 本、奔 <span class="ex">b&#275;ng</span> 朋、蹦</p>
+          <p>短句：<b>朋</b>友<b>奔</b>跑很开心。</p>
+        </div>
+        <div class="error-card">
+          <h4>in / ing</h4>
+          <p><strong>辨音方法：</strong>in舌尖抵下齿（"因"），ing舌根抬起（"英"鼻音更重）</p>
+          <p><span class="ex">j&#299;n</span> 今、金 <span class="ex">j&#299;ng</span> 井、京</p>
+          <p>短句：<b>今</b>天去北<b>京</b>。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 识字写字 ===== -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">识字写字</p>
+        <h2>识字写字指导</h2>
+        <p style="color: #666;">一年级写字从基本笔画开始，再学笔顺规则，最后掌握常见偏旁。</p>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>基本笔画（6种）</h3>
+          <div class="stroke-grid">
+            <div class="stroke-card"><div class="char">一</div><div class="name">横</div><div class="example">三 王 土</div></div>
+            <div class="stroke-card"><div class="char">丨</div><div class="name">竖</div><div class="example">十 中 木</div></div>
+            <div class="stroke-card"><div class="char">丿</div><div class="name">撇</div><div class="example">人 大 火</div></div>
+            <div class="stroke-card"><div class="char">㇏</div><div class="name">捺</div><div class="example">人 大 木</div></div>
+            <div class="stroke-card"><div class="char">丶</div><div class="name">点</div><div class="example">六 小 心</div></div>
+            <div class="stroke-card"><div class="char">㇀</div><div class="name">提</div><div class="example">打 地 虫</div></div>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>笔顺规则</h3>
+          <div class="routine">
+            <p><strong>先横后竖：</strong>十、王、木、土</p>
+            <p><strong>先撇后捺：</strong>人、大、火、天</p>
+            <p><strong>从上到下：</strong>三、只、音、花</p>
+            <p><strong>从左到右：</strong>川、林、好、红</p>
+            <p><strong>先中间后两边：</strong>小、水、山、乐</p>
+            <p><strong>先外后内：</strong>月、用、同、风</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top: 20px;">
+        <h2>一年级常用偏旁</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>偏旁</th><th>名称</th><th>例字</th><th>提示</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>氵</td><td>三点水</td><td>河、江、海</td><td>多与水有关</td></tr>
+              <tr><td>扌</td><td>提手旁</td><td>打、拍、拉</td><td>多与手的动作有关</td></tr>
+              <tr><td>口</td><td>口字旁</td><td>吃、唱、叫</td><td>多与嘴巴有关</td></tr>
+              <tr><td>亻</td><td>单人旁</td><td>你、他、们</td><td>多与人有关</td></tr>
+              <tr><td>艹</td><td>草字头</td><td>花、草、苗</td><td>多与植物有关</td></tr>
+              <tr><td>木</td><td>木字旁</td><td>树、林、桥</td><td>多与树木有关</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 识字方法 ===== -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">识字方法</p>
+        <h2>一年级七种高效识字方法</h2>
+        <p style="color: #666;">识字不是死记硬背，方法对了事半功倍。以下 7 种方法可以轮换着用，总有一两种最适合你的孩子。</p>
+      </div>
+      <div class="method-grid">
+        <div class="method-card">
+          <h4>📜 象形识字</h4>
+          <p>把字当成"图画"来记。<br>日 → 太阳的样子<br>月 → 月牙的形状<br>山 → 山峰的轮廓</p>
+        </div>
+        <div class="method-card">
+          <h4>🔍 偏旁归类</h4>
+          <p>相同偏旁的字分类记。<br>氵：江、河、海、湖<br>口：吃、唱、叫、喝<br>扌：打、拍、拉、拔</p>
+        </div>
+        <div class="method-card">
+          <h4>🔄 换偏旁</h4>
+          <p>换掉偏旁变成新字。<br>晴→睛（换目字旁）<br>他→她（换女字旁）<br>抱→跑（换足字旁）</p>
+        </div>
+        <div class="method-card">
+          <h4>🏠 生活识字</h4>
+          <p>在生活场景中认字。<br>路牌、店名、包装盒<br>看一次认一个，积少成多<br>——语文在生活里</p>
+        </div>
+        <div class="method-card">
+          <h4>➕ 加一加 / 减一减</h4>
+          <p>通过加减部件变新字。<br>日+月=明，门+口=问<br>妈-女=马，姓-女=生<br>用熟悉的字推新字</p>
+        </div>
+        <div class="method-card">
+          <h4>🖼️ 看图识字</h4>
+          <p>结合图片认识汉字。<br>看"马"的图片识字<br>看"鸟"的图片识字<br>图文对应记得牢</p>
+        </div>
+        <div class="method-card">
+          <h4>🧩 字谜识字</h4>
+          <p>猜字谜记字形。<br>"一口咬掉牛尾巴"→告<br>"人在门中站"→闪<br>边猜边记，有趣又高效</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 古诗启蒙 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">古诗启蒙</p>
+        <h2>一年级必背古诗</h2>
+        <p style="color: #666;">重在感受画面和节奏，能背下来就好，不要求逐字翻译。</p>
+      </div>
+      <div class="poem-grid">
+        <div class="poem-card"><h4>咏鹅</h4><p class="author">骆宾王</p><p class="line">白毛浮绿水，红掌拨清波</p></div>
+        <div class="poem-card"><h4>春晓</h4><p class="author">孟浩然</p><p class="line">春眠不觉晓，处处闻啼鸟</p></div>
+        <div class="poem-card"><h4>静夜思</h4><p class="author">李白</p><p class="line">举头望明月，低头思故乡</p></div>
+        <div class="poem-card"><h4>江南</h4><p class="author">汉乐府</p><p class="line">鱼戏莲叶东，鱼戏莲叶西</p></div>
+        <div class="poem-card"><h4>画</h4><p class="author">王维</p><p class="line">远看山有色，近听水无声</p></div>
+        <div class="poem-card"><h4>悯农</h4><p class="author">李绅</p><p class="line">谁知盘中餐，粒粒皆辛苦</p></div>
+        <div class="poem-card"><h4>古朗月行</h4><p class="author">李白</p><p class="line">小时不识月，呼作白玉盘</p></div>
+        <div class="poem-card"><h4>风</h4><p class="author">李峤</p><p class="line">解落三秋叶，能开二月花</p></div>
+      </div>
+    </section>
+
+    <!-- ===== 看图说话模板 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">看图说话</p>
+        <h2>看图说话模板</h2>
+        <p style="color: #666;">一年级口语表达和写话的起点，记住"五要素"怎么看怎么说。</p>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>&#128218; 五要素说图法</h3>
+          <div class="speaking-steps">
+            <div class="speaking-step">
+              <span class="sn">&#9312;</span>
+              <div class="st"><strong>什么时候</strong>——早上、中午、晚上、春天、夏天……</div>
+            </div>
+            <div class="speaking-step">
+              <span class="sn">&#9313;</span>
+              <div class="st"><strong>谁</strong>——图上有什么人、什么动物？给ta取个名字。</div>
+            </div>
+            <div class="speaking-step">
+              <span class="sn">&#9314;</span>
+              <div class="st"><strong>在哪里</strong>——公园里、操场上、家里、小河边……</div>
+            </div>
+            <div class="speaking-step">
+              <span class="sn">&#9315;</span>
+              <div class="st"><strong>做什么</strong>——跑步、唱歌、画画、放风筝……</div>
+            </div>
+            <div class="speaking-step">
+              <span class="sn">&#9316;</span>
+              <div class="st"><strong>心情怎样</strong>——开心、着急、认真、高兴地笑了……</div>
+            </div>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>&#128161; 实战举例</h3>
+          <div class="speaking-demo">
+            <p><strong>看图问：</strong>（图上有三个小朋友在操场上踢足球）</p>
+            <p><strong>孩子这样说：</strong></p>
+            <p>"<strong>下午放学后</strong>，<strong>小明、小军和小红</strong>在<strong>学校操场上</strong><strong>踢足球</strong>。他们跑来跑去，踢得很开心，<strong>脸上都笑开了花</strong>。"</p>
+            <p class="from">→ 五要素都用上了，就是一段完整的看图说话。</p>
+          </div>
+          <div class="speaking-demo">
+            <p><strong>进阶练习：</strong>先口头说一遍，再写下来（2-3句话）。</p>
+            <p>"_____（什么时候），_____（谁）在_____（哪里）_____（做什么），_____（心情怎样）。"</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 看图说话升级示范 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">说话升级</p>
+        <h2>看图说话升级示范：从"说对"到"说好"</h2>
+        <p style="color: #666;">同样的图，普通说法和拔尖说法差距在哪里？对比看看就明白了。</p>
+      </div>
+      <div class="g1-compare">
+        <div class="g1-box basic">
+          <div class="tag">&#128308; 普通表达</div>
+          <p>"小朋友在玩。"</p>
+        </div>
+        <div class="g1-box advanced">
+          <div class="tag">&#128994; 拔尖表达</div>
+          <p>"<strong>放学后</strong>，三个小朋友在操场上<strong>踢足球</strong>，他们<strong>跑来跑去</strong>，玩得<strong>满头大汗</strong>。"</p>
+        </div>
+      </div>
+      <div class="speaking-demo" style="margin-top: 16px;">
+        <p><strong>升级秘诀：</strong>从"谁+做什么"到"什么时候+谁+在哪里+做什么+做得怎么样+心情"。每多一个要素，句子就更丰富。</p>
+        <p><strong>家长这样做：</strong>孩子说完一句后，追问"什么时候？在哪里？怎么做的？心情怎么样？"帮孩子一步步说具体。</p>
+      </div>
+      <div class="speaking-demo">
+        <p><strong>更多练习（请孩子试说）：</strong></p>
+        <p>&#9312; 普通说法："小女孩在画画。"<br>&rarr; 拔尖说法：____________________</p>
+        <p>&#9313; 普通说法："小狗在跑。"<br>&rarr; 拔尖说法：____________________</p>
+        <p>&#9314; 普通说法："妈妈在做饭。"<br>&rarr; 拔尖说法：____________________</p>
+      </div>
+    </section>
+
+    <!-- ===== 单元学习导航 ===== -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">课本导航</p>
+        <h2>一年级单元学习导航</h2>
+        <p style="color: #666;">每个单元学什么、孩子容易错什么、怎么提优——一张表说清楚。</p>
+      </div>
+      <div class="table-card">
+        <h3>📕 一年级上册</h3>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>单元</th><th>主题</th><th>学习重点<br><span style="font-weight:400;font-size:12px;color:#888;">核心能力 + 易错点</span></th><th>提优任务</th></tr></thead>
+            <tbody>
+              <tr><td>入学教育</td><td>行为习惯</td><td>认识校园和课本，学会自我介绍，练习正确坐姿与握笔<br>⚠️ 易错：不会大声自我介绍、不明白课堂规则</td><td>每天用"我叫…我几岁了…我喜欢…"说一段完整的话</td></tr>
+              <tr><td>第一单元</td><td>识字</td><td>认读"天地人"等基础汉字，掌握象形识字方法<br>⚠️ 易错：笔画不到位、结构松散、多一笔少一笔</td><td>选3个字，各说1个带这个字的词，再用这个词说一句话</td></tr>
+              <tr><td>第二单元</td><td>拼音（单韵母+声母）</td><td>正确认读a o e i u ü及b p m f d t n l，掌握两拼方法<br>⚠️ 易错：<strong>b/d/p/q</strong>混淆、声调标不准</td><td>每天拼读5个音节，用"b—ā→bā"的方式大声练拼读</td></tr>
+              <tr><td>第三单元</td><td>拼音（声母+整体认读）</td><td>认读g k h j q x及zh ch sh r，掌握三拼音节<br>⚠️ 易错：<strong>zh/z、ch/c、sh/s</strong>不分、jqx见ü要去两点</td><td>每天练3个三拼音节（如g—u—ā→guā），边拼边用手比划声调</td></tr>
+              <tr><td>第四单元</td><td>拼音（复韵母+鼻韵母）</td><td>认读ai ei ui等复韵母及前后鼻韵母，能区分读音<br>⚠️ 易错：<strong>ei/ie、ui/iu、an/ang、en/eng</strong>混读</td><td>每天读1首拼音儿歌，找出其中含有复韵母的字并圈出来</td></tr>
+              <tr><td>第五单元</td><td>阅读·秋天与自然</td><td>读通《秋天》《江南》《四季》，认识自然事物词语<br>⚠️ 易错：<strong>l/n、f/h</strong>等方言音混淆影响朗读</td><td>读完后用一句话说出"课文讲了什么画面"</td></tr>
+              <tr><td>第六单元</td><td>识字</td><td>学习对韵歌等韵语识字，掌握反义词和量词<br>⚠️ 易错：形近字混淆(<strong>大/太、了小了小/子</strong>)</td><td>每天用"一个大…、两本…、三只…"练量词搭配，边说边写</td></tr>
+              <tr><td>第七单元</td><td>阅读·想象世界</td><td>读通《小小的船》《影子》<span class="badge" style="font-size:11px;background:#ffcc02;color:#e65100;padding:1px 8px;border-radius:10px;margin-left:4px;">新增</span>《两件宝》，培养想象力<br>⚠️ 易错：读不出语气（问句不会上扬、感叹句读太平淡）</td><td>读完后问孩子"如果你是主人公，你会怎么做？"练习表达</td></tr>
+              <tr><td>第八单元</td><td>阅读·动物故事</td><td>读通《比尾巴》《乌鸦喝水》《雨点儿》，通过朗读理解内容<br>⚠️ 易错：生字回生、读通课文后不理解意思</td><td>读完后用自己的话给爸妈讲一遍这个故事</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card">
+        <h3>📘 一年级下册</h3>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>单元</th><th>主题</th><th>学习重点<br><span style="font-weight:400;font-size:12px;color:#888;">核心能力 + 易错点</span></th><th>提优任务</th></tr></thead>
+            <tbody>
+              <tr><td>第一单元</td><td>识字·春天</td><td>认读四季相关字词，掌握偏旁归类识字（⺮/⺍/辶）<br>⚠️ 易错：<strong>偏旁部首混淆</strong>、春字头与奏字头写混</td><td>一个字组2个词，再用其中一个词说一句完整的句子</td></tr>
+              <tr><td>第二单元</td><td>阅读·家国情怀</td><td>读通《热爱中国共产党》<span class="badge" style="font-size:11px;background:#ffcc02;color:#e65100;padding:1px 8px;border-radius:10px;margin-left:4px;">新增</span>等，了解革命传统故事<br>⚠️ 易错：<strong>长句读不懂</strong>、不会在标点处自然停顿</td><td>读一段后用自己的话说出"这段话主要讲了什么"</td></tr>
+              <tr><td>第三单元</td><td>阅读·伙伴与友情</td><td>读通《小公鸡和小鸭子》等，体会朋友间的互帮互助<br>⚠️ 易错：<strong>对话部分读不出角色语气</strong>、只会平铺直叙</td><td>分角色朗读，边读边加动作，让故事"活"起来</td></tr>
+              <tr><td>第四单元</td><td>阅读·亲情与思乡</td><td>读通《静夜思》《夜色》，体会诗歌中的情感<br>⚠️ 易错：<strong>古诗只会背不会理解意思</strong>、说不清诗句意思</td><td>背诵一首诗后，用画画的方式把诗意表达出来</td></tr>
+              <tr><td>第五单元</td><td>识字</td><td>学习形声字规律（虫字旁、提手旁），掌握儿歌中的生字<br>⚠️ 易错：<strong>形旁混淆</strong>、同音字乱用（清/晴/情/请）</td><td>在包装袋、广告牌上找出3个学过的字，记录到"生活识字本"</td></tr>
+              <tr><td>第六单元</td><td>阅读·夏日与自然</td><td>读通《池上》《小池》《浪花》<span class="badge" style="font-size:11px;background:#ffcc02;color:#e65100;padding:1px 8px;border-radius:10px;margin-left:4px;">新增</span>等，感受夏日趣味<br>⚠️ 易错：古诗中<strong>古今异义词不理解</strong>（如"偷采白莲回"的"偷"）</td><td>读描写景色的课文时，闭上眼睛想象画面，再说出看到了什么</td></tr>
+              <tr><td>第七单元</td><td>阅读·习惯养成</td><td>读通《文具的家》《一分钟》《动物王国开大会》《小猴子下山》<br>⚠️ 易错：<strong>课文长，读完不知有几个情节</strong></td><td>读完后用"先…然后…最后…"复述故事经过</td></tr>
+              <tr><td>第八单元</td><td>阅读·科普故事</td><td>读通《棉花姑娘》《咕咚》《小壁虎借尾巴》，了解科学知识<br>⚠️ 易错：<strong>科技术语记不住</strong>（七星瓢虫、咕咚声的由来）</td><td>读完科普故事后，向家人讲一个你学到的科学小知识</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 每周训练 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">每日训练</p>
+        <h2>一年级每日学习建议</h2>
+        <p style="color: #666;">每天 15-20 分钟，坚持比强度重要。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>时间</th><th>训练内容</th><th>目标</th></tr></thead>
+            <tbody>
+              <tr><td>每天</td><td>拼音卡片认读 5 分钟</td><td>巩固声母韵母，能快速反应</td></tr>
+              <tr><td>每天</td><td>课文朗读 5-10 分钟</td><td>读准字音，不拖读，有节奏</td></tr>
+              <tr><td>周一、三</td><td>认字游戏（生活中找字）</td><td>扩大识字量，建立字感</td></tr>
+              <tr><td>周二、四</td><td>写字练习 10 分钟</td><td>练笔画和笔顺，不贪多</td></tr>
+              <tr><td>周五</td><td>古诗朗读 + 简单画一画</td><td>感受画面，加深记忆</td></tr>
+              <tr><td>周末</td><td>亲子阅读 15 分钟</td><td>培养阅读兴趣和习惯</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top: 20px; background: #fff3e0; border-radius: 14px; padding: 18px 22px; border-left: 4px solid #ff9a9e;">
+        <h4 style="color: #d63384; margin: 0 0 10px; font-size: 15px;">&#9201; 每日10分钟拔尖训练清单</h4>
+        <p style="font-size: 13px; color: #666; margin: 0 0 12px;">每天固定10分钟，比"有空才练"效果翻倍。时间分配到项，完成后打钩。</p>
+        <div class="daily-plan">
+          <div class="daily-step">
+            <div class="time">2分钟</div>
+            <div class="task">&#128266; 拼音听辨</div>
+            <div class="hint">家长读易混音，孩子指卡片</div>
+          </div>
+          <div class="daily-step">
+            <div class="time">3分钟</div>
+            <div class="task">&#128483; 朗读训练</div>
+            <div class="hint">读一篇课文，对标6个标准</div>
+          </div>
+          <div class="daily-step">
+            <div class="time">3分钟</div>
+            <div class="task">&#128221; 识字组词</div>
+            <div class="hint">认3个字，每组2个词1句话</div>
+          </div>
+          <div class="daily-step">
+            <div class="time">2分钟</div>
+            <div class="task">&#127912; 看图说话</div>
+            <div class="hint">一张图练一次普通vs拔尖</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 朗读评价标准 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">朗读评价</p>
+        <h2>一年级朗读评价标准</h2>
+        <p style="color: #666;">朗读不是"会读就行"，以下六个维度按从易到难排列，帮助孩子逐项达标。</p>
+      </div>
+      <div class="rubric-grid">
+        <div class="rubric-card">
+          <div class="icon">&#128483;</div>
+          <h4>读准字音</h4>
+          <p>每个字的拼音都读对，不读半边字，不"跳"字。</p>
+        </div>
+        <div class="rubric-card">
+          <div class="icon">&#9989;</div>
+          <h4>不添漏字</h4>
+          <p>对照原文朗读，不多字、不少字、不错行。</p>
+        </div>
+        <div class="rubric-card">
+          <div class="icon">&#128264;</div>
+          <h4>不拖读</h4>
+          <p>不拉长字音读成"拖腔"，不唱读，每个字干脆利落、节奏自然。</p>
+        </div>
+        <div class="rubric-card">
+          <div class="icon">&#9203;</div>
+          <h4>有停顿</h4>
+          <p>看到逗号停一下，看到句号停久一点；长句中间自然换气。</p>
+        </div>
+        <div class="rubric-card">
+          <div class="icon">&#127925;</div>
+          <h4>有语气</h4>
+          <p>问句读出疑问，感叹句读出感情；高兴时语调上扬，难过时放慢。</p>
+        </div>
+        <div class="rubric-card">
+          <div class="icon">&#128214;</div>
+          <h4>读完能说大意</h4>
+          <p>读完一段话能说出"这段话写了谁、做了什么、怎么了"，这是理解的第一步。</p>
+        </div>
+      </div>
+      <div class="speaking-demo" style="margin-top: 16px;">
+        <p><strong>提优做法：</strong>每周选一篇课文，让孩子朗读并录下来，和孩子一起对照六个标准逐项评价。第一次做到 3 项就算进步，慢慢做到 6 项全达标。"读完能说大意"是最难的一条，做到了就是真正的阅读理解起步。</p>
+      </div>
+    </section>
+
+    <!-- ===== 家长指南 ===== -->
+    <section class="section" style="background: #fff;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">家长指南</p>
+        <h2>一年级语文学习建议</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>🌸 学习重点</h2>
+          <ul class="check-list">
+            <li><strong>拼音是工具：</strong>能准确拼读，不要求一步到位，慢慢熟练。</li>
+            <li><strong>识字大于写字：</strong>多认少写，先认识常用字，再慢慢学写。</li>
+            <li><strong>朗读培养语感：</strong>每天朗读10分钟，读准字音，读出节奏。</li>
+            <li><strong>古诗重在感受：</strong>能背诵、能说出画面即可，不要求逐字翻译。</li>
+            <li><strong>习惯比知识重要：</strong>坐姿、握笔、翻书、听讲，好习惯受益终身。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>🎯 家长这样做</h2>
+          <ul class="check-list">
+            <li><strong>多鼓励：</strong>孩子读对了一个拼音、写对一个字，都要及时表扬。</li>
+            <li><strong>少纠错：</strong>读错了让他再读一遍，不要急着说"不对"。</li>
+            <li><strong>讲故事：</strong>睡前读绘本故事，帮助积累词汇和理解能力。</li>
+            <li><strong>玩中学：</strong>用卡片认字、拼音游戏、古诗唱读增加趣味。</li>
+            <li><strong>不比较：</strong>每个孩子进度不同，关注进步，不要横向比较。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="warning-box">
+        <h4>&#9888;&#65039; 家长误区提醒</h4>
+        <p><strong>误区一：过早刷阅读理解题。</strong>一年级的核心是识字、朗读和表达能力，不是刷题。孩子连字都还没认全，做阅读理解只会打击信心。</p>
+        <p><strong>误区二：把拼音学成死记硬背。</strong>拼音是工具不是目的，不要让孩子孤立背声母表、韵母表，要在拼读中、在词语中、在句子中反复运用。</p>
+        <p><strong>误区三：写字要求太高太急。</strong>一年级写字重在姿势和笔顺，写得不漂亮很正常，先求正确再求美观，不要反复擦写让孩子害怕。</p>
+        <p><strong>误区四：忽视口语表达。</strong>说完整一句话是写话的基础，不要跳过"说"直接要求"写"。</p>
+      </div>
+      <div class="phase-tip" style="margin-top: 20px; background: #fce4ec; border-radius: 14px; padding: 20px;">
+        <p><strong>💡 一年级最重要的三件事：</strong></p>
+        <p>① <strong>保持学习兴趣</strong>——让孩子觉得语文好玩、有意思。</p>
+        <p>② <strong>养成朗读习惯</strong>——每天10-15分钟，读课文、读古诗、读故事。</p>
+        <p>③ <strong>打好拼音基础</strong>——拼音是识字的拐杖，学好了以后认字更快。</p>
+      </div>
+    </section>
+    <section class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">高级教师提优</p>
+        <h2>一年级还需要补强的关键点</h2>
+        <p style="color: #666;">一年级不是提前做难题，而是把拼音、识字、朗读、表达这四件事做稳。提优的重点是反应更快、表达更完整、阅读更主动。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card">
+          <h3>1. 拼音从会读到会用</h3>
+          <p>已有内容覆盖了声母、韵母和整体认读音节，但还应补“易混音专项”：b/p、d/t、n/l、zh/ch/sh/r、z/c/s、an/ang、en/eng、in/ing。</p>
+          <p>提优做法：每天选 3 组易混音，先听辨，再拼读词语，最后读一句含该音节的话。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>2. 识字要进入语境</h3>
+          <p>低年级容易“单字认识，放进句子不会读”。建议增加“字、词、句”三步：认字、组词、用词说完整句。</p>
+          <p>提优做法：每个生字至少会组 2 个词，并能说一句生活化短句。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>3. 朗读要有节奏</h3>
+          <p>页面已有朗读建议，还可补“停顿、重音、语气”。一年级不求分析深，但要读出句号、问号、感叹号的区别。</p>
+          <p>提优做法：同一句话分别读成陈述、疑问、惊喜三种语气。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>一年级分层提优目标</h2>
+          <ul class="level-list">
+            <li><strong>基础达标：</strong>拼音能认读，课文能读通，生字会认会写，能说完整一句话。</li>
+            <li><strong>稳步提高：</strong>能借助拼音读短句，能用新词造句，能按顺序说清一件小事。</li>
+            <li><strong>提优发展：</strong>能读短小绘本后说“谁、在哪里、做了什么”，能用 2-3 句话看图说话。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>建议补充的小练习</h2>
+          <div class="routine">
+            <p><strong>听辨：</strong>家长读“bai/pai、dan/tan、lan/nan”，孩子指出听到的是哪一个。</p>
+            <p><strong>扩词：</strong>看到“花”，说“红花、开花、花园”，再说“花园里有红花”。</p>
+            <p><strong>看图说话：</strong>按“时间 + 地点 + 谁 + 做什么 + 心情”说 2 句话。</p>
+            <p><strong>阅读复述：</strong>读完一小段，用“我知道了……”说出主要内容。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 一二年级衔接路线图 ===== -->
+    <section class="section" style="background: #f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">衔接路线</p>
+        <h2>一二年级衔接路线图</h2>
+        <p style="color: #666;">从一年级到二年级，能力要求层层递进，家长心中有数才能帮孩子走稳每一步。</p>
+      </div>
+      <div class="bridge-row">
+        <div class="bridge-node">
+          <div class="stage">&#128218; 一年级</div>
+          <ul>
+            <li><strong>拼音识字</strong>——掌握拼音工具，认识400个常用字</li>
+            <li><strong>读通句子</strong>——能正确、流利地朗读短文</li>
+            <li><strong>说完整话</strong>——用"谁+做什么"说一句完整的话</li>
+          </ul>
+        </div>
+        <div class="bridge-arrow">&#10132;</div>
+        <div class="bridge-node">
+          <div class="stage">&#128218; 二年级</div>
+          <ul>
+            <li><strong>积累词语</strong>——识字量扩大，积累近反义词、四字词语</li>
+            <li><strong>读懂短文</strong>——能说出短文内容和自己的感受</li>
+            <li><strong>写通一段话</strong>——围绕一个意思写3-5句通顺的话</li>
+          </ul>
+        </div>
+        <div class="bridge-arrow">&#10132;</div>
+        <div class="bridge-node">
+          <div class="stage">&#128218; 三年级</div>
+          <ul>
+            <li><strong>理解段落</strong>——找中心句、理清自然段意思</li>
+            <li><strong>写清事情</strong>——六要素完整，有头有尾</li>
+            <li><strong>开始作文</strong>——从写话过渡到写完整的作文</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">拔尖题型技巧</p>
+        <h2>一年级提优题这样做</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>解题抓手</th><th>高分做法</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>拼音听辨</td><td>先听声母，再听韵母，最后听声调</td><td>把易混音放进词语里读，如 b/p、d/t、n/l、an/ang</td><td>不要只背字母表，要能听出来、拼出来</td></tr>
+              <tr><td>看图说话</td><td>时间、地点、人物、事情、心情</td><td>先说完整一句，再补动作和心情，形成 2-3 句话</td><td>不要只说“很好玩”“很开心”，要说清为什么</td></tr>
+              <tr><td>识字组词</td><td>看字形、看偏旁、放进词语</td><td>一个字至少组两个词，再选一个词说句子</td><td>不要把同音字混用，如“在/再”</td></tr>
+              <tr><td>朗读表达</td><td>句号停一停，问号读出疑问，感叹号读出情绪</td><td>读完能说“这句话写了谁在做什么”</td><td>不要拖读、唱读、漏字添字</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #d63384;">拔尖答题模板</p>
+        <h2>一年级这样说更完整</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题模板</th><th>示例</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>看图说话</td><td>什么时候，谁在哪里做什么，心情怎么样。</td><td>星期天，小明在公园里放风筝，他玩得很开心。</td></tr>
+              <tr><td>读后回答</td><td>这句话写了谁，在做什么。</td><td>这句话写了小鸟在树上唱歌。</td></tr>
+              <tr><td>说喜欢的句子</td><td>我喜欢“……”，因为它写出了……。</td><td>我喜欢“小草发芽了”，因为它写出了春天来了。</td></tr>
+              <tr><td>识字说句</td><td>我会用“……”组词“……”，还会说一句：……。</td><td>我会用“花”组词“花园”，花园里有很多花。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
+</body>
+</html>

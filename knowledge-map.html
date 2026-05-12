@@ -8,12 +8,14 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
       <a class="active" href="knowledge-map.html">知识图谱</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
@@ -188,6 +190,7 @@
       </div>
     </section>
   </main>
-<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

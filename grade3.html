@@ -8,10 +8,12 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
       <a class="active" href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
@@ -329,7 +331,117 @@
         </div>
       </div>
     </section>
+    <section class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">高级教师提优</p>
+        <h2>三年级从“会写句子”提升到“会写段落”</h2>
+        <p style="color: #666;">三年级是作文和段落阅读的起点，拔尖不靠提前背大作文，而是把“围绕一个意思写清楚”练扎实。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card">
+          <h3>1. 阅读抓段落中心</h3>
+          <p>每读一段先问：这段围绕哪一句写？如果没有中心句，就用自己的话概括。</p>
+          <p>拔尖训练：用“这段主要写……”概括，再圈出 2-3 个支撑词。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>2. 作文从片段提优</h3>
+          <p>三年级不要急着写长，先把一个动作、一个场景、一次心情写具体。</p>
+          <p>拔尖训练：一句话扩成一小段，至少加入动作、样子、声音、心情中的两项。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>3. 词句要会迁移</h3>
+          <p>积累词语不是抄词，而是把课文里的好词换到自己的表达里。</p>
+          <p>拔尖训练：每周选 5 个课内好词，各写一个生活化句子。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>三年级拔尖训练路径</h2>
+          <ul class="level-list">
+            <li><strong>基础达标：</strong>能读懂自然段，能写通顺的一段话，标点基本正确。</li>
+            <li><strong>能力提升：</strong>能概括段意，能围绕中心句写 4-6 句话。</li>
+            <li><strong>拔尖发展：</strong>能写出细节和感受，阅读答案能引用原文依据。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>三年级每日提优 10 分钟</h2>
+          <div class="routine">
+            <p><strong>2 分钟：</strong>读一段课文，找中心句或关键词。</p>
+            <p><strong>3 分钟：</strong>把一个短句扩成具体句。</p>
+            <p><strong>3 分钟：</strong>用一个课内好词造生活化句子。</p>
+            <p><strong>2 分钟：</strong>口头复述今天读到的内容。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖题型技巧</p>
+        <h2>三年级提优题这样做</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>解题抓手</th><th>高分表达</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>找中心句</td><td>看段首、段尾，找能概括全段的句子</td><td>这段围绕“……”来写，后面几句分别写了……</td><td>不要把某个细节句当中心句</td></tr>
+              <tr><td>理解词语</td><td>联系上下文，换近义词，再放回句子检验</td><td>“……”在文中指……，写出了……的特点</td><td>不要只写字典意思，要结合文章</td></tr>
+              <tr><td>赏析句子</td><td>先判断写法，再说写出了什么</td><td>这句话用了比喻/拟人的写法，写出了……，让句子更生动</td><td>不要只答“很生动”，要说哪里生动</td></tr>
+              <tr><td>片段写作</td><td>围绕一个意思写，加入动作、样子、心情</td><td>先总说，再写两三个细节，最后写感受</td><td>不要一段里写太多无关内容</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖答题模板</p>
+        <h2>三年级阅读和片段这样答</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题模板</th><th>高分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概括自然段</td><td>这一段主要写了……。</td><td>用自己的话概括，不整句照抄。</td></tr>
+              <tr><td>找中心句</td><td>中心句是“……”，因为后面的内容都围绕它来写。</td><td>要说明为什么它能概括全段。</td></tr>
+              <tr><td>词语理解</td><td>“……”在文中指……，写出了……。</td><td>结合上下文，不只写近义词。</td></tr>
+              <tr><td>句子赏析</td><td>这句话用了……的写法，把……写得……。</td><td>要说出特点，如可爱、美丽、着急、热闹。</td></tr>
+              <tr><td>片段表达</td><td>先写总起句，再写动作/样子/心情，最后写感受。</td><td>围绕一个意思写，不跑题。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖题型示范</p>
+        <h2>三年级普通答案怎么升格</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题目</th><th>普通答案</th><th>拔尖答案</th><th>得分点</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>“小草偷偷地从土里钻出来”好在哪里？</td><td>写得很好，很生动。</td><td>这句话把小草当成人来写，用“偷偷地”“钻”写出了小草刚长出来时可爱、有生命力的样子。</td><td>写法 + 关键词 + 特点</td></tr>
+              <tr><td>这段话主要写了什么？</td><td>写春天。</td><td>这段话主要写春天来了，花开了，小鸟叫了，到处充满生机。</td><td>对象 + 内容 + 特点</td></tr>
+              <tr><td>用“热闹”写一句具体的话。</td><td>操场很热闹。</td><td>下课了，操场上有的跳绳，有的踢球，还有的追逐游戏，到处都是欢笑声，真热闹。</td><td>场景 + 多个细节</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
-<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

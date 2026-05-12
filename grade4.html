@@ -8,10 +8,12 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a class="active" href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
@@ -643,7 +645,119 @@
         </article>
       </div>
     </section>
+    <section class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">高级教师提优</p>
+        <h2>四年级从“答对”提升到“答得有依据”</h2>
+        <p style="color: #666;">四年级拔尖的核心是概括能力、依据意识和结构表达。孩子要学会说明“我为什么这样答”。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card">
+          <h3>1. 阅读答案回到原文</h3>
+          <p>不能只写感觉，要能指出原文依据。人物品质、情感变化、句子作用都要从文本里找证据。</p>
+          <p>拔尖训练：每道阅读题后补一句“我是从……看出来的”。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>2. 作文要有结构感</h3>
+          <p>四年级作文开始要求详略。不是每件事都写一样多，要抓最重要的场景重点写。</p>
+          <p>拔尖训练：写作前先列“开头、经过重点、结尾感受”三行提纲。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>3. 修辞要会赏析</h3>
+          <p>会判断比喻、拟人还不够，要能说出“写出了什么特点，表达了什么效果”。</p>
+          <p>拔尖训练：按“方法 + 特点 + 效果”赏析一个句子。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>四年级拔尖训练路径</h2>
+          <ul class="level-list">
+            <li><strong>基础达标：</strong>能概括主要内容，能判断修辞，能写清一件事。</li>
+            <li><strong>能力提升：</strong>能结合关键词分析人物心情和文章情感。</li>
+            <li><strong>拔尖发展：</strong>能用原文依据组织答案，作文能做到详略分明。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>四年级拔尖题型示范</h2>
+          <div class="routine">
+            <p><strong>普通题：</strong>这句话用了什么修辞？</p>
+            <p><strong>拔尖题：</strong>这句话好在哪里？按“修辞方法 + 写出特点 + 表达效果”回答。</p>
+            <p><strong>普通题：</strong>小明是怎样的人？</p>
+            <p><strong>拔尖题：</strong>结合文中具体语句，说说小明的品质。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖题型技巧</p>
+        <h2>四年级提优题这样做</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>解题抓手</th><th>高分表达</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概括主要内容</td><td>人物、事件、经过、结果</td><td>文章主要写了……，表现了……</td><td>不要复述太长，也不要只写一个大概词</td></tr>
+              <tr><td>人物品质分析</td><td>品质词 + 原文依据</td><td>他是一个……的人，从“……”可以看出</td><td>不要只写“好、勇敢”，要有具体依据</td></tr>
+              <tr><td>修辞赏析</td><td>方法、特点、效果</td><td>这句话用了……，把……写得……，表达了……</td><td>不要停在“用了比喻/拟人”</td></tr>
+              <tr><td>句段作用</td><td>位置 + 内容 + 结构作用</td><td>这段写了……，在结构上起到承上启下/引出下文的作用</td><td>不要所有题都套“点明中心”</td></tr>
+              <tr><td>作文详略</td><td>最能表现中心的地方详写</td><td>重点写动作、语言、神态和心理，略写起因和结果</td><td>不要平均用力，流水账很难高分</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖答题模板</p>
+        <h2>四年级阅读分析这样答</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题模板</th><th>高分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>主要内容</td><td>文章主要写了……，表现了……。</td><td>内容概括后可以补一句情感或道理。</td></tr>
+              <tr><td>人物品质</td><td>他是一个……的人，从文中“……”可以看出。</td><td>品质词要准确，依据要具体。</td></tr>
+              <tr><td>体会心情</td><td>从“……”这个词/句可以看出人物……的心情。</td><td>心情变化题要按顺序答。</td></tr>
+              <tr><td>修辞赏析</td><td>这句话用了……，把……写得……，表达了……。</td><td>完整回答“方法、特点、效果”。</td></tr>
+              <tr><td>句段作用</td><td>这段写了……，在内容上……，在结构上……。</td><td>结构作用看位置：开头、过渡、结尾不同。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖题型示范</p>
+        <h2>四年级普通答案怎么升格</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题目</th><th>普通答案</th><th>拔尖答案</th><th>得分点</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>“落叶像黄蝴蝶一样飞舞”这句话好在哪里？</td><td>用了比喻，很生动。</td><td>这句话用了比喻，把落叶比作黄蝴蝶，写出了落叶飘落时轻盈、优美的样子，画面感很强。</td><td>修辞 + 特点 + 效果</td></tr>
+              <tr><td>你觉得小明是一个怎样的人？</td><td>小明很坚持。</td><td>小明是一个坚持不懈的人。从他每天早起练跑步，即使下雨也不放弃可以看出来。</td><td>品质 + 原文依据</td></tr>
+              <tr><td>文章主要写了什么？</td><td>写小明跑步。</td><td>文章主要写了小明为了参加运动会，坚持练习跑步，最后取得好成绩的事，表现了坚持的重要。</td><td>人物 + 事件 + 结果 + 主题</td></tr>
+              <tr><td>开头写下雨有什么作用？</td><td>写天气不好。</td><td>开头写下雨，交代了故事发生的环境，也衬托出小明坚持训练的不容易，为后文表现他的毅力作铺垫。</td><td>环境 + 人物 + 下文</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
-<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

@@ -239,11 +239,13 @@
       <span class="brand-mark">文</span>
       <span>语文成长地图</span>
     </a>
-    <button class="hamburger" onclick="this.closest('.topbar').classList.toggle('nav-visible')" aria-label="菜单">☰</button>
+    <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a class="active" href="index.html">总览</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
@@ -333,40 +335,104 @@
       <div class="roadmap-title">
         <h2>年级提优路线表</h2>
       </div>
-      <div class="responsive-table">
-        <table class="roadmap-table">
-          <thead>
-            <tr>
-              <th>年级</th>
-              <th>基础重点</th>
-              <th>提优重点</th>
-              <th>拔高目标</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>三年级</strong></td>
-              <td>字词句、自然段</td>
-              <td>写具体、找中心句</td>
-              <td>能写完整片段</td>
-            </tr>
-            <tr>
-              <td><strong>四年级</strong></td>
-              <td>概括、修辞、描写</td>
-              <td>找依据、析作用</td>
-              <td>阅读答案有层次</td>
-            </tr>
-            <tr>
-              <td><strong>五年级</strong></td>
-              <td>中心、人物、说明文</td>
-              <td>分析主题和结构</td>
-              <td>作文有中心有详略</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 年级选项卡 -->
+      <div class="grade-tabs">
+        <button class="tab-btn" onclick="showGrade(1)">一年级</button>
+        <button class="tab-btn" onclick="showGrade(2)">二年级</button>
+        <button class="tab-btn active" onclick="showGrade(3)">三年级</button>
+        <button class="tab-btn" onclick="showGrade(4)">四年级</button>
+        <button class="tab-btn" onclick="showGrade(5)">五年级</button>
+      </div>
+      
+      <!-- 年级内容卡片 -->
+      <div class="grade-content">
+        <!-- 一年级 -->
+        <div id="grade-1" class="grade-card">
+          <h3>一年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">拼音、笔画、简单识字</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">拼读熟练、认字量增加</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">能独立拼读、朗读短文</span>
+          </div>
+        </div>
+        
+        <!-- 二年级 -->
+        <div id="grade-2" class="grade-card">
+          <h3>二年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">形近字、多音字、词语积累</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">阅读理解起步、写一段话</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">能说完整、写清楚</span>
+          </div>
+        </div>
+        
+        <!-- 三年级 -->
+        <div id="grade-3" class="grade-card active">
+          <h3>三年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">字词句、自然段</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">写具体、找中心句</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">能写完整片段</span>
+          </div>
+        </div>
+        
+        <!-- 四年级 -->
+        <div id="grade-4" class="grade-card">
+          <h3>四年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">概括、修辞、描写</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">找依据、析作用</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">阅读答案有层次</span>
+          </div>
+        </div>
+        
+        <!-- 五年级 -->
+        <div id="grade-5" class="grade-card">
+          <h3>五年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">中心、人物、说明文</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">分析主题和结构</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">作文有中心有详略</span>
+          </div>
+        </div>
       </div>
       <p class="roadmap-note">
-        <strong>梯度特点：</strong>三年级重表达完整，四年级重阅读依据，五年级重分析深度
+        <strong>梯度特点：</strong>一年级重拼音识字基础，二年级重词语积累和阅读起步，三年级重表达完整，四年级重阅读依据，五年级重分析深度
       </p>
     </div>
   </section>
@@ -374,7 +440,7 @@
   <main>
     <section class="hero dashboard-hero">
       <div class="hero-copy">
-        <p class="eyebrow">小学三至五年级</p>
+        <p class="eyebrow">小学一至五年级</p>
         <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
         <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
         <div class="hero-actions">
@@ -402,6 +468,18 @@
         <h2>三步找到孩子当前要补的点</h2>
       </div>
       <div class="grade-grid">
+        <a class="grade-panel grade-one" href="grade1.html">
+          <span class="grade-number">1</span>
+          <h3>一年级：零基础起步</h3>
+          <p>重点打好拼音基础、认识常见字、养成朗读习惯，从"不会"到"会读"。</p>
+          <span class="panel-link">进入一年级</span>
+        </a>
+        <a class="grade-panel grade-two" href="grade2.html">
+          <span class="grade-number">2</span>
+          <h3>二年级：从会读到会用</h3>
+          <p>重点扩大识字量、积累词语、学会阅读方法，从"一句话"到"一段话"。</p>
+          <span class="panel-link">进入二年级</span>
+        </a>
         <a class="grade-panel grade-three" href="grade3.html">
           <span class="grade-number">3</span>
           <h3>三年级：从会读到会说</h3>
@@ -426,7 +504,7 @@
     <section class="section split">
       <div>
         <p class="eyebrow">能力成长路径</p>
-        <h2>三到五年级语文能力发展路径</h2>
+        <h2>一至五年级语文能力发展路径</h2>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -435,6 +513,8 @@
               <tr><th>年级</th><th>一句话目标</th><th>学习重点</th></tr>
             </thead>
             <tbody>
+              <tr><td>一年级</td><td>学会拼音，认识常用字，能朗读短文</td><td>拼音拼读、基本笔画、简单识字、朗读入门</td></tr>
+              <tr><td>二年级</td><td>识字量扩大，会阅读短文，会写一段话</td><td>形近字辨析、词语积累、阅读方法、写话训练</td></tr>
               <tr><td>三年级</td><td>把句子写具体，把一件事说完整</td><td>字词积累、句子训练、自然段理解、基础习作</td></tr>
               <tr><td>四年级</td><td>读文章会概括，答题能找依据</td><td>概括内容、修辞理解、细节描写、阅读答题</td></tr>
               <tr><td>五年级</td><td>理解文章主题，表达有结构</td><td>中心思想、人物分析、说明文、文言启蒙、作文结构</td></tr>
@@ -450,6 +530,24 @@
         <h2>每个年级孩子要逐步做到</h2>
       </div>
       <div class="cards-row">
+        <article class="mini-card grade-one">
+          <span class="grade-number">1</span>
+          <h3>一年级</h3>
+          <ul>
+            <li>能准确拼读音节，能独立拼读</li>
+            <li>认识 400 个常用字，会写 200 个</li>
+            <li>能正确朗读课文，不拖读不唱读</li>
+          </ul>
+        </article>
+        <article class="mini-card grade-two">
+          <span class="grade-number">2</span>
+          <h3>二年级</h3>
+          <ul>
+            <li>能辨析形近字和多音字</li>
+            <li>能读懂短文并回答简单问题</li>
+            <li>能写一段通顺的话（3-5句）</li>
+          </ul>
+        </article>
         <article class="mini-card grade-three">
           <span class="grade-number">3</span>
           <h3>三年级</h3>
@@ -489,17 +587,17 @@
         <div class="responsive-table">
           <table>
             <thead>
-              <tr><th>模块</th><th>三年级</th><th>四年级</th><th>五年级</th></tr>
+              <tr><th>模块</th><th>一年级</th><th>二年级</th><th>三年级</th><th>四年级</th><th>五年级</th></tr>
             </thead>
             <tbody>
-              <tr><td>字词</td><td>多音字、形近字、近反义词</td><td>词语理解、词语搭配</td><td>词语运用、语境理解</td></tr>
-              <tr><td>句子</td><td>扩句、缩句、标点符号</td><td>把字句、被字句、病句修改</td><td>句子作用、句式变换</td></tr>
-              <tr><td>阅读</td><td>找中心句、找关键词</td><td>概括内容、理解词语、找依据</td><td>中心思想、人物形象、情感变化</td></tr>
-              <tr><td>修辞</td><td>比喻、拟人（认识）</td><td>比喻、拟人、排比、夸张、反问</td><td>修辞赏析、表达效果</td></tr>
-              <tr><td>描写</td><td>观察描写</td><td>动作、语言、神态、心理、环境</td><td>环境作用、人物对比</td></tr>
-              <tr><td>作文</td><td>六要素、观察日记</td><td>详写经过、细节描写</td><td>详略安排、过渡句、点题</td></tr>
-              <tr><td>说明文</td><td>-</td><td>-</td><td>说明方法、说明顺序、准确性</td></tr>
-              <tr><td>文言文</td><td>-</td><td>-</td><td>朗读停顿、注释理解、常见实词</td></tr>
+              <tr><td>字词</td><td>拼音、基本笔画、简单识字</td><td>形近字、多音字、近反义词</td><td>多音字、形近字、词语运用</td><td>词语理解、词语搭配</td><td>词语运用、语境理解</td></tr>
+              <tr><td>句子</td><td>说完整一句话</td><td>用逗号句号，写通顺句子</td><td>扩句、缩句、标点符号</td><td>把字句、被字句、病句修改</td><td>句子作用、句式变换</td></tr>
+              <tr><td>阅读</td><td>正确朗读、简单理解</td><td>读懂短文、找到信息</td><td>找中心句、找关键词</td><td>概括内容、理解词语、找依据</td><td>中心思想、人物形象、情感变化</td></tr>
+              <tr><td>修辞</td><td>-</td><td>感受比喻、拟人的句子</td><td>比喻、拟人（认识）</td><td>比喻、拟人、排比、夸张、反问</td><td>修辞赏析、表达效果</td></tr>
+              <tr><td>描写</td><td>-</td><td>观察写话</td><td>观察描写</td><td>动作、语言、神态、心理、环境</td><td>环境作用、人物对比</td></tr>
+              <tr><td>作文</td><td>写一句完整的话</td><td>写一段通顺的话（3-5句）</td><td>六要素、观察日记</td><td>详写经过、细节描写</td><td>详略安排、过渡句、点题</td></tr>
+              <tr><td>说明文</td><td>-</td><td>-</td><td>-</td><td>-</td><td>说明方法、说明顺序、准确性</td></tr>
+              <tr><td>文言文</td><td>-</td><td>-</td><td>-</td><td>-</td><td>朗读停顿、注释理解、常见实词</td></tr>
             </tbody>
           </table>
         </div>
@@ -687,8 +785,22 @@
           }, 100);
         });
       });
+      
+      // 年级选项卡切换
+      function showGrade(grade) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelectorAll('.grade-card').forEach(card => {
+          card.classList.remove('active');
+        });
+        
+        event.target.classList.add('active');
+        document.getElementById('grade-' + grade).classList.add('active');
+      }
     </script>
   </main>
-<script>document.querySelectorAll('.topbar .nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.topbar').classList.remove('nav-visible')})})</script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

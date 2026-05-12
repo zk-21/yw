@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>二年级语文 - 小学语文基础</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .grade-two-hero {
+      background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+      padding: 60px 5vw;
+      text-align: center;
+    }
+    .grade-two-hero h1 { color: #8d6e00; margin-bottom: 15px; }
+    .grade-two-hero p { color: #6b5200; font-size: 18px; max-width: 700px; margin: 0 auto; }
+    .section-title h2 { color: #e67e22; }
+    .study-block { border-left: 4px solid #fdcb6e; }
+    .study-block.accent { border-left: 4px solid #e67e22; }
+    .study-block h2 { color: #e67e22; }
+
+    .word-compare { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .compare-card {
+      background: white; border-radius: 14px; padding: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #fdebd0;
+    }
+    .compare-card h4 { color: #e67e22; margin: 0 0 8px; font-size: 15px; }
+    .compare-card .word-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
+    .compare-card .word-row .w {
+      background: #fef9e7; padding: 3px 10px; border-radius: 8px;
+      font-size: 13px; color: #555;
+    }
+    .compare-card .word-row .w em { font-style: normal; color: #e67e22; font-weight: bold; }
+
+    .word-collect { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .collect-card {
+      background: #fef9e7; border-radius: 12px; padding: 14px;
+      text-align: center; border: 1px solid #fdebd0;
+    }
+    .collect-card h4 { color: #e67e22; margin: 0 0 6px; font-size: 14px; }
+    .collect-card .ex { color: #666; font-size: 13px; line-height: 1.6; }
+
+    .poem-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .poem-card {
+      background: #fef9e7; border-radius: 14px; padding: 16px; text-align: center;
+      border: 1px solid #fdebd0;
+    }
+    .poem-card h4 { color: #e67e22; margin: 0 0 4px; font-size: 15px; }
+    .poem-card .author { color: #999; font-size: 12px; }
+    .poem-card .line { color: #555; font-size: 13px; margin-top: 6px; }
+
+    .method-steps { display: grid; gap: 12px; }
+    .method-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: #fef9e7; border-radius: 12px; padding: 14px 18px;
+    }
+    .method-step .step-num {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 15px;
+    }
+    .method-step .step-text { font-size: 14px; color: #555; }
+    .method-step .step-text strong { color: #e67e22; }
+
+    .routine p { font-size: 15px; }
+
+    /* 标点专项 */
+    .punct-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .punct-card {
+      background: white; border-radius: 12px; padding: 14px;
+      border: 1px solid #fdebd0; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .punct-card .mark { font-size: 32px; font-weight: bold; color: #e67e22; margin-bottom: 4px; }
+    .punct-card h4 { margin: 0 0 6px; font-size: 14px; color: #e67e22; }
+    .punct-card p { margin: 2px 0; font-size: 13px; color: #555; }
+
+    /* 写话提优样例 */
+    .writing-sample {
+      background: #fef9e7; border-radius: 14px; padding: 16px 20px;
+      border-left: 4px solid #e67e22; margin-top: 10px;
+    }
+    .writing-sample .from-line { color: #999; font-size: 12px; }
+    .writing-sample p { margin: 5px 0; font-size: 14px; color: #555; }
+    .writing-sample .expand { color: #e67e22; font-weight: bold; }
+    .sample-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+    .sample-box {
+      background: white; border-radius: 10px; padding: 12px 14px;
+      border: 1px solid #fdebd0;
+    }
+    .sample-box.before { border-left: 3px solid #e74c3c; }
+    .sample-box.after { border-left: 3px solid #27ae60; }
+    .sample-box .label { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+    .sample-box.before .label { color: #e74c3c; }
+    .sample-box.after .label { color: #27ae60; }
+    .sample-box p { margin: 3px 0; font-size: 13px; color: #555; }
+
+    /* 词语运用训练 */
+    .word-practice-grid { display: grid; gap: 14px; }
+    .word-practice-card {
+      background: white; border-radius: 14px; padding: 16px 20px;
+      border: 1px solid #fdebd0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .word-practice-card h4 { color: #e67e22; margin: 0 0 8px; font-size: 15px; }
+    .word-practice-card .prompt { font-size: 14px; color: #555; margin-bottom: 8px; }
+    .word-practice-card .options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .word-practice-card .opt {
+      background: #fef9e7; padding: 4px 14px; border-radius: 8px;
+      font-size: 13px; color: #666; border: 1px solid #fdebd0;
+    }
+    .word-practice-card .answer-hint { font-size: 12px; color: #999; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 6px; }
+
+    /* 升三衔接 + 路线图 */
+    .transition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .transition-card {
+      background: #fef9e7; border-radius: 12px; padding: 16px;
+      border: 1px solid #fdebd0;
+    }
+    .transition-card h4 { color: #e67e22; margin: 0 0 6px; font-size: 14px; }
+    .transition-card p { margin: 3px 0; font-size: 13px; color: #555; }
+
+    .bridge-row { display: flex; gap: 0; align-items: center; }
+    .bridge-node {
+      flex: 1; background: white; border-radius: 14px; padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #fdebd0;
+    }
+    .bridge-node .stage { font-size: 14px; font-weight: bold; color: #e67e22; margin-bottom: 6px; }
+    .bridge-node ul { margin: 0; padding-left: 18px; }
+    .bridge-node li { font-size: 13px; color: #555; margin: 3px 0; }
+    .bridge-arrow { padding: 0 10px; font-size: 22px; color: #fdcb6e; }
+
+    /* 写话升格对比 */
+    .upgrade-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+    .upgrade-box {
+      background: white; border-radius: 10px; padding: 14px;
+      border: 1px solid #fdebd0;
+    }
+    .upgrade-box .tag { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+    .upgrade-box.basic .tag { color: #e74c3c; }
+    .upgrade-box.advanced .tag { color: #27ae60; }
+    .upgrade-box p { margin: 3px 0; font-size: 13px; color: #555; line-height: 1.6; }
+
+    /* 标点符号表格 */
+    .punct-table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    .punct-table th, .punct-table td {
+      padding: 10px 14px; border: 1px solid #fdebd0; font-size: 13px; text-align: left;
+    }
+    .punct-table th {
+      background: #fef9e7; color: #e67e22; font-weight: bold;
+    }
+    .punct-table td { color: #555; }
+
+    /* 每日10分钟 */
+    .daily-plan { display: flex; gap: 10px; margin: 16px 0; }
+    .daily-step {
+      flex: 1; background: white; border-radius: 12px; padding: 14px 12px;
+      text-align: center; border: 1px solid #fdebd0;
+    }
+    .daily-step .time { font-size: 20px; font-weight: bold; color: #e67e22; }
+    .daily-step .task { font-size: 13px; color: #555; margin-top: 4px; }
+    .daily-step .hint { font-size: 11px; color: #999; margin-top: 2px; }
+
+    @media (max-width: 768px) {
+      .upgrade-compare { grid-template-columns: 1fr; }
+      .daily-plan { flex-direction: column; }
+      .grade-two-hero { padding: 40px 5vw; }
+      .grade-two-hero h1 { font-size: 24px; }
+      .word-compare { grid-template-columns: 1fr; }
+      .word-collect { grid-template-columns: repeat(2, 1fr); }
+      .poem-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .punct-grid,
+      .transition-grid { grid-template-columns: 1fr; }
+      .sample-compare { grid-template-columns: 1fr; }
+      .bridge-row { flex-direction: column; gap: 12px; }
+      .bridge-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grade1.html">一年级</a>
+      <a class="active" href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="grade-two-hero">
+      <p class="eyebrow" style="color: #8d6e00;">承上启下</p>
+      <h1>二年级语文学习指导</h1>
+      <p>二年级是语文能力的"爬坡期"——从"学会读"到"通过读来学"，从"写一句话"到"写一段话"。<strong>识字量扩大、阅读理解起步、写话开始要求完整通顺</strong>。</p>
+    </section>
+
+    <!-- 5个能力 -->
+    <section class="section content-grid">
+      <article class="study-block">
+        <h2>二年级必须形成的 5 个能力</h2>
+        <ul class="check-list">
+          <li><strong>识字写字能力：</strong>认识常用汉字 450 个左右，会写 250 个左右，能辨析形近字和多音字。</li>
+          <li><strong>词语积累能力：</strong>积累近反义词、四字词语，能在句子中正确使用学过的词语。</li>
+          <li><strong>朗读理解能力：</strong>能正确流利地朗读课文，能说出课文的主要内容和自己的感受。</li>
+          <li><strong>口语交际能力：</strong>能说一段完整通顺的话，能参与讨论，会使用商量的语气。</li>
+          <li><strong>写话表达能力：</strong>能写一段通顺的话，能用上学过的词语，能正确使用逗号、句号、感叹号。</li>
+        </ul>
+      </article>
+      <article class="study-block accent">
+        <h2>二年级提优总口诀</h2>
+        <div class="routine">
+          <p><strong>识字：</strong>形近字要对比，多音字要看句；偏旁部首记规律，字词句里巩固牢。</p>
+          <p><strong>词语：</strong>积累在生活中，运用在句子中；近反义词成对记，四字词语要理解。</p>
+          <p><strong>阅读：</strong>读三遍——第一遍读通，第二遍读懂，第三遍读出感受。</p>
+          <p><strong>写话：</strong>先想清楚再动笔，说完整再写下来；用上"五感"观察法，一段话里说清楚。</p>
+          <p><strong>古诗：</strong>读出节奏和韵味，闭上眼睛想象画面，能用一句话说出感受。</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 知识点总表 -->
+    <section class="section">
+      <div class="table-card">
+        <h2>二年级知识点总表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>基础必会</th><th>学习要点</th><th>家长怎么做</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>识字写字</td><td>认识 450 字、会写 250 字、辨析形近字、多音字</td><td>偏旁归类识字，形近字对比记忆，多音字据词定音</td><td>每天听写 5-8 个词，关注形近字易错点</td></tr>
+              <tr><td>词语积累</td><td>近反义词、ABB/AABB 词语、四字词语</td><td>在阅读中理解词义，在写话中主动运用</td><td>和孩子玩"词语接龙""找近反义词"游戏</td></tr>
+              <tr><td>阅读理解</td><td>读懂短文，找到关键信息</td><td>读三遍法：读通→读懂→读深</td><td>读完问孩子"这篇写了什么""你最喜欢哪里"</td></tr>
+              <tr><td>写话表达</td><td>写一段通顺的话（3-5句）</td><td>先观察再写，用"五感"丰富内容</td><td>鼓励孩子写日记或周记，一句话也是进步</td></tr>
+              <tr><td>古诗</td><td>背诵约 10 首古诗</td><td>读出节奏，想象画面，了解基本诗意</td><td>睡前一起读古诗，做"古诗接龙"游戏</td></tr>
+              <tr><td>口语交际</td><td>能说完整一段话，学会商量和推荐</td><td>先说再写，用"总分"结构说清楚</td><td>每天和孩子聊 5 分钟，鼓励说完整</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 形近字·多音字·近反义词 -->
+    <section class="section" style="background: #fefcf5;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">识字写字</p>
+        <h2>形近字 · 多音字 · 近反义词</h2>
+        <p style="color: #666;">二年级识字量大幅增加，形近字和多音字是最大难点，必须逐个辨析。</p>
+      </div>
+      <div class="word-compare">
+        <div class="compare-card">
+          <h4>形近字对比</h4>
+          <div class="word-row"><span class="w">杨 / 扬</span></div>
+          <div class="word-row"><span class="w">蜂 / 峰 / 锋</span></div>
+          <div class="word-row"><span class="w">坡 / 披</span></div>
+          <div class="word-row"><span class="w">渴 / 喝</span></div>
+          <div class="word-row"><span class="w">该 / 刻</span></div>
+          <div class="word-row"><span class="w">低 / 底</span></div>
+        </div>
+        <div class="compare-card">
+          <h4>多音字</h4>
+          <div class="word-row"><span class="w"><em>好</em> hǎo（好人）/ hào（爱好）</span></div>
+          <div class="word-row"><span class="w"><em>长</em> cháng（长短）/ zhǎng（长大）</span></div>
+          <div class="word-row"><span class="w"><em>乐</em> lè（快乐）/ yuè（音乐）</span></div>
+          <div class="word-row"><span class="w"><em>重</em> zhòng（重要）/ chóng（重新）</span></div>
+          <div class="word-row"><span class="w"><em>种</em> zhǒng（种子）/ zhòng（种地）</span></div>
+          <div class="word-row"><span class="w"><em>只</em> zhī（一只）/ zhǐ（只有）</span></div>
+        </div>
+        <div class="compare-card">
+          <h4>近反义词</h4>
+          <div class="word-row"><span class="w"><em>高兴</em> — 快乐 — 开心</span></div>
+          <div class="word-row"><span class="w"><em>美丽</em> — 漂亮 — 好看</span></div>
+          <div class="word-row"><span class="w"><em>快</em> ⇄ 慢 · <em>高</em> ⇄ 矮</span></div>
+          <div class="word-row"><span class="w"><em>温暖</em> ⇄ 寒冷 · <em>认真</em> ⇄ 马虎</span></div>
+          <div class="word-row"><span class="w"><em>开始</em> ⇄ 结束 · <em>困难</em> ⇄ 容易</span></div>
+          <div class="word-row"><span class="w"><em>骄傲</em> ⇄ 谦虚 · <em>喜爱</em> ⇄ 讨厌</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 词语积累 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">词语积累</p>
+        <h2>二年级常用词语类型</h2>
+        <p style="color: #666;">词语积累是二年级的重点，为三年级的写作打基础。</p>
+      </div>
+      <div class="word-collect">
+        <div class="collect-card"><h4>ABB 式</h4><div class="ex">绿油油 红彤彤<br>白茫茫 亮晶晶<br>慢吞吞 笑盈盈</div></div>
+        <div class="collect-card"><h4>AABB 式</h4><div class="ex">高高兴兴 干干净净<br>明明白白 快快乐乐<br>仔仔细细 认认真真</div></div>
+        <div class="collect-card"><h4>ABAB 式</h4><div class="ex">雪白雪白 火红火红<br>金黄金黄 碧绿碧绿<br>打扫打扫 研究研究</div></div>
+        <div class="collect-card"><h4>又~又~ 式</h4><div class="ex">又大又红 又细又长<br>又高又大 又蹦又跳<br>又说又笑 又香又甜</div></div>
+        <div class="collect-card"><h4>四字词语</h4><div class="ex">春暖花开 鸟语花香<br>万里无云 五光十色<br>四海为家 无边无际</div></div>
+        <div class="collect-card"><h4>数量词</h4><div class="ex">一群 一孔 一丛<br>一面 一片 一双<br>一座 一条 一首</div></div>
+      </div>
+    </section>
+
+    <!-- 词语运用训练 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">词语运用</p>
+        <h2>词语运用训练</h2>
+        <p style="color: #666;">不只是背ABB/AABB，还要在具体语境中选词、用词、造句，才是真积累。</p>
+      </div>
+      <div class="word-practice-grid">
+        <div class="word-practice-card">
+          <h4>&#9312; 选词填空</h4>
+          <div class="prompt">选择合适的词填在括号里：</div>
+          <div class="options">
+            <span class="opt">温暖</span>
+            <span class="opt">寒冷</span>
+            <span class="opt">美丽</span>
+            <span class="opt">开心</span>
+          </div>
+          <p style="font-size: 13px; color: #555; margin-top: 8px;">① 春天来了，天气变得很（ ）。<br>② 公园里的花真（ ）。<br>③ 冬天北风呼呼地吹，真（ ）。<br>④ 得到礼物，小明非常（ ）。</p>
+          <div class="answer-hint">提示：先看句子的意思，再选对应的词。</div>
+        </div>
+        <div class="word-practice-card">
+          <h4>&#9313; 用词造句</h4>
+          <div class="prompt">用下面的词语各写一句话：</div>
+          <p style="font-size: 13px; color: #555; margin: 5px 0;"><strong>仔细</strong> — ___________________________</p>
+          <p style="font-size: 13px; color: #555; margin: 5px 0;"><strong>立刻</strong> — ___________________________</p>
+          <p style="font-size: 13px; color: #555; margin: 5px 0;"><strong>一边……一边……</strong> — ___________________________</p>
+          <p style="font-size: 13px; color: #555; margin: 5px 0;"><strong>高高兴兴</strong> — ___________________________</p>
+          <div class="answer-hint">提优要求：句子至少写 8 个字，不能只写"我仔细写作业"，要写出谁在哪里怎样做。</div>
+        </div>
+        <div class="word-practice-card">
+          <h4>&#9314; 词语联想</h4>
+          <div class="prompt">看到"春天"，你能想到哪些词语？写下来：</div>
+          <p style="font-size: 13px; color: #555; margin: 8px 0;">
+            天气：_____、_____、_____<br>
+            植物：_____、_____、_____<br>
+            活动：_____、_____、_____
+          </p>
+          <div class="answer-hint">提优做法：每周做一个词语联想练习，帮孩子建立词语网络。</div>
+        </div>
+        <div class="word-practice-card">
+          <h4>&#9315; 词语连段</h4>
+          <div class="prompt">用下面三个词语写一段通顺的话（2-3句）：</div>
+          <p style="font-size: 13px; color: #e67e22; font-weight: bold; margin: 8px 0;">阳光 · 草地 · 开心</p>
+          <p style="font-size: 13px; color: #999; margin: 5px 0;"><strong>示例：</strong>星期天，阳光洒在草地上。我和小伙伴在草地上放风筝，大家玩得很开心。</p>
+          <p style="font-size: 13px; color: #555; margin-top: 8px;"><strong>你也来试试：</strong></p>
+          <p style="font-size: 13px; color: #e67e22; font-weight: bold; margin: 5px 0;">冬天 · 雪花 · 温暖</p>
+          <p style="font-size: 13px; color: #555;">_____________________________</p>
+          <div class="answer-hint">提优：能把几个词自然连成一段话，才是真正的词语运用能力。从2-3句开始练。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 阅读理解 -->
+    <section class="section" style="background: #fefcf5;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">阅读理解</p>
+        <h2>二年级阅读方法</h2>
+        <p style="color: #666;">二年级阅读从"读正确"升级到"读明白"，掌握方法比做多少题重要。</p>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>读三遍法</h3>
+          <div class="method-steps">
+            <div class="method-step"><span class="step-num">1</span><div class="step-text"><strong>第一遍 · 读通：</strong>大声朗读，读准字音，不添字不漏字，把句子读通顺。</div></div>
+            <div class="method-step"><span class="step-num">2</span><div class="step-text"><strong>第二遍 · 读懂：</strong>再读一遍，想想"这篇写了什么"，画出关键词句。</div></div>
+            <div class="method-step"><span class="step-num">3</span><div class="step-text"><strong>第三遍 · 读深：</strong>最后读一遍，问自己"我喜欢哪里""我有什么感受"。</div></div>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>&#128221; 阅读答题模板</h3>
+          <div class="routine">
+            <p><strong>短文写了什么？</strong> &#8594; 谁 + 在做什么 + 结果怎样</p>
+            <p><strong>从哪里看出来的？</strong> &#8594; 回原文找，圈出关键词句，抄下来</p>
+            <p><strong>这个词是什么意思？</strong> &#8594; 联系上下文想一想 &#8594; 用自己的话说</p>
+            <p><strong>你喜欢哪一句？为什么？</strong> &#8594; 我喜欢"……"（抄句子）+ 因为这句话写了…… + 我觉得……</p>
+            <p><strong>这个故事告诉我们什么？</strong> &#8594; 故事讲了…… + 告诉我们……（道理/感受）</p>
+          </div>
+          <div class="speaking-demo" style="margin-top: 12px;">
+            <p><strong>&#128073; 真实答题示范（以《小马过河》为例）：</strong></p>
+            <p style="margin-top: 8px;"><strong>题目：</strong>"这个故事告诉我们什么道理？"</p>
+            <p style="margin-top: 6px;"><strong>&#128308; 普通答案：</strong>"要帮助别人。" &#8594; <span style="color:#e74c3c;font-size:12px;">扣分原因：没有结合故事内容，道理不对</span></p>
+            <p><strong>&#128994; 拔尖答案：</strong>"这个故事讲了小马自己试试才知道河水深浅，<strong>告诉我们</strong>遇到问题要<strong>自己动脑筋去试一试</strong>。" &#8594; <span style="color:#27ae60;font-size:12px;">满分！结合了故事内容，道理准确</span></p>
+            <p style="margin-top: 8px;"><strong>题目：</strong>"你觉得小马是个怎样的孩子？从文中找依据。"</p>
+            <p><strong>&#128308; 普通答案：</strong>"小马很勇敢。" &#8594; <span style="color:#e74c3c;font-size:12px;">扣分原因：没从文中找句子</span></p>
+            <p><strong>&#128994; 拔尖答案：</strong>"我觉得小马是个<strong>勇敢又爱动脑筋</strong>的孩子。我从'小马跑到河边，小心地试了试'看出他很勇敢，从'他想了想'看出他动了脑筋。" &#8594; <span style="color:#27ae60;font-size:12px;">满分！观点+依据，完整清晰</span></p>
+            <p class="from-line">&#9654; 提优要求：二年级结束时，每种题型都能答出"拔尖答案"的水平——先写观点，再写依据。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 写话提优样例 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">写话提优</p>
+        <h2>写话提优样例：从一句话到一段话</h2>
+        <p style="color: #666;">二年级写话的核心目标是把"短句子"变成"一段话"，加"五感"、加细节。</p>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>&#128220; 扩写三步法</h3>
+          <div class="method-steps">
+            <div class="method-step"><span class="step-num">1</span><div class="step-text"><strong>写清要素：</strong>谁 + 在哪里 + 做什么</div></div>
+            <div class="method-step"><span class="step-num">2</span><div class="step-text"><strong>加上样子：</strong>用"像……"或"……地"写出动作的样子</div></div>
+            <div class="method-step"><span class="step-num">3</span><div class="step-text"><strong>加上感受：</strong>自己的心情 + 为什么会这样</div></div>
+          </div>
+          <div class="writing-sample">
+            <div class="sample-compare">
+              <div class="sample-box before">
+                <div class="label">&#128308; 一句话（起点）</div>
+                <p>"下雨了。"</p>
+              </div>
+              <div class="sample-box after">
+                <div class="label">&#128994; 一段话（提优目标）</div>
+                <p>"<strong>下午放学时</strong>，天突然暗下来，<strong>哗哗地下起了大雨</strong>。雨点打在窗户上，<strong>像小鼓在敲</strong>。我没有带伞，<strong>心里着急极了</strong>。幸好妈妈来接我，我们一起撑着伞走回家，<strong>我觉得好温暖</strong>。"</p>
+              </div>
+            </div>
+            <p class="from-line">&#9654; 从"下雨了"到5句话：加了时间、声音、样子、心情、结果。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>&#128161; 更多扩写练习</h3>
+          <div class="writing-sample" style="margin-top: 0;">
+            <p><strong>起点句：</strong>"小鸟在叫。"</p>
+            <p><strong class="expand">扩写思路：</strong>什么时候叫？在哪里叫？怎么叫？听到后你是什么感觉？</p>
+            <p><strong>示例：</strong>"清晨，一只小鸟在树枝上<strong>叽叽喳喳地叫</strong>，好像在说'天亮了，快起床'，<strong>真好听</strong>。"</p>
+          </div>
+          <div class="writing-sample">
+            <p><strong>起点句：</strong>"妈妈在做饭。"</p>
+            <p><strong class="expand">扩写思路：</strong>妈妈在哪里做饭？做了什么菜？是什么味道？你闻到后想说什么？</p>
+            <p><strong>示例：</strong>"妈妈在厨房里<strong>忙忙碌碌地做饭</strong>，锅里飘出<strong>香喷喷的味道</strong>，我忍不住说'好香啊'。"</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 写话升格专项 ===== -->
+    <section class="section" style="background: #fff;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">写话升格</p>
+        <h2>写话升格专项：普通句 → 高级句</h2>
+        <p style="color: #666;">句子升级不是堆好词，而是把"怎么说"变成"怎么说得更生动"。对比下面两组例子。</p>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>&#128220; 普通句 vs 升格句</h3>
+          <div class="upgrade-compare">
+            <div class="upgrade-box basic">
+              <div class="tag">&#128308; 普通句</div>
+              <p>"小明很高兴。"</p>
+            </div>
+            <div class="upgrade-box advanced">
+              <div class="tag">&#128994; 升格句</div>
+              <p>"小明一听到表扬，<strong>眼睛亮了起来</strong>，<strong>嘴角也弯了起来</strong>。"</p>
+            </div>
+          </div>
+          <div class="speaking-demo" style="margin-top: 12px;">
+            <p><strong>升级对比：</strong>普通句只说了"高兴"这个结果；升格句写出了高兴的<strong>样子</strong>（眼睛亮、嘴角弯），让人"看到"了高兴。</p>
+          </div>
+          <div class="upgrade-compare">
+            <div class="upgrade-box basic">
+              <div class="tag">&#128308; 普通句</div>
+              <p>"教室里很吵。"</p>
+            </div>
+            <div class="upgrade-box advanced">
+              <div class="tag">&#128994; 升格句</div>
+              <p>"教室里<strong>像炸开了锅</strong>，有的在喊，有的在笑，<strong>热闹极了</strong>。"</p>
+            </div>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>&#128161; 升格四法</h3>
+          <div class="routine">
+            <p><strong>① 加动作：</strong>不说"很开心"，说"跳了起来、拍手叫好"。</p>
+            <p><strong>② 加比喻：</strong>不说"很吵"，说"像炸开了锅"。</p>
+            <p><strong>③ 加细节：</strong>不说"花很美"，说"红的花、绿的叶，还带着露珠"。</p>
+            <p><strong>④ 加感受：</strong>不说"很好吃"，说"甜甜的、酸酸的，吃完还想吃"。</p>
+          </div>
+          <div class="writing-sample" style="margin-top: 10px;">
+            <p><strong>练一练（口头说或写下来）：</strong></p>
+            <p>"风很大。" &#8594; 用"加比喻"升级：________________</p>
+            <p>"他很着急。" &#8594; 用"加动作"升级：________________</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 标点专项 -->
+    <section class="section" style="background: #fefcf5;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">标点专项</p>
+        <h2>二年级"标点符号"专项</h2>
+        <p style="color: #666;">标点不是"写上去就行"，要知道每个标点表达什么语气、起什么作用。</p>
+      </div>
+      <div class="punct-grid">
+        <div class="punct-card" style="text-align: center;">
+          <div class="mark">。</div>
+          <h4>句号</h4>
+          <p>一句话说完了就用它。</p>
+          <p style="font-size: 12px; color: #999;">"今天天气真好<strong>。</strong>"</p>
+        </div>
+        <div class="punct-card" style="text-align: center;">
+          <div class="mark">，</div>
+          <h4>逗号</h4>
+          <p>一句话中间停顿用逗号。</p>
+          <p style="font-size: 12px; color: #999;">"早上<strong>，</strong>我背着书包上学去<strong>。</strong>"</p>
+        </div>
+        <div class="punct-card" style="text-align: center;">
+          <div class="mark">？</div>
+          <h4>问号</h4>
+          <p>表示疑问、反问的语气。</p>
+          <p style="font-size: 12px; color: #999;">"你今天开心吗<strong>？</strong>"</p>
+        </div>
+        <div class="punct-card" style="text-align: center;">
+          <div class="mark">！</div>
+          <h4>感叹号</h4>
+          <p>表示惊喜、高兴、生气等强烈感情。</p>
+          <p style="font-size: 12px; color: #999;">"这只小鸟真可爱<strong>！</strong>"</p>
+        </div>
+        <div class="punct-card" style="text-align: center;">
+          <div class="mark">：" "</div>
+          <h4>冒号 + 引号</h4>
+          <p>表示"说"的内容，提示语在后、"说"后面用冒号。</p>
+          <p style="font-size: 12px; color: #999;">妈妈说<strong>："</strong>吃饭了<strong>。"</strong></p>
+        </div>
+        <div class="punct-card" style="text-align: center;">
+          <div class="mark">，。"？！</div>
+          <h4>&#128161; 低年级易错</h4>
+          <p>逗号滥用、"说"后面不加引号、感叹号和句号混用。</p>
+          <p style="font-size: 12px; color: #e67e22;">提优：写完读一遍，看语气对不对。</p>
+        </div>
+      </div>
+      <div class="responsive-table" style="margin-top: 18px;">
+        <table class="punct-table">
+          <thead>
+            <tr><th>标点</th><th>什么时候用</th><th>例句</th><th>易错点</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>。</strong> 句号</td><td>一句话说完了，意思完整了</td><td>"今天天气真好。"</td><td>该用句号的地方用了逗号，一"逗"到底</td></tr>
+            <tr><td><strong>，</strong> 逗号</td><td>句子中间需要停顿或换气</td><td>"早上，我背着书包上学去。"</td><td>不该停的地方乱用逗号，读起来不连贯</td></tr>
+            <tr><td><strong>？</strong> 问号</td><td>提出问题、询问、反问的时候</td><td>"你今天开心吗？"</td><td>语气是疑问却用了句号，读不出问的感觉</td></tr>
+            <tr><td><strong>！</strong> 感叹号</td><td>表达惊喜、高兴、生气、着急等强烈感情</td><td>"这只小鸟真可爱！"</td><td>感叹号和句号混用，情绪表达不准确</td></tr>
+            <tr><td><strong>：" "</strong> 冒号+引号</td><td>引用别人说的话，提示语在"说"后面</td><td>妈妈说："吃饭了。"</td><td>忘加后引号；"说"后面用了逗号不是冒号</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="speaking-demo" style="margin-top: 14px;">
+        <p><strong>提优做法：</strong>每次孩子写完一句话，让他自己读一遍，感受语气对不对。问号要读出"往上扬"的感觉，感叹号要读出"有劲"的感觉。能读对，才能写对。</p>
+      </div>
+    </section>
+
+    <!-- 古诗 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">古诗启蒙</p>
+        <h2>二年级必背古诗</h2>
+        <p style="color: #666;">读出节奏和韵味，能想象画面，能用一句话说出感受。</p>
+      </div>
+      <div class="poem-grid">
+        <div class="poem-card"><h4>登鹳雀楼</h4><p class="author">王之涣</p><p class="line">欲穷千里目，更上一层楼</p></div>
+        <div class="poem-card"><h4>望庐山瀑布</h4><p class="author">李白</p><p class="line">飞流直下三千尺，疑是银河落九天</p></div>
+        <div class="poem-card"><h4>村居</h4><p class="author">高鼎</p><p class="line">儿童散学归来早，忙趁东风放纸鸢</p></div>
+        <div class="poem-card"><h4>咏柳</h4><p class="author">贺知章</p><p class="line">不知细叶谁裁出，二月春风似剪刀</p></div>
+        <div class="poem-card"><h4>敕勒歌</h4><p class="author">北朝民歌</p><p class="line">天苍苍，野茫茫，风吹草低见牛羊</p></div>
+        <div class="poem-card"><h4>夜宿山寺</h4><p class="author">李白</p><p class="line">危楼高百尺，手可摘星辰</p></div>
+        <div class="poem-card"><h4>小儿垂钓</h4><p class="author">胡令能</p><p class="line">蓬头稚子学垂纶，侧坐莓苔草映身</p></div>
+        <div class="poem-card"><h4>江雪</h4><p class="author">柳宗元</p><p class="line">孤舟蓑笠翁，独钓寒江雪</p></div>
+      </div>
+    </section>
+
+    <!-- 单元学习导航 -->
+    <section class="section" style="background: #fefcf5;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">课本导航</p>
+        <h2>二年级单元学习导航</h2>
+        <p style="color: #666;">每个单元学什么、孩子容易错什么、怎么提优——一张表说清楚。</p>
+      </div>
+      <div class="table-card">
+        <h3>📕 二年级上册</h3>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>单元</th><th>主题</th><th>学习重点<br><span style="font-weight:400;font-size:12px;color:#888;">核心能力 + 易错点</span></th><th>提优任务</th></tr></thead>
+            <tbody>
+              <tr><td>第一单元</td><td>自然科普</td><td>读通《小蝌蚪找妈妈》《我是什么》《植物妈妈有办法》，了解动物和植物生长过程<br>⚠️ 易错：<strong>科普类长句读不通</strong>、不会提取关键信息</td><td>读完课文后，用连环画的方式画出故事内容，配上简要文字</td></tr>
+              <tr><td>第二单元</td><td>识字乐园</td><td>掌握量词、树名、农事活动相关字词，积累偏旁与部首<br>⚠️ 易错：<strong>多音字分不清</strong>（"长""行""重""为"等）</td><td>每天积累3个新词做成词卡，正面写字、背面写意思</td></tr>
+              <tr><td>第三单元</td><td>儿童生活</td><td>读通《曹冲称象》《玲玲的画》《一封信》《妈妈睡了》，体会人物情感<br>⚠️ 易错：回答<strong>"为什么"类问题只能说一两句话</strong></td><td>读完后用"因为…所以…"说清楚一个情节的原因和结果</td></tr>
+              <tr><td>第四单元</td><td>家乡风光</td><td>读通古诗和写景文，积累描写景色的好词好句<br>⚠️ 易错：古诗中<strong>景物描述说不出</strong>，只会背不会说画面</td><td>选你去过的一个地方，用3-5个形容词描述那里的景色</td></tr>
+              <tr><td>第五单元</td><td>思维方法</td><td>读通《坐井观天》《寒号鸟》《我要的是葫芦》，理解寓言寓意<br>⚠️ 易错：<strong>只会背故事，说不清"告诉什么道理"</strong></td><td>读寓言时问孩子"除了这样，还能怎么做？"培养多角度思考</td></tr>
+              <tr><td>第六单元</td><td>革命传统</td><td>读通《大禹治水》《朱德的扁担》《难忘的泼水节》《刘胡兰》<span class="badge" style="font-size:11px;background:#f39c12;color:white;padding:1px 8px;border-radius:10px;margin-left:4px;">新增</span><br><span>了解革命先辈事迹</span><br>⚠️ 易错：历史事件<strong>离孩子生活远，缺乏共鸣</strong></td><td>给孩子讲一个类似的历史小故事，说说印象最深的人物品质</td></tr>
+              <tr><td>第七单元</td><td>想象世界</td><td>感受古诗意境和童话的奇妙想象，读通《雾在哪里》《雪孩子》<br>⚠️ 易错：古诗中字词<strong>古今含义不同不理解</strong></td><td>读完古诗后用"假如我看到了…"开头说一段想象的话</td></tr>
+              <tr><td>第八单元</td><td>童话故事</td><td>理解角色特点，通过语言、动作和神态读懂角色<br>⚠️ 易错：<strong>多个角色记不清谁做了什么</strong></td><td>选一篇童话，给故事编一个不同的结局</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card">
+        <h3>📘 二年级下册</h3>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>单元</th><th>主题</th><th>学习重点<br><span style="font-weight:400;font-size:12px;color:#888;">核心能力 + 易错点</span></th><th>提优任务</th></tr></thead>
+            <tbody>
+              <tr><td>第一单元</td><td>春天主题</td><td>积累描写春天的词句，读通古诗和现代文，感受春天的美好<br>⚠️ 易错：<strong>词语搭配不当</strong>（如"明亮的春风"说不清）</td><td>去公园找春天，用"我看见…我听见…我闻到…"各说一句话</td></tr>
+              <tr><td>第二单元</td><td>关爱他人</td><td>理解"关爱"的含义，积累关于助人的好词好句<br>⚠️ 易错：<strong>课文较长，分段概括有困难</strong></td><td>每天做一件帮助家人的小事，用一两句话说清楚做了什么</td></tr>
+              <tr><td>第三单元</td><td>传统文化</td><td>了解传统节日和汉字文化，积累节日相关词句<br>⚠️ 易错：<strong>传统节日与习俗对应不上</strong></td><td>选一个传统节日，画一幅画并配上节日习俗介绍</td></tr>
+              <tr><td>第四单元</td><td>童心童趣</td><td>体会比喻和拟人等修辞手法在文中的作用<br>⚠️ 易错：<strong>写话时不会用修辞</strong>，句子平淡得像白开水</td><td>一天练一句"比喻句"，用"像""好像""就像"描述一个事物</td></tr>
+              <tr><td>第五单元</td><td>寓言启智</td><td>理解寓言中蕴含的道理，学会概括主要内容<br>⚠️ 易错：对"道理"的表述<strong>过于笼统</strong>，不会结合课文细说</td><td>读完寓言后用"本来…结果…告诉我们…"三段式复述</td></tr>
+              <tr><td>第六单元</td><td>自然与科学</td><td>积累自然科学相关的字词和知识，培养观察自然的习惯<br>⚠️ 易错：科普文中<strong>专业术语难理解、记不住</strong></td><td>选一个课外自然科学小实验，和家长一起做并记录结果</td></tr>
+              <tr><td>第七单元</td><td>成长故事</td><td>理解每个角色身上的品质，学会概括故事线索<br>⚠️ 易错：<strong>多个情节串联困难</strong>，复述时漏掉关键环节</td><td>读完童话后用"角色—问题—解决—成长"4步法整理故事</td></tr>
+              <tr><td>第八单元</td><td>神话传说</td><td>感受神话的神奇想象，激发创造力<br>⚠️ 易错：<strong>神话情节离奇</strong>，孩子分不清现实与想象</td><td>让孩子自己编一个"为什么天会下雨"的神话小故事</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 每日训练 -->
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">每日训练</p>
+        <h2>二年级每日学习建议</h2>
+        <p style="color: #666;">每天 15-20 分钟，重在坚持和积累。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>时间</th><th>训练内容</th><th>目标</th></tr></thead>
+            <tbody>
+              <tr><td>每天</td><td>课文朗读 5-10 分钟</td><td>流利有感情，不唱读不拖读</td></tr>
+              <tr><td>每天</td><td>听写 5-8 个词语</td><td>巩固生字，关注形近字</td></tr>
+              <tr><td>周一、三</td><td>形近字/多音字专项</td><td>辨别不同字形的含义和用法</td></tr>
+              <tr><td>周二、四</td><td>词语积累 + 造句</td><td>用上新学的 ABB/AABB/四字词语</td></tr>
+              <tr><td>周五</td><td>读一篇短文，练 2 道题</td><td>练习信息提取和概括</td></tr>
+              <tr><td>周末</td><td>写一段话 + 古诗背诵</td><td>坚持每周写话，积累古诗</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top: 20px; background: #fef9e7; border-radius: 14px; padding: 18px 22px; border-left: 4px solid #e67e22;">
+        <h4 style="color: #e67e22; margin: 0 0 10px; font-size: 15px;">&#9201; 每日10分钟拔尖训练清单</h4>
+        <p style="font-size: 13px; color: #666; margin: 0 0 12px;">每天固定10分钟专项训练，比泛泛地"看一会书"效果更好。时间到项，完成后打钩。</p>
+        <div class="daily-plan">
+          <div class="daily-step">
+            <div class="time">2分钟</div>
+            <div class="task">&#128214; 朗读训练</div>
+            <div class="hint">读课文，对标六个评价标准</div>
+          </div>
+          <div class="daily-step">
+            <div class="time">2分钟</div>
+            <div class="task">&#128221; 词语积累</div>
+            <div class="hint">积累2个好词+造句运用</div>
+          </div>
+          <div class="daily-step">
+            <div class="time">3分钟</div>
+            <div class="task">&#128220; 阅读训练</div>
+            <div class="hint">读一篇短文，说主要内容和感受</div>
+          </div>
+          <div class="daily-step">
+            <div class="time">3分钟</div>
+            <div class="task">&#9997;&#65039; 写话训练</div>
+            <div class="hint">每天写2-3句话，用上升格四法</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 家长指南 -->
+    <section class="section" style="background: #fff;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">家长指南</p>
+        <h2>二年级语文学习建议</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>学习重点</h2>
+          <ul class="check-list">
+            <li><strong>识字量要跟上：</strong>每天认几个新字，积少成多，不要等到考试才突击。</li>
+            <li><strong>形近字逐个过：</strong>每个形近字都要看偏旁、想意思、放进句子里区分。</li>
+            <li><strong>阅读习惯要建立：</strong>每天读 10 分钟课外书，读完和孩子聊一聊。</li>
+            <li><strong>写话从日记开始：</strong>哪怕只写两三句话，坚持写比写得好重要。</li>
+            <li><strong>词语要会用：</strong>学了一个新词，就要试着在说话和写话里用出来。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>家长这样做</h2>
+          <ul class="check-list">
+            <li><strong>多问"为什么"：</strong>读完课文问"为什么这样写"，培养思考习惯。</li>
+            <li><strong>少说"不对"：</strong>孩子说错了，让他再说一遍，自己发现错在哪里。</li>
+            <li><strong>创造阅读环境：</strong>家里有书，大人也在看书，孩子自然想读。</li>
+            <li><strong>重视口语表达：</strong>让孩子说完整的话，"我要那个"不如"我想要那个红色的杯子"。</li>
+            <li><strong>保持耐心：</strong>二年级是"爬坡期"，进步可能不明显，坚持最重要。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="phase-tip" style="margin-top: 30px; background: #fef9e7; border-radius: 14px; padding: 20px;">
+        <p><strong>二年级最重要的三件事：</strong></p>
+        <p>① <strong>养成独立阅读习惯</strong>——能自己读短文并说出大概意思。</p>
+        <p>② <strong>打好词语基础</strong>——积累足够的词语，三年级的作文才不会"没话说"。</p>
+        <p>③ <strong>学会"读三遍"</strong>——读通→读懂→读深，这是终身受用的阅读方法。</p>
+      </div>
+    </section>
+    <section class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">高级教师提优</p>
+        <h2>二年级还需要优化和补充的重点</h2>
+        <p style="color: #666;">二年级是从"识字读文"走向"阅读理解和成段表达"的过渡期。提优不只是多背词语，更要会比较、会概括、会把观察写具体。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card">
+          <h3>1. 字词要做辨析</h3>
+          <p>页面已经有形近字、多音字和词语类型，但建议进一步加入"错因提示"：看偏旁、看语境、看词性。</p>
+          <p>提优做法：每组形近字都放进句子判断，如"晴、睛、清、情"不能只靠背，要靠语境分辨。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>2. 阅读要训练概括</h3>
+          <p>二年级阅读不能停在"找答案"，要能说出一段话主要写什么，并能找到关键词。</p>
+          <p>提优做法：每篇短文读完后写一句"这段主要写……"，再圈出 2 个关键词。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>3. 写话要从通顺到具体</h3>
+          <p>已有"写一段话"目标，还应补充"写具体"的路径：动作、样子、声音、心情至少选两项。</p>
+          <p>提优做法：把"小明跑"扩成"小明弯着腰，飞快地向终点跑去，脸上满是笑容"。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>二年级能力诊断清单</h2>
+          <ul class="level-list">
+            <li><strong>字词：</strong>能否区分形近字、多音字，并在句子里正确选字选音。</li>
+            <li><strong>阅读：</strong>能否读完短文后说清"谁做了什么，结果怎样"。</li>
+            <li><strong>表达：</strong>能否围绕一个意思写 3-5 句，不东一句西一句。</li>
+            <li><strong>标点：</strong>能否正确使用句号、问号、感叹号和逗号。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>升三年级衔接训练</h2>
+          <div class="transition-grid">
+            <div class="transition-card">
+              <h4>&#128214; 阅读衔接</h4>
+              <p>每周 2 篇短文，练<strong>找中心句</strong>、<strong>圈关键词</strong>、<strong>说主要内容</strong>。</p>
+              <p style="color: #999; font-size: 12px;"><strong>自然段是什么？</strong>每段前面空两格，一段讲一个意思。读完全文先数"共几个自然段"。</p>
+              <p style="color: #999; font-size: 12px;"><strong>中心句是什么？</strong>一句话概括全段意思，常在开头（也有的在结尾）。找到了中心句，就抓住了全段。</p>
+            </div>
+            <div class="transition-card">
+              <h4>&#9997;&#65039; 写作衔接</h4>
+              <p>每周 1 次看图写话，要求有<strong>开头</strong>、有<strong>顺序</strong>、有<strong>心情</strong>。</p>
+              <p style="color: #999; font-size: 12px;"><strong>围绕一句话写几句：</strong>先定一句话为中心句，如"操场上真热闹"，再围绕它写"谁在跑步、谁在跳绳、谁在踢球"。</p>
+            </div>
+            <div class="transition-card">
+              <h4>&#128218; 词语衔接</h4>
+              <p>每天积累 2 个好词，必须<strong>造句</strong>，不能只抄写。</p>
+              <p style="color: #999; font-size: 12px;">造句要用到句子中，不要"我高兴"这种简单句。</p>
+            </div>
+            <div class="transition-card">
+              <h4>&#128172; 表达衔接</h4>
+              <p>每天用 1 分钟讲一件事，按<strong>"先、接着、最后"</strong>说完整。</p>
+              <p style="color: #999; font-size: 12px;">从口语到书面语，学会有条理地表达。说清楚了，写出来就不会乱。</p>
+            </div>
+            <div class="transition-card">
+              <h4>&#127992; 自然段意识</h4>
+              <p>一篇短文分几个自然段？每个自然段写什么？<strong>一段一个意思</strong>，写完一段换下一段。</p>
+              <p style="color: #999; font-size: 12px;"><strong>训练方法：</strong>读短文时，用笔标出每个自然段，再用一句话概括每段意思。这是三年级阅读理解的核心能力。</p>
+            </div>
+            <div class="transition-card">
+              <h4>&#128200; 观察日记</h4>
+              <p>选一样东西（植物/动物/天气）每天观察，每周写一篇<strong>观察日记</strong>。</p>
+              <p style="color: #999; font-size: 12px;">三年级作文源自观察，提前养成观察习惯。从"看到什么"到"想到什么"，写出自己的感受。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 一二年级衔接路线图 ===== -->
+    <section class="section" style="background: #fefcf5;">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">衔接路线</p>
+        <h2>一二年级衔接路线图</h2>
+        <p style="color: #666;">从一年级到二年级再到三年级，能力要求层层递进，家长心中有数才能帮孩子走稳每一步。</p>
+      </div>
+      <div class="bridge-row">
+        <div class="bridge-node">
+          <div class="stage">&#128218; 一年级</div>
+          <ul>
+            <li><strong>拼音识字</strong>——掌握拼音工具，认识400个常用字</li>
+            <li><strong>读通句子</strong>——能正确、流利地朗读短文</li>
+            <li><strong>说完整话</strong>——用"谁+做什么"说一句完整的话</li>
+          </ul>
+        </div>
+        <div class="bridge-arrow">&#10132;</div>
+        <div class="bridge-node">
+          <div class="stage">&#128218; 二年级</div>
+          <ul>
+            <li><strong>积累词语</strong>——识字量扩大，积累近反义词、四字词语</li>
+            <li><strong>读懂短文</strong>——能说出短文内容和自己的感受</li>
+            <li><strong>写通一段话</strong>——围绕一个意思写3-5句通顺的话</li>
+          </ul>
+        </div>
+        <div class="bridge-arrow">&#10132;</div>
+        <div class="bridge-node">
+          <div class="stage">&#128218; 三年级</div>
+          <ul>
+            <li><strong>理解段落</strong>——找中心句、理清自然段意思</li>
+            <li><strong>写清事情</strong>——六要素完整，有头有尾</li>
+            <li><strong>开始作文</strong>——从写话过渡到写完整的作文</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">拔尖题型技巧</p>
+        <h2>二年级提优题这样做</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>解题抓手</th><th>高分做法</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>形近字选字</td><td>先看偏旁，再看词语意思</td><td>把字放进句子里判断，如“晴、睛、清、情”</td><td>不要只看读音，形近字往往意思不同</td></tr>
+              <tr><td>多音字判断</td><td>看它和哪个词搭配</td><td>先组词，再定音，如“长大/长短”“快乐/音乐”</td><td>不要孤立给字注音，要看语境</td></tr>
+              <tr><td>短文概括</td><td>谁、做了什么、结果怎样</td><td>用一句完整话概括，不照抄全文</td><td>不要只写一个词，如“帮助”“春天”</td></tr>
+              <tr><td>写话扩写</td><td>动作、样子、声音、心情</td><td>把一句话扩成 3-5 句，句子之间有顺序</td><td>不要堆好词，重点是通顺、具体</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color: #e67e22;">拔尖答题模板</p>
+        <h2>二年级这样答更清楚</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题模板</th><th>示例</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>短文主要内容</td><td>短文写了谁做了什么，结果怎样。</td><td>短文写了小兔帮助小猴找到了丢失的书包。</td></tr>
+              <tr><td>词语意思</td><td>“……”的意思是……，我从“……”看出来。</td><td>“着急”的意思是很急，我从“小明跑来跑去”看出来。</td></tr>
+              <tr><td>喜欢哪句话</td><td>我喜欢“……”，因为这句话写出了……。</td><td>我喜欢“小河唱着歌向前跑”，因为它写出了小河很活泼。</td></tr>
+              <tr><td>看图写话</td><td>先写时间地点，再写人物做事，最后写心情或结果。</td><td>放学后，小红在教室里打扫卫生。她把地扫得干干净净，心里很高兴。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
+</body>
+</html>
