@@ -980,7 +980,7 @@ const thinkingData = [
       { text: '两句话写得一样好，没有区别', correct: false },
       { text: '原句更好，因为看起来更真实', correct: false }
     ],
-    explanation: '高分句运用了比喻修辞（"像吃了蜜一样甜"）和动作描写（"嘴角向上翘起"），把抽象的"开心"变成了可以看见的画面。这就是"用具体代替抽象"的写作技巧——不直接告诉读者你的感受，而是通过描写让读者自己感受到。'
+    explanation: '满分句运用了比喻修辞（"像吃了蜜一样甜"）和动作描写（"嘴角向上翘起"），把抽象的"开心"变成了可以看见的画面。这就是"用具体代替抽象"的写作技巧——不直接告诉读者你的感受，而是通过描写让读者自己感受到。'
   },
   {
     type: 'upgrade',
@@ -995,7 +995,7 @@ const thinkingData = [
       { text: '两句话没有区别，意思一样', correct: false },
       { text: '润色句太夸张了，不够真实', correct: false }
     ],
-    explanation: '高分句用了三个技巧：①比喻（"像一阵风"）让速度变得可感；②动作分解（"双腿飞快地交替"）让画面更具体；③环境烘托（"扬起一片尘土"）侧面描写速度。这就是"把笼统变具体"的写作方法——不要只告诉读者"很快"，要让他们看到"有多快"。'
+    explanation: '满分句用了三个技巧：①比喻（"像一阵风"）让速度变得可感；②动作分解（"双腿飞快地交替"）让画面更具体；③环境烘托（"扬起一片尘土"）侧面描写速度。这就是"把笼统变具体"的写作方法——不要只告诉读者"很快"，要让他们看到"有多快"。'
   },
   {
     type: 'upgrade',
@@ -1010,7 +1010,7 @@ const thinkingData = [
       { text: '两个句子写得一样好', correct: false },
       { text: '润色句写得不够准确，没有直接说安静', correct: false }
     ],
-    explanation: '高分句用的是"侧面烘托"手法：不直接说"安静"，而是通过"树叶沙沙声都听得见""大气都不敢喘"来让读者自己感受到安静的程度。好的写作不是告诉读者结论，而是让读者自己得出结论。'
+    explanation: '满分句用的是"侧面烘托"手法：不直接说"安静"，而是通过"树叶沙沙声都听得见""大气都不敢喘"来让读者自己感受到安静的程度。好的写作不是告诉读者结论，而是让读者自己得出结论。'
   },
   // ===== 对比分析 =====
   {
@@ -1021,12 +1021,12 @@ const thinkingData = [
     compareHigh: '从"小明毫不犹豫地冲进火海救小猫"这句话可以看出，小明是一个勇敢的人。因为"毫不犹豫"说明他没想危险，"冲进火海"说明他在最危险时刻选择救人。',
     question: '同一道题的两个答案，哪个得分更高？为什么？',
     options: [
-      { text: '高分答案更好，因为它有原文依据和详细分析', correct: true },
+      { text: '满分答案更好，因为它有原文依据和详细分析', correct: true },
       { text: '低分答案更好，因为简洁直接不啰嗦', correct: false },
       { text: '两个答案得分应该一样', correct: false },
-      { text: '高分答案太长，考试写不完', correct: false }
+      { text: '满分答案太长，考试写不完', correct: false }
     ],
-    explanation: '低分答案只给了结论，没有证明过程，阅卷老师无法判断你是否读懂了文章。高分答案做到了三点：①引用原文关键词当证据；②解释关键词含义（"毫不犹豫"说明…）；③分析行为背后的品质。这就是阅读题的"观点+证据+分析"答题法——结论只是起点，依据和分析才是得分的关键。'
+    explanation: '低分答案只给了结论，没有证明过程，阅卷老师无法判断你是否读懂了文章。满分答案做到了三点：①引用原文关键词当证据；②解释关键词含义（"毫不犹豫"说明…）；③分析行为背后的品质。这就是阅读题的"观点+证据+分析"答题法——结论只是起点，依据和分析才是得分的关键。'
   },
   {
     type: 'compare',
@@ -1036,12 +1036,12 @@ const thinkingData = [
     compareHigh: '这段话描写了春天公园的美丽景色：柳树发芽、桃花盛开、小河解冻，以及小朋友们在草地上开心玩耍的场景。',
     question: '概括段落大意的两个答案，哪个更符合要求？为什么？',
     options: [
-      { text: '高分答案更好，因为它具体写出了段落中的要素', correct: true },
+      { text: '满分答案更好，因为它具体写出了段落中的要素', correct: true },
       { text: '低分答案更好，因为概括本身就是简单说重点', correct: false },
       { text: '两个答案都可以，得分一样', correct: false },
       { text: '低分答案更简洁，所以更好', correct: false }
     ],
-    explanation: '概括内容不是"越短越好"，而是"准确全面"。低分答案只说"写了公园"，太笼统，没有体现段落的核心内容。高分答案做到了：①点明主题（春天公园景色）；②列举具体内容（柳树、桃花、小河、小朋友）；③用"：列举"的结构让条理清晰。好的概括能让没读过原文的人也能知道段落写了什么。'
+    explanation: '概括内容不是"越短越好"，而是"准确全面"。低分答案只说"写了公园"，太笼统，没有体现段落的核心内容。满分答案做到了：①点明主题（春天公园景色）；②列举具体内容（柳树、桃花、小河、小朋友）；③用"：列举"的结构让条理清晰。好的概括能让没读过原文的人也能知道段落写了什么。'
   },
   {
     type: 'compare',
@@ -1051,12 +1051,12 @@ const thinkingData = [
     compareHigh: '在这个句子中，"骄傲"的意思是"自豪"——妈妈看到孩子取得了好成绩，心里感到光荣和高兴，而不是"自大"的意思。',
     question: '解释"骄傲"这个词的两个答案，哪个更准确？为什么？',
     options: [
-      { text: '高分答案更好，因为它结合语境解释了词语的准确含义', correct: true },
+      { text: '满分答案更好，因为它结合语境解释了词语的准确含义', correct: true },
       { text: '低分答案更好，因为词典释义就是那个意思', correct: false },
       { text: '两个答案都对，得分一样', correct: false },
-      { text: '高分答案写得太啰嗦了', correct: false }
+      { text: '满分答案写得太啰嗦了', correct: false }
     ],
-    explanation: '理解词语题的关键是"结合语境"！很多词语在不同句子中有不同含义。低分答案只给了通用解释，没有联系句子内容。高分答案做到了：①点明在句中的具体含义；②结合上下文解释为什么是这个意思；③和常见含义做区分。这就是"词不离句"的阅读方法。'
+    explanation: '理解词语题的关键是"结合语境"！很多词语在不同句子中有不同含义。低分答案只给了通用解释，没有联系句子内容。满分答案做到了：①点明在句中的具体含义；②结合上下文解释为什么是这个意思；③和常见含义做区分。这就是"词不离句"的阅读方法。'
   },
   // ===== 效果赏析 =====
   {
@@ -1163,6 +1163,134 @@ function clearWrongAnswers() {
   }
 }
 
+// ==================== 错因分类系统 ====================
+
+// 错因分类
+const ERROR_CATEGORIES = {
+  SHEN_TI: { id: 'shenti', label: '审题错', icon: '🔍', desc: '没看清问什么' },
+  XIN_XI: { id: 'xinxi', label: '信息错', icon: '📖', desc: '没回原文找依据' },
+  GAI_KUO: { id: 'gaikuo', label: '概括错', icon: '📝', desc: '太笼统或漏要点' },
+  BIAO_DA: { id: 'biaoda', label: '表达错', icon: '✏️', desc: '答案不完整、不分点' },
+  MO_BAN: { id: 'moban', label: '模板错', icon: '📋', desc: '套话多，没结合文本' }
+};
+
+function normalizeErrorCategoryId(categoryId) {
+  return categoryId === 'xinxii' ? 'xinxi' : categoryId;
+}
+
+function getErrorCategory(categoryId) {
+  const normalizedId = normalizeErrorCategoryId(categoryId);
+  return Object.values(ERROR_CATEGORIES).find(cat => cat.id === normalizedId);
+}
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[ch]));
+}
+
+// 保存错因
+function saveErrorCategory(wrongIndex, categoryId) {
+  const wrongList = getWrongAnswers();
+  if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
+    wrongList[wrongIndex].errorCategory = normalizeErrorCategoryId(categoryId);
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    renderWrongList();
+  }
+}
+
+// 保存复盘填写内容
+function saveReviewField(wrongIndex, field, value) {
+  const wrongList = getWrongAnswers();
+  if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
+    wrongList[wrongIndex].review = {
+      ...(wrongList[wrongIndex].review || {}),
+      [field]: value
+    };
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  }
+}
+
+// 保存重做答案
+function saveRetryAnswer(wrongIndex, value) {
+  const wrongList = getWrongAnswers();
+  if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
+    wrongList[wrongIndex].retryAnswer = value;
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  }
+}
+
+// 获取错因统计
+function getErrorCategoryStats() {
+  const wrongList = getWrongAnswers();
+  const stats = {};
+  Object.values(ERROR_CATEGORIES).forEach(cat => {
+    stats[cat.id] = 0;
+  });
+  stats['other'] = 0;
+  
+  wrongList.forEach(item => {
+    const cat = normalizeErrorCategoryId(item.errorCategory);
+    if (cat && stats[cat] !== undefined) {
+      stats[cat]++;
+    } else {
+      stats['other']++;
+    }
+  });
+  
+  return stats;
+}
+
+// ==================== 复盘模板 ====================
+
+// 生成复盘建议
+function generateReviewAdvice(wrongItem) {
+  const cat = normalizeErrorCategoryId(wrongItem.errorCategory);
+  let advice = '';
+  
+  switch(cat) {
+    case 'shenti':
+      advice = '下次做题先圈题目关键词，问什么再答什么，不答非所问。';
+      break;
+    case 'xinxi':
+      advice = '答案必须回原文找依据，不能凭感觉写。找到原文句子，把关键词抄下来。';
+      break;
+    case 'gaikuo':
+      advice = '概括要包含"谁+做什么+结果/感受"，不能只说一两个词。写完检查是否全面。';
+      break;
+    case 'biaoda':
+      advice = '用"①②③"分点作答，每点先写结论再写依据。写完读一遍看看通不通顺。';
+      break;
+    case 'moban':
+      advice = '模板是框架，必须填入原文具体内容。每句模板后面都要跟上文中对应的例子。';
+      break;
+    default:
+      advice = '先分析错因，找出是哪个环节出了问题，再针对性地练。';
+  }
+  
+  return advice;
+}
+
+// 获取复盘数据 (为导出/展示用)
+function getReviewData() {
+  const wrongList = getWrongAnswers();
+  return wrongList.map((item, index) => ({
+    index: index,
+    question: item.question,
+    userAnswer: item.userAnswer,
+    correctAnswer: item.correctAnswer,
+    tip: item.tip,
+    category: normalizeErrorCategoryId(item.errorCategory) || '未分类',
+    review: item.review || {},
+    reviewAdvice: generateReviewAdvice(item),
+    timestamp: item.timestamp
+  }));
+}
+
 // 当前筛选类型
 let currentFilter = 'all';
 
@@ -1176,6 +1304,7 @@ function renderWrongList() {
     container.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">暂无错题，继续加油！</p>';
     analysisDiv.style.display = 'none';
     filterDiv.style.display = 'none';
+    renderErrorStats();
     return;
   }
   
@@ -1234,18 +1363,122 @@ function renderWrongList() {
     filteredList = wrongList.filter(item => item.type === currentFilter);
   }
   
-  container.innerHTML = filteredList.map((item, index) => `
+  container.innerHTML = filteredList.map((item, index) => {
+    const realIndex = wrongList.indexOf(item);
+    const cat = normalizeErrorCategoryId(item.errorCategory || '');
+    const category = getErrorCategory(cat);
+    const advice = generateReviewAdvice(item);
+    const review = item.review || {};
+    
+    // 错因分类选择器
+    const categoryOptions = Object.values(ERROR_CATEGORIES).map(c => 
+      `<button class="error-cat-btn ${cat === c.id ? 'active' : ''}" 
+               onclick="saveErrorCategory(${realIndex}, '${c.id}')"
+               title="${c.desc}">${c.icon} ${c.label}</button>`
+    ).join('');
+
+    const answerHTML = item.retryMode ? '' : `
+      <div class="wrong-answer">我的答案：${escapeHTML(item.userAnswer)}</div>
+      <div class="correct-answer">正确答案：${escapeHTML(item.correctAnswer)}</div>
+      ${item.tip ? `<div class="wrong-tip">提示：${escapeHTML(item.tip)}</div>` : ''}`;
+
+    const retryHTML = item.retryMode ? `
+      <div class="retry-panel">
+        <div class="retry-title">重新作答</div>
+        <textarea class="review-input retry-textarea" rows="3" placeholder="先不看答案，重新写一遍你的答案。" oninput="saveRetryAnswer(${realIndex}, this.value)">${escapeHTML(item.retryAnswer || '')}</textarea>
+        <div class="retry-actions">
+          <button class="retry-btn" onclick="revealRetryAnswer(${realIndex})">查看答案</button>
+          <button class="retry-btn secondary" onclick="cancelRetry(${realIndex})">取消重做</button>
+        </div>
+        ${item.retryRevealed ? `
+        <div class="answer-reveal">
+          <div><strong>原来的答案：</strong>${escapeHTML(item.userAnswer)}</div>
+          <div><strong>正确答案：</strong>${escapeHTML(item.correctAnswer)}</div>
+          ${item.tip ? `<div><strong>提示：</strong>${escapeHTML(item.tip)}</div>` : ''}
+        </div>` : ''}
+      </div>` : '';
+    
+    return `
     <div class="wrong-item">
-      <div class="wrong-question">${index + 1}. ${item.question}</div>
-      <div class="wrong-answer">我的答案：${item.userAnswer}</div>
-      <div class="correct-answer">正确答案：${item.correctAnswer}</div>
-      ${item.tip ? `<div class="wrong-tip">提示：${item.tip}</div>` : ''}
-      <div style="margin-top: 10px;">
-        <button class="retry-btn" onclick="retryWrong(${wrongList.indexOf(item)})">再练一次</button>
-        <button class="retry-btn" onclick="removeWrong(${wrongList.indexOf(item)})" style="background: #f44336; margin-left: 10px;">移除</button>
+      <div class="wrong-question">${index + 1}. ${escapeHTML(item.question)}</div>
+      ${answerHTML}
+      ${retryHTML}
+      <div class="error-category-select">
+        <div style="font-size:12px;color:#888;margin-bottom:6px;">分析错因（点击选择）：</div>
+        <div class="error-cat-btns">${categoryOptions}</div>
       </div>
-    </div>
-  `).join('');
+      ${cat ? `
+      <div class="review-box">
+        <strong>📝 复盘建议：</strong>
+        <p>我错在：<strong>${category?.label || '其他'}</strong>。</p>
+        <div class="review-field">
+          <label>原文依据是：</label>
+          <textarea class="review-input" rows="2" placeholder="写出最能证明答案的原文词句。" oninput="saveReviewField(${realIndex}, 'evidence', this.value)">${escapeHTML(review.evidence || '')}</textarea>
+        </div>
+        <div class="review-field">
+          <label>正确答法应包含：</label>
+          <textarea class="review-input" rows="2" placeholder="例如：结论 + 依据 + 分析。" oninput="saveReviewField(${realIndex}, 'answerPoints', this.value)">${escapeHTML(review.answerPoints || '')}</textarea>
+        </div>
+        <p>下次遇到同类题，我先做：${advice}</p>
+      </div>` : ''}
+      <div style="margin-top: 10px;">
+        ${item.retryMode ? '' : `<button class="retry-btn" onclick="retryWrong(${realIndex})">再练一次</button>`}
+        <button class="retry-btn" onclick="removeWrong(${realIndex})" style="background: #f44336; margin-left: 10px;">移除</button>
+      </div>
+    </div>`;
+  }).join('');
+  renderErrorStats();
+}
+
+// 渲染错因统计
+function renderErrorStats() {
+  const stats = getErrorCategoryStats();
+  const total = Object.values(stats).reduce((a, b) => a + b, 0);
+  
+  const container = document.getElementById('errorStatsVisual');
+  if (!container) return;
+  
+  if (total === 0) {
+    container.innerHTML = '<p style="color:#888;text-align:center;">暂无错因数据，标记错题后会自动生成分析。</p>';
+    return;
+  }
+  
+  let html = '<div class="error-stats-grid">';
+  
+  // 生成每个错因的统计卡片
+  Object.values(ERROR_CATEGORIES).forEach(cat => {
+    const count = stats[cat.id] || 0;
+    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+    html += `
+      <div class="error-stat-card">
+        <div class="error-stat-icon">${cat.icon}</div>
+        <div class="error-stat-count">${count}</div>
+        <div class="error-stat-label">${cat.label}</div>
+        <div class="error-stat-bar"><div class="error-stat-fill" style="width:${pct}%"></div></div>
+        <div class="error-stat-pct">${pct}%</div>
+        <div class="error-stat-desc">${cat.desc}</div>
+      </div>`;
+  });
+  
+  html += '</div>';
+  
+  // 生成排序后的改善建议
+  const sorted = Object.values(ERROR_CATEGORIES)
+    .map(cat => ({ ...cat, count: stats[cat.id] || 0 }))
+    .sort((a, b) => b.count - a.count);
+  
+  if (sorted[0].count > 0) {
+    html += `<div class="error-top-advice">
+      <strong>🎯 当前最需要改善：</strong> ${sorted[0].icon} ${sorted[0].label}（${sorted[0].count}次）<br>
+      <span style="color:#666;font-size:13px;">${sorted[0].desc}。${sorted[0].id === 'shenti' ? '每次做题先用笔圈出关键词。' : 
+        sorted[0].id === 'xinxi' ? '答案必须回原文找依据，找到后划线标记。' :
+        sorted[0].id === 'gaikuo' ? '写完后检查：谁+做什么+结果都写了吗？' :
+        sorted[0].id === 'biaoda' ? '用①②③分点，每点先写结论。' :
+        '模板后必须跟原文例句。'}</span>
+    </div>`;
+  }
+  
+  container.innerHTML = html;
 }
 
 // 筛选错题
@@ -1276,13 +1509,33 @@ function removeWrong(index) {
 
 function retryWrong(index) {
   const wrongList = getWrongAnswers();
-  const item = wrongList[index];
-  
-  alert(`请再做一次这道题：\n\n${item.question}\n\n正确答案：${item.correctAnswer}`);
-  
-  wrongList.splice(index, 1);
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
-  renderWrongList();
+  if (index >= 0 && index < wrongList.length) {
+    wrongList[index].retryMode = true;
+    wrongList[index].retryRevealed = false;
+    wrongList[index].retryAnswer = '';
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    renderWrongList();
+  }
+}
+
+function revealRetryAnswer(index) {
+  const wrongList = getWrongAnswers();
+  if (index >= 0 && index < wrongList.length) {
+    wrongList[index].retryRevealed = true;
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    renderWrongList();
+  }
+}
+
+function cancelRetry(index) {
+  const wrongList = getWrongAnswers();
+  if (index >= 0 && index < wrongList.length) {
+    wrongList[index].retryMode = false;
+    wrongList[index].retryRevealed = false;
+    wrongList[index].retryAnswer = '';
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    renderWrongList();
+  }
 }
 
 // 模式切换
@@ -1634,7 +1887,7 @@ function initThinking() {
     html += '    <div class="compare-content">' + data.compareLow + '</div>';
     html += '  </div>';
     html += '  <div class="compare-box high">';
-    html += '    <div class="compare-label high">📈 高分答案</div>';
+    html += '    <div class="compare-label high">📈 满分答案</div>';
     html += '    <div class="compare-content">' + data.compareHigh + '</div>';
     html += '  </div>';
     html += '</div>';
@@ -1778,6 +2031,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initThinking();
   initCheckin();
   renderWrongList();
+  renderErrorStats();
   
   // 关闭奖励弹窗
   document.getElementById('rewardModal').addEventListener('click', (e) => {

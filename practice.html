@@ -281,6 +281,174 @@
     .clear-wrong-btn:hover {
       background: #d32f2f;
     }
+
+    /* 错因分类UI */
+    .error-category-select {
+      margin-top: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .error-cat-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .error-cat-btn {
+      padding: 4px 10px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+    .error-cat-btn:hover {
+      border-color: #667eea;
+      background: #f0f0ff;
+    }
+    .error-cat-btn.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+    .review-box {
+      margin-top: 12px;
+      padding: 14px;
+      background: #fff8e1;
+      border-radius: 10px;
+      border-left: 4px solid #ffa000;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .review-box p {
+      margin: 4px 0;
+      color: #555;
+    }
+    .review-box strong {
+      color: #333;
+    }
+    .review-field {
+      margin: 10px 0;
+    }
+    .review-field label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 600;
+    }
+    .review-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 9px 10px;
+      font: inherit;
+      font-size: 13px;
+      color: #333;
+      resize: vertical;
+      background: white;
+    }
+    .review-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+    }
+    .retry-panel {
+      margin: 12px 0;
+      padding: 14px;
+      background: #f6f8ff;
+      border: 1px solid #dce3ff;
+      border-radius: 10px;
+    }
+    .retry-title {
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .retry-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .retry-btn.secondary {
+      background: #6c757d;
+    }
+    .retry-btn.secondary:hover {
+      background: #5a6268;
+    }
+    .answer-reveal {
+      margin-top: 10px;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      border-left: 3px solid #4caf50;
+      color: #555;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* 错因统计可视化 */
+    .error-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 15px 0;
+    }
+    .error-stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      border: 1px solid #eee;
+    }
+    .error-stat-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    .error-stat-count {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+    }
+    .error-stat-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .error-stat-bar {
+      height: 6px;
+      background: #eee;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    .error-stat-fill {
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 3px;
+      transition: width 0.5s;
+    }
+    .error-stat-pct {
+      font-size: 14px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .error-stat-desc {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+    }
+    .error-top-advice {
+      margin-top: 15px;
+      padding: 16px;
+      background: #e8f5e9;
+      border-radius: 10px;
+      border-left: 4px solid #43a047;
+      font-size: 14px;
+      line-height: 1.8;
+    }
     
     /* 每日打卡 */
     .checkin-section {
@@ -857,6 +1025,18 @@
       .compare-row {
         grid-template-columns: 1fr;
       }
+      .mode-switch {
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+      }
+      .mode-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
     }
   </style>
 </head>
@@ -1049,6 +1229,9 @@
   <section class="section" style="background: #f7f8fb;">
     <div class="wrong-notebook" style="max-width: 900px; margin: 0 auto;">
       <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button></h3>
+      
+      <!-- 错因统计可视化 -->
+      <div id="errorStatsVisual" style="margin: 15px 0;"></div>
       
       <!-- 错题分析 -->
       <div id="wrongAnalysis" style="display: none; background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e0e0e0;">
@@ -1425,7 +1608,7 @@
           <div class="routine">
             <p><strong>题目：</strong>从哪里能看出小明很勇敢？</p>
             <p><strong>低分答案：</strong>小明很勇敢。</p>
-            <p><strong>满分答案：</strong>从"小明毫不犹豫地冲进火海救小猫"这句话可以看出，小明是一个勇敢的人。</p>
+            <p><strong>满分答案：</strong>从"小明毫不犹豫地冲进火海救小猫"这句话可以看出，小明是一个勇敢的人。"毫不犹豫"说明他没有退缩，"冲进火海"表现出他在危险面前仍然选择救助小猫。</p>
           </div>
         </article>
         <article class="study-block accent">
@@ -1443,23 +1626,81 @@
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">答题模板</p>
-        <h2>阅读题答题模板</h2>
+        <h2>阅读题满分答题模板</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>满分答案五步法</h3>
+          <div class="routine">
+            <p><strong>审题：</strong>圈出"概括、赏析、作用、为什么、结合原文"等关键词。</p>
+            <p><strong>定位：</strong>回到原文找段落、句子、关键词或数据。</p>
+            <p><strong>表态：</strong>第一句话先给结论。</p>
+            <p><strong>证明：</strong>引用原文依据，并解释依据说明了什么。</p>
+            <p><strong>检查：</strong>看是否答全题目要求，是否有空泛词。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>满分答案不是写长</h3>
+          <div class="routine">
+            <p><strong>不是：</strong>套很多漂亮话。</p>
+            <p><strong>而是：</strong>结论明确、依据准确、分析到位。</p>
+            <p><strong>关键：</strong>每一句都为题目服务，不能离开原文。</p>
+          </div>
+        </article>
       </div>
       <div class="table-card">
         <div class="responsive-table">
           <table>
             <thead>
-              <tr><th>题型</th><th>答题模板</th></tr>
+              <tr><th>题型</th><th>满分模板</th><th>拔尖提醒</th></tr>
             </thead>
             <tbody>
-              <tr><td>概括内容</td><td>谁 + 在什么情况下 + 做了什么 + 结果怎么样</td></tr>
-              <tr><td>理解词语</td><td>这句话中"XX"的意思是...，从文中第X段可以看出</td></tr>
-              <tr><td>人物特点</td><td>从"..."可以看出，他是一个...的人</td></tr>
-              <tr><td>句子作用</td><td>这句话在文中起到了（总起/过渡/总结）的作用</td></tr>
-              <tr><td>赏析句子</td><td>这句话用了（比喻/拟人）的修辞，写出了...，表达了...</td></tr>
+              <tr><td>概括内容</td><td>文章主要写了谁，在什么情况下做了什么，结果怎样，表现了什么。</td><td>不能只写一个词，要有事件完整链条。</td></tr>
+              <tr><td>理解词语</td><td>"XX"在文中指……，从"……"可以看出，它写出了……的特点。</td><td>词不离句，不能只写词典意思。</td></tr>
+              <tr><td>人物特点</td><td>他是一个……的人。从文中"……"可以看出，……表现了他……的特点。</td><td>一个特点配一个最有力的依据。</td></tr>
+              <tr><td>句子作用</td><td>内容上写出了……；结构上起到……作用；情感/中心上表现了……。</td><td>不是每题都三层全写，要结合位置取舍。</td></tr>
+              <tr><td>赏析句子</td><td>这句话运用了……的手法，抓住"……"这个词，写出了……，表达了……。</td><td>必须点出关键词好在哪里。</td></tr>
+              <tr><td>启示感悟</td><td>这篇文章让我明白了……。联系生活，比如……，我以后会……。</td><td>先扣文章中心，再联系真实生活。</td></tr>
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="table-card" style="margin-top: 18px;">
+        <h2>把普通答案改成满分答案</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>普通答案缺什么</th><th>补什么</th><th>修改前</th><th>满分改法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>只有结论</td><td>补原文依据</td><td>小明很勇敢。</td><td>小明很勇敢，从“毫不犹豫地冲上前”可以看出。</td></tr>
+              <tr><td>只有依据</td><td>补分析</td><td>文中写他“低下头”。</td><td>“低下头”这一动作写出了他内心的羞愧，表现他已经意识到自己的错误。</td></tr>
+              <tr><td>只写内容</td><td>补中心</td><td>文章写妈妈照顾我。</td><td>文章写妈妈深夜照顾生病的“我”，表现了母爱的细致和温暖。</td></tr>
+              <tr><td>只套模板</td><td>补文本细节</td><td>这句话生动形象。</td><td>这句话把柳条比作绿色的丝带，写出了柳条轻柔、鲜嫩的样子，画面更生动。</td></tr>
+              <tr><td>只谈感受</td><td>补文章依据</td><td>我觉得要坚持。</td><td>文章中主人公多次失败仍继续练习，最后成功，告诉我们遇到困难不能轻易放弃。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-grid" style="margin-top: 18px;">
+        <article class="study-block">
+          <h3>满分答案自查四问</h3>
+          <div class="routine">
+            <p><strong>问一问：</strong>我有没有直接回答题目？</p>
+            <p><strong>找一找：</strong>我有没有写出原文依据？</p>
+            <p><strong>想一想：</strong>我有没有解释依据说明了什么？</p>
+            <p><strong>扣一扣：</strong>我有没有扣住人物、情感或中心？</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>满分表达小技巧</h3>
+          <div class="routine">
+            <p><strong>用“从……可以看出”</strong>连接依据和结论。</p>
+            <p><strong>用“说明/表现/突出”</strong>写出分析。</p>
+            <p><strong>用“内容上/结构上/情感上”</strong>组织作用题。</p>
+            <p><strong>用“不能删，因为……”</strong>组织说明文语言题。</p>
+          </div>
+        </article>
       </div>
     </section>
 
