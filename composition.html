@@ -1,0 +1,1671 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>作文专题 · 特级教师拔尖辅导</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .composition-head {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .composition-head h1,
+    .composition-head p {
+      color: white;
+    }
+    .composition-head .eyebrow {
+      color: rgba(255,255,255,0.76);
+    }
+    .composition-head p:last-child {
+      color: rgba(255,255,255,0.88);
+      font-size: 18px;
+    }
+    .coach-section {
+      background: linear-gradient(to bottom, #f8f9ff, #fff);
+    }
+    .coach-card,
+    .teacher-lab,
+    .core-topic {
+      background: white;
+      border: 1px solid #e8ecf4;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    }
+    .teacher-lab + .teacher-lab,
+    .core-topic + .core-topic {
+      margin-top: 18px;
+    }
+    .coach-card h3,
+    .teacher-lab h3,
+    .core-topic h3 {
+      color: #667eea;
+      margin-bottom: 14px;
+    }
+    .grade-req,
+    .diagnosis-grid,
+    .topic-analysis,
+    .revision-list,
+    .teacher-grid,
+    .train-grid,
+    .rubric-grid,
+    .grade-detail {
+      display: grid;
+      gap: 14px;
+    }
+    .grade-req {
+      grid-template-columns: repeat(5, 1fr);
+      margin-top: 16px;
+    }
+    .diagnosis-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .topic-analysis,
+    .teacher-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .revision-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .train-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .rubric-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .grade-detail {
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 16px;
+    }
+    .grade-req-item,
+    .diagnosis-card,
+    .analysis-card,
+    .revision-step,
+    .teacher-card,
+    .train-card,
+    .rubric-item,
+    .grade-detail-card {
+      background: #f8f9ff;
+      border: 1px solid #e6e9fb;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .grade-req-item {
+      text-align: center;
+    }
+    .grade-req-item .grade,
+    .rubric-item strong {
+      display: block;
+      color: #667eea;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .grade-req-item .req,
+    .rubric-item span,
+    .train-card p,
+    .teacher-card p,
+    .grade-detail-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .analysis-card h4,
+    .diagnosis-card h4,
+    .revision-step h4,
+    .grade-detail-card h4 {
+      color: #667eea;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .analysis-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .analysis-card li,
+    .diagnosis-card p,
+    .revision-step p {
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .topic-tag,
+    .week-label {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-left: 8px;
+    }
+    .quick-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .quick-nav a {
+      display: block;
+      background: #f8f9ff;
+      border: 1px solid #e6e9fb;
+      border-radius: 10px;
+      padding: 14px;
+      color: var(--ink);
+      text-decoration: none;
+      line-height: 1.5;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .quick-nav a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(102,126,234,0.14);
+    }
+    .quick-nav strong {
+      display: block;
+      color: #667eea;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .quick-nav span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .ai-tool {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .ai-panel {
+      background: white;
+      border: 1px solid #e8ecf4;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    }
+    .ai-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .ai-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ai-field.full {
+      grid-column: 1 / -1;
+    }
+    .ai-field label {
+      color: #334155;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .ai-field input,
+    .ai-field select,
+    .ai-field textarea {
+      width: 100%;
+      border: 1px solid #dbe2ea;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--ink);
+      font: inherit;
+      background: #fff;
+    }
+    .ai-field textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+    .ai-help {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      margin: 6px 0 0;
+    }
+    .ai-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 14px;
+    }
+    .ai-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      font: inherit;
+    }
+    .ai-btn.primary {
+      background: #667eea;
+      color: white;
+    }
+    .ai-btn.secondary {
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+    .ai-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+    .ai-check {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .ai-output {
+      min-height: 420px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px;
+      color: var(--ink);
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .ai-output.is-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-align: center;
+    }
+    .ai-output h4 {
+      color: #667eea;
+      font-size: 16px;
+      margin: 14px 0 6px;
+    }
+    .ai-status {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 10px;
+      min-height: 20px;
+    }
+    .ai-status.error {
+      color: #dc2626;
+    }
+    .ai-security-note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      color: #9a3412;
+      font-size: 12px;
+      line-height: 1.7;
+      margin-top: 12px;
+      padding: 12px 14px;
+    }
+    .ai-security-note strong {
+      color: #c2410c;
+    }
+    .lab-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .lab-title h3 {
+      margin: 0;
+    }
+    .lab-title span {
+      background: #eef2ff;
+      color: #4f46e5;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .example-block {
+      background: #fefefe;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+    .ex-title {
+      color: #667eea;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .ex-bad,
+    .ex-good {
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .ex-bad {
+      background: #fef2f2;
+      border-left: 4px solid #ef4444;
+    }
+    .ex-good {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+    }
+    .formula-box {
+      background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+      border: 2px solid #667eea;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .formula-box h3 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .formula-box p {
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.8;
+      margin: 0;
+    }
+    .prompt-lab {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 16px;
+    }
+    .prompt-card,
+    .teacher-comment {
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .prompt-card {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+    .teacher-comment {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+    .prompt-card h4 {
+      color: #c2410c;
+      margin-bottom: 10px;
+    }
+    .teacher-comment h4 {
+      color: #15803d;
+      margin-bottom: 10px;
+    }
+    .prompt-card p,
+    .teacher-comment p {
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.8;
+      margin: 0 0 8px;
+    }
+    .table-card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .responsive-table,
+    .upgrade-table {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th,
+    td {
+      border: 1px solid #e5e7eb;
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    th {
+      background: #f3f4ff;
+      color: #4f46e5;
+      font-weight: 800;
+    }
+    .teacher-note {
+      background: #fff7ed;
+    }
+    @media (max-width: 980px) {
+      .grade-req,
+      .diagnosis-grid,
+      .train-grid,
+      .rubric-grid,
+      .grade-detail,
+      .quick-nav {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .topic-analysis,
+      .teacher-grid,
+      .prompt-lab,
+      .revision-list,
+      .ai-tool {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 560px) {
+      .grade-req,
+      .diagnosis-grid,
+      .train-grid,
+      .rubric-grid,
+      .grade-detail,
+      .quick-nav,
+      .ai-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="grammar.html">语法知识</a>
+      <a class="active" href="composition.html">作文专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head composition-head">
+      <p class="eyebrow">写作能力专项训练</p>
+      <h1>作文专题 · 特级教师拔尖辅导系统</h1>
+      <p>覆盖小学全学段 · 审题、立意、选材、结构、细节、升格、冲刺满分完整训练</p>
+    </section>
+
+    <section class="section coach-section">
+      <div class="section-title">
+        <p class="eyebrow">特级教师开场</p>
+        <h2>会写作文，不是背范文，而是掌握写作判断力</h2>
+      </div>
+      <div class="coach-card">
+        <h3>什么是真正的“会写作文”</h3>
+        <p>很多孩子背了十几篇范文，题目稍一变化就不会写。真正会写作文，是看到任何题目都能快速判断：写什么、重点在哪里、表达什么、怎样写具体。这不是天赋，是可以训练的方法。</p>
+        <div class="grade-req">
+          <div class="grade-req-item"><span class="grade">一年级</span><span class="req">看图说完整<br>写5-8句通顺话</span></div>
+          <div class="grade-req-item"><span class="grade">二年级</span><span class="req">看图写一段<br>能把事情说清</span></div>
+          <div class="grade-req-item"><span class="grade">三年级</span><span class="req">完整记叙文<br>有开头和结尾</span></div>
+          <div class="grade-req-item"><span class="grade">四年级</span><span class="req">详略得当<br>细节具体</span></div>
+          <div class="grade-req-item"><span class="grade">五六年级</span><span class="req">中心鲜明<br>立意有深度</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">学习导航</p>
+        <h2>按年级找题目，按题材练方法</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">页面调整为“年级入口 → 题材专项 → 技巧升格 → 满分冲刺”，家长和孩子可以直接跳到需要的部分</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="quick-nav">
+          <a href="#grade-topics"><strong>一至五年级题库</strong><span>看每个年级常考什么、怎么写</span></a>
+          <a href="#picture-writing"><strong>看图写话</strong><span>一二年级核心，先练完整和顺序</span></a>
+          <a href="#ai-tutor"><strong>AI 特级教师</strong><span>输入作文题，生成审题、立意和提纲</span></a>
+          <a href="#master-teacher"><strong>特级教师思维</strong><span>从题目快速拆出中心、材料和重点段</span></a>
+          <a href="#topic-methods"><strong>题材专项</strong><span>写人、写事、写景、状物等专属方法</span></a>
+          <a href="#skill-upgrade"><strong>技巧升格</strong><span>细节、句段、重点段、首尾提分</span></a>
+          <a href="#teacher-records"><strong>老师实录</strong><span>普通写法到高分写法的批改过程</span></a>
+          <a href="#loss-points"><strong>失分诊断</strong><span>跑题、流水账、结尾空泛怎么改</span></a>
+          <a href="#score-rubric"><strong>评分标准</strong><span>按阅卷维度自查作文</span></a>
+          <a href="#final-check"><strong>考前冲刺</strong><span>写前、写中、写后的满分清单</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ai-tutor" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">AI 特级教师</p>
+        <h2>输入作文题目，生成特级教师分析与辅导</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">使用 DeepSeek API，根据题目自动分析题型、题眼、立意、选材、结构、重点段和失分点</p>
+      </div>
+      <div class="ai-tool">
+        <div class="ai-panel">
+          <h3>作文题目分析</h3>
+          <form id="composition-ai-form" class="ai-form-grid">
+            <div class="ai-field full">
+              <label for="deepseek-key">DeepSeek API Key</label>
+              <input id="deepseek-key" name="apiKey" type="password" autocomplete="off" placeholder="sk-..." required>
+              <p class="ai-help">API Key 只用于本次浏览器请求。勾选保存时，仅保存在你当前浏览器本机。</p>
+              <div class="ai-security-note">
+                <strong>安全提示：</strong>不要把 API Key 写进网页源码或公开仓库。如果这个 Key 已经在聊天、截图或公开页面中出现过，请到 DeepSeek 控制台重新生成新 Key，并删除或禁用旧 Key。公开部署时建议改成后端代理调用。
+              </div>
+            </div>
+            <div class="ai-field">
+              <label for="ai-grade">年级</label>
+              <select id="ai-grade" name="grade">
+                <option value="一年级">一年级</option>
+                <option value="二年级">二年级</option>
+                <option value="三年级" selected>三年级</option>
+                <option value="四年级">四年级</option>
+                <option value="五年级">五年级</option>
+                <option value="六年级">六年级</option>
+              </select>
+            </div>
+            <div class="ai-field">
+              <label for="ai-genre">题材判断</label>
+              <select id="ai-genre" name="genre">
+                <option value="自动判断" selected>自动判断</option>
+                <option value="看图写话">看图写话</option>
+                <option value="写人作文">写人作文</option>
+                <option value="写事作文">写事作文</option>
+                <option value="写景作文">写景作文</option>
+                <option value="状物作文">状物作文</option>
+                <option value="观察日记">观察日记</option>
+                <option value="想象作文">想象作文</option>
+                <option value="读后感">读后感</option>
+                <option value="半命题作文">半命题作文</option>
+                <option value="书信/应用文">书信/应用文</option>
+              </select>
+            </div>
+            <div class="ai-field">
+              <label for="ai-model">模型</label>
+              <select id="ai-model" name="model">
+                <option value="deepseek-v4-flash" selected>deepseek-v4-flash</option>
+                <option value="deepseek-v4-pro">deepseek-v4-pro</option>
+              </select>
+            </div>
+            <div class="ai-field">
+              <label for="ai-mode">辅导目标</label>
+              <select id="ai-mode" name="mode">
+                <option value="完整分析" selected>完整分析</option>
+                <option value="只要提纲">只要提纲</option>
+                <option value="选材建议">选材建议</option>
+                <option value="升格指导">升格指导</option>
+                <option value="开头结尾">开头结尾</option>
+              </select>
+            </div>
+            <div class="ai-field full">
+              <label for="essay-title">作文题目</label>
+              <input id="essay-title" name="title" type="text" placeholder="例如：那一刻，我长大了 / 推荐一个好地方 / 我的____" required>
+            </div>
+            <div class="ai-field full">
+              <label for="essay-material">孩子想写的素材或要求（可选）</label>
+              <textarea id="essay-material" name="material" placeholder="例如：想写第一次独自上台发言，很紧张，后来坚持讲完了。"></textarea>
+            </div>
+            <div class="ai-field full">
+              <label class="ai-check">
+                <input id="save-deepseek-key" type="checkbox">
+                <span>在本机浏览器保存 API Key</span>
+              </label>
+            </div>
+          </form>
+          <div class="ai-actions">
+            <button class="ai-btn primary" id="run-ai-tutor" type="button">生成特级教师分析</button>
+            <button class="ai-btn secondary" id="clear-ai-result" type="button">清空结果</button>
+            <button class="ai-btn secondary" id="forget-deepseek-key" type="button">清除保存的 Key</button>
+          </div>
+          <div class="ai-status" id="ai-status"></div>
+        </div>
+        <div class="ai-panel">
+          <h3>分析结果</h3>
+          <div id="ai-output" class="ai-output is-empty">输入作文题目后，点击“生成特级教师分析”。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="grade-topics">
+      <div class="section-title">
+        <p class="eyebrow">年级入口</p>
+        <h2>一至五年级常见作文题库与写法</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">先按年级找到常考题，再看这个年级的写作目标和高分突破点</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>年级</th><th>常见作文题</th><th>写作目标</th><th>高分技巧</th><th>常见失分</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>一年级</td><td>春天来了、植树、放风筝、小兔过河、课间活动</td><td>看图说完整，能写清“谁在哪里做什么”。</td><td>用“时间+地点+人物+事情”写完整，再加一句心情。</td><td>漏人物、漏地点、句子没写完、标点乱用。</td></tr>
+              <tr><td>二年级</td><td>下雨了、帮妈妈、过生日、保护小树、多幅图故事</td><td>能按顺序写一段话，事情前后能连起来。</td><td>用“先、然后、接着、最后”串起图意，加一句人物说的话。</td><td>只写第一幅图，图与图之间没有联系。</td></tr>
+              <tr><td>三年级</td><td>我的妈妈、第一次____、我学会了____、观察日记、编童话</td><td>作文有开头、中间、结尾，一篇只写一个中心。</td><td>写事抓“起因、经过、结果”，重点段加入动作和心理。</td><td>像记流水账，事情写完了但没有重点。</td></tr>
+              <tr><td>四年级</td><td>记一次游戏、推荐一个好地方、游____、我家的小动物、观察植物</td><td>能把重点场景写具体，有详略意识。</td><td>重点段至少用两种描写：动作、语言、神态、心理或环境。</td><td>开头太长，经过太薄，结尾只写“真开心”。</td></tr>
+              <tr><td>五年级</td><td>那一刻我长大了、漫画启示、读后感、推荐一本书、介绍一种事物</td><td>中心明确，有详略，有感悟或说明顺序。</td><td>写出前后变化：原来怎样，后来怎样，我明白了什么。</td><td>立意空泛，读后感复述太多，说明文只罗列特点。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="teacher-lab" style="margin-top:18px;">
+        <div class="lab-title">
+          <h3>分年级老师实录</h3>
+          <span>一眼看懂怎么升格</span>
+        </div>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>年级</th><th>普通写法</th><th>老师诊断</th><th>升格方向</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>一年级</td><td>小朋友植树。</td><td>句子不完整，缺少时间、地点和动作。</td><td>春天到了，小朋友们在公园里植树。小明扶树苗，小红浇水，大家都很开心。</td><td>低年级先把句子写完整，再加动作和心情。</td></tr>
+              <tr><td>二年级</td><td>小兔采蘑菇，下雨了，它回家了。</td><td>多幅图之间缺少过程，故事跳得太快。</td><td>小兔采完蘑菇，忽然下起大雨。它看见一个大蘑菇，灵机一动，把蘑菇当成小伞，高高兴兴地回家了。</td><td>二年级要把“图和图之间发生了什么”补出来。</td></tr>
+              <tr><td>三年级</td><td>妈妈很辛苦，她每天做饭洗衣服，我爱妈妈。</td><td>只有概括，没有具体事例。</td><td>写妈妈清晨做早餐的一个细节：围裙、锅铲、溏心蛋、妈妈的话。</td><td>三年级开始要用一件事表现人物特点。</td></tr>
+              <tr><td>四年级</td><td>我参加了比赛，很紧张，后来成功了。</td><td>重点场景没有写具体。</td><td>详写站上起跑线时的手心汗、风声、同学喊声和起跑动作。</td><td>四年级提分靠重点段，不能把精彩处一句带过。</td></tr>
+              <tr><td>五年级</td><td>那一刻我长大了，因为我学会了做饭。</td><td>只写学会技能，没有写成长。</td><td>写从嫌麻烦到理解父母辛苦，再主动承担家务。</td><td>五年级的“长大”是认识变化，不是只学会一件事。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="picture-writing" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">一二年级重点</p>
+        <h2>看图写话 · 四步法</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">看图写话先练完整和顺序，再练对话、想象和心情</p>
+      </div>
+      <div class="coach-card">
+        <div class="grade-detail">
+          <div class="grade-detail-card"><h4>第一步：看</h4><p>人物有几个？在干什么？周围有什么景物？是什么时间？天气怎样？</p></div>
+          <div class="grade-detail-card"><h4>第二步：想</h4><p>人物可能会说什么？接下来会发生什么？他们心情怎样？</p></div>
+          <div class="grade-detail-card"><h4>第三步：说</h4><p>时间+地点+谁+做什么+怎么做+结果怎样+感受是什么。</p></div>
+          <div class="grade-detail-card"><h4>第四步：写</h4><p>一句一句写通顺，写完读一遍，检查标点、人物和句子是否完整。</p></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">老师实录 · 看图写话升格</div>
+          <div class="ex-bad"><strong>普通写法：</strong>小朋友们植树。他们很开心。</div>
+          <div class="ex-good"><strong>升格写法：</strong>春天到了，小朋友们来到公园里植树。小明扶着树苗，小红提着水桶给小树浇水，小刚用铲子把土填平。小树站得直直的，像一个小士兵。大家看着小树，开心地笑了。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="full-score">
+      <div class="section-title">
+        <p class="eyebrow">满分作文总纲</p>
+        <h2>特级教师满分作文六步法</h2>
+      </div>
+      <div class="formula-box">
+        <h3>六步满分公式</h3>
+        <p>审题准确 + 立意清楚 + 选材具体 + 结构有层次 + 细节有画面 + 结尾能点题</p>
+      </div>
+      <div class="diagnosis-grid">
+        <article class="diagnosis-card">
+          <h4>1. 判断题型</h4>
+          <p>先判断写人、写事、写景、想象、读后感还是半命题。题型错了，后面写得再漂亮也容易跑题。</p>
+        </article>
+        <article class="diagnosis-card">
+          <h4>2. 圈出题眼</h4>
+          <p>题眼通常是修饰词或限制词，如“难忘”“第一次”“最温暖”“我学会了”。全文每一段都要回到题眼。</p>
+        </article>
+        <article class="diagnosis-card">
+          <h4>3. 确定中心</h4>
+          <p>中心不是口号，而是“这件事让我有什么变化”。能写出变化，作文就有高年级需要的立意。</p>
+        </article>
+        <article class="diagnosis-card">
+          <h4>4. 安排详略</h4>
+          <p>最能表现中心的地方详写，其余略写。详写段要有动作、语言、神态、心理，不能只交代经过。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="master-teacher" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">特级教师思维课</p>
+        <h2>拿到题目后，先拆出“写作四件事”</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">特级教师看作文，不先看词语华丽不华丽，而先看孩子有没有把题目、中心、材料和重点段想清楚</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>写前四问</h3>
+          <span>2分钟决定文章质量</span>
+        </div>
+        <div class="diagnosis-grid">
+          <article class="diagnosis-card">
+            <h4>1. 题目要我写什么</h4>
+            <p>先判断题材：写人、写事、写景、状物、想象、读后感。题材判断错，结构就会乱。</p>
+          </article>
+          <article class="diagnosis-card">
+            <h4>2. 我想表达什么</h4>
+            <p>中心不能只写“开心、难忘、感动”，要写具体变化：我理解了、敢尝试了、愿意承担了。</p>
+          </article>
+          <article class="diagnosis-card">
+            <h4>3. 哪个材料最能证明</h4>
+            <p>材料不求大，要求准。最能表现中心的一个场景，比三件泛泛而谈的小事更有分量。</p>
+          </article>
+          <article class="diagnosis-card">
+            <h4>4. 哪里必须详写</h4>
+            <p>详写“变化发生的一刻”：害怕到勇敢、误会到理解、粗心到负责，这里就是作文得分点。</p>
+          </article>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题目</th><th>普通学生会想</th><th>特级教师引导</th><th>可写重点段</th><th>立意落点</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>《那一刻，我长大了》</td>
+                <td>写我学会做饭、骑车、照顾弟弟。</td>
+                <td>不要停在“会做事”，要写“为什么这件事让我变成熟”。</td>
+                <td>看到妈妈疲惫、自己主动接过家务、第一次体会责任的一刻。</td>
+                <td>长大是从只顾自己，到懂得体谅别人。</td>
+              </tr>
+              <tr>
+                <td>《一件难忘的事》</td>
+                <td>写一次活动，最后说很难忘。</td>
+                <td>先问：这件事为什么值得记住？它改变了我什么？</td>
+                <td>矛盾、转折或心里最受触动的瞬间。</td>
+                <td>难忘不是事情热闹，而是它让我有了新的认识。</td>
+              </tr>
+              <tr>
+                <td>《我的____》</td>
+                <td>介绍外貌、爱好和性格。</td>
+                <td>先确定一个人物特点，再用一件事证明这个特点。</td>
+                <td>人物说话、做事、表情最能体现特点的场景。</td>
+                <td>写人的高分点是“特点鲜明，人物有温度”。</td>
+              </tr>
+              <tr>
+                <td>《推荐一个好地方》</td>
+                <td>写那里很美、很好玩。</td>
+                <td>推荐理由要具体：景美、活动有趣、情感特别，至少选两点。</td>
+                <td>一个景物特写或一次独特体验。</td>
+                <td>好地方不只是风景好，而是给人留下了特别感受。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="teacher-lab" style="margin-top:18px;">
+        <div class="lab-title">
+          <h3>立意四层梯度</h3>
+          <span>从普通到拔尖</span>
+        </div>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>层级</th><th>表达状态</th><th>例子</th><th>教师判断</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>第一层</td><td>只写事情结果</td><td>我终于学会了骑车。</td><td>完整但浅，像记事。</td></tr>
+              <tr><td>第二层</td><td>写出心情</td><td>我很开心，也很难忘。</td><td>有感受，但仍然空泛。</td></tr>
+              <tr><td>第三层</td><td>写出变化</td><td>我从害怕摔倒，到敢于再试一次。</td><td>有成长，是高分基础。</td></tr>
+              <tr><td>第四层</td><td>写出认识</td><td>我明白了，勇敢不是不害怕，而是害怕时还愿意往前一步。</td><td>有思考，有拔尖潜力。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">审题立意专项</p>
+        <h2>把题目拆成可写的提纲</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">拔尖作文第一步，不是想好词，而是把题目想明白</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>题目拆解示范</h3>
+          <span>把题目变成提纲</span>
+        </div>
+        <div class="prompt-lab">
+          <div class="prompt-card">
+            <h4>例题：《那一次，我真____》</h4>
+            <p><strong>常见问题：</strong>孩子容易补成“开心、难过、感动”，然后只写事情经过，结尾喊一句“我真开心/感动”。</p>
+            <p><strong>教师提醒：</strong>横线处填的不是情绪标签，而是文章的中心方向。</p>
+          </div>
+          <div class="teacher-comment">
+            <h4>特级教师拆题</h4>
+            <p><strong>补题建议：</strong>《那一次，我真后悔》《那一次，我真勇敢》《那一次，我真懂事》比“开心、难忘”更容易写出变化。</p>
+            <p><strong>选材方向：</strong>选一个有前后变化的瞬间：原来害怕，后来敢尝试；原来任性，后来理解别人；原来粗心，后来承担后果。</p>
+            <p><strong>详写重点：</strong>不详写“事情从头到尾”，而详写“我发生变化的那个关键场景”。</p>
+            <p><strong>结尾落点：</strong>写具体收获，例如“我第一次明白，道歉不是丢脸，而是把弄乱的关系重新整理好。”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">常见题拆解</p>
+        <h2>5类高频作文题 · 特级教师拆题示范</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">同一个题目，普通学生看“写什么”，拔尖学生看“写出什么变化”</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题目</th><th>普通写法</th><th>问题分析</th><th>拔尖写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>《那一次，我真____》</td>
+                <td>写一件开心或感动的事，结尾说“我真开心”。</td>
+                <td>只停留在情绪，没有写出“为什么真”“哪里发生变化”。</td>
+                <td>补成《那一次，我真后悔/勇敢/懂事》，重点写一个转折瞬间：原来怎样，后来怎样。</td>
+                <td>高分点在“变化”。这个题不是让孩子贴情绪标签，而是写一次内心成长。</td>
+              </tr>
+              <tr>
+                <td>《____让我成长》</td>
+                <td>写考试失败、比赛输了，然后说失败让我成长。</td>
+                <td>材料常见，结尾容易喊口号，缺少成长过程。</td>
+                <td>写“那盆枯萎的花”“一次迟到”“没被选上班干部”，用小事表现承担、反思或坚持。</td>
+                <td>“成长”必须有前后对比：以前我怎么想，现在我怎么做。</td>
+              </tr>
+              <tr>
+                <td>《难忘的一件事》</td>
+                <td>从早到晚写很多事，最后说“我永远难忘”。</td>
+                <td>题目要求“一件事”，写多件事就是中心分散。</td>
+                <td>只写一件事里的关键场景，例如“第一次独自上台发言前后”。</td>
+                <td>“难忘”不靠反复说，要靠细节让读者感到这件事值得记住。</td>
+              </tr>
+              <tr>
+                <td>《我的____》</td>
+                <td>介绍外貌、性格、爱好，像写说明书。</td>
+                <td>没有典型事例，人物站不起来。</td>
+                <td>补成《我的“慢半拍”爸爸》《我的爱笑同桌》，抓一个特点，用一件事证明。</td>
+                <td>写人作文的本质是“用事写人”，不是“用形容词夸人”。</td>
+              </tr>
+              <tr>
+                <td>《二十年后的我》</td>
+                <td>写自己很厉害，有豪车、大房子、很多钱。</td>
+                <td>想象浮夸，没有价值方向，也没有现实基础。</td>
+                <td>写未来职业与现在兴趣的连接：为什么选择、怎样努力、为别人带来什么帮助。</td>
+                <td>想象作文也要有中心。高分不是“未来多风光”，而是“未来的我有什么责任和追求”。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">选材提优</p>
+        <h2>选材避坑与高分素材库</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">满分作文的素材不一定“大”，但一定要真、准、新、能表现中心</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>选材四问</h3>
+          <span>写前必查</span>
+        </div>
+        <div class="diagnosis-grid">
+          <article class="diagnosis-card"><h4>真实吗</h4><p>能不能写出当时的动作、声音、表情和心理？写不出细节，大概率是假素材。</p></article>
+          <article class="diagnosis-card"><h4>具体吗</h4><p>“一次活动”太大，“包饺子时饺子露馅”更具体，更容易写出画面。</p></article>
+          <article class="diagnosis-card"><h4>扣题吗</h4><p>素材必须能证明题眼。写《爱笑的同桌》，每个细节都要服务“笑”。</p></article>
+          <article class="diagnosis-card"><h4>有变化吗</h4><p>高年级优先选能写出变化的素材：误会到理解，害怕到尝试，粗心到负责。</p></article>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>主题</th><th>避开低分素材</th><th>高分素材角度</th><th>可表达中心</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>成长</td><td>考试没考好后决定努力。</td><td>主动承认弄坏同学文具；第一次独自解决误会；照顾生病的家人。</td><td>承担责任、学会理解、敢于面对。</td><td>成长不是结果变好，而是“想法和做法变了”。</td></tr>
+              <tr><td>亲情</td><td>雨中送伞、深夜送医院。</td><td>早餐里固定的溏心蛋；书包里多出的创可贴；冬天被提前暖好的校服。</td><td>爱藏在细节里，亲情常常安静但有力量。</td><td>越小的生活细节，越容易写出真情。</td></tr>
+              <tr><td>坚持</td><td>比赛失败后继续努力。</td><td>练跳绳从绊脚到连跳；背古诗卡住后分段攻克；拼模型反复失败。</td><td>坚持不是不累，而是累了还愿意再试。</td><td>写坚持要写“卡住的过程”，不要只写成功。</td></tr>
+              <tr><td>友情</td><td>朋友借我橡皮、帮我补课。</td><td>朋友没有直接安慰，而是陪我沉默；争吵后主动递来一张纸条。</td><td>真正的友情是理解、陪伴和包容。</td><td>友情要避免甜腻，写一次矛盾更有层次。</td></tr>
+              <tr><td>校园</td><td>运动会流水账、春游流水账。</td><td>接力棒差点掉落的一瞬；班级排练时的一次争执；值日时发现的角落。</td><td>集体责任、合作、规则意识。</td><td>校园素材要抓“一个瞬间”，不要写整场活动。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skill-upgrade">
+      <div class="section-title">
+        <p class="eyebrow">详略安排</p>
+        <h2>重点段打造：把“经过”写成高分段</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">作文不是写得平均，而是把最能表现中心的地方写足、写细、写慢</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>重点段四层写法</h3>
+          <span>200字重点段</span>
+        </div>
+        <div class="revision-list">
+          <article class="revision-step"><h4>第一层：动作拆开</h4><p>把“我上台发言”拆成站起、走上台、握稿纸、抬头、开口。</p></article>
+          <article class="revision-step"><h4>第二层：加入感官</h4><p>写灯光、掌声、纸张摩擦声、手心汗、嗓子发干，让场景可感。</p></article>
+          <article class="revision-step"><h4>第三层：心理变化</h4><p>写害怕、犹豫、想退缩、想起一句话、决定继续的过程。</p></article>
+          <article class="revision-step"><h4>第四层：扣住中心</h4><p>结尾一句点出变化：那一刻，我发现勇敢不是不害怕，而是害怕时仍然往前走。</p></article>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>普通写法</th><th>问题分析</th><th>升格写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>我走上讲台开始演讲，刚开始很紧张，后来慢慢不紧张了，演讲结束后大家鼓掌。</td>
+                <td>只交代结果，没有过程；“紧张”只是标签，看不到画面。</td>
+                <td>我攥着稿纸站起来，纸边被捏出一道白痕。走到讲台前，我听见自己的鞋底在地板上“哒、哒”地响。台下几十双眼睛看着我，喉咙像被什么堵住了。我深吸一口气，想起老师说的“先看最后一排的墙”，终于把第一句话读了出来。</td>
+                <td>升格段把一个动作写慢，并加入声音、动作、心理和老师的话，读者能看到“克服紧张”的过程。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">首尾提分</p>
+        <h2>开头和结尾满分技巧</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">开头负责入题，结尾负责升格；两处都不能空泛</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>类型</th><th>普通写法</th><th>问题分析</th><th>升格写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>开门见山开头</td>
+                <td>今天发生了一件难忘的事。</td>
+                <td>太空，谁都能用，没有题目特征。</td>
+                <td>直到现在，我还记得那张被我揉皱的道歉纸条。它让我第一次明白，承认错误比逃避更需要勇气。</td>
+                <td>开头直接点出核心物件和中心，读者马上知道文章要写“道歉与勇气”。</td>
+              </tr>
+              <tr>
+                <td>场景式开头</td>
+                <td>天气很好，我们去比赛了。</td>
+                <td>景物和中心没关系，像流水账开头。</td>
+                <td>操场上的风把号码布吹得哗哗响，我站在起跑线后，手心里全是汗。</td>
+                <td>场景开头要服务人物状态，不能为了写景而写景。</td>
+              </tr>
+              <tr>
+                <td>感悟式结尾</td>
+                <td>这件事让我永远难忘。</td>
+                <td>空泛，没有说清为什么难忘。</td>
+                <td>那天以后，我不再把“对不起”看成丢脸的三个字。它像一把小小的钥匙，帮我打开了和朋友重新说话的门。</td>
+                <td>好结尾要具体写出改变，并能回扣事件。</td>
+              </tr>
+              <tr>
+                <td>首尾呼应结尾</td>
+                <td>我以后一定会更努力。</td>
+                <td>喊口号，没有画面。</td>
+                <td>我把那张皱巴巴的道歉纸条夹进日记本。每次看见它，我都会提醒自己：逃避只会让事情更糟，面对才会让心变轻。</td>
+                <td>用开头出现过的物件收束全文，文章更完整。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">核心专题</p>
+        <h2>六大核心题型 · 深度分析</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这六类覆盖小学高频作文题，每类都配有审题、选材、结构和升格方法</p>
+      </div>
+
+      <div class="core-topic">
+        <h3>一、写人作文 <span class="topic-tag">最高频</span></h3>
+        <p>写人作文的核心不是“介绍这个人”，而是“通过一件典型小事让人物立起来”。</p>
+        <div class="topic-analysis">
+          <div class="analysis-card">
+            <h4>审题关键</h4>
+            <ul>
+              <li>题目中的修饰词是题眼：《严格的老师》重点写“严格”；《爱笑的同桌》重点写“笑”。</li>
+              <li>如果是《妈妈》《我的同学》这种泛称，必须先确定人物最突出的一个特点。</li>
+              <li>五六年级要写出人物品质，或者写这个人对“我”的影响。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>高分写法</h4>
+            <ul>
+              <li>不要平铺介绍外貌、爱好、性格，要选一件能体现特点的事。</li>
+              <li>重点段加入动作、语言、神态、心理，让人物有画面。</li>
+              <li>结尾写“我从这个人身上学到什么”，不要只写“我很喜欢他”。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">老师批改实录 · 写人升格</div>
+          <div class="ex-bad"><strong>普通写法：</strong>我的妈妈很勤劳。她每天早上给我做早饭，晚上还要洗衣服。妈妈很辛苦，我爱妈妈。</div>
+          <div class="ex-good"><strong>升格写法：</strong>厨房里传来“滋滋”的声响。我揉着眼睛走出去，看见妈妈已经站在灶台前。她系着那条洗得发白的围裙，左手颠勺，右手撒葱花，动作熟练得像在表演。餐桌上摆着我爱吃的煎蛋，蛋黄还是溏心的。那一刻我才明白，妈妈的辛苦，常常藏在这些不起眼的小事里。</div>
+        </div>
+      </div>
+
+      <div class="core-topic">
+        <h3>二、写事作文 <span class="topic-tag">最重要</span></h3>
+        <p>写事作文的核心是“写清楚经过，写出真实变化”，最怕流水账和空洞结尾。</p>
+        <div class="topic-analysis">
+          <div class="analysis-card">
+            <h4>流水账诊断</h4>
+            <ul>
+              <li>从早上写到晚上，每件事都写一样多，就是流水账。</li>
+              <li>400字作文，重点场景至少占200字以上。</li>
+              <li>只选一件事，一件事里再选一个关键场景详写。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>写事结构</h4>
+            <ul>
+              <li>开头：时间、地点、人物、起因，2-3行入题。</li>
+              <li>经过：重点场景用慢镜头，写动作、对话、心理变化。</li>
+              <li>结尾：写这件事让我具体明白了什么。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">老师批改实录 · 写事升格</div>
+          <div class="ex-bad"><strong>流水账：</strong>今天我去学游泳。教练教我憋气，我练了一会儿，觉得有点累。后来妈妈带我回家了。今天真开心。</div>
+          <div class="ex-good"><strong>升格写法：</strong>“把头埋进水里，慢慢吐气。”我深吸一口气，闭上眼睛，把头扎进水里。一秒、两秒、三秒，耳朵里只剩下嗡嗡的水声，胸口像压了一块石头。我想抬头，又想起教练说的“再坚持一下”，手指不自觉地抓紧了池边。抬起头的那一刻，我大口喘气，却第一次觉得，原来害怕也可以被一点点战胜。</div>
+        </div>
+      </div>
+
+      <div class="core-topic">
+        <h3>三、写景作文 <span class="topic-tag">有画面</span></h3>
+        <p>写景作文的核心是“有序观察，有感而发”，不是罗列景物名称。</p>
+        <div class="topic-analysis">
+          <div class="analysis-card">
+            <h4>观察顺序</h4>
+            <ul>
+              <li>时间顺序：早晨、中午、傍晚；春、夏、秋、冬。</li>
+              <li>空间顺序：由远及近、由上到下、由整体到局部。</li>
+              <li>游览顺序：跟着脚步走，一步一景。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>写出画面感</h4>
+            <ul>
+              <li>用五感：看到的颜色、听到的声音、闻到的气味、摸到的感觉。</li>
+              <li>动静结合：静态的树，动态的风；静态的湖，动态的波纹。</li>
+              <li>结尾写感情：喜欢、怀念、惊喜、平静，都要具体。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="core-topic">
+        <h3>四、想象作文 <span class="topic-tag">要合理</span></h3>
+        <p>想象作文不是乱编，而是“大胆想象 + 合理逻辑 + 明确中心”。</p>
+        <div class="topic-analysis">
+          <div class="analysis-card">
+            <h4>审题重点</h4>
+            <ul>
+              <li>先判断题目要求：科幻、童话、未来生活、变形想象，不能写偏。</li>
+              <li>圈出限制词：《二十年后的我》重点是“我”的未来变化，不是介绍城市。</li>
+              <li>想象要有中心：环保、责任、友情、成长、科技帮助生活。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>结构公式</h4>
+            <ul>
+              <li>开头：设定想象前提。</li>
+              <li>发展：遇到问题或挑战。</li>
+              <li>高潮：解决问题，体现思考。</li>
+              <li>结尾：揭示收获或意义。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>常见失分</h4>
+            <ul>
+              <li>只写神奇功能，像列清单，没有情节。</li>
+              <li>想到哪里写到哪里，前后逻辑不连贯。</li>
+              <li>结尾突然醒来或直接结束，没有中心升华。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>拔尖技巧</h4>
+            <ul>
+              <li>给想象设置“问题”：没有问题，就没有故事。</li>
+              <li>给能力设置“规则”：越有规则，想象越可信。</li>
+              <li>让想象服务现实：用神奇情节表达真实思考。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">老师批改实录 · 想象作文升格</div>
+          <div class="ex-bad"><strong>普通写法：</strong>假如我会飞，我要飞到天上摸云朵，飞到月亮上玩，还要飞到很多国家旅游。我很开心。</div>
+          <div class="ex-good"><strong>升格写法：</strong>假如我会飞，我想先飞到山里的那所小学。新闻里说，那里很多孩子没有课外书。我把书包装得鼓鼓的，越过一座座山，落在他们的操场上。一个小女孩抱着《海底两万里》舍不得放手，轻轻问：“海真的那么大吗？”那一刻我忽然明白，飞行不只是为了看世界，也可以把世界带给别人。</div>
+          <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-top:10px;"><strong>教师点评：</strong>升格后的想象有“目的”和“意义”，不是单纯炫耀神奇能力，而是用“会飞”帮助别人，中心更明确。</p>
+        </div>
+      </div>
+
+      <div class="core-topic">
+        <h3>五、读后感 <span class="topic-tag">高年级必备</span></h3>
+        <p>读后感的核心是“感”不是“述”，大段复述故事是高年级作文的大忌。</p>
+        <div class="topic-analysis">
+          <div class="analysis-card">
+            <h4>常见失误</h4>
+            <ul>
+              <li>80%内容都在复述故事。</li>
+              <li>结尾空喊“我要向他学习”。</li>
+              <li>感想太大，没有联系自己的真实生活。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>结构公式</h4>
+            <ul>
+              <li>开头用一两句话介绍读了什么。</li>
+              <li>中间只选一个最打动你的感受点。</li>
+              <li>联系自己的经历，写读完后有什么改变。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>感受点怎么选</h4>
+            <ul>
+              <li>选一个情节：哪一幕最打动你？</li>
+              <li>选一个人物：他的哪种品质值得思考？</li>
+              <li>选一句话：这句话让你想到自己的什么经历？</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>拔尖比例</h4>
+            <ul>
+              <li>“述”不超过全文三分之一，只交代必要背景。</li>
+              <li>“感”要写具体：我想到了什么，我以后怎么改变。</li>
+              <li>联系实际必须是真经历，不要空喊口号。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">老师批改实录 · 读后感升格</div>
+          <div class="ex-bad"><strong>普通写法：</strong>《鲁滨逊漂流记》讲了鲁滨逊在荒岛上的故事。他很勇敢，很坚强，我以后也要向他学习。</div>
+          <div class="ex-good"><strong>升格写法：</strong>读完《鲁滨逊漂流记》，最打动我的不是他活了下来，而是他开始建房子、种粮食的那一刻。以前我遇到数学难题，总想着先放一放，甚至等别人告诉我答案。鲁滨逊让我明白，困难不会因为逃避就消失，真正有用的是把眼前能做的一小步做好。</div>
+          <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-top:10px;"><strong>教师点评：</strong>升格后没有大段复述，而是抓住一个情节，联系自己的学习经历，写出了真实改变。</p>
+        </div>
+      </div>
+
+      <div class="core-topic">
+        <h3>六、半命题作文 <span class="topic-tag">补题定成败</span></h3>
+        <p>半命题作文成败的一半在补题，题目补得具体，文章才有东西可写。</p>
+        <div class="topic-analysis">
+          <div class="analysis-card">
+            <h4>补题三原则</h4>
+            <ul>
+              <li>选小不选大：《难忘的事》不如《难忘的那碗姜汤》。</li>
+              <li>选具体不选抽象：《幸福的感觉》不如《奶奶给我捂被窝的那一刻》。</li>
+              <li>选独特不选雷同，避开雨中送伞、扶老奶奶、让座。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>补题后怎么写</h4>
+            <ul>
+              <li>《我学会了____》重点写“怎么学会”和“学会后的变化”。</li>
+              <li>《____让我成长》重点写“原来怎样，后来怎样，明白什么”。</li>
+              <li>《一次____的经历》重点写经历中最关键的场景。</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>常见题型</h4>
+            <ul>
+              <li>成长类：《____让我成长》《那一次，我真____》</li>
+              <li>经历类：《一次____的尝试》《难忘的____》</li>
+              <li>情感类：《我想对____说》《藏在____里的爱》</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h4>避坑提醒</h4>
+            <ul>
+              <li>补题不能太大，如“快乐”“幸福”“成长”容易空泛。</li>
+              <li>补题后全文要反复扣题，不能只在标题出现一次。</li>
+              <li>补题最好带具体物件、具体场景或具体变化。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">老师批改实录 · 半命题作文升格</div>
+          <div class="ex-bad"><strong>普通写法：</strong>题目：《我学会了骑车》。我一开始不会骑，后来练了很久，终于学会了。我很开心。</div>
+          <div class="ex-good"><strong>升格写法：</strong>题目：《我学会了再试一次》。车把一歪，我连人带车摔在地上，膝盖火辣辣地疼。我差点说“不学了”，可爸爸只把车扶起来，说：“再试一次。”那天我学会的不只是骑车，还有摔倒后重新站起来。</div>
+          <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-top:10px;"><strong>教师点评：</strong>“骑车”只是事情，“再试一次”才是中心。半命题补得越具体，文章越容易写出深度。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="topic-methods" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">题材专项</p>
+        <h2>不同题材作文 · 拿题即写方法卡</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">孩子拿到题目后，先判断题材，再按对应卡片列提纲：写哪些方面、哪里详写、结尾落到什么中心</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>拿到题目先看这张表</h3>
+          <span>写前2分钟列提纲</span>
+        </div>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>先问自己</th><th>必须写清</th><th>重点段写什么</th><th>结尾落点</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>写人</td>
+                <td>写谁？这个人最突出的特点是什么？</td>
+                <td>人物身份、一个明确特点、一件典型事。</td>
+                <td>最能表现特点的场景：动作、语言、神态。</td>
+                <td>这个人给我什么影响，或我从他身上学到什么。</td>
+              </tr>
+              <tr>
+                <td>写事</td>
+                <td>这件事让我发生了什么变化？</td>
+                <td>起因、经过、结果，以及“我”的心情变化。</td>
+                <td>转折点或最紧张的瞬间，用慢镜头详写。</td>
+                <td>我明白了什么，或以后会怎样做。</td>
+              </tr>
+              <tr>
+                <td>写景</td>
+                <td>写哪个地方或季节？我对它有什么感情？</td>
+                <td>观察顺序、主要景物、最有画面的特写。</td>
+                <td>一个景物特写：颜色、声音、气味、动态。</td>
+                <td>表达喜爱、怀念、惊喜或赞美，不能只写“真美”。</td>
+              </tr>
+              <tr>
+                <td>状物</td>
+                <td>写什么物？它和我有什么关系？</td>
+                <td>来历、外形特点、用途或故事、情感意义。</td>
+                <td>物品与“我”发生联系的一件小事。</td>
+                <td>它为什么特别，承载了什么回忆或情感。</td>
+              </tr>
+              <tr>
+                <td>观察日记</td>
+                <td>观察对象发生了什么变化？</td>
+                <td>日期天气、原来样子、现在变化、我的发现。</td>
+                <td>变化最明显的地方：大小、颜色、形状、触感。</td>
+                <td>写出一个发现，而不是只说“我很开心”。</td>
+              </tr>
+              <tr>
+                <td>想象</td>
+                <td>这个想象要解决什么问题，表达什么中心？</td>
+                <td>想象前提、规则、冲突、解决办法。</td>
+                <td>遇到问题和解决问题的过程。</td>
+                <td>想象带来的启示：帮助、责任、环保、成长。</td>
+              </tr>
+              <tr>
+                <td>读后感</td>
+                <td>书里哪一点最打动我？它让我想到什么？</td>
+                <td>简述内容、一个感受点、联系实际、改变做法。</td>
+                <td>联系自己的真实经历，写“我以前怎样，现在怎样”。</td>
+                <td>写具体改变，不能只说“我要学习他”。</td>
+              </tr>
+              <tr>
+                <td>半命题</td>
+                <td>横线补什么最具体、最有话可写？</td>
+                <td>补题、中心、关键事件、题眼反复扣住。</td>
+                <td>题目里最关键的词对应的场景。</td>
+                <td>回扣补题，写出这件事的意义或变化。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="teacher-lab" style="margin-top:18px;">
+        <div class="lab-title">
+          <h3>示范：拿到题目怎么快速列提纲</h3>
+          <span>从题目到可写内容</span>
+        </div>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题目</th><th>判断题型</th><th>先问自己</th><th>三行提纲</th><th>高分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>《那一刻，我长大了》</td>
+                <td>写事 / 成长类</td>
+                <td>哪一刻？我原来怎样？后来明白了什么？</td>
+                <td>开头：点出那一刻。<br>中间：详写事情转折和心理变化。<br>结尾：写我从任性到理解、从逃避到承担。</td>
+                <td>重点不是“我做了什么”，而是“我为什么说自己长大了”。</td>
+              </tr>
+              <tr>
+                <td>《我的“慢半拍”爸爸》</td>
+                <td>写人</td>
+                <td>爸爸为什么“慢半拍”？这个特点背后有什么爱？</td>
+                <td>开头：写爸爸总是慢。<br>中间：详写他慢慢检查我书包、慢慢等我写完题。<br>结尾：我发现慢里藏着细心和耐心。</td>
+                <td>写人不要只贴标签，要用一件事证明特点。</td>
+              </tr>
+              <tr>
+                <td>《推荐一个好地方》</td>
+                <td>写景 / 推荐类</td>
+                <td>这个地方好在哪里？我最想推荐哪三处？</td>
+                <td>开头：点明推荐地点。<br>中间：按游览顺序写景物和活动。<br>结尾：写推荐理由和感情。</td>
+                <td>不能只说“很好玩”，要写出景、事、人或体验。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题材</th><th>审题重点</th><th>结构模板</th><th>提分抓手</th><th>常见失分</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>写人作文</td>
+                <td>先圈人物特点：严格、幽默、细心、倔强、爱笑。</td>
+                <td>特点入题 → 典型事例 → 细节描写 → 品质/影响。</td>
+                <td>用一件小事证明一个特点，重点写动作、语言、神态。</td>
+                <td>只介绍外貌和爱好，没有事件；人物像“说明书”。</td>
+              </tr>
+              <tr>
+                <td>写事作文</td>
+                <td>判断这件事要表现什么：后悔、勇敢、成长、理解、坚持。</td>
+                <td>起因略写 → 经过详写 → 转折变化 → 结果感悟。</td>
+                <td>重点段写慢：动作拆解、心理变化、对话还原。</td>
+                <td>从早写到晚，事情太多；结尾只写“真难忘”。</td>
+              </tr>
+              <tr>
+                <td>写景作文</td>
+                <td>先确定观察顺序和情感：喜爱、怀念、惊喜、平静。</td>
+                <td>总写印象 → 按顺序写景 → 特写镜头 → 抒发感情。</td>
+                <td>五感描写、动静结合、情景交融。</td>
+                <td>罗列花草树木，只有景物名称，没有观察顺序。</td>
+              </tr>
+              <tr>
+                <td>状物作文</td>
+                <td>抓物的特点：样子、用途、来历、变化、情感意义。</td>
+                <td>来历/总印象 → 外形特点 → 用途故事 → 情感升华。</td>
+                <td>写“物”和“我”的关系，例如书包、台灯、玩具、植物。</td>
+                <td>只写外形，像商品介绍，没有故事和感情。</td>
+              </tr>
+              <tr>
+                <td>观察日记</td>
+                <td>重点不是“看见了什么”，而是“变化过程”。</td>
+                <td>日期天气 → 初始样子 → 变化细节 → 我的发现。</td>
+                <td>写连续变化：颜色、大小、形状、动作、气味。</td>
+                <td>每天写得差不多，没有比较，没有发现。</td>
+              </tr>
+              <tr>
+                <td>想象作文</td>
+                <td>想象要服务中心：环保、成长、友情、科技、责任。</td>
+                <td>设定前提 → 遇到问题 → 解决冲突 → 得到启示。</td>
+                <td>大胆但合理，有冲突、有规则、有意义。</td>
+                <td>乱飞乱变，只写神奇，没有中心和逻辑。</td>
+              </tr>
+              <tr>
+                <td>读后感</td>
+                <td>核心是“感”，不是复述故事。</td>
+                <td>简述内容 → 提出感受点 → 联系实际 → 写出改变。</td>
+                <td>只抓一个最打动自己的情节、人物或一句话。</td>
+                <td>大段复述原文，结尾空喊“我要向他学习”。</td>
+              </tr>
+              <tr>
+                <td>书信/应用文</td>
+                <td>看清对象、目的和格式要求。</td>
+                <td>称呼 → 问候 → 主要内容 → 祝福语 → 署名日期。</td>
+                <td>语气符合对象：给同学自然，给长辈礼貌，给未来自己真诚。</td>
+                <td>格式错误，语气不合适，内容像普通作文。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="teacher-lab" style="margin-top:18px;">
+        <div class="lab-title">
+          <h3>题材判断口诀</h3>
+          <span>写前10秒</span>
+        </div>
+        <div class="diagnosis-grid">
+          <article class="diagnosis-card"><h4>写人看特点</h4><p>题目里有人物，就问：这个人最突出的特点是什么？用哪件事能证明？</p></article>
+          <article class="diagnosis-card"><h4>写事看变化</h4><p>题目里有“那一次、难忘、成长”，就问：事情前后“我”有什么变化？</p></article>
+          <article class="diagnosis-card"><h4>写景看顺序</h4><p>题目是地方或季节，就先定时间、空间或游览顺序，再写感情。</p></article>
+          <article class="diagnosis-card"><h4>状物看关系</h4><p>题目是物品、植物、动物，就问：它和“我”有什么故事或意义？</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="teacher-records">
+      <div class="section-title">
+        <p class="eyebrow">老师实录补全</p>
+        <h2>不同题型作文 · 老师批改升格实录</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">补齐写景、状物、观察日记、想象、读后感、半命题和应用文的批改示范</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>普通写法</th><th>老师诊断</th><th>升格写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>写景作文</td>
+                <td>春天来了，公园里有花有草，还有小鸟。我很喜欢春天。</td>
+                <td>只是罗列景物，没有观察顺序，也没有具体画面。</td>
+                <td>沿着小路往前走，最先撞进眼里的，是墙边那一树粉白的桃花。风一吹，花瓣轻轻落下来，像给小路铺了一层薄薄的雪。草地里还藏着几朵小黄花，低低地探出头来。</td>
+                <td>写景要有顺序和特写。先写“走到哪里”，再抓一个最有画面的景物写细。</td>
+              </tr>
+              <tr>
+                <td>状物作文</td>
+                <td>我的台灯是白色的，很漂亮，每天陪我写作业。</td>
+                <td>像商品介绍，只写外形，没有写“物”和“我”的关系。</td>
+                <td>那盏白色小台灯的灯罩上，有一道浅浅的铅笔印。那是我三年级第一次写作文写哭时留下的。每次灯光亮起来，桌面被照成一小片暖黄，我就觉得它像一个安静的朋友，陪我把不会写的句子一点点写出来。</td>
+                <td>状物作文不能只写样子，要写来历、故事和情感意义。</td>
+              </tr>
+              <tr>
+                <td>观察日记</td>
+                <td>今天绿豆发芽了，我很开心。明天我要继续观察。</td>
+                <td>没有写清“怎样发芽”，也没有前后比较。</td>
+                <td>泡了一夜的绿豆胀大了许多，外面的绿衣裂开一道细缝，一根白白的小芽从缝里探出来，弯弯的，像刚睡醒的小尾巴。昨天它还硬硬的，今天摸起来却有点软。</td>
+                <td>观察日记的高分点是变化：颜色、大小、形状、触感都要和前一天比较。</td>
+              </tr>
+              <tr>
+                <td>想象作文</td>
+                <td>假如我会飞，我要飞到很多国家玩，还要飞到月亮上看看。</td>
+                <td>想象很多，但没有中心，像旅游清单。</td>
+                <td>假如我会飞，我想先飞到山里的那所小学。新闻里说，那里很多孩子没有课外书。我把书包塞得鼓鼓的，越过一座座山，落在他们的操场上。看到那个小女孩抱着《海底两万里》舍不得放手，我忽然觉得，飞行不只是为了看世界，也可以把世界带给别人。</td>
+                <td>想象作文要有意义。神奇能力最好用来解决一个问题，中心自然就出来了。</td>
+              </tr>
+              <tr>
+                <td>读后感</td>
+                <td>《鲁滨逊漂流记》讲了鲁滨逊在荒岛上的故事，他很勇敢，我要向他学习。</td>
+                <td>复述太多，感受太空，没有联系自己的生活。</td>
+                <td>读完《鲁滨逊漂流记》，最打动我的不是他活了下来，而是他开始建房子、种粮食的那一刻。我以前遇到难题，总想着先躲一躲。可鲁滨逊让我明白，困难不会因为逃避就消失，真正有用的是把眼前能做的一小步做好。</td>
+                <td>读后感只抓一个感受点，再联系自己，才不会写成故事梗概。</td>
+              </tr>
+              <tr>
+                <td>半命题作文</td>
+                <td>《我学会了骑车》：我一开始不会骑，后来练了很久，终于学会了。</td>
+                <td>补题可以，但重点没有写“怎么学会”和“学会后的变化”。</td>
+                <td>《我学会了再试一次》：车把一歪，我连人带车摔在地上，膝盖火辣辣地疼。我差点说“不学了”，可爸爸只把车扶起来，说：“再试一次。”那天我学会的不只是骑车，还有摔倒后重新站起来。</td>
+                <td>半命题要把题目补得有中心。“骑车”是事情，“再试一次”才是成长。</td>
+              </tr>
+              <tr>
+                <td>书信/应用文</td>
+                <td>亲爱的妈妈：谢谢你照顾我，我以后一定听话。祝你身体健康。</td>
+                <td>格式基本有了，但内容空泛，缺少具体事件。</td>
+                <td>亲爱的妈妈：那天早上我急着上学，随口说了一句“别催了”。到了教室，我才发现书包侧袋里多了一盒润喉糖。原来你早就听见我昨晚咳嗽。那一刻，我忽然很后悔自己的不耐烦。妈妈，谢谢你总是在我没注意的地方照顾我。</td>
+                <td>书信也要有细节。真诚不是说很多感谢，而是写出一件具体的小事。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">核心提分</p>
+        <h2>五类细节描写升格</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">作文提分不是堆好词，而是把抽象表达改成可看、可听、可感的画面</p>
+      </div>
+      <div class="table-card">
+        <div class="upgrade-table">
+          <table>
+            <thead>
+              <tr><th>描写类型</th><th>普通写法</th><th>问题分析</th><th>升格写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>动作描写</td><td>妈妈做饭。</td><td>动作太笼统，读者不知道妈妈怎么做，也看不到画面。</td><td>妈妈系上围裙，拧开煤气，蓝色的火苗“噗”地窜了出来。她拿起锅铲翻了两下，又从冰箱里摸出一个鸡蛋。</td><td>动作描写要拆开写，用“系、拧、窜、翻、摸”这样的准确动词。</td></tr>
+              <tr><td>语言描写</td><td>老师鼓励我。</td><td>没有写出老师具体说了什么，人物温度不够。</td><td>“没关系，慢慢来。”老师的声音很轻，却像一只手，轻轻托住了我悬着的心。</td><td>语言描写要还原原话，再加语气和人物感受。</td></tr>
+              <tr><td>神态描写</td><td>爸爸很生气。</td><td>只告诉结果，没有写出生气的样子。</td><td>爸爸的脸涨得通红，额上的青筋突突地跳着。他盯着我看了好一会儿，嘴唇动了动，最后什么也没说。</td><td>神态描写抓脸色、眼神和细微表情，比直接说情绪更有力量。</td></tr>
+              <tr><td>心理描写</td><td>我很紧张。</td><td>情绪标签太直接，缺少身体反应和内心画面。</td><td>我的手心全是汗，心跳得像要从嗓子眼蹦出来，脑子里一片空白。</td><td>心理描写可以不说“紧张”，让读者从身体反应里感受到紧张。</td></tr>
+              <tr><td>环境描写</td><td>雨下得很大。</td><td>只是判断，没有声音、动态和氛围。</td><td>雨点砸在窗户上，噼里啪啦响成一片。外面像挂了一道帘子，什么都看不清。</td><td>环境描写要服务情节或心情，不只是介绍天气。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">句段升格</p>
+        <h2>把普通句子改成高分表达</h2>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>四类低分句的升格路径</h3>
+          <span>从一句话练起</span>
+        </div>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>低分句类型</th><th>普通写法</th><th>问题分析</th><th>升格写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>情绪空泛</td><td>我很紧张。</td><td>只说情绪，读者看不到画面。</td><td>我攥着准考证，指尖把纸边捏出了一道白痕。</td><td>把情绪变成动作和身体反应，句子立刻具体。</td></tr>
+              <tr><td>动作粗略</td><td>爸爸修车。</td><td>动作过程太快，没有细节。</td><td>爸爸蹲下身，眯着眼看了看链条，又从工具盒里抽出一把扳手。</td><td>一个大动作拆成几个小动作，重点段就能写长写细。</td></tr>
+              <tr><td>景物罗列</td><td>花园里有很多花。</td><td>只有事物名称，缺少顺序和感受。</td><td>靠墙的月季开得最盛，风一吹，淡淡的香气先跑了过来。</td><td>写景要选一个特写镜头，不要把看到的东西全列出来。</td></tr>
+              <tr><td>感悟喊口号</td><td>以后我要努力。</td><td>结尾空泛，没有写出具体明白了什么。</td><td>我明白了，真正的坚持不是不害怕，而是害怕时还愿意再试一次。</td><td>高分结尾要写认识变化，而不是喊决心。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">升格实录</p>
+        <h2>低分作文升格实录：从“流水账”到“有中心”</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">特级教师批改作文，先看大问题，再改重点段，最后修语言</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>原题：《一次难忘的尝试》</h3>
+          <span>写事作文升格</span>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">低分原文</div>
+          <div class="ex-bad">今天我尝试骑自行车。早上爸爸带我去小区楼下练车。我刚开始不会骑，摔了几次，后来爸爸教我方法。我练了很久，终于学会了骑自行车。我很开心，这真是一次难忘的尝试。</div>
+        </div>
+        <div class="table-card" style="margin-top:16px;">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>扣分点</th><th>问题分析</th><th>升格方向</th><th>教师点评</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>中心不深</td><td>只写“学会骑车”，没有写出这次尝试带来的变化。</td><td>把中心定为“从害怕摔倒到敢于尝试”。</td><td>写事作文要让事情背后有成长，不只是完成任务。</td></tr>
+                <tr><td>重点段太薄</td><td>“摔了几次”“爸爸教我方法”一句带过，最该详写的地方没有写。</td><td>详写第一次摔倒、想放弃、爸爸鼓励、再次尝试。</td><td>越关键的地方越要慢下来写，不能快进。</td></tr>
+                <tr><td>细节不足</td><td>没有动作、神态、心理，读者看不到现场。</td><td>加入车把晃动、膝盖擦痛、爸爸扶车、心里打退堂鼓等细节。</td><td>细节不是装饰，是表现中心的证据。</td></tr>
+                <tr><td>结尾空泛</td><td>“很开心”“难忘”没有说明为什么。</td><td>结尾写具体认识：尝试不是一次成功，而是摔倒后再来一次。</td><td>高分结尾要有具体感悟，不能只重复题目。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="example-block">
+          <div class="ex-title">升格范文片段</div>
+          <div class="ex-good">车把突然往左一歪，我还没来得及喊，整个人就连车一起倒在了地上。膝盖火辣辣地疼，手掌上沾满了灰。我坐在地上，盯着那辆歪在一旁的自行车，心里直打退堂鼓：不学了，反正走路也能到。
+          <br><br>爸爸没有马上扶我起来，只是蹲下来，把车把摆正，轻声说：“摔一下不可怕，可怕的是你把这一下当成结束。”我咬了咬牙，拍掉手上的灰，又跨上车座。这一次，我不再死死盯着前轮，而是看向前面的那棵香樟树。车身还是有点晃，可我没有松手。
+          <br><br>风从耳边掠过去的时候，我忽然明白了：真正的尝试，不是一下子成功，而是摔倒以后，还愿意再推自己一把。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="loss-points">
+      <div class="section-title">
+        <p class="eyebrow">避开陷阱</p>
+        <h2>八大失分点 · 具体诊断</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>失分类型</th><th>具体表现</th><th>解决方法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>审题跑题</td><td>《爱笑的同桌》没有写出“笑”。</td><td>读题三遍，圈关键词，用审题三问检查。</td></tr>
+              <tr><td>流水账</td><td>从早到晚每件事都写，详略不分。</td><td>只选一件事，只把一个关键场景详写。</td></tr>
+              <tr><td>中心分散</td><td>写人写了三件事但没有共同特点。</td><td>先定中心，每段都扣住中心。</td></tr>
+              <tr><td>细节空洞</td><td>只有“做了什么”，没有“怎么做”。</td><td>重点段加入动作、语言、神态、心理。</td></tr>
+              <tr><td>开头过长</td><td>开头占全文三分之一，还没进入正题。</td><td>开头不超过三行，直接入题。</td></tr>
+              <tr><td>结尾空洞</td><td>“今天真高兴”“永远不会忘”。</td><td>结尾写具体明白了什么、改变了什么。</td></tr>
+              <tr><td>选材老套</td><td>雨中送伞、扶老奶奶、让座。</td><td>写真实经历，选独特角度。</td></tr>
+              <tr><td>语句不通</td><td>错别字、病句、标点乱用。</td><td>写完大声朗读，读不顺的地方就修改。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="score-rubric" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">评分标准</p>
+        <h2>满分作文评分表</h2>
+      </div>
+      <div class="teacher-lab">
+        <div class="rubric-grid">
+          <article class="rubric-item"><strong>审题 20%</strong><span>扣住题眼，符合要求，只写一个中心。</span></article>
+          <article class="rubric-item"><strong>选材 20%</strong><span>材料真实具体，有新鲜感，能表现中心。</span></article>
+          <article class="rubric-item"><strong>结构 20%</strong><span>开头入题，中间有重点段，结尾能照应。</span></article>
+          <article class="rubric-item"><strong>细节 25%</strong><span>详写段有动作、语言、神态、心理或环境。</span></article>
+          <article class="rubric-item"><strong>语言 15%</strong><span>句子通顺，动词准确，有画面感，错字少。</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">长期训练</p>
+        <h2>每周拔尖训练计划</h2>
+      </div>
+      <div class="train-grid">
+        <article class="train-card"><span class="week-label">第1周</span><h4>审题专项</h4><p>每天练一个题目，判断题型、题眼、中心和详写点。</p></article>
+        <article class="train-card"><span class="week-label">第2周</span><h4>开头专项</h4><p>练开门见山、悬念开头、景物开头，各写5个。</p></article>
+        <article class="train-card"><span class="week-label">第3周</span><h4>动作描写</h4><p>每天写一个场景，用3-5个连续动作表现人物。</p></article>
+        <article class="train-card"><span class="week-label">第4周</span><h4>心理描写</h4><p>写事前、事中、事后的心理变化。</p></article>
+        <article class="train-card"><span class="week-label">第5周</span><h4>重点段打造</h4><p>把一件事里的关键场景写到200字以上。</p></article>
+        <article class="train-card"><span class="week-label">第6周</span><h4>写人完整</h4><p>选典型事例，加入外貌、动作、语言、神态。</p></article>
+        <article class="train-card"><span class="week-label">第7周</span><h4>结尾专项</h4><p>练感悟式、情景交融式、首尾呼应式结尾。</p></article>
+        <article class="train-card"><span class="week-label">第8周</span><h4>升格修改</h4><p>找旧作文，用三轮修改法改到更具体、更集中。</p></article>
+      </div>
+    </section>
+
+    <section class="section teacher-note" id="final-check">
+      <div class="section-title">
+        <p class="eyebrow">考前冲刺</p>
+        <h2>满分作文自查清单</h2>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card">
+          <h3>写前3分钟</h3>
+          <p>圈题眼，定中心，列三行提纲：开头写什么、重点段写什么、结尾点什么题。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>写中抓重点</h3>
+          <p>重点场景不要快进，至少加入两种描写：动作、语言、神态、心理或环境。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>写后读一遍</h3>
+          <p>大声朗读，检查跑题、病句、错别字、标点和结尾是否具体点题。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>冲刺提醒</h3>
+          <p>不要临场套范文。考场作文最稳的高分路径，是真实材料、清楚结构、具体细节。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
+  <script src="composition-ai.js"></script>
+</body>
+</html>
