@@ -217,6 +217,30 @@
       min-height: 86px;
       resize: vertical;
     }
+    .ai-photo-preview {
+      align-items: center;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      display: none;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 10px;
+    }
+    .ai-photo-preview.is-visible {
+      display: flex;
+    }
+    .ai-photo-preview img {
+      border-radius: 8px;
+      height: 72px;
+      object-fit: cover;
+      width: 96px;
+    }
+    .ai-photo-preview span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
     .ai-help {
       color: var(--muted);
       font-size: 12px;
@@ -229,6 +253,12 @@
       flex-wrap: wrap;
       align-items: center;
       margin-top: 14px;
+    }
+    .ai-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
     }
     .ai-btn {
       border: none;
@@ -516,7 +546,7 @@
         <div class="quick-nav">
           <a href="#grade-topics"><strong>一至五年级题库</strong><span>看每个年级常考什么、怎么写</span></a>
           <a href="#picture-writing"><strong>看图写话</strong><span>一二年级核心，先练完整和顺序</span></a>
-          <a href="#ai-tutor"><strong>AI 特级教师</strong><span>输入作文题，生成审题、立意和提纲</span></a>
+          <a href="#ai-tutor"><strong>AI 特级教师</strong><span>输入问题、拍照或语音，获得辅导</span></a>
           <a href="#master-teacher"><strong>特级教师思维</strong><span>从题目快速拆出中心、材料和重点段</span></a>
           <a href="#topic-methods"><strong>题材专项</strong><span>写人、写事、写景、状物等专属方法</span></a>
           <a href="#skill-upgrade"><strong>技巧升格</strong><span>细节、句段、重点段、首尾提分</span></a>
@@ -531,12 +561,12 @@
     <section class="section" id="ai-tutor" style="background:#f7f8fb;">
       <div class="section-title">
         <p class="eyebrow">AI 特级教师</p>
-        <h2>输入作文题目，生成特级教师分析与辅导</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">使用 DeepSeek API，根据题目自动分析题型、题眼、立意、选材、结构、重点段和失分点</p>
+        <h2>输入问题、题目或材料，展示特级教师分析过程与辅导</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">使用 DeepSeek API，可辅导语文、数学、英语、科学、综合实践、学习规划等；学科和年级只作参考，不做限制</p>
       </div>
       <div class="ai-tool">
         <div class="ai-panel">
-          <h3>作文题目分析</h3>
+          <h3>智能辅导输入</h3>
           <form id="composition-ai-form" class="ai-form-grid">
             <div class="ai-field full">
               <label for="deepseek-key">DeepSeek API Key</label>
@@ -547,20 +577,55 @@
               </div>
             </div>
             <div class="ai-field">
-              <label for="ai-grade">年级</label>
-              <select id="ai-grade" name="grade">
-                <option value="一年级">一年级</option>
-                <option value="二年级">二年级</option>
-                <option value="三年级" selected>三年级</option>
-                <option value="四年级">四年级</option>
-                <option value="五年级">五年级</option>
-                <option value="六年级">六年级</option>
+              <label for="ai-task-type">辅导任务</label>
+              <select id="ai-task-type" name="taskType">
+                <option value="自动判断" selected>自动判断</option>
+                <option value="作文/写作辅导">作文/写作辅导</option>
+                <option value="阅读理解辅导">阅读理解辅导</option>
+                <option value="数学解题辅导">数学解题辅导</option>
+                <option value="英语学习辅导">英语学习辅导</option>
+                <option value="科学/综合题辅导">科学/综合题辅导</option>
+                <option value="知识点讲解">知识点讲解</option>
+                <option value="片段修改升格">片段修改升格</option>
+                <option value="学习规划建议">学习规划建议</option>
               </select>
             </div>
             <div class="ai-field">
-              <label for="ai-genre">题材判断</label>
+              <label for="ai-grade">学习阶段（可选）</label>
+              <select id="ai-grade" name="grade">
+                <option value="不限/自动判断" selected>不限/自动判断</option>
+                <option value="一年级">一年级</option>
+                <option value="二年级">二年级</option>
+                <option value="三年级">三年级</option>
+                <option value="四年级">四年级</option>
+                <option value="五年级">五年级</option>
+                <option value="六年级">六年级</option>
+                <option value="初中">初中</option>
+                <option value="高中">高中</option>
+                <option value="大学/成人学习">大学/成人学习</option>
+                <option value="家长辅导">家长辅导</option>
+              </select>
+            </div>
+            <div class="ai-field">
+              <label for="ai-genre">学科/内容类型（可选）</label>
               <select id="ai-genre" name="genre">
-                <option value="自动判断" selected>自动判断</option>
+                <option value="不限/自动判断" selected>不限/自动判断</option>
+                <option value="语文">语文</option>
+                <option value="数学">数学</option>
+                <option value="英语">英语</option>
+                <option value="科学">科学</option>
+                <option value="道德与法治">道德与法治</option>
+                <option value="信息科技">信息科技</option>
+                <option value="历史">历史</option>
+                <option value="地理">地理</option>
+                <option value="生物">生物</option>
+                <option value="物理">物理</option>
+                <option value="化学">化学</option>
+                <option value="跨学科/综合实践">跨学科/综合实践</option>
+                <option value="阅读理解">阅读理解</option>
+                <option value="基础知识">基础知识</option>
+                <option value="古诗文">古诗文</option>
+                <option value="口语交际">口语交际</option>
                 <option value="看图写话">看图写话</option>
                 <option value="写人作文">写人作文</option>
                 <option value="写事作文">写事作文</option>
@@ -571,6 +636,7 @@
                 <option value="读后感">读后感</option>
                 <option value="半命题作文">半命题作文</option>
                 <option value="书信/应用文">书信/应用文</option>
+                <option value="其他">其他</option>
               </select>
             </div>
             <div class="ai-field">
@@ -584,19 +650,36 @@
               <label for="ai-mode">辅导目标</label>
               <select id="ai-mode" name="mode">
                 <option value="完整分析" selected>完整分析</option>
-                <option value="只要提纲">只要提纲</option>
-                <option value="选材建议">选材建议</option>
-                <option value="升格指导">升格指导</option>
-                <option value="开头结尾">开头结尾</option>
+                <option value="只要思路">只要思路</option>
+                <option value="讲清知识点">讲清知识点</option>
+                <option value="解题步骤">解题步骤</option>
+                <option value="错因诊断">错因诊断</option>
+                <option value="提分/升格指导">提分/升格指导</option>
+                <option value="学习计划">学习计划</option>
               </select>
             </div>
             <div class="ai-field full">
-              <label for="essay-title">作文题目</label>
-              <input id="essay-title" name="title" type="text" placeholder="例如：那一刻，我长大了 / 推荐一个好地方 / 我的____" required>
+              <label for="essay-title">题目 / 问题 / 任务</label>
+              <input id="essay-title" name="title" type="text" placeholder="例如：三角形面积怎么讲 / 这篇阅读怎么答 / 修改下面这段话 / 英语时态怎么区分" required>
+              <div class="ai-inline-actions">
+                <button class="ai-btn secondary" id="voice-title" type="button">语音输入题目</button>
+              </div>
             </div>
             <div class="ai-field full">
-              <label for="essay-material">孩子想写的素材或要求（可选）</label>
-              <textarea id="essay-material" name="material" placeholder="例如：想写第一次独自上台发言，很紧张，后来坚持讲完了。"></textarea>
+              <label for="essay-photo">拍照或上传图片（可选）</label>
+              <input id="essay-photo" name="photo" type="file" accept="image/*" capture="environment">
+              <p class="ai-help">可拍照保存题目、试卷、阅读材料、习作片段或课堂笔记，便于对照。当前文本接口不会自动识别图片，请把图片里的文字填入上方输入框，或用语音读出。</p>
+              <div class="ai-photo-preview" id="ai-photo-preview">
+                <img id="ai-photo-image" alt="题目图片预览">
+                <span id="ai-photo-name"></span>
+              </div>
+            </div>
+            <div class="ai-field full">
+              <label for="essay-material">补充说明 / 已有想法 / 原文 / 解题过程（可选）</label>
+              <textarea id="essay-material" name="material" placeholder="例如：粘贴题目原文、阅读材料、作文片段、计算过程、错题答案，或说明孩子卡在哪一步。"></textarea>
+              <div class="ai-inline-actions">
+                <button class="ai-btn secondary" id="voice-material" type="button">语音输入素材</button>
+              </div>
             </div>
             <div class="ai-field full">
               <label class="ai-check">
@@ -606,15 +689,15 @@
             </div>
           </form>
           <div class="ai-actions">
-            <button class="ai-btn primary" id="run-ai-tutor" type="button">生成特级教师分析</button>
+            <button class="ai-btn primary" id="run-ai-tutor" type="button">生成特级教师辅导</button>
             <button class="ai-btn secondary" id="clear-ai-result" type="button">清空结果</button>
             <button class="ai-btn secondary" id="forget-deepseek-key" type="button">清除保存的 Key</button>
           </div>
           <div class="ai-status" id="ai-status"></div>
         </div>
         <div class="ai-panel">
-          <h3>分析结果</h3>
-          <div id="ai-output" class="ai-output is-empty">输入作文题目后，点击“生成特级教师分析”。</div>
+          <h3>分析过程与辅导结果</h3>
+          <div id="ai-output" class="ai-output is-empty">输入题目、问题或材料后，点击“生成特级教师辅导”。</div>
         </div>
       </div>
     </section>
