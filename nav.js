@@ -3,6 +3,8 @@ var VIEW_MODE_STORAGE = 'diandianViewMode';
 document.addEventListener('DOMContentLoaded', function () {
   var topbar = document.querySelector('.topbar');
   var hamburger = document.getElementById('hamburger-btn');
+  ensureManifestLink();
+  registerServiceWorker();
   applyViewMode(getViewMode());
   enhanceTopNavigation(topbar);
   addViewSwitcher(topbar);
@@ -38,7 +40,74 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   addMobileBottomNav();
+  setupInstallPrompt();
 });
+
+function ensureManifestLink() {
+  if (document.querySelector('link[rel="manifest"]')) return;
+
+  var manifest = document.createElement('link');
+  manifest.rel = 'manifest';
+  manifest.href = 'manifest.json';
+  document.head.appendChild(manifest);
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  if (!window.isSecureContext && location.hostname !== 'localhost') return;
+
+  navigator.serviceWorker.register('service-worker.js').catch(function () {
+    // 安装能力不影响页面正常使用，注册失败时静默降级。
+  });
+}
+
+function setupInstallPrompt() {
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) return;
+  if (sessionStorage.getItem('diandianInstallHintDismissed') === 'true') return;
+
+  var deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', function (event) {
+    event.preventDefault();
+    deferredPrompt = event;
+    showInstallHint(function () {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.finally(function () {
+        deferredPrompt = null;
+        hideInstallHint();
+      });
+    });
+  });
+}
+
+function showInstallHint(onInstall) {
+  if (document.querySelector('.pwa-install-hint')) return;
+
+  var hint = document.createElement('div');
+  hint.className = 'pwa-install-hint';
+  hint.innerHTML = [
+    '<div>',
+    '<strong>添加到桌面</strong>',
+    '<span>用独立窗口打开，减少浏览器地址栏干扰。</span>',
+    '</div>',
+    '<button type="button" class="pwa-install-button">安装</button>',
+    '<button type="button" class="pwa-install-close" aria-label="关闭">×</button>'
+  ].join('');
+
+  hint.querySelector('.pwa-install-button').addEventListener('click', onInstall);
+  hint.querySelector('.pwa-install-close').addEventListener('click', function () {
+    sessionStorage.setItem('diandianInstallHintDismissed', 'true');
+    hideInstallHint();
+  });
+
+  document.body.appendChild(hint);
+}
+
+function hideInstallHint() {
+  var hint = document.querySelector('.pwa-install-hint');
+  if (hint) hint.remove();
+}
 
 function getCurrentPage() {
   return location.pathname.split('/').pop() || 'index.html';

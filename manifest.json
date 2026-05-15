@@ -1,8 +1,8 @@
 {
-  "name": "点点学习 Agent",
-  "short_name": "学习Agent",
-  "description": "面向手机使用的全学科学习辅导 Agent。",
-  "start_url": "agent.html",
+  "name": "语文成长地图",
+  "short_name": "语文地图",
+  "description": "面向小学生和家长的语文学习导航、年级路线与专项训练工具。",
+  "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
