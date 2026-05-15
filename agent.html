@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#63d676">
+  <title>AI 学习 Agent · 手机版</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --agent-bg: #f6f7fb;
+      --agent-card: #ffffff;
+      --agent-ink: #172033;
+      --agent-muted: #697386;
+      --agent-line: #dde3ec;
+      --agent-blue: #315fce;
+      --agent-green: #0f8b7b;
+      --agent-orange: #d26b1f;
+      --agent-red: #c2413a;
+    }
+
+    body.agent-page {
+      background: var(--agent-bg);
+      color: var(--agent-ink);
+      padding-bottom: calc(108px + var(--safe-bottom));
+    }
+
+    .agent-shell {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .agent-top {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 10px 0 16px;
+    }
+
+    .agent-title h1 {
+      font-size: 24px;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .agent-title p {
+      color: var(--agent-muted);
+      font-size: 13px;
+      margin: 4px 0 0;
+    }
+
+    .agent-badge {
+      background: #eef6f4;
+      border: 1px solid #cde8e2;
+      border-radius: 999px;
+      color: var(--agent-green);
+      flex: 0 0 auto;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 10px;
+    }
+
+    .agent-card {
+      background: var(--agent-card);
+      border: 1px solid var(--agent-line);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(23, 32, 51, 0.08);
+      margin-bottom: 14px;
+      padding: 16px;
+    }
+
+    .agent-card h2,
+    .agent-card h3 {
+      color: var(--agent-ink);
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+
+    .agent-note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 8px;
+      color: #9a3412;
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 0 0 14px;
+      overflow-wrap: anywhere;
+      padding: 10px 12px;
+    }
+
+    .agent-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .agent-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .agent-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .agent-field label {
+      color: #344054;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .agent-field input,
+    .agent-field select,
+    .agent-field textarea {
+      background: #fff;
+      border: 1px solid #dbe2ea;
+      border-radius: 8px;
+      color: var(--agent-ink);
+      font: inherit;
+      padding: 10px 12px;
+      width: 100%;
+    }
+
+    .agent-field textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .agent-help {
+      color: var(--agent-muted);
+      font-size: 12px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .agent-check {
+      align-items: center;
+      color: var(--agent-muted);
+      display: flex;
+      font-size: 13px;
+      gap: 8px;
+    }
+
+    .agent-check input {
+      flex: 0 0 auto;
+      width: auto;
+    }
+
+    .agent-actions,
+    .agent-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .agent-actions {
+      margin-top: 14px;
+    }
+
+    .agent-inline-actions {
+      margin-top: 8px;
+    }
+
+    .agent-btn {
+      align-items: center;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      font: inherit;
+      font-weight: 800;
+      gap: 7px;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+    }
+
+    .agent-btn.primary {
+      background: var(--agent-blue);
+      color: #fff;
+      flex: 1 1 180px;
+    }
+
+    .agent-btn.secondary {
+      background: #eef2ff;
+      color: #314eb7;
+    }
+
+    .agent-btn.subtle {
+      background: #f1f5f9;
+      color: #475467;
+    }
+
+    .agent-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.62;
+    }
+
+    .agent-status {
+      color: var(--agent-muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 10px;
+      min-height: 20px;
+    }
+
+    .agent-status.error {
+      color: var(--agent-red);
+    }
+
+    .agent-photo-preview {
+      align-items: center;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      display: none;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 10px;
+    }
+
+    .agent-photo-preview.is-visible {
+      display: flex;
+    }
+
+    .agent-photo-preview img {
+      border-radius: 8px;
+      height: 72px;
+      object-fit: cover;
+      width: 96px;
+    }
+
+    .agent-photo-preview span {
+      color: var(--agent-muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .agent-output {
+      background: #f8fafc;
+      border: 1px solid var(--agent-line);
+      border-radius: 10px;
+      color: var(--agent-ink);
+      line-height: 1.8;
+      min-height: 220px;
+      padding: 14px;
+      white-space: pre-wrap;
+    }
+
+    .agent-output.is-empty {
+      align-items: center;
+      color: var(--agent-muted);
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .topic-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .topic-link {
+      background: #f8fafc;
+      border: 1px solid var(--agent-line);
+      border-radius: 8px;
+      color: var(--agent-ink);
+      min-height: 78px;
+      padding: 10px;
+    }
+
+    .topic-link strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .topic-link span {
+      color: var(--agent-muted);
+      display: block;
+      font-size: 11px;
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    .record-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .record-empty {
+      color: var(--agent-muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .record-item {
+      background: #f8fafc;
+      border: 1px solid var(--agent-line);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 12px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .record-item strong {
+      color: var(--agent-ink);
+      display: block;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .record-item span {
+      color: var(--agent-muted);
+      display: block;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
+    .agent-bottom-nav {
+      background: transparent;
+      border: 0;
+      border-radius: 22px;
+      bottom: max(8px, var(--safe-bottom));
+      left: 50%;
+      right: auto;
+      box-sizing: border-box;
+      display: block;
+      width: min(calc(100vw - 24px), 430px) !important;
+      max-width: calc(100vw - 24px) !important;
+      overflow: visible;
+      padding: 0;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 70;
+    }
+
+    @supports (width: 100dvw) {
+      .agent-bottom-nav {
+        width: min(calc(100dvw - 24px), 430px) !important;
+        max-width: calc(100dvw - 24px) !important;
+      }
+    }
+
+    .agent-bottom-nav::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(234, 255, 239, 0.96)),
+        radial-gradient(circle at 20% 100%, rgba(112, 215, 74, 0.26), transparent 52%),
+        radial-gradient(circle at 82% 100%, rgba(57, 216, 179, 0.24), transparent 48%);
+      border: 1px solid rgba(199, 233, 208, 0.92);
+      border-radius: 22px;
+      box-shadow: 0 16px 42px rgba(31, 119, 63, 0.18);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+    }
+
+    .agent-bottom-nav::after {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      bottom: -20px;
+      z-index: -2;
+      height: 68px;
+      content: "";
+      background: radial-gradient(ellipse at center, rgba(87, 219, 105, 0.42), rgba(87, 219, 105, 0));
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .agent-bottom-nav-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+      margin: 0 auto;
+      max-width: 100% !important;
+      padding: 7px 9px 9px;
+      width: 100% !important;
+    }
+
+    .agent-bottom-nav a {
+      align-content: center;
+      border-radius: 16px;
+      box-sizing: border-box;
+      color: #5e6d78;
+      display: grid;
+      font-size: 11.5px;
+      font-weight: 800;
+      gap: 3px;
+      min-height: 64px;
+      min-width: 0;
+      justify-items: center;
+      padding: 4px 2px;
+    }
+
+    .agent-bottom-nav a:hover,
+    .agent-bottom-nav a.active {
+      color: #176b45;
+      background: transparent;
+    }
+
+    .agent-bottom-nav svg {
+      box-sizing: border-box;
+      height: 36px;
+      width: 36px;
+      padding: 8px;
+      color: white;
+      border-radius: 999px;
+      filter: drop-shadow(0 7px 12px rgba(35, 97, 63, 0.18));
+      stroke-width: 2.2;
+      transition: transform 160ms ease, width 160ms ease, height 160ms ease, box-shadow 160ms ease;
+    }
+
+    .agent-bottom-nav a:nth-child(1) svg {
+      background: linear-gradient(135deg, #67c83e, #25b05f);
+    }
+
+    .agent-bottom-nav a:nth-child(2) svg {
+      background: linear-gradient(135deg, #ff6aa0, #d94ddf);
+    }
+
+    .agent-bottom-nav a:nth-child(3) svg {
+      background: linear-gradient(135deg, #45ddbd, #21a7d6);
+    }
+
+    .agent-bottom-nav a:nth-child(4) svg {
+      background: linear-gradient(135deg, #7fc2ff, #6b7df5);
+    }
+
+    .agent-bottom-nav a.active svg {
+      width: 50px;
+      height: 50px;
+      padding: 12px;
+      box-shadow: 0 12px 24px rgba(255, 96, 160, 0.3);
+      transform: translateY(-9px);
+    }
+
+    .agent-btn svg {
+      height: 18px;
+      width: 18px;
+      stroke-width: 2.2;
+    }
+
+    @media (max-width: 680px) {
+      body.agent-page {
+        padding-bottom: calc(108px + var(--safe-bottom));
+      }
+
+      .agent-shell {
+        padding: 14px 12px;
+      }
+
+      .agent-grid,
+      .topic-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topic-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .agent-card {
+        border-radius: 8px;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body class="agent-page">
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="回到首页">
+      <span class="brand-mark">文</span>
+      <span>语文成长地图</span>
+    </a>
+    <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a class="active" href="agent.html">AI Agent</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+  <main class="agent-shell">
+    <section class="agent-top">
+      <div class="agent-title">
+        <h1>点点学习 Agent</h1>
+        <p>GitHub Pages 静态版 · Key 只在本机浏览器使用</p>
+      </div>
+      <span class="agent-badge">全学科</span>
+    </section>
+
+    <section class="agent-card" id="agent">
+      <h2>AI 辅导</h2>
+      <p class="agent-note">静态部署不会把 Key 存到服务器；勾选保存时，也只保存在当前手机浏览器本机。若浏览器提示网络或跨域失败，说明需要再加后端代理接口。</p>
+      <form id="agent-form" class="agent-grid">
+        <div class="agent-field full">
+          <label for="agent-key">DeepSeek API Key</label>
+          <input id="agent-key" name="apiKey" type="password" autocomplete="off" placeholder="sk-..." required>
+          <label class="agent-check">
+            <input id="agent-save-key" type="checkbox">
+            <span>在本机浏览器保存 Key</span>
+          </label>
+        </div>
+
+        <div class="agent-field">
+          <label for="agent-stage">学习阶段</label>
+          <select id="agent-stage" name="stage">
+            <option value="不限/自动判断" selected>不限/自动判断</option>
+            <option value="一年级">一年级</option>
+            <option value="二年级">二年级</option>
+            <option value="三年级">三年级</option>
+            <option value="四年级">四年级</option>
+            <option value="五年级">五年级</option>
+            <option value="六年级">六年级</option>
+            <option value="初中">初中</option>
+            <option value="高中">高中</option>
+            <option value="大学/成人学习">大学/成人学习</option>
+            <option value="家长辅导">家长辅导</option>
+          </select>
+        </div>
+
+        <div class="agent-field">
+          <label for="agent-subject">学科/内容</label>
+          <select id="agent-subject" name="subject">
+            <option value="不限/自动判断" selected>不限/自动判断</option>
+            <option value="语文">语文</option>
+            <option value="作文/写作">作文/写作</option>
+            <option value="阅读理解">阅读理解</option>
+            <option value="数学">数学</option>
+            <option value="英语">英语</option>
+            <option value="科学">科学</option>
+            <option value="物理">物理</option>
+            <option value="化学">化学</option>
+            <option value="生物">生物</option>
+            <option value="历史">历史</option>
+            <option value="地理">地理</option>
+            <option value="信息科技">信息科技</option>
+            <option value="跨学科/综合实践">跨学科/综合实践</option>
+          </select>
+        </div>
+
+        <div class="agent-field">
+          <label for="agent-task">辅导任务</label>
+          <select id="agent-task" name="task">
+            <option value="自动判断" selected>自动判断</option>
+            <option value="讲清知识点">讲清知识点</option>
+            <option value="解题步骤">解题步骤</option>
+            <option value="作文/表达升格">作文/表达升格</option>
+            <option value="阅读答题">阅读答题</option>
+            <option value="错因诊断">错因诊断</option>
+            <option value="学习计划">学习计划</option>
+          </select>
+        </div>
+
+        <div class="agent-field">
+          <label for="agent-model">模型</label>
+          <select id="agent-model" name="model">
+            <option value="deepseek-v4-flash" selected>deepseek-v4-flash</option>
+            <option value="deepseek-v4-pro">deepseek-v4-pro</option>
+          </select>
+        </div>
+
+        <div class="agent-field full">
+          <label for="agent-question">题目 / 问题 / 任务</label>
+          <textarea id="agent-question" name="question" placeholder="例如：这道数学题怎么讲？这篇阅读怎么答？《那一次，我真后悔》怎么写？" required></textarea>
+          <div class="agent-inline-actions">
+            <button class="agent-btn secondary" id="agent-voice-question" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
+              语音输入
+            </button>
+          </div>
+        </div>
+
+        <div class="agent-field full">
+          <label for="agent-photo">拍照或上传图片（可选）</label>
+          <input id="agent-photo" name="photo" type="file" accept="image/*" capture="environment">
+          <p class="agent-help">GitHub Pages 静态版先做图片预览，不自动 OCR。请把图片中的文字输入上方，或用语音读出。</p>
+          <div class="agent-photo-preview" id="agent-photo-preview">
+            <img id="agent-photo-image" alt="题目图片预览">
+            <span id="agent-photo-name"></span>
+          </div>
+        </div>
+      </form>
+
+      <div class="agent-actions">
+        <button class="agent-btn primary" id="agent-run" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          生成辅导
+        </button>
+        <button class="agent-btn secondary" id="agent-clear" type="button">清空结果</button>
+        <button class="agent-btn subtle" id="agent-forget-key" type="button">清除 Key</button>
+      </div>
+      <div class="agent-status" id="agent-status"></div>
+    </section>
+
+    <section class="agent-card" id="result">
+      <h3>辅导结果</h3>
+      <div class="agent-output is-empty" id="agent-output">输入问题后，点击“生成辅导”。</div>
+    </section>
+
+    <section class="agent-card" id="topics">
+      <h3>学习专题</h3>
+      <div class="topic-grid">
+        <a class="topic-link" href="composition.html"><strong>作文专题</strong><span>审题、选材、升格</span></a>
+        <a class="topic-link" href="pinyin.html"><strong>拼音学习</strong><span>基础巩固</span></a>
+        <a class="topic-link" href="vocabulary.html"><strong>词语学习</strong><span>积累与运用</span></a>
+        <a class="topic-link" href="grammar.html"><strong>语法知识</strong><span>句段表达</span></a>
+        <a class="topic-link" href="practice.html"><strong>练习计划</strong><span>诊断与复盘</span></a>
+        <a class="topic-link" href="grade1.html"><strong>分年级</strong><span>一至六年级入口</span></a>
+      </div>
+    </section>
+
+    <section class="agent-card" id="records">
+      <div style="align-items:center;display:flex;justify-content:space-between;gap:12px;margin-bottom:12px;">
+        <h3 style="margin:0;">最近辅导</h3>
+        <button class="agent-btn subtle" id="agent-clear-records" type="button">清空记录</button>
+      </div>
+      <div class="record-list" id="agent-records"></div>
+    </section>
+  </main>
+
+  <nav class="agent-bottom-nav" aria-label="手机底部导航">
+    <div class="agent-bottom-nav-inner">
+      <a href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></svg>
+        首页
+      </a>
+      <a class="active" href="#agent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v18"/><path d="M5 10h14"/><path d="M6 17h12"/></svg>
+        AI
+      </a>
+      <a href="practice.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l2 2 4-5"/><path d="M5 4h14v16H5z"/></svg>
+        练习
+      </a>
+      <a href="#records">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 7v6l4 2"/></svg>
+        记录
+      </a>
+    </div>
+  </nav>
+
+  <script src="nav.js"></script>
+  <script src="agent.js"></script>
+</body>
+</html>

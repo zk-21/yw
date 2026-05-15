@@ -2,8 +2,12 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>小学语文知识图谱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文知识总控台</title>
+  <meta name="theme-color" content="#63d676">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,9 +15,10 @@
     <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
-      <a class="active" href="knowledge-map.html">知识图谱</a>
+      <a class="active" href="knowledge-map.html">知识总控</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
@@ -26,9 +31,190 @@
 
   <main>
     <section class="page-head map-head">
-      <p class="eyebrow">小学语文全景</p>
-      <h1>把小学语文拆成 6 条主线、24 个知识节点</h1>
-      <p>孩子不需要一次学完所有内容。先看图谱知道语文学什么，再从薄弱节点开始补：字词不会就回到字词，阅读答不准就回到阅读方法，作文写不出就回到表达结构。</p>
+      <p class="eyebrow">小学语文总控台</p>
+      <h1>先找入口，再进专题，最后用练习巩固</h1>
+      <p>这页不再当成“所有资料堆在一起”的页面，而是整个语文学习站的总目录。孩子先在这里判断问题属于哪一类，再进入年级页、作文页、专项页或练习页。</p>
+    </section>
+
+    <section id="how-to-use" class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">页面定位</p>
+        <h2>这页负责“总控”：目录、索引、模板速查和分流</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不建议从头看到尾。先判断孩子的问题，再跳到对应页面：年级规划看年级页，作文看作文专题，基础薄弱看专项页，需要巩固就去练习计划。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card"><h3>知识总控台</h3><p>保留总目录、题型模板、知识索引和关键速查，帮助家长判断“该去哪里学”。</p></article>
+        <article class="teacher-card"><h3>年级页面</h3><p>负责一至六年级目标、易错点、提优重点和每周训练，不再和总图谱混在一起。</p></article>
+        <article class="teacher-card"><h3>作文专题</h3><p>专门解决审题、立意、选材、详略、细节描写、升格和满分冲刺。</p></article>
+        <article class="teacher-card"><h3>专项页面</h3><p>拼音、语法、词语各自成页，孩子哪里薄弱就补哪里。</p></article>
+        <article class="teacher-card"><h3>练习计划</h3><p>只承担诊断、训练、复盘和每周安排，把知识真正变成能力。</p></article>
+      </div>
+    </section>
+
+    <section id="study-router" class="section">
+      <div class="section-title">
+        <p class="eyebrow">学习导航</p>
+        <h2>孩子拿到任务，先按这 5 个入口分流</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这部分是站点使用路径。先确定是年级规划、基础专项、阅读模板、作文训练，还是练习复盘，再进入对应页面。</p>
+      </div>
+      <div class="route-grid">
+        <article class="route-card">
+          <h3>1. 按年级学</h3>
+          <p>适合不知道孩子当前年级该掌握什么、该怎么提优。</p>
+          <div class="route-links">
+            <a href="grade1.html">一年级</a>
+            <a href="grade2.html">二年级</a>
+            <a href="grade3.html">三年级</a>
+            <a href="grade4.html">四年级</a>
+            <a href="grade5.html">五年级</a>
+            <a href="grade6.html">六年级</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>2. 补基础专项</h3>
+          <p>适合拼音、词语、语法、病句、标点这些基础不稳。</p>
+          <div class="route-links">
+            <a href="pinyin.html">拼音规则</a>
+            <a href="grammar.html">语法题型</a>
+            <a href="vocabulary.html">词语大全</a>
+            <a href="#error-diagnosis">易错诊断</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>3. 查答题模板</h3>
+          <p>适合阅读、古诗文、口语交际、应用文题目不会组织答案。</p>
+          <div class="route-links">
+            <a href="#template-index">答题模板总表</a>
+            <a href="#reading-templates">阅读模板</a>
+            <a href="#classic-system">古诗文模板</a>
+            <a href="#application-writing-system">应用文模板</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>4. 练作文</h3>
+          <p>适合拿到作文题不知道写什么、怎么写具体、怎么冲刺高分。</p>
+          <div class="route-links">
+            <a href="composition.html">作文专题</a>
+            <a href="composition.html#topic-methods">题材方法卡</a>
+            <a href="composition.html#teacher-records">老师实录</a>
+            <a href="composition.html#score-rubric">评分标准</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>5. 做练习复盘</h3>
+          <p>适合已经看过方法，需要诊断薄弱点、安排训练和复盘错题。</p>
+          <div class="route-links">
+            <a href="practice.html#diagnosis">诊断测评</a>
+            <a href="practice.html">练习计划</a>
+            <a href="practice.html#templates">答题训练</a>
+            <a href="#training-loop">复盘方法</a>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>孩子当前问题</th><th>先看哪里</th><th>具体怎么用</th><th>完成标准</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>阅读题答不到点</td><td>题型总表 + 阅读题型体系</td><td>圈题干关键词，判断是概括、词句、人物、中心还是作用题，再按模板补齐依据和情感。</td><td>答案里有题型关键词、原文依据和完整表达。</td></tr>
+              <tr><td>作文不知道写什么</td><td>作文方法卡</td><td>先判断写人、写事、写景、状物、想象或读后感，再写“中心 + 材料 + 重点段”三行提纲。</td><td>题目不跑偏，重点段能占全文三分之一左右。</td></tr>
+              <tr><td>基础题老是粗心丢分</td><td>易错诊断 + 词语专项 + 标点专项</td><td>每次错题标出错因，是概念不会、语境不会、格式不会，还是审题漏条件。</td><td>错题能写出“错因、正确方法、下次提醒”。</td></tr>
+              <tr><td>古诗文只会背不会答</td><td>古诗文体系 + 古诗文实战</td><td>按“字词意思、画面内容、诗人情感、道理启示”四层训练。</td><td>不是只翻译诗句，能写出画面和情感。</td></tr>
+              <tr><td>想系统提分</td><td>分年级目标 + 训练闭环</td><td>按年级确定重点，每周只抓 1 到 2 个薄弱点，练题后必须复盘。</td><td>每周留下可检查的错题本、片段练习或模板改写。</td></tr>
+              <tr><td>想拔尖但不知道怎么练</td><td>年级页拔尖路径 + 拔尖辅导检查</td><td>先看当前年级的“本页使用顺序”和“家长检查清单”，再对照低分到拔尖样例改写答案。</td><td>能说出自己处在基础达标、能力提升还是拔尖发展层。</td></tr>
+              <tr><td>升年级后明显吃力</td><td>年级衔接 + 练习计划</td><td>回到上一个年级页看衔接要求，再用练习页补 2 周短板训练。</td><td>能补齐上一阶段最关键的阅读、表达或作文能力。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="site-structure" class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">页面分工</p>
+        <h2>每个页面只承担一个主要任务</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">以后新增内容也按这个规则放，避免知识点越补越散。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>页面</th><th>主要作用</th><th>适合解决的问题</th><th>不再承担</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>知识总控台</td><td>总目录、知识索引、题型模板速查。</td><td>不知道该看哪页、想快速查答题框架。</td><td>不做大量完整训练题。</td></tr>
+              <tr><td>年级页面</td><td>年级目标、易错点、提优路径、周训练。</td><td>孩子几年级，该学什么、怎么补弱。</td><td>不堆跨年级大全。</td></tr>
+              <tr><td>作文专题</td><td>作文审题、选材、结构、细节、升格和评分。</td><td>拿到作文题不知道从哪些方面写。</td><td>不处理拼音、词语等基础专项。</td></tr>
+              <tr><td>拼音/语法/词语</td><td>专项知识、规则、易错点和专项题型。</td><td>基础知识不稳、考试基础题丢分。</td><td>不做完整年级规划。</td></tr>
+              <tr><td>练习计划</td><td>诊断、训练、错题复盘和每周安排。</td><td>想把知识变成稳定得分能力。</td><td>不重复讲大量知识点。</td></tr>
+              <tr><td>AI Agent</td><td>输入题目、图片、语音后即时生成辅导建议。</td><td>具体某一道题、某篇作文、某个错因。</td><td>不替代系统知识学习。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="knowledge-index" class="section">
+      <div class="section-title">
+        <p class="eyebrow">知识索引</p>
+        <h2>小学语文知识点放在哪一页</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">查知识时先看这一张表，避免在多个页面来回找。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>知识/能力</th><th>主页面</th><th>辅助页面</th><th>使用建议</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>拼音、标调、整体认读、易混音</td><td><a href="pinyin.html">拼音学习</a></td><td><a href="grade1.html">一年级</a></td><td>先看规则，再在一年级页做日常训练。</td></tr>
+              <tr><td>词语、成语、近反义词、搭配</td><td><a href="vocabulary.html">词语学习</a></td><td><a href="#word-system">本页词语速查</a></td><td>先查词义和辨析，再造句运用。</td></tr>
+              <tr><td>扩句缩句、病句、句式转换、标点</td><td><a href="grammar.html">语法知识</a></td><td><a href="#punctuation-system">本页标点专项</a></td><td>基础题丢分时优先看语法页。</td></tr>
+              <tr><td>阅读理解题型模板</td><td><a href="#reading-templates">本页阅读题型体系</a></td><td><a href="practice.html#templates">练习计划</a></td><td>先背得分点，再用练习页迁移。</td></tr>
+              <tr><td>作文审题、选材、结构、升格</td><td><a href="composition.html">作文专题</a></td><td><a href="#writing-cards">本页作文方法卡</a></td><td>本页只速查，完整训练进作文专题。</td></tr>
+              <tr><td>古诗文、现代诗、文言启蒙</td><td><a href="#classic-system">本页古诗文体系</a></td><td><a href="grade4.html">四年级</a> / <a href="grade5.html">五年级</a> / <a href="grade6.html">六年级</a></td><td>低年级看画面，高年级看意象、情感和手法。</td></tr>
+              <tr><td>应用文、口语交际、综合性学习</td><td><a href="#application-writing-system">本页应用文模板</a></td><td><a href="#oral-communication">口语交际</a></td><td>按格式要素检查，不能只写大概意思。</td></tr>
+              <tr><td>每周训练、错题复盘、诊断测评</td><td><a href="practice.html">练习计划</a></td><td><a href="#training-loop">本页训练闭环</a></td><td>学完知识后，用练习页安排训练。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="template-index" class="section">
+      <div class="section-title">
+        <p class="eyebrow">模板速查</p>
+        <h2>小学语文常见题型 · 答题思路与模板总表</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">孩子做题时先看“思路”，再套“模板”。模板不是死背，而是提醒答案要包含哪些得分点。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>答题思路</th><th>答题模板</th><th>提分技巧</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概括主要内容</td><td>先找人物、事件、结果，高年级再看中心。</td><td>文章写了……做……，结果……，表现了……。</td><td>不要只写开头事件，要把结果和变化写进去。</td></tr>
+              <tr><td>理解词语含义</td><td>先解释本义，再结合上下文说文中义。</td><td>“……”本来指……，文中指……，写出了……。</td><td>不能离开原文解释词语。</td></tr>
+              <tr><td>句子赏析</td><td>找修辞、描写方法或关键词，再说效果和情感。</td><td>这句话运用了……，写出了……，表达了……。</td><td>必须点出“哪个词/哪种手法”好在哪里。</td></tr>
+              <tr><td>人物形象</td><td>从语言、动作、神态、心理和事件找依据。</td><td>他/她是一个……的人，从“……”可以看出。</td><td>特点不能空写，必须带原文依据。</td></tr>
+              <tr><td>说明方法作用</td><td>先判断方法，再说说明了对象的什么特点。</td><td>这句话运用了……的说明方法，具体/准确/生动地说明了……。</td><td>列数字答“准确具体”，打比方答“生动形象”。</td></tr>
+              <tr><td>说明文词语能否删</td><td>解释词义，比较删前删后，回到准确性。</td><td>不能删。“……”表示……，删去后变成……，体现说明文语言准确性。</td><td>不要只写“不能删，不准确”，要说明为什么。</td></tr>
+              <tr><td>古诗画面题</td><td>抓景物、颜色、动作和感受。</td><td>我仿佛看到……，感受到……。</td><td>不要只翻译诗句，要把画面说出来。</td></tr>
+              <tr><td>古诗情感题</td><td>先看意象，再判断情感。</td><td>诗人通过……，表达了……的感情。</td><td>月亮常见思乡，杨柳常见送别，边关常见报国。</td></tr>
+              <tr><td>文言翻译</td><td>逐词解释，再调成通顺现代汉语。</td><td>先解释重点字：……；整句意思是……。</td><td>注意古今异义，如“走”常是跑，“亡”可指丢失。</td></tr>
+              <tr><td>口语劝说</td><td>先礼貌称呼，再说明理由，最后提出建议。</td><td>……，我知道你……，但是……，我们可以……，好吗？</td><td>语气不能硬，理由要具体。</td></tr>
+              <tr><td>通知</td><td>写清时间、地点、人物、事情、要求。</td><td>请……于……到……参加……，请带好……。</td><td>缺一个要素就容易丢分。</td></tr>
+              <tr><td>作文审题</td><td>判断题型，圈题眼，定中心，选材料。</td><td>我要写……，中心是……，重点写……这一幕。</td><td>写前先列三行提纲，避免跑题和流水账。</td></tr>
+              <tr><td>作文重点段</td><td>把最能表现中心的一幕写慢。</td><td>动作 + 语言 + 神态/心理 + 环境/结果。</td><td>重点段至少占全文三分之一。</td></tr>
+              <tr><td>词语辨析</td><td>比较语气、对象、范围和感情色彩。</td><td>“……”适合……语境；“……”适合……语境。</td><td>近义词不能只看意思，还要看搭配和情感。</td></tr>
+              <tr><td>标点修改</td><td>先判断语气，再看提示语位置。</td><td>谁说：“……” / “……”谁说。/ “……，”谁说，“……”。</td><td>直接引用的句末标点通常放在引号内。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <section class="section graph-section">
@@ -103,6 +289,712 @@
           <h3>五六年级：会分析</h3>
           <p>中心思想、人物形象、说明文、文言文、作文详略、点题和结构。</p>
         </article>
+      </div>
+    </section>
+
+    <section id="teacher-upgrade" class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">特级教师拔尖辅导总纲</p>
+        <h2>这张图谱不只用来背知识，更要用来诊断和训练</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">家长和孩子使用时，先看年级目标，再查薄弱题型，最后按训练闭环练。这样知识点才会真正变成分数。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card"><h3>先定位年级目标</h3><p>一二年级先完整，三年级先成篇，四年级练具体，五六年级练中心和综合表达。</p></article>
+        <article class="teacher-card"><h3>再判断题型</h3><p>阅读先判断考概括、词句、人物、中心还是作用；作文先判断写人、写事、写景还是读后感。</p></article>
+        <article class="teacher-card"><h3>最后形成闭环</h3><p>每次训练都要有诊断、方法、例题、练习、自查、错题复盘，不能只刷题不复盘。</p></article>
+      </div>
+    </section>
+
+    <section id="top-student-coaching" class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖辅导检查</p>
+        <h2>内容够不够，不看多少页，看有没有这 6 件事</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">拔尖辅导不是简单加难题，而是让孩子知道自己在哪一层、下一步怎么升格、练完怎么复盘。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>检查项</th><th>合格内容</th><th>拔尖内容</th><th>去哪里看</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>目标分层</td><td>知道本年级必须掌握什么。</td><td>能区分基础达标、能力提升、拔尖发展三层目标。</td><td>各年级页“拔尖训练路径”</td></tr>
+              <tr><td>错因诊断</td><td>知道题错了。</td><td>能判断错在审题、知识点、依据、表达、格式还是复盘。</td><td><a href="#error-diagnosis">易错诊断</a> / <a href="practice.html#diagnosis">诊断测评</a></td></tr>
+              <tr><td>方法示范</td><td>给答案模板。</td><td>给低分答案、问题分析、升格答案和满分标准。</td><td><a href="#reading-templates">阅读模板</a> / <a href="composition.html">作文专题</a></td></tr>
+              <tr><td>迁移训练</td><td>练同一道题。</td><td>把同一种方法迁移到新文本、新题型、新作文题。</td><td><a href="practice.html">练习计划</a></td></tr>
+              <tr><td>年级衔接</td><td>只看当前知识点。</td><td>知道从本年级到下一年级，能力要求怎样升级。</td><td>各年级页“年级衔接”</td></tr>
+              <tr><td>复盘闭环</td><td>订正答案。</td><td>写清错因、正确方法、下次提醒，并做一次同类题。</td><td><a href="#training-loop">训练闭环</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="teacher-grid" style="margin-top:18px;">
+        <article class="teacher-card"><h3>低年级拔尖</h3><p>不提前刷难题，重点看拼音识字是否进入句子，表达是否完整、有顺序、有细节。</p></article>
+        <article class="teacher-card"><h3>中年级拔尖</h3><p>重点看自然段、概括、依据和片段作文，能不能从“写出来”升级到“写具体”。</p></article>
+        <article class="teacher-card"><h3>高年级拔尖</h3><p>重点看答案层次、中心立意、综合阅读和限时表达，能不能把方法迁移到新题。</p></article>
+      </div>
+    </section>
+
+    <section id="grade-goals" class="section">
+      <div class="section-title">
+        <p class="eyebrow">模块一</p>
+        <h2>分年级学习目标：从基础达标到拔尖提优</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>年级</th><th>必须掌握</th><th>提优目标</th><th>易错点</th><th>每周训练</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>一年级</td><td>拼音、识字、写完整句。</td><td>看图能说清楚，写5-8句连贯话。</td><td>拼音混淆、句子不完整、标点漏写。</td><td>拼读10分钟 + 看图说话1幅。</td></tr>
+              <tr><td>二年级</td><td>词语积累、句子扩写、写一段话。</td><td>多幅图能连成完整故事。</td><td>图意漏写、顺序乱、对话缺少提示语。</td><td>看图写话2篇 + 词语造句10个。</td></tr>
+              <tr><td>三年级</td><td>自然段、中心句、基础作文。</td><td>能完整写一件事，有开头中间结尾。</td><td>作文流水账，重点段太薄。</td><td>句段训练3次 + 作文提纲2个。</td></tr>
+              <tr><td>四年级</td><td>概括内容、修辞作用、人物描写。</td><td>重点段能写具体，阅读答题有依据。</td><td>概括不准，阅读答案脱离原文。</td><td>阅读题型4类 + 片段描写2段。</td></tr>
+              <tr><td>五年级</td><td>中心思想、详略安排、说明文。</td><td>答案有层次，作文有中心和详略。</td><td>作文立意浅，读后感复述太多。</td><td>阅读模板训练 + 作文升格1篇。</td></tr>
+              <tr><td>六年级</td><td>综合阅读、文言文、作文冲刺。</td><td>能应对小升初综合题和限时作文。</td><td>答题不完整，作文点题不明显。</td><td>真题模拟 + 错题复盘 + 满分答案改写。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="reading-templates" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">模块二</p>
+        <h2>阅读理解题型体系：按题型答，按分点写</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>阅读题型</th><th>判断标志</th><th>满分答题模板</th><th>满分示例</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概括主要内容</td><td>题干出现“主要写了什么、概括内容”。</td><td>谁 + 做了什么 + 结果怎样；高年级再加表达了什么。</td><td>文章写了小男孩克服害怕参加演讲并获得掌声的事，表现了他勇敢尝试的变化。</td></tr>
+              <tr><td>理解词语含义</td><td>题干问“这个词在文中指什么”。</td><td>本义 + 文中义 + 表达效果。</td><td>“暖流”本指温暖的水流，文中指老师的话让我感到安慰，写出了老师鼓励带来的力量。</td></tr>
+              <tr><td>句子赏析</td><td>题干问“好在哪里、有什么表达效果”。</td><td>手法/描写 + 写出了什么 + 表达了什么情感。</td><td>这句话运用比喻，把落叶比作小船，写出落叶轻轻飘动的样子，表达了作者对秋天的喜爱。</td></tr>
+              <tr><td>人物形象</td><td>题干问“他是一个怎样的人”。</td><td>性格特点 + 原文依据 + 简要评价。</td><td>他是一个细心的人。从他反复检查同学的作业本可以看出，他做事认真负责。</td></tr>
+              <tr><td>中心思想</td><td>题干问“表达了什么、告诉我们什么”。</td><td>文章写了……，表达了……，告诉我们……。</td><td>文章写了作者种豆失败后继续观察的过程，表达了坚持探索的精神。</td></tr>
+              <tr><td>标题作用</td><td>题干问“标题有什么妙处”。</td><td>点明对象/线索 + 概括内容 + 暗示中心。</td><td>“那盏灯”既点明写作对象，又贯穿全文，还暗示妈妈默默陪伴的爱。</td></tr>
+              <tr><td>环境描写作用</td><td>题干问“这处景物描写有什么作用”。</td><td>交代背景 + 烘托心情 + 推动情节/突出中心。</td><td>雨越下越大，烘托了“我”焦急的心情，也为妈妈冒雨送伞作铺垫。</td></tr>
+              <tr><td>段落作用</td><td>题干问“开头/结尾/中间段有什么作用”。</td><td>开头：引出下文、设置悬念；中间：承上启下；结尾：总结全文、点明中心。</td><td>结尾再次写掌声，照应开头，也点明“勇敢尝试会带来成长”的中心。</td></tr>
+              <tr><td>非连续性文本</td><td>图表、通知、材料组合题。</td><td>提取信息 + 比较数据 + 得出结论/提出建议。</td><td>从表格看，阅读时间越长，阅读成绩越高。因此建议每天保持稳定阅读。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing-cards" class="section">
+      <div class="section-title">
+        <p class="eyebrow">模块三</p>
+        <h2>作文方法卡：拿到题目先知道从哪些方面写</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>作文类型</th><th>写作抓手</th><th>结构模板</th><th>重点段</th><th>失分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>写人作文</td><td>写谁，什么特点，哪件事能证明。</td><td>特点入题 → 典型事例 → 细节描写 → 品质影响。</td><td>人物说话、动作、神态的具体场景。</td><td>不要写成外貌和优点清单。</td></tr>
+              <tr><td>写事作文</td><td>这件事让我发生什么变化。</td><td>起因略写 → 经过详写 → 转折变化 → 结果感悟。</td><td>最紧张、最后悔、最感动或最醒悟的一刻。</td><td>不要从早写到晚，详略必须分明。</td></tr>
+              <tr><td>写景作文</td><td>观察顺序和情感。</td><td>总写印象 → 按顺序写景 → 特写镜头 → 抒发感情。</td><td>颜色、声音、气味、动态和自己的感受。</td><td>不要罗列景物名称。</td></tr>
+              <tr><td>状物作文</td><td>物的特点以及它和我的关系。</td><td>来历/总印象 → 外形特点 → 用途故事 → 情感意义。</td><td>物品与“我”发生联系的一件小事。</td><td>不要写成商品说明。</td></tr>
+              <tr><td>想象作文</td><td>大胆想象但逻辑合理。</td><td>设定前提 → 遇到问题 → 解决冲突 → 得到启示。</td><td>问题怎么出现，主人公怎么解决。</td><td>不要只写神奇，没有中心。</td></tr>
+              <tr><td>读后感</td><td>少复述，多写感受和联系实际。</td><td>简述内容 → 提出感受点 → 联系生活 → 写出改变。</td><td>联系自己的真实经历。</td><td>不要把读后感写成故事梗概。</td></tr>
+              <tr><td>半命题作文</td><td>补题决定中心。</td><td>补好题目 → 定中心 → 写关键事件 → 结尾扣题。</td><td>补题关键词对应的场景。</td><td>题目补得太大，文章就容易空。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>普通写法</th><th>问题分析</th><th>升格写法</th><th>教师点评</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>妈妈很爱我。</td><td>太空，没有事件和画面。</td><td>那天晚上我发烧，妈妈一会儿摸我的额头，一会儿看体温计，连拖鞋穿反了都没有发现。</td><td>用动作细节表现爱，比直接说“爱我”更有说服力。</td></tr>
+              <tr><td>我很紧张。</td><td>只是情绪标签。</td><td>我的手心全是汗，心跳得像要从嗓子眼蹦出来，连稿纸上的字都开始晃动。</td><td>心理描写可以通过身体反应写出来。</td></tr>
+              <tr><td>公园很美。</td><td>没有具体景物。</td><td>湖边的柳枝垂到水面上，风一吹，水面便皱起一圈圈细细的波纹。</td><td>写景要把“美”变成可看见的画面。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="classic-upgrade" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">模块四</p>
+        <h2>古诗文提优：从会背到会赏析</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>补充内容</th><th>答题模板/训练方法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>古诗赏析</td><td>景物、画面、情感、手法。</td><td>这句诗描写了……的画面，运用……手法，表达了诗人……的情感。</td></tr>
+              <tr><td>常见情感</td><td>思乡、送别、爱国、田园、童趣、惜时。</td><td>先找景物和人物动作，再判断情感，不能只背诗意。</td></tr>
+              <tr><td>文言字词</td><td>之、其、曰、乃、亡、善、走、顾、弗、矣。</td><td>结合注释和上下文解释，注意古今异义。</td></tr>
+              <tr><td>文言断句</td><td>先找人物和动作，再看语气词。</td><td>谁 / 做什么 / 结果怎样。人物换了，常常要停顿。</td></tr>
+              <tr><td>翻译方法</td><td>留、换、补、调。</td><td>人名地名保留，古今不同的词换成现代说法，省略内容补出来，语序调顺。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="error-diagnosis" class="section">
+      <div class="section-title">
+        <p class="eyebrow">模块五</p>
+        <h2>基础知识易错诊断：知道为什么错，才知道怎么改</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>常见错法</th><th>正确方法</th><th>自查口诀</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>拼音</td><td>n/l、平翘舌、前后鼻音混淆。</td><td>放进词语和句子里读，不孤立背音节。</td><td>先读准，再组词，最后造句。</td></tr>
+              <tr><td>字词</td><td>形近字只看字形，不看偏旁意思。</td><td>用偏旁判断意思：清和水有关，晴和太阳有关，睛和眼睛有关。</td><td>看偏旁，想意思，放句子。</td></tr>
+              <tr><td>扩句缩句</td><td>缩句把主干删掉，扩句堆词不通顺。</td><td>缩句保留谁做什么；扩句补时间、地点、样子、动作。</td><td>主干不能丢，修饰要合理。</td></tr>
+              <tr><td>修改病句</td><td>读不出成分残缺、搭配不当、重复啰嗦。</td><td>先找主干，再看搭配，最后删重复。</td><td>读一遍，找主干，看搭配，删重复。</td></tr>
+              <tr><td>标点符号</td><td>对话不会分段，引号冒号混用。</td><td>人物说话要看提示语位置，句末标点放在引号内。</td><td>谁说话，谁提示，标点跟着语气走。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>病句类型</th><th>判断方法</th><th>示例</th><th>修改提示</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>成分残缺</td><td>看谁做什么是否完整。</td><td>通过这件事，使我明白了道理。</td><td>删“通过”或“使”，保留一个主语。</td></tr>
+              <tr><td>搭配不当</td><td>看词语能不能搭配。</td><td>我穿着漂亮的帽子。</td><td>帽子要“戴”，衣服才“穿”。</td></tr>
+              <tr><td>重复啰嗦</td><td>看意思是否重复。</td><td>我忍不住情不自禁地笑了。</td><td>“忍不住”和“情不自禁”保留一个。</td></tr>
+              <tr><td>前后矛盾</td><td>看时间、数量、意思是否冲突。</td><td>全班差不多都到齐了。</td><td>“差不多”和“都”矛盾，删一个。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="training-loop" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">模块六</p>
+        <h2>训练闭环：诊断、方法、例题、练习、自查、复盘</h2>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card"><h3>1. 诊断</h3><p>先看孩子错在哪里：审题、知识点、表达、格式还是粗心。</p></article>
+        <article class="teacher-card"><h3>2. 方法</h3><p>只教一个方法，例如概括公式、重点段写法或病句四步法。</p></article>
+        <article class="teacher-card"><h3>3. 例题</h3><p>用一道典型题示范完整过程，让孩子知道为什么这样做。</p></article>
+        <article class="teacher-card"><h3>4. 练习</h3><p>同类题练3-5道，不追求数量，追求方法稳定迁移。</p></article>
+        <article class="teacher-card"><h3>5. 自查</h3><p>用清单检查：题型对不对、依据有没有、表达完整不完整。</p></article>
+        <article class="teacher-card"><h3>6. 复盘</h3><p>写清错因、正确方法、下次提醒，错题才真正变成能力。</p></article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>问题表现</th><th>说明孩子卡在哪</th><th>训练方法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>阅读题总答不到点。</td><td>不会判断题型，答案缺依据。</td><td>每天练3道题型判断，答案必须写原文依据。</td></tr>
+              <tr><td>作文像流水账。</td><td>不会详略安排，不知道重点段写什么。</td><td>每周练1个重点段，把关键一刻写到150字以上。</td></tr>
+              <tr><td>句子不通顺。</td><td>语感和病句基础薄弱。</td><td>每天朗读5分钟，修改3个病句。</td></tr>
+              <tr><td>古诗理解不会写。</td><td>不会从画面过渡到情感。</td><td>按“景物-画面-情感”口头说一遍，再写答案。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="complete-system" class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">知识体系补全</p>
+        <h2>小学语文还要补齐这 8 个高频板块</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这些内容在考试和日常学习中经常出现，但容易被家长当成“小知识点”忽略。补上以后，知识体系才更接近完整的小学语文框架。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card"><h3>口语交际</h3><p>转述、劝说、推荐、采访、通知、讨论发言，训练孩子说清楚、说得体。</p></article>
+        <article class="teacher-card"><h3>书写查字典</h3><p>笔画笔顺、偏旁部首、间架结构、音序查字法、部首查字法。</p></article>
+        <article class="teacher-card"><h3>标点专项</h3><p>逗号、句号、问号、感叹号、冒号、引号、省略号、破折号的用法。</p></article>
+        <article class="teacher-card"><h3>阅读文体</h3><p>记叙文、说明文、童话、寓言、散文、科普文、非连续性文本。</p></article>
+        <article class="teacher-card"><h3>现代诗与儿童诗</h3><p>抓意象、节奏、想象和情感，避免只把诗句翻译成普通话。</p></article>
+        <article class="teacher-card"><h3>古诗文体系</h3><p>古诗分类、常见意象、情感判断、文言实词、断句和翻译。</p></article>
+        <article class="teacher-card"><h3>词语专项</h3><p>成语、近反义词、词语搭配、感情色彩、多义词、关联词、俗语。</p></article>
+        <article class="teacher-card"><h3>应用文与综合性学习</h3><p>请假条、留言条、通知、倡议书、建议书、资料整合和图表表达。</p></article>
+      </div>
+    </section>
+
+    <section id="oral-communication" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充一</p>
+        <h2>口语交际与综合性学习：说得清楚，也要说得得体</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>常考要求</th><th>答题/表达模板</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>转述</td><td>把别人的话准确告诉第三个人。</td><td>谁让谁在什么时候、什么地点做什么。</td><td>注意人称变化，“我、你、他”要换准确。</td></tr>
+              <tr><td>劝说</td><td>态度礼貌，理由充分，让对方愿意接受。</td><td>称呼 + 表明理解 + 说明理由 + 提出建议。</td><td>不能命令别人，也不能只说“这样不好”。</td></tr>
+              <tr><td>推荐</td><td>推荐一本书、一个地方、一项活动或一位同学。</td><td>我推荐……，理由有三点：……</td><td>推荐理由要具体，不能只说“很好、很有趣”。</td></tr>
+              <tr><td>采访</td><td>围绕主题设计问题，问题有顺序。</td><td>您好，我想了解……请问……？谢谢您的回答。</td><td>问题不要太空，要能问出具体信息。</td></tr>
+              <tr><td>通知</td><td>写清时间、地点、人物、事情、要求。</td><td>请……于……到……参加……，请带好……。</td><td>时间地点不能漏，语气要简明正式。</td></tr>
+              <tr><td>讨论发言</td><td>表达观点，有理由，能回应别人。</td><td>我同意/不同意……，因为……，所以我建议……。</td><td>不能只有观点没有理由，也不要偏离话题。</td></tr>
+              <tr><td>活动方案</td><td>围绕主题安排步骤、分工和成果。</td><td>主题：……；步骤：……；分工：……；展示方式：……。</td><td>方案要能执行，不能只写口号。</td></tr>
+              <tr><td>材料整合</td><td>从几则材料中提取共同信息。</td><td>材料一说明……，材料二补充……，我得出的结论是……。</td><td>不要照抄材料，要概括共同点。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing-dictionary" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">补充二</p>
+        <h2>书写规范与查字典：低年级打地基，高年级防丢分</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>必须掌握</th><th>操作方法</th><th>检查标准</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>笔画笔顺</td><td>横、竖、撇、捺、点、提、折、钩等基本笔画。</td><td>先横后竖，先撇后捺，从上到下，从左到右，先外后内再封口。</td><td>能按正确顺序书空，写字不倒插笔。</td></tr>
+              <tr><td>偏旁部首</td><td>常见部首的名称和意义。</td><td>用偏旁猜字义：三点水多和水有关，提手旁多和动作有关。</td><td>看到形近字能说出偏旁差别和意思差别。</td></tr>
+              <tr><td>间架结构</td><td>左右、上下、包围、半包围、独体字结构。</td><td>左右结构看宽窄，上下结构看高低，包围结构先外后内。</td><td>字写在格子中间，大小匀称，不偏不挤。</td></tr>
+              <tr><td>音序查字法</td><td>知道音节，先查大写字母，再找音节。</td><td>先确定读音，再找音序，再查音节和页码。</td><td>适合会读不会写、想查字形的情况。</td></tr>
+              <tr><td>部首查字法</td><td>不知道读音时，先找部首。</td><td>确定部首，数部首笔画，再数剩余笔画。</td><td>适合不会读的生字，能查到读音和意思。</td></tr>
+              <tr><td>易错字纠错</td><td>同音字、形近字、笔画易错字。</td><td>错字本按“错字-正确字-组词-造句”记录。</td><td>同一个错字连续三次写对，才算真正掌握。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="punctuation-system" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充三</p>
+        <h2>标点符号专项：标点不是装饰，是语气和结构</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>标点</th><th>什么时候用</th><th>例句</th><th>易错点</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>句号。</td><td>一句话说完整，语气平稳。</td><td>今天我去图书馆看书。</td><td>不要一句到底不加句号。</td></tr>
+              <tr><td>逗号，</td><td>一句话中间需要停顿。</td><td>早上，我背着书包去上学。</td><td>不能在主语和谓语之间乱停顿。</td></tr>
+              <tr><td>问号？</td><td>表示疑问、反问。</td><td>你今天为什么迟到？</td><td>反问句虽然答案明确，句末也用问号。</td></tr>
+              <tr><td>感叹号！</td><td>表示强烈语气、惊喜、赞叹、命令。</td><td>这里的景色真美啊！</td><td>不要每句话都用感叹号，语气会显得夸张。</td></tr>
+              <tr><td>冒号：</td><td>提示下文、引出说话内容。</td><td>老师说：“请大家安静。”</td><td>提示语在后面时，一般不用冒号。</td></tr>
+              <tr><td>引号“ ”</td><td>直接引用、特殊含义、特定称谓。</td><td>妈妈说：“路上小心。”</td><td>句末标点通常放在后引号里面。</td></tr>
+              <tr><td>省略号……</td><td>内容省略、说话断断续续、语意未尽。</td><td>我想说，可是……</td><td>省略号是六个点，不要写成三个点。</td></tr>
+              <tr><td>破折号——</td><td>解释说明、话题转换、声音延长。</td><td>我最喜欢的地方——家乡的小河。</td><td>不要和省略号混用。</td></tr>
+              <tr><td>分号；</td><td>并列分句之间的较大停顿。</td><td>春天花开了；夏天树绿了；秋天果熟了。</td><td>低年级少用，高年级用于较长并列句。</td></tr>
+              <tr><td>书名号《》</td><td>书名、文章名、作品名。</td><td>我读了《西游记》。</td><td>普通活动名称不用书名号。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="reading-genres" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">补充四</p>
+        <h2>阅读文体分类：先判断文体，再选择答法</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>文体</th><th>阅读重点</th><th>常考题型</th><th>满分抓手</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>记叙文</td><td>人物、事件、情节、中心。</td><td>概括内容、人物形象、句段作用、标题作用。</td><td>从原文找依据，围绕人物变化和中心作答。</td></tr>
+              <tr><td>写景散文</td><td>景物顺序、画面、情感。</td><td>景物特点、句子赏析、情感理解。</td><td>抓景物词、修辞词、情感词。</td></tr>
+              <tr><td>说明文</td><td>说明对象、特点、顺序、方法、语言准确性。</td><td>说明方法作用、词语能否删、段落顺序。</td><td>对象特点 + 方法作用 + 准确严谨。</td></tr>
+              <tr><td>童话</td><td>人物拟人化、想象、道理。</td><td>故事内容、人物特点、寓意启示。</td><td>不能只复述故事，要写出明白的道理。</td></tr>
+              <tr><td>寓言</td><td>短小故事背后的道理。</td><td>寓意、人物行为评价、联系生活。</td><td>故事内容 + 道理 + 现实生活例子。</td></tr>
+              <tr><td>科普文</td><td>科学知识、说明顺序、术语准确。</td><td>信息提取、说明方法、语言准确性。</td><td>答案要忠于材料，不能凭常识乱答。</td></tr>
+              <tr><td>非连续性文本</td><td>图表、通知、说明、材料组合。</td><td>提取信息、比较数据、判断正误、提出建议。</td><td>看标题、看数据、看单位、看条件。</td></tr>
+              <tr><td>古诗文阅读</td><td>字词、画面、情感、道理。</td><td>解释词语、翻译句子、赏析画面、概括启示。</td><td>先读懂字词，再说画面和情感。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="modern-poetry-system" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充五</p>
+        <h2>现代诗与儿童诗：读出画面、节奏和情感</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>常考题型</th><th>答题思路</th><th>答题模板</th><th>提分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>描绘诗句画面</td><td>找景物、颜色、动作和声音，把抽象诗句变成能看见的画面。</td><td>我仿佛看到……，听到……，感受到……。</td><td>不要只翻译字面意思，要写出“画面感”。</td></tr>
+              <tr><td>理解关键词</td><td>先说词语本义，再结合诗中意象说它带来的感受。</td><td>“……”本来指……，诗中写出了……，表现了……。</td><td>儿童诗常用拟人和想象，不能只按普通词义解释。</td></tr>
+              <tr><td>体会诗人情感</td><td>看反复出现的词、景物变化和语气变化。</td><td>诗人借……表达了……的感情。</td><td>情感要具体，如喜爱、思念、赞美、向往，不要只写“很开心”。</td></tr>
+              <tr><td>赏析修辞手法</td><td>判断比喻、拟人、排比或反复，再说表达效果。</td><td>这句运用了……，把……写得……，表达了……。</td><td>反复不是重复啰嗦，常用来加强节奏和情感。</td></tr>
+              <tr><td>仿写小诗</td><td>保留句式，换同类事物，情感要一致。</td><td>原句写……，我可以换成……，仿写为……。</td><td>仿写不是改几个字，要保持句式、意境和语气。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>低分答案</th><th>问题分析</th><th>升格答案</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>这首诗写春天很美。</td><td>只写结论，没有画面和情感依据。</td><td>这首诗通过小草、花朵和春风等景物，写出了春天充满生机的画面，表达了作者对春天的喜爱。</td><td>每读一首现代诗，圈出3个意象，再写一句“这些意象让我感到……”。</td></tr>
+              <tr><td>用了拟人，很生动。</td><td>没有说清拟人把什么写活了。</td><td>诗句把小溪当成人来写，说它一路唱着歌，写出了溪水流动时轻快活泼的样子，也表现了作者愉快的心情。</td><td>找3句拟人句，按“把谁当成人 + 写出什么特点 + 表达什么情感”回答。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="application-writing-system" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">补充六</p>
+        <h2>应用文与综合性学习：格式不丢分，表达能落地</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>类型</th><th>必须写清</th><th>格式/模板</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>留言条</td><td>给谁、什么事、谁留言、日期。</td><td>称呼顶格写；正文写清事情；右下角写留言人和日期。</td><td>不要漏写留言人，否则不知道是谁说的。</td></tr>
+              <tr><td>请假条</td><td>向谁请假、原因、时间、请求批准、署名日期。</td><td>我因……，需要请假……，请批准。</td><td>原因要简明真实，时间范围要具体。</td></tr>
+              <tr><td>通知</td><td>时间、地点、人物、事情、要求。</td><td>请……于……到……参加……，请带好……。</td><td>通知是给大家看的，语言要简洁正式。</td></tr>
+              <tr><td>倡议书</td><td>倡议对象、原因、具体做法、号召。</td><td>为了……，我倡议大家：一……；二……；三……。</td><td>倡议不能只喊口号，要有能执行的做法。</td></tr>
+              <tr><td>建议书</td><td>问题、原因、建议、期待。</td><td>我发现……，建议……，这样可以……。</td><td>语气要诚恳，不能像批评命令。</td></tr>
+              <tr><td>材料整合</td><td>每则材料的信息、共同点、结论。</td><td>材料一说明……，材料二补充……，因此我认为……。</td><td>不要整段抄材料，要提炼共同信息。</td></tr>
+              <tr><td>图表题</td><td>标题、单位、最大最小值、变化趋势。</td><td>从图表可以看出……，因此建议……。</td><td>答案要带数据依据，不能凭感觉下结论。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="culture-system" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充七</p>
+        <h2>传统文化与文学常识：不死背，要知道怎么用</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>板块</th><th>必须掌握</th><th>常考方式</th><th>训练方法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>传统节日</td><td>春节、元宵、清明、端午、中秋、重阳的时间和习俗。</td><td>节日排序、习俗匹配、写一段节日介绍。</td><td>按“时间 + 习俗 + 意义 + 我的经历”整理。</td></tr>
+              <tr><td>成语故事</td><td>故事内容、人物做法、道理启示。</td><td>解释成语、判断运用、联系生活谈启示。</td><td>按“谁做了什么 + 结果怎样 + 告诉我们什么”复述。</td></tr>
+              <tr><td>寓言神话</td><td>想象特点、人物愿望、故事道理。</td><td>概括情节、评价人物、续写改写。</td><td>找“愿望、困难、办法、结果、道理”五项。</td></tr>
+              <tr><td>名言警句</td><td>学习、惜时、诚信、爱国、勤奋等主题。</td><td>按语境填句、写作文引用。</td><td>每句配一个适用场景，不只背原句。</td></tr>
+              <tr><td>作家作品</td><td>课文作者、代表作品、人物形象或写作特点。</td><td>文学常识选择、阅读背景理解。</td><td>用“作者 + 作品 + 一个关键词”记忆。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="classic-system" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">补充八</p>
+        <h2>古诗文体系：会背只是第一步，会赏析才是提优</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>类别</th><th>常见内容</th><th>判断方法</th><th>答题表达</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>写景诗</td><td>山水、春夏秋冬、风雨雪月。</td><td>抓景物和颜色、动静变化。</td><td>描绘了……的景色，表达了诗人对自然的喜爱。</td></tr>
+              <tr><td>送别诗</td><td>朋友离别、渡口、长亭、杨柳。</td><td>看“送、别、故人、归”等词。</td><td>表达了诗人依依不舍和对友人的祝福。</td></tr>
+              <tr><td>思乡诗</td><td>月亮、故乡、家书、游子。</td><td>看“乡、家、月、归”等意象。</td><td>表达了诗人思念家乡和亲人的感情。</td></tr>
+              <tr><td>爱国诗</td><td>国家、边关、战争、报国。</td><td>看国家命运、将士、壮志。</td><td>表达了诗人热爱祖国、忧国忧民或报国之志。</td></tr>
+              <tr><td>田园诗</td><td>村庄、农事、儿童、鸡犬、桑麻。</td><td>看乡村生活和自然闲适。</td><td>表现田园生活的宁静、自然和乐趣。</td></tr>
+              <tr><td>哲理诗</td><td>登高、观物、变化、道理。</td><td>从景物中悟出人生道理。</td><td>告诉我们……的道理，启发我们……。</td></tr>
+              <tr><td>童趣诗</td><td>儿童活动、游戏、观察。</td><td>看孩子动作和天真想象。</td><td>写出了儿童的活泼可爱和生活情趣。</td></tr>
+              <tr><td>文言文</td><td>寓言故事、人物言行、道理启示。</td><td>先找人物，再找动作和结果。</td><td>这个故事告诉我们……，生活中我们也要……。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>文言字词</th><th>常见意思</th><th>例句提醒</th><th>学习方法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>之</td><td>他、它、的、去。</td><td>结合句子判断，不要固定一个意思。</td><td>放回原句翻译，看哪种意思通顺。</td></tr>
+              <tr><td>其</td><td>他的、它的、其中。</td><td>常指前文出现的人或物。</td><td>先找“其”指代谁。</td></tr>
+              <tr><td>曰</td><td>说。</td><td>后面常接人物说的话。</td><td>看到“曰”先找说话人。</td></tr>
+              <tr><td>乃</td><td>于是、就、才。</td><td>常表示事情接着发生。</td><td>联系前后句理解。</td></tr>
+              <tr><td>亡</td><td>丢失、逃跑、没有、死亡。</td><td>不同课文意思不同。</td><td>不能只记“死亡”。</td></tr>
+              <tr><td>善</td><td>好、擅长。</td><td>“善射”是擅长射箭。</td><td>看后面接的是品质还是本领。</td></tr>
+              <tr><td>走</td><td>跑。</td><td>古文里常不是“走路”。</td><td>注意古今异义。</td></tr>
+              <tr><td>顾</td><td>看、回头看、拜访。</td><td>要结合动作对象判断。</td><td>把几个意思代入句子试一试。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="word-system" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充九</p>
+        <h2>词语专项：词语不是会背就行，关键是会用</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>专项</th><th>学习重点</th><th>训练方法</th><th>易错提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>近义词</td><td>意思相近但语气、范围、对象可能不同。</td><td>放进同一句话里比较哪个更准确。</td><td>不能只看意思像不像，还要看搭配。</td></tr>
+              <tr><td>反义词</td><td>意义相反或相对。</td><td>按大小、多少、快慢、冷热、情感分类记。</td><td>有些词没有绝对反义词，要结合语境。</td></tr>
+              <tr><td>词语搭配</td><td>动词配名词，形容词配对象。</td><td>积累“提高水平、改进方法、保护环境”等固定搭配。</td><td>不能说“穿帽子、戴衣服”。</td></tr>
+              <tr><td>感情色彩</td><td>褒义、贬义、中性。</td><td>看这个词是夸人、批评人，还是客观描述。</td><td>“狡猾”和“聪明”不能乱换。</td></tr>
+              <tr><td>多义词</td><td>一个词在不同句子中意思不同。</td><td>先解释本义，再说句中义。</td><td>不能离开句子解释词语。</td></tr>
+              <tr><td>成语</td><td>意思、出处、使用对象。</td><td>每个成语至少造一个生活化句子。</td><td>不要望文生义，例如“万人空巷”不是街上没人。</td></tr>
+              <tr><td>关联词</td><td>并列、递进、转折、因果、假设、条件。</td><td>先判断分句关系，再选关联词。</td><td>“虽然……但是……”和“因为……所以……”不能混用。</td></tr>
+              <tr><td>俗语谚语歇后语</td><td>生活经验和语言趣味。</td><td>先理解意思，再联系生活例子。</td><td>不要只背前半句，要知道适用场景。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="unit-map" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">补充十</p>
+        <h2>单元能力地图：按主题看教材，按能力做训练</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>常见单元主题</th><th>常见年级</th><th>核心能力</th><th>训练产出</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>童话与想象</td><td>二至四年级</td><td>读懂人物愿望、想象逻辑和故事道理。</td><td>续编故事、编童话、说出寓意。</td></tr>
+              <tr><td>自然观察</td><td>二至四年级</td><td>观察顺序、变化过程、五感描写。</td><td>观察日记、写景片段、自然发现记录。</td></tr>
+              <tr><td>人物品质</td><td>三至六年级</td><td>从语言、动作、神态、心理看人物特点。</td><td>人物形象分析、写人作文素材。</td></tr>
+              <tr><td>家国情怀</td><td>四至六年级</td><td>理解责任、奉献、爱国情感。</td><td>中心思想题、读后感、演讲发言。</td></tr>
+              <tr><td>民间故事</td><td>三至五年级</td><td>复述故事、梳理情节、理解人物愿望。</td><td>缩写故事、讲故事、改写片段。</td></tr>
+              <tr><td>说明文与科普</td><td>五至六年级</td><td>说明对象、说明方法、说明顺序、语言准确性。</td><td>说明文阅读题、介绍一种事物。</td></tr>
+              <tr><td>策略阅读</td><td>四至六年级</td><td>预测、提问、批注、概括、比较。</td><td>阅读笔记、问题清单、结构图。</td></tr>
+              <tr><td>传统文化</td><td>三至六年级</td><td>古诗文、节日习俗、传统故事、文化表达。</td><td>资料整理、综合性学习、口语展示。</td></tr>
+              <tr><td>成长体验</td><td>三至六年级</td><td>理解变化、反思经历、表达感悟。</td><td>写事作文、成长类作文、片段升格。</td></tr>
+              <tr><td>综合实践</td><td>四至六年级</td><td>搜集资料、筛选信息、合作表达。</td><td>活动方案、调查报告、展示发言。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="upgrade-practice-bank" class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">专项提分实战库</p>
+        <h2>从“知道考什么”升级到“知道怎么答、怎么练、怎么改”</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">下面每个模块都给出真实题型、低分问题、满分示范和训练任务。孩子可以照着练，家长也能直接判断哪里丢分。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card"><h3>练一题</h3><p>先看题型，圈关键词，自己写一遍答案。</p></article>
+        <article class="teacher-card"><h3>比答案</h3><p>对照满分示范，看自己少了称呼、理由、依据、情感还是方法。</p></article>
+        <article class="teacher-card"><h3>再迁移</h3><p>同类题换一个材料再练一次，能迁移才是真掌握。</p></article>
+      </div>
+    </section>
+
+    <section id="oral-practice" class="section">
+      <div class="section-title">
+        <p class="eyebrow">实战一</p>
+        <h2>口语交际提分实战：语气得体，理由具体</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>真实题目</th><th>低分答案</th><th>满分示范</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>劝说</td><td>同学在图书馆大声说话，你会怎样劝他？</td><td>你别吵了！</td><td>小明，这里是图书馆，大家都在安静看书。你如果有话想说，可以小声一点，或者我们出去再聊，好吗？</td><td>练3道劝说题，每题必须有称呼、理由、建议和礼貌语气。</td></tr>
+              <tr><td>转述</td><td>老师说：“明天上午八点，请大家带上跳绳到操场集合。”请转告请假的同学。</td><td>老师说明天去操场。</td><td>老师让我转告你：明天上午八点，请带上跳绳到操场集合。</td><td>练5句转述，把“我、你、他”和时间地点改准确。</td></tr>
+              <tr><td>推荐</td><td>向同学推荐一本你喜欢的书。</td><td>我推荐《西游记》，很好看。</td><td>我推荐《西游记》。这本书情节有趣，人物鲜明，孙悟空勇敢机智，遇到困难也不退缩。读这本书，不但能感受神奇的想象，还能学到坚持和勇气。</td><td>推荐一本书、一个地方、一个活动，各写3条具体理由。</td></tr>
+              <tr><td>通知</td><td>班级周五下午三点在音乐教室排练节目，请写通知。</td><td>周五排练节目，大家参加。</td><td>通知：请参加节目排练的同学于周五下午三点到音乐教室集合，请带好节目道具，不要迟到。</td><td>写3则通知，检查时间、地点、人物、事情、要求是否齐全。</td></tr>
+              <tr><td>讨论发言</td><td>你是否赞成小学生每天做家务？</td><td>我赞成，因为做家务好。</td><td>我赞成小学生每天做力所能及的家务。因为做家务不仅能减轻父母负担，还能培养责任感。比如我每天整理书桌，学习也变得更有条理。</td><td>每次发言按“观点+两个理由+一个例子”训练。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="dictionary-practice" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">实战二</p>
+        <h2>书写与查字典提分实战：操作步骤要清楚</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>训练点</th><th>真实题目</th><th>低分问题</th><th>正确做法</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>音序查字法</td><td>“湖”字会读不会写，怎样查字典？</td><td>直接翻页找，步骤说不清。</td><td>先确定读音hu，再查音序H，找到音节hu，按页码查到“湖”。</td><td>每天选5个会读不会写的字，说出音序、音节和页码。</td></tr>
+              <tr><td>部首查字法</td><td>“鹭”不会读，怎样查？</td><td>找错部首，笔画数乱数。</td><td>先找部首“鸟”，数部首笔画，再数剩余笔画，查到读音和意思。</td><td>每周练10个不会读的字，先找部首再查字典。</td></tr>
+              <tr><td>形近字辨析</td><td>清、晴、睛怎样区分？</td><td>只说长得像，不能解释。</td><td>清与水有关，晴与太阳有关，睛与眼睛有关。清水、晴天、眼睛。</td><td>整理5组形近字，每组写“偏旁+意思+组词”。</td></tr>
+              <tr><td>笔顺纠错</td><td>“再、医、母”等字常写错笔顺。</td><td>能写出来但笔顺错误。</td><td>先看结构，再按规则写：先外后内、先横后竖、先中间后两边等。</td><td>每周选10个易错字，书空一遍，再田字格写3遍。</td></tr>
+              <tr><td>错字本</td><td>听写总错同一个字。</td><td>只改一遍，没有真正掌握。</td><td>按“错字-正确字-错因-组词-造句”记录。</td><td>错字连续三次听写正确后，才从错字本里划掉。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="punctuation-practice" class="section">
+      <div class="section-title">
+        <p class="eyebrow">实战三</p>
+        <h2>标点符号提分实战：会判断语气和提示语位置</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>错句</th><th>问题诊断</th><th>正确写法</th><th>教师点评</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>妈妈说：“今天冷吗”？</td><td>问号位置错误。</td><td>妈妈说：“今天冷吗？”</td><td>直接引用的话，句末标点一般放在引号里面。</td><td>练10句人物语言，检查标点是否在引号内。</td></tr>
+              <tr><td>我喜欢苹果，香蕉，葡萄。</td><td>并列词语之间可用顿号。</td><td>我喜欢苹果、香蕉、葡萄。</td><td>短小并列词语常用顿号，不用连续逗号。</td><td>把5个含并列词语的句子改正确。</td></tr>
+              <tr><td>他说：“我走了。”然后跑出门。</td><td>句子没有错，但可学习提示语位置。</td><td>“我走了。”他说完，便跑出门。</td><td>提示语在不同位置，标点要跟着变，表达也更灵活。</td><td>同一句话分别写成提示语在前、在中、在后。</td></tr>
+              <tr><td>春天来了！小草绿了！花儿开了！</td><td>感叹号过多，语气太满。</td><td>春天来了，小草绿了，花儿开了。大地像醒来了一样。</td><td>不是所有开心句都用感叹号，标点要服务语气。</td><td>把一段感叹号过多的话改得自然。</td></tr>
+              <tr><td>我想说可是我又不敢说</td><td>缺少停顿和句末标点。</td><td>我想说，可是我又不敢说。</td><td>读到需要换气的地方加逗号，句子结束加句号。</td><td>每天读一段自己的作文，给需要停顿的地方补标点。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="genre-practice" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">实战四</p>
+        <h2>阅读文体提分实战：不同文体，答题角度不同</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>文体</th><th>典型题</th><th>低分答案</th><th>满分答法</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>记叙文</td><td>文中的“我”发生了什么变化？</td><td>我变好了。</td><td>“我”原来害怕上台，后来在老师鼓励下勇敢演讲，说明“我”变得自信、敢于尝试。</td><td>读3篇记叙文，每篇找“原来怎样、后来怎样”。</td></tr>
+              <tr><td>说明文</td><td>“大约”一词能删去吗？</td><td>不能，删了不准确。</td><td>不能。“大约”表示估计，不是准确数字，删去后说法过于绝对，体现了说明文语言的准确性。</td><td>练5道“能否删去”题，按“词义+删后变化+准确性”作答。</td></tr>
+              <tr><td>寓言</td><td>这个故事告诉我们什么道理？</td><td>要努力。</td><td>这个故事告诉我们，做事不能只看眼前，要根据实际情况想办法，否则会犯同样的错误。</td><td>每读一则寓言，写“故事内容+道理+生活例子”。</td></tr>
+              <tr><td>非连续性文本</td><td>根据表格提出一条建议。</td><td>大家要多运动。</td><td>表格显示，每天运动60分钟的学生体质良好比例更高。因此建议学生每天坚持户外运动，尽量保证60分钟左右。</td><td>练3道图表题，答案必须有数据依据和具体建议。</td></tr>
+              <tr><td>科普文</td><td>本文主要介绍了这种动物的哪些特点？</td><td>它很厉害。</td><td>文章主要介绍了这种动物的外形、生活习性和保护自己的方式。</td><td>读科普文时给每段标注“介绍了什么特点”。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="classic-practice" class="section">
+      <div class="section-title">
+        <p class="eyebrow">实战五</p>
+        <h2>古诗文提分实战：从字词到画面，再到情感</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>真实题目</th><th>低分答案</th><th>满分示范</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>画面描绘</td><td>“碧玉妆成一树高”让你看到怎样的画面？</td><td>柳树很美。</td><td>我看到一棵高高的柳树，像用碧玉装扮成的一样，枝条柔嫩翠绿，充满春天的生机。</td><td>每首诗选一句，按“景物+颜色/动作+感受”说画面。</td></tr>
+              <tr><td>情感判断</td><td>《静夜思》表达了诗人怎样的感情？</td><td>诗人很想家。</td><td>诗人看到明月，低头思念故乡，表达了漂泊在外时对家乡和亲人的深深思念。</td><td>背古诗时给每首标注“景物+情感”。</td></tr>
+              <tr><td>字词解释</td><td>解释“亡羊补牢”中的“亡”。</td><td>死亡。</td><td>这里的“亡”是丢失的意思，“亡羊”就是丢了羊。</td><td>整理10个古今异义词，每个写两个意思。</td></tr>
+              <tr><td>句子翻译</td><td>翻译“学而时习之”。</td><td>学习很高兴。</td><td>学习了知识并且按时复习它。</td><td>翻译时先逐词解释，再整理成通顺现代汉语。</td></tr>
+              <tr><td>道理启示</td><td>《守株待兔》告诉我们什么？</td><td>不要等兔子。</td><td>这个故事告诉我们不能心存侥幸，不劳而获，要靠自己的努力做事。</td><td>每篇文言故事写“人物做法+结果+道理”。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="word-practice" class="section alt-bg">
+      <div class="section-title">
+        <p class="eyebrow">实战六</p>
+        <h2>词语专项提分实战：放进语境里辨析和运用</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>真实题目</th><th>低分问题</th><th>满分思路</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>近义词辨析</td><td>“安静”和“寂静”哪个适合写教室？</td><td>只说意思差不多。</td><td>“安静”适合写有人但不吵的教室；“寂静”更适合写夜晚、山林等非常静的环境。</td><td>每天选2组近义词，各造两个不同语境的句子。</td></tr>
+              <tr><td>感情色彩</td><td>“顽强”和“顽固”能互换吗？</td><td>都表示坚持。</td><td>不能。“顽强”是褒义，表示坚强不屈；“顽固”多为贬义，表示不愿改变。</td><td>整理10组褒贬义词，写清适用对象。</td></tr>
+              <tr><td>词语搭配</td><td>选择：提高（水平/方法），改进（水平/方法）。</td><td>随便搭配。</td><td>应说“提高水平、改进方法”。搭配要看动词和对象是否习惯。</td><td>每周积累20个固定搭配，听写时放进句子。</td></tr>
+              <tr><td>关联词</td><td>（ ）下雨，（ ）运动会照常举行。</td><td>填“因为……所以……”。</td><td>应填“虽然……但是……”，前后意思相反，是转折关系。</td><td>先判断关系，再填关联词：并列、因果、转折、条件、假设。</td></tr>
+              <tr><td>成语运用</td><td>用“津津有味”造句。</td><td>我津津有味。</td><td>我津津有味地读着《西游记》，连妈妈叫我吃饭都没有听见。</td><td>成语造句必须有对象和情境，不能只写半句话。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="unit-practice" class="section">
+      <div class="section-title">
+        <p class="eyebrow">实战七</p>
+        <h2>单元能力提分实战：每个主题都要产出作品</h2>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>单元主题</th><th>训练目标</th><th>具体任务</th><th>提分标准</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>童话与想象</td><td>想象合理，有冲突和道理。</td><td>续写一个童话结尾，必须有困难、办法、结果。</td><td>不是乱编，要能看出人物愿望和故事道理。</td></tr>
+              <tr><td>自然观察</td><td>能连续观察变化。</td><td>连续3天观察一种植物，每天写颜色、形状、大小变化。</td><td>有前后比较，不只写“很开心”。</td></tr>
+              <tr><td>人物品质</td><td>从事例看人物特点。</td><td>读一篇写人文章，找3处语言或动作，概括人物品质。</td><td>特点必须有原文依据。</td></tr>
+              <tr><td>家国情怀</td><td>理解责任和奉献。</td><td>读一篇相关课文，写“人物做了什么+我受到什么启发”。</td><td>不能只喊口号，要联系具体行为。</td></tr>
+              <tr><td>说明文科普</td><td>说明清楚、有顺序。</td><td>介绍一种文具或动物，用至少两种说明方法。</td><td>有说明对象、特点、顺序和准确词语。</td></tr>
+              <tr><td>传统文化</td><td>能查资料、能表达。</td><td>整理一个传统节日：时间、习俗、传说、我的体验。</td><td>资料真实，表达有条理，不照搬百科。</td></tr>
+              <tr><td>成长体验</td><td>写出前后变化。</td><td>写一件让我成长的小事，列“原来怎样、后来怎样、明白什么”。</td><td>重点段写具体，结尾有变化和思考。</td></tr>
+              <tr><td>综合实践</td><td>会搜集、筛选、展示信息。</td><td>围绕“节约用水”做一张资料卡和一段发言稿。</td><td>有数据、有建议、有自己的观点。</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 

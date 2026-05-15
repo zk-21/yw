@@ -2,8 +2,14 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#63d676">
   <title>小学语文学习平台 - 知识导航</title>
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
   <style>
     /* 诊断和任务模块 */
@@ -224,7 +230,7 @@
         grid-template-columns: 1fr;
       }
       .cycle-steps {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .roadmap-table th, .roadmap-table td {
         padding: 12px 8px;
@@ -242,6 +248,7 @@
     <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a class="active" href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
       <a href="composition.html">作文专题</a>
@@ -464,8 +471,9 @@
         <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
         <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
         <div class="hero-actions">
+          <a class="button primary" href="agent.html">打开 AI Agent</a>
           <a class="button primary" href="practice.html">查看今日练习</a>
-          <a class="button ghost" href="#map">浏览知识地图</a>
+          <a class="button ghost" href="knowledge-map.html">打开知识总控台</a>
         </div>
       </div>
       <div class="learning-card" aria-label="今日学习卡片">
@@ -482,9 +490,67 @@
       </div>
     </section>
 
+    <section class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">入口分工</p>
+        <h2>先选页面，再开始学</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按“总控台、年级页、作文页、专项页、练习页”分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
+      </div>
+      <div class="route-grid">
+        <article class="route-card">
+          <h3>知识总控台</h3>
+          <p>查知识分类、题型模板、页面索引，先判断问题属于哪一类。</p>
+          <div class="route-links">
+            <a href="knowledge-map.html">打开总控台</a>
+            <a href="knowledge-map.html#knowledge-index">知识索引</a>
+            <a href="knowledge-map.html#template-index">模板总表</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>年级学习</h3>
+          <p>按一至六年级看目标、易错点、提优重点和每周训练。</p>
+          <div class="route-links">
+            <a href="grade1.html">一年级</a>
+            <a href="grade2.html">二年级</a>
+            <a href="grade3.html">三年级</a>
+            <a href="grade4.html">四年级</a>
+            <a href="grade5.html">五年级</a>
+            <a href="grade6.html">六年级</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>作文专题</h3>
+          <p>解决作文审题、选材、结构、重点段、语言升格和评分自查。</p>
+          <div class="route-links">
+            <a href="composition.html">作文专题</a>
+            <a href="composition.html#topic-methods">题材方法</a>
+            <a href="composition.html#teacher-records">批改实录</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>基础专项</h3>
+          <p>拼音、语法、词语各自独立补弱，不和年级规划混在一起。</p>
+          <div class="route-links">
+            <a href="pinyin.html">拼音</a>
+            <a href="grammar.html">语法</a>
+            <a href="vocabulary.html">词语</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>练习复盘</h3>
+          <p>用诊断、训练和错题复盘把知识变成稳定得分能力。</p>
+          <div class="route-links">
+            <a href="practice.html#diagnosis">诊断</a>
+            <a href="practice.html#templates">阅读模板</a>
+            <a href="practice.html">练习计划</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section id="map" class="section">
       <div class="section-title">
-        <p class="eyebrow">知识地图</p>
+        <p class="eyebrow">年级路径</p>
         <h2>三步找到孩子当前要补的点</h2>
       </div>
       <div class="grade-grid">

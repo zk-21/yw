@@ -2,8 +2,12 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>作文专题 · 特级教师拔尖辅导</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>作文专题 · 特级教师拔尖辅导</title>
+  <meta name="theme-color" content="#63d676">
   <link rel="stylesheet" href="styles.css">
   <style>
     .composition-head {
@@ -497,6 +501,7 @@
     <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
@@ -544,11 +549,14 @@
       </div>
       <div class="teacher-lab">
         <div class="quick-nav">
-          <a href="#grade-topics"><strong>一至五年级题库</strong><span>看每个年级常考什么、怎么写</span></a>
+          <a href="#grade-topics"><strong>一至六年级题库</strong><span>看每个年级常考什么、怎么写</span></a>
+          <a href="#topic-angle-bank"><strong>题目角度库</strong><span>拿到题目先找可写角度和重点段</span></a>
+          <a href="#grade-writing-standard"><strong>年级标准</strong><span>一至六年级从达标到拔尖怎么练</span></a>
           <a href="#picture-writing"><strong>看图写话</strong><span>一二年级核心，先练完整和顺序</span></a>
           <a href="#ai-tutor"><strong>AI 特级教师</strong><span>输入问题、拍照或语音，获得辅导</span></a>
           <a href="#master-teacher"><strong>特级教师思维</strong><span>从题目快速拆出中心、材料和重点段</span></a>
           <a href="#topic-methods"><strong>题材专项</strong><span>写人、写事、写景、状物等专属方法</span></a>
+          <a href="#topic-training-tasks"><strong>题型训练卡</strong><span>每类作文按审题、片段、修改训练</span></a>
           <a href="#skill-upgrade"><strong>技巧升格</strong><span>细节、句段、重点段、首尾提分</span></a>
           <a href="#teacher-records"><strong>老师实录</strong><span>普通写法到高分写法的批改过程</span></a>
           <a href="#loss-points"><strong>失分诊断</strong><span>跑题、流水账、结尾空泛怎么改</span></a>
@@ -561,7 +569,7 @@
     <section class="section" id="ai-tutor" style="background:#f7f8fb;">
       <div class="section-title">
         <p class="eyebrow">AI 特级教师</p>
-        <h2>输入问题、题目或材料，展示特级教师分析过程与辅导</h2>
+        <h2>输入问题、题目或材料，获得特级教师辅导建议</h2>
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">使用 DeepSeek API，可辅导语文、数学、英语、科学、综合实践、学习规划等；学科和年级只作参考，不做限制</p>
       </div>
       <div class="ai-tool">
@@ -649,7 +657,7 @@
             <div class="ai-field">
               <label for="ai-mode">辅导目标</label>
               <select id="ai-mode" name="mode">
-                <option value="完整分析" selected>完整分析</option>
+                <option value="完整辅导" selected>完整辅导</option>
                 <option value="只要思路">只要思路</option>
                 <option value="讲清知识点">讲清知识点</option>
                 <option value="解题步骤">解题步骤</option>
@@ -696,7 +704,7 @@
           <div class="ai-status" id="ai-status"></div>
         </div>
         <div class="ai-panel">
-          <h3>分析过程与辅导结果</h3>
+          <h3>辅导结果</h3>
           <div id="ai-output" class="ai-output is-empty">输入题目、问题或材料后，点击“生成特级教师辅导”。</div>
         </div>
       </div>
@@ -705,7 +713,7 @@
     <section class="section" id="grade-topics">
       <div class="section-title">
         <p class="eyebrow">年级入口</p>
-        <h2>一至五年级常见作文题库与写法</h2>
+        <h2>一至六年级常见作文题库与写法</h2>
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">先按年级找到常考题，再看这个年级的写作目标和高分突破点</p>
       </div>
       <div class="table-card">
@@ -720,6 +728,7 @@
               <tr><td>三年级</td><td>我的妈妈、第一次____、我学会了____、观察日记、编童话</td><td>作文有开头、中间、结尾，一篇只写一个中心。</td><td>写事抓“起因、经过、结果”，重点段加入动作和心理。</td><td>像记流水账，事情写完了但没有重点。</td></tr>
               <tr><td>四年级</td><td>记一次游戏、推荐一个好地方、游____、我家的小动物、观察植物</td><td>能把重点场景写具体，有详略意识。</td><td>重点段至少用两种描写：动作、语言、神态、心理或环境。</td><td>开头太长，经过太薄，结尾只写“真开心”。</td></tr>
               <tr><td>五年级</td><td>那一刻我长大了、漫画启示、读后感、推荐一本书、介绍一种事物</td><td>中心明确，有详略，有感悟或说明顺序。</td><td>写出前后变化：原来怎样，后来怎样，我明白了什么。</td><td>立意空泛，读后感复述太多，说明文只罗列特点。</td></tr>
+              <tr><td>六年级</td><td>有你真好、让真情自然流露、围绕中心意思写、家乡的风俗、插上科学的翅膀飞</td><td>审题准，中心集中，有细节、有变化、有思考。</td><td>写前先定中心词，重点段围绕一个关键场景展开，结尾扣回成长或认识。</td><td>中心分散，材料堆砌，结尾空喊口号。</td></tr>
             </tbody>
           </table>
         </div>
@@ -740,6 +749,282 @@
               <tr><td>三年级</td><td>妈妈很辛苦，她每天做饭洗衣服，我爱妈妈。</td><td>只有概括，没有具体事例。</td><td>写妈妈清晨做早餐的一个细节：围裙、锅铲、溏心蛋、妈妈的话。</td><td>三年级开始要用一件事表现人物特点。</td></tr>
               <tr><td>四年级</td><td>我参加了比赛，很紧张，后来成功了。</td><td>重点场景没有写具体。</td><td>详写站上起跑线时的手心汗、风声、同学喊声和起跑动作。</td><td>四年级提分靠重点段，不能把精彩处一句带过。</td></tr>
               <tr><td>五年级</td><td>那一刻我长大了，因为我学会了做饭。</td><td>只写学会技能，没有写成长。</td><td>写从嫌麻烦到理解父母辛苦，再主动承担家务。</td><td>五年级的“长大”是认识变化，不是只学会一件事。</td></tr>
+              <tr><td>六年级</td><td>有你真好。你帮助了我，我很感谢你。</td><td>只有感谢，没有具体场景和情感变化。</td><td>写一次低落时对方怎样陪伴、怎样说话，“我”的心情怎样慢慢变化。</td><td>六年级要让真情自然流露，靠细节推动情感，不靠口号。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="topic-angle-bank" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">拿题即写</p>
+        <h2>常见作文题 · 写作角度库</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">孩子看到题目后，先不要急着写开头，先从“可写角度、重点段、结尾落点”里选一个最真实、最能写具体的方向</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="lab-title">
+          <h3>高频题目怎么选角度</h3>
+          <span>先选角度，再列提纲</span>
+        </div>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>常见题目</th><th>适合年级</th><th>可写角度</th><th>重点段写什么</th><th>结尾落点</th><th>避坑提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>《我的妈妈》《我的爸爸》</td>
+                <td>三至五年级</td>
+                <td>细心照顾、严格要求、默默付出、工作辛苦、一次鼓励、一次误会后的理解。</td>
+                <td>不要泛写“很爱我”，详写一个动作连续的场景：准备早餐、深夜陪伴、批改错题、雨天接送。</td>
+                <td>从“我被照顾”写到“我理解了父母”。</td>
+                <td>不要写成外貌介绍和优点清单，一篇只突出一个特点。</td>
+              </tr>
+              <tr>
+                <td>《我的老师》《我的同学》</td>
+                <td>三至五年级</td>
+                <td>幽默、耐心、严格、热心、爱笑、讲信用、一次提醒让我改变。</td>
+                <td>写一句话、一个眼神、一次帮助或一次批评，让人物特点通过事件出现。</td>
+                <td>这个人给我带来的影响：更自信、更认真、更懂得帮助别人。</td>
+                <td>不要只写“他很好、很优秀”，要用事例证明。</td>
+              </tr>
+              <tr>
+                <td>《难忘的一件事》</td>
+                <td>三至五年级</td>
+                <td>第一次尝试、一次失败、一次误会、一次比赛、一次帮助、一次被批评。</td>
+                <td>详写“难忘”的那一刻：紧张、犹豫、后悔、感动或醒悟。</td>
+                <td>写清这件事为什么到现在还忘不了。</td>
+                <td>不要从早写到晚，只选一件事，把关键处写慢。</td>
+              </tr>
+              <tr>
+                <td>《第一次____》《我学会了____》</td>
+                <td>三至四年级</td>
+                <td>骑车、做饭、游泳、独自购物、上台演讲、照顾弟妹、整理房间。</td>
+                <td>写从不会到会的过程，尤其是失败、想放弃、再次尝试的细节。</td>
+                <td>不只是学会技能，还学会坚持、独立或承担。</td>
+                <td>不要只写“练了很多次终于成功”，要写一次具体困难。</td>
+              </tr>
+              <tr>
+                <td>《那一次，我真____》</td>
+                <td>四至五年级</td>
+                <td>高兴、后悔、紧张、感动、惭愧、自豪、害怕、委屈。</td>
+                <td>围绕横线里的情绪写身体反应、心理活动和事情转折。</td>
+                <td>情绪背后的认识：我明白了什么，之后有什么改变。</td>
+                <td>横线补得越具体越好，不要只写“开心”“难过”后面没有原因。</td>
+              </tr>
+              <tr>
+                <td>《____让我成长》</td>
+                <td>四至五年级</td>
+                <td>失败、批评、比赛、劳动、等待、阅读、一次道歉、一次承担责任。</td>
+                <td>写“成长前后对比”：原来逃避、粗心、任性，后来敢承担、会体谅、能坚持。</td>
+                <td>点出成长不是年龄变大，而是想法和做法变了。</td>
+                <td>不要把“成长”写成口号，一定要有前后变化。</td>
+              </tr>
+              <tr>
+                <td>《记一次游戏》《一次活动》</td>
+                <td>四年级</td>
+                <td>跳长绳、拔河、传话游戏、接力赛、班队活动、劳动实践。</td>
+                <td>详写最紧张的回合：动作、喊声、表情、结果反转。</td>
+                <td>写团队合作、规则意识、坚持或快乐。</td>
+                <td>不要只介绍游戏规则，规则略写，过程详写。</td>
+              </tr>
+              <tr>
+                <td>《推荐一个好地方》《游____》</td>
+                <td>四至五年级</td>
+                <td>公园、图书馆、乡下老家、博物馆、海边、古镇、校园一角。</td>
+                <td>按游览顺序写三处景物，最喜欢的一处写成特写。</td>
+                <td>说明为什么值得推荐，或这个地方带给我的感受。</td>
+                <td>不要每处景都写一样多，最有特色的地方要详写。</td>
+              </tr>
+              <tr>
+                <td>《我的小动物》《观察植物》</td>
+                <td>三至四年级</td>
+                <td>外形特点、生活习性、变化过程、一次互动、我对它的照顾。</td>
+                <td>动物写动作和性格，植物写连续变化和观察发现。</td>
+                <td>表达喜爱、责任感或观察带来的发现。</td>
+                <td>不要只写“很可爱”，要写它怎么动、怎么变、怎么和我有关。</td>
+              </tr>
+              <tr>
+                <td>《二十年后的我》</td>
+                <td>五年级</td>
+                <td>职业理想、科技生活、家乡变化、承担责任、帮助别人、实现梦想。</td>
+                <td>写未来的一个工作或生活场景，让“我”的本领和责任出现。</td>
+                <td>回到现在：为了成为那样的人，我现在要怎么努力。</td>
+                <td>不要只写未来多厉害，要写具体职业、具体行动和价值。</td>
+              </tr>
+              <tr>
+                <td>《漫画的启示》</td>
+                <td>五年级</td>
+                <td>环保、诚信、坚持、依赖手机、浪费、文明行为、学习态度。</td>
+                <td>先简述画面，再抓最有讽刺或最有启发的细节分析。</td>
+                <td>联系生活现象，提出具体做法。</td>
+                <td>不要只描述漫画，要写出“启示”和现实联系。</td>
+              </tr>
+              <tr>
+                <td>《读后感》《推荐一本书》</td>
+                <td>五年级</td>
+                <td>人物品质、一个情节、一句话、一个道理、和自己经历的联系。</td>
+                <td>用一小段概括内容，用大段写自己的感受和联系。</td>
+                <td>写出读完后的具体改变或推荐理由。</td>
+                <td>读后感不要复述太多，推荐书不要只说“很好看”。</td>
+              </tr>
+              <tr>
+                <td>《介绍一种事物》</td>
+                <td>五年级</td>
+                <td>动物、植物、文具、家电、传统物品、科技产品、家乡特产。</td>
+                <td>按外形、特点、用途、原理或价值分层介绍，可用列数字、作比较、打比方。</td>
+                <td>说明它为什么有用、有趣或值得了解。</td>
+                <td>不要写成记叙文，要有清楚的说明顺序。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="grade-writing-standard">
+      <div class="section-title">
+        <p class="eyebrow">分年级要求</p>
+        <h2>一至六年级作文 · 从达标到拔尖</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不同年级不要用同一个标准要求。低年级先完整，高年级再追求中心、详略和文采</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>年级</th><th>基础达标</th><th>拔尖要求</th><th>写作抓手</th><th>本周训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>一年级</td>
+                <td>能写完整句：谁在哪里做什么，句末有标点。</td>
+                <td>能写5-8句连贯话，有时间、地点、人物、动作和心情。</td>
+                <td>看图先说再写，用“谁+在哪里+怎样地做什么”。</td>
+                <td>每天看一幅图，说3遍，再写5句话。</td>
+              </tr>
+              <tr>
+                <td>二年级</td>
+                <td>能按顺序写一段话，事情前后连贯。</td>
+                <td>能补出图外信息，加入人物对话和心理。</td>
+                <td>用“先、然后、接着、最后”串起过程。</td>
+                <td>一周练2篇多幅图写话，每篇至少加一句对话。</td>
+              </tr>
+              <tr>
+                <td>三年级</td>
+                <td>作文有开头、中间、结尾，只写一个中心。</td>
+                <td>能用一件事表现人物或感受，重点段有动作和心理。</td>
+                <td>写事抓六要素，经过详写，结果写感受。</td>
+                <td>练3个题目提纲，每个只选一件事。</td>
+              </tr>
+              <tr>
+                <td>四年级</td>
+                <td>能把重点场景写具体，有详略意识。</td>
+                <td>能用两种以上描写方法，把关键瞬间写出画面。</td>
+                <td>重点段写慢：动作拆开、语言还原、心理写出变化。</td>
+                <td>把“我很紧张/很开心/很感动”各改成100字片段。</td>
+              </tr>
+              <tr>
+                <td>五年级</td>
+                <td>中心明确，结构完整，详略基本得当。</td>
+                <td>立意有层次，能从事件写到成长、责任、理解或启示。</td>
+                <td>写前先定中心句，写后检查每段是否扣中心。</td>
+                <td>每周改一篇旧作文：先改中心，再改重点段，最后改结尾。</td>
+              </tr>
+              <tr>
+                <td>六年级</td>
+                <td>能围绕中心选材，结构清楚，语言通顺。</td>
+                <td>能把真情、观点或想象写得集中、有层次，有小升初表达意识。</td>
+                <td>围绕中心意思选2-3个材料，详写最能打动人的一个场景。</td>
+                <td>每周完成1次限时作文提纲 + 1个重点段升格。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="teacher-lab" style="margin-top:18px;">
+        <div class="lab-title">
+          <h3>老师提醒</h3>
+          <span>不要越级空喊</span>
+        </div>
+        <div class="diagnosis-grid">
+          <article class="diagnosis-card"><h4>低年级先完整</h4><p>一二年级不要急着追求文采，先保证句子完整、顺序清楚、标点正确。</p></article>
+          <article class="diagnosis-card"><h4>三年级先成篇</h4><p>三年级重点是从写话过渡到作文，开头、中间、结尾比好词更重要。</p></article>
+          <article class="diagnosis-card"><h4>四年级练具体</h4><p>四年级开始拉开差距的是重点段，谁能把关键场景写细，谁就容易高分。</p></article>
+          <article class="diagnosis-card"><h4>五年级练中心</h4><p>五年级不能只把事情写完，要写出为什么值得写、这件事让我有什么改变。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="topic-training-tasks" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">专项训练</p>
+        <h2>每类题型 · 可直接照练的训练任务</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">每次只练一个小能力：先会审题，再会选材，再练重点段，最后练修改</p>
+      </div>
+      <div class="teacher-lab">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>审题训练</th><th>选材训练</th><th>重点段训练</th><th>修改自查</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>写人</td>
+                <td>圈人物和特点词，写出“我要表现他/她的____”。</td>
+                <td>列3件小事，只保留最能证明特点的一件。</td>
+                <td>写一个人物说话或做事的场景，至少有动作+语言。</td>
+                <td>删掉空泛夸奖，看事件能不能证明特点。</td>
+              </tr>
+              <tr>
+                <td>写事</td>
+                <td>判断题目要写“事情”还是“感受变化”。</td>
+                <td>从亲身经历里选一件有转折、有变化的事。</td>
+                <td>把“关键一刻”写成150-200字慢镜头。</td>
+                <td>检查起因是否略写、经过是否详写、结尾是否点题。</td>
+              </tr>
+              <tr>
+                <td>写景</td>
+                <td>确定观察顺序：时间、空间或游览顺序。</td>
+                <td>选3处景物，最有特色的一处详写。</td>
+                <td>用颜色、声音、气味、动态写一个景物特写。</td>
+                <td>删掉重复的“很美”，换成具体画面。</td>
+              </tr>
+              <tr>
+                <td>状物</td>
+                <td>判断写物品、动物还是植物，先找“特点”。</td>
+                <td>列外形、用途、来历、故事，选最有感情的一项详写。</td>
+                <td>写“它和我”的一次互动或一个回忆。</td>
+                <td>检查是不是像说明书，是否写出情感意义。</td>
+              </tr>
+              <tr>
+                <td>观察日记</td>
+                <td>先写观察对象和观察重点：变化在哪里。</td>
+                <td>选变化最明显的一天或一个阶段。</td>
+                <td>写前后对比：昨天怎样，今天怎样，我发现什么。</td>
+                <td>检查有没有日期天气，有没有具体变化。</td>
+              </tr>
+              <tr>
+                <td>想象作文</td>
+                <td>先定想象规则：我有什么能力？限制是什么？</td>
+                <td>让想象服务一个问题：帮助谁、解决什么、改变什么。</td>
+                <td>写遇到困难和解决困难的过程。</td>
+                <td>检查有没有中心，是否只是堆神奇情节。</td>
+              </tr>
+              <tr>
+                <td>读后感</td>
+                <td>圈出最打动我的一个人物、情节或句子。</td>
+                <td>只选一个感受点，不要面面俱到。</td>
+                <td>写“我生活中也有类似经历”的一段。</td>
+                <td>检查复述是否过多，感受是否具体。</td>
+              </tr>
+              <tr>
+                <td>半命题</td>
+                <td>横线至少补3个版本，选最具体、最好写的一个。</td>
+                <td>围绕补题选材料，不能题目写成长，内容写游玩。</td>
+                <td>反复扣住补题关键词写关键场景。</td>
+                <td>检查开头、重点段、结尾是否都出现题眼。</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -1221,7 +1506,7 @@
       </div>
 
       <div class="core-topic">
-        <h3>五、读后感 <span class="topic-tag">高年级必备</span></h3>
+        <h3 id="reading-response">五、读后感 <span class="topic-tag">高年级必备</span></h3>
         <p>读后感的核心是“感”不是“述”，大段复述故事是高年级作文的大忌。</p>
         <div class="topic-analysis">
           <div class="analysis-card">
@@ -1580,7 +1865,7 @@
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">作文提分不是堆好词，而是把抽象表达改成可看、可听、可感的画面</p>
       </div>
       <div class="table-card">
-        <div class="upgrade-table">
+        <div class="responsive-table upgrade-table">
           <table>
             <thead>
               <tr><th>描写类型</th><th>普通写法</th><th>问题分析</th><th>升格写法</th><th>教师点评</th></tr>
