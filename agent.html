@@ -141,6 +141,46 @@
       margin: 0;
     }
 
+    .agent-guide {
+      background: #f8fafc;
+      border: 1px solid var(--agent-line);
+      border-radius: 8px;
+      display: grid;
+      gap: 10px;
+      margin: 0 0 14px;
+      padding: 12px;
+    }
+
+    .agent-guide p {
+      color: var(--agent-muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .agent-guide strong {
+      color: var(--agent-ink);
+    }
+
+    .agent-quick-prompts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .agent-example-btn {
+      background: #eef2ff;
+      border: 1px solid #d8ddff;
+      border-radius: 999px;
+      color: #314eb7;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      min-height: 32px;
+      padding: 6px 10px;
+    }
+
     .agent-check {
       align-items: center;
       color: var(--agent-muted);
@@ -512,14 +552,31 @@
     <section class="agent-card" id="agent">
       <h2>AI 辅导</h2>
       <p class="agent-note">静态部署不会把 Key 存到服务器；勾选保存时，也只保存在当前手机浏览器本机。若浏览器提示网络或跨域失败，说明需要再加后端代理接口。</p>
+      <div class="agent-guide">
+        <p><strong>怎么选模型：</strong>日常讲题、阅读答题、作文提建议，优先用 deepseek-v4-flash；需要更细的作文升格、综合规划或复杂阅读时，再切到 deepseek-v4-pro。</p>
+        <p><strong>怎么填 Key：</strong>API Key 只在当前浏览器里使用；勾选保存时，也只保存在本机浏览器，不上传到网站服务器。</p>
+        <div class="agent-quick-prompts" aria-label="常用示例">
+          <button class="agent-example-btn" type="button" data-stage="五年级" data-subject="作文/写作" data-task="作文/表达升格" data-question="请按特级教师标准，帮我把一篇小学生作文做升格指导：先指出中心是否明确、选材是否具体、重点段怎么写细，再给出不代写全文的修改建议。">作文升格</button>
+          <button class="agent-example-btn" type="button" data-stage="四年级" data-subject="阅读理解" data-task="阅读答题" data-question="请帮我分析一篇小学语文阅读题：先判断题型，再给答题步骤、原文依据怎么找、答案应该分几层写，并提醒常见丢分点。">阅读题答题</button>
+          <button class="agent-example-btn" type="button" data-stage="六年级" data-subject="语文" data-task="学习计划" data-question="请给六年级学生制定一份小升初语文冲刺计划，重点包括综合阅读、非连续性文本、古诗文、作文审题和限时训练，每天控制在40分钟内。">小升初冲刺计划</button>
+        </div>
+      </div>
       <form id="agent-form" class="agent-grid">
         <div class="agent-field full">
-          <label for="agent-key">DeepSeek API Key</label>
+          <label id="agent-key-label" for="agent-key">DeepSeek API Key</label>
           <input id="agent-key" name="apiKey" type="password" autocomplete="off" placeholder="sk-..." required>
+          <p class="agent-help" id="agent-key-help">DeepSeek 使用 https://api.deepseek.com/chat/completions。</p>
           <label class="agent-check">
             <input id="agent-save-key" type="checkbox">
             <span>在本机浏览器保存 Key</span>
           </label>
+        </div>
+
+        <div class="agent-field">
+          <label for="agent-provider">模型供应商</label>
+          <select id="agent-provider" name="provider">
+            <option value="deepseek" selected>DeepSeek</option>
+          </select>
         </div>
 
         <div class="agent-field">
