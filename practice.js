@@ -1167,6 +1167,15 @@ function clearWrongAnswers() {
 
 // 错因分类
 const ERROR_CATEGORIES = {
+  B1: { id: 'b1', label: '字词拼音', icon: 'B1', desc: '拼音、识字、形近字或语境运用不稳' },
+  R1: { id: 'r1', label: '概括主干', icon: 'R1', desc: '概括照抄、漏人物事件结果' },
+  R2: { id: 'r2', label: '原文依据', icon: 'R2', desc: '人物、原因、情感题缺少材料依据' },
+  R3: { id: 'r3', label: '赏析语言', icon: 'R3', desc: '赏析或说明文语言只背术语，不联系原文' },
+  R4: { id: 'r4', label: '材料数据', icon: 'R4', desc: '非连续文本没有引用材料、数字或关键词' },
+  W1: { id: 'w1', label: '写话观察', icon: 'W1', desc: '写话或观察片段太短、太空' },
+  W2: { id: 'w2', label: '重点段', icon: 'W2', desc: '作文重点段薄，缺少变化和认识' },
+  W3: { id: 'w3', label: '审题扣题', icon: 'W3', desc: '作文题眼、中心、材料和点题不稳' },
+  C1: { id: 'c1', label: '综合题型', icon: 'C1', desc: '综合题型判断慢，分层答题不清楚' },
   SHEN_TI: { id: 'shenti', label: '审题错', icon: '🔍', desc: '没看清问什么' },
   XIN_XI: { id: 'xinxi', label: '信息错', icon: '📖', desc: '没回原文找依据' },
   GAI_KUO: { id: 'gaikuo', label: '概括错', icon: '📝', desc: '太笼统或漏要点' },
@@ -1175,7 +1184,20 @@ const ERROR_CATEGORIES = {
 };
 
 function normalizeErrorCategoryId(categoryId) {
-  return categoryId === 'xinxii' ? 'xinxi' : categoryId;
+  const id = String(categoryId || '').trim().toLowerCase();
+  const aliasMap = {
+    xinxii: 'xinxi',
+    b1: 'b1',
+    r1: 'r1',
+    r2: 'r2',
+    r3: 'r3',
+    r4: 'r4',
+    w1: 'w1',
+    w2: 'w2',
+    w3: 'w3',
+    c1: 'c1'
+  };
+  return aliasMap[id] || id;
 }
 
 function getErrorCategory(categoryId) {
@@ -1255,6 +1277,33 @@ function generateReviewAdvice(wrongItem) {
   switch(cat) {
     case 'shenti':
       advice = '下次做题先圈题目关键词，问什么再答什么，不答非所问。';
+      break;
+    case 'b1':
+      advice = '回到 B1 训练包，先看字音、偏旁和语境，再组词说句。';
+      break;
+    case 'r1':
+      advice = '回到 R1 训练包，按“谁 + 做什么 + 结果”删细节、留主干。';
+      break;
+    case 'r2':
+      advice = '回到 R2 训练包，先圈原文证据，再写特点、原因或情感。';
+      break;
+    case 'r3':
+      advice = '回到 R3 训练包，答案必须包含词义或方法、对象特点和表达效果。';
+      break;
+    case 'r4':
+      advice = '回到 R4 训练包，答案里必须出现材料数字、编号或关键词。';
+      break;
+    case 'w1':
+      advice = '回到 W1 训练包，把句子补出时间、地点、动作、变化和心情。';
+      break;
+    case 'w2':
+      advice = '回到 W2 训练包，放大关键一幕，写出动作、心理和认识提升。';
+      break;
+    case 'w3':
+      advice = '回到 W3 训练包，先圈题眼，再定中心、重点段和点题结尾。';
+      break;
+    case 'c1':
+      advice = '回到 C1 训练包，先判断题型，再按分值分层组织答案。';
       break;
     case 'xinxi':
       advice = '答案必须回原文找依据，不能凭感觉写。找到原文句子，把关键词抄下来。';
@@ -2019,6 +2068,860 @@ function showFeedback(isCorrect, tip, correctAnswer = '') {
   setTimeout(() => feedback.remove(), 2500);
 }
 
+// 测后分流训练包状态和 A/B 卷评分器
+const FLOW_PACKS = [
+  { code: 'B1', id: 'b1', title: '字词拼音', problem: '拼音、识字、形近字、词语语境不稳', href: '#pack-b1' },
+  { code: 'R1', id: 'r1', title: '概括主干', problem: '概括照抄、不完整，漏人物、事件或结果', href: '#pack-r1' },
+  { code: 'R2', id: 'r2', title: '原文依据', problem: '人物、原因、情感题缺少材料依据', href: '#pack-r2' },
+  { code: 'R3', id: 'r3', title: '赏析语言', problem: '赏析或说明文语言只背术语，不联系原文', href: '#pack-r3' },
+  { code: 'R4', id: 'r4', title: '材料数据', problem: '非连续文本没有引用材料、数字或关键词', href: '#pack-r4' },
+  { code: 'W1', id: 'w1', title: '写话观察', problem: '写话或观察片段太短、太空', href: '#pack-w1' },
+  { code: 'W2', id: 'w2', title: '重点段升格', problem: '作文重点段薄，缺少变化和认识', href: '#pack-w2' },
+  { code: 'W3', id: 'w3', title: '审题扣题', problem: '作文题眼、中心、材料和点题不稳', href: '#pack-w3' },
+  { code: 'C1', id: 'c1', title: '综合题型', problem: '综合题型判断慢，分层答题不清楚', href: '#pack-c1' }
+];
+
+const FLOW_STATUS_LABELS = {
+  todo: '未开始',
+  done: '已完成训练',
+  retry: '需再练',
+  passed: '复测已通过'
+};
+
+const FLOW_STATUS_CLASS = {
+  todo: 'status-todo',
+  done: 'status-done',
+  retry: 'status-retry',
+  passed: 'status-passed'
+};
+
+const AB_TEST_MAP = {
+  1: {
+    label: '一年级',
+    retest: 'grade1.html#grade1-b-test',
+    a: [
+      { no: 1, code: 'B1', points: 3, title: '拼读 p-én、q-iú、m-āo', reason: '拼读或声调不稳', standard: 'pén、qiú、māo，声调准确。' },
+      { no: 2, code: 'B1', points: 3, title: '给“花、球、猫”各组 1 个词', reason: '会认字，不会组词说句', standard: '花朵、皮球、小猫等，词义正确。' },
+      { no: 3, code: 'R1', points: 3, title: '写出第一句话谁在哪里做什么', reason: '回答缺人物、地点或事情', standard: '小猫在院子里玩球。' },
+      { no: 4, code: 'R2', points: 2, title: '说出感叹号应读出的语气', reason: '读不出句子情感', standard: '开心、高兴的语气。' },
+      { no: 5, code: 'W1', points: 5, title: '看图说话：小朋友浇花，说 3 句话', reason: '看图说话太短', standard: '至少有时间、地点、人物、动作和心情。' }
+    ],
+    b: [
+      { no: 1, code: 'B1', points: 1, title: '拼读 t-ǔ、h-uā、x-iǎo', reason: '同类拼读迁移不稳', standard: 'tǔ、huā、xiǎo，声调读完整。' },
+      { no: 2, code: 'B1', points: 1, title: '给“水、鸟、书”组词并说句子', reason: '词语和句子迁移不稳', standard: '词语正确，句子有完整意思。' },
+      { no: 3, code: 'R1', points: 1, title: '回答小狗在草地上追蝴蝶中的谁在哪里做什么', reason: '主干信息不全', standard: '小狗在草地上追蝴蝶。' },
+      { no: 4, code: 'W1', points: 1, title: '看图说话：小朋友捡起地上的纸', reason: '动作和心情不完整', standard: '至少 3 句，补动作和心情。' }
+    ],
+    c: [
+      { no: 1, code: 'B1', points: 2, title: '读准“桥、云、灯”，各组一个词并说完整句', reason: '字音、组词和句子不能连续迁移', standard: '读音正确，组词贴合语境，句子有谁、做什么。' },
+      { no: 2, code: 'R1', points: 3, title: '读短句“小兔在草地上捡到红球，它高兴地跳起来”，说清谁在哪里做什么', reason: '主干提取遇到新材料仍不完整', standard: '小兔在草地上捡到红球。' },
+      { no: 3, code: 'R2', points: 2, title: '从句子中找出小兔心情的依据', reason: '情感判断没有回到词句', standard: '从“高兴地跳起来”可以看出小兔很开心。' },
+      { no: 4, code: 'W1', points: 4, title: '看图说话：雨后小朋友扶起倒下的小花，说 3 句以上', reason: '换图后画面、动作、心情缺层', standard: '写清时间、人物、动作、结果和心情。' }
+    ],
+    c2: [
+      { no: 1, code: 'B1', points: 2, title: '限时读准“船、窗、树”，并各说一个短句', reason: '限时下字音和组句不稳', standard: '读音正确，短句完整。' },
+      { no: 2, code: 'R1', points: 3, title: '读“小鸟飞回树上唱歌”，说清谁做什么', reason: '换句后主干不稳', standard: '小鸟飞回树上唱歌。' },
+      { no: 3, code: 'R2', points: 3, title: '从“笑眯眯”判断人物心情，并说明依据', reason: '心情词不会转成答案', standard: '人物很高兴，依据是“笑眯眯”。' },
+      { no: 4, code: 'W1', points: 5, title: '看图说话：小朋友给迷路的弟弟指路', reason: '动作和结果写不完整', standard: '至少 3 句，有帮助过程和结果。' }
+    ],
+    c3: [
+      { no: 1, code: 'B1', points: 2, title: '区分“再、在”，各写一句话', reason: '同音字语境迁移不稳', standard: '“再”表示又一次，“在”表示位置或正在。' },
+      { no: 2, code: 'R1', points: 3, title: '用 15 字内概括“小鹿送伞”的句群', reason: '短句群概括啰嗦或漏结果', standard: '小鹿把伞送给没带伞的小伙伴。' },
+      { no: 3, code: 'R2', points: 3, title: '小鹿为什么值得表扬，从句子中找依据', reason: '评价题没有动作依据', standard: '因为它帮助同伴，依据是把伞送给没带伞的小伙伴。' },
+      { no: 4, code: 'W1', points: 6, title: '写 4 句“我帮助同学”的小片段', reason: '拔尖写话缺过程和心情', standard: '有起因、动作、对方反应和自己的心情。' }
+    ]
+  },
+  2: {
+    label: '二年级',
+    retest: 'grade2.html#grade2-b-test',
+    a: [
+      { no: 1, code: 'B1', points: 3, title: '选字填空：清、晴、睛', reason: '形近字按感觉选', standard: '晴、清、睛。' },
+      { no: 2, code: 'R1', points: 2, title: '贝贝和妈妈去哪里、做什么', reason: '只答地点或事情不完整', standard: '去公园看花。' },
+      { no: 3, code: 'R2', points: 3, title: '老奶奶为什么夸贝贝', reason: '原因题没有回到短文', standard: '因为贝贝帮老奶奶捡起掉在地上的袋子。' },
+      { no: 4, code: 'R1', points: 4, title: '用一句话概括短文主要内容', reason: '概括漏人物、事件或结果', standard: '贝贝和妈妈去公园看花，贝贝帮助老奶奶捡袋子，受到夸奖。' },
+      { no: 5, code: 'W1', points: 6, title: '扩写“贝贝帮助老奶奶”成一段话', reason: '只有评价，没有动作过程', standard: '写出看见、跑去、捡起、递给、被夸和心情。' }
+    ],
+    b: [
+      { no: 1, code: 'B1', points: 1, title: '选字填空：园、圆', reason: '形近字语境迁移不稳', standard: '园、圆。' },
+      { no: 2, code: 'R2', points: 1, title: '小雨为什么把伞借给同学', reason: '原因没有材料依据', standard: '因为同学没有带伞，外面正在下雨。' },
+      { no: 3, code: 'R1', points: 1, title: '概括“小雨借伞”短文', reason: '人物、事情、结果不完整', standard: '小雨看到同学没带伞，把伞借给他，同学很感激。' },
+      { no: 4, code: 'W1', points: 1, title: '扩写“小雨借伞”成 4 句话', reason: '动作、语言、心情不足', standard: '有动作、语言、心情。' }
+    ],
+    c: [
+      { no: 1, code: 'B1', points: 2, title: '选字填空：带、戴、代，并说明为什么这样选', reason: '只会选答案，不会解释语境', standard: '戴红领巾、带雨伞、代表，能说出词义差别。' },
+      { no: 2, code: 'R1', points: 3, title: '读“小河边的提醒”短文，用一句话概括主要内容', reason: '新短文概括漏人物或结果', standard: '小明看到警示牌后提醒弟弟远离河边，两人安全回家。' },
+      { no: 3, code: 'R2', points: 3, title: '小明为什么拉住弟弟，从文中找依据', reason: '原因题没有引用关键句', standard: '因为河边有警示牌，水很深；依据要来自文中。' },
+      { no: 4, code: 'W1', points: 5, title: '把“小明提醒弟弟”扩写成 5 句话', reason: '动作、语言、结果不能同时写完整', standard: '有看见、拉住、提醒、弟弟反应、结果。' }
+    ],
+    c2: [
+      { no: 1, code: 'B1', points: 2, title: '限时选择“坐、座、做”，并说理由', reason: '常用字语境判断慢', standard: '坐下、一座桥、做作业，理由清楚。' },
+      { no: 2, code: 'R1', points: 3, title: '概括“小雨让座”短文', reason: '人物、事件、结果漏一项', standard: '小雨在公交车上给老爷爷让座，受到夸奖。' },
+      { no: 3, code: 'R2', points: 3, title: '为什么说小雨懂事？找两处依据', reason: '人物品质缺依据', standard: '主动让座、扶老爷爷坐稳。' },
+      { no: 4, code: 'W1', points: 5, title: '扩写“小雨让座”成一段话', reason: '限时扩写过程不足', standard: '写出看见、起身、说话、结果、心情。' }
+    ],
+    c3: [
+      { no: 1, code: 'B1', points: 2, title: '用“清、晴、情”各写一句话', reason: '形近同音字拔尖迁移不稳', standard: '水清、天晴、心情，语境准确。' },
+      { no: 2, code: 'R1', points: 4, title: '用 20 字内概括“捡钱包还失主”', reason: '概括不能压缩', standard: '贝贝捡到钱包后交给失主，受到表扬。' },
+      { no: 3, code: 'R2', points: 4, title: '贝贝有哪些品质？从两处细节说明', reason: '只能写一个品质或无依据', standard: '诚实、乐于助人，并有两处细节。' },
+      { no: 4, code: 'W1', points: 6, title: '写一段“我做对了一件事”', reason: '拔尖写话缺选择和结果', standard: '有犹豫、选择、行动、结果。' }
+    ]
+  },
+  3: {
+    label: '三年级',
+    retest: 'grade3.html#grade3-b-test',
+    a: [
+      { no: 1, code: 'R1', points: 1, title: '找中心句', reason: '把地点词当中心句', standard: '放学后，操场上真热闹。' },
+      { no: 2, code: 'R1', points: 3, title: '概括“操场热闹”这段', reason: '概括时照抄原句', standard: '放学后，操场上同学们跳绳、跑步、踢球，到处都是欢笑声。' },
+      { no: 3, code: 'W1', points: 2, title: '绿豆第一天是什么样子', reason: '只写对象，不写样子', standard: '硬硬的、小小的。' },
+      { no: 4, code: 'W1', points: 3, title: '第三天发生了什么变化', reason: '只写发芽，没有变化细节', standard: '绿豆裂开了一道缝，白白的小芽探出了头。' },
+      { no: 5, code: 'W1', points: 6, title: '写一段观察片段', reason: '观察片段没有顺序和感受', standard: '有顺序、变化和感受。' }
+    ],
+    b: [
+      { no: 1, code: 'R1', points: 1, title: '找中心句：图书角真安静', reason: '中心句判断迁移不稳', standard: '图书角真安静。' },
+      { no: 2, code: 'R1', points: 1, title: '概括“图书角安静”这段', reason: '删细节留主干不稳', standard: '图书角里同学们安静地看书、做摘记。' },
+      { no: 3, code: 'W1', points: 1, title: '写绿豆第五天的变化', reason: '观察变化细节不足', standard: '小芽长高了，顶端露出两片嫩嫩的小叶子。' },
+      { no: 4, code: 'W1', points: 1, title: '围绕“花坛真美”写 4 句话', reason: '句子没有围绕中心', standard: '每句话都围绕一个中心。' }
+    ],
+    c: [
+      { no: 1, code: 'R1', points: 3, title: '读“午后的植物角”，找中心句并概括这一段', reason: '中心句和段意混在一起', standard: '先找中心句，再用自己的话概括植物角热闹或有变化。' },
+      { no: 2, code: 'R2', points: 3, title: '为什么说小军观察得认真，从两处细节说明', reason: '人物评价没有细节支撑', standard: '写出特点，并列出两处观察动作或记录细节。' },
+      { no: 3, code: 'W1', points: 4, title: '按“第一天、第三天、第五天”写一段观察变化', reason: '观察片段顺序乱、变化少', standard: '有时间顺序、外形变化和自己的发现。' },
+      { no: 4, code: 'C1', points: 2, title: '判断第2题属于“概括题、依据题、赏析题”哪一类', reason: '题型判断慢，影响答题层次', standard: '属于依据题，要按“特点 + 依据”作答。' }
+    ],
+    c2: [
+      { no: 1, code: 'R1', points: 3, title: '限时找“热闹的操场”中心句并概括', reason: '限时下照抄原句', standard: '能找中心句，并用自己的话概括活动多、气氛热闹。' },
+      { no: 2, code: 'R2', points: 3, title: '为什么说班长负责？从两处动作说明', reason: '责任品质没有细节支撑', standard: '组织排队、提醒安全等动作。' },
+      { no: 3, code: 'W1', points: 5, title: '围绕“操场真热闹”写 5 句话', reason: '句子不围绕中心', standard: '每句都服务“热闹”。' },
+      { no: 4, code: 'C1', points: 3, title: '判断“找中心句”和“概括段意”的区别', reason: '题型混淆', standard: '中心句是原文句子，段意是自己的概括。' }
+    ],
+    c3: [
+      { no: 1, code: 'R1', points: 4, title: '用 25 字内概括“第一次养蚕”的片段', reason: '拔尖概括不能抓变化', standard: '写清观察对象、主要变化和自己的发现。' },
+      { no: 2, code: 'R2', points: 4, title: '小作者为什么惊喜？从两处变化说明', reason: '情感题缺变化依据', standard: '蚕卵变化、蚕宝宝出现等细节。' },
+      { no: 3, code: 'W1', points: 5, title: '写一段“我发现了一个小秘密”', reason: '观察作文缺发现意识', standard: '有观察过程、细节变化、发现或感受。' },
+      { no: 4, code: 'C1', points: 3, title: '把第2题改成满分答案并说出补了哪一层', reason: '不会自改答案', standard: '补情感、依据和分析。' }
+    ]
+  },
+  4: {
+    label: '四年级',
+    retest: 'grade4.html#grade4-b-test',
+    a: [
+      { no: 1, code: 'R1', points: 4, title: '概括短文主要内容', reason: '概括漏结果或太啰嗦', standard: '小林克服紧张，代表小组完整讲完故事，赢得掌声。' },
+      { no: 2, code: 'R2', points: 3, title: '小林上台前是什么心情，从哪里看出', reason: '心情题没有原文依据', standard: '紧张。从“手心里全是汗”“声音有些发抖”可以看出。' },
+      { no: 3, code: 'R2', points: 4, title: '小林是怎样的人', reason: '人物特点只有一个词', standard: '小林勇敢、敢于挑战自己，并能结合情节说明。' },
+      { no: 4, code: 'R3', points: 4, title: '赏析“雨点像一串串小鼓点”', reason: '赏析只写“生动”', standard: '修辞、特点、效果都写到。' },
+      { no: 5, code: 'W2', points: 5, title: '写一段“紧张”，不能出现“紧张”二字', reason: '重点场景没有细节', standard: '动作、神态、心理细节齐全。' }
+    ],
+    b: [
+      { no: 1, code: 'R1', points: 1, title: '概括“晓雨第一次主持班会”的短文', reason: '概括迁移漏结果', standard: '晓雨克服害怕，顺利主持班会，得到同学认可。' },
+      { no: 2, code: 'R2', points: 1, title: '晓雨为什么害怕，从哪里看出', reason: '观点后没有依据', standard: '观点后必须有原文依据。' },
+      { no: 3, code: 'R3', points: 1, title: '赏析“掌声像春风一样涌过来”', reason: '方法、特点、效果不全', standard: '方法、特点、效果都写到。' },
+      { no: 4, code: 'W2', points: 1, title: '写一段“不安”，不能出现“不安”二字', reason: '动作、神态、心理细节不足', standard: '有动作、神态、心理细节。' }
+    ],
+    c: [
+      { no: 1, code: 'R1', points: 3, title: '读“第一次上台领读”，概括主要内容', reason: '综合阅读时概括漏起因或结果', standard: '写清谁、遇到什么困难、怎样做、结果怎样。' },
+      { no: 2, code: 'R2', points: 3, title: '主人公是怎样的人，从两处细节说明', reason: '人物形象没有证据链', standard: '特点 + 两处细节 + 简要分析，不能只写“很好”。' },
+      { no: 3, code: 'R3', points: 3, title: '赏析“声音像一条细线慢慢稳了下来”', reason: '赏析只贴术语，没有联系变化', standard: '写出修辞、声音由弱到稳的特点和表现出的成长。' },
+      { no: 4, code: 'W2', points: 4, title: '写一段“我终于敢开口了”，不能出现“敢”字', reason: '重点段不能用细节表现心理变化', standard: '有动作、神态、心理、结果，能看出变化。' },
+      { no: 5, code: 'C1', points: 2, title: '判断第3题应按几层作答', reason: '综合题分层意识不稳', standard: '至少三层：方法、内容特点、表达效果。' }
+    ],
+    c2: [
+      { no: 1, code: 'R1', points: 3, title: '限时概括“雨中护书”的短文', reason: '限时综合漏结果', standard: '写清人物、护书过程和结果。' },
+      { no: 2, code: 'R2', points: 4, title: '人物有哪些品质？用两处细节证明', reason: '多品质题层次乱', standard: '负责、细心等品质与细节对应。' },
+      { no: 3, code: 'R3', points: 4, title: '赏析“雨点像小鼓一样敲在伞面上”', reason: '赏析只写比喻', standard: '写出修辞、声音特点和气氛。' },
+      { no: 4, code: 'W2', points: 5, title: '写一段“我克服了害怕”', reason: '限时重点段薄', standard: '有害怕、动作、鼓励、变化。' },
+      { no: 5, code: 'C1', points: 3, title: '判断第2题和第3题的答题步骤分别是什么', reason: '人物题和赏析题混淆', standard: '人物题：特点+依据；赏析题：方法+特点+效果。' }
+    ],
+    c3: [
+      { no: 1, code: 'R1', points: 4, title: '用 30 字内概括“班级图书角风波”', reason: '压轴概括抓不住冲突和解决', standard: '写清问题、解决办法和结果。' },
+      { no: 2, code: 'R2', points: 4, title: '主人公前后发生了什么变化？从两处细节说明', reason: '变化题只写结果', standard: '前后对比 + 两处细节。' },
+      { no: 3, code: 'R3', points: 4, title: '赏析结尾“心里像窗户被推开了一样亮”', reason: '不能结合中心', standard: '写出比喻、心情变化和中心。' },
+      { no: 4, code: 'W2', points: 6, title: '写一段“我主动承担了责任”', reason: '拔尖重点段缺成长认识', standard: '有错误、犹豫、承担、认识。' },
+      { no: 5, code: 'C1', points: 4, title: '把第2题低分答案改成满分答案', reason: '不会定位缺层', standard: '补前后变化、依据和分析。' }
+    ]
+  },
+  5: {
+    label: '五年级',
+    retest: 'grade5.html#grade5-b-test',
+    a: [
+      { no: 1, code: 'R3', points: 4, title: '“大约”能删去吗，为什么', reason: '说明文语言题只背“不准确”', standard: '词义、删后变化、准确性共三层。' },
+      { no: 2, code: 'R1', points: 4, title: '材料 A 主要说明什么', reason: '概括漏说明对象或条件', standard: '竹笋在春雨后生长快，但受温度、水分和土壤影响。' },
+      { no: 3, code: 'R2', points: 5, title: '材料 B 中爸爸是怎样的人', reason: '人物题没有两处依据', standard: '关爱孩子、默默付出，并列出两处依据。' },
+      { no: 4, code: 'R2', points: 3, title: '“我低头看着热气，忽然说不出话来”表达了什么', reason: '情感题只写“感动”', standard: '写出被父亲关爱打动和感激。' },
+      { no: 5, code: 'W2', points: 5, title: '给《那一次，我懂得了坚持》列中心和详写段', reason: '作文中心没有成长认识', standard: '中心、详写、成长认识都明确。' }
+    ],
+    b: [
+      { no: 1, code: 'R3', points: 1, title: '“几乎全部”能删去“几乎”吗', reason: '语言准确性迁移不稳', standard: '词义、删后变化、准确性完整。' },
+      { no: 2, code: 'R1', points: 1, title: '概括海鸟迁徙材料', reason: '说明对象和影响因素不全', standard: '说明对象和影响因素都不漏。' },
+      { no: 3, code: 'R2', points: 1, title: '爷爷是怎样的人，从两处细节说明', reason: '特点和两处依据不对应', standard: '特点 + 两处依据 + 分析。' },
+      { no: 4, code: 'W2', points: 1, title: '给《那一次，我学会了负责》列中心和详写段', reason: '中心缺少认识，详写不聚焦', standard: '中心有认识，详写最能表现变化的一幕。' }
+    ],
+    c: [
+      { no: 1, code: 'R3', points: 4, title: '说明文中“约三分之一”能否删去“约”，说明理由', reason: '限制词分析不能迁移到数据表达', standard: '解释词义、删后变绝对、体现说明文准确严谨。' },
+      { no: 2, code: 'R1', points: 4, title: '概括材料 A“城市树荫降温”的主要信息', reason: '材料概括漏对象、条件或结论', standard: '写清树荫能降低地表温度，效果受树种、密度等影响。' },
+      { no: 3, code: 'R4', points: 4, title: '根据材料 B 的数据，给学校操场改造提一条建议', reason: '建议题没有引用数据', standard: '建议要带数据依据，如增加树荫区或遮阳设施。' },
+      { no: 4, code: 'R2', points: 4, title: '短文中的父亲是怎样的人，从两处细节说明', reason: '人物形象缺“内容 + 情感 + 中心”', standard: '关爱孩子、默默付出；用两处行动细节支撑并分析情感。' },
+      { no: 5, code: 'W2', points: 5, title: '给《那一次，我懂得了体谅》设计中心和重点段', reason: '作文中心和详写段脱节', standard: '中心有认识，重点段能表现误解到理解的变化。' }
+    ],
+    c2: [
+      { no: 1, code: 'R3', points: 4, title: '限时分析“接近一半”能否删去“接近”', reason: '限制词答题不完整', standard: '词义、删后变化、准确性三层。' },
+      { no: 2, code: 'R1', points: 4, title: '概括“候鸟迁徙受天气影响”的材料', reason: '说明对象和影响因素不全', standard: '写清候鸟迁徙受风向、温度等影响。' },
+      { no: 3, code: 'R4', points: 5, title: '根据两组数据给学校阅读活动提建议', reason: '跨材料数据整合不稳', standard: '建议具体，引用并比较数据。' },
+      { no: 4, code: 'R2', points: 4, title: '文中的母亲是怎样的人？从两处细节说明', reason: '人物题迁移缺分析', standard: '特点、两处依据、分析齐全。' },
+      { no: 5, code: 'W2', points: 6, title: '给《那一次，我学会了体谅》列中心和重点段', reason: '限时提纲中心浅', standard: '中心有认识，重点段有前后变化。' }
+    ],
+    c3: [
+      { no: 1, code: 'R3', points: 5, title: '压轴：比较“大约”和“至少”在说明文中的表达作用', reason: '不能比较不同限制词作用', standard: '分别说明估计范围和最低限度，体现严谨。' },
+      { no: 2, code: 'R1', points: 5, title: '概括两则材料共同说明的问题', reason: '跨材料共同点抓不住', standard: '找共同对象和共同结论。' },
+      { no: 3, code: 'R4', points: 5, title: '结合材料数据，写一段 80 字建议', reason: '建议缺论证层次', standard: '建议、数据、比较、理由齐全。' },
+      { no: 4, code: 'R2', points: 5, title: '分析人物情感变化，并用两处细节证明', reason: '高阶人物题缺变化线', standard: '前后情感、两处细节、中心分析。' },
+      { no: 5, code: 'W2', points: 6, title: '写《那一次，我懂得了沉默的爱》的重点段', reason: '拔尖作文不能用细节表现含蓄情感', standard: '有动作细节、心理转折和认识。' }
+    ]
+  },
+  6: {
+    label: '六年级',
+    retest: 'grade6.html#grade6-b-test',
+    a: [
+      { no: 1, code: 'C1', points: 1, title: '判断“这段话在文中有什么作用”属于什么题型', reason: '题型判断不准', standard: '句段作用题。' },
+      { no: 2, code: 'R3', points: 4, title: '“通常”能删去吗，为什么', reason: '语言准确性题漏删后变化', standard: '词义、删后变化、文体特点齐全。' },
+      { no: 3, code: 'R4', points: 4, title: '根据材料 B 给学生提一条运动建议', reason: '建议题没有引用材料', standard: '建议有材料依据。' },
+      { no: 4, code: 'R4', points: 4, title: '根据材料 B 说明运动有什么好处', reason: '数据题不会比较', standard: '数据、结论、建议齐全。' },
+      { no: 5, code: 'W3', points: 5, title: '给《这一次，我长大了》列提纲', reason: '作文提纲没扣题眼', standard: '题眼、中心、详写都明确。' }
+    ],
+    b: [
+      { no: 1, code: 'C1', points: 1, title: '判断“结尾一句在全文中的作用”属于什么题型', reason: '综合题型迁移不稳', standard: '句段作用题，重点从内容、结构、中心三层思考。' },
+      { no: 2, code: 'R3', points: 1, title: '“一般情况下”能删去吗', reason: '限制词分析不完整', standard: '词义、删后变化和严谨性齐全。' },
+      { no: 3, code: 'R4', points: 1, title: '根据阅读数据提出建议', reason: '建议没有数据依据', standard: '建议每天坚持阅读 30 分钟以上，并引用数据。' },
+      { no: 4, code: 'W3', points: 1, title: '给《这一次，我做对了》列提纲', reason: '题眼、中心、详写没有扣合', standard: '题眼、中心、详写和点题都明确。' }
+    ],
+    c: [
+      { no: 1, code: 'C1', points: 3, title: '判断“开头引用数据有什么作用”属于哪类题，并列答题层次', reason: '综合题型识别和分层迁移不稳', standard: '属于句段作用或材料作用题，从内容、结构、效果三层答。' },
+      { no: 2, code: 'R3', points: 4, title: '“不超过 15 分钟”中的“不超过”能否删去', reason: '说明文语言题漏边界意识', standard: '解释限定范围，删后意思改变，体现表达准确严谨。' },
+      { no: 3, code: 'R4', points: 4, title: '结合两则材料，为六年级学生制定一条阅读建议', reason: '跨材料整合没有数据和对象意识', standard: '建议明确对象，至少引用一处数据或材料关键词。' },
+      { no: 4, code: 'R2', points: 4, title: '文中的“我”发生了怎样的变化，从两处细节说明', reason: '变化题只写结果，不写前后对比', standard: '写出前后变化，并用两处细节证明。' },
+      { no: 5, code: 'W3', points: 5, title: '给《这一次，我没有逃避》列限时作文提纲', reason: '高年级作文题眼、中心、材料不能一体化', standard: '题眼是“没有逃避”，中心有成长认识，详写关键一幕并点题。' }
+    ],
+    c2: [
+      { no: 1, code: 'C1', points: 4, title: '限时判断“中间段承上启下”的答题层次', reason: '句段作用题层次少', standard: '内容、结构、中心三层。' },
+      { no: 2, code: 'R3', points: 4, title: '分析“多数情况下”在说明文中的作用', reason: '限制词不能联系语境', standard: '范围、删后变化、准确性。' },
+      { no: 3, code: 'R4', points: 5, title: '整合两则阅读材料，给毕业复习提建议', reason: '跨材料整合缺比较', standard: '对象、建议、数据、比较齐全。' },
+      { no: 4, code: 'R2', points: 5, title: '分析“我”从逃避到面对的变化线', reason: '变化题缺前后对照', standard: '前后状态、触发细节、结果。' },
+      { no: 5, code: 'W3', points: 6, title: '给《这一次，我做对了》列限时提纲', reason: '限时作文题眼和中心脱节', standard: '选择、过程、认识、点题齐全。' }
+    ],
+    c3: [
+      { no: 1, code: 'C1', points: 5, title: '压轴：比较“开头引用数据”和“结尾点题”的不同作用', reason: '综合作用题不能比较', standard: '分别从内容、结构、表达效果比较。' },
+      { no: 2, code: 'R3', points: 5, title: '分析两个限制词共同体现的说明文特点', reason: '语言题不能综合归纳', standard: '限制范围、避免绝对、体现准确严谨。' },
+      { no: 3, code: 'R4', points: 5, title: '用两则材料写 100 字建议短文', reason: '材料建议不能成段表达', standard: '建议明确，数据支撑，语言有条理。' },
+      { no: 4, code: 'R2', points: 5, title: '结合细节分析人物成长，并点明文章中心', reason: '高阶人物题缺中心提升', standard: '变化、依据、分析、中心齐全。' },
+      { no: 5, code: 'W3', points: 8, title: '给《这一次，我没有逃避》写题眼、中心、重点段、结尾', reason: '小升初压轴作文构思不完整', standard: '题眼、中心、详写、点题结尾闭环。' }
+    ]
+  }
+};
+
+function getFlowPack(codeOrId) {
+  const id = normalizeErrorCategoryId(codeOrId);
+  return FLOW_PACKS.find(pack => pack.id === id || pack.code.toLowerCase() === id);
+}
+
+function getFlowPackStatus() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('flowPackStatus') || '{}');
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveFlowPackStatus(status) {
+  localStorage.setItem('flowPackStatus', JSON.stringify(status));
+}
+
+function getFlowStatusText(packId) {
+  const status = getFlowPackStatus()[packId] || 'todo';
+  return FLOW_STATUS_LABELS[status] || FLOW_STATUS_LABELS.todo;
+}
+
+function markFlowPack(codeOrId, status = 'done', options = {}) {
+  const pack = getFlowPack(codeOrId);
+  if (!pack) return;
+
+  const nextStatus = FLOW_STATUS_LABELS[status] ? status : 'todo';
+  const flowStatus = getFlowPackStatus();
+  if (nextStatus === 'todo') {
+    delete flowStatus[pack.id];
+  } else {
+    flowStatus[pack.id] = nextStatus;
+  }
+  saveFlowPackStatus(flowStatus);
+  renderFlowStatusPanel();
+  injectFlowPackControls();
+  renderLearningProfilePanel();
+  renderNextLessonPanel();
+
+  if (!options.silent) {
+    showFeedback(true, `${pack.code} 已标记为“${FLOW_STATUS_LABELS[nextStatus]}”。`);
+  }
+}
+
+function renderFlowStatusPanel() {
+  const panel = document.getElementById('flowStatusPanel');
+  if (!panel) return;
+
+  const flowStatus = getFlowPackStatus();
+  panel.innerHTML = `
+    <div class="flow-status-grid">
+      ${FLOW_PACKS.map(pack => {
+        const status = flowStatus[pack.id] || 'todo';
+        return `
+          <article class="flow-status-card">
+            <strong>${pack.code} ${pack.title}</strong>
+            <span class="status-pill ${FLOW_STATUS_CLASS[status] || FLOW_STATUS_CLASS.todo}">${FLOW_STATUS_LABELS[status] || FLOW_STATUS_LABELS.todo}</span>
+            <a class="flow-action-btn" href="${pack.href}">进入训练</a>
+          </article>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function injectFlowPackControls() {
+  const actions = [
+    { status: 'done', label: '完成训练' },
+    { status: 'retry', label: '需要再练' },
+    { status: 'passed', label: '复测已通过' },
+    { status: 'todo', label: '重置' }
+  ];
+  const flowStatus = getFlowPackStatus();
+
+  FLOW_PACKS.forEach(pack => {
+    const article = document.getElementById(`pack-${pack.id}`);
+    if (!article) return;
+
+    const current = flowStatus[pack.id] || 'todo';
+    const oldActions = article.querySelector('.flow-pack-actions');
+    if (oldActions) oldActions.remove();
+
+    const html = `
+      <div class="flow-pack-actions" data-pack="${pack.id}">
+        ${actions.map(action => `
+          <button type="button" class="flow-action-btn ${current === action.status ? 'active' : ''}" onclick="markFlowPack('${pack.id}', '${action.status}')">
+            ${action.label}
+          </button>
+        `).join('')}
+      </div>
+    `;
+    article.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+function getPaperLabel(paper) {
+  const labels = {
+    a: 'A卷诊断',
+    b: 'B卷复测',
+    c: 'C1基础混合迁移',
+    c2: 'C2限时综合',
+    c3: 'C3拔尖压轴'
+  };
+  return labels[paper] || labels.a;
+}
+
+function isCPaper(paper) {
+  return ['c', 'c2', 'c3'].includes(paper);
+}
+
+function getABTestSet(grade, paper) {
+  const gradeData = AB_TEST_MAP[String(grade)];
+  if (!gradeData) return [];
+  return gradeData[paper] || gradeData.a || [];
+}
+
+function initABScorePanel() {
+  const panel = document.getElementById('abScorePanel');
+  if (!panel) return;
+
+  const gradeOptions = Object.entries(AB_TEST_MAP).map(([grade, data]) => (
+    `<option value="${grade}">${data.label}</option>`
+  )).join('');
+
+  panel.innerHTML = `
+    <div class="flow-score-form">
+      <div class="flow-score-controls">
+        <label>
+          <span style="display:block;font-weight:900;margin-bottom:4px;">年级</span>
+          <select class="flow-select" id="abGradeSelect">${gradeOptions}</select>
+        </label>
+        <label>
+          <span style="display:block;font-weight:900;margin-bottom:4px;">卷型</span>
+          <select class="flow-select" id="abPaperSelect">
+            <option value="a">A卷诊断</option>
+            <option value="b">B卷复测</option>
+            <option value="c">C1基础混合迁移</option>
+            <option value="c2">C2限时综合</option>
+            <option value="c3">C3拔尖压轴</option>
+          </select>
+        </label>
+      </div>
+      <div id="abQuestionChecks"></div>
+      <button type="button" class="next-btn flow-score-btn" id="abScoreBtn" style="width:100%;">生成分流建议</button>
+      <div id="abScoreResult"></div>
+    </div>
+  `;
+
+  document.getElementById('abGradeSelect').addEventListener('change', renderABQuestionChecks);
+  document.getElementById('abPaperSelect').addEventListener('change', renderABQuestionChecks);
+  document.getElementById('abScoreBtn').addEventListener('click', calculateABScore);
+
+  renderABQuestionChecks();
+  renderStoredABScoreResult();
+}
+
+function renderABQuestionChecks() {
+  const gradeSelect = document.getElementById('abGradeSelect');
+  const paperSelect = document.getElementById('abPaperSelect');
+  const checksBox = document.getElementById('abQuestionChecks');
+  if (!gradeSelect || !paperSelect || !checksBox) return;
+
+  const questions = getABTestSet(gradeSelect.value, paperSelect.value);
+  checksBox.innerHTML = `
+    <div class="ab-question-list">
+      ${questions.map((item, index) => `
+        <label class="ab-question-item">
+          <input type="checkbox" name="abWrongQuestion" value="${index}">
+          <span>
+            <span class="ab-code">${item.code}</span>
+            第${item.no}题：${escapeHTML(item.title)}
+            <br><small>${escapeHTML(item.reason)}</small>
+          </span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+
+  const resultBox = document.getElementById('abScoreResult');
+  if (resultBox) resultBox.innerHTML = '';
+}
+
+function saveFlowWrongItems(grade, paper, wrongItems) {
+  if (!wrongItems.length) return;
+
+  const gradeData = AB_TEST_MAP[String(grade)];
+  const paperLabel = getPaperLabel(paper);
+  const wrongList = getWrongAnswers();
+  const existingKeys = new Set(wrongList.map(item => item.flowKey).filter(Boolean));
+
+  wrongItems.forEach(item => {
+    const pack = getFlowPack(item.code);
+    if (!pack) return;
+
+    const flowKey = `ab-${grade}-${paper}-${item.no}`;
+    if (existingKeys.has(flowKey)) return;
+
+    wrongList.push({
+      type: `${gradeData.label}${paperLabel}`,
+      question: `第${item.no}题：${item.title}`,
+      userAnswer: '本题扣分或未达通过标准',
+      correctAnswer: item.standard || `对应错因码：${pack.code}`,
+      tip: `错因：${item.reason || pack.problem}。建议进入 ${pack.code}${pack.title} 训练包。`,
+      errorCategory: pack.id,
+      flowKey,
+      timestamp: new Date().toISOString()
+    });
+    existingKeys.add(flowKey);
+  });
+
+  while (wrongList.length > 50) {
+    wrongList.shift();
+  }
+
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  renderWrongList();
+  renderErrorStats();
+}
+
+function calculateABScore() {
+  const gradeSelect = document.getElementById('abGradeSelect');
+  const paperSelect = document.getElementById('abPaperSelect');
+  if (!gradeSelect || !paperSelect) return;
+
+  const grade = gradeSelect.value;
+  const paper = paperSelect.value;
+  const gradeData = AB_TEST_MAP[String(grade)];
+  const questions = getABTestSet(grade, paper);
+  const checkedIndexes = Array.from(document.querySelectorAll('input[name="abWrongQuestion"]:checked'))
+    .map(input => Number(input.value));
+  const wrongItems = checkedIndexes.map(index => questions[index]).filter(Boolean);
+  const totalPoints = questions.reduce((sum, item) => sum + (item.points || 1), 0);
+  const lostPoints = wrongItems.reduce((sum, item) => sum + (item.points || 1), 0);
+  const score = Math.max(0, totalPoints - lostPoints);
+  const wrongCodes = [...new Set(wrongItems.map(item => item.code))];
+
+  if ((paper === 'b' || isCPaper(paper)) && wrongItems.length === 0) {
+    [...new Set(questions.map(item => item.code))].forEach(code => markFlowPack(code, 'passed', { silent: true }));
+  } else {
+    wrongCodes.forEach(code => markFlowPack(code, 'retry', { silent: true }));
+  }
+
+  saveFlowWrongItems(grade, paper, wrongItems);
+
+  const result = {
+    grade,
+    paper,
+    gradeLabel: gradeData.label,
+    paperLabel: getPaperLabel(paper),
+    total: questions.length,
+    wrongCount: wrongItems.length,
+    score,
+    totalPoints,
+    wrongCodes,
+    retest: gradeData.retest,
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem('lastABScoreResult', JSON.stringify(result));
+  saveScoreHistory(result);
+  renderABScoreResult(result);
+  renderFlowStatusPanel();
+  injectFlowPackControls();
+  renderLearningProfilePanel();
+  renderNextLessonPanel();
+
+  if (wrongItems.length === 0) {
+    const passText = isCPaper(paper)
+      ? `${getPaperLabel(paper)}无错，迁移通过，可以进入下一层拔尖训练。`
+      : (paper === 'b' ? 'B卷无错，相关训练包已标记为通过，可以挑战C卷。' : 'A卷无错，可以直接挑战B卷。');
+    showFeedback(true, passText);
+  } else {
+    showFeedback(false, `已生成 ${wrongItems.length} 个分流训练码。`);
+  }
+}
+
+function renderStoredABScoreResult() {
+  try {
+    const result = JSON.parse(localStorage.getItem('lastABScoreResult') || 'null');
+    if (result) renderABScoreResult(result);
+  } catch (error) {
+    localStorage.removeItem('lastABScoreResult');
+  }
+}
+
+function renderABScoreResult(result) {
+  const resultBox = document.getElementById('abScoreResult');
+  if (!resultBox) return;
+
+  const hasWrong = result.wrongCodes && result.wrongCodes.length > 0;
+  const codeLinks = hasWrong ? result.wrongCodes.map(code => {
+    const pack = getFlowPack(code);
+    return pack ? `<a href="${pack.href}">${pack.code} ${pack.title}</a>` : '';
+  }).join('') : '';
+  const retestLink = hasWrong
+    ? (isCPaper(result.paper)
+      ? `<button type="button" class="flow-action-btn" onclick="selectABPaper('${result.grade}', '${result.paper}')">训练后再做${result.paperLabel}</button>`
+      : `<a href="${result.retest}">训练后再做B卷复测</a>`)
+    : (result.paper === 'a'
+      ? `<a href="${result.retest}">完成训练后去B卷复测</a>`
+      : (result.paper === 'b'
+        ? `<button type="button" class="flow-action-btn" onclick="selectABPaper('${result.grade}', 'c')">打开C1基础混合迁移</button>`
+        : (result.paper === 'c'
+          ? `<button type="button" class="flow-action-btn" onclick="selectABPaper('${result.grade}', 'c2')">进入C2限时综合</button>`
+          : (result.paper === 'c2'
+            ? `<button type="button" class="flow-action-btn" onclick="selectABPaper('${result.grade}', 'c3')">进入C3拔尖压轴</button>`
+            : `<a href="#peak-promotion">进入拔尖晋级测评</a>`))));
+
+  resultBox.innerHTML = `
+    <div class="ab-result">
+      <strong>${result.gradeLabel}${result.paperLabel}：${result.score}/${result.totalPoints} 分，错 ${result.wrongCount}/${result.total} 题</strong>
+      <p style="margin:0;color:#536174;">
+        ${hasWrong ? '先集中处理错因码对应的训练包，做完后再复测。' : (isCPaper(result.paper) ? '迁移通过，说明不是记住原题，而是能换材料使用方法。' : (result.paper === 'b' ? '本次复测通过，可以进入C卷混合迁移。' : '诊断卷表现稳定，可以直接挑战B卷迁移。'))}
+      </p>
+      <div class="route-links">
+        ${hasWrong ? codeLinks : ''}
+        ${retestLink}
+      </div>
+    </div>
+  `;
+}
+
+function readLastABScoreResult() {
+  try {
+    const result = JSON.parse(localStorage.getItem('lastABScoreResult') || 'null');
+    return result && typeof result === 'object' ? result : null;
+  } catch (error) {
+    localStorage.removeItem('lastABScoreResult');
+    return null;
+  }
+}
+
+function getScoreHistory() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('scoreHistory') || '[]');
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    localStorage.removeItem('scoreHistory');
+    return [];
+  }
+}
+
+function saveScoreHistory(result) {
+  const history = getScoreHistory();
+  const percent = result.totalPoints ? Math.round((result.score / result.totalPoints) * 100) : 0;
+  history.push({
+    grade: result.grade,
+    gradeLabel: result.gradeLabel,
+    paper: result.paper,
+    paperLabel: result.paperLabel,
+    percent,
+    wrongCount: result.wrongCount,
+    wrongCodes: result.wrongCodes || [],
+    createdAt: result.createdAt
+  });
+  while (history.length > 12) {
+    history.shift();
+  }
+  localStorage.setItem('scoreHistory', JSON.stringify(history));
+}
+
+function selectABPaper(grade, paper) {
+  const gradeSelect = document.getElementById('abGradeSelect');
+  const paperSelect = document.getElementById('abPaperSelect');
+  if (!gradeSelect || !paperSelect) return;
+
+  if (grade && AB_TEST_MAP[String(grade)]) {
+    gradeSelect.value = String(grade);
+  }
+  paperSelect.value = paper;
+  renderABQuestionChecks();
+  document.getElementById('abScorePanel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function getFlowStatsFromWrongAnswers() {
+  const stats = {};
+  FLOW_PACKS.forEach(pack => {
+    stats[pack.id] = 0;
+  });
+
+  getWrongAnswers().forEach(item => {
+    const id = normalizeErrorCategoryId(item.errorCategory || '');
+    if (Object.prototype.hasOwnProperty.call(stats, id)) {
+      stats[id] += 1;
+    }
+  });
+
+  const lastResult = readLastABScoreResult();
+  if (lastResult?.wrongCodes?.length) {
+    lastResult.wrongCodes.forEach(code => {
+      const pack = getFlowPack(code);
+      if (pack) stats[pack.id] += 2;
+    });
+  }
+
+  return stats;
+}
+
+function getProfileMetric(label, codeIds, stats, flowStatus, fallbackScore = 100) {
+  const issueCount = codeIds.reduce((sum, id) => sum + (stats[id] || 0), 0);
+  const retryCount = codeIds.filter(id => flowStatus[id] === 'retry').length;
+  const passedCount = codeIds.filter(id => flowStatus[id] === 'passed').length;
+  const score = Math.max(35, Math.min(100, fallbackScore - issueCount * 14 - retryCount * 18 + passedCount * 8));
+  const status = score >= 88 ? '拔尖' : (score >= 68 ? '提升' : '补课');
+  return { label, score, status, trend: '待观察' };
+}
+
+function getTrendLabel(recentScores) {
+  if (!recentScores || recentScores.length < 2) return '待观察';
+  const first = recentScores[0].percent || 0;
+  const last = recentScores[recentScores.length - 1].percent || 0;
+  const diff = last - first;
+  if (diff >= 8) return `上升 ${diff}分`;
+  if (diff <= -8) return `下降 ${Math.abs(diff)}分`;
+  return '基本稳定';
+}
+
+function buildLearningProfile() {
+  const stats = getFlowStatsFromWrongAnswers();
+  const flowStatus = getFlowPackStatus();
+  const lastResult = readLastABScoreResult();
+  const scoreHistory = getScoreHistory();
+  const recentScores = scoreHistory.slice(-3);
+  const sortedPacks = FLOW_PACKS
+    .map(pack => ({ ...pack, count: stats[pack.id] || 0, status: flowStatus[pack.id] || 'todo' }))
+    .sort((a, b) => (b.status === 'retry') - (a.status === 'retry') || b.count - a.count);
+  const hasAnyData = Boolean(lastResult) || Object.values(stats).some(count => count > 0) || Object.keys(flowStatus).length > 0;
+  const mainIssue = hasAnyData ? (sortedPacks.find(pack => pack.status === 'retry' || pack.count > 0) || sortedPacks[0]) : null;
+  const retryCount = Object.values(flowStatus).filter(status => status === 'retry').length;
+  const passedCount = Object.values(flowStatus).filter(status => status === 'passed').length;
+  const lastPercent = lastResult?.totalPoints ? Math.round((lastResult.score / lastResult.totalPoints) * 100) : 0;
+  let level = '待诊断';
+  let summary = '先完成当前年级 A 卷，系统会自动生成错因画像和下一课路径。';
+
+  if (lastResult) {
+    if (lastResult.paper === 'c3' && lastResult.wrongCount === 0 && retryCount === 0) {
+      level = '拔尖迁移';
+      summary = 'C3拔尖压轴已通过，孩子已经能换材料、换题型、换表达稳定使用方法。';
+    } else if ((isCPaper(lastResult.paper) && lastResult.wrongCount === 0) || (lastResult.paper === 'b' && lastResult.wrongCount === 0) || passedCount >= 3) {
+      level = '提升巩固';
+      summary = '同类变式或混合迁移基本过关，下一步要继续向更高层 C 卷推进。';
+    } else if (lastPercent >= 80 && retryCount <= 1) {
+      level = '掌握中';
+      summary = '基础方法已有雏形，需要把薄弱错因做成稳定步骤。';
+    } else {
+      level = '专项补强';
+      summary = '先集中处理最高频错因，别急着混刷题。';
+    }
+  }
+
+  return {
+    level,
+    summary,
+    mainIssue,
+    lastResult,
+    recentScores,
+    metrics: [
+      getProfileMetric('基础短板', ['b1'], stats, flowStatus, lastPercent || 82),
+      getProfileMetric('阅读短板', ['r1', 'r2', 'r3', 'r4'], stats, flowStatus, lastPercent || 78),
+      getProfileMetric('作文短板', ['w1', 'w2', 'w3'], stats, flowStatus, lastPercent || 76),
+      getProfileMetric('迁移短板', ['c1'], stats, flowStatus, isCPaper(lastResult?.paper) && lastResult.wrongCount === 0 ? 96 : (lastPercent || 72)),
+      {
+        label: '拔尖潜力',
+        score: Math.max(35, Math.min(100, (lastPercent || 70) + passedCount * 6 - retryCount * 12)),
+        status: (lastPercent >= 90 && retryCount === 0) ? '拔尖' : (lastPercent >= 75 ? '提升' : '补课'),
+        trend: getTrendLabel(recentScores)
+      }
+    ].map(metric => ({
+      ...metric,
+      trend: metric.trend === '待观察' ? getTrendLabel(recentScores) : metric.trend
+    }))
+  };
+}
+
+function renderLearningProfilePanel() {
+  const panel = document.getElementById('learningProfilePanel');
+  if (!panel) return;
+
+  const profile = buildLearningProfile();
+  const last = profile.lastResult;
+  const trendText = profile.recentScores.length
+    ? profile.recentScores.map(item => `${item.gradeLabel}${item.paperLabel}${item.percent}%`).join(' → ')
+    : '暂无趋势，完成 3 次测评后生成';
+  panel.innerHTML = `
+    <div class="profile-summary">
+      <span class="profile-level">${profile.level}</span>
+      <p>${escapeHTML(profile.summary)}</p>
+      <p><strong>主攻错因：</strong>${profile.mainIssue ? `${profile.mainIssue.code} ${profile.mainIssue.title}：${profile.mainIssue.problem}` : '等待诊断数据'}</p>
+      <p><strong>最近测评：</strong>${last ? `${last.gradeLabel}${last.paperLabel} ${last.score}/${last.totalPoints} 分，错 ${last.wrongCount} 题` : '暂无记录'}</p>
+      <p><strong>最近3次趋势：</strong>${escapeHTML(trendText)}</p>
+    </div>
+    <div class="profile-metric-grid">
+      ${profile.metrics.map(metric => `
+        <article class="profile-metric-card">
+          <strong>${metric.label}</strong>
+          <span>${metric.status}</span>
+          <small>${escapeHTML(metric.trend)}</small>
+          <div class="profile-meter"><span style="width:${metric.score}%"></span></div>
+        </article>
+      `).join('')}
+    </div>
+  `;
+}
+
+function buildNextLessonPath() {
+  const result = readLastABScoreResult();
+  if (!result) {
+    return {
+      title: '下一课：先做年级A卷诊断',
+      desc: '没有诊断数据时，不直接刷题。先完成当前年级A卷，勾选错题后系统会生成画像。',
+      actions: [
+        { label: '一年级A卷', href: 'grade1.html' },
+        { label: '二年级A卷', href: 'grade2.html' },
+        { label: '三年级A卷', href: 'grade3.html' },
+        { label: '四年级A卷', href: 'grade4.html' },
+        { label: '五年级A卷', href: 'grade5.html' },
+        { label: '六年级A卷', href: 'grade6.html' }
+      ],
+      steps: ['完成A卷', '勾选错题', '生成错因码']
+    };
+  }
+
+  if (result.wrongCodes?.length) {
+    const firstPack = getFlowPack(result.wrongCodes[0]);
+    return {
+      title: `下一课：${firstPack?.code || ''}${firstPack?.title || '错因'}专项精练`,
+      desc: '先处理最高优先级错因，完成基础题、提升题、拔尖题后再复测。',
+      actions: [
+        firstPack ? { label: `进入${firstPack.code}训练包`, href: firstPack.href } : null,
+        result.paper === 'a'
+          ? { label: '训练后做B卷', href: result.retest }
+          : (result.paper === 'b'
+            ? { label: '再做B卷复测', href: result.retest }
+            : { label: `再做${result.paperLabel}`, grade: result.grade, paper: result.paper })
+      ].filter(Boolean),
+      steps: ['重讲错因方法', '做3道递进题', isCPaper(result.paper) ? 'C卷再迁移' : 'B卷复测']
+    };
+  }
+
+  if (result.paper === 'a') {
+    return {
+      title: '下一课：B卷同类变式',
+      desc: 'A卷稳定不代表真正掌握，要用B卷换题验证同类迁移。',
+      actions: [{ label: '去B卷复测', href: result.retest }],
+      steps: ['口头讲方法', '完成B卷', '错题回流训练包']
+    };
+  }
+
+  if (result.paper === 'b') {
+    return {
+      title: '下一课：C1基础混合迁移',
+      desc: 'B卷通过后，进入 C1 混合题组，检查孩子能否判断题型、切换方法、稳定表达。',
+      actions: [{ label: '打开C卷评分器', grade: result.grade, paper: 'c' }],
+      steps: ['混合题限时做', '按错因码判题', '通过后进拔尖晋级']
+    };
+  }
+
+  if (result.paper === 'c') {
+    return {
+      title: '下一课：C2限时综合',
+      desc: 'C1通过后，加入限时压力，检查孩子是否还能稳定判断题型和完整表达。',
+      actions: [{ label: '打开C2限时综合', grade: result.grade, paper: 'c2' }],
+      steps: ['限时完成', '口头讲方法', '错因回流或进C3']
+    };
+  }
+
+  if (result.paper === 'c2') {
+    return {
+      title: '下一课：C3拔尖压轴',
+      desc: 'C2通过后，进入压轴题，重点看跨材料、改答案、作文构思的综合能力。',
+      actions: [{ label: '打开C3拔尖压轴', grade: result.grade, paper: 'c3' }],
+      steps: ['压轴题组', '改低分答案', '通过后进拔尖晋级']
+    };
+  }
+
+  return {
+    title: '下一课：拔尖晋级测评',
+    desc: 'C卷通过后，不再重复刷基础题，重点检查会讲、会改、会迁移。',
+    actions: [{ label: '进入拔尖晋级', href: '#peak-promotion' }],
+    steps: ['讲清题型', '改低分答案', '换材料再迁移']
+  };
+}
+
+function renderNextLessonPanel() {
+  const panel = document.getElementById('nextLessonPanel');
+  if (!panel) return;
+
+  const path = buildNextLessonPath();
+  panel.innerHTML = `
+    <div class="next-lesson-card">
+      <strong>${escapeHTML(path.title)}</strong>
+      <p>${escapeHTML(path.desc)}</p>
+      <ol class="next-lesson-steps">
+        ${path.steps.map(step => `<li>${escapeHTML(step)}</li>`).join('')}
+      </ol>
+      <div class="route-links">
+        ${path.actions.map(action => action.href
+          ? `<a href="${action.href}">${escapeHTML(action.label)}</a>`
+          : `<button type="button" class="flow-action-btn" onclick="selectABPaper('${action.grade}', '${action.paper}')">${escapeHTML(action.label)}</button>`
+        ).join('')}
+      </div>
+    </div>
+  `;
+}
+
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
   loadProgress();
@@ -2032,6 +2935,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initCheckin();
   renderWrongList();
   renderErrorStats();
+  renderFlowStatusPanel();
+  injectFlowPackControls();
+  initABScorePanel();
+  renderLearningProfilePanel();
+  renderNextLessonPanel();
   
   // 关闭奖励弹窗
   document.getElementById('rewardModal').addEventListener('click', (e) => {

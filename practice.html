@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>语文练习计划 - 互动学习版</title>
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=76">
   <style>
     /* 互动练习区域样式 */
     .interactive-practice {
@@ -1196,7 +1196,7 @@
           </p>
         </div>
         <div style="margin-top: 20px;">
-          <p style="font-size: 18px; color: #333; margin-bottom: 15px;"><strong>问题：</strong>这段话主要写了什么？</p>
+          <p style="font-size: 18px; color: #333; margin-bottom: 15px;"><strong>问题：</strong><span id="readingQuestion">这段话主要写了什么？</span></p>
           <div id="readingOptions" class="transform-options">
             <!-- 选项由JS生成 -->
           </div>
@@ -1363,6 +1363,803 @@
         <p><strong>周五：</strong>作文片段练习</p>
         <p><strong>周六：</strong>完整作文或整本书阅读</p>
         <p><strong>周日：</strong>错题复盘和一周总结</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">年级长期训练</p>
+        <h2>长期计划统一放在这里执行</h2>
+        <p style="color:#666;">年级页负责课堂精讲，练习页负责每日、每周和升年级衔接训练。按孩子当前年级选一行执行即可。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>年级</th><th>每日抓手</th><th>每周重点</th><th>复盘标准</th></tr></thead>
+            <tbody>
+              <tr><td>一年级</td><td>拼音 5 分钟、识字 5 个、朗读 1 段</td><td>看图说话 2 次，亲子阅读 1 本</td><td>读准、说完整、能用新字说句</td></tr>
+              <tr><td>二年级</td><td>听写 5 个词，扩写 1 句话</td><td>短文概括 2 次，写话 1 段</td><td>人物、事情、结果完整</td></tr>
+              <tr><td>三年级</td><td>中心句或段意 1 题</td><td>观察片段 1 篇，整本书记录 1 次</td><td>一段只围绕一个意思写</td></tr>
+              <tr><td>四年级</td><td>概括或依据题 1 题</td><td>修辞赏析 2 题，重点场景 1 段</td><td>结论、依据、分析齐全</td></tr>
+              <tr><td>五年级</td><td>人物或说明文题 1 题</td><td>说明文 1 篇，作文提纲 1 次</td><td>答案有层次，作文有中心详略</td></tr>
+              <tr><td>六年级</td><td>综合题拆题 1 题</td><td>非连续文本 1 题，限时作文提纲 1 次</td><td>材料有据，作文扣题并有认识提升</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stage-assessment">
+      <div class="section-title">
+        <p class="eyebrow">阶段测评卷</p>
+        <h2>月测、期中、期末三类卷：测一段时间后的真实掌握</h2>
+        <p style="color:#666;">特级教师一对一不会只看当天题目对不对，还会看孩子过一段时间后能否稳定迁移。每个年级按“月测看薄弱、期中看综合、期末看拔尖”的顺序执行。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>年级</th><th>月测卷重点</th><th>期中卷重点</th><th>期末冲刺卷重点</th><th>分流标准</th></tr></thead>
+            <tbody>
+              <tr><td>一年级</td><td>拼音、识字、看图说 3 句</td><td>短句主干、语气朗读、简单写话</td><td>换图写话、字词语境迁移</td><td>低于 80 分回 B1/W1；90 分以上做 C1 基础混合。</td></tr>
+              <tr><td>二年级</td><td>形近字、句子扩写、短文信息</td><td>原因题、概括题、4-5 句写话</td><td>人物行动、结果复述、换材料扩写</td><td>R1/R2 错 2 次以上，先做精讲卡再做 B 卷。</td></tr>
+              <tr><td>三年级</td><td>中心句、段意、观察顺序</td><td>人物依据、观察片段、围绕中心写</td><td>短文概括 + 观察作文小综合</td><td>写话低于 70%，回 W1；阅读低于 80%，回 R1/R2。</td></tr>
+              <tr><td>四年级</td><td>概括、人物特点、修辞赏析</td><td>重点段细节、短文中心、同类变式</td><td>阅读三题 + 片段描写 + C 卷迁移</td><td>R2/R3 任一项不稳，不直接进入拔尖题。</td></tr>
+              <tr><td>五年级</td><td>说明文语言、人物形象、作文中心</td><td>材料概括、依据分析、重点段升格</td><td>说明文 + 记叙文 + 作文提纲综合</td><td>C 卷错 2 题以上，回到错因精讲卡逐项重讲。</td></tr>
+              <tr><td>六年级</td><td>题型判断、非连续文本、限时提纲</td><td>句段作用、跨材料整合、真情作文</td><td>小升初综合阅读 + 作文限时卷</td><td>C3 压轴卷 90 分以上，才进入拔尖晋级测评。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>月测卷样张</h2>
+          <div class="routine">
+            <p><strong>阅读材料：</strong>清晨，阳台上的绿豆芽又长高了一点。小明先量了高度，又在记录本上画下叶子的样子。他说：“原来每天认真看，才能发现小变化。”</p>
+            <p><strong>题1：</strong>用一句话概括这段话。</p>
+            <p><strong>题2：</strong>小明观察认真，从哪里看出来？</p>
+            <p><strong>题3：</strong>仿照材料，写 3 句观察一种植物的变化。</p>
+            <p><strong>答案要点：</strong>概括要有人物、事情、发现；依据题要回到“量高度、画叶子”；写话要有时间顺序和变化。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>测后分流</h2>
+          <ul class="peak-task-list">
+            <li><strong>错题集中在题1：</strong>回 R1 概括主干，先练“删细节、留主干”。</li>
+            <li><strong>错题集中在题2：</strong>回 R2 原文依据，答案必须有“特点 + 依据”。</li>
+            <li><strong>错题集中在题3：</strong>回 W1/W2，补动作、变化和心情。</li>
+            <li><strong>全对但说不出方法：</strong>不算拔尖，先做口头讲题卡。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="error-masterclass">
+      <div class="section-title">
+        <p class="eyebrow">错因精讲卡</p>
+        <h2>每个错因都按“低分答案 → 错因 → 方法 → 满分答案 → 变式”讲透</h2>
+        <p style="color:#666;">这部分是给孩子真正上课用的，不是计划。每张卡都能直接拿来讲 5-8 分钟，讲完再进训练包做递进题。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>错因码</th><th>低分答案</th><th>为什么错</th><th>特级教师方法</th><th>满分答案示范</th><th>变式题</th></tr></thead>
+            <tbody>
+              <tr><td>B1</td><td>“晴、清、睛”凭感觉填。</td><td>只看读音，不看偏旁和语境。</td><td>先看偏旁，再读句子：日字旁多和天气有关，三点水多和水有关，目字旁多和眼睛有关。</td><td>天气晴朗；河水清清；眼睛明亮。</td><td>用“园、圆、员”各写一句话。</td></tr>
+              <tr><td>R1</td><td>这段写绿豆很好玩。</td><td>评价代替概括，缺人物、事情、结果。</td><td>圈“谁 + 做什么 + 结果”，删颜色、时间等细节。</td><td>小明连续观察绿豆发芽，并记录每天的变化。</td><td>概括“小雨借伞”的短文，不超过 25 字。</td></tr>
+              <tr><td>R2</td><td>父亲很好。</td><td>只有评价，没有原文依据和分析。</td><td>先写特点，再找两处细节，最后说明细节怎样证明特点。</td><td>父亲关爱孩子、默默付出。从他冒雪送“我”、给“我”买热包子可以看出，他把爱藏在行动里。</td><td>奶奶半夜缝校服，她是怎样的人？从两处细节说明。</td></tr>
+              <tr><td>R3</td><td>这句话写得很生动。</td><td>只背术语，没说生动在哪里。</td><td>三层答：用了什么方法，写出什么特点，产生什么效果。</td><td>“掌声像春风一样涌来”运用比喻，写出掌声温暖、有力量，表现“我”受到鼓励。</td><td>赏析“声音像一条细线慢慢稳了下来”。</td></tr>
+              <tr><td>R4</td><td>建议大家多阅读。</td><td>建议太空，没有引用材料数据。</td><td>建议要具体，理由要带材料编号、数字或关键词。</td><td>建议每天阅读 30 分钟以上，因为材料显示稳定阅读的学生习作按时完成率更高。</td><td>根据睡眠数据给同学提一条学习建议。</td></tr>
+              <tr><td>W1</td><td>小朋友浇花，他很开心。</td><td>画面太短，缺时间、地点、动作、变化。</td><td>补五要素：什么时候、在哪里、谁、做了什么、结果怎样。</td><td>星期天早上，小明在阳台给花浇水。水珠落在叶子上，叶子亮晶晶的。看到花挺直了身子，他心里很高兴。</td><td>看图写“小朋友捡纸”，至少 4 句。</td></tr>
+              <tr><td>W2</td><td>我很紧张，后来成功了。</td><td>重点段太薄，看不到心理变化。</td><td>不用“紧张”二字，用动作、神态、心理和环境表现。</td><td>我攥着稿纸，手心全是汗，台下的目光像一下子聚到我身上。我听见自己的声音有点发抖。</td><td>写一段“不安”，不能出现“不安”二字。</td></tr>
+              <tr><td>W3</td><td>《这一次，我长大了》写我做家务。</td><td>只写事情，没有扣住“这一次”和“长大”。</td><td>先定题眼，再写前后变化，重点段证明变化。</td><td>题眼是“长大”，中心是从被照顾到主动照顾别人，重点段写照顾生病妈妈的一刻。</td><td>给《这一次，我没有逃避》列提纲。</td></tr>
+              <tr><td>C1</td><td>看到题就直接写。</td><td>没判断题型，答题层次乱。</td><td>先判断是概括、依据、赏析、作用、建议还是作文题，再按分值分层。</td><td>“开头引用数据有什么作用”应从内容、结构、表达效果三层答。</td><td>判断“结尾一句有什么作用”属于哪类题，并列三层答案。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reading-answer-bank">
+      <div class="section-title">
+        <p class="eyebrow">阅读低分答案库</p>
+        <h2>每道题都先给短文，再做低分答案和满分答案对照</h2>
+        <p style="color:#666;">避免“没有文章就讲答案”的问题。孩子必须先读材料，再看低分答案缺了哪一层，最后照标准答案改。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>短文/材料</th><th>题目</th><th>低分答案</th><th>满分答案</th><th>错因与升格</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>雪越下越大，父亲把围巾往“我”脖子上绕了两圈，又把刚买的热包子塞进“我”手里。到了车站，他只说：“趁热吃，别凉了。”</td>
+                <td>概括中心思想。</td>
+                <td>文章很感人。</td>
+                <td>文章通过写父亲冒雪送“我”去车站，并给“我”买热包子的事，表现了父亲对孩子深沉、含蓄的爱。</td>
+                <td>低分答案只有感受，缺“内容 + 人物情感 + 中心”。</td>
+              </tr>
+              <tr>
+                <td>父亲站在雪地里，肩上落了一层白。他看见“我”回头，只摆摆手，没有再说话。</td>
+                <td>父亲是怎样的人？</td>
+                <td>父亲很好。</td>
+                <td>父亲是一个关爱孩子、默默付出的人。从他冒雪送“我”、给“我”买热包子、站在雪地里目送“我”这些细节可以看出，他把爱藏在行动里。</td>
+                <td>人物形象题不能只贴标签，要有“特点 + 依据 + 分析”。</td>
+              </tr>
+              <tr>
+                <td>材料一：每天阅读 30 分钟以上的学生，习作按时完成率为 78%。材料二：每周只阅读 1 次的学生，习作按时完成率为 46%。</td>
+                <td>根据材料给同学提一条建议。</td>
+                <td>要多读书。</td>
+                <td>建议同学每天阅读 30 分钟以上。材料显示，稳定阅读的学生习作按时完成率为 78%，明显高于每周只阅读 1 次学生的 46%，说明阅读积累有助于提高习作完成质量。</td>
+                <td>材料题要有具体建议、数据引用和比较分析。</td>
+              </tr>
+              <tr>
+                <td>晓雨走上讲台时，手指紧紧捏着稿纸。读到第二句，她听见同学轻轻说“加油”，声音慢慢稳了下来。</td>
+                <td>赏析“声音慢慢稳了下来”。</td>
+                <td>写得很生动。</td>
+                <td>“慢慢稳了下来”写出晓雨从紧张到镇定的变化，表现了同学鼓励带给她力量，也突出她勇敢迈出第一步。</td>
+                <td>赏析题要回到词句表达的变化和人物情感。</td>
+              </tr>
+              <tr>
+                <td>结尾：我把错题本合上，忽然明白，逃避只会让问题越堆越高，面对它，才有解决的可能。</td>
+                <td>结尾有什么作用？</td>
+                <td>总结全文。</td>
+                <td>结尾总结“我”从逃避到面对问题的变化，点明文章中心；同时照应题目，使文章结构更完整。</td>
+                <td>句段作用题通常从内容、中心、结构三层回答。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="parent-coaching-scripts">
+      <div class="section-title">
+        <p class="eyebrow">家长一对一话术</p>
+        <h2>家长不用讲大道理，只要会追问关键步骤</h2>
+        <p style="color:#666;">家长陪练最怕变成“快点写、再想想”。下面的话术能把孩子拉回题型、依据、方法和迁移。</p>
+      </div>
+      <div class="teacher-question-grid">
+        <article class="teacher-question-card">
+          <strong>诊断时这样问</strong>
+          <p>这题问的是概括、原因、人物、赏析、作用，还是建议？你先把题型说出来。</p>
+          <p>你准备从文中哪一句找答案？先圈出来，再写。</p>
+        </article>
+        <article class="teacher-question-card">
+          <strong>讲解时这样问</strong>
+          <p>你的答案少了哪一层：结论、依据、分析，还是中心？</p>
+          <p>满分答案比你的答案多了什么？不是多写字，而是多了哪一步思考？</p>
+        </article>
+        <article class="teacher-question-card">
+          <strong>训练时这样问</strong>
+          <p>这道变式题和刚才那题哪里一样？哪里不一样？方法还能不能用？</p>
+          <p>如果换一篇文章，你第一步还会先做什么？</p>
+        </article>
+        <article class="teacher-question-card">
+          <strong>复盘时这样问</strong>
+          <p>这次错因码是什么？下次看到同类题，你准备先圈什么、再写什么？</p>
+          <p>你能不能把这题讲给我听，让我这个“大人学生”也听懂？</p>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>一对一陪练 12 分钟流程</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>时间</th><th>家长做什么</th><th>孩子做什么</th><th>达标标志</th></tr></thead>
+            <tbody>
+              <tr><td>2 分钟</td><td>读题，只问题型</td><td>说出考点和关键词</td><td>能判断题型，不急着写答案。</td></tr>
+              <tr><td>3 分钟</td><td>要求圈依据</td><td>在材料中圈句子或数据</td><td>答案不是凭感觉。</td></tr>
+              <tr><td>4 分钟</td><td>让孩子按模板说一遍</td><td>口头说“结论 + 依据 + 分析”</td><td>说得清，才落笔写。</td></tr>
+              <tr><td>2 分钟</td><td>对照满分答案追问缺层</td><td>自己补缺失部分</td><td>能说出为什么改。</td></tr>
+              <tr><td>1 分钟</td><td>安排下一课</td><td>记录错因码和训练包</td><td>知道下一次先练哪里。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="print-training">
+      <div class="section-title">
+        <p class="eyebrow">打印训练单</p>
+        <h2>线下一对一辅导闭环单：A卷答题、判码、训练、B卷复测、C卷迁移、家长签字</h2>
+        <p style="color:#666;">适合家长打印后陪孩子做：先完成 A 卷，再判错因码，选 1-2 个训练包集中练，用 B 卷复测同类迁移，最后用 C 卷检查混合题能否稳定过关。</p>
+      </div>
+      <div class="print-sheet-actions">
+        <button class="flow-action-btn" type="button" onclick="document.body.classList.add('printing-training-sheet'); window.print();">打印本训练单</button>
+        <a class="flow-action-btn" href="#flow-training">去电子评分器</a>
+        <a class="flow-action-btn" href="#peak-promotion">拔尖晋级标准</a>
+        <a class="flow-action-btn" href="composition.html#three-round-revision">作文三轮批改</a>
+      </div>
+      <div class="table-card">
+        <div class="print-sheet-grid">
+          <article class="print-sheet-card wide">
+            <h3>学生信息</h3>
+            <div class="print-sheet-meta">
+              <p>姓名：<span class="blank-line"></span></p>
+              <p>年级：<span class="blank-line"></span></p>
+              <p>日期：<span class="blank-line"></span></p>
+            </div>
+            <div class="print-sheet-meta">
+              <p>A卷得分：<span class="blank-line"></span></p>
+              <p>B卷结果：通过 / 需再练</p>
+              <p>C卷迁移：通过 / 需回炉</p>
+            </div>
+            <div class="print-sheet-meta">
+              <p>本次主攻错因码：<span class="blank-line"></span></p>
+              <p>学习画像等级：<span class="blank-line"></span></p>
+              <p>下一课：<span class="blank-line"></span></p>
+            </div>
+          </article>
+          <article class="print-sheet-card">
+            <h3>A卷答题纸</h3>
+            <ul class="print-check-list">
+              <li>第1题答案：<span class="blank-line"></span></li>
+              <li>第2题答案：<span class="blank-line"></span></li>
+              <li>第3题答案：<span class="blank-line"></span></li>
+              <li>第4题答案：<span class="blank-line"></span></li>
+              <li>第5题答案：<span class="blank-line"></span></li>
+            </ul>
+          </article>
+          <article class="print-sheet-card">
+            <h3>A卷判码表</h3>
+            <div class="responsive-table">
+              <table>
+                <thead><tr><th>题号</th><th>扣分点</th><th>错因码</th><th>先练哪里</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td></td><td>B1 / R1 / R2 / R3 / R4 / W1 / W2 / W3 / C1</td><td></td></tr>
+                  <tr><td>2</td><td></td><td></td><td></td></tr>
+                  <tr><td>3</td><td></td><td></td><td></td></tr>
+                  <tr><td>4</td><td></td><td></td><td></td></tr>
+                  <tr><td>5</td><td></td><td></td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <article class="print-sheet-card wide">
+            <h3>训练包执行记录</h3>
+            <div class="responsive-table">
+              <table>
+                <thead><tr><th>错因码</th><th>训练包</th><th>基础题</th><th>提升题</th><th>拔尖题</th><th>错因复盘</th></tr></thead>
+                <tbody>
+                  <tr><td>B1</td><td>字词拼音</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                  <tr><td>R1</td><td>概括主干</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                  <tr><td>R2</td><td>原文依据</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                  <tr><td>R3</td><td>赏析语言</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                  <tr><td>R4</td><td>材料数据</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                  <tr><td>W1/W2/W3</td><td>写话、重点段、审题扣题</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                  <tr><td>C1</td><td>综合题型</td><td>□</td><td>□</td><td>□</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <article class="print-sheet-card">
+            <h3>B卷复测答题纸</h3>
+            <ul class="print-check-list">
+              <li>B卷第1题：<span class="blank-line"></span></li>
+              <li>B卷第2题：<span class="blank-line"></span></li>
+              <li>B卷第3题：<span class="blank-line"></span></li>
+              <li>B卷第4题：<span class="blank-line"></span></li>
+              <li>复测结论：通过 / 需再练 / 换题再测</li>
+            </ul>
+          </article>
+          <article class="print-sheet-card">
+            <h3>C卷混合迁移答题纸</h3>
+            <ul class="print-check-list">
+              <li>C卷第1题：<span class="blank-line"></span></li>
+              <li>C卷第2题：<span class="blank-line"></span></li>
+              <li>C卷第3题：<span class="blank-line"></span></li>
+              <li>C卷第4题：<span class="blank-line"></span></li>
+              <li>C卷第5题：<span class="blank-line"></span></li>
+              <li>迁移结论：拔尖 / 提升 / 回到训练包</li>
+            </ul>
+          </article>
+          <article class="print-sheet-card">
+            <h3>家长签字与下次安排</h3>
+            <div class="signature-grid">
+              <p>孩子自评：<span class="blank-line"></span></p>
+              <p>家长检查：<span class="blank-line"></span></p>
+              <p>下次主攻：<span class="blank-line"></span></p>
+              <p>家长签字：<span class="blank-line"></span></p>
+            </div>
+            <p style="color:#666;margin:0;">复盘句式：我这次错在 <span class="blank-line"></span>，正确方法是 <span class="blank-line"></span>，下次先做 <span class="blank-line"></span>。</p>
+          </article>
+          <article class="print-sheet-card wide">
+            <h3>拔尖晋级记录</h3>
+            <div class="responsive-table">
+              <table>
+                <thead><tr><th>检查项</th><th>孩子表现</th><th>得分</th><th>家长/老师备注</th></tr></thead>
+                <tbody>
+                  <tr><td>能讲清题型和方法</td><td>会讲 / 提示后会 / 不会</td><td></td><td></td></tr>
+                  <tr><td>能指出原文或材料依据</td><td>准确 / 不完整 / 凭感觉</td><td></td><td></td></tr>
+                  <tr><td>能把低分答案改成满分答案</td><td>完整 / 缺分析 / 只加长</td><td></td><td></td></tr>
+                  <tr><td>能完成同类变式题</td><td>通过 / 需再练 / 需重讲</td><td></td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <article class="print-sheet-card wide">
+            <h3>错题间隔复习记录</h3>
+            <div class="responsive-table">
+              <table>
+                <thead><tr><th>错因码</th><th>当天重讲</th><th>3天后复练</th><th>7天后复测</th><th>是否进入下一课</th></tr></thead>
+                <tbody>
+                  <tr><td>B1/R1/R2/R3/R4/W1/W2/W3/C1</td><td>□ 已重讲方法</td><td>□ 同类题通过</td><td>□ C卷迁移通过</td><td>是 / 否</td></tr>
+                  <tr><td>本次错因码：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>下一课：<span class="blank-line"></span></td></tr>
+                  <tr><td>本次错因码：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>下一课：<span class="blank-line"></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="master-peak-training">
+      <div class="section-title">
+        <p class="eyebrow">特级教师拔尖层</p>
+        <h2>不是多刷题，而是让孩子会解释、会迁移、会反思</h2>
+        <p style="color:#666;">拔尖训练的标准不是“答案对了”，而是孩子能说清方法，换一篇材料还能用，错了能自己定位错因。</p>
+      </div>
+      <div class="peak-ladder">
+        <article class="peak-card">
+          <strong>掌握</strong>
+          <p>能按标准答案做对本题，知道答案从哪里来。</p>
+          <p><strong>检查：</strong>能不能说出题目问什么、答案依据在哪里。</p>
+        </article>
+        <article class="peak-card">
+          <strong>提升</strong>
+          <p>能把答案补完整：结论、依据、分析、中心或情感不漏层。</p>
+          <p><strong>检查：</strong>换一个问法，孩子还能按同一方法答。</p>
+        </article>
+        <article class="peak-card">
+          <strong>拔尖</strong>
+          <p>能主动比较低分答案和满分答案，指出错因，并完成同类变式。</p>
+          <p><strong>检查：</strong>孩子能讲给家长听，而不是只背答案。</p>
+        </article>
+      </div>
+      <div class="teacher-question-grid">
+        <article class="teacher-question-card">
+          <strong>R1 概括追问</strong>
+          <p><strong>老师追问：</strong>你删掉了哪些细节？保留了哪三个主干？</p>
+          <p><strong>拔尖答案：</strong>我删掉颜色、地点小细节，保留人物、主要事件、结果。</p>
+        </article>
+        <article class="teacher-question-card">
+          <strong>R2 依据追问</strong>
+          <p><strong>老师追问：</strong>这句话为什么能证明人物特点？只引用原文够不够？</p>
+          <p><strong>拔尖答案：</strong>依据后还要补分析，说明这个细节和品质之间的关系。</p>
+        </article>
+        <article class="teacher-question-card">
+          <strong>R3/R4 表达追问</strong>
+          <p><strong>老师追问：</strong>“准确”“生动”具体体现在哪里？材料数字支持了什么结论？</p>
+          <p><strong>拔尖答案：</strong>限制词、修辞、数据都要回到对象特点和表达效果。</p>
+        </article>
+        <article class="teacher-question-card">
+          <strong>W2/W3 作文追问</strong>
+          <p><strong>老师追问：</strong>这件事为什么值得写？重点段证明了哪个中心？结尾有没有认识？</p>
+          <p><strong>拔尖答案：</strong>中心先定，重点段服务中心，结尾写变化和认识。</p>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>拔尖压轴题组：一题三问，逼近满分边界</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>材料</th><th>题目</th><th>满分答案</th><th>特级教师追问</th><th>变式迁移</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>放学时雨很大，爸爸把伞往“我”这边推，自己的肩膀湿了一大片。到车站后，他又把热包子塞进“我”手里，只说：“趁热吃。”</td>
+                <td>爸爸是怎样的人？概括文章中心。</td>
+                <td>爸爸是一个关爱孩子、默默付出的人。从他把伞推向“我”、自己淋湿，又给“我”买热包子可以看出，他把爱藏在行动里。文章表现了父亲深沉、含蓄的爱。</td>
+                <td>为什么不能只写“爸爸很好”？“伞”和“热包子”分别证明了什么？</td>
+                <td>换成“奶奶半夜给我缝校服”的材料，再写人物特点和中心。</td>
+              </tr>
+              <tr>
+                <td>调查显示，每天阅读 30 分钟以上的学生，习作按时完成率为 78%；每周只阅读 1 次的学生，习作按时完成率为 46%。</td>
+                <td>根据材料给同学提建议，并说明理由。</td>
+                <td>建议同学每天坚持阅读 30 分钟以上。材料显示，稳定阅读的学生习作按时完成率更高，78% 明显高于 46%，说明阅读积累有助于提升习作完成质量和效率。</td>
+                <td>答案里有没有数字？有没有比较？建议是不是由材料推出的？</td>
+                <td>换成运动、睡眠、错题复盘数据，仍用“建议 + 数据 + 分析”作答。</td>
+              </tr>
+              <tr>
+                <td>题目：《这一次，我没有逃避》</td>
+                <td>列中心、重点段和点题结尾。</td>
+                <td>中心：从想推脱到主动承担，明白逃避不能解决问题。重点段：详写发现自己弄坏班级图书后，犹豫、害怕、最后向老师说明情况的过程。结尾：这一次，我没有逃避，也第一次感到承担责任让心里更踏实。</td>
+                <td>“这一次”有没有具体事件？“没有逃避”有没有前后变化？结尾有没有扣题？</td>
+                <td>换题：《这一次，我做对了》《这一次，我懂得了负责》。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>孩子口头讲题卡</h2>
+          <ul class="peak-task-list">
+            <li><strong>第一句：</strong>这题考的是 <span class="blank-line"></span>。</li>
+            <li><strong>第二句：</strong>我从材料里的 <span class="blank-line"></span> 找到依据。</li>
+            <li><strong>第三句：</strong>满分答案比低分答案多了 <span class="blank-line"></span>。</li>
+            <li><strong>第四句：</strong>同类题我下次先做 <span class="blank-line"></span>。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>家长拔尖检查</h2>
+          <div class="routine">
+            <p><strong>不只问：</strong>做对了吗？</p>
+            <p><strong>要追问：</strong>你为什么这样答？哪一句是依据？如果换一篇文章，你先找什么？</p>
+            <p><strong>达标标志：</strong>孩子能用自己的话复述方法，并完成 B 卷同类变式。</p>
+          </div>
+          <div class="route-links">
+            <a href="#print-training">打印训练单</a>
+            <a href="composition.html#peak-writing">作文拔尖追问</a>
+            <a href="#flow-training">分流训练包</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="peak-promotion">
+      <div class="section-title">
+        <p class="eyebrow">拔尖晋级测评</p>
+        <h2>从“做对”到“拔尖”的四级晋级标准</h2>
+        <p style="color:#666;">每次训练后用这张表判断孩子处在哪一层。只有能讲方法、能找依据、能改答案、能做变式，才算真正进入拔尖层。</p>
+      </div>
+      <div class="promotion-grid">
+        <article class="promotion-card">
+          <strong>1级：会做</strong>
+          <p>本题能做对，但需要看提示或答案。</p>
+          <p><strong>不能跳过：</strong>必须补一句“依据在哪里”。</p>
+        </article>
+        <article class="promotion-card">
+          <strong>2级：会讲</strong>
+          <p>能说出这题考什么、先找什么、答案怎么分层。</p>
+          <p><strong>检查：</strong>家长听得懂，说明孩子真懂。</p>
+        </article>
+        <article class="promotion-card">
+          <strong>3级：会改</strong>
+          <p>能把低分答案改成满分答案，知道补了哪一层。</p>
+          <p><strong>检查：</strong>不是只写长，而是补依据和分析。</p>
+        </article>
+        <article class="promotion-card">
+          <strong>4级：会迁移</strong>
+          <p>换材料、换问法、换题目，仍能用同一方法完成。</p>
+          <p><strong>达标：</strong>B卷同类变式通过。</p>
+        </article>
+      </div>
+      <div class="table-card promotion-score-table">
+        <h2>一对一拔尖测评卷</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>测评项</th><th>题目</th><th>满分标准</th><th>扣分提醒</th><th>晋级判断</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>阅读概括</td>
+                <td>读一段 120 字短文，用 25 字内概括主要内容。</td>
+                <td>人物、事件、结果完整，不照抄细节。</td>
+                <td>只写一个词，或把原文整句搬下来。</td>
+                <td>能说清删掉哪些细节，达 2 级；换文仍会概括，达 4 级。</td>
+              </tr>
+              <tr>
+                <td>人物分析</td>
+                <td>回答“人物是怎样的人”，必须写依据和分析。</td>
+                <td>特点 + 两处依据 + 分析，三层齐全。</td>
+                <td>只写“很好、善良、勇敢”，没有原文细节。</td>
+                <td>能把低分答案改满分，达 3 级。</td>
+              </tr>
+              <tr>
+                <td>材料建议</td>
+                <td>根据一组数据提出建议，并说明理由。</td>
+                <td>建议具体，引用数据，能比较并推出结论。</td>
+                <td>只凭常识说“多读书、多运动”。</td>
+                <td>换一组数据还能答，达 4 级。</td>
+              </tr>
+              <tr>
+                <td>作文提纲</td>
+                <td>给《这一次，我做对了》列题眼、中心、重点段、结尾。</td>
+                <td>题眼明确，中心有变化，重点段能证明中心，结尾点题。</td>
+                <td>只写事情经过，没有“做对”的选择和认识。</td>
+                <td>能换成《这一次，我没有逃避》仍会列，达 4 级。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>晋级规则</h2>
+          <div class="routine">
+            <p><strong>80分以下：</strong>回到对应训练包，先补基础题和提升题。</p>
+            <p><strong>80-89分：</strong>进入讲题训练，要求孩子口头说方法。</p>
+            <p><strong>90分以上：</strong>做变式迁移，必须完成 B 卷或换题复测。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>拔尖证明</h2>
+          <ul class="peak-task-list">
+            <li>孩子能指出自己答案少了哪一层。</li>
+            <li>孩子能把同类低分答案改成满分答案。</li>
+            <li>孩子能用“题型 + 依据 + 分析 + 迁移”讲给别人听。</li>
+            <li>孩子能完成 B 卷同类变式，而不是只记住原题。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="flow-training">
+      <div class="section-title">
+        <p class="eyebrow">测后分流训练包</p>
+        <h2>错因编码对应训练：A卷诊断，点码训练，B卷复测，C1/C2/C3混合迁移</h2>
+        <p style="color:#666;">年级页测完后，不再笼统说“多练”。先看错因编码，点击对应训练包，完成 3 道同类题，再用 B 卷验证同类迁移，最后依次用 C1 基础混合、C2 限时综合、C3 拔尖压轴检查能否换材料、换题型继续做对。</p>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block">
+          <h2>一对一闭环执行卡</h2>
+          <div class="routine">
+            <p><strong>第一步：</strong>在年级页做 A 卷，按“A卷判码表”标出错因编码。</p>
+            <p><strong>第二步：</strong>点进对应训练包，只练同一类错因，不混练。</p>
+            <p><strong>第三步：</strong>回年级页做 B 卷，同类变式能过，才算真正掌握。</p>
+            <p><strong>第四步：</strong>切到 C1/C2/C3 卷，能判断题型、切换方法、稳定表达，才进入拔尖晋级。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>复测入口</h2>
+          <div class="route-links">
+            <a href="grade1.html#grade1-b-test">一年级B卷</a>
+            <a href="grade2.html#grade2-b-test">二年级B卷</a>
+            <a href="grade3.html#grade3-b-test">三年级B卷</a>
+            <a href="grade4.html#grade4-b-test">四年级B卷</a>
+            <a href="grade5.html#grade5-b-test">五年级B卷</a>
+            <a href="grade6.html#grade6-b-test">六年级B卷</a>
+          </div>
+        </article>
+      </div>
+      <div class="content-grid learning-profile-grid" style="margin-bottom:18px;">
+        <article class="study-block" id="learning-profile-card">
+          <h2>学习画像</h2>
+          <div class="routine">
+            <p><strong>自动读取：</strong>最近一次 A/B/C 卷结果、错题本错因、训练包完成状态。</p>
+          </div>
+          <div id="learningProfilePanel"></div>
+        </article>
+        <article class="study-block accent" id="next-lesson-card">
+          <h2>自动下一课路径</h2>
+          <div class="routine">
+            <p><strong>分流原则：</strong>有错先补错因，B 卷过关再进 C1，C1 过关进 C2，C2 过关进 C3，C3 通过才进拔尖测评。</p>
+          </div>
+          <div id="nextLessonPanel"></div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-bottom:18px;">
+        <h2>按问题直接分流</h2>
+        <div class="route-links">
+          <a href="#pack-r1">概括照抄</a>
+          <a href="#pack-r2">没有依据</a>
+          <a href="#pack-r3">赏析空泛</a>
+          <a href="#pack-r4">材料数据</a>
+          <a href="#pack-w1">写话太短</a>
+          <a href="#pack-w2">重点段薄</a>
+          <a href="#pack-w3">审题扣题</a>
+          <a href="#pack-c1">题型混乱</a>
+          <a href="#pack-b1">字词不稳</a>
+        </div>
+      </div>
+      <div class="table-card" id="c-paper-materials" style="margin-bottom:18px;">
+        <h2>C1/C2/C3完整材料、答案解析和扣分细则</h2>
+        <p style="color:#666;margin-top:0;">C卷不是再刷同类题，而是看孩子能不能在混合材料中判断题型、切换方法。做题前先读材料，判卷时按扣分细则回到错因码。</p>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>卷型</th><th>适用年级</th><th>完整材料</th><th>核心题目</th><th>标准答案/解析</th><th>扣分细则</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>C1基础混合</td>
+                <td>1-2年级</td>
+                <td>小兔在草地上捡到一个红球。它看见小熊正在找东西，就跑过去问：“这是你的球吗？”小熊点点头，开心地笑了。</td>
+                <td>1. 说清谁做了什么。2. 小熊为什么笑？3. 看图补 3 句话。</td>
+                <td>主干：小兔捡到球并还给小熊。小熊笑是因为找回了球。写话要有时间、地点、人物、动作、结果。</td>
+                <td>主干漏人物扣 R1；原因无依据扣 R2；写话少于 3 句扣 W1；字词错误多扣 B1。</td>
+              </tr>
+              <tr>
+                <td>C1基础混合</td>
+                <td>3-4年级</td>
+                <td>午后的植物角很热闹。绿豆芽探出嫩叶，吊兰垂下细长的叶子。小军拿着尺子量绿豆芽的高度，又把叶子的样子画进记录本。</td>
+                <td>1. 找中心句并概括。2. 为什么说小军观察认真？3. 判断第2题题型。</td>
+                <td>中心句：午后的植物角很热闹。概括：植物角里植物有变化，小军认真观察并记录。小军认真，因为他量高度、画叶子。第2题是依据题。</td>
+                <td>中心句和概括混淆扣 R1；人物评价无细节扣 R2；题型判断错扣 C1。</td>
+              </tr>
+              <tr>
+                <td>C1基础混合</td>
+                <td>5-6年级</td>
+                <td>材料一：树荫覆盖率高的操场，午后地表温度平均低 4℃。材料二：有遮阳区的学校，学生课间户外活动时间更长。短文：父亲冒雪送“我”去车站，把热包子塞进“我”手里。</td>
+                <td>1. 概括材料主要信息。2. 提一条操场改造建议。3. 分析父亲形象。4. 列作文中心和重点段。</td>
+                <td>材料说明树荫和遮阳区能改善户外活动环境。建议增加树荫或遮阳设施，并引用数据。父亲关爱孩子、默默付出，要用送站、买包子等细节分析。</td>
+                <td>概括漏对象扣 R1；建议没有数据扣 R4；人物无两处依据扣 R2；作文中心浅扣 W2/W3。</td>
+              </tr>
+              <tr>
+                <td>C2限时综合</td>
+                <td>3-6年级</td>
+                <td>晓雨第一次主持班会。上台前，她手指紧紧捏着稿纸；听见同学说“加油”后，她的声音慢慢稳了下来。班会结束时，她觉得自己终于敢把话说给大家听。</td>
+                <td>1. 概括主要内容。2. 人物前后有什么变化？3. 赏析“声音慢慢稳了下来”。4. 写一段“不安”。</td>
+                <td>晓雨克服害怕，顺利主持班会。变化是从紧张害怕到镇定自信。赏析要写出词语表现声音变化和人物成长。片段描写要用动作、神态、心理表现。</td>
+                <td>限时下概括漏结果扣 R1；变化题无前后对比扣 R2；赏析只写“生动”扣 R3；重点段太薄扣 W2。</td>
+              </tr>
+              <tr>
+                <td>C3拔尖压轴</td>
+                <td>5-6年级</td>
+                <td>材料一：每天阅读 30 分钟以上的学生，习作按时完成率为 78%。材料二：每周只阅读 1 次的学生，习作按时完成率为 46%。短文结尾：“我把错题本合上，忽然明白，逃避只会让问题越堆越高，面对它，才有解决的可能。”</td>
+                <td>1. 整合两则材料写建议。2. 分析结尾作用。3. 给《这一次，我没有逃避》列题眼、中心、重点段、结尾。</td>
+                <td>建议每天阅读 30 分钟以上，理由要比较 78% 和 46%。结尾总结“我”的变化，点明中心，照应题目。作文提纲要围绕“没有逃避”，写出从想躲到面对的变化。</td>
+                <td>建议无数据扣 R4；作用题少内容/结构/中心任一层扣 C1；作文提纲不扣题眼扣 W3；没有成长认识扣 W2。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block">
+          <h2>训练包完成状态</h2>
+          <div id="flowStatusPanel"></div>
+        </article>
+        <article class="study-block accent">
+          <h2>A/B/C卷电子评分器</h2>
+          <div class="routine">
+            <p><strong>用法：</strong>选择年级和卷型，勾选错题，系统会给出错因码、训练包入口、学习画像和下一课路径。</p>
+          </div>
+          <div id="abScorePanel"></div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-bottom:18px;">
+        <h2>错因编码速查</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>编码</th><th>问题表现</th><th>训练目标</th><th>复测标准</th></tr></thead>
+            <tbody>
+              <tr><td><a href="#pack-b1">B1</a></td><td>拼音、识字、形近字、词语语境不稳</td><td>看清字音、偏旁和语境</td><td>换一组字词仍能选准、说完整句</td></tr>
+              <tr><td><a href="#pack-r1">R1</a></td><td>概括照抄、不完整，只答一个词</td><td>删细节，保留人物、事件、结果</td><td>能用自己的话概括，不整段照搬</td></tr>
+              <tr><td><a href="#pack-r2">R2</a></td><td>人物、原因、情感题没有原文依据</td><td>先圈证据，再写结论</td><td>答案有“特点 + 依据 + 分析”</td></tr>
+              <tr><td><a href="#pack-r3">R3</a></td><td>赏析、说明文语言只背术语</td><td>说清词语作用、对象特点和表达效果</td><td>不只写“准确、生动”，能联系原文</td></tr>
+              <tr><td><a href="#pack-r4">R4</a></td><td>非连续文本不用材料和数据</td><td>从材料编号、数字、关键词中找依据</td><td>结论和建议都有材料支撑</td></tr>
+              <tr><td><a href="#pack-w1">W1</a></td><td>写话、观察片段太短太空</td><td>补时间、地点、动作、变化、心情</td><td>至少 3-5 句，画面完整</td></tr>
+              <tr><td><a href="#pack-w2">W2</a></td><td>作文重点段薄、中心浅、详略不当</td><td>放大关键一幕，写出变化和认识</td><td>重点段有动作、心理、结果和中心</td></tr>
+              <tr><td><a href="#pack-w3">W3</a></td><td>审题扣题不稳，限时作文没有题眼</td><td>先定题眼、中心、材料和点题结尾</td><td>提纲能直接支撑题目要求</td></tr>
+              <tr><td><a href="#pack-c1">C1</a></td><td>综合题型判断慢，限时答题层次乱</td><td>先判断考点，再按分值分层</td><td>能说出题型并写出答题层次</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-grid">
+        <article class="study-block" id="pack-b1">
+          <h2>B1 字词拼音训练包</h2>
+          <div class="routine">
+            <p><strong>题1：</strong>拼读 h-uā、l-ǜ、q-ún，并说出声调。</p>
+            <p><strong>题2：</strong>清、晴、睛填空：雨后天空放（ ），小河很（ ），妹妹的眼（ ）亮亮的。</p>
+            <p><strong>题3：</strong>用“书、花、水”各说一句完整话。</p>
+            <p><strong>答案：</strong>huā、lǜ、qún；晴、清、睛；句子要有谁、在哪里、做什么。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>拼读 j-ǔ、x-üé、n-ǚ</td><td>jǔ、xué、nǚ</td><td>j、x 遇 ü 去两点，n 遇 ü 不去点。</td></tr>
+            <tr><td>提升</td><td>选字：公（园/圆）里有一个（园/圆）形花坛。</td><td>园、圆</td><td>看语境和字义。</td></tr>
+            <tr><td>拔尖</td><td>用“清、晴、睛”各写一句话</td><td>湖水很清。今天很晴朗。她的眼睛亮亮的。</td><td>每句词义准确。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block accent" id="pack-r1">
+          <h2>R1 概括训练包</h2>
+          <div class="routine">
+            <p><strong>材料：</strong>星期天，小雨和爸爸去图书馆借书。她选了一本科普书，还把看完的绘本放回书架。回家后，她把书里的有趣知识讲给妈妈听。</p>
+            <p><strong>题1：</strong>圈人物、事情、结果。</p>
+            <p><strong>题2：</strong>用一句话概括材料。</p>
+            <p><strong>答案：</strong>小雨和爸爸去图书馆借书，小雨整理书架，回家后分享书中知识。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>圈出“谁、做什么、结果”</td><td>小雨；去图书馆借书、整理书架；分享知识。</td><td>三项都圈到。</td></tr>
+            <tr><td>提升</td><td>删掉次要细节后概括</td><td>小雨去图书馆借书并整理书架，回家分享知识。</td><td>不抄“科普书、绘本”等细节。</td></tr>
+            <tr><td>拔尖</td><td>用 25 字内概括</td><td>小雨借书、整理书架，并分享书中知识。</td><td>短而完整。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block" id="pack-r2">
+          <h2>R2 原文依据训练包</h2>
+          <div class="routine">
+            <p><strong>材料：</strong>雨越来越大，林老师把自己的伞递给没带伞的同学，自己站在屋檐下等雨小一些再走。</p>
+            <p><strong>题1：</strong>林老师是怎样的人？</p>
+            <p><strong>题2：</strong>从哪里看出来？</p>
+            <p><strong>答案：</strong>林老师关心学生、愿意为学生着想。从她把伞递给同学、自己留下等雨小可以看出。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>圈出能证明老师关心学生的动作</td><td>把伞递给同学，自己站在屋檐下等。</td><td>证据必须来自材料。</td></tr>
+            <tr><td>提升</td><td>用“特点 + 依据”回答</td><td>林老师关心学生，从她把伞递给没带伞的同学可以看出。</td><td>特点和依据对应。</td></tr>
+            <tr><td>拔尖</td><td>加一句分析</td><td>这说明她把学生的需要放在自己前面。</td><td>从细节推到品质。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block accent" id="pack-r3">
+          <h2>R3 赏析和说明文训练包</h2>
+          <div class="routine">
+            <p><strong>题1：</strong>“大约 50 米”中的“大约”能删吗？为什么？</p>
+            <p><strong>题2：</strong>赏析“树叶像一只只小船漂在水面上”。</p>
+            <p><strong>答案：</strong>不能删，“大约”表示估计，删后变成完全确定，体现语言准确；比喻把树叶比作小船，写出树叶轻轻漂浮的样子，画面更生动。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>“可能”能删吗？</td><td>不能，表示不确定，删后说法绝对。</td><td>先解释词义。</td></tr>
+            <tr><td>提升</td><td>“约 80%”体现什么？</td><td>体现说明文语言准确、严谨。</td><td>联系数字和限制。</td></tr>
+            <tr><td>拔尖</td><td>赏析“雨点像小鼓点”</td><td>用了比喻，写出雨声清脆、有节奏，画面更生动。</td><td>方法、特点、效果齐全。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block" id="pack-r4">
+          <h2>R4 非连续文本训练包</h2>
+          <div class="routine">
+            <p><strong>材料：</strong>每天阅读 30 分钟以上的学生，作文按时完成率为 78%；每周只阅读 1 次的学生，作文按时完成率为 46%。</p>
+            <p><strong>题1：</strong>比较两组数据。</p>
+            <p><strong>题2：</strong>给同学提一条建议。</p>
+            <p><strong>答案：</strong>每天阅读 30 分钟以上的学生作文按时完成率更高。建议同学每天固定阅读 30 分钟以上，因为材料显示稳定阅读和作文完成情况有关。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>找出最高数据</td><td>每天阅读 30 分钟以上，作文按时完成率 78%。</td><td>数据和对象都写。</td></tr>
+            <tr><td>提升</td><td>比较两组数据</td><td>78% 高于 46%，稳定阅读的学生作文完成情况更好。</td><td>必须比较。</td></tr>
+            <tr><td>拔尖</td><td>写一条建议并说明依据</td><td>建议每天阅读 30 分钟以上，因为材料中这类学生作文按时完成率更高。</td><td>建议有材料支撑。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block accent" id="pack-w1">
+          <h2>W1 写话和观察训练包</h2>
+          <div class="routine">
+            <p><strong>低分句：</strong>小鸟飞来了。</p>
+            <p><strong>升格：</strong>清晨，一只黄色的小鸟扑扇着翅膀，轻轻飞到窗台上，叽叽喳喳地叫着。</p>
+            <p><strong>二次练习：</strong>把“小狗跑来了”扩成 3 句，再补一句心情。</p>
+            <p><strong>检查：</strong>是否有样子、动作、声音或心情。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>把“小狗跑来了”补成一句具体话</td><td>一只黄色的小狗摇着尾巴跑来了。</td><td>补样子和动作。</td></tr>
+            <tr><td>提升</td><td>扩成 3 句话</td><td>一只黄色的小狗摇着尾巴跑来了。它围着我转了一圈。我的心里高兴极了。</td><td>动作连续。</td></tr>
+            <tr><td>拔尖</td><td>写观察变化：花苞开了</td><td>早上，花苞还是紧紧合着。中午，花瓣慢慢展开，露出嫩黄的花心。我惊喜地凑近看了又看。</td><td>有时间、变化、感受。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block" id="pack-w2">
+          <h2>W2 重点段升格训练包</h2>
+          <div class="routine">
+            <p><strong>低分段：</strong>我参加比赛，很紧张。后来我成功了，很开心。</p>
+            <p><strong>升格：</strong>轮到我上场时，我的手紧紧抓着号码牌，耳边的加油声忽远忽近。发令枪一响，我咬紧牙关冲了出去。冲过终点那一刻，我忽然明白，勇敢就是害怕时也往前一步。</p>
+            <p><strong>二次练习：</strong>把“第一次上台”写出害怕到开口的变化。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>给“我很紧张”补动作</td><td>我攥着衣角，手心里全是汗。</td><td>不用空泛心情词。</td></tr>
+            <tr><td>提升</td><td>写“害怕到开口”的变化</td><td>我低头盯着稿纸，声音卡在喉咙里。听见老师鼓励，我深吸一口气，说出了第一句话。</td><td>有前后变化。</td></tr>
+            <tr><td>拔尖</td><td>给重点段补中心句</td><td>那一刻我明白，勇敢不是不害怕，而是害怕时仍愿意尝试。</td><td>结尾有认识提升。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block accent" id="pack-w3">
+          <h2>W3 审题扣题训练包</h2>
+          <div class="routine">
+            <p><strong>题目：</strong>这一次，我做对了。</p>
+            <p><strong>审题：</strong>题眼是“这一次”和“做对了”，必须写一次具体选择。</p>
+            <p><strong>提纲：</strong>中心：从犹豫到主动承担；重点段：关键选择时的心理变化；结尾：点明“做对”的认识。</p>
+            <p><strong>二次练习：</strong>给《这一次，我没有逃避》列同样的四项提纲。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>圈题眼：《这一次，我没有逃避》</td><td>这一次、没有逃避。</td><td>必须写一次具体经历。</td></tr>
+            <tr><td>提升</td><td>定中心</td><td>从想躲开到主动面对，明白责任不能逃避。</td><td>有变化和认识。</td></tr>
+            <tr><td>拔尖</td><td>列重点段</td><td>详写想推脱、犹豫、最后主动承担的心理和动作。</td><td>重点段服务题眼。</td></tr>
+          </tbody></table></div>
+        </article>
+        <article class="study-block" id="pack-c1">
+          <h2>C1 综合题型训练包</h2>
+          <div class="routine">
+            <p><strong>题1：</strong>“这句话在文中有什么作用？”先判断题型。</p>
+            <p><strong>题2：</strong>“根据材料提出建议”先找什么？</p>
+            <p><strong>题3：</strong>5 分题至少答几层？</p>
+            <p><strong>答案：</strong>句段作用题；先找材料依据、数字或关键词；至少 2-3 层，按结论、依据、分析组织。</p>
+          </div>
+          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
+            <tr><td>基础</td><td>判断题型：“这句话有什么作用？”</td><td>句段作用题。</td><td>先判断题型。</td></tr>
+            <tr><td>提升</td><td>作用题至少答哪几层？</td><td>内容、结构、中心或情感。</td><td>不只写“承上启下”。</td></tr>
+            <tr><td>拔尖</td><td>5 分综合题怎么分层？</td><td>先写结论，再写材料依据，最后补分析或中心。</td><td>按分值组织答案。</td></tr>
+          </tbody></table></div>
+        </article>
+      </div>
+      <div class="table-card" id="flow-record" style="margin-top:18px;">
+        <h2>分流复盘记录表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>日期</th><th>A卷错因编码</th><th>完成训练包</th><th>B卷复测结果</th><th>下一步</th></tr></thead>
+            <tbody>
+              <tr><td></td><td></td><td></td><td>通过 / 需再练</td><td></td></tr>
+              <tr><td></td><td></td><td></td><td>通过 / 需再练</td><td></td></tr>
+              <tr><td></td><td></td><td></td><td>通过 / 需再练</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -1764,6 +2561,11 @@
 
   <script src="nav.js"></script>
   <script src="table-responsive.js"></script>
-  <script src="practice.js"></script>
+  <script>
+    window.addEventListener('afterprint', function () {
+      document.body.classList.remove('printing-training-sheet');
+    });
+  </script>
+  <script src="practice.js?v=76"></script>
 </body>
 </html>
