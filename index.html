@@ -8,20 +8,9 @@
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
-  
-  <!-- SEO优化 -->
-  <title>小学语文一对一拔尖辅导 | 特级教师式精准提分</title>
-  <meta name="description" content="特级教师式一对一拔尖辅导平台：先诊断薄弱点、再分析错因、再针对性训练迁移。A卷诊断→错因码→一对一精讲→B卷复测→C卷迁移→拔尖晋级。适用于小学1-6年级阅读理解、作文提分。">
-  <meta name="keywords" content="小学语文一对一辅导,特级教师作文辅导,阅读理解提分,作文拔尖,A卷诊断,错因训练,语文拔尖迁移,小学语文提优">
-  
-  <!-- Open Graph社交分享 -->
-  <meta property="og:title" content="小学语文一对一拔尖辅导 | 特级教师式精准提分">
-  <meta property="og:description" content="先诊断、再判错因、再训练迁移。A卷诊断→错因码→一对一精讲→B卷复测→C卷迁移→拔尖晋级。">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="zh_CN">
-  
+  <title>小学语文学习平台 - 知识导航</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=82">
+  <link rel="stylesheet" href="styles.css">
   <style>
     /* 诊断和任务模块 */
     .diagnosis-section {
@@ -236,674 +225,6 @@
       font-size: 14px;
     }
     
-    /* 首屏核心卖点 */
-    .hero-section {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 60px 5vw 80px;
-      text-align: center;
-      color: white;
-    }
-    .hero-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 8px 20px;
-      border-radius: 30px;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    .hero-title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .hero-subtitle {
-      font-size: 18px;
-      opacity: 0.9;
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-    .hero-cta {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .cta-btn {
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .cta-btn.primary {
-      background: white;
-      color: #667eea;
-    }
-    .cta-btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .cta-btn.secondary {
-      background: rgba(255,255,255,0.15);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    .cta-btn.secondary:hover {
-      background: rgba(255,255,255,0.25);
-    }
-    .hero-features {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-    }
-    .feature-icon {
-      font-size: 18px;
-    }
-
-    /* 辅导闭环图 */
-    .peak-flow-section {
-      background: #f8f9ff;
-      padding: 60px 5vw;
-    }
-    .peak-flow-container {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-    .peak-flow-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .flow-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-      color: #333;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-    .peak-flow-header h2 {
-      font-size: 28px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .peak-flow-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .peak-flow-steps {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .peak-step {
-      background: white;
-      border-radius: 16px;
-      padding: 25px 20px;
-      text-align: center;
-      width: 145px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      transition: all 0.3s;
-    }
-    .peak-step:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-    }
-    .peak-step-num {
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 24px;
-      background: #667eea;
-      color: white;
-      border-radius: 50%;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .peak-step {
-      position: relative;
-      padding-top: 20px;
-    }
-    .peak-step-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-    .peak-step h4 {
-      font-size: 15px;
-      color: #333;
-      margin-bottom: 6px;
-    }
-    .peak-step p {
-      font-size: 12px;
-      color: #666;
-      margin: 0;
-      line-height: 1.4;
-    }
-    .peak-arrow {
-      font-size: 24px;
-      color: #667eea;
-      font-weight: bold;
-    }
-    .peak-flow-note {
-      text-align: center;
-      background: white;
-      padding: 15px 25px;
-      border-radius: 10px;
-      border-left: 4px solid #667eea;
-    }
-    .peak-flow-note p {
-      color: #555;
-      font-size: 14px;
-      margin: 0;
-    }
-
-    /* 特级教师式方法 */
-    .teacher-standard-section {
-      background: white;
-      padding: 60px 5vw;
-    }
-    .standard-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .standard-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .standard-header h2 {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .standard-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .standard-steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-    }
-    .standard-card {
-      background: linear-gradient(135deg, #f8f9ff, #fff);
-      border: 1px solid #e8ecf4;
-      border-radius: 12px;
-      padding: 25px 15px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-    .standard-card:hover {
-      border-color: #667eea;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
-    }
-    .standard-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-    .standard-card h4 {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .standard-card p {
-      font-size: 12px;
-      color: #666;
-      margin: 0;
-      line-height: 1.4;
-    }
-
-    /* 成果案例 */
-    .cases-section {
-      background: linear-gradient(135deg, #f8f9ff 0%, #fff5f5 100%);
-      padding: 60px 5vw;
-    }
-    .cases-container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .cases-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .cases-header h2 {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .cases-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .cases-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-    .case-card {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      position: relative;
-    }
-    .case-tag {
-      position: absolute;
-      top: -10px;
-      right: 20px;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: white;
-    }
-    .case-tag.reading {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-    }
-    .case-tag.writing {
-      background: linear-gradient(135deg, #f093fb, #f5576c);
-    }
-    .case-tag.transfer {
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-    }
-    .case-card h3 {
-      font-size: 17px;
-      color: #333;
-      margin-bottom: 15px;
-      padding-top: 5px;
-    }
-    .case-before, .case-after {
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-    .case-before {
-      background: #fff5f5;
-      border-left: 3px solid #f5576c;
-    }
-    .case-after {
-      background: #f0fff4;
-      border-left: 3px solid #48bb78;
-    }
-    .case-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #666;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .case-before p, .case-after p {
-      font-size: 13px;
-      color: #333;
-      margin: 0;
-      line-height: 1.5;
-    }
-    .case-arrow {
-      text-align: center;
-      font-size: 12px;
-      color: #667eea;
-      padding: 8px 0;
-    }
-    .case-result {
-      text-align: center;
-      padding: 12px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-top: 15px;
-    }
-
-    /* ===== 家长参与感 ===== */
-    .parent-section {
-      padding: 50px 5vw;
-      background: white;
-    }
-    .parent-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .parent-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-    .parent-header h2 {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .parent-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .parent-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-    .parent-card {
-      background: #f8f9ff;
-      border: 1px solid #e8ecf4;
-      border-radius: 16px;
-      padding: 25px 20px;
-      transition: all 0.3s;
-    }
-    .parent-card:hover {
-      border-color: #667eea;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
-    }
-    .parent-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-    .parent-card h4 {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .parent-card p {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-      margin: 0 0 12px;
-    }
-    .parent-example {
-      background: white;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 12px;
-      color: #555;
-      border-left: 3px solid #667eea;
-      line-height: 1.6;
-    }
-    .radar-placeholder {
-      background: linear-gradient(135deg, #f0f0ff, #f8f9ff);
-      border-radius: 8px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #999;
-      margin-top: 10px;
-    }
-
-    /* ===== 学习动机 ===== */
-    .motivation-section {
-      padding: 50px 5vw;
-      background: #f7f8fb;
-    }
-    .motivation-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .motivation-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-    .motivation-header h2 {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .motivation-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .motivation-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-    .badge-card, .honor-card, .curve-card {
-      background: white;
-      border-radius: 16px;
-      padding: 25px 20px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    }
-    .badge-icons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .badge-item {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .badge-item.earned { background: #f6d365; }
-    .badge-item.locked { background: #e8ecf4; filter: grayscale(1); opacity: 0.5; }
-    .badge-item h5 {
-      font-size: 12px;
-      color: #667eea;
-      margin: 0 0 8px;
-    }
-    .badge-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      text-align: left;
-    }
-    .badge-list li {
-      font-size: 13px;
-      color: #555;
-      padding: 6px 0;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .badge-list li:last-child { border-bottom: none; }
-    .badge-dot { font-size: 12px; }
-    .honor-board {
-      background: linear-gradient(135deg, #f6d365, #fda085);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
-    .honor-board p {
-      font-size: 12px;
-      color: #333;
-      margin: 0;
-      line-height: 1.6;
-    }
-    .curve-placeholder {
-      background: linear-gradient(135deg, #e8f4fd, #f0f7ff);
-      border-radius: 8px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #999;
-    }
-
-    /* ===== 4. 错题本自动化 ===== */
-    .mistake-section {
-      padding: 50px 5vw;
-      background: white;
-    }
-    .mistake-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .mistake-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-    .mistake-header h2 {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .mistake-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .mistake-flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .mistake-step {
-      background: #f8f9ff;
-      border: 1px solid #e8ecf4;
-      border-radius: 12px;
-      padding: 20px 15px;
-      text-align: center;
-      width: 200px;
-      transition: all 0.3s;
-    }
-    .mistake-step:hover {
-      border-color: #667eea;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.1);
-    }
-    .mistake-step-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-    .mistake-step h5 {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 5px;
-    }
-    .mistake-step p {
-      font-size: 12px;
-      color: #666;
-      margin: 0;
-      line-height: 1.4;
-    }
-    .mistake-arrow {
-      font-size: 20px;
-      color: #667eea;
-      font-weight: bold;
-    }
-    .forget-note {
-      background: #fff9e6;
-      border: 1px solid #f6d365;
-      border-radius: 10px;
-      padding: 15px 20px;
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .forget-note p {
-      font-size: 14px;
-      color: #555;
-      margin: 0;
-      line-height: 1.6;
-    }
-    .forget-note strong { color: #e67e22; }
-
-    /* ===== 5. 适配更多场景 ===== */
-    .scene-section {
-      padding: 50px 5vw;
-      background: #f7f8fb;
-    }
-    .scene-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .scene-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-    .scene-header h2 {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .scene-header p {
-      color: #666;
-      font-size: 16px;
-    }
-    .scene-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-    .scene-card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      transition: all 0.3s;
-    }
-    .scene-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-    .scene-banner {
-      padding: 20px;
-      color: white;
-      text-align: center;
-    }
-    .scene-banner h4 { font-size: 18px; margin-bottom: 4px; }
-    .scene-banner span { font-size: 13px; opacity: 0.9; }
-    .scene-card:nth-child(1) .scene-banner { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-    .scene-card:nth-child(2) .scene-banner { background: linear-gradient(135deg, #667eea, #764ba2); }
-    .scene-card:nth-child(3) .scene-banner { background: linear-gradient(135deg, #f093fb, #f5576c); }
-    .scene-body { padding: 20px; }
-    .scene-body h5 {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .scene-body ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 12px;
-    }
-    .scene-body li {
-      font-size: 13px;
-      color: #666;
-      padding: 4px 0;
-      line-height: 1.5;
-    }
-    .scene-target {
-      display: inline-block;
-      background: #f0f7ff;
-      color: #667eea;
-      padding: 4px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
       .diagnosis-container {
         grid-template-columns: 1fr;
@@ -914,43 +235,6 @@
       .roadmap-table th, .roadmap-table td {
         padding: 12px 8px;
         font-size: 13px;
-      }
-      .hero-title {
-        font-size: 28px;
-      }
-      .hero-features {
-        gap: 15px;
-      }
-      .peak-flow-steps {
-        flex-direction: column;
-      }
-      .peak-arrow {
-        transform: rotate(90deg);
-      }
-      .peak-step {
-        width: 100%;
-        max-width: 280px;
-      }
-      .standard-steps {
-        grid-template-columns: 1fr 1fr;
-      }
-      .cases-grid {
-        grid-template-columns: 1fr;
-      }
-      .parent-grid,
-      .motivation-grid,
-      .scene-grid {
-        grid-template-columns: 1fr;
-      }
-      .mistake-flow {
-        flex-direction: column;
-      }
-      .mistake-arrow {
-        transform: rotate(90deg);
-      }
-      .mistake-step {
-        width: 100%;
-        max-width: 260px;
       }
     }
   </style>
@@ -979,134 +263,6 @@
     </nav>
   </header>
 
-  <!-- 首屏核心卖点 -->
-  <section class="hero-section">
-    <div class="hero-container">
-      <div class="hero-badge">特级教师式一对一拔尖辅导</div>
-      <h1 class="hero-title">先诊断、再判错因<br>再训练迁移</h1>
-      <p class="hero-subtitle">不是普通语文知识导航，而是把孩子的薄弱点拆成可执行的一对一辅导路径：基础达标 → 提优提升 → 拔尖迁移。</p>
-      
-      <div class="hero-cta">
-        <a href="practice.html#diagnosis" class="cta-btn primary">开始15分钟诊断</a>
-        <a href="practice.html#one-on-one-peak-coach" class="cta-btn primary">进入一对一拔尖辅导</a>
-        <a href="#peak-flow" class="cta-btn secondary">看家长闭环图</a>
-      </div>
-      
-      <div class="hero-features">
-        <div class="feature-item">
-          <span class="feature-icon">📊</span>
-          <span>先诊断薄弱点</span>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🔍</span>
-          <span>再分析错因</span>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🎯</span>
-          <span>针对性训练</span>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🚀</span>
-          <span>拔尖迁移</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 辅导闭环图 -->
-  <section class="peak-flow-section" id="peak-flow">
-    <div class="peak-flow-container">
-      <div class="peak-flow-header">
-        <span class="flow-badge">家长一眼看懂</span>
-        <h2>家长一眼看懂的辅导闭环</h2>
-        <p>A卷诊断 → 错因码 → 一对一精讲 → B卷复测 → C卷迁移 → 拔尖晋级</p>
-      </div>
-      <div class="peak-flow-steps">
-        <div class="peak-step">
-          <div class="peak-step-num">1</div>
-          <div class="peak-step-icon">📝</div>
-          <h4>A卷诊断</h4>
-          <p>15分钟摸底，找出真实薄弱点</p>
-        </div>
-        <div class="peak-arrow">→</div>
-        <div class="peak-step">
-          <div class="peak-step-num">2</div>
-          <div class="peak-step-icon">🔖</div>
-          <h4>错因码</h4>
-          <p>定位到具体错因类型</p>
-        </div>
-        <div class="peak-arrow">→</div>
-        <div class="peak-step">
-          <div class="peak-step-num">3</div>
-          <div class="peak-step-icon">📖</div>
-          <h4>一对一精讲</h4>
-          <p>特级教师式方法讲解</p>
-        </div>
-        <div class="peak-arrow">→</div>
-        <div class="peak-step">
-          <div class="peak-step-num">4</div>
-          <div class="peak-step-icon">🔄</div>
-          <h4>B卷复测</h4>
-          <p>同类变式检验掌握</p>
-        </div>
-        <div class="peak-arrow">→</div>
-        <div class="peak-step">
-          <div class="peak-step-num">5</div>
-          <div class="peak-step-icon">🏆</div>
-          <h4>C卷迁移</h4>
-          <p>混合题检验能否换题型</p>
-        </div>
-        <div class="peak-arrow">→</div>
-        <div class="peak-step">
-          <div class="peak-step-num">6</div>
-          <div class="peak-step-icon">🏆</div>
-          <h4>拔尖晋级</h4>
-          <p>会讲、会改、会变式</p>
-        </div>
-      </div>
-      <div class="peak-flow-note">
-        <p>📌 <strong>不代写作业，不替孩子完成作文</strong> — 重点训练思路和表达方法</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 为什么是特级教师式方法 -->
-  <section class="teacher-standard-section">
-    <div class="standard-container">
-      <div class="standard-header">
-        <h2>为什么说是“特级教师式方法”？</h2>
-        <p>不靠空泛标签，而是按五个教学设计维度把题讲透</p>
-      </div>
-      <div class="standard-steps">
-        <div class="standard-card">
-          <div class="standard-icon">📚</div>
-          <h4>按课标维度</h4>
-          <p>对标年级学习目标，不超纲不偏题</p>
-        </div>
-        <div class="standard-card">
-          <div class="standard-icon">📝</div>
-          <h4>按常考题型</h4>
-          <p>覆盖考试高频题型，举一反三</p>
-        </div>
-        <div class="standard-card">
-          <div class="standard-icon">🔬</div>
-          <h4>按错因诊断</h4>
-          <p>找准"为什么错"，不止看"对不对"</p>
-        </div>
-        <div class="standard-card">
-          <div class="standard-icon">✅</div>
-          <h4>按满分答案</h4>
-          <p>展示规范答题格式和完整思路</p>
-        </div>
-        <div class="standard-card">
-          <div class="standard-icon">🔄</div>
-          <h4>按变式迁移</h4>
-          <p>换材料、换问法仍能准确作答</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 诊断和今日任务模块 -->
   <section class="diagnosis-section">
     <div class="diagnosis-container">
@@ -1114,7 +270,7 @@
       <div class="diagnosis-card">
         <h3>🔍 入门诊断测评</h3>
         <p>通过15分钟的测评，快速了解孩子的语文薄弱环节，包括字词、阅读、写作等方面，为个性化学习提供依据。</p>
-        <a href="practice.html#diagnosis" class="diagnosis-btn">开始15分钟诊断</a>
+        <a href="practice.html#diagnosis" class="diagnosis-btn">开始诊断测评</a>
       </div>
       <!-- 今日任务 -->
       <div class="diagnosis-card">
@@ -1166,7 +322,7 @@
         <div class="step-card">
           <div class="step-number">3</div>
           <h4>练习</h4>
-          <p>基础达标→提优提升→拔尖迁移<br>分层递进训练</p>
+          <p>基础→提优→拔高<br>分层递进训练</p>
         </div>
         <div class="step-card">
           <div class="step-number">4</div>
@@ -1182,128 +338,126 @@
     </div>
   </section>
 
-  <!-- 成果案例 -->
-  <section class="cases-section">
-    <div class="cases-container">
-      <div class="cases-header">
-        <h2>示范案例：从低分答案到可迁移方法</h2>
-        <p>每个案例都按“低分答案 → 老师诊断 → 满分答案 → 家长追问 → 变式题”走完整链路</p>
-      </div>
-      <div class="cases-grid">
-        <article class="case-card">
-          <div class="case-tag reading">阅读理解</div>
-          <h3>三年级·概括题提分</h3>
-          <div class="case-before">
-            <span class="case-label">✗ 低分答案</span>
-            <p>"文章主要写了小明去公园玩。"</p>
-          </div>
-          <div class="case-arrow">↓ 错因诊断：缺少人物+事件+结果</div>
-          <div class="case-after">
-            <span class="case-label">✓ 满分答案</span>
-            <p>"文章主要写了小明和爸爸周末去公园放风筝，在爸爸的帮助下学会了放风筝技巧。"</p>
-          </div>
-          <div class="case-after">
-            <span class="case-label">家长追问</span>
-            <p>你这句话里有没有“谁、做什么、结果”？能不能删掉颜色、地点等小细节？</p>
-          </div>
-          <div class="case-result">变式题：概括“小雨借书并分享知识”的短文，不超过25字。</div>
-        </article>
-        
-        <article class="case-card">
-          <div class="case-tag writing">作文辅导</div>
-          <h3>四年级·写人作文</h3>
-          <div class="case-before">
-            <span class="case-label">✗ 低分答案</span>
-            <p>"我的妈妈很勤劳，她每天做饭洗衣服，我很爱她。"</p>
-          </div>
-          <div class="case-arrow">↓ 老师诊断：缺少具体事例和细节描写</div>
-          <div class="case-after">
-            <span class="case-label">✓ 满分答案思路</span>
-            <p>"围绕'勤劳'选取两个具体事例：凌晨5点起床准备早餐、雨天接我放学却淋湿自己。结尾用'妈妈的爱藏在这些细节里'点题。"</p>
-          </div>
-          <div class="case-after">
-            <span class="case-label">家长追问</span>
-            <p>哪一个场景最能证明“勤劳”？能不能写出动作、神态和你的感受？</p>
-          </div>
-          <div class="case-result">变式题：把“爸爸很关心我”改成一个具体场景。</div>
-        </article>
-        
-        <article class="case-card">
-          <div class="case-tag transfer">拔尖迁移</div>
-          <h3>五年级·变式训练</h3>
-          <div class="case-before">
-            <span class="case-label">✗ 原题会做，变式不会</span>
-            <p>"分析人物形象"题会答，但换成"从哪些细节可以看出"就失分。</p>
-          </div>
-          <div class="case-arrow">↓ 专项训练：C卷变式题组+答题格式</div>
-          <div class="case-after">
-            <span class="case-label">✓ 跨题型迁移</span>
-            <p>"细节→依据→概括人物品质"三步法，能应对5种不同问法。</p>
-          </div>
-          <div class="case-after">
-            <span class="case-label">家长追问</span>
-            <p>这道题换问法以后，本质还是人物题吗？你准备先圈哪两个细节？</p>
-          </div>
-          <div class="case-result">变式题：用同一方法回答“从哪里看出奶奶很细心”。</div>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <!-- 年级提优路线表 -->
   <section class="roadmap-section">
     <div class="roadmap-container">
       <div class="roadmap-title">
-        <h2>基础达标 → 提优提升 → 拔尖迁移年级路线表</h2>
+        <h2>年级提优路线表</h2>
       </div>
-      <table class="roadmap-table">
-        <thead>
-          <tr>
-            <th>年级</th>
-            <th>基础达标</th>
-            <th>提优提升</th>
-            <th>拔尖迁移</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>一年级</strong></td>
-            <td>拼音、笔画、简单识字</td>
-            <td>拼读熟练、认字量增加</td>
-            <td>能独立拼读、朗读短文</td>
-          </tr>
-          <tr>
-            <td><strong>二年级</strong></td>
-            <td>形近字、多音字、词语积累</td>
-            <td>阅读理解起步、写一段话</td>
-            <td>能说完整、写清楚</td>
-          </tr>
-          <tr>
-            <td><strong>三年级</strong></td>
-            <td>字词句、自然段</td>
-            <td>写具体、找中心句</td>
-            <td>能写完整片段</td>
-          </tr>
-          <tr>
-            <td><strong>四年级</strong></td>
-            <td>概括、修辞、描写</td>
-            <td>找依据、析作用</td>
-            <td>阅读答案有层次</td>
-          </tr>
-          <tr>
-            <td><strong>五年级</strong></td>
-            <td>中心、人物、说明文</td>
-            <td>分析主题和结构</td>
-            <td>作文有中心有详略</td>
-          </tr>
-          <tr>
-            <td><strong>六年级</strong></td>
-            <td>综合阅读、非连续性文本、文言文</td>
-            <td>四层答题法、作文升格</td>
-            <td>冲刺衔接中学、综合运用</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- 年级选项卡 -->
+      <div class="grade-tabs">
+        <button class="tab-btn" onclick="showGrade(1)">一年级</button>
+        <button class="tab-btn" onclick="showGrade(2)">二年级</button>
+        <button class="tab-btn active" onclick="showGrade(3)">三年级</button>
+        <button class="tab-btn" onclick="showGrade(4)">四年级</button>
+        <button class="tab-btn" onclick="showGrade(5)">五年级</button>
+        <button class="tab-btn" onclick="showGrade(6)">六年级</button>
+      </div>
+      
+      <!-- 年级内容卡片 -->
+      <div class="grade-content">
+        <!-- 一年级 -->
+        <div id="grade-1" class="grade-card">
+          <h3>一年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">拼音、笔画、简单识字</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">拼读熟练、认字量增加</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">能独立拼读、朗读短文</span>
+          </div>
+        </div>
+        
+        <!-- 二年级 -->
+        <div id="grade-2" class="grade-card">
+          <h3>二年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">形近字、多音字、词语积累</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">阅读理解起步、写一段话</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">能说完整、写清楚</span>
+          </div>
+        </div>
+        
+        <!-- 三年级 -->
+        <div id="grade-3" class="grade-card active">
+          <h3>三年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">字词句、自然段</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">写具体、找中心句</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">能写完整片段</span>
+          </div>
+        </div>
+        
+        <!-- 四年级 -->
+        <div id="grade-4" class="grade-card">
+          <h3>四年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">概括、修辞、描写</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">找依据、析作用</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">阅读答案有层次</span>
+          </div>
+        </div>
+        
+        <!-- 五年级 -->
+        <div id="grade-5" class="grade-card">
+          <h3>五年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">中心、人物、说明文</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">分析主题和结构</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">作文有中心有详略</span>
+          </div>
+        </div>
+        
+        <!-- 六年级 -->
+        <div id="grade-6" class="grade-card">
+          <h3>六年级学习重点</h3>
+          <div class="grade-item">
+            <span class="item-label">基础重点</span>
+            <span class="item-value">综合阅读、非连续性文本、文言文</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">提优重点</span>
+            <span class="item-value">四层答题法、作文升格</span>
+          </div>
+          <div class="grade-item">
+            <span class="item-label">拔高目标</span>
+            <span class="item-value">冲刺衔接中学、综合运用</span>
+          </div>
+        </div>
+      </div>
       <p class="roadmap-note">
         <strong>梯度特点：</strong>一年级重拼音识字基础，二年级重词语积累和阅读起步，三年级重表达完整，四年级重阅读依据，五年级重分析深度，六年级重综合运用与小升初冲刺
       </p>
@@ -1314,13 +468,11 @@
     <section class="hero dashboard-hero">
       <div class="hero-copy">
         <p class="eyebrow">小学一至六年级</p>
-        <h1>从基础达标到拔尖迁移，按错因安排下一课</h1>
-        <p class="lead">围绕字词、阅读、习作、古诗文和综合题五条主线，先看诊断结果，再进入错因训练、B卷复测和C卷迁移。</p>
+        <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
+        <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
         <div class="hero-actions">
-          <a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
-          <a class="button primary" href="practice.html#one-on-one-peak-coach">进入一对一拔尖辅导</a>
-          <a class="button primary" href="practice.html#motivation-loop">查看激励闭环</a>
-          <a class="button primary" href="practice.html#smart-wrongbook">智能错题本</a>
+          <a class="button primary" href="agent.html">打开 AI Agent</a>
+          <a class="button primary" href="practice.html">查看今日练习</a>
           <a class="button ghost" href="knowledge-map.html">打开知识总控台</a>
         </div>
       </div>
@@ -1372,15 +524,6 @@
             <a href="composition.html">作文专题</a>
           </div>
         </article>
-        <article class="route-card">
-          <h3>4. 用激励和错题留住进步</h3>
-          <p>每次错题自动进入个人错题库，按当天、3天、7天和考前冲刺提醒复练，同时生成本周攻克徽章和进步曲线。</p>
-          <div class="route-links">
-            <a href="practice.html#motivation-loop">学习激励</a>
-            <a href="practice.html#smart-wrongbook">智能错题本</a>
-            <a href="practice.html#scenario-paths">分层路径</a>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -1388,7 +531,7 @@
       <div class="section-title">
         <p class="eyebrow">入口分工</p>
         <h2>先选页面，再开始学</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按"总控台、年级页、作文页、专项页、练习页"分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按“总控台、年级页、作文页、专项页、练习页”分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
       </div>
       <div class="route-grid">
         <article class="route-card">
@@ -1402,7 +545,7 @@
         </article>
         <article class="route-card">
           <h3>年级学习</h3>
-          <p>按一至六年级看目标、易错点、提优提升重点和每周训练。</p>
+          <p>按一至六年级看目标、易错点、提优重点和每周训练。</p>
           <div class="route-links">
             <a href="grade1.html">一年级</a>
             <a href="grade2.html">二年级</a>
@@ -1782,9 +925,22 @@
           }, 100);
         });
       });
+      
+      // 年级选项卡切换
+      function showGrade(grade) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelectorAll('.grade-card').forEach(card => {
+          card.classList.remove('active');
+        });
+        
+        event.target.classList.add('active');
+        document.getElementById('grade-' + grade).classList.add('active');
+      }
     </script>
   </main>
-  <script src="nav.js?v=82"></script>
-  <script src="table-responsive.js?v=82"></script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

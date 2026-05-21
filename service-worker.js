@@ -1,4 +1,4 @@
-const CACHE_NAME = 'diandian-agent-v82';
+const CACHE_NAME = 'diandian-agent-v76';
 const STATIC_ASSETS = [
   './',
   './index.html',
