@@ -6,10 +6,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>拼音学习 - 小学语文基础</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
+  <title>小学拼音学习 | 声母韵母声调拼读练习</title>
+  <meta name="description" content="小学拼音学习完整指南：23个声母、24个韵母、4个声调详解，配合听音辨音、拼读练习、声调训练等互动功能，轻松掌握拼音。">
+  <meta name="keywords" content="小学拼音,声母表,韵母表,声调练习,拼读训练,听音辨音,拼音入门,一年级拼音">
+  <meta property="og:title" content="小学拼音学习 | 声母韵母声调拼读练习">
+  <meta property="og:description" content="系统学习23个声母、24个韵母、4个声调，配合互动练习掌握拼音。">
+  <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=83">
   <style>
     .pinyin-hero {
       background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
@@ -532,6 +538,76 @@
     </div>
   </section>
 
+  <!-- 听音辨音练习（新增） -->
+  <section class="spell-practice" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 5vw;">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow" style="color: rgba(255,255,255,0.8);">听音辨音</p>
+      <h2 style="color: white;">听一听，选一选</h2>
+      <p style="color: rgba(255,255,255,0.9); margin-top: 10px;">点击播放按钮，听拼音并选择正确答案</p>
+    </div>
+    <div class="spell-card" style="background: rgba(255,255,255,0.95);">
+      <div id="listenExercise">
+        <div class="spell-display">
+          <div style="font-size: 48px; margin-bottom: 20px;">🔊</div>
+          <button class="next-btn" style="padding: 15px 30px; font-size: 18px;" onclick="speakPinyin()">▶ 播放拼音</button>
+        </div>
+        <div id="listenQuestion" style="margin: 20px 0;">
+          <p style="font-size: 18px; color: #666; margin-bottom: 15px;">请选择你听到的拼音：</p>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 400px; margin: 0 auto;">
+            <button class="tone-btn listen-option" data-answer="ma" onclick="checkListenAnswer('ma')">mā/má/mǎ/mà</button>
+            <button class="tone-btn listen-option" data-answer="ba" onclick="checkListenAnswer('ba')">bā/bá/bǎ/bà</button>
+            <button class="tone-btn listen-option" data-answer="da" onclick="checkListenAnswer('da')">dā/dá/dǎ/dà</button>
+            <button class="tone-btn listen-option" data-answer="na" onclick="checkListenAnswer('na')">nā/ná/nǎ/nà</button>
+          </div>
+        </div>
+        <p id="listenFeedback" style="font-size: 16px; margin-top: 15px; display: none;"></p>
+        <p id="listenScore" style="font-size: 14px; color: #999; margin-top: 10px;">得分：<span id="listenScoreValue">0</span> / <span id="listenTotal">0</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 声母韵母组合练习（新增） -->
+  <section class="pinyin-section" style="background: #f7f8fb;">
+    <div class="section-title" style="text-align: center;">
+      <p class="eyebrow">拼读挑战</p>
+      <h2>声母 + 韵母 = 音节</h2>
+      <p style="color: #666; margin-top: 10px;">点击声母和韵母，组成完整的拼音</p>
+    </div>
+    <div class="spell-card" style="max-width: 700px; margin: 0 auto;">
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 16px; color: #666; margin-bottom: 10px;">目标音节：<strong id="targetSyllable" style="font-size: 28px; color: #667eea;">bā</strong></p>
+        <p style="font-size: 14px; color: #999;">组合提示：需要声母 <strong style="color: #667eea;">b</strong> + 韵母 <strong style="color: #11998e;">ā</strong></p>
+      </div>
+      <div style="display: flex; justify-content: center; gap: 60px; margin: 30px 0;">
+        <div>
+          <p style="font-size: 14px; color: #666; margin-bottom: 10px;">选择声母：</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            <button class="pinyin-item" onclick="selectInitial('b')" data-initial="b">b</button>
+            <button class="pinyin-item" onclick="selectInitial('p')" data-initial="p">p</button>
+            <button class="pinyin-item" onclick="selectInitial('m')" data-initial="m">m</button>
+            <button class="pinyin-item" onclick="selectInitial('f')" data-initial="f">f</button>
+            <button class="pinyin-item" onclick="selectInitial('d')" data-initial="d">d</button>
+          </div>
+        </div>
+        <div>
+          <p style="font-size: 14px; color: #666; margin-bottom: 10px;">选择韵母：</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            <button class="pinyin-item important" onclick="selectFinal('ā')" data-final="ā">ā</button>
+            <button class="pinyin-item important" onclick="selectFinal('á')" data-final="á">á</button>
+            <button class="pinyin-item important" onclick="selectFinal('ǎ')" data-final="ǎ">ǎ</button>
+            <button class="pinyin-item important" onclick="selectFinal('à')" data-final="à">à</button>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin: 20px 0;">
+        <p style="font-size: 16px; color: #666;">你的选择：</p>
+        <p style="font-size: 48px; font-weight: bold; color: #667eea;" id="combinedResult">？</p>
+        <button class="next-btn" onclick="checkCombine()" style="margin-top: 15px;">检查答案</button>
+      </div>
+      <p id="combineFeedback" style="text-align: center; font-size: 16px; margin-top: 15px; display: none;"></p>
+    </div>
+  </section>
+
   <script>
     // 声调练习数据
     const toneExercises = [
@@ -544,6 +620,135 @@
     ];
     let currentTone = 0;
 
+    // 听音辨音练习数据
+    const listenQuestions = [
+      { correct: 'ma', options: ['ma', 'ba', 'da', 'na'] },
+      { correct: 'ba', options: ['ba', 'pa', 'da', 'ta'] },
+      { correct: 'shi', options: ['shi', 'si', 'xi', 'chi'] },
+      { correct: 'zhong', options: ['zhong', 'chong', 'song', 'zhang'] },
+      { correct: 'xue', options: ['xue', 'xie', 'xue', 'xve'] },
+      { correct: 'hua', options: ['hua', 'huo', 'hai', 'hei'] },
+      { correct: 'mei', options: ['mei', 'mai', 'mie', 'mei'] },
+      { correct: 'you', options: ['you', 'yu', 'yao', 'yan'] },
+    ];
+    let currentListen = 0;
+    let listenScore = 0;
+    let listenTotal = 0;
+
+    // 组合练习数据
+    const combineExercises = [
+      { target: 'bā', initial: 'b', final: 'ā', hint: '这就是"八"字的读音' },
+      { target: 'mā', initial: 'm', final: 'ā', hint: '这就是"妈"字的读音' },
+      { target: 'bà', initial: 'b', final: 'à', hint: '这就是"爸"字的读音' },
+      { target: 'dà', initial: 'd', final: 'à', hint: '这就是"大"字的读音' },
+    ];
+    let currentCombine = 0;
+    let selectedInitial = '';
+    let selectedFinal = '';
+
+    // Web Speech API - 播放拼音
+    function speakPinyin() {
+      const question = listenQuestions[currentListen];
+      const text = question.correct;
+
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.8;
+        utterance.pitch = 1.1;
+        speechSynthesis.speak(utterance);
+      } else {
+        alert('抱歉，您的浏览器不支持语音功能。请使用Chrome、Safari或Edge浏览器。');
+      }
+    }
+
+    // 检查听音答案
+    function checkListenAnswer(answer) {
+      const question = listenQuestions[currentListen];
+      const feedback = document.getElementById('listenFeedback');
+      const scoreValue = document.getElementById('listenScoreValue');
+      const totalValue = document.getElementById('listenTotal');
+
+      listenTotal++;
+      feedback.style.display = 'block';
+
+      if (answer === question.correct) {
+        feedback.textContent = '✓ 回答正确！太棒了！';
+        feedback.style.color = '#4caf50';
+        listenScore++;
+        scoreValue.textContent = listenScore;
+      } else {
+        feedback.textContent = '✗ 再想想，正确答案是：' + question.correct;
+        feedback.style.color = '#f44336';
+      }
+
+      totalValue.textContent = listenTotal;
+
+      // 下一题
+      setTimeout(() => {
+        currentListen = (currentListen + 1) % listenQuestions.length;
+        const options = document.querySelectorAll('.listen-option');
+        const newOptions = listenQuestions[currentListen].options;
+        options.forEach((btn, i) => {
+          btn.dataset.answer = newOptions[i];
+          btn.textContent = newOptions[i];
+        });
+        feedback.style.display = 'none';
+      }, 1500);
+    }
+
+    // 选择声母
+    function selectInitial(initial) {
+      selectedInitial = initial;
+      updateCombineResult();
+    }
+
+    // 选择韵母
+    function selectFinal(final) {
+      selectedFinal = final;
+      updateCombineResult();
+    }
+
+    // 更新组合结果
+    function updateCombineResult() {
+      const result = document.getElementById('combinedResult');
+      if (selectedInitial && selectedFinal) {
+        result.textContent = selectedInitial + selectedFinal;
+        result.style.color = '#667eea';
+      } else {
+        result.textContent = '？';
+        result.style.color = '#ccc';
+      }
+    }
+
+    // 检查组合答案
+    function checkCombine() {
+      const exercise = combineExercises[currentCombine];
+      const feedback = document.getElementById('combineFeedback');
+      const result = document.getElementById('combinedResult');
+
+      feedback.style.display = 'block';
+
+      if (selectedInitial === exercise.initial && selectedFinal === exercise.final) {
+        feedback.textContent = '✓ 正确！' + exercise.hint;
+        feedback.style.color = '#4caf50';
+
+        // 下一题
+        setTimeout(() => {
+          currentCombine = (currentCombine + 1) % combineExercises.length;
+          const next = combineExercises[currentCombine];
+          document.getElementById('targetSyllable').textContent = next.target;
+          selectedInitial = '';
+          selectedFinal = '';
+          updateCombineResult();
+          feedback.style.display = 'none';
+        }, 1500);
+      } else {
+        feedback.textContent = '✗ 不对哦，再试试！提示：声母是 ' + exercise.initial + '，韵母是 ' + exercise.final;
+        feedback.style.color = '#f44336';
+      }
+    }
+
     // 初始化声调练习
     function initToneExercise() {
       const display = document.getElementById('toneDisplay');
@@ -555,10 +760,10 @@
       btn.addEventListener('click', () => {
         const tone = parseInt(btn.dataset.tone);
         const correct = toneExercises[currentTone].answer;
-        
+
         document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active', 'correct'));
         btn.classList.add('active');
-        
+
         if (tone === correct) {
           btn.classList.add('correct');
           // 显示正确的声调线条
@@ -567,7 +772,7 @@
               line.classList.add('active');
             }
           });
-          
+
           setTimeout(() => {
             document.querySelectorAll('.tone-line').forEach(line => line.classList.remove('active'));
             currentTone = (currentTone + 1) % toneExercises.length;
@@ -588,7 +793,7 @@
     function checkSpell() {
       const input = document.getElementById('spellInput').value.trim().toLowerCase();
       const hint = document.getElementById('spellHint');
-      
+
       if (input === 'ba' || input === 'b\u0101') {
         hint.style.display = 'block';
         hint.style.color = '#4caf50';
@@ -603,7 +808,7 @@
     // 页面加载时初始化
     document.addEventListener('DOMContentLoaded', initToneExercise);
   </script>
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js?v=83"></script>
+  <script src="table-responsive.js?v=83"></script>
 </body>
 </html>

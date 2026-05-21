@@ -6,10 +6,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>语法知识 - 小学语文基础</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
+  <title>小学语文语法知识详解 | 词性、句型、病句修改</title>
+  <meta name="description" content="小学语文语法知识全攻略：一年级至六年级词性认识、句型变换、病句修改、关联词运用、标点符号等核心语法知识点详解与练习。">
+  <meta name="keywords" content="小学语文语法,词性讲解,句型变换,病句修改,关联词练习,标点符号,陈述句反问句,把字句被字句,缩句扩句">
+  <meta property="og:title" content="小学语文语法知识详解 | 词性、句型、病句修改">
+  <meta property="og:description" content="系统梳理小学1-6年级语法知识，涵盖词性、句型、病句、关联词等核心考点。">
+  <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=83">
   <style>
     .grammar-hero {
       background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
@@ -158,9 +164,137 @@
     </section>
 
     <section class="grade-tabs">
+      <button class="grade-tab" onclick="showGrade('grade1')">一年级</button>
+      <button class="grade-tab" onclick="showGrade('grade2')">二年级</button>
       <button class="grade-tab active" onclick="showGrade('grade3')">三年级</button>
       <button class="grade-tab" onclick="showGrade('grade4')">四年级</button>
       <button class="grade-tab" onclick="showGrade('grade5')">五年级</button>
+      <button class="grade-tab" onclick="showGrade('grade6')">六年级</button>
+    </section>
+
+    <!-- 一年级语法 -->
+    <section id="grade1" class="grammar-section" style="display: none;">
+      <div class="grammar-card">
+        <h3>🔤 认识标点符号</h3>
+        <p><strong>句号（。）</strong>用在陈述句末尾，表示一句话说完。</p>
+        <div class="example-box"><strong>例子：</strong>我是小学生。</div>
+        <p><strong>问号（？）</strong>用在疑问句末尾，表示提出问题。</p>
+        <div class="example-box"><strong>例子：</strong>你叫什么名字？</div>
+        <p><strong>感叹号（！）</strong>用在感叹句末尾，表示强烈的感情。</p>
+        <div class="example-box"><strong>例子：</strong>春天真美啊！</div>
+        <div class="tip">💡 小口诀：句号像个零，问号像耳朵，感叹号像爆竹！</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📝 认识逗号和顿号</h3>
+        <p><strong>逗号（，）</strong>用于句子中间停顿的地方。</p>
+        <div class="example-box"><strong>例子：</strong>春天来了，花儿开了。</div>
+        <p><strong>顿号（、）</strong>用于并列的词语之间。</p>
+        <div class="example-box"><strong>例子：</strong>我会写汉字、词语和句子。</div>
+        <div class="tip">💡 记住：词语用顿号，句子用逗号！</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔤 认识简单的词</h3>
+        <p><strong>人称词：</strong>表示人物的词语。</p>
+        <div class="example-box"><strong>例子：</strong>我、你、他、她、爸爸、妈妈、老师</div>
+        <p><strong>数量词：</strong>表示数量或顺序的词语。</p>
+        <div class="example-box"><strong>例子：</strong>一个、两只、三次、第一次</div>
+        <p><strong>方位词：</strong>表示位置的词语。</p>
+        <div class="example-box"><strong>例子：</strong>上、下、里、外、前、后</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📚 认识反义词</h3>
+        <p>反义词就是意思相反的词。</p>
+        <div class="example-box">
+          <p>大—小、多—少、上—下、前—后</p>
+          <p>高—矮、长—短、来—去、开—关</p>
+          <p>白天—黑夜、开心—伤心、善良—凶恶</p>
+        </div>
+        <div class="tip">💡 记反义词有妙招：记住一个，就能想起另一个！</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>✏️ 写完整句子</h3>
+        <p><strong>完整的句子 = 谁 + 做什么/是什么</strong></p>
+        <div class="example-box">
+          <p>🌟 小明在跑步。</p>
+          <p>🌟 妈妈是老师。</p>
+          <p>🌟 天空很蓝。</p>
+        </div>
+        <p><strong>常见错误：句子不完整</strong></p>
+        <div class="example-box">
+          <p>❌ 在操场上。（谁在操场上？）</p>
+          <p>✅ 我在操场上。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二年级语法 -->
+    <section id="grade2" class="grammar-section" style="display: none;">
+      <div class="grammar-card">
+        <h3>🔤 认识更多标点</h3>
+        <p><strong>引号（""）</strong>用于表示说的话或特别强调的内容。</p>
+        <div class="example-box"><strong>例子：</strong>妈妈说："早点睡觉。"</div>
+        <p><strong>冒号（：）</strong>用在说的话前面。</p>
+        <div class="example-box"><strong>例子：</strong>小华喊："等等我！"</div>
+        <p><strong>省略号（……）</strong>表示省略或没说完的话。</p>
+        <div class="example-box"><strong>例子：</strong>我……我还没说完呢。</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📝 认识四素句</h3>
+        <p><strong>四素句 = 什么时间 + 谁 + 在哪里 + 做什么</strong></p>
+        <div class="example-box">
+          <p>🌟 早上，小明在学校操场上跑步。</p>
+          <p>🌟 星期天，我和妈妈在公园里放风筝。</p>
+        </div>
+        <div class="tip">💡 加上"什么时候"、"在哪里"，句子更具体！</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔄 认识"把"字句</h3>
+        <p><strong>"把"字句格式：</strong>谁 + 把 + 什么 + 怎么样</p>
+        <div class="example-box">
+          <p>🌟 我把作业写完了。</p>
+          <p>🌟 妈妈把衣服洗干净了。</p>
+          <p>🌟 哥哥把书放在桌子上。</p>
+        </div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📚 认识同义词</h3>
+        <p>同义词就是意思相近的词。</p>
+        <div class="example-box">
+          <p>观看—看、立即—马上、漂亮—美丽</p>
+          <p>著名—有名、希望—盼望、危险—可怕</p>
+        </div>
+        <div class="tip">💡 用同义词替换，可以让句子更丰富！</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>✏️ 把句子写具体</h3>
+        <p><strong>方法：加修饰词</strong></p>
+        <div class="example-box">
+          <p>❌ 小鸟飞。</p>
+          <p>✅ 可爱的小鸟在天空中自由地飞翔。</p>
+        </div>
+        <p><strong>方法：加形容词</strong></p>
+        <div class="example-box">
+          <p>❌ 我吃了苹果。</p>
+          <p>✅ 我吃了一个红红的大苹果。</p>
+        </div>
+        <div class="warning">⚠️ 注意：加的词要合适，不能乱加！</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔗 认识简单的关联词</h3>
+        <p><strong>"和"字：</strong>连接两件相关的事</p>
+        <div class="example-box"><strong>例子：</strong>我爱唱歌和跳舞。</div>
+        <p><strong>"也"字：</strong>表示同样情况</p>
+        <div class="example-box"><strong>例子：</strong>我喜欢语文，也喜欢数学。</div>
+      </div>
     </section>
 
     <!-- 三年级语法 -->
@@ -330,7 +464,375 @@
         </div>
       </div>
     </section>
+
+    <!-- 六年级语法 -->
+    <section id="grade6" class="grammar-section" style="display: none;">
+      <div class="grammar-card">
+        <h3>🔤 小升初语法总复习</h3>
+        <p><strong>词性系统梳理：</strong></p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 10px 0;">
+          <div style="background: #e3f2fd; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #1976d2; font-size: 14px;">实词（6类）</p>
+            <p style="font-size: 12px; color: #666;">名词、动词、形容词<br>数词、量词、代词</p>
+          </div>
+          <div style="background: #e8f5e9; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #388e3c; font-size: 14px;">虚词（4类）</p>
+            <p style="font-size: 12px; color: #666;">副词、介词、连词<br>助词、叹词</p>
+          </div>
+        </div>
+        <div class="tip">💡 实词有实在意义，虚词起连接作用</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔍 语病辨析专题</h3>
+        <p><strong>1. 成分残缺：</strong>缺少主语、谓语、宾语</p>
+        <div class="example-box">
+          <p>❌ 通过学习，使我提高了认识。</p>
+          <p>✅ 通过学习，我提高了认识。（或：学习使我提高了认识。）</p>
+        </div>
+        <p><strong>2. 搭配不当：</strong>主谓、动宾、定语与中心语搭配不当</p>
+        <div class="example-box">
+          <p>❌ 他取得了和交换了意见。</p>
+          <p>✅ 他听取和交换了意见。</p>
+        </div>
+        <p><strong>3. 语序不当：</strong>词语顺序不对</p>
+        <div class="example-box">
+          <p>❌ 大家讨论了和听取了这个报告。</p>
+          <p>✅ 大家听取和讨论了这个报告。</p>
+        </div>
+        <p><strong>4. 重复累赘：</strong>有多余的词</p>
+        <div class="example-box">
+          <p>❌ 他情不自禁地忍不住笑了起来。</p>
+          <p>✅ 他情不自禁地笑了起来。</p>
+        </div>
+        <p><strong>5. 表意不明：</strong>有歧义</p>
+        <div class="example-box">
+          <p>❌ 我去上课。</p>
+          <p>✅ 我去教室上课。（或：我去当老师上课。）</p>
+        </div>
+        <p><strong>6. 不合逻辑：</strong>前后矛盾或不符合常理</p>
+        <div class="example-box">
+          <p>❌ 所有的同学基本都到齐了。</p>
+          <p>✅ 所有的同学都到齐了。</p>
+        </div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📝 复句综合运用</h3>
+        <p><strong>多重复句分析：</strong></p>
+        <div class="example-box">
+          <p>因为我坚持每天晨读，<strong>|</strong>所以我的语文成绩不仅没有下降，<strong>|</strong>反而有了明显提高。</p>
+          <p style="font-size: 12px; color: #666;">（因果关系 + 递进关系）</p>
+        </div>
+        <p><strong>辨析易混淆关联词：</strong></p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: #fff3e0; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #e65100;">虽然...但是...（转折）</p>
+            <p style="font-size: 12px;">虽然我很努力，但是我没有成功。</p>
+          </div>
+          <div style="background: #e8f5e9; padding: 10px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #2e7d32;">既...又...（并列）</p>
+            <p style="font-size: 12px;">他既聪明又勤奋。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🔄 句式变换综合</h3>
+        <p><strong>陈述句 ↔ 感叹句：</strong></p>
+        <div class="example-box">
+          <p>陈述句：这是一本好书。</p>
+          <p>感叹句：这本书真是一本好书啊！</p>
+        </div>
+        <p><strong>陈述句 ↔ 反问句 ↔ 双重否定句：</strong></p>
+        <div class="example-box">
+          <p>陈述句：我们应该努力学习。</p>
+          <p>反问句：我们难道不应该努力学习吗？</p>
+          <p>双重否定：不得不努力学习。</p>
+        </div>
+        <p><strong>直接引语 ↔ 间接引语：</strong></p>
+        <div class="example-box">
+          <p>直接：老师笑着说："你们真棒！"</p>
+          <p>间接：老师笑着说我们真棒。</p>
+          <p style="font-size: 12px; color: #666;">（人称、时间词、地点词要相应改变）</p>
+        </div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>📋 标点符号综合运用</h3>
+        <p><strong>常见错误：</strong></p>
+        <div class="example-box">
+          <p>❌ "我今天真高兴"！小华兴奋的说。</p>
+          <p>✅ "我今天真高兴！"小华兴奋地说。</p>
+        </div>
+        <p><strong>分号使用：</strong>并列分句之间用分号</p>
+        <div class="example-box">
+          <p>语文学习要注意三点：多读，多思，多练。</p>
+        </div>
+        <p><strong>破折号用法：</strong>解释说明或话题转折</p>
+        <div class="example-box">
+          <p>我们吃的食物——米饭、面包、蔬菜——都来自农作物。</p>
+        </div>
+        <div class="tip">💡 小升初考点：标点占位、引号与点号位置、顿号与逗号区分</div>
+      </div>
+
+      <div class="grammar-card">
+        <h3>🎯 语法综合练习策略</h3>
+        <p><strong>病句修改步骤：</strong></p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0;">
+          <div style="background: #e3f2fd; padding: 8px 14px; border-radius: 20px; font-size: 13px;">① 读句子找问题</div>
+          <div style="background: #e8f5e9; padding: 8px 14px; border-radius: 20px; font-size: 13px;">② 判断病因类型</div>
+          <div style="background: #fff3e0; padding: 8px 14px; border-radius: 20px; font-size: 13px;">③ 保留有用部分</div>
+          <div style="background: #fce4ec; padding: 8px 14px; border-radius: 20px; font-size: 13px;">④ 只改错误处</div>
+          <div style="background: #f3e5f5; padding: 8px 14px; border-radius: 20px; font-size: 13px;">⑤ 检查是否通顺</div>
+        </div>
+        <div class="tip">💡 关键原则：只改错误，不改变原意</div>
+      </div>
+
+      <!-- 互动语法练习题 -->
+      <div class="grammar-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">
+        <h3 style="color: white; border-bottom-color: rgba(255,255,255,0.3);">🎮 互动语法练习</h3>
+        <div id="quiz-container">
+          <div id="quiz-question" style="font-size: 18px; margin-bottom: 20px;">
+            <p><strong>题目 1/10：</strong>请选出下面句子中使用正确的标点符号：</p>
+            <p style="margin-top: 10px;">"今天天气真好____"小明说____"我们去公园玩吧____"</p>
+          </div>
+          <div id="quiz-options">
+            <button class="quiz-option" onclick="checkAnswer(0)">A. ！ ， 。</button>
+            <button class="quiz-option" onclick="checkAnswer(1)">B. ！ ： ！</button>
+            <button class="quiz-option" onclick="checkAnswer(2)">C. ， ， ！</button>
+            <button class="quiz-option" onclick="checkAnswer(3)">D. ！ ， ！</button>
+          </div>
+          <div id="quiz-feedback" style="margin-top: 20px; padding: 15px; border-radius: 10px; display: none;"></div>
+          <button class="quiz-next-btn" onclick="nextQuestion()" style="margin-top: 20px; display: none;">下一题 →</button>
+          <div id="quiz-progress" style="margin-top: 20px; text-align: center; font-size: 14px;">得分：0/0</div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <style>
+    .quiz-option {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: left;
+    }
+    .quiz-option:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(5px);
+    }
+    .quiz-option.selected {
+      border-color: #ffeb3b;
+      background: rgba(255,235,59,0.2);
+    }
+    .quiz-option.correct {
+      border-color: #4caf50;
+      background: rgba(76,175,80,0.3);
+    }
+    .quiz-option.wrong {
+      border-color: #f44336;
+      background: rgba(244,67,54,0.3);
+    }
+    .quiz-next-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      background: white;
+      color: #11998e;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .quiz-next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+  </style>
+
+  <script>
+    const grammarQuiz = [
+      {
+        question: '请选出下面句子中使用正确的标点符号：<br>"今天天气真好____"小明说____"我们去公园玩吧____"',
+        options: ['A. ！ ， 。', 'B. ！ ： ！', 'C. ， ， ！', 'D. ！ ， ！'],
+        answer: 3,
+        feedback: '正确！当说话人在中间时，前半句结尾用逗号或感叹号，说话人后用逗号，最后用感叹号表达语气。'
+      },
+      {
+        question: '下列哪个句子是"把"字句？',
+        options: ['A. 小猫被小狗吓跑了', 'B. 我把书包整理好了', 'C. 妈妈正在做饭', 'D. 树上的叶子变黄了'],
+        answer: 1,
+        feedback: '正确！"把"字句的结构是：主语 + 把 + 宾语 + 动作。'
+      },
+      {
+        question: '下列哪个词语是形容词？',
+        options: ['A. 跑步', 'B. 美丽', 'C. 书本', 'D. 飞快地'],
+        answer: 1,
+        feedback: '正确！"美丽"是形容词，用来修饰名词。"跑步"是动词，"书本"是名词，"飞快地"是副词。'
+      },
+      {
+        question: '下列句子中，关联词使用正确的是？',
+        options: ['A. 因为今天下雨，所以我们不去公园', 'B. 虽然他学习好，但是他很骄傲', 'C. 即使明天放假，我就不去上学', 'D. 如果努力学习，才会取得好成绩'],
+        answer: 0,
+        feedback: '正确！"因为...所以..."是正确的因果关系关联词搭配。'
+      },
+      {
+        question: '请选出没有语病的句子：',
+        options: ['A. 我们要认真学习的好习惯', 'B. 他不但会唱歌，而且会跳舞', 'C. 小明和小红一起参加了昨天', 'D. 通过这次活动，使我明白了道理'],
+        answer: 1,
+        feedback: '正确！B选项句子结构完整，没有语病。A缺少谓语，C语序错误，D缺少主语。'
+      },
+      {
+        question: '下列哪个句子是反问句？',
+        options: ['A. 你今天开心吗？', 'B. 难道我们不应该珍惜时间吗？', 'C. 他去哪里了？', 'D. 请你帮我一下好吗？'],
+        answer: 1,
+        feedback: '正确！反问句用疑问形式表达肯定观点，答案就在问句中。'
+      },
+      {
+        question: '"春天来了，小草绿了。"这句话中，"春天"是什么词？',
+        options: ['A. 动词', 'B. 形容词', 'C. 名词', 'D. 副词'],
+        answer: 2,
+        feedback: '正确！"春天"是表示时间的名词。'
+      },
+      {
+        question: '下列句子中，哪个是"被"字句？',
+        options: ['A. 老师批改了我们的作业', 'B. 作业被老师批改了', 'C. 我们认真完成了作业', 'D. 作业写得很认真'],
+        answer: 1,
+        feedback: '正确！"被"字句的结构是：宾语 + 被 + 主语 + 动作。'
+      },
+      {
+        question: '下列哪个词语搭配是正确的？',
+        options: ['A. 端正作业', 'B. 打扫教室', 'C. 提高态度', 'D. 发扬成绩'],
+        answer: 1,
+        feedback: '正确！"打扫教室"是正确的动宾搭配。其他选项应为"端正态度"、"提高成绩"、"发扬精神"。'
+      },
+      {
+        question: '"虽然今天下雨，但是我们还是去了公园。"这句话用了什么关联词？',
+        options: ['A. 因果关系', 'B. 转折关系', 'C. 条件关系', 'D. 假设关系'],
+        answer: 1,
+        feedback: '正确！"虽然...但是..."表示转折关系，前后意思相反或相对。'
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function checkAnswer(optionIndex) {
+      const question = grammarQuiz[currentQuestion];
+      const options = document.querySelectorAll('.quiz-option');
+      const feedback = document.getElementById('quiz-feedback');
+      const nextBtn = document.querySelector('.quiz-next-btn');
+      
+      options.forEach((opt, idx) => {
+        opt.removeEventListener('click', checkAnswer);
+        if (idx === question.answer) {
+          opt.classList.add('correct');
+        } else if (idx === optionIndex && idx !== question.answer) {
+          opt.classList.add('wrong');
+        }
+        opt.style.pointerEvents = 'none';
+      });
+
+      if (optionIndex === question.answer) {
+        score++;
+        feedback.innerHTML = `🎉 回答正确！${question.feedback}`;
+        feedback.style.background = 'rgba(76,175,80,0.3)';
+      } else {
+        feedback.innerHTML = `❌ 回答错误。${question.feedback}`;
+        feedback.style.background = 'rgba(244,67,54,0.3)';
+      }
+      feedback.style.display = 'block';
+      nextBtn.style.display = 'block';
+      
+      updateProgress();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      
+      if (currentQuestion >= grammarQuiz.length) {
+        showResult();
+        return;
+      }
+      
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const question = grammarQuiz[currentQuestion];
+      const questionDiv = document.getElementById('quiz-question');
+      const options = document.querySelectorAll('.quiz-option');
+      const feedback = document.getElementById('quiz-feedback');
+      const nextBtn = document.querySelector('.quiz-next-btn');
+      
+      questionDiv.innerHTML = `<p><strong>题目 ${currentQuestion + 1}/10：</strong>${question.question}</p>`;
+      
+      options.forEach((opt, idx) => {
+        opt.textContent = question.options[idx];
+        opt.className = 'quiz-option';
+        opt.style.pointerEvents = 'auto';
+      });
+      
+      feedback.style.display = 'none';
+      nextBtn.style.display = 'none';
+    }
+
+    function showResult() {
+      const container = document.getElementById('quiz-container');
+      const percentage = Math.round((score / grammarQuiz.length) * 100);
+      
+      let message = '';
+      let emoji = '';
+      
+      if (percentage >= 90) {
+        emoji = '🏆';
+        message = '太棒了！你是语法小达人！';
+      } else if (percentage >= 70) {
+        emoji = '👍';
+        message = '做得不错！继续加油！';
+      } else if (percentage >= 60) {
+        emoji = '💪';
+        message = '及格了！多多练习会更好！';
+      } else {
+        emoji = '📚';
+        message = '需要多复习语法知识哦！';
+      }
+      
+      container.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 64px; margin-bottom: 20px;">${emoji}</div>
+          <h3 style="font-size: 24px; margin-bottom: 10px;">练习完成！</h3>
+          <p style="font-size: 18px;">你的得分：${score}/${grammarQuiz.length}（${percentage}%）</p>
+          <p style="margin-top: 20px;">${message}</p>
+          <button class="quiz-next-btn" onclick="restartQuiz()" style="margin-top: 25px;">再练一次</button>
+        </div>
+      `;
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      loadQuestion();
+      updateProgress();
+    }
+
+    function updateProgress() {
+      document.getElementById('quiz-progress').textContent = `得分：${score}/${currentQuestion + 1}`;
+    }
+
+    window.onload = function() {
+      loadQuestion();
+    };
+  </script>
 
   <script>
     function showGrade(grade) {
@@ -341,7 +843,7 @@
       document.getElementById(grade).style.display = 'block';
     }
   </script>
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js?v=83"></script>
+  <script src="table-responsive.js?v=83"></script>
 </body>
 </html>

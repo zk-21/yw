@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>一年级语文 - 小学语文基础</title>
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=76">
+  <link rel="stylesheet" href="styles.css?v=83">
   <style>
     .grade-one-hero {
       background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fdfcfb 100%);
@@ -470,9 +470,294 @@
       <article class="study-block"><h2>一年级必须形成的 5 个能力</h2><ul class="check-list"><li>拼音拼读：能正确拼读两拼和三拼音节。</li><li>识字认读：能借助拼音读短句和儿歌。</li><li>正确书写：掌握基本笔画和笔顺。</li><li>朗读表达：读准、停顿、说大意。</li><li>倾听专注：能听懂问题并完整回答。</li></ul></article>
       <article class="study-block accent"><h2>一年级提优总口诀</h2><div class="routine"><p><strong>拼音：</strong>声母轻，韵母响，声调准。</p><p><strong>识字：</strong>字不离词，词不离句。</p><p><strong>朗读：</strong>读完说大意。</p><p><strong>表达：</strong>五问答全就完整。</p></div></article>
     </section>
+
+    <!-- 游戏化互动练习区 -->
+    <section class="section" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 50px 5vw;">
+      <div class="section-title" style="text-align: center;">
+        <p class="eyebrow" style="color: rgba(255,255,255,0.8);">🎮 趣味小游戏</p>
+        <h2 style="color: white;">边玩边学，快乐成长</h2>
+      </div>
+
+      <!-- 拼音配对游戏 -->
+      <div class="game-card" style="background: white; border-radius: 20px; padding: 30px; max-width: 800px; margin: 0 auto 30px;">
+        <h3 style="color: #d63384; margin-bottom: 20px; text-align: center;">🔤 拼音配对小能手</h3>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+          <div>
+            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 10px;">声母</p>
+            <div class="pinyin-game-grid">
+              <button class="pinyin-game-btn" data-value="b" onclick="matchPinyin('b')">b</button>
+              <button class="pinyin-game-btn" data-value="p" onclick="matchPinyin('p')">p</button>
+              <button class="pinyin-game-btn" data-value="m" onclick="matchPinyin('m')">m</button>
+              <button class="pinyin-game-btn" data-value="f" onclick="matchPinyin('f')">f</button>
+            </div>
+          </div>
+          <div style="font-size: 30px; color: #999;">+</div>
+          <div>
+            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 10px;">韵母</p>
+            <div class="pinyin-game-grid">
+              <button class="pinyin-game-btn" data-value="a" onclick="matchPinyin('a')">ā</button>
+              <button class="pinyin-game-btn" data-value="o" onclick="matchPinyin('o')">ō</button>
+              <button class="pinyin-game-btn" data-value="e" onclick="matchPinyin('e')">ē</button>
+              <button class="pinyin-game-btn" data-value="i" onclick="matchPinyin('i')">ī</button>
+            </div>
+          </div>
+          <div style="font-size: 30px; color: #999;">=</div>
+          <div>
+            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 10px;">结果</p>
+            <div id="pinyinResult" style="font-size: 48px; font-weight: bold; color: #d63384; text-align: center; padding: 15px 30px; border: 3px dashed #f48fb1; border-radius: 15px; min-width: 80px;">?</div>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <button class="next-btn" style="background: linear-gradient(135deg, #ff9a9e, #fecfef); color: white; border: none;" onclick="clearPinyin()">重新开始</button>
+          <p id="pinyinHint" style="margin-top: 15px; font-size: 14px; color: #666; display: none;"></p>
+        </div>
+      </div>
+
+      <!-- 识字卡片翻转游戏 -->
+      <div class="game-card" style="background: white; border-radius: 20px; padding: 30px; max-width: 800px; margin: 0 auto;">
+        <h3 style="color: #d63384; margin-bottom: 20px; text-align: center;">📚 识字翻翻乐</h3>
+        <div class="flip-card-grid">
+          <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span style="font-size: 36px; font-weight: bold; color: #d63384;">花</span>
+              </div>
+              <div class="flip-card-back">
+                <p style="font-size: 16px; color: #333;">花朵、花园</p>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">huā</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span style="font-size: 36px; font-weight: bold; color: #d63384;">山</span>
+              </div>
+              <div class="flip-card-back">
+                <p style="font-size: 16px; color: #333;">大山、高山</p>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">shān</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span style="font-size: 36px; font-weight: bold; color: #d63384;">水</span>
+              </div>
+              <div class="flip-card-back">
+                <p style="font-size: 16px; color: #333;">河水、水杯</p>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">shuǐ</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span style="font-size: 36px; font-weight: bold; color: #d63384;">鸟</span>
+              </div>
+              <div class="flip-card-back">
+                <p style="font-size: 16px; color: #333;">小鸟、飞鸟</p>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">niǎo</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span style="font-size: 36px; font-weight: bold; color: #d63384;">书</span>
+              </div>
+              <div class="flip-card-back">
+                <p style="font-size: 16px; color: #333;">书本、书包</p>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">shū</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span style="font-size: 36px; font-weight: bold; color: #d63384;">雨</span>
+              </div>
+              <div class="flip-card-back">
+                <p style="font-size: 16px; color: #333;">下雨、雨伞</p>
+                <p style="font-size: 14px; color: #666; margin-top: 5px;">yǔ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="text-align: center; font-size: 14px; color: #999; margin-top: 20px;">点击卡片查看拼音和词语</p>
+      </div>
+
+      <!-- 看图说话游戏 -->
+      <div class="game-card" style="background: white; border-radius: 20px; padding: 30px; max-width: 800px; margin: 30px auto 0;">
+        <h3 style="color: #d63384; margin-bottom: 20px; text-align: center;">🖼️ 看图说句子</h3>
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="font-size: 64px; margin-bottom: 15px;">🌳🐦</div>
+          <p style="font-size: 18px; color: #333;">请用“小鸟、树、唱歌”说一句话</p>
+        </div>
+        <div style="max-width: 400px; margin: 0 auto;">
+          <input type="text" id="sentenceInput" placeholder="输入你的句子..." style="width: 100%; padding: 15px; font-size: 16px; border: 2px solid #f48fb1; border-radius: 12px; text-align: center;">
+          <button class="next-btn" style="background: linear-gradient(135deg, #ff9a9e, #fecfef); color: white; border: none; margin-top: 15px; width: 100%;" onclick="checkSentence()">检查答案</button>
+          <p id="sentenceFeedback" style="margin-top: 15px; font-size: 14px; text-align: center; display: none;"></p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .pinyin-game-grid {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .pinyin-game-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        font-weight: bold;
+        border: 2px solid #f48fb1;
+        border-radius: 12px;
+        background: white;
+        color: #d63384;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .pinyin-game-btn:hover,
+      .pinyin-game-btn.selected {
+        background: #fce4ec;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(214, 51, 132, 0.3);
+      }
+
+      .flip-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 20px;
+      }
+      .flip-card {
+        perspective: 1000px;
+        height: 120px;
+        cursor: pointer;
+      }
+      .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+      }
+      .flip-card.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+      .flip-card-front,
+      .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .flip-card-front {
+        background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        color: white;
+      }
+      .flip-card-back {
+        background: #f7f8fb;
+        transform: rotateY(180deg);
+        padding: 10px;
+      }
+    </style>
+
+    <script>
+      // 拼音配对游戏
+      let selectedInitial = '';
+      let selectedFinal = '';
+
+      function matchPinyin(value) {
+        const vowels = ['a', 'o', 'e', 'i', 'u', 'ü'];
+        
+        if (vowels.includes(value)) {
+          selectedFinal = value;
+        } else {
+          selectedInitial = value;
+        }
+
+        // 更新按钮状态
+        document.querySelectorAll('.pinyin-game-btn').forEach(btn => {
+          btn.classList.remove('selected');
+          if (btn.dataset.value === selectedInitial || btn.dataset.value === selectedFinal) {
+            btn.classList.add('selected');
+          }
+        });
+
+        // 显示结果
+        const result = document.getElementById('pinyinResult');
+        const hint = document.getElementById('pinyinHint');
+        
+        if (selectedInitial && selectedFinal) {
+          result.textContent = selectedInitial + selectedFinal;
+          hint.style.display = 'block';
+          hint.textContent = `太棒了！${selectedInitial} + ${selectedFinal} = ${selectedInitial}${selectedFinal}`;
+          hint.style.color = '#4caf50';
+        } else if (selectedInitial || selectedFinal) {
+          result.textContent = selectedInitial || selectedFinal;
+        } else {
+          result.textContent = '?';
+          hint.style.display = 'none';
+        }
+      }
+
+      function clearPinyin() {
+        selectedInitial = '';
+        selectedFinal = '';
+        document.querySelectorAll('.pinyin-game-btn').forEach(btn => btn.classList.remove('selected'));
+        document.getElementById('pinyinResult').textContent = '?';
+        document.getElementById('pinyinHint').style.display = 'none';
+      }
+
+      // 识字卡片翻转
+      function flipCard(card) {
+        card.classList.toggle('flipped');
+      }
+
+      // 看图说话检查
+      function checkSentence() {
+        const input = document.getElementById('sentenceInput').value.trim();
+        const feedback = document.getElementById('sentenceFeedback');
+        
+        if (!input) {
+          feedback.textContent = '请输入你的句子哦！';
+          feedback.style.color = '#f44336';
+          feedback.style.display = 'block';
+          return;
+        }
+
+        // 检查是否包含关键词
+        const hasBird = input.includes('小鸟') || input.includes('鸟');
+        const hasTree = input.includes('树') || input.includes('树上') || input.includes('树下');
+        const hasSing = input.includes('唱歌') || input.includes('唱');
+
+        if (hasBird && hasTree && hasSing) {
+          feedback.textContent = '🎉 太棒了！你的句子包含了所有关键词，说得很完整！';
+          feedback.style.color = '#4caf50';
+        } else if (hasBird && (hasTree || hasSing)) {
+          feedback.textContent = '👍 不错！再想想，还可以加上什么？';
+          feedback.style.color = '#ff9800';
+        } else {
+          feedback.textContent = '💡 提示：试着用上"小鸟"、"树"和"唱歌"这几个词。';
+          feedback.style.color = '#2196f3';
+        }
+        
+        feedback.style.display = 'block';
+      }
+    </script>
+
   </main>
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js?v=83"></script>
+  <script src="table-responsive.js?v=83"></script>
 </body>
 </html>
 

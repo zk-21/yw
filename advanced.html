@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="尖子生拓展">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <title>尖子生拓展专区 | 小学语文高阶能力提升</title>
+  <meta name="description" content="专为尖子生设计的拓展知识平台：高阶阅读、深度写作、文学常识、文言文拓展、竞赛素养提升，助力学生突破瓶颈，冲刺更高水平。">
+  <meta name="keywords" content="尖子生,拓展知识,高阶阅读,深度写作,文学常识,文言文,语文竞赛,素养提升">
+  <meta property="og:title" content="尖子生拓展专区 | 小学语文高阶能力提升">
+  <meta property="og:description" content="专为尖子生设计的拓展知识平台，助力突破瓶颈。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#9c27b0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=83">
+  <style>
+    .advanced-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #9c27b0 100%);
+      padding: 60px 5vw;
+      text-align: center;
+      color: white;
+    }
+    .advanced-hero h1 { color: white; margin-bottom: 15px; }
+    .advanced-hero p { opacity: 0.9; font-size: 18px; }
+    
+    .expand-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      border-top: 4px solid #9c27b0;
+    }
+    .expand-card h3 {
+      color: #9c27b0;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    .expand-card .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .challenge-box {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+    .challenge-box h4 {
+      color: #7b1fa2;
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .challenge-box p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .expand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .expand-item {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border-left: 4px solid #9c27b0;
+    }
+    .expand-item h4 {
+      color: #9c27b0;
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+    .expand-item p {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .literature-card {
+      background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid #ff9800;
+    }
+    .literature-card h4 {
+      color: #e65100;
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .literature-card .author {
+      color: #999;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .literature-card p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    .competition-section {
+      background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+    .competition-section h3 {
+      color: #7b1fa2;
+      margin-bottom: 20px;
+    }
+    
+    .thinking-point {
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 0 10px 10px 0;
+    }
+    .thinking-point p {
+      color: #2e7d32;
+      font-size: 14px;
+      margin: 0;
+      font-style: italic;
+    }
+    
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .resource-links a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #9c27b0;
+      color: white;
+      border-radius: 25px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .resource-links a:hover {
+      background: #7b1fa2;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="practice.html">练习计划</a>
+      <a class="active" href="advanced.html">尖子生拓展</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="advanced-hero">
+      <p class="eyebrow">拔尖提升专区</p>
+      <h1>突破瓶颈，冲刺更高水平</h1>
+      <p>专为尖子生设计的拓展课程：深度阅读、思辨写作、文学鉴赏、文言文拓展、竞赛素养</p>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">深度阅读拓展</p>
+        <h2>超越课本：从理解到鉴赏</h2>
+        <p style="color: #666;">尖子生需要更高层次的阅读训练，不仅要读懂内容，更要学会分析、鉴赏和评价。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>📚 高阶阅读策略</h3>
+        <p class="subtitle">掌握这些策略，让阅读更有深度</p>
+        
+        <div class="expand-grid">
+          <div class="expand-item">
+            <h4>1. 文本对比阅读</h4>
+            <p>对比同一主题的不同文本，分析作者观点差异、写作手法差异，培养批判性思维。</p>
+          </div>
+          <div class="expand-item">
+            <h4>2. 深层含义挖掘</h4>
+            <p>分析文章的象征意义、隐喻手法、情感基调，理解字面之外的深层内涵。</p>
+          </div>
+          <div class="expand-item">
+            <h4>3. 写作手法鉴赏</h4>
+            <p>识别并分析修辞手法、表达方式、结构特点，学习名家的写作技巧。</p>
+          </div>
+          <div class="expand-item">
+            <h4>4. 跨文本联结</h4>
+            <p>将阅读内容与其他学科、生活经验、社会现象建立联系，提升综合素养。</p>
+          </div>
+        </div>
+
+        <div class="challenge-box">
+          <h4>💡 挑战任务：对比阅读</h4>
+          <p>阅读朱自清的《春》和老舍的《济南的冬天》，分析两位作家在描写景物时的不同视角和语言风格，并写一篇300字的对比分析。</p>
+        </div>
+
+        <div class="thinking-point" style="margin-top: 15px;">
+          <p><strong>🧠 由"读懂"到"会鉴赏"：</strong>尖子生读完一篇文章后，不只问"写了什么"，还要问"作者为什么这么写？""如果我来写同一主题，我会怎么写？"——从读者视角切换到作者视角，这才是真正的深度阅读。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">思辨写作训练</p>
+        <h2>从"写得好"到"写得深刻"</h2>
+        <p style="color: #666;">培养深度思考能力，让作文不仅有文采，更有思想深度。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>✍️ 深度写作专题</h3>
+        <p class="subtitle">超越常规写作，培养思辨能力</p>
+        
+        <div class="expand-grid">
+          <div class="expand-item">
+            <h4>1. 议论文写作</h4>
+            <p>学习论点提炼、论据选择、论证方法，掌握议论文的严谨结构和逻辑表达。</p>
+          </div>
+          <div class="expand-item">
+            <h4>2. 批判性写作</h4>
+            <p>针对社会现象、文学作品提出自己的观点，有理有据地表达不同看法。</p>
+          </div>
+          <div class="expand-item">
+            <h4>3. 创意写作</h4>
+            <p>尝试故事新编、寓言创作、诗歌写作，释放想象力和创造力。</p>
+          </div>
+          <div class="expand-item">
+            <h4>4. 学术小论文</h4>
+            <p>学习查阅资料、引用文献、撰写研究性小论文，培养学术素养。</p>
+          </div>
+        </div>
+
+        <div class="thinking-point">
+          <p>"写作不是简单的文字堆砌，而是思想的表达。真正优秀的作文，一定有作者独特的思考和见解。"</p>
+        </div>
+
+        <div class="thinking-point" style="background: #fff3e0; border-left-color: #ff9800; margin-top: 12px;">
+          <p style="color: #e65100;"><strong>🧠 由"写得好"到"写得深刻"：</strong>尖子生写作文前，先用一句话写出"我想通过这篇文章告诉读者什么"。如果这句话说不清楚，说明你的中心还没想好——先立意，再动笔，这是专业写作者的思维习惯。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">文学常识拓展</p>
+        <h2>走进文学殿堂</h2>
+        <p style="color: #666;">丰富的文学常识是语文素养的重要组成部分，也是尖子生必备的知识储备。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>🏛️ 中国文学发展脉络</h3>
+        <p class="subtitle">系统梳理文学发展，构建知识体系</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;">
+          <div style="background: linear-gradient(135deg, #fff8e1, #ffecb3); padding: 15px; border-radius: 10px; border-left: 4px solid #ffc107;">
+            <h4 style="color: #f57c00; margin: 0 0 8px;">📜 先秦文学</h4>
+            <p style="font-size: 13px; color: #555; margin: 0;">《诗经》《楚辞》《论语》《孟子》《庄子》</p>
+          </div>
+          <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 15px; border-radius: 10px; border-left: 4px solid #2196f3;">
+            <h4 style="color: #1976d2; margin: 0 0 8px;">📜 汉魏文学</h4>
+            <p style="font-size: 13px; color: #555; margin: 0;">汉赋、建安文学、陶渊明诗歌</p>
+          </div>
+          <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 15px; border-radius: 10px; border-left: 4px solid #9c27b0;">
+            <h4 style="color: #7b1fa2; margin: 0 0 8px;">📜 唐宋文学</h4>
+            <p style="font-size: 13px; color: #555; margin: 0;">唐诗、宋词、唐宋八大家散文</p>
+          </div>
+          <div style="background: linear-gradient(135deg, #fce4ec, #f8bbd0); padding: 15px; border-radius: 10px; border-left: 4px solid #e91e63;">
+            <h4 style="color: #c2185b; margin: 0 0 8px;">📜 元明清文学</h4>
+            <p style="font-size: 13px; color: #555; margin: 0;">元曲、明清小说、四大名著</p>
+          </div>
+        </div>
+
+        <h4 style="color: #333; margin: 20px 0 15px;">📚 文学流派分类</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0;">
+            <strong style="color: #333;">现实主义</strong>
+            <p style="font-size: 12px; color: #666; margin: 5px 0 0;">关注社会现实，反映人民生活</p>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0;">
+            <strong style="color: #333;">浪漫主义</strong>
+            <p style="font-size: 12px; color: #666; margin: 5px 0 0;">追求理想，富有想象力和激情</p>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0;">
+            <strong style="color: #333;">现代主义</strong>
+            <p style="font-size: 12px; color: #666; margin: 5px 0 0;">打破传统，探索新的表达方式</p>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0;">
+            <strong style="color: #333;">古典主义</strong>
+            <p style="font-size: 12px; color: #666; margin: 5px 0 0;">崇尚理性，追求和谐与秩序</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="expand-card">
+        <h3>🏛️ 中外文学名著导读</h3>
+        <p class="subtitle">精选经典名著，培养文学鉴赏力</p>
+        
+        <div class="literature-card">
+          <h4>《红楼梦》</h4>
+          <p class="author">曹雪芹 | 清代</p>
+          <p>中国古典四大名著之一，以贾宝玉、林黛玉的爱情悲剧为主线，展现了一个封建大家族的兴衰历程，被誉为"中国封建社会的百科全书"。</p>
+        </div>
+        
+        <div class="literature-card">
+          <h4>《西游记》</h4>
+          <p class="author">吴承恩 | 明代</p>
+          <p>中国古典四大名著之一，讲述唐僧师徒四人西天取经的传奇故事，充满奇幻想象和深刻哲理，塑造了孙悟空等经典文学形象。</p>
+        </div>
+        
+        <div class="literature-card">
+          <h4>《鲁滨逊漂流记》</h4>
+          <p class="author">丹尼尔·笛福 | 英国</p>
+          <p>讲述主人公鲁滨逊在荒岛独自生存28年的故事，展现了人类的智慧、勇气和顽强意志，是冒险文学的经典之作。</p>
+        </div>
+        
+        <div class="literature-card">
+          <h4>《童年》</h4>
+          <p class="author">高尔基 | 苏联</p>
+          <p>自传体三部曲的第一部，讲述阿廖沙在黑暗环境中成长的经历，展现了19世纪俄国社会的真实面貌。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">文言文拓展</p>
+        <h2>文言功底，厚积薄发</h2>
+        <p style="color: #666;">超越课本文言文，拓展阅读范围，提升古文理解能力。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>📜 文言文进阶学习</h3>
+        <p class="subtitle">拓展文言阅读，提升文化素养</p>
+        
+        <div class="expand-grid">
+          <div class="expand-item">
+            <h4>1. 诸子百家名篇</h4>
+            <p>阅读《论语》《孟子》《庄子》等经典，理解中国古代思想家的智慧和哲理。</p>
+          </div>
+          <div class="expand-item">
+            <h4>2. 历史散文精读</h4>
+            <p>学习《史记》《战国策》等历史散文，了解历史事件和人物风采。</p>
+          </div>
+          <div class="expand-item">
+            <h4>3. 文言小说选读</h4>
+            <p>阅读《聊斋志异》《世说新语》等文言小说，感受古代文学的魅力。</p>
+          </div>
+          <div class="expand-item">
+            <h4>4. 文言诗词鉴赏</h4>
+            <p>深入赏析唐诗宋词，理解诗歌意境、格律和表现手法。</p>
+          </div>
+        </div>
+
+        <div class="challenge-box">
+          <h4>💡 挑战任务：文言断句</h4>
+          <p>请为以下文言文断句并翻译：<br>
+          "天下事有难易乎为之则难者亦易矣不为则易者亦难矣人之为学有难易乎学之则难者亦易矣不学则易者亦难矣"</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="competition-section">
+        <h3>🏆 语文竞赛素养</h3>
+        <p style="color: #666; margin-bottom: 20px;">了解语文竞赛，提升综合素养，为未来发展打下坚实基础。</p>
+        
+        <div class="expand-grid">
+          <div class="expand-item">
+            <h4>1. 全国作文竞赛</h4>
+            <p>如"叶圣陶杯""新概念作文大赛"等，锻炼写作能力和创新思维。</p>
+          </div>
+          <div class="expand-item">
+            <h4>2. 古诗文背诵大赛</h4>
+            <p>积累经典古诗文，提升记忆力和文化底蕴。</p>
+          </div>
+          <div class="expand-item">
+            <h4>3. 演讲与口才比赛</h4>
+            <p>锻炼口语表达、逻辑思维和临场应变能力。</p>
+          </div>
+          <div class="expand-item">
+            <h4>4. 阅读之星评选</h4>
+            <p>培养阅读习惯，拓宽知识面和视野。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 探究性学习模块 -->
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">探究性学习</p>
+        <h2>从"接受知识"到"探究发现"</h2>
+        <p style="color: #666;">培养研究能力和创新思维，让学习成为主动探索的过程。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>🔬 项目式学习任务</h3>
+        <p class="subtitle">真实情境下的深度探究</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+          <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 20px; border-radius: 12px; border-left: 4px solid #4caf50;">
+            <h4 style="color: #2e7d32; margin: 0 0 12px;">📚 专题研究</h4>
+            <p style="font-size: 14px; color: #555; margin: 0 0 10px;">选择一个感兴趣的作家或文学主题，进行深度研究。</p>
+            <div style="background: white; padding: 10px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin: 0;"><strong>示例：</strong>研究李白与杜甫诗歌风格的差异</p>
+            </div>
+          </div>
+          <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 20px; border-radius: 12px; border-left: 4px solid #2196f3;">
+            <h4 style="color: #1976d2; margin: 0 0 12px;">📊 数据探究</h4>
+            <p style="font-size: 14px; color: #555; margin: 0 0 10px;">收集数据、分析现象、得出结论。</p>
+            <div style="background: white; padding: 10px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin: 0;"><strong>示例：</strong>统计班级同学最喜欢的文学作品类型</p>
+            </div>
+          </div>
+          <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 20px; border-radius: 12px; border-left: 4px solid #9c27b0;">
+            <h4 style="color: #7b1fa2; margin: 0 0 12px;">🎭 实践创作</h4>
+            <p style="font-size: 14px; color: #555; margin: 0 0 10px;">将所学知识应用于实际创作中。</p>
+            <div style="background: white; padding: 10px; border-radius: 8px;">
+              <p style="font-size: 13px; color: #666; margin: 0;"><strong>示例：</strong>根据名著改编剧本并表演</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 批判性思维训练 -->
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">批判性思维</p>
+        <h2>学会质疑，深度思考</h2>
+        <p style="color: #666;">培养独立思考能力，不盲从、不轻信，学会理性分析。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>⚖️ 论证分析与评价</h3>
+        <p class="subtitle">学习分析和评价他人的观点和论证</p>
+        
+        <div style="margin-bottom: 25px;">
+          <h4 style="color: #333; margin-bottom: 15px;">🔍 苏格拉底提问法</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #e0e0e0;">
+              <div style="font-size: 18px; margin-bottom: 8px;">💬</div>
+              <strong style="color: #333;">澄清问题</strong>
+              <p style="font-size: 12px; color: #666; margin-top: 5px;">你的意思是...？</p>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #e0e0e0;">
+              <div style="font-size: 18px; margin-bottom: 8px;">📝</div>
+              <strong style="color: #333;">寻找依据</strong>
+              <p style="font-size: 12px; color: #666; margin-top: 5px;">你有什么证据？</p>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #e0e0e0;">
+              <div style="font-size: 18px; margin-bottom: 8px;">🔗</div>
+              <strong style="color: #333;">分析推理</strong>
+              <p style="font-size: 12px; color: #666; margin-top: 5px;">这如何得出结论？</p>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #e0e0e0;">
+              <div style="font-size: 18px; margin-bottom: 8px;">🤔</div>
+              <strong style="color: #333;">评估结论</strong>
+              <p style="font-size: 12px; color: #666; margin-top: 5px;">有没有其他可能？</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="challenge-box">
+          <h4>💡 挑战任务：批判性阅读</h4>
+          <p>阅读一段议论文，回答以下问题：<br>
+          1. 作者的主要观点是什么？<br>
+          2. 作者提供了哪些证据支持观点？<br>
+          3. 有没有逻辑漏洞或未提及的假设？<br>
+          4. 你是否同意这个观点？为什么？</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 思维建模指导 -->
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-title">
+        <p class="eyebrow">思维工具</p>
+        <h2>可视化你的思考</h2>
+        <p style="color: #666;">学习使用思维工具，让抽象思维变得清晰可见。</p>
+      </div>
+      
+      <div class="expand-card">
+        <h3>🧠 思维建模工具</h3>
+        <p class="subtitle">掌握可视化思维方法</p>
+        
+        <div class="expand-grid">
+          <div class="expand-item">
+            <h4>1. 思维导图</h4>
+            <p>从中心主题发散，展示知识结构和关联，适合梳理文章脉络、构思作文。</p>
+          </div>
+          <div class="expand-item">
+            <h4>2. 概念图</h4>
+            <p>展示概念之间的逻辑关系，适合构建知识体系、理解复杂概念。</p>
+          </div>
+          <div class="expand-item">
+            <h4>3. 流程图</h4>
+            <p>展示步骤和流程，适合分析文章结构、解题思路。</p>
+          </div>
+          <div class="expand-item">
+            <h4>4. 六顶思考帽</h4>
+            <p>从不同角度思考问题：事实、情感、创意、风险、价值、总结。</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: #fff8e1; border-radius: 10px;">
+          <strong>💡 学习建议：</strong>尝试用思维导图分析一篇课文的结构，或者用概念图整理你学过的文学常识。
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="expand-card">
+        <h3>🎯 尖子生成长路径</h3>
+        <p class="subtitle">科学规划，稳步提升</p>
+        
+        <div style="display: grid; gap: 20px;">
+          <div class="challenge-box">
+            <h4>🌟 五年级：夯实基础，拓展阅读</h4>
+            <p>• 每周阅读1-2篇课外美文，做读书笔记<br>
+            • 尝试写简短的读后感和评论<br>
+            • 开始积累文学常识和文言词汇</p>
+          </div>
+          
+          <div class="challenge-box">
+            <h4>🌟 六年级：深化能力，备战升学</h4>
+            <p>• 系统学习议论文写作<br>
+            • 阅读中外名著，写读书心得<br>
+            • 参加校内语文竞赛，积累经验<br>
+            • 拓展文言文阅读范围</p>
+          </div>
+          
+          <div class="challenge-box">
+            <h4>🌟 小升初衔接：提升素养</h4>
+            <p>• 阅读经典文学作品，提升鉴赏能力<br>
+            • 练习写作不同体裁的文章<br>
+            • 参加各类语文竞赛，展示才华</p>
+          </div>
+        </div>
+
+        <div class="resource-links">
+          <a href="composition.html">作文专题</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="practice.html">练习计划</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 特级教师·尖子生思维训练总纲 -->
+    <section class="section" style="max-width: 1200px; margin: 0 auto;">
+      <div class="expand-card" style="border-top-color: #C00000; background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);">
+        <h3>🏅 特级教师寄语：尖子生的真正分水岭</h3>
+        <p class="subtitle" style="color: #C00000;">——不在于做了多少题，而在于想了多少"为什么"</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="thinking-point" style="background: #fff; border-left-color: #C00000;">
+            <h4 style="color: #C00000; margin: 0 0 8px;">❌ "会做题"的表现</h4>
+            <p style="color: #555; font-style: normal; line-height: 1.8;">
+              • 靠刷题形成"条件反射"<br>
+              • 题目换一种问法就认不出来<br>
+              • 答对了却说不出"为什么对"<br>
+              • 只关心"答案对不对"，不关心"方法对不对"<br>
+              • 遇到新题型就慌了，因为没刷过
+            </p>
+          </div>
+          <div class="thinking-point" style="background: #fff; border-left-color: #4caf50;">
+            <h4 style="color: #2e7d32; margin: 0 0 8px;">✅ "会思考"的表现</h4>
+            <p style="color: #555; font-style: normal; line-height: 1.8;">
+              • 每道题都提炼出"通用方法"<br>
+              • 看到新题先判断"考哪个能力"，再调用方法<br>
+              • 能说出"这道题有几种解法，哪种最优"<br>
+              • 错题分析"错在哪一步、为什么错"<br>
+              • 遇到新题型不慌，因为你有"方法武器库"
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 18px 22px; background: #fff5f5; border-radius: 12px; border: 1px dashed #C00000;">
+          <p style="color: #C00000; font-size: 15px; font-weight: 600; margin: 0;">📌 尖子生每日训练法：每学完一个知识点，对自己说三句话——</p>
+          <p style="color: #333; font-size: 14px; margin: 10px 0 0; line-height: 2;">
+            ① <strong>"这个方法叫什么名字？"</strong>——给方法命名，才能记住它<br>
+            ② <strong>"它在什么情况下用？"</strong>——知道触发条件，才能用对地方<br>
+            ③ <strong>"有没有反例？什么情况不能用？"</strong>——知道边界，才叫真正理解
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script src="nav.js?v=83"></script>
+</body>
+</html>

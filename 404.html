@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面未找到 - 语文成长地图</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .error-container {
+      background: white;
+      border-radius: 24px;
+      padding: 60px 50px;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+    .error-code {
+      font-size: 120px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    .btn-secondary:hover {
+      background: #667eea;
+      color: white;
+    }
+    .illustration {
+      margin-bottom: 30px;
+    }
+    .illustration svg {
+      width: 200px;
+      height: 200px;
+    }
+    .helpful-links {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+    .helpful-links h3 {
+      font-size: 16px;
+      color: #999;
+      margin-bottom: 15px;
+    }
+    .links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .links a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .links a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .error-container {
+        padding: 40px 30px;
+      }
+      .error-code {
+        font-size: 80px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 16px;
+      }
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <div class="illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" fill="#f8f9fa"/>
+        <text x="100" y="110" text-anchor="middle" font-size="60" fill="#667eea">📚</text>
+        <path d="M60 160 Q100 140 140 160" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="error-code">404</div>
+    <h1>页面走丢啦～</h1>
+    <p>抱歉，您访问的页面不存在或已被移动。<br>让我带您回到首页继续学习吧！</p>
+    <div class="btn-group">
+      <a href="index.html" class="btn btn-primary">🏠 返回首页</a>
+      <a href="practice.html" class="btn btn-secondary">📝 开始练习</a>
+    </div>
+    <div class="helpful-links">
+      <h3>您可能想访问</h3>
+      <div class="links">
+        <a href="grammar.html">📖 语法知识</a>
+        <a href="pinyin.html">🔤 拼音学习</a>
+        <a href="vocabulary.html">📚 词语学习</a>
+        <a href="composition.html">✍️ 写作指导</a>
+        <a href="agent.html">🤖 AI助手</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'diandian-agent-v76';
+const CACHE_NAME = 'diandian-agent-v86';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -20,11 +20,17 @@ const STATIC_ASSETS = [
   './grade4.html',
   './grade5.html',
   './grade6.html',
+  './advanced.html',
+  './404.html',
   './table-responsive.js',
   './agent-icon.svg',
   './agent-icon-512.png',
   './apple-touch-icon.png',
-  './manifest.json'
+  './favicon.ico',
+  './manifest.json',
+  './robots.txt',
+  './sitemap.xml',
+  './mobile-agent-preview.html'
 ];
 
 self.addEventListener('install', (event) => {
