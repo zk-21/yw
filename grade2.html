@@ -1,0 +1,515 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>二年级语文一对一辅导 | 阅读写话提优</title>
+  <meta name="description" content="二年级语文辅导路线，覆盖字词辨析、短文概括、写话扩写、A卷诊断、错因训练和拔尖迁移。">
+  <meta name="keywords" content="二年级语文辅导,阅读写话,小学语文一对一辅导,A卷诊断,错因训练,写话提优">
+  <meta property="og:title" content="二年级语文一对一辅导 | 阅读写话提优">
+  <meta property="og:description" content="从字词到短文概括和写话扩写，按错因训练实现基础达标、提优提升和拔尖迁移。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#63d676">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=82">
+  <style>
+    .grade-two-hero {
+      background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+      padding: 60px 5vw;
+      text-align: center;
+    }
+    .grade-two-hero h1 { color: #8d6e00; margin-bottom: 15px; }
+    .grade-two-hero p { color: #6b5200; font-size: 18px; max-width: 700px; margin: 0 auto; }
+    .section-title h2 { color: #e67e22; }
+    .study-block { border-left: 4px solid #fdcb6e; }
+    .study-block.accent { border-left: 4px solid #e67e22; }
+    .study-block h2 { color: #e67e22; }
+
+    .word-compare { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .compare-card {
+      background: white; border-radius: 14px; padding: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #fdebd0;
+    }
+    .compare-card h4 { color: #e67e22; margin: 0 0 8px; font-size: 15px; }
+    .compare-card .word-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
+    .compare-card .word-row .w {
+      background: #fef9e7; padding: 3px 10px; border-radius: 8px;
+      font-size: 13px; color: #555;
+    }
+    .compare-card .word-row .w em { font-style: normal; color: #e67e22; font-weight: bold; }
+
+    .word-collect { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .collect-card {
+      background: #fef9e7; border-radius: 12px; padding: 14px;
+      text-align: center; border: 1px solid #fdebd0;
+    }
+    .collect-card h4 { color: #e67e22; margin: 0 0 6px; font-size: 14px; }
+    .collect-card .ex { color: #666; font-size: 13px; line-height: 1.6; }
+
+    .poem-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .poem-card {
+      background: #fef9e7; border-radius: 14px; padding: 16px; text-align: center;
+      border: 1px solid #fdebd0;
+    }
+    .poem-card h4 { color: #e67e22; margin: 0 0 4px; font-size: 15px; }
+    .poem-card .author { color: #999; font-size: 12px; }
+    .poem-card .line { color: #555; font-size: 13px; margin-top: 6px; }
+
+    .method-steps { display: grid; gap: 12px; }
+    .method-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: #fef9e7; border-radius: 12px; padding: 14px 18px;
+    }
+    .method-step .step-num {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 15px;
+    }
+    .method-step .step-text { font-size: 14px; color: #555; }
+    .method-step .step-text strong { color: #e67e22; }
+
+    .routine p { font-size: 15px; }
+
+    /* 标点专项 */
+    .punct-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .punct-card {
+      background: white; border-radius: 12px; padding: 14px;
+      border: 1px solid #fdebd0; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .punct-card .mark { font-size: 32px; font-weight: bold; color: #e67e22; margin-bottom: 4px; }
+    .punct-card h4 { margin: 0 0 6px; font-size: 14px; color: #e67e22; }
+    .punct-card p { margin: 2px 0; font-size: 13px; color: #555; }
+
+    /* 写话提优样例 */
+    .writing-sample {
+      background: #fef9e7; border-radius: 14px; padding: 16px 20px;
+      border-left: 4px solid #e67e22; margin-top: 10px;
+    }
+    .writing-sample .from-line { color: #999; font-size: 12px; }
+    .writing-sample p { margin: 5px 0; font-size: 14px; color: #555; }
+    .writing-sample .expand { color: #e67e22; font-weight: bold; }
+    .sample-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+    .sample-box {
+      background: white; border-radius: 10px; padding: 12px 14px;
+      border: 1px solid #fdebd0;
+    }
+    .sample-box.before { border-left: 3px solid #e74c3c; }
+    .sample-box.after { border-left: 3px solid #27ae60; }
+    .sample-box .label { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+    .sample-box.before .label { color: #e74c3c; }
+    .sample-box.after .label { color: #27ae60; }
+    .sample-box p { margin: 3px 0; font-size: 13px; color: #555; }
+
+    /* 词语运用训练 */
+    .word-practice-grid { display: grid; gap: 14px; }
+    .word-practice-card {
+      background: white; border-radius: 14px; padding: 16px 20px;
+      border: 1px solid #fdebd0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .word-practice-card h4 { color: #e67e22; margin: 0 0 8px; font-size: 15px; }
+    .word-practice-card .prompt { font-size: 14px; color: #555; margin-bottom: 8px; }
+    .word-practice-card .options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .word-practice-card .opt {
+      background: #fef9e7; padding: 4px 14px; border-radius: 8px;
+      font-size: 13px; color: #666; border: 1px solid #fdebd0;
+    }
+    .word-practice-card .answer-hint { font-size: 12px; color: #999; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 6px; }
+
+    /* 升三衔接 + 路线图 */
+    .transition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .transition-card {
+      background: #fef9e7; border-radius: 12px; padding: 16px;
+      border: 1px solid #fdebd0;
+    }
+    .transition-card h4 { color: #e67e22; margin: 0 0 6px; font-size: 14px; }
+    .transition-card p { margin: 3px 0; font-size: 13px; color: #555; }
+
+    .bridge-row { display: flex; gap: 0; align-items: center; }
+    .bridge-node {
+      flex: 1; background: white; border-radius: 14px; padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #fdebd0;
+    }
+    .bridge-node .stage { font-size: 14px; font-weight: bold; color: #e67e22; margin-bottom: 6px; }
+    .bridge-node ul { margin: 0; padding-left: 18px; }
+    .bridge-node li { font-size: 13px; color: #555; margin: 3px 0; }
+    .bridge-arrow { padding: 0 10px; font-size: 22px; color: #fdcb6e; }
+
+    /* 写话升格对比 */
+    .upgrade-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+    .upgrade-box {
+      background: white; border-radius: 10px; padding: 14px;
+      border: 1px solid #fdebd0;
+    }
+    .upgrade-box .tag { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+    .upgrade-box.basic .tag { color: #e74c3c; }
+    .upgrade-box.advanced .tag { color: #27ae60; }
+    .upgrade-box p { margin: 3px 0; font-size: 13px; color: #555; line-height: 1.6; }
+
+    /* 标点符号表格 */
+    .punct-table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    .punct-table th, .punct-table td {
+      padding: 10px 14px; border: 1px solid #fdebd0; font-size: 13px; text-align: left;
+    }
+    .punct-table th {
+      background: #fef9e7; color: #e67e22; font-weight: bold;
+    }
+    .punct-table td { color: #555; }
+
+    /* 每日10分钟 */
+    .daily-plan { display: flex; gap: 10px; margin: 16px 0; }
+    .daily-step {
+      flex: 1; background: white; border-radius: 12px; padding: 14px 12px;
+      text-align: center; border: 1px solid #fdebd0;
+    }
+    .daily-step .time { font-size: 20px; font-weight: bold; color: #e67e22; }
+    .daily-step .task { font-size: 13px; color: #555; margin-top: 4px; }
+    .daily-step .hint { font-size: 11px; color: #999; margin-top: 2px; }
+
+    @media (max-width: 768px) {
+      .upgrade-compare { grid-template-columns: 1fr; }
+      .daily-plan { flex-direction: column; }
+      .grade-two-hero { padding: 40px 5vw; }
+      .grade-two-hero h1 { font-size: 24px; }
+      .word-compare { grid-template-columns: 1fr; }
+      .word-collect { grid-template-columns: repeat(2, 1fr); }
+      .poem-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .punct-grid,
+      .transition-grid { grid-template-columns: 1fr; }
+      .sample-compare { grid-template-columns: 1fr; }
+      .bridge-row { flex-direction: column; gap: 12px; }
+      .bridge-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grade1.html">一年级</a>
+      <a class="active" href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+    </nav>
+  </header>
+
+    <main>
+    <section class="grade-two-hero">
+      <p class="eyebrow" style="color:#8d6e00;">二年级爬坡期</p>
+      <h1>二年级语文学习指导</h1>
+      <p>从“读懂一句话”过渡到“读懂一段话、写清一段话”。本页减少长期计划，重点放在孩子能直接学习的课堂内容。</p>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e67e22;">核心导航</p>
+        <h2>二年级只保留三个学习入口</h2>
+        <p style="color:#666;">年级页负责当场学会方法；长期打卡、错题本和周计划统一去练习页完成。</p>
+      </div>
+      <div class="route-grid">
+        <article class="route-card"><h3>字词辨析</h3><p>形近字、多音字、近反义词要放进句子里判断。</p><div class="route-links"><a href="vocabulary.html">词语学习</a></div></article>
+        <article class="route-card"><h3>阅读概括</h3><p>短文题先找人物、事情和结果，不能凭感觉答。</p><div class="route-links"><a href="knowledge-map.html#reading-templates">题型模板</a></div></article>
+        <article class="route-card"><h3>写话升格</h3><p>从一句话扩成一段话，加入动作、样子、声音和心情。</p><div class="route-links"><a href="composition.html">作文专题</a></div></article>
+        <article class="route-card"><h3>长期训练</h3><p>每日打卡、错题复盘和周计划统一在练习页执行。</p><div class="route-links"><a href="practice.html">练习计划</a></div></article>
+        <article class="route-card"><h3>一对一闭环</h3><p>A卷诊断判码后，按错因精讲、一对一拔尖教练、训练包、B卷、C卷顺序复测。</p><div class="route-links"><a href="#grade2-stage-assessment">A卷诊断</a><a href="practice.html#error-masterclass">错因精讲</a><a href="practice.html#one-on-one-peak-coach">一对一拔尖</a><a href="practice.html#flow-training">C卷评分器</a><a href="practice.html#parent-coaching-scripts">家长话术</a></div></article>
+      </div>
+    </section>
+
+    <section class="section grade-closed-loop">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e67e22;">课标对照 · 训练闭环</p>
+        <h2>二年级从“会读句子”到“能写一段”</h2>
+        <p style="color:#666;">二年级仍属于第一学段，关键是把字词、朗读、写话和口语表达练成稳定能力。</p>
+      </div>
+      <div class="table-card">
+        <h2>课标能力对照表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>课标维度</th><th>课堂内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
+            <tbody>
+              <tr><td>识字与写字</td><td>形近字、多音字、词语搭配</td><td>能在句子中区分易混字词</td><td>能用新词写通顺句子</td></tr>
+              <tr><td>阅读与鉴赏</td><td>短文概括、原因题、信息题</td><td>能说清谁做了什么、结果怎样</td><td>能补一句“我从哪里看出来”</td></tr>
+              <tr><td>表达与交流</td><td>写话扩写、标点、口语表达</td><td>能写 3-5 句通顺连贯的话</td><td>能加入动作、样子、声音、心情中的两项</td></tr>
+              <tr><td>梳理与探究</td><td>词语归类、观察记录</td><td>能把同类词语归类</td><td>能用观察记录写一小段</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="loop-grid">
+        <article class="loop-card"><h3>5分钟入门自测</h3><ul><li>给 5 组形近字组词，是否混淆。</li><li>读一段短文，能否一句话概括。</li><li>看图说 3 句话，是否有顺序。</li><li>写一句问句和一句感叹句。</li></ul></article>
+        <article class="loop-card"><h3>三层训练安排</h3><ul><li><strong>基础：</strong>每天听写 5 个词，错字写错因。</li><li><strong>提升：</strong>每周 2 次把一句话扩成 3-5 句。</li><li><strong>拔尖：</strong>一周读 1 个短故事，按起因、经过、结果复述。</li></ul></article>
+        <article class="loop-card"><h3>评价复盘量表</h3><div class="score-line"><p><strong>3分：</strong>字词会用，短文能概括，写话具体有顺序。</p><p><strong>2分：</strong>能完成，但句子重复或细节不足。</p><p><strong>1分：</strong>只写一两句，下次先练说完整。</p></div></article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>本周分层训练题</h2>
+        <div class="responsive-table"><table><thead><tr><th>层级</th><th>孩子要做</th><th>答案标准</th><th>家长追问</th></tr></thead><tbody>
+          <tr><td>基础</td><td>辨析“晴、睛、清、情”，每个字组词并说一句话</td><td>字义清楚，词语搭配正确</td><td>为什么这里不能用另一个字</td></tr>
+          <tr><td>提升</td><td>读一篇短文，用一句话说主要内容</td><td>人物、事件、结果完整</td><td>你是从哪一句看出来的</td></tr>
+          <tr><td>拔尖</td><td>把“小猫在睡觉”扩成 4 句话</td><td>句子连贯，细节具体，标点正确</td><td>哪一句最有画面感</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section pre-diagnostic">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e67e22;">课前诊断卷 · 12分钟</p>
+        <h2>二年级先测：字词、概括、写话</h2>
+        <p style="color:#666;">先看孩子会不会把信息找对、说完整、写具体。</p>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block">
+          <h2>诊断材料</h2>
+          <p>星期天，小红和爷爷去菜市场买菜。爷爷挑了新鲜的青菜，小红帮爷爷提袋子。回家的路上，小红看见一只小猫在树下打盹，忍不住笑了。</p>
+        </article>
+        <article class="study-block accent">
+          <h2>老师先看什么</h2>
+          <div class="routine">
+            <p><strong>字词：</strong>能不能选对清、晴、睛。</p>
+            <p><strong>阅读：</strong>会不会把人物、事情、结果说清。</p>
+            <p><strong>写话：</strong>能不能把一句话扩成 3 句以上。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card">
+        <h2>题目、答案和评分</h2>
+        <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
+          <tr><td>1. 选字填空：今天天气很（ ），河水很（ ），妹妹的眼（ ）亮亮的。</td><td>晴、清、睛</td><td>每空 1 分</td><td>不看偏旁和意思。</td></tr>
+          <tr><td>2. 小红和爷爷去哪里？做什么？</td><td>去菜市场买菜。</td><td>地点 + 事情共 2 分</td><td>只答“菜市场”。</td></tr>
+          <tr><td>3. 小红帮爷爷做了什么？</td><td>帮爷爷提袋子。</td><td>动作 2 分</td><td>只说“她很乖”，没有动作。</td></tr>
+          <tr><td>4. 小红为什么笑了？</td><td>因为她看见小猫在树下打盹。</td><td>原因完整 3 分</td><td>只写“小猫”，没有原因。</td></tr>
+          <tr><td>5. 把“小猫在树下打盹”扩成 3 句话</td><td>树下，一只小猫蜷成一团正在打盹。它的小鼻子一动一动的，看起来可爱极了。小红看见了，忍不住笑了。</td><td>样子、动作、心情共 4 分</td><td>只写“可爱”，没有画面。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>起点建议</h2>
+        <div class="responsive-table"><table><thead><tr><th>分数</th><th>孩子状态</th><th>先补什么</th></tr></thead><tbody>
+          <tr><td>13-15分</td><td>可以直接做提升题</td><td>进阅读和写话加厚题组。</td></tr>
+          <tr><td>9-12分</td><td>会做，但容易漏信息</td><td>重点练概括和扩句。</td></tr>
+          <tr><td>8分以下</td><td>字词和句子都不稳</td><td>先回到词语页和作文专题页。</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section lesson-pack">
+      <div class="section-title"><p class="eyebrow" style="color:#e67e22;">孩子直接学</p><h2>二年级精讲课：短文概括和写话扩写</h2></div>
+      <div class="content-grid">
+        <article class="study-block"><h2>课堂短文</h2><p>星期天，小明和爸爸去公园放风筝。小明举着风筝向前跑，爸爸在后面轻轻一松，风筝就飞上了蓝蓝的天空。小明高兴地跳了起来。</p><ul class="level-list"><li><strong>人物：</strong>小明和爸爸。</li><li><strong>事情：</strong>去公园放风筝。</li><li><strong>结果：</strong>风筝飞上天，小明很高兴。</li></ul></article>
+        <article class="study-block accent"><h2>满分答法</h2><div class="routine"><p><strong>题目：</strong>这段话主要写了什么？</p><p><strong>标准答案：</strong>这段话主要写星期天小明和爸爸在公园放风筝，风筝飞上天后，小明很高兴。</p><p><strong>错因：</strong>只写“放风筝”，人物和结果不完整。</p></div></article>
+      </div>
+      <div class="table-card" style="margin-top:18px;"><h2>例题、解析和变式</h2><div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>解析</th><th>变式练习</th></tr></thead><tbody><tr><td>扩写“小狗跑来了”</td><td>一只黄色的小狗摇着尾巴，飞快地向我跑来了。</td><td>补了样子、动作和方向。</td><td>扩写“小鸟飞走了”。</td></tr><tr><td>写感叹句</td><td>风筝飞得真高啊！</td><td>表达强烈心情，用感叹号。</td><td>用“花儿真美”写感叹句。</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="section lesson-pack" style="background:#f7f8fb;">
+      <div class="section-title"><p class="eyebrow" style="color:#e67e22;">课堂精讲 2</p><h2>二年级阅读课：找信息，答完整</h2></div>
+      <div class="content-grid"><article class="study-block"><h2>课堂短文</h2><p>小兔在菜园里种下几粒萝卜种子。它每天给种子浇水，还轻轻拔掉旁边的小草。过了几天，嫩绿的小芽从土里钻出来，小兔高兴极了。</p><ul class="level-list"><li><strong>圈人物：</strong>小兔。</li><li><strong>圈事情：</strong>种萝卜、浇水、拔草。</li><li><strong>圈结果：</strong>小芽钻出来，小兔很高兴。</li></ul></article><article class="study-block accent"><h2>题目解析</h2><div class="routine"><p><strong>题目：</strong>小兔为种子做了哪些事？</p><p><strong>标准答案：</strong>小兔每天给种子浇水，还拔掉旁边的小草。</p><p><strong>错因：</strong>只答“种萝卜”，没有回答“为种子做了哪些事”。</p></div></article></div>
+      <div class="table-card" style="margin-top:18px;"><h2>题目、答案和变式</h2><div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>解析</th><th>变式练习</th></tr></thead><tbody><tr><td>小兔为什么高兴？</td><td>因为嫩绿的小芽从土里钻出来了。</td><td>原因题用“因为……”回答。</td><td>读短文找“小明为什么笑了”。</td></tr><tr><td>概括短文</td><td>小兔细心照顾萝卜种子，看到小芽长出来很高兴。</td><td>人物、事情、结果都要有。</td><td>概括“小猫找球”的短文。</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="section lesson-pack">
+      <div class="section-title"><p class="eyebrow" style="color:#e67e22;">课堂精讲 3</p><h2>二年级写话课：把一句话扩成一段话</h2></div>
+      <div class="table-card"><h2>题目、答案、解析、错因</h2><div class="responsive-table"><table><thead><tr><th>任务</th><th>标准答案</th><th>解析</th><th>常见错因</th><th>变式</th></tr></thead><tbody><tr><td>扩写“小鸟飞来了”</td><td>清晨，一只小鸟扑扇着翅膀，轻轻地飞到窗台上，叽叽喳喳地叫着。</td><td>补了时间、样子、动作和声音。</td><td>只堆形容词，事情没有变具体。</td><td>扩写“小狗跑来了”。</td></tr><tr><td>写话加心情</td><td>我看到小鸟飞来，心里高兴极了。</td><td>最后补心情，内容更完整。</td><td>只写动作，不写感受。</td><td>给“放风筝”加一句心情。</td></tr><tr><td>检查标点</td><td>小鸟真可爱啊！</td><td>强烈喜爱用感叹号。</td><td>所有句子都用句号。</td><td>写一个问句和一个感叹句。</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e67e22;">拔尖题库 · 批改样例</p>
+        <h2>二年级高质量题组：读懂短文，写清一段</h2>
+        <p style="color:#666;">二年级拔尖不靠堆好词，而是能找信息、说依据、写具体。</p>
+      </div>
+      <div class="table-card">
+        <h2>递进题组</h2>
+        <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead><tbody>
+          <tr><td>基础</td><td>选字填空：清/晴/睛。今天天气很（ ），小河很（ ），妹妹的眼（ ）亮亮的。</td><td>晴、清、睛</td><td>看偏旁和意思：日字旁和天气有关，三点水和水有关，目字旁和眼睛有关。</td></tr>
+          <tr><td>提升</td><td>读短文后回答：小兔为什么高兴？</td><td>因为小芽从土里钻出来了。</td><td>原因题用“因为”，答案要回原文找。</td></tr>
+          <tr><td>拔尖</td><td>把“小狗跑来了”扩成一段话</td><td>一只黄色的小狗摇着尾巴，飞快地向我跑来。它汪汪叫着，好像在欢迎我回家。我开心地摸了摸它的头。</td><td>加入样子、动作、声音和心情。</td></tr>
+          <tr><td>迁移</td><td>用“先……然后……最后……”写做手工</td><td>我先把彩纸对折，然后剪出花瓣，最后把花瓣贴在卡纸上。</td><td>顺序词能让一段话不乱。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>批改样例</h2>
+          <div class="routine">
+            <p><strong>孩子原文：</strong>小猫睡觉。它很可爱。我喜欢它。</p>
+            <p><strong>批改意见：</strong>句子通顺，但缺少样子和动作。第二句“很可爱”太空，要写出怎么可爱。</p>
+            <p><strong>升格表达：</strong>午后，小猫蜷成一团睡在沙发上，尾巴轻轻搭在身边。它的小鼻子一动一动的，看起来可爱极了。我忍不住想摸摸它。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>错因分类</h2>
+          <div class="routine">
+            <p><strong>字词错：</strong>形近字靠偏旁和语境判断。</p>
+            <p><strong>阅读错：</strong>不回原文，凭记忆答，容易漏原因。</p>
+            <p><strong>写话错：</strong>只写结论，不写动作、样子、声音。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>阶段测评</h2>
+        <div class="responsive-table"><table><thead><tr><th>测评项</th><th>达标</th><th>提升</th><th>拔尖</th></tr></thead><tbody>
+          <tr><td>字词</td><td>能区分形近字</td><td>能在句中正确选字</td><td>能说明为什么选这个字</td></tr>
+          <tr><td>阅读</td><td>能找信息</td><td>能说主要内容</td><td>能写“从哪里看出来”</td></tr>
+          <tr><td>写话</td><td>能写 3 句</td><td>能写有顺序的一段</td><td>能写出细节和心情</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section advanced-bank">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e67e22;">二轮加厚题库</p>
+        <h2>二年级按知识点闯关：字词辨析、短文概括、写话扩写</h2>
+        <p style="color:#666;">每个知识点 4 道题，从会做基础题，到能说清理由，再迁移到新材料。</p>
+      </div>
+      <div class="table-card">
+        <h2>知识点递进题组</h2>
+        <div class="responsive-table"><table><thead><tr><th>知识点</th><th>递进题</th><th>标准答案/要点</th><th>解析与错因</th></tr></thead><tbody>
+          <tr><td>字词辨析</td><td>1. 选字：清、晴、睛</td><td>晴天、清水、眼睛</td><td>看偏旁和语境，日和天气有关，氵和水有关，目和眼睛有关。</td></tr>
+          <tr><td>字词辨析</td><td>2. 给“漂、飘”各写一个句子</td><td>小船在水上漂。树叶在空中飘。</td><td>漂多和水有关，飘多和风、空气有关。</td></tr>
+          <tr><td>字词辨析</td><td>3. 找近义词：美丽、认真、忽然</td><td>漂亮、专心、突然</td><td>要能放回原句读通，不能只背词表。</td></tr>
+          <tr><td>字词辨析</td><td>4. 用“终于”写一句有结果的话</td><td>我练了很久，终于学会了跳绳。</td><td>“终于”前面通常有努力、等待或过程。</td></tr>
+          <tr><td>短文概括</td><td>1. 圈出短文中的人物、地点、事情</td><td>人物、地点、事情分别圈出</td><td>概括前先找信息，不凭记忆答。</td></tr>
+          <tr><td>短文概括</td><td>2. 回答“为什么”：小兔为什么高兴？</td><td>因为嫩芽长出来了。</td><td>原因题要用“因为”，答案回到原文找。</td></tr>
+          <tr><td>短文概括</td><td>3. 用一句话概括“种萝卜”短文</td><td>小兔细心照顾萝卜种子，看到嫩芽长出来很高兴。</td><td>要有人物、主要事情和结果。</td></tr>
+          <tr><td>短文概括</td><td>4. 判断哪句是多余信息</td><td>和人物行动、结果无关的句子可删</td><td>拔尖训练孩子抓主干，减少照抄。</td></tr>
+          <tr><td>写话扩写</td><td>1. 扩写“小猫睡觉”</td><td>午后，小猫蜷在沙发上安静地睡觉。</td><td>补时间、地点、样子。</td></tr>
+          <tr><td>写话扩写</td><td>2. 加动作和声音写“小雨下起来了”</td><td>小雨沙沙地下起来，雨点轻轻落在窗户上。</td><td>写声音能让画面更具体。</td></tr>
+          <tr><td>写话扩写</td><td>3. 用“先、然后、最后”写做手工</td><td>我先折纸，然后剪花瓣，最后把花贴在卡纸上。</td><td>顺序词让一段话不乱。</td></tr>
+          <tr><td>写话扩写</td><td>4. 给“放风筝”写 5 句话</td><td>要有时间、地点、动作、结果、心情</td><td>拔尖不是堆好词，而是画面完整有顺序。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>写话批改样例</h2>
+          <div class="routine">
+            <p><strong>孩子原文：</strong>我去公园。公园很好玩。我很开心。</p>
+            <p><strong>问题诊断：</strong>有地点和心情，但“怎么玩”没有写出来，读者看不到画面。</p>
+            <p><strong>教师升格：</strong>星期六下午，我和妈妈来到公园。我先在草地上追泡泡，又坐在长椅上看小鸟啄米。回家的路上，我还舍不得离开。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>阅读答题批改</h2>
+          <div class="routine">
+            <p><strong>题目：</strong>小兔做了哪些事？</p>
+            <p><strong>孩子答案：</strong>种萝卜。</p>
+            <p><strong>批改：</strong>题目问“哪些事”，要列动作。改成“小兔种下种子，每天浇水，还拔掉旁边的小草”。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>写话批改加厚</h2>
+        <div class="responsive-table"><table><thead><tr><th>孩子原文</th><th>老师批注</th><th>升格稿</th><th>二次练习</th></tr></thead><tbody>
+          <tr><td>小猫睡觉。它很可爱。我喜欢它。</td><td>句子通顺，但缺少样子和动作。第二句“很可爱”太空。</td><td>午后，小猫蜷成一团睡在沙发上，尾巴轻轻搭在身边。它的小鼻子一动一动的，看起来可爱极了。我忍不住想摸摸它。</td><td>给“小狗跑来了”写一段话。</td></tr>
+          <tr><td>我看到小鸟飞来。</td><td>只说了看到什么，没写心情和动作。</td><td>清晨，我站在窗边，看见一只小鸟飞到窗台上叽叽喳喳地叫着，我心里高兴极了。</td><td>给“我看到花开了”补一句心情。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>错因分类与阶段测评</h2>
+        <div class="responsive-table"><table><thead><tr><th>类型</th><th>典型表现</th><th>立刻补救</th><th>测评标准</th></tr></thead><tbody>
+          <tr><td>字词错</td><td>形近字、同音字混用</td><td>每组写“偏旁 + 意思 + 句子”</td><td>8 组选字题能说明至少 6 组理由</td></tr>
+          <tr><td>信息漏</td><td>只答一个词，不完整</td><td>用“谁 + 做什么 + 结果”补全</td><td>读 120 字短文，3 道题答案完整</td></tr>
+          <tr><td>概括散</td><td>把每句话都抄一遍</td><td>删细节，保留人物、事件、结果</td><td>能用 1 句话说主要内容</td></tr>
+          <tr><td>写话空</td><td>“很好玩、很开心”反复出现</td><td>追问“做了什么、看到什么、听到什么”</td><td>能写 5 句，有 2 个具体动作</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section stage-assessment" id="grade2-stage-assessment">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e67e22;">A卷诊断摸底 · 25分钟</p>
+        <h2>二年级 A卷小测：字词辨析、短文概括、写话扩写</h2>
+        <p style="color:#666;">这就是本年级 A 卷：先看孩子能不能回原文找答案、能不能把一句话写成一段话。</p>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>阅读材料</h2>
+          <p>星期六，贝贝和妈妈去公园看花。花坛里的花有红的、黄的、紫的，漂亮极了。贝贝看见一位老奶奶的袋子掉在地上，赶紧跑过去帮她捡起来。老奶奶笑着说：“谢谢你，真是个懂事的孩子。”贝贝心里甜甜的。</p>
+        </article>
+        <article class="study-block accent">
+          <h2>做题提醒</h2>
+          <div class="routine">
+            <p><strong>信息题：</strong>答案一定从短文里找。</p>
+            <p><strong>概括题：</strong>人物、事情、结果都要有。</p>
+            <p><strong>写话题：</strong>至少写 4 句，要有动作和心情。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>A卷诊断：题目、答案和评分</h2>
+        <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
+          <tr><td>1. 选字填空：清/晴/睛。今天天气很（ ），湖水很（ ），妹妹的眼（ ）亮亮的。</td><td>晴、清、睛</td><td>每空 1 分</td><td>不看偏旁和语境。</td></tr>
+          <tr><td>2. 贝贝和妈妈去哪里？做什么？</td><td>去公园看花。</td><td>地点 1 分，事情 1 分</td><td>只答“公园”，不完整。</td></tr>
+          <tr><td>3. 老奶奶为什么夸贝贝？</td><td>因为贝贝帮老奶奶捡起掉在地上的袋子。</td><td>原因完整 3 分</td><td>只答“贝贝懂事”，没写具体事。</td></tr>
+          <tr><td>4. 用一句话概括短文主要内容</td><td>短文写贝贝和妈妈去公园看花，贝贝帮助老奶奶捡袋子，受到夸奖。</td><td>人物、事件、结果共 4 分</td><td>把花的颜色全抄下来，漏掉主要事件。</td></tr>
+          <tr><td>5. 扩写“贝贝帮助老奶奶”成一段话</td><td>贝贝看见老奶奶的袋子掉了，马上跑过去弯腰捡起来，双手递给老奶奶。老奶奶笑着夸她，贝贝心里甜甜的。</td><td>动作、顺序、心情共 6 分</td><td>只写“她很善良”，没有动作过程。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>A卷诊断判码表</h2>
+        <div class="responsive-table"><table><thead><tr><th>A卷题号</th><th>扣分表现</th><th>判定错因码</th><th>马上去练</th></tr></thead><tbody>
+          <tr><td>1</td><td>形近字按感觉选</td><td><a href="practice.html#pack-b1">B1</a></td><td>字词拼音训练包</td></tr>
+          <tr><td>2</td><td>只答地点或事情不完整</td><td><a href="practice.html#pack-r1">R1</a></td><td>概括训练包</td></tr>
+          <tr><td>3</td><td>原因题没有回到短文</td><td><a href="practice.html#pack-r2">R2</a></td><td>原文依据训练包</td></tr>
+          <tr><td>4</td><td>概括漏人物、事件或结果</td><td><a href="practice.html#pack-r1">R1</a></td><td>概括训练包</td></tr>
+          <tr><td>5</td><td>写话只有评价，没有动作过程</td><td><a href="practice.html#pack-w1">W1</a></td><td>写话和观察训练包</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" id="grade2-b-test" style="margin-top:18px;">
+        <h2>B卷：同类变式迁移</h2>
+        <div class="responsive-table"><table><thead><tr><th>变式题</th><th>标准答案/要点</th><th>错因码</th><th>通过标准</th></tr></thead><tbody>
+          <tr><td>1. 选字填空：园/圆。花（ ）里有一个（ ）圆的皮球。</td><td>园、圆。</td><td><a href="practice.html#pack-b1">B1</a></td><td>能看偏旁和语境，不凭感觉选。</td></tr>
+          <tr><td>2. 小雨为什么把伞借给同学？</td><td>因为同学没有带伞，外面正在下雨。</td><td><a href="practice.html#pack-r2">R2</a></td><td>原因能回到短文信息，不只写“她善良”。</td></tr>
+          <tr><td>3. 概括“小雨借伞”短文</td><td>小雨看到同学没带伞，把自己的伞借给他，同学很感激。</td><td><a href="practice.html#pack-r1">R1</a></td><td>人物、事情、结果完整。</td></tr>
+          <tr><td>4. 扩写“小雨借伞”成 4 句话</td><td>放学时下起雨，同学站在门口发愁。小雨把伞递过去，说可以一起用。同学笑着说谢谢，小雨心里暖暖的。</td><td><a href="practice.html#pack-w1">W1</a></td><td>有动作、语言、心情。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>测后复盘</h2>
+        <div class="responsive-table"><table><thead><tr><th>错因</th><th>表现</th><th>补救练习</th></tr></thead><tbody>
+          <tr><td>字词混</td><td>清、晴、睛乱选</td><td>每组形近字写“偏旁 + 意思 + 句子”。</td></tr>
+          <tr><td>阅读漏</td><td>原因题只答一个词</td><td>每题用“因为……”写完整。</td></tr>
+          <tr><td>写话短</td><td>只写 1-2 句</td><td>用“看见、跑去、捡起、递给、心情”扩成 5 句。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>测后分流路径</h2>
+        <div class="responsive-table"><table><thead><tr><th>错因码</th><th>错在哪</th><th>先补哪里</th><th>下一步练什么</th></tr></thead><tbody>
+          <tr><td><a href="practice.html#pack-b1">B1</a></td><td>字词老选错</td><td>词语学习页 + B1训练包</td><td>按偏旁和语境练 10 组形近字。</td></tr>
+          <tr><td><a href="practice.html#pack-r1">R1</a></td><td>概括不完整</td><td>阅读模板页 + R1训练包</td><td>练“谁 + 做什么 + 结果”。</td></tr>
+          <tr><td><a href="practice.html#pack-w1">W1</a></td><td>写话太短</td><td>作文专题页 + W1训练包</td><td>每天把一句话扩成 4 句。</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section content-grid">
+      <article class="study-block"><h2>二年级必须形成的 5 个能力</h2><ul class="check-list"><li>识字写字：能辨析形近字和多音字。</li><li>词语积累：能把 ABB、AABB、四字词语用进句子。</li><li>阅读理解：能读懂短文并概括主要内容。</li><li>口语表达：能说完整一段话，语气得体。</li><li>写话表达：能写 3-5 句通顺、具体的话。</li></ul></article>
+      <article class="study-block accent"><h2>二年级提优总口诀</h2><div class="routine"><p><strong>字词：</strong>放进句子里判断。</p><p><strong>阅读：</strong>谁、做什么、结果怎样。</p><p><strong>写话：</strong>时间、地点、动作、心情。</p><p><strong>复盘：</strong>错在哪里，下次怎么改。</p></div></article>
+    </section>
+
+    <!-- 尖子生专区 -->
+    <section class="section">
+      <div class="table-card" style="background:linear-gradient(135deg,#f0f4ff,#faf5ff);border:2px solid #667eea;">
+        <h2>🏆 二年级拔尖挑战</h2>
+        <p style="color:#666;">C3压轴已通过？来挑战升级题：C3升级 → 词语运用拔尖 → 古文启蒙入门 → 名著赏析起步</p>
+        <div class="route-links">
+          <a href="practice.html#peak-challenge-g2">进入拔尖挑战</a>
+          <a href="practice.html#peak-promotion">查看晋级认证</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="nav.js?v=82"></script>
+  <script src="table-responsive.js?v=82"></script>
+</body>
+</html>
+
