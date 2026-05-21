@@ -2677,6 +2677,54 @@ html.view-mobile .mobile-bottom-nav a.active span {
   font-size: 13px;
 }
 
+/* ===== 诊断分流说明 ===== */
+.auto-diagnosis-strip {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 auto 18px;
+  max-width: 1100px;
+}
+
+.auto-diagnosis-strip article,
+.wrongbook-note {
+  background: #fff;
+  border: 1px solid #e4e9f2;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(31, 45, 72, 0.06);
+}
+
+.auto-diagnosis-strip article {
+  padding: 18px;
+}
+
+.auto-diagnosis-strip strong {
+  color: #315fce;
+  display: block;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.auto-diagnosis-strip span {
+  color: #556071;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.wrongbook-note {
+  color: #556071;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: -4px 0 16px;
+  padding: 12px 14px;
+}
+
+@media (max-width: 900px) {
+  .auto-diagnosis-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== 知识图谱响应式 ===== */
 @media (max-width: 900px) {
   .graph-section {

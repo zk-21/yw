@@ -1150,6 +1150,7 @@ function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip) {
   }
   
   localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  renderAutoRoutingPanel();
 }
 
 function getWrongAnswers() {
@@ -1160,6 +1161,7 @@ function clearWrongAnswers() {
   if (confirm('确定要清空所有错题吗？')) {
     localStorage.removeItem('wrongAnswers');
     renderWrongList();
+    renderAutoRoutingPanel();
   }
 }
 
@@ -1354,6 +1356,7 @@ function renderWrongList() {
     analysisDiv.style.display = 'none';
     filterDiv.style.display = 'none';
     renderErrorStats();
+    renderAutoRoutingPanel();
     return;
   }
   
@@ -1477,6 +1480,7 @@ function renderWrongList() {
     </div>`;
   }).join('');
   renderErrorStats();
+  renderAutoRoutingPanel();
 }
 
 // 渲染错因统计
@@ -1530,6 +1534,88 @@ function renderErrorStats() {
   container.innerHTML = html;
 }
 
+function formatReviewDate(timestamp, offsetDays) {
+  const base = timestamp ? new Date(timestamp) : new Date();
+  if (Number.isNaN(base.getTime())) return '待生成';
+  base.setDate(base.getDate() + offsetDays);
+  return `${base.getMonth() + 1}月${base.getDate()}日`;
+}
+
+function getAutoRoutingLabel(wrongList) {
+  const total = wrongList.length;
+  const stats = getErrorCategoryStats();
+  const sorted = Object.values(ERROR_CATEGORIES)
+    .map(cat => ({ ...cat, count: stats[cat.id] || 0 }))
+    .sort((a, b) => b.count - a.count);
+  const top = sorted.find(item => item.count > 0);
+
+  if (!total) {
+    return {
+      level: '等待A卷诊断',
+      issue: '暂无错题数据',
+      action: '先完成15分钟诊断，系统会自动生成错因码和下一课路径。'
+    };
+  }
+
+  if (total >= 6) {
+    return {
+      level: '基础达标',
+      issue: top ? `${top.icon} ${top.label}` : '基础薄弱点',
+      action: '先不要混刷题，集中完成最高频错因训练包，再做B卷复测。'
+    };
+  }
+
+  if (total >= 3) {
+    return {
+      level: '提优提升',
+      issue: top ? `${top.icon} ${top.label}` : '答案完整度',
+      action: '重点补“依据 + 分析 + 完整表达”，同类变式通过后进入C卷。'
+    };
+  }
+
+  return {
+    level: '拔尖迁移',
+    issue: top ? `${top.icon} ${top.label}` : '迁移稳定性',
+    action: '错题较少，建议直接做C1/C2混合迁移，看能否换材料稳定使用方法。'
+  };
+}
+
+function renderAutoRoutingPanel() {
+  const routePanel = document.getElementById('autoRoutingSummary');
+  const reviewPanel = document.getElementById('reviewScheduleSummary');
+  if (!routePanel && !reviewPanel) return;
+
+  const wrongList = getWrongAnswers();
+  const route = getAutoRoutingLabel(wrongList);
+
+  if (routePanel) {
+    routePanel.innerHTML = `
+      <p><strong>当前路径：</strong>${route.level}</p>
+      <p><strong>主攻问题：</strong>${route.issue}</p>
+      <p><strong>下一步：</strong>${route.action}</p>
+    `;
+  }
+
+  if (reviewPanel) {
+    if (!wrongList.length) {
+      reviewPanel.innerHTML = `
+        <p><strong>复习提醒：</strong>暂无错题。</p>
+        <p>完成诊断或互动练习后，错题会自动进入这里，并生成3天/7天复习节奏。</p>
+      `;
+      return;
+    }
+
+    const latest = wrongList[wrongList.length - 1];
+    const unfinished = wrongList.filter(item => !item.mastered).length;
+    reviewPanel.innerHTML = `
+      <p><strong>未完全掌握：</strong>${unfinished}题</p>
+      <p><strong>3天后复练：</strong>${formatReviewDate(latest.timestamp, 3)}</p>
+      <p><strong>7天后复测：</strong>${formatReviewDate(latest.timestamp, 7)}</p>
+      <p><strong>考前策略：</strong>优先练未完全掌握题，再做同类变式迁移。</p>
+    `;
+  }
+}
+
 // 筛选错题
 function filterWrong(type) {
   currentFilter = type;
@@ -1554,6 +1640,7 @@ function removeWrong(index) {
   wrongList.splice(index, 1);
   localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
   renderWrongList();
+  renderAutoRoutingPanel();
 }
 
 function retryWrong(index) {
@@ -2940,6 +3027,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initABScorePanel();
   renderLearningProfilePanel();
   renderNextLessonPanel();
+  renderAutoRoutingPanel();
   
   // 关闭奖励弹窗
   document.getElementById('rewardModal').addEventListener('click', (e) => {

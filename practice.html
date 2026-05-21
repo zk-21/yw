@@ -6,10 +6,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>语文练习计划 - 互动学习版</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文练习计划 | A卷诊断与错因训练</title>
+  <meta name="description" content="小学语文练习计划页：15分钟A卷诊断后自动判断错因码，进入一对一精讲、智能错题本、3天/7天复习、B卷复测、C卷迁移和拔尖晋级。">
+  <meta name="keywords" content="A卷诊断,错因码,小学语文练习,阅读理解提分,作文拔尖,智能错题本,B卷复测,C卷迁移">
+  <meta property="og:title" content="小学语文练习计划 | A卷诊断与错因训练">
+  <meta property="og:description" content="孩子做题，系统自动判错因；家长看训练路径，不用手工判断R1、R2、W2。">
+  <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=76">
+  <link rel="stylesheet" href="styles.css?v=82">
   <style>
     /* 互动练习区域样式 */
     .interactive-practice {
@@ -1050,7 +1055,7 @@
     <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
-      <a href="agent.html">AI Agent</a>
+      <a href="agent.html">一对一辅导</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
       <a href="grade1.html">一年级</a>
@@ -1067,29 +1072,29 @@
   <section class="diagnosis-area" id="diagnosis">
     <div class="diagnosis-container">
       <div class="diagnosis-header">
-        <h2>🔍 入门诊断测评</h2>
-        <p>通过15分钟的测评，快速了解孩子的语文薄弱环节</p>
+        <h2>15分钟A卷诊断</h2>
+        <p>孩子只完成题目；错因码、训练包、B卷复测和C卷迁移由系统自动生成。</p>
       </div>
       
       <!-- 诊断说明 -->
       <div class="diagnosis-intro" id="diagnosisIntro">
         <div class="intro-card">
-          <h3>测评说明</h3>
+          <h3>给孩子看的</h3>
           <ul>
-            <li>📝 测评包含15道题目，覆盖字词、阅读、写作三个方面</li>
-            <li>⏱️ 建议用时：15分钟</li>
-            <li>🎯 测评完成后将生成个性化学习建议</li>
+            <li>完成15道短题，不需要知道R1、R2、W2是什么意思</li>
+            <li>每题认真读题、选答案，系统会记录薄弱点</li>
+            <li>测完后只看“下一步练什么、怎么改、何时复测”</li>
           </ul>
         </div>
         <div class="intro-card">
-          <h3>测评内容</h3>
+          <h3>给家长看的</h3>
           <ul>
-            <li>字词基础（5题）：考察词语理解和运用</li>
-            <li>阅读理解（5题）：考察概括、分析能力</li>
-            <li>写作表达（5题）：考察表达和修辞能力</li>
+            <li>错因码不是让家长手工判断，而是测后自动生成</li>
+            <li>系统会把错题归到审题、依据、概括、表达、作文重点段</li>
+            <li>家长只需要看分流路径：补基础、提优提升或拔尖迁移</li>
           </ul>
         </div>
-        <button class="start-diagnosis-btn" onclick="startDiagnosis()">开始诊断测评</button>
+        <button class="start-diagnosis-btn" onclick="startDiagnosis()">开始15分钟诊断</button>
       </div>
       
       <!-- 诊断测评题目 -->
@@ -1235,6 +1240,7 @@
   <section class="section" style="background: #f7f8fb;">
     <div class="wrong-notebook" style="max-width: 900px; margin: 0 auto;">
       <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button></h3>
+      <p class="wrongbook-note">每次错题会自动进入个人错题库。系统先判断错因，再给出3天后、7天后的复习提醒；考前优先练“未完全掌握”的题。</p>
       
       <!-- 错因统计可视化 -->
       <div id="errorStatsVisual" style="margin: 15px 0;"></div>
@@ -1884,14 +1890,28 @@
     <section class="section" id="flow-training">
       <div class="section-title">
         <p class="eyebrow">测后分流训练包</p>
-        <h2>错因编码对应训练：A卷诊断，点码训练，B卷复测，C1/C2/C3混合迁移</h2>
-        <p style="color:#666;">年级页测完后，不再笼统说“多练”。先看错因编码，点击对应训练包，完成 3 道同类题，再用 B 卷验证同类迁移，最后依次用 C1 基础混合、C2 限时综合、C3 拔尖压轴检查能否换材料、换题型继续做对。</p>
+        <h2>孩子做题，系统自动判错因，再分流训练</h2>
+        <p style="color:#666;">R1、R2、W2 这类错因码主要给系统和家长看，不要求孩子背。年级页或A卷测完后，系统按错题自动生成主攻错因、训练包入口、B卷复测和C1/C2/C3迁移路径。</p>
+      </div>
+      <div class="auto-diagnosis-strip">
+        <article>
+          <strong>孩子看到</strong>
+          <span>下一题练什么、答案怎么改、什么时候复测。</span>
+        </article>
+        <article>
+          <strong>家长看到</strong>
+          <span>错因归类、训练依据、是否该基础达标/提优提升/拔尖迁移。</span>
+        </article>
+        <article>
+          <strong>系统完成</strong>
+          <span>A卷诊断判码、同类变式迁移、错题本复习提醒、测后分流。</span>
+        </article>
       </div>
       <div class="content-grid" style="margin-bottom:18px;">
         <article class="study-block">
           <h2>一对一闭环执行卡</h2>
           <div class="routine">
-            <p><strong>第一步：</strong>在年级页做 A 卷，按“A卷判码表”标出错因编码。</p>
+            <p><strong>第一步：</strong>在年级页做 A 卷，系统根据错题自动匹配错因码。</p>
             <p><strong>第二步：</strong>点进对应训练包，只练同一类错因，不混练。</p>
             <p><strong>第三步：</strong>回年级页做 B 卷，同类变式能过，才算真正掌握。</p>
             <p><strong>第四步：</strong>切到 C1/C2/C3 卷，能判断题型、切换方法、稳定表达，才进入拔尖晋级。</p>
@@ -1923,6 +1943,16 @@
             <p><strong>分流原则：</strong>有错先补错因，B 卷过关再进 C1，C1 过关进 C2，C2 过关进 C3，C3 通过才进拔尖测评。</p>
           </div>
           <div id="nextLessonPanel"></div>
+        </article>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block" id="autoRoutingPanel">
+          <h2>测后自动分流</h2>
+          <div id="autoRoutingSummary" class="routine"></div>
+        </article>
+        <article class="study-block accent" id="reviewSchedulePanel">
+          <h2>错题复习提醒</h2>
+          <div id="reviewScheduleSummary" class="routine"></div>
         </article>
       </div>
       <div class="table-card" style="margin-bottom:18px;">
@@ -2559,13 +2589,13 @@
     </div>
   </div>
 
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js?v=82"></script>
+  <script src="table-responsive.js?v=82"></script>
   <script>
     window.addEventListener('afterprint', function () {
       document.body.classList.remove('printing-training-sheet');
     });
   </script>
-  <script src="practice.js?v=76"></script>
+  <script src="practice.js?v=82"></script>
 </body>
 </html>

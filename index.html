@@ -8,9 +8,14 @@
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
-  <title>小学语文学习平台 - 知识导航</title>
+  <title>小学语文一对一拔尖辅导 | 特级教师式诊断训练</title>
+  <meta name="description" content="特级教师式小学语文一对一拔尖辅导：先做15分钟A卷诊断，再自动判断错因，进入一对一精讲、B卷复测、C卷迁移和拔尖晋级。">
+  <meta name="keywords" content="小学语文一对一辅导,特级教师式辅导,A卷诊断,错因训练,阅读理解提分,作文拔尖,小学语文提优">
+  <meta property="og:title" content="小学语文一对一拔尖辅导 | 特级教师式诊断训练">
+  <meta property="og:description" content="先诊断、再判错因、再训练迁移。A卷诊断到B卷复测、C卷迁移，帮家长看清孩子下一步练什么。">
+  <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=82">
   <style>
     /* 诊断和任务模块 */
     .diagnosis-section {
@@ -248,7 +253,7 @@
     <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a class="active" href="index.html">总览</a>
-      <a href="agent.html">AI Agent</a>
+      <a href="agent.html">一对一辅导</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
       <a href="composition.html">作文专题</a>
@@ -268,35 +273,36 @@
     <div class="diagnosis-container">
       <!-- 入门诊断 -->
       <div class="diagnosis-card">
-        <h3>🔍 入门诊断测评</h3>
-        <p>通过15分钟的测评，快速了解孩子的语文薄弱环节，包括字词、阅读、写作等方面，为个性化学习提供依据。</p>
-        <a href="practice.html#diagnosis" class="diagnosis-btn">开始诊断测评</a>
+        <h3>15分钟A卷诊断</h3>
+        <p>孩子只做题，系统自动看薄弱点和错因：审题、依据、概括、表达、作文重点段，一次测完就知道先补哪里。</p>
+        <a href="practice.html#diagnosis" class="diagnosis-btn">开始15分钟诊断</a>
       </div>
       <!-- 今日任务 -->
       <div class="diagnosis-card">
-        <h3>📋 今日学习任务</h3>
+        <h3>一对一拔尖辅导</h3>
         <ul class="task-list" id="taskList">
           <li class="task-item">
             <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">朗读课文并标出停顿</span>
-            <span class="task-time">8分钟</span>
+            <span class="task-text">A卷诊断后自动生成错因码</span>
+            <span class="task-time">诊断</span>
           </li>
           <li class="task-item">
             <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">积累3个词语并造句</span>
-            <span class="task-time">10分钟</span>
+            <span class="task-text">按错因进入一对一精讲训练包</span>
+            <span class="task-time">精讲</span>
           </li>
           <li class="task-item">
             <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">完成一篇阅读理解</span>
-            <span class="task-time">12分钟</span>
+            <span class="task-text">B卷复测同类变式是否掌握</span>
+            <span class="task-time">复测</span>
           </li>
           <li class="task-item">
             <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">复述文章主要内容</span>
-            <span class="task-time">5分钟</span>
+            <span class="task-text">C卷混合迁移，进入拔尖晋级</span>
+            <span class="task-time">拔尖</span>
           </li>
         </ul>
+        <a href="practice.html#flow-training" class="diagnosis-btn secondary">看家长闭环图</a>
       </div>
     </div>
   </section>
@@ -305,34 +311,34 @@
   <section class="cycle-section">
     <div class="cycle-container">
       <div class="cycle-title">
-        <h2>科学学习闭环</h2>
-        <p>诊断 → 学习 → 练习 → 反馈 → 复盘</p>
+        <h2>家长一眼看懂的辅导闭环</h2>
+        <p>A卷诊断 → 错因码 → 一对一精讲 → B卷复测 → C卷迁移 → 拔尖晋级</p>
       </div>
       <div class="cycle-steps">
         <div class="step-card">
           <div class="step-number">1</div>
-          <h4>诊断</h4>
-          <p>找出薄弱环节<br>确定学习重点</p>
+          <h4>A卷诊断</h4>
+          <p>先测真实薄弱点<br>不靠感觉猜问题</p>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h4>学习</h4>
-          <p>知识点讲解<br>典型例题分析</p>
+          <h4>错因码</h4>
+          <p>系统自动判断<br>家长不用手工判</p>
         </div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <h4>练习</h4>
-          <p>基础→提优→拔高<br>分层递进训练</p>
+          <h4>一对一精讲</h4>
+          <p>讲错在哪里<br>讲满分怎么写</p>
         </div>
         <div class="step-card">
           <div class="step-number">4</div>
-          <h4>反馈</h4>
-          <p>正确答案解析<br>错因归类总结</p>
+          <h4>B卷复测</h4>
+          <p>换材料换问法<br>检查同类迁移</p>
         </div>
         <div class="step-card">
           <div class="step-number">5</div>
-          <h4>复盘</h4>
-          <p>错题自动归类<br>生成复习建议</p>
+          <h4>C卷晋级</h4>
+          <p>混合题能稳定做<br>才算拔尖通过</p>
         </div>
       </div>
     </div>
@@ -467,25 +473,26 @@
   <main>
     <section class="hero dashboard-hero">
       <div class="hero-copy">
-        <p class="eyebrow">小学一至六年级</p>
-        <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
-        <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
+        <p class="eyebrow">小学一至六年级 · 阅读理解 · 作文提优</p>
+        <h1>特级教师式一对一拔尖辅导</h1>
+        <p class="lead">先诊断、再判错因、再训练迁移。孩子只需要完成题目，系统自动生成错因画像、训练包、复测路径和拔尖晋级建议。</p>
         <div class="hero-actions">
-          <a class="button primary" href="agent.html">打开 AI Agent</a>
-          <a class="button primary" href="practice.html">查看今日练习</a>
-          <a class="button ghost" href="knowledge-map.html">打开知识总控台</a>
+          <a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
+          <a class="button primary" href="agent.html">进入一对一拔尖辅导</a>
+          <a class="button ghost" href="practice.html#flow-training">看家长闭环图</a>
         </div>
       </div>
       <div class="learning-card" aria-label="今日学习卡片">
         <div class="card-header">
-          <span>今日 35 分钟</span>
-          <strong>轻量学习</strong>
+          <span>特级教师式方法</span>
+          <strong>五步设计</strong>
         </div>
         <ol class="timeline">
-          <li><span>08 分钟</span>朗读一段课文，标出停顿</li>
-          <li><span>10 分钟</span>积累 3 个词语并造句</li>
-          <li><span>12 分钟</span>做一篇短阅读</li>
-          <li><span>05 分钟</span>复述文章主要内容</li>
+          <li><span>1</span>按课标维度定位年级能力</li>
+          <li><span>2</span>用常考题型做A卷诊断</li>
+          <li><span>3</span>自动判断错因与扣分层</li>
+          <li><span>4</span>对照满分答案讲清方法</li>
+          <li><span>5</span>同类变式迁移后再晋级</li>
         </ol>
       </div>
     </section>
@@ -940,7 +947,7 @@
       }
     </script>
   </main>
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js?v=82"></script>
+  <script src="table-responsive.js?v=82"></script>
 </body>
 </html>
