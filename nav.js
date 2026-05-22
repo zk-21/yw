@@ -147,10 +147,8 @@ function enhanceTopNavigation(topbar) {
   topbar.dataset.enhanced = 'true';
 
   var currentPage = getCurrentPage();
-  var topicsActive = ['composition.html', 'knowledge-map.html', 'pinyin.html', 'grammar.html', 'vocabulary.html'].indexOf(currentPage) !== -1;
+  var topicsActive = ['composition.html', 'knowledge-map.html', 'pinyin.html', 'grammar.html', 'vocabulary.html', 'advanced.html'].indexOf(currentPage) !== -1;
   var gradesActive = ['grade1.html', 'grade2.html', 'grade3.html', 'grade4.html', 'grade5.html', 'grade6.html'].indexOf(currentPage) !== -1;
-
-  var advancedActive = currentPage === 'advanced.html';
   
   nav.innerHTML = [
     navLink('index.html', '总览', currentPage === 'index.html'),
@@ -167,9 +165,9 @@ function enhanceTopNavigation(topbar) {
       navLink('knowledge-map.html', '知识总控', currentPage === 'knowledge-map.html'),
       navLink('pinyin.html', '拼音学习', currentPage === 'pinyin.html'),
       navLink('grammar.html', '语法知识', currentPage === 'grammar.html'),
-      navLink('vocabulary.html', '词语学习', currentPage === 'vocabulary.html')
+      navLink('vocabulary.html', '词语学习', currentPage === 'vocabulary.html'),
+      navLink('advanced.html', '尖子生拓展', currentPage === 'advanced.html')
     ]),
-    navLink('advanced.html', '尖子生拓展', advancedActive),
     navLink('agent.html', 'AI Agent', currentPage === 'agent.html'),
     navLink('practice.html', '练习计划', currentPage === 'practice.html'),
   ].join('');
