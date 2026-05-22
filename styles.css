@@ -196,6 +196,81 @@ a {
   white-space: nowrap;
 }
 
+/* 下拉菜单样式 */
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dropdown-toggle {
+  display: inline-flex;
+  min-height: 2.375rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.8125rem;
+  color: #536174;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.dropdown-toggle::after {
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: -0.1875rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  content: "";
+  opacity: 0.6;
+  transform: rotate(45deg);
+}
+
+.dropdown-toggle:hover {
+  color: #172033;
+  background: #f3f7fb;
+  border-color: #e4ebf3;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 0.625rem);
+  left: 50%;
+  z-index: 40;
+  display: none;
+  min-width: 9.75rem;
+  padding: 0.5rem;
+  background: white;
+  border: 1px solid rgba(219, 226, 234, 0.95);
+  border-radius: 0.75rem;
+  box-shadow: 0 18px 38px rgba(24, 33, 47, 0.14);
+  transform: translateX(-50%);
+}
+
+.nav-dropdown:hover .dropdown-content,
+.nav-dropdown:focus-within .dropdown-content {
+  display: grid;
+  gap: 4px;
+}
+
+.dropdown-content a {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
 .view-switcher {
   display: inline-flex;
   flex: 0 0 auto;
@@ -3996,6 +4071,22 @@ html.view-mobile .mobile-bottom-nav a.active span {
   .teacher-reflection-panel { display: none !important; }
 }
 
+/* ========== 尖子生对比双栏 ========== */
+.think-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 700px) {
+  .think-compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media print {
+  .think-compare-grid { display: block; }
+  .think-compare-grid > * { margin-bottom: 20px; }
+}
+
 /* ========== 打印样式优化 ========== */
 @media print {
   /* 隐藏导航和控制元素 */
@@ -4178,6 +4269,499 @@ html.view-mobile .mobile-bottom-nav a.active span {
     margin-top: 30pt;
     padding-top: 15pt;
     border-top: 1pt solid #ddd;
+  }
+}
+
+/* ========== 作业专题打印版增强 ========== */
+@media print {
+  /* 打印作业单：虚线填写区 */
+  .print-sheet {
+    border: 2pt solid #333 !important;
+    padding: 15pt !important;
+    page-break-inside: avoid;
+    background: white !important;
+    margin-bottom: 20pt !important;
+  }
+  .print-sheet h3 {
+    border-bottom: 2pt solid #333 !important;
+    padding-bottom: 8pt;
+    margin-bottom: 12pt;
+    color: black !important;
+  }
+  .print-fill-line {
+    border-bottom: 1pt dashed #999 !important;
+    min-height: 28pt;
+    margin: 8pt 0;
+    position: relative;
+  }
+  .print-fill-line::after {
+    content: "________________________________________";
+    color: #ccc;
+    font-size: 10pt;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .print-checkbox {
+    display: inline-block;
+    width: 14pt;
+    height: 14pt;
+    border: 1.5pt solid #333 !important;
+    border-radius: 2pt;
+    margin-right: 6pt;
+    vertical-align: middle;
+    position: relative;
+    background: white !important;
+  }
+
+  /* 评分表打印优化 */
+  .rubric-table table {
+    font-size: 9pt !important;
+  }
+  .rubric-table th {
+    background: #eee !important;
+    color: black !important;
+    font-weight: bold;
+  }
+
+  /* 隐藏打印无关元素 */
+  #hw-filter-bar,
+  .hw-filter-pill,
+  .composition-hub,
+  #composition-hub,
+  .hub-nav-grid,
+  .ai-link-bar,
+  #homework-ai-link,
+  .collapsible-toggle-label {
+    display: none !important;
+  }
+}
+
+/* ========== 总控台导航网格响应式 ========== */
+.hub-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 980px) {
+  .hub-nav-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+@media (max-width: 700px) {
+  .hub-nav-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+  }
+  .hub-nav-grid a {
+    padding: 10px 8px !important;
+    font-size: 11px !important;
+  }
+}
+@media (max-width: 400px) {
+  .hub-nav-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ========== 移动端折叠卡片系统 ========== */
+/* 默认：桌面端全部展开 */
+.collapsible-card {
+  margin-bottom: 16px;
+}
+.collapsible-card .collapsible-toggle {
+  display: none; /* 桌面端隐藏开关 */
+}
+.collapsible-card .collapsible-header {
+  cursor: default;
+}
+.collapsible-card .collapsible-body {
+  display: block !important;
+}
+
+/* 移动端：默认折叠，点击展开 */
+@media (max-width: 768px) {
+  .collapsible-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .collapsible-card .collapsible-toggle {
+    display: none; /* 隐藏真实checkbox */
+  }
+  .collapsible-card .collapsible-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    transition: background 0.2s;
+  }
+  .collapsible-card .collapsible-header:hover {
+    background: #f5f5f5;
+  }
+  .collapsible-card .collapsible-header::after {
+    content: "▾";
+    font-size: 14px;
+    color: #999;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+  .collapsible-card .collapsible-toggle:checked + .collapsible-header::after {
+    transform: rotate(180deg);
+  }
+  .collapsible-card .collapsible-toggle:checked + .collapsible-header {
+    border-bottom: 1px solid #e0e0e0;
+    background: #f0f4ff;
+    color: #4f46e5;
+  }
+  .collapsible-card .collapsible-body {
+    display: none !important;
+    padding: 16px 18px;
+  }
+  .collapsible-card .collapsible-toggle:checked + .collapsible-header + .collapsible-body {
+    display: block !important;
+  }
+
+  /* 折叠卡片内表格优化 */
+  .collapsible-card .collapsible-body table,
+  .collapsible-card .collapsible-body .responsive-table {
+    font-size: 12px;
+  }
+  .collapsible-card .collapsible-body th,
+  .collapsible-card .collapsible-body td {
+    padding: 6px 8px;
+  }
+
+  /* 折叠卡片内网格优化 */
+  .collapsible-card .collapsible-body [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========== 筛选栏样式 ========== */
+#hw-filter-bar {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+#hw-filter-bar::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 600px) {
+  #hw-filter-bar {
+    gap: 6px !important;
+    padding: 0 8px 4px;
+  }
+  .hw-filter-pill {
+    padding: 5px 12px !important;
+    font-size: 11px !important;
+    white-space: nowrap;
+  }
+}
+
+/* ========== 作业合集网格响应式 ========== */
+#hw-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  #hw-collection-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 560px) {
+  #hw-collection-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========== 页面分工网格响应式（index.html） ========== */
+@media (max-width: 800px) {
+  .route-grid[style*="repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========== 作业专题内筛选栏响应式 ========== */
+@media (max-width: 600px) {
+  #hw-filter-bar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    gap: 5px !important;
+  }
+  #hw-filter-bar > * {
+    flex-shrink: 0;
+  }
+}
+
+/* ========== 三阶段成长路线（composition.html）打印/响应式 ========== */
+@media print {
+  #stage-roadmap {
+    display: none !important;
+  }
+}
+
+/* 三阶段路线表格按钮移动端适配 */
+@media (max-width: 768px) {
+  #stage-roadmap td a {
+    display: inline-block !important;
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    margin: 2px !important;
+  }
+  #stage-roadmap td[style*="vertical-align: middle"] {
+    padding: 8px 4px !important;
+  }
+}
+
+/* ========== CSS Hover 工具类（替代 onmouseover/onmouseout） ========== */
+/* 卡片上浮效果 */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(102,126,234,0.2);
+}
+
+/* 边框高亮效果 */
+.hover-border-blue {
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hover-border-blue:hover {
+  border-color: #667eea !important;
+  background: #f0f4ff;
+}
+
+.hover-border-purple {
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hover-border-purple:hover {
+  border-color: #9c27b0 !important;
+  background: #f3e5f5;
+}
+
+.hover-border-green {
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hover-border-green:hover {
+  border-color: #4caf50 !important;
+  background: #e8f5e9;
+}
+
+.hover-border-orange {
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hover-border-orange:hover {
+  border-color: #e65100 !important;
+  background: #fff8e1;
+}
+
+.hover-border-red {
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hover-border-red:hover {
+  border-color: #C00000 !important;
+  background: #fff5f5;
+}
+
+.hover-border-teal {
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hover-border-teal:hover {
+  border-color: #11998e !important;
+  background: #e0f2f1;
+}
+
+/* 卡片通用 hover 换色（保留原色调） */
+.hover-lift-sm {
+  transition: transform 0.2s ease;
+}
+.hover-lift-sm:hover {
+  transform: translateY(-2px);
+}
+
+/* 卡片通用上浮+阴影 */
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* 按钮/标签暗化效果 */
+.hover-darken {
+  transition: filter 0.2s ease;
+}
+.hover-darken:hover {
+  filter: brightness(0.85);
+}
+
+/* 小药丸 hover（快速导航用） */
+.quick-pill {
+  transition: all 0.2s ease;
+}
+.quick-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* composition 总控台特殊渐变卡片 hover */
+.hub-nav-grid > a:first-child:hover {
+  background: linear-gradient(135deg, #fef9ef, #ede7f6) !important;
+  border-color: #4f46e5 !important;
+}
+.hub-nav-grid > a:last-child:hover {
+  background: linear-gradient(135deg, #e0f2f1, #fff8e1) !important;
+  border-color: #00695c !important;
+}
+
+/* ========== 词汇尖子生专区（vocabulary.html）响应式 ========== */
+@media print {
+  #vocab-top-student {
+    display: none !important;
+  }
+}
+
+/* 分级题库移动端 */
+@media (max-width: 768px) {
+  #vocab-top-student .teacher-lab {
+    padding: 14px !important;
+  }
+  #vocab-top-student .lab-title h3 {
+    font-size: 14px !important;
+  }
+}
+
+/* AI联动按钮响应式 */
+@media (max-width: 900px) {
+  #vocab-ai-link > div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 500px) {
+  #vocab-ai-link > div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 能力自查评分卡响应式 */
+@media (max-width: 700px) {
+  #vocab-score-rubric div[style*="repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========== 拼音尖子生专区（pinyin.html）响应式 ========== */
+@media print {
+  #pinyin-top-student {
+    display: none !important;
+  }
+}
+
+/* AI联动按钮响应式 */
+@media (max-width: 900px) {
+  #pinyin-ai-link > div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 500px) {
+  #pinyin-ai-link > div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 能力自查评分卡响应式 */
+@media (max-width: 700px) {
+  #pinyin-score-rubric div[style*="repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========== 批改报告生产线（composition.html#report-pipeline）响应式 ========== */
+@media print {
+  #report-pipeline {
+    display: none !important;
+  }
+}
+
+/* 五步生产线移动端 */
+@media (max-width: 900px) {
+  #report-pipeline div[style*="repeat(5, 1fr)"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+@media (max-width: 560px) {
+  #report-pipeline div[style*="repeat(5, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* AI批量按钮移动端 */
+@media (max-width: 700px) {
+  #report-pipeline div[style*="repeat(3, 1fr)"]:last-of-type {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ========== AI mini CTA 统一样式 ========== */
+.ai-mini-cta {
+  max-width: 1100px;
+  margin: 16px auto 0;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #f3e5f5, #e8eaf6);
+  border-radius: 10px;
+  border: 1px dashed #9c27b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ai-mini-cta span {
+  font-size: 13px;
+  color: #7b1fa2;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ai-mini-cta a {
+  display: inline-block;
+  padding: 6px 16px;
+  background: #9c27b0;
+  color: white;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.ai-mini-cta a:hover {
+  background: #6a1b9a;
+  transform: translateY(-1px);
+}
+@media (max-width: 500px) {
+  .ai-mini-cta {
+    gap: 8px;
+    padding: 10px 14px;
+  }
+  .ai-mini-cta a {
+    padding: 5px 12px;
+    font-size: 11px;
   }
 }
 

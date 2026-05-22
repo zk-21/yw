@@ -389,40 +389,45 @@
   <section class="interactive-section">
     <p class="eyebrow" style="color: rgba(255,255,255,0.8);">互动学习</p>
     <h2>点击卡片学习词语</h2>
-    
-    <div style="margin-bottom: 25px;">
-      <input type="text" id="searchInput" placeholder="搜索词语或拼音..." style="width: 300px; padding: 12px 20px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.2); color: white; font-size: 16px; outline: none; transition: all 0.3s;">
-      <button id="searchBtn" style="padding: 12px 25px; border-radius: 30px; border: none; background: white; color: #667eea; font-weight: bold; margin-left: 10px; cursor: pointer;">搜索</button>
-    </div>
-    
-    <div class="category-tabs">
-      <button class="category-tab active" data-category="all">全部</button>
-      <button class="category-tab" data-category="nature">自然季节</button>
-      <button class="category-tab" data-category="emotion">心情情绪</button>
-      <button class="category-tab" data-category="character">人物品质</button>
-      <button class="category-tab" data-category="study">学习成长</button>
-      <button class="category-tab" data-category="fable">寓言成语</button>
-      <button class="category-tab" data-category="action">动作行为</button>
-    </div>
-    
-    <div class="flashcard-container" id="flashcards">
-      <!-- 词语卡片将由JS生成 -->
-    </div>
-  </section>
+    <div class="study-block accent" style="margin:0 5vw 18px; text-align:left; max-width:800px;">
+ <h2>特级教师精讲</h2>
+ <p><strong>核心诊断：</strong>抄十遍不如用一遍。大多数孩子学词语只有一个动作——抄写，结果词语就像孤岛一样存在脑子里，没有和任何情境、画面、情感连接。所以听写能对，造句就卡壳，作文更用不上。</p>
+ <p><strong>怎么做：</strong>学新词必须走五步闭环：看字形→读准音→想意思和画面→口头造句→书面造句。翻卡片时看正面猜意思，翻过来确认后，立刻在脑子里想一个使用这个词语的画面，再用它说一句话。这才是把词语"种"进脑子里，不是"贴"在纸上。</p>
+ </div>
+ 
+ <div style="margin-bottom: 25px;">
+ <input type="text" id="searchInput" placeholder="搜索词语或拼音。." style="width: 300px; padding: 12px 20px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.2); color: white; font-size: 16px; outline: none; transition: all 0.3s;">
+ <button id="searchBtn" style="padding: 12px 25px; border-radius: 30px; border: none; background: white; color: #667eea; font-weight: bold; margin-left: 10px; cursor: pointer;">搜索</button>
+ </div>
+ 
+ <div class="category-tabs">
+ <button class="category-tab active" data-category="all">全部</button>
+ <button class="category-tab" data-category="nature">自然季节</button>
+ <button class="category-tab" data-category="emotion">心情情绪</button>
+ <button class="category-tab" data-category="character">人物品质</button>
+ <button class="category-tab" data-category="study">学习成长</button>
+ <button class="category-tab" data-category="fable">寓言成语</button>
+ <button class="category-tab" data-category="action">动作行为</button>
+ </div>
+ 
+ <div class="flashcard-container" id="flashcards">
+ <!-- 词语卡片将由JS生成 -->
+ </div>
+ </section>
 
-  <!-- 练习区域 -->
-  <section class="quiz-section">
-    <div class="section-title" style="text-align: center;">
-      <p class="eyebrow">词语练习</p>
-      <h2>学以致用</h2>
-    </div>
-    
-    <div class="quiz-card">
-      <div class="quiz-progress">
-        <span class="progress-text" id="quizProgress">第 1 题 / 共 22 题</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
-        </div>
+ <!-- 练习区域 -->
+ <section class="quiz-section">
+ <div class="section-title" style="text-align: center;">
+ <p class="eyebrow">词语练习</p>
+ <h2>学以致用</h2>
+ </div>
+ 
+ <div class="quiz-card">
+ <div class="quiz-progress">
+ <span class="progress-text" id="quizProgress">第 1 题 / 共 22 题</span>
+ <div class="progress-bar">
+ <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
+ </div>
       </div>
       
       <div id="quizContent">
@@ -437,44 +442,50 @@
       <p class="eyebrow">词语积累</p>
       <h1>小学一至六年级词语大全</h1>
       <p>按年级和类型整理，既方便查词，也帮助孩子学会辨析、搭配和运用。</p>
-    </section>
+      <div class="study-block accent" style="margin-bottom:18px;">
+        <h2>特级教师精讲</h2>
+        <p><strong>核心诊断：</strong>词语学习有三道坎：能认不能写（音形脱节）、能写不会用（形义脱节）、考试拿不到分<div class="study-block accent" style="margin-bottom:18px;">
+ <h2>特级教师精讲</h2>
+ <p><strong>核心诊断：</strong>词语学习有三道坎：能认不能写（音形脱节）、能写不会用（形义脱节）、考试拿不到分（不会辨析）。这不是孩子懒，而是每个词语在大脑里是分三条路存储的——读音、写法、意思，任何一条路断了，这个词就没学会。</p>
+ <p><strong>怎么做：</strong>按年级建三级词库：核心词（必须100%全通，会读会写会造句）、扩展词（掌握80%，能识别会用）、运用词（掌握50%，作文中敢用）。每天执行"5+3+2"：5个核心词全通听写→3个扩展词造句→2个运用词写进一个小片段。量不大但每词都过三关。</p>
+ </div>
+ </section>
 
-    <section class="section teacher-note">
-      <div class="section-title">
-        <p class="eyebrow">词语提分</p>
-        <h2>词语不是背得多就够，关键是放进语境会用</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">考试中的词语题通常不是问“你背过没有”，而是考孩子能不能根据语境辨析、搭配、造句和表达情感色彩。</p>
-      </div>
-      <div class="table-card">
-        <div class="responsive-table">
-          <table>
-            <thead>
-              <tr><th>题型</th><th>答题思路</th><th>答题模板</th><th>例子</th><th>训练任务</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>解释词语</td><td>先说本义，再说文中义。</td><td>“……”本来指……，文中指……。</td><td>“暖流”本指温暖水流，文中指老师的话让我感到温暖。</td><td>每天选2个词，写“本义 + 句中义”。</td></tr>
-              <tr><td>近义词辨析</td><td>比较对象、范围、语气和感情色彩。</td><td>“……”适合……语境；“……”适合……语境。</td><td>“安静”适合教室，“寂静”更适合夜晚山林。</td><td>每组近义词各造1句，必须语境不同。</td></tr>
-              <tr><td>词语搭配</td><td>看动词和对象是否习惯搭配。</td><td>应说……，不能说……，因为……。</td><td>提高水平，改进方法；不能说“改进水平”。</td><td>整理20组常见搭配，放进句子读一遍。</td></tr>
-              <tr><td>感情色彩</td><td>判断是夸奖、批评还是客观描述。</td><td>“……”是褒义/贬义/中性词，适合写……。</td><td>“顽强”是褒义，“顽固”多为贬义。</td><td>把10个词分成褒义、贬义、中性三类。</td></tr>
-              <tr><td>成语运用</td><td>先理解意思，再看对象和场景。</td><td>这个成语适合写……，不能用于……。</td><td>“津津有味”要写读、听、看得有兴趣，不能只写“我津津有味”。</td><td>每个成语写“意思 + 对象 + 例句”。</td></tr>
-              <tr><td>关联词填空</td><td>先判断前后分句关系。</td><td>因为……所以……；虽然……但是……；只要……就……。</td><td>虽然下雨，但是运动会照常举行。</td><td>每道题先写关系：因果、转折、条件、假设。</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section teacher-note">
-      <div class="section-title">
-        <p class="eyebrow">词语怎么练</p>
-        <h2>高年级不能只背词，要把词语变成表达能力</h2>
+ <section class="section teacher-note">
+ <div class="section-title">
+ <p class="eyebrow">词语提分</p>
+ <h2>词语不是背得多就够，关键是放进语境会用</h2>
+ <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">考试中的词语题通常不是问"你背过没有"，而是考查学生能否根据语境辨析、搭配、造句和表达情感色彩。</p>
+ </div>
+ <div class="study-block accent" style="margin-bottom:18px;">
+ <h2>特级教师精讲</h2>
+ <p><strong>核心诊断：</strong>词语题丢分，问题不在词汇量，在辨析能力。绝大多数孩子做近义词题纯靠语感——读一读哪个顺嘴就选哪个，从没有系统分析过两个词到底差在哪。选词填空更是忽略上下文线索，只看选项本身认不认识。</p>
+ <p><strong>怎么做：</strong>教孩子"四看法"辨析近义词，每次练2组，每组从四个角度过一遍：①看对象（这个词通常说谁/什么）②看程度（轻还是重）③看色彩（夸还是批还是中性）④看搭配（和谁连用最自然）。配合每天10道选词填空题，要求做完后说出"我为什么选这个不选那个"，逼出分析思维。</p>
+ </div>
+ <div class="table-card">
+ <div class="responsive-table">
+ <table>
+ <thead>
+ <tr><th>题型</th><th>答题思路</th><th>答题模板</th><th>例子</th><th>训练任务</th></tr>
+ </thead>
+ <tbody>
+ <tr><td>解释词语</td><td>先说本义，再说文中义。</td><td>"……"本来指……，文中指……。</td><td>"暖流"本指温暖水流，文中指老师的话让我感到温暖。</td><td>每天选2个词，写"本义 + 句中义"。</td></tr>
+ <tr><td>近义词辨析</td><td>比较对象、范围、语气和感情色彩。</td><td>"……"适合……语境；"……"适合……语境。</td><td>"安静"适合教室，"寂静"更适合夜晚山林。</td><td>每组近义词各造1句，必须语境不同。</td></tr>
+ <tr><td>词语搭配</td><td>看动词和对象是否习惯搭配。</td><td>应说……，不能说……，因为……。</td><td>提高水平，改进方法；不能说"改进水平"。</td><td>整理20组常见搭配，放进句子读一遍。</td></tr>
+ <tr><td>感情色彩</td><td>判断是夸奖、批评还是客观描述。</td><td>"……"是褒义/贬义/中性词，适合写……。</td><td>"顽强"是褒义，"顽固"多为贬义。</td><td>把10个词分成褒义、贬义、中性三类。</td></tr>
+ <tr><td>成语运用</td><td>先理解意思，再看对象和场景。</td><td>这个成语适合写……，不能用于……。</td><td>"津津有味"要写读、听、看得有兴趣，不能只写"我津津有味"。</td><td>每个成语写"意思 + 对象 + 例句"。</td></tr>
+ <tr><td>关联词填空</td><td>先判断前后分句关系。</td><td>因为……所以……；虽然……但是……；只要……就……。</td><td>虽然下雨，但是运动会照常举行。</td><td>每道题先写关系：因果、转折、条件、假设。</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>成表达能力</h2>
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">每组词语不要求全都造句。先会读会写，再选 3 个放进一段话，训练辨析、搭配和作文表达。</p>
       </div>
       <div class="route-grid">
         <article class="route-card"><h3>1. 会读会写</h3><p>先读准字音、看清字形，容易错的字单独圈出来，不机械抄整页。</p></article>
-        <article class="route-card"><h3>2. 会解释</h3><p>解释时不要只背词典义，要说“本义 + 文中义 + 这个词写出了什么”。</p></article>
+        <article class="route-card"><h3>2. 会解释</h3><p>解释时不要只背词典义，要说"本义 + 文中义 + 这个词写出了什么"。</p></article>
         <article class="route-card"><h3>3. 会搭配</h3><p>把动词和对象连起来练，例如提高水平、改进方法、表达情感。</p></article>
-        <article class="route-card"><h3>4. 会造句</h3><p>一个词至少换两个语境，避免只写“我很……”“他很……”。</p></article>
+        <article class="route-card"><h3>4. 会造句</h3><p>一个词至少换两个语境，避免只写"我很……""他很……"。</p></article>
         <article class="route-card"><h3>5. 放进作文</h3><p>每组词语选 3 个写一段 80 字小片段，要求有场景、有动作、有心情。</p><div class="route-links"><a href="composition.html">作文专题</a><a href="agent.html">AI 辅导</a></div></article>
       </div>
     </section>
@@ -482,21 +493,21 @@
     <section class="section teacher-note">
       <div class="section-title">
         <p class="eyebrow">特级教师方法</p>
-        <h2>词语辨析用“四看法”，不用靠感觉猜</h2>
+        <h2>词语辨析用"四看法"，不用靠感觉猜</h2>
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">孩子做近义词、选词填空、成语运用时，先按对象、程度、色彩、搭配四个角度检查，错误率会明显下降。</p>
       </div>
       <div class="route-grid">
         <article class="route-card">
           <h3>1. 看对象</h3>
-          <p>先问“这个词通常写谁、写什么”。如“严厉”多写批评、态度，“严格”多写要求、制度；“寂静”更适合夜晚、山林、校园。</p>
+          <p>先问"这个词通常写谁、写什么"。如"严厉"多写批评、态度，"严格"多写要求、制度；"寂静"更适合夜晚、山林、校园。</p>
         </article>
         <article class="route-card">
           <h3>2. 看程度</h3>
-          <p>比较轻重强弱。如“爱惜”偏普通，“珍惜”更强调难得；“突然”强调来得快，“猛然”语气更强，常写动作或心理变化。</p>
+          <p>比较轻重强弱。如"爱惜"偏普通，"珍惜"更强调难得；"突然"强调来得快，"猛然"语气更强，常写动作或心理变化。</p>
         </article>
         <article class="route-card">
           <h3>3. 看色彩</h3>
-          <p>判断褒义、贬义、中性。如“顽强”是夸赞坚持，“顽固”多批评不听劝；“机灵”多夸人灵活，“狡猾”多写不诚实。</p>
+          <p>判断褒义、贬义、中性。如"顽强"是夸赞坚持，"顽固"多批评不听劝；"机灵"多夸人灵活，"狡猾"多写不诚实。</p>
         </article>
         <article class="route-card">
           <h3>4. 看搭配</h3>
@@ -509,55 +520,358 @@
       <div class="section-title">
         <p class="eyebrow">考场模板</p>
         <h2>词语题答题三步：解释清楚，放回原文，说出作用</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不是背一个答案，而是让孩子知道每类题该从哪里下手，尤其适合三至六年级阅读题。</p>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不是背一个答案，而是让学生掌握每类题型的结构化答题策略，尤其适合三至六年级阅读题中的词语考查。</p>
       </div>
-      <div class="table-card">
+      <div class="study-block accent" style="margin-bottom:18px;">
+        <h2>特级教师精讲</h2>
+        <p><strong>核心诊断：</strong>词语题答题最常见的三个毛病：①解释词语只抄词典，不联系文中语境——阅卷老师一看就知道是背的；②赏析词语只会说"写得好""很生动"，说不出好在哪——缺乏分析语言；③答题东一句西一句，没有结构——阅卷老师找不到得分点。</p>
+        <p><strong>实操策略：</strong>所有词语题用"三步法"答题：①本义（词典意思）→②文中义（在当下句子里指什么）→③表达效果（写出了什么特点/心情/品质）。每天练1道词语题，要求用完整的"观点+证据+解释"结构写出答案，坚持三周养成答题规范。不要追求量，追求每道题的答案能拿满分。</p>
+      </div>
+      <div class="table-ca<div class="study-block accent" style="margin-bottom:18px;">
+ <h2>特级教师精讲</h2>
+ <p><strong>核心诊断：</strong>词语题答题最常见的三个毛病：①解释词语只抄词典，不联系文中语境——阅卷老师一看就知道是背的；②赏析词语只会说"写得好""很生动"，说不出好在哪——缺乏分析语言；③答题东一句西一句，没有结构——阅卷老师找不到得分点。</p>
+ <p><strong>怎么做：</strong>所有词语题用"三步法"答题：①本义（词典意思）→②文中义（在当下句子里指什么）→③表达效果（写出了什么特点/心情/品质）。每天练1道词语题，要求用完整的"观点+证据+解释"结构写出答案，坚持三周养成答题规范。不要追求量，追求每道题的答案能拿满分。</p>
+ </div>
+ <div class="table-card">
+ <div class="responsive-table">
+ <table>
+ <thead>
+ <tr><th>题目类型</th><th>三步思路</th><th>高分表达</th><th>容易丢分</th></tr>
+ </thead>
+ <tbody>
+ <tr><td>解释词语</td><td>本义 - 文中义 - 表达效果</td><td>"……"本来指……，在文中指……，写出了……。</td><td>只背词典意思，不联系句子。</td></tr>
+ <tr><td>选词填空</td><td>辨对象 - 辨程度 - 读语境</td><td>这里写的是……，更适合用"……"，因为它能表现……。</td><td>两个词都认识，却忽略搭配对象。</td></tr>
+ <tr><td>赏析词语</td><td>找特点 - 找心情 - 找感情</td><td>这个词生动写出了……的特点，表现了人物……的心情/品质。</td><td>只说"用得好"，没有说好在哪里。</td></tr>
+ <tr><td>替换词语</td><td>比较意思 - 比较语气 - 判断能否换</td><td>不能换。原词更能突出……，换成"……"后语气变弱/对象不准。</td><td>只答"不能"，没有比较原词和替换词。</td></tr>
+ <tr><td>成语运用</td><td>明意思 - 看对象 - 看场景</td><td>这个成语适合写……，句中……，所以使用恰当/不恰当。</td><td>望文生义，只按字面猜意思。</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>; margin-top: 8px;">词语学习的本质不是多抄几遍，而是能准确辨析、灵活搭配、在作文和阅读中精准迁移。</p>
+      </div>
+      <div class="study-block accent" style="margin:0 auto 18px; max-width:1100px;">
+        <h2>特级教师精讲</h2>
+        <p><strong>核心诊断：</strong>词汇能力的差距有三层——A级基础层（字不会写、音读不准，如"蔼"写成"霭"），B级分析层（近义词分不清，如安静/宁静只知道一个说声音一个说心情，不会系统对比），C级创造层（作文词汇停留在"很+形容词"，成语只会被动词汇不会主动用）。大多数学生卡在B升C的路上。</p>
+        <p><strong>实操策略：</strong>诊断后再训练——先确定孩子卡在哪层，再精准突破。A层补听写和形近字对比，B层每天2组近义词用"四看法"分析到能说出四个维度的差异，C层每周2篇作文做词汇升级（把"很好"改"优异"，"很美"改"绚丽"）。关键是先诊断、再下药，不是盲目刷题。</p>
+      </div>
+
+      <!-- 快速导航 -->
+      <div style="max-width: 1100px; margin: 0 auto 24px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+        <a href="#vocab-question<div class="study-block accent" style="margin:0 auto 18px; max-width:1100px;">
+ <h2>特级教师精讲</h2>
+ <p><strong>核心诊断：</strong>词汇能力的差距有三层——A级基础层（字不会写、音读不准，如"蔼"写成"霭"），B级分析层（近义词分不清，如安静/宁静只知道一个说声音一个说心情，不会系统对比），C级创造层（作文词汇停留在"很+形容词"，成语只会被动词汇不会主动用）。大多数学生卡在B升C的路上。</p>
+ <p><strong>怎么做：</strong>诊断后再训练——先确定孩子卡在哪层，再精准突破。A层补听写和形近字对比，B层每天2组近义词用"四看法"分析到能说出四个维度的差异，C层每周2篇作文做词汇升级（把"很好"改"优异"，"很美"改"绚丽"）。关键是先诊断、再下药，不是盲目刷题。</p>
+ </div>
+
+ <!-- 快速导航 -->
+ <div style="max-width: 1100px; margin: 0 auto 24px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+ <a href="#vocab-question-bank" class="quick-pill" style="display: inline-block; padding: 8px 18px; background: white; border: 2px solid #e0e0e0; border-radius: 20px; text-decoration: none; font-size: 13px; color: #555; font-weight: 600;">📝 分级题库</a>
+ <a href="#vocab-traps" class="quick-pill" style="display: inline-block; padding: 8px 18px; background: white; border: 2px solid #e0e0e0; border-radius: 20px; text-decoration: none; font-size: 13px; color: #555; font-weight: 600;">⚠️ 陷阱挑战</a>
+ <a href="#vocab-ai-link" class="quick-pill" style="display: inline-block; padding: 8px 18px; background: white; border: 2px solid #e0e0e0; border-radius: 20px; text-decoration: none; font-size: 13px; color: #555; font-weight: 600;">🤖 AI辅导</a>
+ <a href="#vocab-score-rubric" class="quick-pill" style="display: inline-block; padding: 8px 18px; background: white; border: 2px solid #e0e0e0; border-radius: 20px; text-decoration: none; font-size: 13px; color: #555; font-weight: 600;">📊 能力自查</a>
+ </div>
+
+ <!-- ════ 分级题库：A/B/C + 尖子生挑战 ════ -->
+ <div id="vocab-question-bank" style="max-width: 1100px; margin: 0 auto 24px;">
+ <h3 style="text-align: center; color: #C00000; font-size: 18px; margin-bottom: 8px;">📝 词汇分级训练题库</h3>
+ <p style="text-align: center; color: #888; font-size: 14px; margin-bottom: 18px;">A级夯实基础 → B级诊断深层问题 → C级迁移拔高 → 尖子生挑战</p>
+
+ <!-- A级：字形字音 -->
+ <div class="teacher-lab" style="border-left: 5px solid #4caf50; margin-bottom: 18px;">
+ <div class="lab-title"><h3>🟢 A级 · 字形字音精练（基础夯实）</h3><span>适合：词语基础不牢、听写常出错的学生</span></div>
+ <div class="responsive-table">
+ <table>
+ <thead><tr><th style="width:8%;">题型</th><th style="width:28%;">题目</th><th style="width:20%;">常见错误</th><th style="width:24%;">正确写法/读音</th><th style="width:20%;">记忆方法</th></tr></thead>
+ <tbody>
+ <tr><td>易错字</td><td>"和（ ）可亲" 填哪个字？</td><td>蔼 写成 霭 / 矮</td><td>蔼（ǎi）<br>和蔼可亲</td><td>"蔼"下面是"曷"不是"葛"；联想：和气的老人说话像云（艹+雨）一样轻柔</td></tr>
+ <tr><td>多音字</td><td>"他勉强（ ）答应了" — 强读什么？</td><td>qiáng</td><td>qiǎng<br>勉强（qiǎng）</td><td>：表示力量大读 qiáng，表示强制行为读 qiǎng，表示性格固执读 jiàng——通过语义域区分实现音-义精准匹配</td></tr>
+ <tr><td>形近字</td><td>"再接再（ ）" — lì 是哪个字？</td><td>励 写成 厉</td><td>再接再厉</td><td>"厉"=磨刀石，接=交战；原指公鸡相斗时磨利嘴再战。不是"鼓励"</td></tr>
+ <tr><td>笔顺</td><td>"鼎"字共几画？第6画是什么？</td><td>数错画数</td><td>12画；第6画是竖折折</td><td>拆字法：目 + 爿（左）+ 爿（右），先写目再写两边</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <div style="margin-top: 10px; padding: 10px 16px; background: #e8f5e9; border-radius: 8px;">
+ <p style="font-size: 13px; color: #2e7d32; margin: 0;"><strong>✅ 过关标准：</strong>以上4题全部答对。做错1题→重做整组，直到连对2次。</p>
+ </div>
+ </div>/td>
+                  <td>安静</td>
+                  <td>"安静"偏重没有声音；"宁静"偏重心境平和+环境清幽。有蛙鸣说明不是绝对无声，用"宁静"更准确。</td>
+                  <td>安静=没噪音（客观）；宁静=心态平和+环境好（主观感受）</td>
+                </tr>
+                <tr>
+                  <td><strong>继续 / 连续</strong></td>
+                  <td>大雨（ ）下了三天三夜。</td>
+                  <td>继续</td>
+                  <td>"继续"强调中断后再接上；"连续"强调不间断。三天三夜不间断→用"连续"。</td>
+                  <td>继续=断开再续；连续=不间断；持续=一直保持</td>
+                </tr>
+                <tr>
+                  <td><strong>必须 / 必需</strong></td>
+                  <td>水是人体（ ）的物质。</td>
+                  <td>必须</td>
+                  <td>"必须"是副词，修饰动词（必须喝水）；"必需"是形容词，修饰名词（必需物质）。</td>
+                  <td>必须 + 动词；必需 + 名词</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 13px; color: #e65100; margin-top: 10px;"><strong>🔑 教学策略：</strong>近义词辨析三步法——先看搭配对象（这个词通常说谁/说什么），再看语义轻重（程度深还是浅），最后辨感情色彩（夸人、批人还是中性描述）。</p>
+        </div>
+
+        <!-- C级：成语语境迁移 -->
+        <div class="teacher-lab" style="border-left: 5px solid #9c27b0; margin-bottom: 18px;">
+          <div class="lab-title"><h3>🟣 C级 · 成语语境迁移（拔尖训练）</h3><span>适合：成语背得多但用不对语境的学生</span></div>
+          <div class="responsive-table">
+            <table>
+              <thead><tr><th style="width:8%;">序号</th><th style="width:28%;">原句（低分表达）</th><th style="width:28%;">升格句（用成语替换）</th><th style="width:36%;">教师分析</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>他做事很认真，一点小错都不放过。</td>
+                  <td>他做事<strong style="color:#9c27b0;">一丝不苟</strong>，连标点符号都不放过。</td>
+                  <td>"一丝不苟"比"很认真"更具体，有画面感——"丝"和"苟"都是细节词</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>看到分数，他高兴得不得了。</td>
+                  <td>看到分数，他<strong style="color:#9c27b0;">欣喜若狂</strong>，在走廊里跳了起来。</td>
+                  <td>"欣喜若狂"把高兴的程度写到了极致，后面跟动作描写形成呼应</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>这些建筑各不一样，很好看。</td>
+                  <td>这些建筑<strong style="color:#9c27b0;">千姿百态</strong>，有的像展翅的鸟，有的像刺天的剑。</td>
+                  <td>"千姿百态"引出后面的具体描写，形成"概括+具体"的经典句式</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>春天来了，到处都变漂亮了。</td>
+                  <td>春天来了，校园里<strong style="color:#9c27b0;">焕然一新</strong>：柳树抽出嫩芽，花坛开满月季。</td>
+                  <td>"焕然一新"管住整段，后面冒号引出具体变化，适合作文开头</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 10px; padding: 10px 16px; background: #f3e5f5; border-radius: 8px;">
+            <p style="font-size: 13px; color: #7b1fa2; margin: 0;"><strong>🏅 训练要求：</strong>用"焕然一新、全神贯注、争先恐后、异口同声"各写一个25字以上的句子，每句必须包含场景和人物。</p>
+          </div>
+        </div>
+
+        <!-- 尖子生挑战 -->
+        <div class="teacher-lab" style="border-left: 5px solid #C00000; margin-bottom: 18px; background: linear-gradient(135deg, #fff5f5, #fff);">
+          <div class="lab-title"><h3>🔴 尖子生挑战 · 词语褒贬色彩鉴赏</h3><span>适合：语感好，但在微妙感情色彩上需要打磨的尖子生</span></div>
+          <div class="responsive-table">
+            <table>
+              <thead><tr><th style="width:18%;">词语</th><th style="width:8%;">感情</th><th style="width:28%;">普通回答（2分）</th><th style="width:28%;">满分回答（4分）</th><th style="width:18%;">教师追问</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>顽固</strong></td>
+                  <td style="color:#C00000;">贬</td>
+                  <td>顽固就是固执，不听别人的话。</td>
+                  <td><strong>顽固</strong>偏贬义，指<strong>坚持错误</strong>不肯改变；<strong>执着</strong>偏褒义，指<strong>坚持正确目标</strong>不放弃。区别在坚持的内容对不对。</td>
+                  <td>"顽固"和"执着"在作文里各用在什么场景？</td>
+                </tr>
+                <tr>
+                  <td><strong>狡猾</strong></td>
+                  <td style="color:#C00000;">贬</td>
+                  <td>狡猾就是诡计多端。</td>
+                  <td><strong>狡猾</strong>偏贬义，指用心计欺骗；<strong>机智</strong>偏褒义，指灵活解决问题。关键在目的是利己损人还是妥善处理。</td>
+                  <td>写一个人的聪明，什么时候用"机智"什么时候用"狡猾"？</td>
+                </tr>
+                <tr>
+                  <td><strong>鼓动</strong></td>
+                  <td style="color:#ff9800;">中性偏贬</td>
+                  <td>鼓动就是让人做某事。</td>
+                  <td><strong>鼓动</strong>偏中性偏贬，指怂恿别人做<strong>可能不妥</strong>的事；<strong>鼓励</strong>是给人信心做<strong>正确</strong>的事；<strong>激励</strong>是用榜样力量推动。</td>
+                  <td>考场作文写同学帮你，用哪个最合适？</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 13px; color: #C00000; margin-top: 10px;"><strong>🎯 挑战任务：</strong>从课本里找出 3 组褒贬对应词（如：果断/武断、节约/吝啬、自信/自负），写清楚每组的使用场景和感情区别。</p>
+        </div>
+      </div>
+
+      <!-- ════ 词语陷阱挑战 ════ -->
+      <div id="vocab-traps" style="max-width: 1100px; margin: 0 auto 24px;">
+        <h3 style="text-align: center; color: #e65100; font-size: 18px; margin-bottom: 8px;">⚠️ 尖子生常踩的 6 个词语陷阱</h3>
+        <p style="text-align: center; color: #888; font-size: 14px; margin-bottom: 18px;">以下题目全部来自特级教师批改实录中的高频错误。</p>
         <div class="responsive-table">
           <table>
-            <thead>
-              <tr><th>题目类型</th><th>三步思路</th><th>高分表达</th><th>容易丢分</th></tr>
-            </thead>
+            <thead><tr><th style="width:5%;">#</th><th style="width:22%;">陷阱题</th><th style="width:18%;">常见错误思路</th><th style="width:18%;">陷阱类型</th><th style="width:22%;">正确解法</th><th style="width:15%;">一句话防错</th></tr></thead>
             <tbody>
-              <tr><td>解释词语</td><td>本义 - 文中义 - 表达效果</td><td>“……”本来指……，在文中指……，写出了……。</td><td>只背词典意思，不联系句子。</td></tr>
-              <tr><td>选词填空</td><td>辨对象 - 辨程度 - 读语境</td><td>这里写的是……，更适合用“……”，因为它能表现……。</td><td>两个词都认识，却忽略搭配对象。</td></tr>
-              <tr><td>赏析词语</td><td>找特点 - 找心情 - 找感情</td><td>这个词生动写出了……的特点，表现了人物……的心情/品质。</td><td>只说“用得好”，没有说好在哪里。</td></tr>
-              <tr><td>替换词语</td><td>比较意思 - 比较语气 - 判断能否换</td><td>不能换。原词更能突出……，换成“……”后语气变弱/对象不准。</td><td>只答“不能”，没有比较原词和替换词。</td></tr>
-              <tr><td>成语运用</td><td>明意思 - 看对象 - 看场景</td><td>这个成语适合写……，句中……，所以使用恰当/不恰当。</td><td>望文生义，只按字面猜意思。</td></tr>
+              <tr>
+                <td>1</td>
+                <td>"这次比赛，老师（ ）我好好准备。" A.鼓动 B.鼓励 C.煽动</td>
+                <td>选 A"鼓动"——觉得都是"让人做某事"</td>
+                <td>褒贬混淆</td>
+                <td>选 B。<strong>鼓励</strong>是正面支持。<strong>鼓动</strong>偏贬义指怂恿，<strong>煽动</strong>是贬义指挑拨。</td>
+                <td>老师对学生的→用褒义词</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>"这部电影很（ ），适合儿童观看。" A.肤浅 B.浅显 C.浅薄</td>
+                <td>选 A 或 C——觉得"浅"都一样</td>
+                <td>褒贬混淆</td>
+                <td>选 B。<strong>浅显</strong>是褒义=易懂；<strong>肤浅/浅薄</strong>是贬义=没深度。</td>
+                <td>看语境是夸还是贬</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>"这是一次（ ）的教训。" A.沉重 B.繁重 C.深重</td>
+                <td>选 B——只有"重"字相同就选</td>
+                <td>搭配不当</td>
+                <td>选 A。<strong>沉重</strong>搭配心情/代价/教训；<strong>繁重</strong>搭配任务/工作；<strong>深重</strong>搭配灾难/罪孽。</td>
+                <td>记固定搭配，不凭感觉</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>"妈妈（ ）地看着我离开。" A.凝视 B.注视 C.目送</td>
+                <td>选 A"凝视"——学过这个词就用</td>
+                <td>对象不当</td>
+                <td>选 C。<strong>目送</strong>特指看着人离开；<strong>凝视/注视</strong>是看着静止的人或物。</td>
+                <td>看动作是"离开"还是"静止"</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>"这道题太（ ）了，我一看就会。" A.简单 B.简陋 C.简朴</td>
+                <td>分不清——三个都带"简"</td>
+                <td>对象混淆</td>
+                <td>选 A。<strong>简单</strong>=不复杂（形容题目）；<strong>简陋</strong>=条件差（形容房屋/设施）；<strong>简朴</strong>=朴素（形容生活/衣着）。</td>
+                <td>简单→事情；简陋→条件；简朴→生活</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>"他讲的故事很（ ），大家都笑了。" A.风趣 B.滑稽 C.荒唐</td>
+                <td>选 B——觉得"让人笑"都可以</td>
+                <td>程度+褒贬</td>
+                <td>选 A。<strong>风趣</strong>=幽默有品位(褒义)；<strong>滑稽</strong>=逗人发笑(中性)；<strong>荒唐</strong>=荒谬不合理(贬义)。</td>
+                <td>故事让人愉快笑→风趣；动作让人笑→滑稽</td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </section>
 
-    <section class="section teacher-note">
-      <div class="section-title">
-        <p class="eyebrow">拔尖训练</p>
-        <h2>从会背到会用，训练要按年级逐步升级</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">拔尖不是多抄词语，而是让孩子能辨析、迁移、写进阅读答案和作文片段。</p>
+      <!-- ════ AI 辅导联动 ════ -->
+      <div id="vocab-ai-link" style="max-width: 1100px; margin: 0 auto 24px;">
+        <h3 style="text-align: center; color: #9c27b0; font-size: 18px; margin-bottom: 16px;">🤖 AI 特级教师 · 一键辅导联动</h3>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <a href="agent.html" class="hover-card" style="display: flex; flex-direction: column; align-items: center; gap: 8px; background: linear-gradient(135deg, #f3e5f5, #ede7f6); border: 2px solid #ce93d8; border-radius: 14px; padding: 20px 14px; text-decoration: none; text-align: center;">
+            <span style="font-size: 32px;">🔍</span>
+            <strong style="color: #7b1fa2; font-size: 14px;">近义词辨析诊断</strong>
+            <span style="color: #888; font-size: 11px; line-height: 1.5;">输入易混词组<br>AI 帮你分析区别+例句</span>
+          </a>
+          <a href="agent.html" class="hover-card" style="display: flex; flex-direction: column; align-items: center; gap: 8px; background: linear-gradient(135deg, #e8f5e9, #e0f2f1); border: 2px solid #81c784; border-radius: 14px; padding: 20px 14px; text-decoration: none; text-align: center;">
+            <span style="font-size: 32px;">✍️</span>
+            <strong style="color: #2e7d32; font-size: 14px;">成语运用点评</strong>
+            <span style="color: #888; font-size: 11px; line-height: 1.5;">提交含成语的段落<br>AI 点评成语用法是否恰当</span>
+          </a>
+          <a href="agent.html" class="hover-card" style="display: flex; flex-direction: column; align-items: center; gap: 8px; background: linear-gradient(135deg, #fff3e0, #fff8e1); border: 2px solid #ffb74d; border-radius: 14px; padding: 20px 14px; text-decoration: none; text-align: center;">
+            <span style="font-size: 32px;">📝</span>
+            <strong style="color: #e65100; font-size: 14px;">作文词汇升格</strong>
+            <span style="color: #888; font-size: 11px; line-height: 1.5;">输入作文中的普通用词<br>AI 推荐更精准的高级词汇</span>
+          </a>
+          <a href="agent.html" class="hover-card" style="display: flex; flex-direction: column; align-items: center; gap: 8px; background: linear-gradient(135deg, #e3f2fd, #e8eaf6); border: 2px solid #90caf9; border-radius: 14px; padding: 20px 14px; text-decoration: none; text-align: center;">
+            <span style="font-size: 32px;">🎯</span>
+            <strong style="color: #1565c0; font-size: 14px;">小升初词汇冲刺</strong>
+            <span style="color: #888; font-size: 11px; line-height: 1.5;">针对目标学校<br>AI 生成高频考点词汇训练</span>
+          </a>
+        </div>
       </div>
-      <div class="teacher-grid">
-        <article class="teacher-card">
-          <h3>低年级：一句话用准</h3>
-          <p><strong>训练：</strong>每组词选 2 个造句，句子里必须有人物、动作和地点。</p>
-          <p><strong>升级：</strong>同一个词换两个场景，例如“认真”写学习，也写劳动。</p>
-        </article>
-        <article class="teacher-card">
-          <h3>中年级：一段话写活</h3>
-          <p><strong>训练：</strong>每组词选 3 个写 80 字片段，至少包含一个动作描写和一个心情描写。</p>
-          <p><strong>升级：</strong>把普通句改具体，如“高兴”改成“眼睛亮了起来，脚步也轻快了”。</p>
-        </article>
-        <article class="teacher-card">
-          <h3>高年级：一类词迁移</h3>
-          <p><strong>训练：</strong>每周整理 5 组易混词，写清“区别 + 例句 + 适用场景”。</p>
-          <p><strong>升级：</strong>把词语用进阅读答题和作文开头、结尾、过渡句。</p>
-        </article>
+
+      <!-- ════ 词语能力自查表（25分制） ════ -->
+      <div id="vocab-score-rubric" style="max-width: 1100px; margin: 0 auto;">
+        <h3 style="text-align: center; color: #4f46e5; font-size: 18px; margin-bottom: 8px;">📊 词语能力自查表（25分制）</h3>
+        <p style="text-align: center; color: #888; font-size: 14px; margin-bottom: 18px;">让孩子自己打分，找到最薄弱的能力维度，进行专项训练。</p>
+        <div class="responsive-table" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 18px rgba(0,0,0,0.08);">
+          <table style="margin: 0;">
+            <thead>
+              <tr style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                <th style="width:14%;">能力维度</th>
+                <th style="width:8%;">满分</th>
+                <th style="width:18%;">自评得分</th>
+                <th style="width:30%;">得分标准</th>
+                <th style="width:30%;">薄弱怎么办</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>字音字形</strong></td>
+                <td style="text-align:center; font-weight:700;">4分</td>
+                <td style="text-align:center;"><input type="number" min="0" max="4" style="width:50px; text-align:center; border:2px solid #e0e0e0; border-radius:6px; padding:4px; font-size:16px;" placeholder="___"></td>
+                <td style="font-size:13px; color:#555;">4分=听写全对，多音字能辨音组词<br>2分=常用字不错，生字偶尔错<br>0分=基础字词经常出错</td>
+                <td style="font-size:13px; color:#555;">→ 每天15分钟听写，错一字练五遍<br>→ 按偏旁整理形近字对照表</td>
+              </tr>
+              <tr>
+                <td><strong>词语理解</strong></td>
+                <td style="text-align:center; font-weight:700;">4分</td>
+                <td style="text-align:center;"><input type="number" min="0" max="4" style="width:50px; text-align:center; border:2px solid #e0e0e0; border-radius:6px; padding:4px; font-size:16px;" placeholder="___"></td>
+                <td style="font-size:13px; color:#555;">4分=能用自己的话说出词语意思，能造句<br>2分=能选对近义词，但解释不清区别<br>0分=词语意思模糊，常张冠李戴</td>
+                <td style="font-size:13px; color:#555;">→ 每个生词口头说3个不同场景的句子<br>→ 画"词语意思地图"（解释+近义词+反义词+例句）</td>
+              </tr>
+              <tr>
+                <td><strong>近反义词辨析</strong></td>
+                <td style="text-align:center; font-weight:700;">5分</td>
+                <td style="text-align:center;"><input type="number" min="0" max="5" style="width:50px; text-align:center; border:2px solid #e0e0e0; border-radius:6px; padding:4px; font-size:16px;" placeholder="___"></td>
+                <td style="font-size:13px; color:#555;">5分=能准确说出3组以上易混词的区别+适用场景<br>3分=能辨析常见易混词<br>0分=近反义词混淆，选词全靠猜</td>
+                <td style="font-size:13px; color:#555;">→ 每组易混词画"Venn图"：共同点+不同点<br>→ 用易混词各造一个能体现区别的句子</td>
+              </tr>
+              <tr>
+                <td><strong>成语运用</strong></td>
+                <td style="text-align:center; font-weight:700;">4分</td>
+                <td style="text-align:center;"><input type="number" min="0" max="4" style="width:50px; text-align:center; border:2px solid #e0e0e0; border-radius:6px; padding:4px; font-size:16px;" placeholder="___"></td>
+                <td style="font-size:13px; color:#555;">4分=能用成语升级作文中的普通表达<br>2分=知道成语意思但作文里不会主动用<br>0分=成语意思记错，用错语境</td>
+                <td style="font-size:13px; color:#555;">→ 同一篇作文尝试用3个不同成语改写<br>→ 收集"成语替换对照表"贴在书桌前</td>
+              </tr>
+              <tr>
+                <td><strong>词语搭配</strong></td>
+                <td style="text-align:center; font-weight:700;">5分</td>
+                <td style="text-align:center;"><input type="number" min="0" max="5" style="width:50px; text-align:center; border:2px solid #e0e0e0; border-radius:6px; padding:4px; font-size:16px;" placeholder="___"></td>
+                <td style="font-size:13px; color:#555;">5分=修饰词搭配准确（"猛烈"配"炮火"不配"阳光"）<br>3分=常见搭配不错，生僻搭配偶尔错<br>0分=搭配经常别扭</td>
+                <td style="font-size:13px; color:#555;">→ 每次阅读时圈出"形容词+名词""动词+名词"的搭配<br>→ 整理"易错搭配本"，左边写错例右边写正确</td>
+              </tr>
+              <tr>
+                <td><strong>语境迁移</strong></td>
+                <td style="text-align:center; font-weight:700;">3分</td>
+                <td style="text-align:center;"><input type="number" min="0" max="3" style="width:50px; text-align:center; border:2px solid #e0e0e0; border-radius:6px; padding:4px; font-size:16px;" placeholder="___"></td>
+                <td style="font-size:13px; color:#555;">3分=能把课内词语主动用于阅读答题和作文<br>1分=只在听写时能写对，换场景就不会用<br>0分=词语就是"考试用的"，平时想不起来</td>
+                <td style="font-size:13px; color:#555;">→ 写日记时规定自己至少用2个本周生词<br>→ 做题时刻意把口语答案换成书面词语</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+          <div style="background: #fff5f5; border-left: 5px solid #C00000; border-radius: 10px; padding: 16px;">
+            <p style="font-size: 15px; font-weight: 700; color: #C00000; margin-bottom: 6px;">🏆 尖子生 (21-25分)</p>
+            <p style="font-size: 12px; color: #888; margin: 0;">目标：保持+挑战更高难度（文言词汇、文学鉴赏词汇）</p>
+          </div>
+          <div style="background: #fff8e1; border-left: 5px solid #ff9800; border-radius: 10px; padding: 16px;">
+            <p style="font-size: 15px; font-weight: 700; color: #e65100; margin-bottom: 6px;">📚 合格 (16-20分)</p>
+            <p style="font-size: 12px; color: #888; margin: 0;">目标：按薄弱维度补漏，先集中提升最低的那一维</p>
+          </div>
+          <div style="background: #e8f5e9; border-left: 5px solid #4caf50; border-radius: 10px; padding: 16px;">
+            <p style="font-size: 15px; font-weight: 700; color: #2e7d32; margin-bottom: 6px;">🌱 需加强 (<16分)</p>
+            <p style="font-size: 12px; color: #888; margin: 0;">目标：从字音字形抓起，每天听写+造句，先稳住基础</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 特级教师金句 -->
+      <div style="max-width: 1100px; margin: 30px auto 0; padding: 18px 22px; background: white; border-radius: 12px; border: 1px dashed #C00000; text-align: center;">
+        <p style="color: #C00000; font-size: 14px; font-weight: 600; margin: 0;">📌 特级教师金句：词语不是用来背的，是用来"选"的。同一个意思有 5 种说法，能在 3 秒内选出最准的那个，才是真正的词语能力。</p>
       </div>
     </section>
 
     <section class="section teacher-note">
       <div class="section-title">
         <p class="eyebrow">高频易错</p>
-        <h2>这些知识点最容易让孩子“看着会，写就错”</h2>
+        <h2>这些知识点最容易让学生"看着会，写就错"</h2>
+      </div>
+      <div class="study-block accent" style="margin-bottom:18px;">
+        <h2>特级教师精讲</h2>
+        <p><strong>核心诊断：</strong>"看着会，写就错"是词语学习最常见的现象。六类高频错误，每类都对应一个认知漏洞：褒贬不分（没存感情标签）、对象不当（没存搭配信息）、程度不准（没建立轻重阶梯）、搭配别扭（阅读量不够没形成语感）、望文生义（按字面猜成语不查整体意思）、语境义遗漏（只看词不看上下文）。</p>
+        <p><strong>实操策略：</strong>最好的纠错方式不是讲道理，是把错误当成学习材料。每周一次"错例分析"：把学生的典型错例拿出来→让孩子自己说错在哪→对照正确用法→总结规律。比如"他做事很果断"写成"他做事很武断"——为什么错？因为"果断"是夸人干脆，"武断"是批评人鲁莽。孩子自己说出来，比老师讲十遍管用。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -567,56 +881,29 @@
             </thead>
             <tbody>
               <tr><td>褒贬误用</td><td>先判断是夸奖、批评还是客观说明。</td><td>顽强/顽固，果断/武断，机灵/狡猾。</td><td>把易混词按褒义、贬义、中性三栏整理。</td></tr>
-              <tr><td>对象不当</td><td>看词语通常写人、写景、写事，还是写品质。</td><td>“慈祥”多写长辈神态，“壮观”多写景象场面。</td><td>每个词后面补一个最常搭配的对象。</td></tr>
-              <tr><td>程度不准</td><td>比较词义轻重，不能把强词用在小事上。</td><td>“悲痛”重于“难过”，“焦急”重于“着急”。</td><td>按从轻到重排序，再各写一句。</td></tr>
-              <tr><td>搭配别扭</td><td>把前后词连读，听是否符合习惯表达。</td><td>提高成绩、增强信心、改正错误、改善环境。</td><td>做“动词 + 名词”搭配卡，错一组补三组。</td></tr>
-              <tr><td>望文生义</td><td>成语不能只看字面，要查清整体意思。</td><td>“不刊之论”不是不能刊登，而是不能改动的正确言论。</td><td>成语必须写“意思 + 适用场景 + 反例”。</td></tr>
-              <tr><td>语境义遗漏</td><td>阅读题里要联系上下文，不能只写本义。</td><td>“春风”有时不是自然风，而是温暖的关怀。</td><td>解释词语时固定写“文中指……”。</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <style>
-      .word-tag-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 8px;
-      }
-      .word-tag {
-        background: #f7f8fb;
-        border: 1px solid #e1e6ef;
-        color: #333;
-        min-height: 30px;
-        padding: 4px 8px;
-        border-radius: 999px;
-        font-size: 13px;
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 5px;
-        text-align: center;
-        line-height: 1.2;
-      }
-      .word-tag:hover {
-        background: #eef3ff;
-        border-color: #b9c8ff;
-      }
-      .word-tag .word-text {
-        font-weight: bold;
-        font-size: 13px;
-        white-space: nowrap;
-      }
-      .word-tag .word-pinyin {
-        font-size: 11px;
-        color: #6b7280;
-        margin-top: 0;
-        white-space: nowrap;
-      }
-      .section-card {
-        background: white;
+              <tr><td>对象不当</td><td>看词语通常写人、写景、写事，还是写品质。</td><td>"慈祥"多写长辈神态，"壮观"多写景象场面。</td><td>每个词后面补一个最常搭配的对象。</td></tr>
+              <tr<div class="study-block accent" style="margin-bottom:18px;">
+ <h2>特级教师精讲</h2>
+ <p><strong>核心诊断：</strong>"看着会，写就错"是词语学习最常见的现象。六类高频错误，每类都对应一个认知漏洞：褒贬不分（没存感情标签）、对象不当（没存搭配信息）、程度不准（没建立轻重阶梯）、搭配别扭（阅读量不够没形成语感）、望文生义（按字面猜成语不查整体意思）、语境义遗漏（只看词不看上下文）。</p>
+ <p><strong>怎么做：</strong>最好的纠错方式不是讲道理，是把错误当成学习材料。每周一次"错例分析"：把学生的典型错例拿出来→让孩子自己说错在哪→对照正确用法→总结规律。比如"他做事很果断"写成"他做事很武断"——为什么错？因为"果断"是夸人干脆，"武断"是批评人鲁莽。孩子自己说出来，比老师讲十遍管用。</p>
+ </div>
+ <div class="table-card">
+ <div class="responsive-table">
+ <table>
+ <thead>
+ <tr><th>易错点</th><th>判断方法</th><th>例子</th><th>训练建议</th></tr>
+ </thead>
+ <tbody>
+ <tr><td>褒贬误用</td><td>先判断是夸奖、批评还是客观说明。</td><td>顽强/顽固，果断/武断，机灵/狡猾。</td><td>把易混词按褒义、贬义、中性三栏整理。</td></tr>
+ <tr><td>对象不当</td><td>看词语通常写人、写景、写事，还是写品质。</td><td>"慈祥"多写长辈神态，"壮观"多写景象场面。</td><td>每个词后面补一个最常搭配的对象。</td></tr>
+ <tr><td>程度不准</td><td>比较词义轻重，不能把强词用在小事上。</td><td>"悲痛"重于"难过"，"焦急"重于"着急"。</td><td>按从轻到重排序，再各写一句。</td></tr>
+ <tr><td>搭配别扭</td><td>把前后词连读，听是否符合习惯表达。</td><td>提高成绩、增强信心、改正错误、改善环境。</td><td>做"动词 + 名词"搭配卡，错一组补三组。</td></tr>
+ <tr><td>望文生义</td><td>成语不能只看字面，要查清整体意思。</td><td>"不刊之论"不是不能刊登，而是不能改动的正确言论。</td><td>成语必须写"意思 + 适用场景 + 反例"。</td></tr>
+ <tr><td>语境义遗漏</td><td>阅读题里要联系上下文，不能只写本义。</td><td>"春风"有时不是自然风，而是温暖的关怀。</td><td>解释词语时固定写"文中指……"。</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>round: white;
         border: 1px solid var(--line);
         border-radius: 10px;
         padding: 16px;
@@ -1976,7 +2263,7 @@
       <div class="section-title">
         <p class="eyebrow">课后词语表</p>
         <h2>六年级与小升初高频词语</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">六年级词语复习要从“会读会写”升级到“会辨析、会赏析、会用于阅读和作文”。</p>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">六年级词语复习要从"会读会写"升级到"会辨析、会赏析、会用于阅读和作文"。</p>
       </div>
       <div class="content-grid">
         <article class="study-block grade-five">
@@ -1990,21 +2277,21 @@
           <h3>情感与心理变化</h3>
           <div class="routine">
             <p>忐忑、懊悔、欣慰、怅然、敬佩、眷恋、释然、感慨、热泪盈眶、若有所思、百感交集、心潮澎湃</p>
-            <p><strong>运用：</strong>作文结尾不要只写“我很开心”，要写出从什么情绪变成什么认识。</p>
+            <p><strong>运用：</strong>作文结尾不要只写"我很开心"，要写出从什么情绪变成什么认识。</p>
           </div>
         </article>
         <article class="study-block grade-five">
           <h3>说明文与科普文</h3>
           <div class="routine">
             <p>构造、功能、特性、演化、繁衍、栖息、适应、推测、证实、严谨、准确、不可估量</p>
-            <p><strong>运用：</strong>说明文答题要把词语放回对象特点中，如“准确说明了这种动物的生活习性”。</p>
+            <p><strong>运用：</strong>说明文答题要把词语放回对象特点中，如"准确说明了这种动物的生活习性"。</p>
           </div>
         </article>
         <article class="study-block grade-five">
           <h3>古诗文与传统文化</h3>
           <div class="routine">
             <p>徘徊、萧瑟、苍茫、凄清、旷达、豪迈、惜别、思乡、忧国忧民、托物言志、借景抒情</p>
-            <p><strong>运用：</strong>古诗赏析题按“意象 + 画面 + 情感”作答，不要只解释词语。</p>
+            <p><strong>运用：</strong>古诗赏析题按"意象 + 画面 + 情感"作答，不要只解释词语。</p>
           </div>
         </article>
       </div>
@@ -2015,10 +2302,10 @@
               <tr><th>高频辨析</th><th>区别</th><th>例句</th><th>易错提醒</th></tr>
             </thead>
             <tbody>
-              <tr><td>严厉 / 严格</td><td>严厉多指态度或批评；严格多指要求和标准。</td><td>老师严厉地批评了他；老师对作业要求很严格。</td><td>不能说“严格地批评”。</td></tr>
-              <tr><td>珍惜 / 爱惜</td><td>珍惜强调重视宝贵事物；爱惜强调爱护、不浪费。</td><td>珍惜时间；爱惜粮食。</td><td>“珍惜”常和时间、机会、友情搭配。</td></tr>
-              <tr><td>启示 / 启发</td><td>启示偏重得到的道理；启发偏重引导思考。</td><td>故事给我启示；老师的话启发了我。</td><td>阅读题问“告诉我们什么”常答启示。</td></tr>
-              <tr><td>眷恋 / 怀念</td><td>眷恋含有舍不得离开的深情；怀念多指想念过去的人或事。</td><td>眷恋故乡；怀念童年。</td><td>写离别、故乡、亲情时可用“眷恋”。</td></tr>
+              <tr><td>严厉 / 严格</td><td>严厉多指态度或批评；严格多指要求和标准。</td><td>老师严厉地批评了他；老师对作业要求很严格。</td><td>不能说"严格地批评"。</td></tr>
+              <tr><td>珍惜 / 爱惜</td><td>珍惜强调重视宝贵事物；爱惜强调爱护、不浪费。</td><td>珍惜时间；爱惜粮食。</td><td>"珍惜"常和时间、机会、友情搭配。</td></tr>
+              <tr><td>启示 / 启发</td><td>启示偏重得到的道理；启发偏重引导思考。</td><td>故事给我启示；老师的话启发了我。</td><td>阅读题问"告诉我们什么"常答启示。</td></tr>
+              <tr><td>眷恋 / 怀念</td><td>眷恋含有舍不得离开的深情；怀念多指想念过去的人或事。</td><td>眷恋故乡；怀念童年。</td><td>写离别、故乡、亲情时可用"眷恋"。</td></tr>
             </tbody>
           </table>
         </div>
