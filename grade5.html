@@ -10,6 +10,75 @@
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css?v=83">
+
+  <style>
+    /* ===== 知识点递进题组表格样式 ===== */
+    .knowledge-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+    }
+    .knowledge-table thead th {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 14px 12px;
+      text-align: center;
+      border-bottom: 2px solid #64b5f6;
+      white-space: nowrap;
+    }
+    .knowledge-table thead th:first-child { border-radius: 8px 0 0 0; }
+    .knowledge-table thead th:last-child { border-radius: 0 8px 0 0; }
+    .knowledge-table tbody td {
+      padding: 11px 10px;
+      border-bottom: 1px solid #e3f2fd;
+      vertical-align: top;
+      line-height: 1.7;
+    }
+    .knowledge-table tbody tr:hover td { background: #f5f9ff; }
+    .knowledge-table tbody td:first-child {
+      text-align: center;
+      vertical-align: middle;
+      width: 95px;
+      border-right: 2px solid #e3f2fd;
+    }
+    .knowledge-table tbody td:nth-child(2) {
+      font-weight: 500;
+      color: #1a237e;
+      min-width: 180px;
+    }
+    .knowledge-table tbody td:nth-child(3) {
+      color: #2e7d32;
+      background: #fcfff5;
+    }
+    .knowledge-table .tip-cell {
+      color: #6a1b9a;
+      font-size: 13px;
+      background: #faf5ff;
+      border-left: 3px solid #ce93d8;
+    }
+    /* 知识点分组色带 */
+    .krow-expository td:first-child { background: #e8f5e9 !important; }
+    .krow-character td:first-child { background: #fff3e0 !important; }
+    .krow-structure td:first-child { background: #e3f2fd !important; }
+    .k-tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+    .tag-expository { background: #c8e6c9; color: #1b5e20; }
+    .tag-character { background: #ffe0b2; color: #e65100; }
+    .tag-structure { background: #bbdefb; color: #0d47a1; }
+    .kl-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -898,7 +967,7 @@
   </main>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
-  <script src="data/data-loader-global.js?v=1"></script>
+  <script src="data/data-loader-global.js?v=83"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
@@ -909,73 +978,5 @@
       }, 300);
     });
   </script>
-  <style>
-    /* ===== 知识点递进题组表格样式 ===== */
-    .knowledge-table {
-      border-collapse: collapse;
-      width: 100%;
-      font-size: 14px;
-    }
-    .knowledge-table thead th {
-      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-      color: #0d47a1;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 14px 12px;
-      text-align: center;
-      border-bottom: 2px solid #64b5f6;
-      white-space: nowrap;
-    }
-    .knowledge-table thead th:first-child { border-radius: 8px 0 0 0; }
-    .knowledge-table thead th:last-child { border-radius: 0 8px 0 0; }
-    .knowledge-table tbody td {
-      padding: 11px 10px;
-      border-bottom: 1px solid #e3f2fd;
-      vertical-align: top;
-      line-height: 1.7;
-    }
-    .knowledge-table tbody tr:hover td { background: #f5f9ff; }
-    .knowledge-table tbody td:first-child {
-      text-align: center;
-      vertical-align: middle;
-      width: 95px;
-      border-right: 2px solid #e3f2fd;
-    }
-    .knowledge-table tbody td:nth-child(2) {
-      font-weight: 500;
-      color: #1a237e;
-      min-width: 180px;
-    }
-    .knowledge-table tbody td:nth-child(3) {
-      color: #2e7d32;
-      background: #fcfff5;
-    }
-    .knowledge-table .tip-cell {
-      color: #6a1b9a;
-      font-size: 13px;
-      background: #faf5ff;
-      border-left: 3px solid #ce93d8;
-    }
-    /* 知识点分组色带 */
-    .krow-expository td:first-child { background: #e8f5e9 !important; }
-    .krow-character td:first-child { background: #fff3e0 !important; }
-    .krow-structure td:first-child { background: #e3f2fd !important; }
-    .k-tag {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      letter-spacing: 0.5px;
-    }
-    .tag-expository { background: #c8e6c9; color: #1b5e20; }
-    .tag-character { background: #ffe0b2; color: #e65100; }
-    .tag-structure { background: #bbdefb; color: #0d47a1; }
-    .kl-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 13px;
-    }
-  </style>
 </body>
 </html>
