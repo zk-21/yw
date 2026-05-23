@@ -10,6 +10,132 @@
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css?v=83">
+  <style>
+    .answer-table,
+    .knowledge-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+    }
+    .answer-table thead th {
+      background: #f0f7f4;
+      color: #2e7d32;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 2px solid #a5d6a7;
+      white-space: nowrap;
+    }
+    .answer-table tbody td,
+    .knowledge-table tbody td {
+      padding: 11px 10px;
+      vertical-align: top;
+      line-height: 1.7;
+    }
+    .answer-table tbody td {
+      border-bottom: 1px solid #e8f5e9;
+    }
+    .answer-table tbody tr:hover {
+      background: #f9fef9;
+    }
+    .answer-table tbody tr td:first-child {
+      font-weight: 700;
+      color: #1b5e20;
+      white-space: nowrap;
+      text-align: center;
+      background: #f9fdf9;
+      border-right: 1px solid #e0f2e1;
+    }
+    .answer-table tbody tr td:nth-child(2) {
+      color: #333;
+      background: #fcfff5;
+    }
+    .answer-table .err-cell {
+      color: #c62828;
+      background: #fff5f5;
+      font-size: 13px;
+      border-left: 3px solid #ef9a9a;
+    }
+    .col-label,
+    .kl-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+    }
+    .knowledge-table thead th {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 14px 12px;
+      text-align: center;
+      border-bottom: 2px solid #64b5f6;
+      white-space: nowrap;
+    }
+    .knowledge-table thead th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+    .knowledge-table thead th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+    .knowledge-table tbody td {
+      border-bottom: 1px solid #e3f2fd;
+    }
+    .knowledge-table tbody tr:hover td {
+      background: #f5f9ff;
+    }
+    .knowledge-table tbody td:first-child {
+      text-align: center;
+      vertical-align: middle;
+      width: 100px;
+      border-right: 2px solid #e3f2fd;
+    }
+    .knowledge-table tbody td:nth-child(2) {
+      font-weight: 500;
+      color: #1a237e;
+      min-width: 200px;
+    }
+    .knowledge-table tbody td:nth-child(3) {
+      color: #2e7d32;
+      background: #fcfff5;
+    }
+    .knowledge-table .tip-cell {
+      color: #6a1b9a;
+      font-size: 13px;
+      background: #faf5ff;
+      border-left: 3px solid #ce93d8;
+    }
+    .krow-summary td:first-child {
+      background: #e8f5e9 !important;
+    }
+    .krow-rhetoric td:first-child {
+      background: #fff3e0 !important;
+    }
+    .krow-writing td:first-child {
+      background: #e3f2fd !important;
+    }
+    .k-tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      letter-spacing: .5px;
+    }
+    .tag-summary {
+      background: #c8e6c9;
+      color: #1b5e20;
+    }
+    .tag-rhetoric {
+      background: #ffe0b2;
+      color: #e65100;
+    }
+    .tag-writing {
+      background: #bbdefb;
+      color: #0d47a1;
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -18,16 +144,18 @@
       <a href="index.html">总览</a>
       <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a class="active" href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
       <a href="grade6.html">六年级</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="advanced.html">尖子生拓展</a>
     </nav>
   </header>
 
@@ -125,35 +253,38 @@
     </section>
 
     <section class="section grade-closed-loop">
+      <div class="section-title">
+        <p class="eyebrow">课标对照 · 训练闭环</p>
+        <h2>四年级从"答对"升级到"有依据"</h2>
+        <p style="color:#666;">四年级仍在第二学段，真正拉开差距的是概括、证据、赏析和习作详略。页面用自测与量表帮助孩子知道自己卡在哪一层。</p>
+      </div>
       <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>常见问题：</strong>四年级阅读和写作卡在三个地方：（1）证据缺失——能判断人物品质但找不到原文支撑句，根源是还没有养成"答案必须有出处"的意识——孩子把阅读答题当成了表达自己看法的机会；（2）赏析太浅——只会写"很生动"三个字，说不出用了什么方法、写出了什么<div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>常见问题：</strong>四年级阅读和写作卡在三个地方：（1）证据缺失——能判断人物品质但找不到原文支撑句，根源是还没有养成"答案必须有出处"的意识——孩子把阅读答题当成了表达自己看法的机会；（2）赏析太浅——只会写"很生动"三个字，说不出用了什么方法、写出了什么特点，因为孩子没有掌握"方法+特点+效果"这个答题思路；（3）描写空洞——作文里大量使用"开心""紧张""难过"这些概括词，但缺少具体的动作、神态、心理描写。</p>
-<p><strong>怎么做：</strong>三步渐进法：（1）你先示范——做一道题给孩子看，完整走一遍"读题→回文找证据→组织答案"的过程，边做边说出你的思考；（2）扶着练——给孩子关键词提示（如"品质词""原文句子""解释"三个提示卡），让ta在提示下完成；（3）放手做——撤掉提示，让ta独立完成。赏析题可以加一个"对比法"——把原句和去掉修辞的普通句子放一起，问孩子"哪个更好？好在哪里？"让ta自己发现区别。</p>
- </div>
- <div class="section-title">
- <p class="eyebrow">课标对照 · 训练闭环</p>
- <h2>四年级从"答对"升级到"有依据"</h2>
- <p style="color:#666;">四年级仍在第二学段，真正拉开差距的是概括、证据、赏析和习作详略。页面新增自测与量表，帮助孩子知道自己卡在哪一层。</p>
- </div>
- <div class="table-card">
- <h2>课标能力对照表</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
- <tbody>
- <tr><td>语言积累与梳理</td><td>词语辨析、病句、句式、修辞</td><td>能在语境中改准确、写具体</td><td>能说明关键词和修辞带来的表达效果</td></tr>
- <tr><td>阅读与鉴赏</td><td>概括、依据、人物品质、古诗情感</td><td>答案包含结论和原文依据</td><td>能补充简要分析，说明依据为什么成立</td></tr>
- <tr><td>表达与交流</td><td>写事作文、细节描写、详略安排</td><td>能把重点经过写具体，起因结果略写</td><td>能用动作、语言、神态、心理表现人物变化</td></tr>
- <tr><td>整本书与实践</td><td>批注阅读、人物卡、资料整理</td><td>能记录人物、事件、感受和疑问</td><td>能围绕一个主题做读书分享或小研究</td></tr>
- </tbody>
- </table>
- </div>
- </div>
-            <li>作文重点段是否有细节描写。</li>
+        <h2>特级教师精讲</h2>
+        <p><strong>常见问题：</strong>四年级阅读和写作常卡在三处：证据缺失、赏析太浅、描写空洞。孩子能说出“他很勇敢”，但不能指出从哪句话看出来；能写“很生动”，却说不出具体好在哪里。</p>
+        <p><strong>怎么做：</strong>用三步渐进：教师先示范“读题→回文找证据→组织答案”，再给“品质词、原文句子、解释”三张提示卡扶着练，最后撤掉提示独立完成。</p>
+      </div>
+      <div class="table-card">
+        <h2>课标能力对照表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
+            <tbody>
+              <tr><td>语言积累与梳理</td><td>词语辨析、病句、句式、修辞</td><td>能在语境中改准确、写具体</td><td>能说明关键词和修辞带来的表达效果</td></tr>
+              <tr><td>阅读与鉴赏</td><td>概括、依据、人物品质、古诗情感</td><td>答案包含结论和原文依据</td><td>能补充简要分析，说明依据为什么成立</td></tr>
+              <tr><td>表达与交流</td><td>写事作文、细节描写、详略安排</td><td>能把重点经过写具体，起因结果略写</td><td>能用动作、语言、神态、心理表现人物变化</td></tr>
+              <tr><td>整本书与实践</td><td>批注阅读、人物卡、资料整理</td><td>能记录人物、事件、感受和疑问</td><td>能围绕一个主题做读书分享或小研究</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="loop-grid">
+        <article class="loop-card">
+          <h3>5分钟入门自测</h3>
+          <ul>
+            <li>概括短文时是否写清人物、事件和结果。</li>
+            <li>人物品质题是否有原文句子作证据。</li>
+            <li>修辞赏析是否写出方法、特点和效果。</li>
+            <li>作文重点段是否有动作、神态、心理细节。</li>
             <li>读书笔记是否有摘抄、问题和感受。</li>
           </ul>
         </article>
@@ -193,104 +324,78 @@
       <div class="section-title">
         <p class="eyebrow">孩子直接学</p>
         <h2>四年级精讲课：阅读答案必须有依据</h2>
-        <p style="color:#666;">四年级从"我觉得"升级到"我从文中看出来"。下面示范人物品质题和修辞赏析题怎么答完整。</p>
+        <p style="color:#666;">四年级从"我觉得"升级到"我从文中看出来"。本节按目标、诊断、示范、自改、复练、家长话术固定展开。</p>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>常见问题：</strong>四年级阅读答题最大的通病是"直觉正确但说不清楚"——孩子能感觉出来小林是个勇敢的人，但一到要写答案就变成"小林很好""小林很勇敢"，没有原文证据。这不是孩子不理解，而是ta还没有建立"每个判断都要从文中找支撑"的答题习惯。ta以为阅读答题就是说出自己的想法，没意识到正确答案必须"有出处"。</p>
-<p><strong>怎么做：</strong>人物品质题给ta一个三步答题框架：①用准确的品质词（勇敢/坚持/善良，不是笼统的"好"）；②引用原文中的动作、语言或事情（"从他手心全是汗却仍走上讲台"）；③解释这个依据为什么能证明这个品质（"这说明他能克服害怕，坚持完<div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>常见问题：</strong>四年级阅读答题最大的通病是"直觉正确但说不清楚"——孩子能感觉出来小林是个勇敢的人，但一到要写答案就变成"小林很好""小林很勇敢"，没有原文证据。这不是孩子不理解，而是ta还没有建立"每个判断都要从文中找支撑"的答题习惯。ta以为阅读答题就是说出自己的想法，没意识到正确答案必须"有出处"。</p>
-<p><strong>怎么做：</strong>人物品质题给ta一个三步答题框架：①用准确的品质词（勇敢/坚持/善良，不是笼统的"好"）；②引用原文中的动作、语言或事情（"从他手心全是汗却仍走上讲台"）；③解释这个依据为什么能证明这个品质（"这说明他能克服害怕，坚持完成任务"）。初期可以先卡第一步——品质词要准，不准的话带ta回原文找提示。第二步熟练后再加第三步。作文场景同理：先只说清楚一件最精彩的事，再看能不能把它展开成动作+神态+心理。</p>
- </div>
- <div class="content-grid">
- <article class="study-block">
- <h2>知识点讲解</h2>
- <ul class="level-list">
- <li><strong>人物品质题：</strong>先写品质词，再找原文动作、语言或事情，最后解释为什么能看出这个品质。</li>
- <li><strong>修辞赏析题：</strong>不能只写"用了比喻，很生动"，要写"把什么比作什么，写出了什么特点"。</li>
- <li><strong>概括题：</strong>先删掉细节，再保留人物、事件和结果。</li>
- </ul>
- </article>
- <article class="study-block accent">
- <h2>课堂短文</h2>
- <p>轮到小林演讲时，他的手心全是汗。可是他深吸一口气，还是走上讲台，声音有些发抖地讲完了自己的故事。台下响起掌声，小林的脸慢慢红了，眼睛却亮了起来。</p>
- <div class="routine">
- <p><strong>问题：</strong>小林是个怎样的孩子？</p>
- <p><strong>满分答法：</strong>小林是一个勇敢、敢于挑战自己的孩子。从他虽然紧张得手心全是汗，却仍然走上讲台讲完故事可以看出，他能克服害怕，坚持完成任务。</p>
- </div>
- </article>
- </div>
- <div class="table-card" style="margin-top:18px;">
- <h2>例题、解析和变式</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>题目</th><th>标准答案</th><th>为什么这样答</th><th>变式练习</th></tr></thead>
- <tbody>
-<tr><td>人物品质题</td><td>品质词 + 原文依据 + 解释</td><td>阅读答题不是写感想，是"找证据"——先用准确词判断品质，再回文中找出对应的人物动作或语言，最后解释这个动作为什么能证明这个品质。三步缺一不可。</td><td>用"他扶起摔倒的同学"分析人物品质。</td></tr>
-              <tr><td>赏析"眼睛亮了起来"</td><td>写出了小林从紧张到自信的变化。</td><td>抓关键词"亮"——眼睛从暗到亮的变化就是心情从紧张到放松的外在表现。赏析要做的就是把关键词和人物心情连接起来，而不是只写一个"很生动"。</td><td>赏析"他攥紧了衣角"。</td></tr>
-              <tr><td>概括短文</td><td>小林克服紧张，完成了演讲。</td><td>概括的诀窍：先把所有修饰和细节划掉（手心出汗、声音发抖），只保留最核心的三件事——谁（小林）、做了什么（克服紧张完成演讲）、结果怎样（成功了）。</td><td>概括一次比赛或表演经历。</td></tr>
- </tbody>
- </table>
- </div>
- </div>子把赏析当成了"贴标签"——觉得只要写出修辞的名字就算完成任务了，没有意识到赏析的重点是"这个修辞让句子好在哪"。</p>
-<p><strong>怎么做：</strong>教ta一个铁规矩：赏析一个句子必须说三句话——①用了什么方法（比喻/拟人/排比）；②写出了事物的什么特点或状态（不是笼统的"生动"，是具体的"写出了雨声清脆、有节奏"）；③这样的表达让读者有什么感受（"让句子更有画面感""让人感觉亲切"）。最有效的训练招数是"删掉修辞比一比"——把原句改成没有修辞的普通句子，让孩子自己读两遍，问ta"区别在哪"，ta会自己发现修辞的力量。</p>
- </div>
+
       <div class="content-grid">
         <article class="study-block">
-          <h2>课堂材料</h2>
+          <h2>目标</h2>
+          <ul class="level-list">
+            <li><strong>阅读：</strong>人物品质题能写出"品质词 + 原文依据 + 简要解释"。</li>
+            <li><strong>赏析：</strong>修辞题能写出"方法 + 特点 + 表达效果"。</li>
+            <li><strong>作文：</strong>能判断哪一段该详写，并用动作、语言、神态、心理放大重点场景。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>诊断</h2>
+          <div class="routine">
+            <p><strong>低效答案：</strong>小林很勇敢。</p>
+            <p><strong>问题：</strong>只有结论，没有证据，也没有说明为什么能看出勇敢。</p>
+            <p><strong>修正方向：</strong>先回原文圈动作或语言，再把证据和品质连起来。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="study-block accent" style="margin-top:18px;">
+        <h2>特级教师示范</h2>
+        <p>轮到小林演讲时，他的手心全是汗。可是他深吸一口气，还是走上讲台，声音有些发抖地讲完了自己的故事。台下响起掌声，小林的脸慢慢红了，眼睛却亮了起来。</p>
+        <div class="routine">
+          <p><strong>问题：</strong>小林是个怎样的孩子？</p>
+          <p><strong>满分答法：</strong>小林是一个勇敢、敢于挑战自己的孩子。从"手心全是汗"可以看出他很紧张，但他仍然走上讲台并讲完故事，说明他能克服害怕，坚持完成任务。</p>
+          <p><strong>教师点拨：</strong>不是把原文抄一遍，而是用原文证明自己的判断。</p>
+        </div>
+      </div>
+
+      <div class="table-card" style="margin-top:18px;">
+        <h2>自改清单</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>检查项</th><th>不到位表现</th><th>马上修改</th><th>通过标准</th></tr></thead>
+            <tbody>
+              <tr><td>人物品质</td><td>只写"他很好""很勇敢"</td><td>补一句原文依据</td><td>品质词准确，依据能证明品质</td></tr>
+              <tr><td>修辞赏析</td><td>只写"用了比喻，很生动"</td><td>补"把什么比作什么，写出什么特点"</td><td>有方法、有特点、有表达效果</td></tr>
+              <tr><td>概括内容</td><td>细节很多，结果漏掉</td><td>按"谁 + 做了什么 + 结果怎样"重写</td><td>主要事件完整，没有无关细节</td></tr>
+              <tr><td>作文重点段</td><td>从头到尾平均用力</td><td>圈出一个最关键瞬间详写</td><td>重点段有动作、语言、神态、心理</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>修辞赏析复练</h2>
           <p>雨点落在窗户上，像一串串小鼓点，轻轻地敲着清晨的门。小草从泥土里探出头，好奇地望着这个湿漉漉的世界。</p>
           <ul class="level-list">
-            <li><strong>比喻<div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>常见问题：</strong>修辞赏析题是四年级最容易"写了等于没写"的题型。孩子最常见的答法就是"用了比喻，很生动"——修辞名称对了，但后面全是空话。问题出在：孩子把赏析当成了"贴标签"——觉得只要写出修辞的名字就算完成任务了，没有意识到赏析的重点是"这个修辞让句子好在哪"。</p>
-<p><strong>怎么做：</strong>教ta一个铁规矩：赏析一个句子必须说三句话——①用了什么方法（比喻/拟人/排比）；②写出了事物的什么特点或状态（不是笼统的"生动"，是具体的"写出了雨声清脆、有节奏"）；③这样的表达让读者有什么感受（"让句子更有画面感""让人感觉亲切"）。最有效的训练招数是"删掉修辞比一比"——把原句改成没有修辞的普通句子，让孩子自己读两遍，问ta"区别在哪"，ta会自己发现修辞的力量。</p>
- </div>
- <div class="content-grid">
- <article class="study-block">
- <h2>课堂材料</h2>
- <p>雨点落在窗户上，像一串串小鼓点，轻轻地敲着清晨的门。小草从泥土里探出头，好奇地望着这个湿漉漉的世界。</p>
- <ul class="level-list">
- <li><strong>比喻：</strong>雨点像小鼓点。</li>
- <li><strong>拟人：</strong>小草探出头、望着世界。</li>
- <li><strong>赏析公式：</strong>修辞方法 + 写出特点 + 表达效果。</li>
- </ul>
- </article>
- <article class="study-block accent">
- <h2>满分答法</h2>
- <div class="routine">
- <p><strong>题目：</strong>"雨点像一串串小鼓点"好在哪里？</p>
- <p><strong>标准答案：</strong>这句话用了比喻，把雨点落在窗户上的声音比作小鼓点，写出了雨声清脆、有节奏的特点，让清晨的画面更生动。</p>
- <p><strong>错因：</strong>只写"用了比喻，很生动"，没有说出什么特点。</p>
- </div>
- </article>
- </div>
- <div class="table-card" style="margin-top:18px;">
- <h2>题目、答案和变式</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>题目</th><th>标准答案</th><th>解析</th><th>变式练习</th></tr></thead>
- <tbody>
- <tr><td>赏析"小草探出头"</td><td>用了拟人，写出小草刚发芽时可爱、有生命力的样子。</td><td>把小草当作人来写，要说出特点。</td><td>赏析"花儿露出了笑脸"。</td></tr>
- <tr><td>仿写一句比喻句</td><td>树叶像一只只小船，在水面上漂着。</td><td>本体和喻体要有相似点。</td><td>用"雪花"写比喻句。</td></tr>
- </tbody>
- </table>
- </div>
- </div>
- </div>
-     <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>常见问题：</strong>四年级作文最典型的毛病是"摊大饼"——起因两句话、经过两句话、结果两句话，每个部分字数差不多，没有一个地方让人印象深刻。孩子不是不想写详细，而是有两个实际困难：第一，不知道一件事里哪个部分最值得详写；第二，知道要详写但不知道怎么展开——除了"我很紧张"之外不知道还能写什么。</p>
-        <p><strong>怎么做：</strong>教ta"聚焦放大法"三步：①选场景——先问"这件事里哪一个瞬间最能说明你的心情或变化？"圈出这个关键场景（如"上台前""冲过终点"）；②四维放大——对这个场景从四个维度各写一句：动作（做了什么）、神态（脸上什么表情）、心理（心里怎么想）、语言（说了什么）；③慢镜头——告诉孩子"像拍电影一样写"，把关键瞬间放慢、写细。同时可以把详写稿和普通稿并排放在一起让ta自己看，ta会发现"哦，这样真的差很多"。</p>
+            <li><strong>比喻：</strong>雨点像小鼓点。</li>
+            <li><strong>拟人：</strong>小草探出头、望着世界。</li>
+            <li><strong>公式：</strong>修辞方法 + 写出特点 + 表达效果。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>满分答法</h2>
+          <div class="routine">
+            <p><strong>题目：</strong>"雨点像一串串小鼓点"好在哪里？</p>
+            <p><strong>标准答案：</strong>这句话用了比喻，把雨点落在窗户上的声音比作小鼓点，写出了雨声清脆、有节奏的特点，让清晨的画面更生动。</p>
+            <p><strong>家长追问：</strong>如果改成"雨点落在窗户上"，少了什么感觉？</p>
+          </div>
+        </article>
       </div>
-      <div class="table-card">
-        <h2>题目、答案、解析、错因</h2>
+
+      <div class="table-card" style="margin-top:18px;">
+        <h2>作文重点段升格</h2>
         <div class="responsive-table">
           <table class="answer-table">
-            <thead><tr><th><span class="col-label">📝 任务</span></th><th><span class="col-label">✅ 标准答案</span></th><th><span class="col-label">💡 解析</span></th><th><span class="col-label">⚠️ 常见错因</span></th><th><span class="col-label">🔄 变式</span></th></tr></thead>
+            <thead><tr><th><span class="col-label">任务</span></th><th><span class="col-label">升格示范</span></th><th><span class="col-label">解析</span></th><th><span class="col-label">常见错因</span></th><th><span class="col-label">变式</span></th></tr></thead>
             <tbody>
               <tr><td><strong>写紧张</strong></td><td>我紧紧攥着衣角，眼睛盯着试卷，手心里全是汗。</td><td>不用"我很紧张"，用动作和神态表现。</td><td class="err-cell">只写心情词，没有画面。</td><td>用动作写"开心"。</td></tr>
               <tr><td><strong>写比赛经过</strong></td><td>发令枪一响，我蹬地向前冲，耳边只剩下同学们的加油声。</td><td>抓最关键的一瞬间详写。</td><td class="err-cell">从早上写到晚上，流水账。</td><td>详写一次跳绳或演讲。</td></tr>
@@ -299,28 +404,39 @@
           </table>
         </div>
       </div>
+
       <div class="table-card" style="margin-top:18px;">
- <h2>特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>四年级学生从"入门"到"拔尖"的主要障碍不在于知识量的不足，而在于"答案质量意识"的缺位。具体表现为：（1）概括时遗漏结果要素——因为工作记忆负载，无法同时保持"人物+事件+结果"三个要素；（2）人物分析时跳过推理环节——能写出品质词和原文句子，但不会解释二者之间的逻辑关联；（3）作文中"展示"能力不足——在经历了三年级的段落后，学生能写出完整叙事，但关键场景仍以概括替代描写。</p>
- <p><strong>怎么做：</strong>采用"认知学徒制"作为拔尖训练的核心模式：（1）示范——教师出声思维，展示专家如何逐层构建完整答案；（2）支架——提供答题结构模板，降低认知负荷以释放资源用于高质量的内容生成；（3）渐退——逐步移除模板依赖，培养学生独立构建完整答案的能力。每道拔尖题后的答案解析不仅是"对不对"的反馈，更是"为什么这样想才是专家的思维方式"的思维过程显性化。</p>
- </div>
- <div class="table-card">
- <h2>递进题组</h2>
- <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead><tbody>
- <tr><td>基础</td><td>概括：小林紧张上台，最后完成演讲。</td><td>小林克服紧张，完成了演讲。</td><td>概括要删细节，保留主要事件和结果。</td></tr>
- <tr><td>提升</td><td>小林是怎样的人？</td><td>小林是勇敢的人。从他虽然手心出汗，却仍然走上讲台可以看出。</td><td>人物题必须有原文依据。</td></tr>
- <tr><td>拔尖</td><td>赏析"手心里全是汗"</td><td>这处细节写出小林上台前非常紧张，为后文他鼓起勇气形成对比。</td><td>赏析关键词要联系人物心理和情节。</td></tr>
-<tr><td>迁移</td><td>写一段"紧张"，不能出现"紧张"二字</td><td>我攥着衣角，眼睛盯着门口，心里像揣着一面小鼓，咚咚直响。</td><td>用动作、神态、心理表现心情。</td></tr>
-</tbody></table></div>
-</div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>测评进阶对照</h2>
-        <div class="responsive-table"><table><thead><tr><th>测评项</th><th>达标</th><th>提升</th><th>拔尖</th></tr></thead><tbody>
-          <tr><td>阅读</td><td>能概括主要内容</td><td>能找原文依据</td><td>能结合依据分析人物或中心</td></tr>
-          <tr><td>赏析</td><td>能判断修辞</td><td>能说特点</td><td>能说表达效果和情感</td></tr>
-          <tr><td>作文</td><td>事情完整</td><td>重点段具体</td><td>有细节、有变化、有感受</td></tr>
-        </tbody></table></div>
+        <h2>递进题组</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead>
+            <tbody>
+              <tr><td>基础</td><td>概括：小林紧张上台，最后完成演讲。</td><td>小林克服紧张，完成了演讲。</td><td>概括要删细节，保留主要事件和结果。</td></tr>
+              <tr><td>提升</td><td>小林是怎样的人？</td><td>小林是勇敢的人。从他虽然手心出汗，却仍然走上讲台可以看出。</td><td>人物题必须有原文依据。</td></tr>
+              <tr><td>拔尖</td><td>赏析"手心里全是汗"。</td><td>这处细节写出小林上台前非常紧张，为后文他鼓起勇气形成对比。</td><td>赏析关键词要联系人物心理和情节。</td></tr>
+              <tr><td>迁移</td><td>写一段"紧张"，不能出现"紧张"二字。</td><td>我攥着衣角，眼睛盯着门口，心里像揣着一面小鼓，咚咚直响。</td><td>用动作、神态、心理表现心情。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>家长话术</h2>
+          <ul class="level-list">
+            <li>你这个判断从文中哪句话看出来？</li>
+            <li>这个词能不能换得更准确一点？</li>
+            <li>如果不写这处细节，读者还能感受到人物心情吗？</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>测评进阶对照</h2>
+          <div class="routine">
+            <p><strong>达标：</strong>能概括主要内容，作文事情完整。</p>
+            <p><strong>提升：</strong>阅读能找依据，作文能详写重点段。</p>
+            <p><strong>拔尖：</strong>能解释依据为什么成立，能写出人物变化和中心。</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -1209,143 +1325,5 @@
   </main>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
-  <style>
-    /* ===== 题目/答案/解析/错因 表格样式优化 ===== */
-    .answer-table {
-      border-collapse: collapse;
-      width: 100%;
-      font-size: 14px;
-    }
-    .answer-table thead th {
-      background: #f0f7f4;
-      color: #2e7d32;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 12px 10px;
-      text-align: center;
-      border-bottom: 2px solid #a5d6a7;
-      white-space: nowrap;
-    }
-    .answer-table tbody td {
-      padding: 12px 10px;
-      border-bottom: 1px solid #e8f5e9;
-      vertical-align: top;
-      line-height: 1.7;
-    }
-    .answer-table tbody tr:hover {
-      background: #f9fef9;
-    }
-    .answer-table tbody tr td:first-child {
-      font-weight: 700;
-      color: #1b5e20;
-      white-space: nowrap;
-      text-align: center;
-      background: #f9fdf9;
-      border-right: 1px solid #e0f2e1;
-    }
-    .answer-table tbody tr td:nth-child(2) {
-      color: #333;
-      background: #fcfff5;
-    }
-    .answer-table .err-cell {
-      color: #c62828;
-      background: #fff5f5;
-      font-size: 13px;
-      border-left: 3px solid #ef9a9a;
-    }
-    .col-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 13px;
-    }
-    /* ===== 知识点递进题组表格样式 ===== */
-    .knowledge-table {
-      border-collapse: collapse;
-      width: 100%;
-      font-size: 14px;
-    }
-    .knowledge-table thead th {
-      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-      color: #0d47a1;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 14px 12px;
-      text-align: center;
-      border-bottom: 2px solid #64b5f6;
-      white-space: nowrap;
-    }
-    .knowledge-table thead th:first-child {
-      border-radius: 8px 0 0 0;
-    }
-    .knowledge-table thead th:last-child {
-      border-radius: 0 8px 0 0;
-    }
-    .knowledge-table tbody td {
-      padding: 11px 10px;
-      border-bottom: 1px solid #e3f2fd;
-      vertical-align: top;
-      line-height: 1.7;
-    }
-    .knowledge-table tbody tr:hover td {
-      background: #f5f9ff;
-    }
-    .knowledge-table tbody td:first-child {
-      text-align: center;
-      vertical-align: middle;
-      width: 100px;
-      border-right: 2px solid #e3f2fd;
-    }
-    .knowledge-table tbody td:nth-child(2) {
-      font-weight: 500;
-      color: #1a237e;
-      min-width: 200px;
-    }
-    .knowledge-table tbody td:nth-child(3) {
-      color: #2e7d32;
-      background: #fcfff5;
-    }
-    .knowledge-table .tip-cell {
-      color: #6a1b9a;
-      font-size: 13px;
-      background: #faf5ff;
-      border-left: 3px solid #ce93d8;
-    }
-    /* 知识点分组色带 */
-    .krow-summary td:first-child {
-      background: #e8f5e9 !important;
-    }
-    .krow-rhetoric td:first-child {
-      background: #fff3e0 !important;
-    }
-    .krow-writing td:first-child {
-      background: #e3f2fd !important;
-    }
-    .k-tag {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      letter-spacing: 0.5px;
-    }
-    .tag-summary {
-      background: #c8e6c9;
-      color: #1b5e20;
-    }
-    .tag-rhetoric {
-      background: #ffe0b2;
-      color: #e65100;
-    }
-    .tag-writing {
-      background: #bbdefb;
-      color: #0d47a1;
-    }
-    .kl-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 13px;
-    }
-  </style>
 </body>
 </html>

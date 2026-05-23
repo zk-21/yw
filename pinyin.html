@@ -270,15 +270,19 @@
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
       <a href="agent.html">AI Agent</a>
-      <a href="pinyin.html" class="active">拼音学习</a>
+      <a class="active" href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="advanced.html">尖子生拓展</a>
     </nav>
   </header>
 
@@ -332,14 +336,19 @@
       <p><strong>实操策略：</strong>教声母不能只靠看卡片，要让孩子感受"声音是从哪里发出来的"。b/p/m用嘴唇，让孩子把手放嘴前感受b不送气、p送气的区别。n/l用捏鼻子法——捏住鼻子发l仍能出声，发n则不行。zh/ch/sh让舌尖翘起来碰硬腭，z/c/s舌尖平放碰牙齿。每天练5组最小对比词（知/资、吃/呲、师/丝），读出区别比记住名称更重要。</p>
     </div>
  <div class="pinyin-grid">
- <div class="pinyin-card initial">
- <h3>&#128260; 双唇音</h3>
- <div class="pinyin-table">
- <div class="pinyin-item important">b</div>
- <div class="pinyin-item important">p</div>
- <div class="pinyin-item important">m</div>
- <div class="pinyin-item important">f</div>
- </div></div>
+      <div class="pinyin-card initial">
+        <h3>&#128260; 双唇音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">b</div>
+          <div class="pinyin-item important">p</div>
+          <div class="pinyin-item important">m</div>
+          <div class="pinyin-item important">f</div>
+        </div>
+      </div>
+      <div class="pinyin-card initial">
+        <h3>&#128261; 舌尖中音</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">d</div>
           <div class="pinyin-item important">t</div>
           <div class="pinyin-item important">n</div>
           <div class="pinyin-item important">l</div>
@@ -400,17 +409,26 @@
       <p><strong>实操策略：</strong>教韵母的顺序至关重要——先把a/o/e/i/u/ü六个单韵母的口型练到位（用镜子看），再学复韵母（感受舌头滑动），最后攻鼻韵母。前后鼻音对练：发an时舌尖顶门牙，发ang时嘴巴张大、舌头后缩。让孩子用手指轻摸鼻翼——前鼻音振动弱，后鼻音振动强。每天练3组：an/ang、en/eng、in/ing，各读5遍，先慢后快。</p>
     </div>
  <div class="pinyin-grid">
- <div class="pinyin-card final">
- <h3>&#127795; 单韵母</h3>
- <div class="pinyin-table">
- <div class="pinyin-item important">a</div>
- <div class="pinyin-item important">o</div>
- <div class="pinyin-item important">e</div>
- <div class="pinyin-item important">i</div>
- <div class="pinyin-item important">u</div>
- <div class="pinyin-item important">&#252;</div>
- </div>    <div class="pinyin-item important">ao</div>
+      <div class="pinyin-card final">
+        <h3>&#127795; 单韵母</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">a</div>
+          <div class="pinyin-item important">o</div>
+          <div class="pinyin-item important">e</div>
+          <div class="pinyin-item important">i</div>
+          <div class="pinyin-item important">u</div>
+          <div class="pinyin-item important">&#252;</div>
+        </div>
+      </div>
+      <div class="pinyin-card final">
+        <h3>&#127796; 复韵母</h3>
+        <div class="pinyin-table">
+          <div class="pinyin-item important">ai</div>
+          <div class="pinyin-item important">ei</div>
+          <div class="pinyin-item important">ui</div>
+          <div class="pinyin-item important">ao</div>
           <div class="pinyin-item important">ou</div>
+          <div class="pinyin-item important">iu</div>
           <div class="pinyin-item important">ie</div>
           <div class="pinyin-item important">&#252;e</div>
           <div class="pinyin-item important">er</div>
@@ -455,7 +473,7 @@
  <div class="tone-line tone2" data-tone="2"></div>
  <div class="tone-line tone3" data-tone="3"></div>
  <div class="tone-line tone4" data-tone="4"></div>
- </div>op: 20px; color: white;">请选择"妈"字的声调</p>
+ <p style="margin-top: 20px; color: white;">请选择"妈"字的声调</p>
   </section>
 
   <!-- 易错拼音 -->
@@ -470,12 +488,21 @@
       <p><strong>实操策略：</strong>每类混淆音有专门的纠正方法：n/l用捏鼻子法（捏住鼻子，l能发声n不能）；zh/z用舌头位置法（翘舌碰硬腭vs平舌碰牙齿）；b/d用书写顺序区分（b先竖后弧，d先弧后竖）；前后鼻音用手摸鼻子感受振动。每种每天练15个对比词，读出正确发音比记住字形更重要。</p>
     </div>
 <div class="mistake-card">
- <div class="mistake-compare">
- <div class="mistake-item wrong">n - l</div>
- <div class="vs">分不清</div>
- <div class="mistake-item correct">n&#259;o (脑) - l&#259;o (老)</div>
- </div>分不清</div>
-        <div class="mistake-item correct">zh&#464; (扎) - z&#257; (咂)</div>
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">n - l</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">n&#462;o (脑) - l&#462;o (老)</div>
+      </div>
+      <div class="mistake-tip">
+        <strong>语音识别策略：</strong>n 是鼻音（气流从鼻腔出），l 是边音（气流从舌头两边出）——捏住鼻子发 l 仍能发声，发 n 则不能。<br>
+        <strong>区分方法：</strong>捏住鼻子读，能发出的是 l，发不出的是 n。
+      </div>
+    </div>
+    <div class="mistake-card">
+      <div class="mistake-compare">
+        <div class="mistake-item wrong">zh - z</div>
+        <div class="vs">分不清</div>
+        <div class="mistake-item correct">zh&#257; (扎) - z&#257; (咂)</div>
       </div>
       <div class="mistake-tip">
         <strong>语音识别策略：</strong>翘舌音舌尖后卷抵硬腭前部，平舌音舌尖平抵上齿背——zh/ch/sh 与 z/c/s 的发音部位不同。<br>
@@ -533,7 +560,12 @@
  <div class="spell-display">
  <div class="spell-syllable">b &#257;</div>
  <div class="spell-hint">声母 b + 单韵母 &#257; = ?</div>
- </div>="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 5vw;">
+ </div>
+    </div>
+  </section>
+
+  <!-- 听音辨音 -->
+  <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 5vw;">
     <div class="section-title" style="text-align: center;">
       <p class="eyebrow" style="color: rgba(255,255,255,0.8);">听音辨音</p>
       <h2 style="color: white;">听一听，选一选</h2>
@@ -558,7 +590,7 @@
  <button class="tone-btn listen-option" data-answer="da" onclick="checkListenAnswer('da')">dā/dá/dǎ/dà</button>
  <button class="tone-btn listen-option" data-answer="na" onclick="checkListenAnswer('na')">nā/ná/nǎ/nà</button>
  </div>
- </div>yle="text-align: center;">
+ </div><div style="text-align: center;">
       <p class="eyebrow">拼读挑战</p>
       <h2>声母 + 韵母 = 音节</h2>
       <p style="color: #666; margin-top: 10px;">点击声母和韵母，组成完整的拼音</p>
@@ -583,7 +615,7 @@
  <button class="pinyin-item" onclick="selectInitial('f')" data-initial="f">f</button>
  <button class="pinyin-item" onclick="selectInitial('d')" data-initial="d">d</button>
  </div>
- </div>tant" onclick="selectFinal('à')" data-final="à">à</button>
+ <button class="pinyin-item important" onclick="selectFinal('à')" data-final="à">à</button>
           </div>
         </div>
       </div>
@@ -662,9 +694,22 @@
  <td>"规矩矩轻声，约定俗成"</td>
  </tr>
  </tbody>
- </table>
- </div>
- </div>style="color: #4caf50;">差(chà)不多 / 差(chā)别 / 出差(chāi)</td>
+</table>
+</div>
+</div>
+
+      <!-- B级：多音字辨析 -->
+      <div class="teacher-lab" style="border-left: 5px solid #ff9800; margin-bottom: 18px;">
+        <h3 style="color: #e65100;">🅱️ B级 · 多音字辨析（语境判断）</h3>
+        <p style="color: #666; font-size: 14px; margin-bottom: 14px;">多音字丢分往往不是因为不认识字，而是不会看语境选读音——以下都是考试"爆雷"字。</p>
+        <div class="responsive-table" style="border-radius: 10px; overflow: hidden;">
+          <table>
+            <thead><tr><th>汉字</th><th>常见错误</th><th>正确读音</th><th>错误原因</th><th>记忆方法</th></tr></thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">差</td>
+                <td style="color: #f44336;">差不(chā)多</td>
+                <td style="color: #4caf50;">差(chà)不多 / 差(chā)别 / 出差(chāi)</td>
                 <td style="color: #e65100;">很多学生把"差不多"读成 chā 不多——"chā 是数学第一声"的混乱记忆造成</td>
                 <td>记关键搭配："差不多"读 chà，"差别"读 chā，"出差"读 chāi，"参差"读 cī</td>
               </tr>

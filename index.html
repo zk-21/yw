@@ -121,12 +121,12 @@
       background: white;
     }
     .cycle-container {
-      max-width: 1000px;
+      max-width: 1120px;
       margin: 0 auto;
     }
     .cycle-title {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
     }
     .cycle-title h2 {
       font-size: 28px;
@@ -139,15 +139,21 @@
     }
     .cycle-steps {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(5, minmax(140px, 1fr));
+      gap: 16px;
+      align-items: stretch;
     }
     .step-card {
       text-align: center;
-      padding: 25px 15px;
+      padding: 22px 16px;
       background: #f8f9fa;
       border-radius: 12px;
       transition: all 0.3s;
+      min-height: 178px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
     .step-card:hover {
       transform: translateY(-3px);
@@ -170,12 +176,116 @@
       font-size: 16px;
       color: #333;
       margin-bottom: 8px;
+      line-height: 1.35;
     }
     .step-card p {
       font-size: 13px;
       color: #666;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.65;
+    }
+    .cycle-note {
+      margin: 0 auto 26px;
+      max-width: 980px;
+      background: linear-gradient(135deg, #f0f4ff 0%, #fff8fb 100%);
+      border-left: 5px solid #5b6abf;
+      border-radius: 12px;
+      padding: 20px 24px;
+      color: #333;
+      box-shadow: 0 8px 24px rgba(91,106,191,0.08);
+    }
+    .cycle-note h3 {
+      color: #5b6abf;
+      margin: 0 0 10px;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+    .cycle-note p {
+      font-size: 14px;
+      line-height: 1.9;
+      margin: 8px 0 0;
+    }
+    .tips-section {
+      padding: 56px 5vw 68px;
+      background: #f7f8fb;
+    }
+    .tips-section > h2 {
+      max-width: 1040px;
+      margin: 0 auto 18px;
+      text-align: center;
+      color: #20242c;
+      font-size: 28px;
+      line-height: 1.35;
+    }
+    .tips-note {
+      max-width: 980px;
+      margin: 0 auto 26px;
+      background: white;
+      border: 1px solid #e5e9f2;
+      border-left: 5px solid #7b1fa2;
+      border-radius: 12px;
+      padding: 20px 24px;
+      box-shadow: 0 10px 28px rgba(32,36,44,0.06);
+    }
+    .tips-note h3 {
+      margin: 0 0 10px;
+      color: #7b1fa2;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+    .tips-note p {
+      margin: 8px 0 0;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .tips-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .tip-card {
+      background: white;
+      border: 1px solid #e5e9f2;
+      border-radius: 12px;
+      padding: 22px 20px;
+      box-shadow: 0 10px 24px rgba(32,36,44,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 270px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .tip-card:hover {
+      transform: translateY(-3px);
+      border-color: #c7cff5;
+      box-shadow: 0 16px 32px rgba(91,106,191,0.14);
+    }
+    .tip-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 24px;
+      flex: 0 0 auto;
+    }
+    .tip-content h4 {
+      margin: 0 0 10px;
+      color: #20242c;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+    .tip-content p {
+      margin: 0;
+      color: #555f6f;
+      font-size: 14px;
+      line-height: 1.8;
     }
     
     /* 年级路线表 */
@@ -237,6 +347,9 @@
         grid-template-columns: 1fr;
       }
       .cycle-steps {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+      }
+      .tips-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .roadmap-table th, .roadmap-table td {
@@ -245,6 +358,23 @@
       }
       .peak-container > div {
         grid-template-columns: 1fr !important;
+      }
+    }
+    @media (max-width: 560px) {
+      .cycle-steps {
+        grid-template-columns: 1fr;
+      }
+      .step-card {
+        min-height: auto;
+      }
+      .cycle-note {
+        padding: 18px 16px;
+      }
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+      .tip-card {
+        min-height: auto;
       }
     }
     
@@ -410,7 +540,7 @@
     <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a class="active" href="index.html">总览</a>
-      <a href="agent.html">一对一辅导</a>
+      <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
       <a href="composition.html">作文专题</a>
@@ -422,16 +552,12 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <div class="nav-dropdown">
- <a href="#" class="dropdown-toggle">其他</a>
- <div class="dropdown-content">
- <a href="advanced.html">尖子生拓展</a>
- <a href="knowledge-map.html">知识总控</a>
- </div>
- </div>
- </nav>
- </header>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="advanced.html">尖子生拓展</a>
+    </nav>
+  </header>
 
+  <main>
  <!-- 分层入口模块 -->
  <section class="layer-entry-section">
  <div class="layer-entry-container">
@@ -443,7 +569,11 @@
  <strong style="color: #5b6abf; font-size: 15px;">🔬 特级教师诊断说明：为什么分层不能只看分数？</strong><br>
  传统分层教学仅依据一次考试成绩划分学生层次，存在严重误判风险。教育测量学研究表明，同一分数段的学生可能具有截然不同的<b>认知属性剖面</b>——例如，两个同样考85分的学生，A可能在"信息提取"维度已达掌握水平、却在"推理整合"维度处于初始状态；B则恰好相反。仅凭总分分层会使A和B进入同一通道，导致A在推理题上"跟不上"、B在提取题上"浪费时间"。<br>
  本系统借鉴<b>认知诊断模型</b>（CDM, Cognitive Diagnostic Model）的思路，通过错因码体系构建6维能力剖面（字词基础→信息提取→推理整合→概括归纳→赏析评价→表达输出），实现<b>基于属性的精准分层</b>，而非基于总分的粗糙分类。每个孩子进入的通道，是对其当前基础能力最匹配的最近发展区起点。
- </div>>尖子生通道</h3>
+ </div>
+ <div class="layer-cards">
+ <div class="layer-card top-student" onclick="selectLayer('top')">
+ <div class="layer-card-icon">🏆</div>
+ <h3>尖子生通道</h3>
  <p>适合成绩稳定在90分以上，想要冲刺满分、竞赛题、拔尖晋级的学生</p>
  <ul>
  <li>竞赛级阅读理解和作文特训</li>
@@ -514,64 +644,49 @@
  </section>
 
  <!-- 学习闭环模块 -->
- <section class="cycle-section">
- <div class="cycle-container">
- <div class="cycle-title">
- <h2>家长一眼看懂的辅导闭环</h2>
- <p>A卷诊断 → 错因码 → 一对一精讲 → B卷复测 → C卷迁移 → 拔尖晋级</p>
- </div>
+<section class="cycle-section">
+  <div class="cycle-container">
+    <div class="cycle-title">
+      <h2>家长一眼看懂的辅导闭环</h2>
+      <p>A卷诊断 → 错因码 → 一对一精讲 → B卷复测 → C卷迁移 → 拔尖晋级</p>
+    </div>
 
- <div class="study-block accent" style="margin: 0 auto 30px; max-width: 1000px; background: linear-gradient(135deg, #f0f4ff 0%, #fef7fb 100%); border-left: 5px solid #5b6abf; border-radius: 12px; padding: 20px 24px;">
- <h2 style="color: #5b6abf; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：五步辅导闭环的教育科学依据</h2>
- <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>理论基础：形成性评估与</strong>——传统辅导"做完题就结束"的致命缺陷在于缺乏"反馈闭环"：孩子不知道错在哪里，家长不知道为何而错，下次遇到同类题依然错。理论证明：只要给予足够的时间和针对性的反馈，90%以上的学生可以达到当前年级的掌握水平。本系统设计的五步闭环，正是将这一理论转化为可操作的家庭辅导流程。</p>
-        <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>诊断洞察：</strong>为什么孩子"刷了很多题却不见效"？问题的根源在于训练与诊断脱节——练习没有针对诊断发现的特定薄弱点。A卷诊断的作用类似于医生开具的"化验单"：先查清哪些认知属性未掌握，再根据化验结果开具针对性"药方"（精讲训练包），而非给所有孩子开同样的"补药"（统一练习题）。</p>
-        <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>教学策略：</strong>①A卷诊断：15分钟窄范围聚焦，每条错因码对应3道锚题确保信度——测出的不是"会不会"，而是"认知属性掌握概率"；②错因码：自动映射到6维能力剖面，家长无需具备教育测量学知识即可读懂；③B卷复测：同类变式同标签——换了材料但不换考查的认知属性，确保"真迁移"而非"记答案"；④C卷晋级：混合题型任意排列——打破训练中的"标签提示效应"，检验真正的能力内化。</p>
+    <div class="cycle-note">
+      <h3>特级教师精讲：五步闭环为什么比刷题有效</h3>
+      <p><strong>常见问题：</strong>孩子刷了很多题却不见效，往往不是不努力，而是训练和诊断脱节。A卷先定位真实薄弱点，再用错因码匹配训练包，避免所有孩子都做同一套题。</p>
+      <p><strong>怎么做：</strong>A卷诊断聚焦薄弱点，错因码映射到能力剖面；B卷用同类变式检查是否真正迁移；C卷用混合题型打破提示，确认能力已经稳定内化。</p>
+    </div>
+
+    <div class="cycle-steps">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>A卷诊断</h4>
+        <p>先测真实薄弱点<br>不靠感觉猜问题</p>
       </div>
-      <div class="cycle-steps">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <h4>A卷诊断</h4>
-          <p>先测真实薄弱点<br>不靠感觉猜问题</p>
-        </div>
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <h4>错因码</h4>
-          <p>系统自动判断<br>家长不用手工判</p>
-        </div>
-        <div class="<p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>常见问题：</strong>为什么孩子"刷了很多题却不见效"？问题的根源在于训练与诊断脱节——练习没有针对诊断发现的特定薄弱点。A卷诊断的作用类似于医生开具的"化验单"：先查清哪些认知属性未掌握，再根据化验结果开具针对性"药方"（精讲训练包），而非给所有孩子开同样的"补药"（统一练习题）。</p>
- <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>怎么做：</strong>①A卷诊断：15分钟窄范围聚焦，每条错因码对应3道锚题确保信度——测出的不是"会不会"，而是"认知属性掌握概率"；②错因码：自动映射到6维能力剖面，家长无需具备教育测量学知识即可读懂；③B卷复测：同类变式同标签——换了材料但不换考查的认知属性，确保"真迁移"而非"记答案"；④C卷晋级：混合题型任意排列——打破训练中的"标签提示效应"，检验真正的能力内化。</p>
- </div>
- <div class="cycle-steps">
- <div class="step-card">
- <div class="step-number">1</div>
- <h4>A卷诊断</h4>
- <p>先测真实薄弱点<br>不靠感觉猜问题</p>
- </div>
- <div class="step-card">
- <div class="step-number">2</div>
- <h4>错因码</h4>
- <p>系统自动判断<br>家长不用手工判</p>
- </div>
- <div class="step-card">
- <div class="step-number">3</div>
- <h4>一对一精讲</h4>
- <p>讲错在哪里<br>讲满分怎么写</p>
- </div>
- <div class="step-card">
- <div class="step-number">4</div>
- <h4>B卷复测</h4>
- <p>换材料换问法<br>检查同类迁移</p>
- </div>
- <div class="step-card">
- <div class="step-number">5</div>
- <h4>C卷晋级</h4>
- <p>混合题能稳定做<br>才算拔尖通过</p>
- </div>
- </div>
- </div>
- </section>
-
- <!-- 拔尖训练与拓展知识 -->
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h4>错因码</h4>
+        <p>系统自动判断<br>家长不用手工判</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h4>一对一精讲</h4>
+        <p>讲错在哪里<br>讲满分怎么写</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h4>B卷复测</h4>
+        <p>换材料换问法<br>检查同类迁移</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <h4>C卷晋级</h4>
+        <p>混合题能稳定做<br>才算拔尖通过</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 拔尖训练与拓展知识 -->
  <section class="peak-training-section" style="padding: 50px 5vw; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);">
  <div class="peak-container" style="max-width: 1000px; margin: 0 auto;">
  <div class="peak-title" style="text-align: center; margin-bottom: 40px;">
@@ -674,182 +789,6 @@
  </div>
  </div>
  </section>
-
- <!-- 年级提优路线表 -->
- <section class="roadmap-section">
- <div class="roadmap-container">
- <div class="roadmap-title">
- <h2>年级提优路线表</h2>
- </div>
-
-<div class="study-block accent" style="margin-bottom:24px; background: linear-gradient(135deg, #fff3e0 0%, #fef7fb 100%); border-left: 5px solid #ff9800; border-radius: 12px; padding: 20px 24px;">
-<h2 style="color: #e65100; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：怎么看懂这张路线表</h2>
-<p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>核心认知：</strong>语文六大能力不是线性涨上去的，而是螺旋上升的。比如"概括能力"——三年级要求找中心句，四年级要求归纳段落大意，五年级要求提炼文章主旨，六年级要求跨文章比较共性。同一个能力，每个年级要求不同。家长不要因为"别的孩子都在干什么"就焦虑，要顺着孩子自己的发展节奏来。</p>
-<p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>使用建议：</strong>先找到孩子所在年级，看"基础"列是否达标。基础还没到位就先别急着提优——地基不稳，拔高只会挫伤信心。基础扎实了，再往右看"提优"和"拔高"列，一次只攻一项，比同时补多个弱项效果好得多。</p>
-<p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>特别提醒：</strong>家长最常犯的错误是横向比较。但语文能力的发育有先后——有些孩子三年级才开窍写作文，有些一年级就能娓娓道来，这跟聪明不聪明没关系。与其焦虑，不如顺着这张表，一步一个脚印。</p>
-</div>
-      
-      <!-- 年级内容卡片 -->
-      <div class="grade-content">
-        <!-- 一年级 -->
-        <div id="grade-1" class="grade-card">
-          <h3>一年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">拼音、笔画、简单识字</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">拼读熟练、认字量增加</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">能独立拼读、朗读短文</span>
-          </div>
-        </div>
-        
-        <!-- 二年级 -->
-        <div id="grade-2" class="grade-card">
-          <h3>二年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">形近字、多音字、词语积累</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">阅读理解起步、写一段话</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">能说完整、写清楚</span>
-          </div>
-        </div>
-        
-        <!-- 三年级 -->
-        <div id="grade-3" class="grade-card active"><p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>常见问题：</strong>家长最常见的焦虑来源于"横向比较"——看到别的孩子在做什么就要求自己孩子也做什么。有效的辅导应该遵循"纵向发展逻辑"：先判断孩子当前所处的能力层级，再提供恰好位于其上方的"最近发展区"任务。过早跳跃层级会适得其反。</p>
- <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>怎么做：</strong>下表展示1-6年级在"基础—提优—拔高"三个层次上的能力递进路线。使用建议：先定位孩子所在年级，横向确认其当前基础是否扎实，再纵向看下一层次需要培养什么能力——这样既不焦虑于同龄比较，也不盲目拔高。</p>
- </div>
- <!-- 年级选项卡 -->
- <div class="grade-tabs">
- <button class="tab-btn" onclick="showGrade(1)">一年级</button>
- <button class="tab-btn" onclick="showGrade(2)">二年级</button>
- <button class="tab-btn active" onclick="showGrade(3)">三年级</button>
- <button class="tab-btn" onclick="showGrade(4)">四年级</button>
- <button class="tab-btn" onclick="showGrade(5)">五年级</button>
- <button class="tab-btn" onclick="showGrade(6)">六年级</button>
- </div>
- 
- <!-- 年级内容卡片 -->
- <div class="grade-content">
- <!-- 一年级 -->
- <div id="grade-1" class="grade-card">
- <h3>一年级学习重点</h3>
- <div class="grade-item">
- <span class="item-label">基础重点</span>
- <span class="item-value">拼音、笔画、简单识字</span>
- </div>
- <div class="grade-item">
- <span class="item-label">提优重点</span>
- <span class="item-value">拼读熟练、认字量增加</span>
- </div>
- <div class="grade-item">
- <span class="item-label">拔高目标</span>
- <span class="item-value">能独立拼读、朗读短文</span>
- </div>
- </div>
- 
- <!-- 二年级 -->
- <div id="grade-2" class="grade-card">
- <h3>二年级学习重点</h3>
- <div class="grade-item">
- <span class="item-label">基础重点</span>
- <span class="item-value">形近字、多音字、词语积累</span>
- </div>
- <div class="grade-item">
- <span class="item-label">提优重点</span>
- <span class="item-value">阅读理解起步、写一段话</span>
- </div>
- <div class="grade-item">
- <span class="item-label">拔高目标</span>
- <span class="item-value">能说完整、写清楚</span>
- </div>
- </div>
- 
- <!-- 三年级 -->
- <div id="grade-3" class="grade-card active">
- <h3>三年级学习重点</h3>
- <div class="grade-item">
- <span class="item-label">基础重点</span>
- <span class="item-value">字词句、自然段</span>
- </div>
- <div class="grade-item">
- <span class="item-label">提优重点</span>
- <span class="item-value">写具体、找中心句</span>
- </div>
- <div class="grade-item">
- <span class="item-label">拔高目标</span>
- <span class="item-value">能写完整片段</span>
- </div>
- </div>
- 
- <!-- 四年级 -->
- <div id="grade-4" class="grade-card">
- <h3>四年级学习重点</h3>
- <div class="grade-item">
- <span class="item-label">基础重点</span>
- <span class="item-value">概括、修辞、描写</span>
- </div>
- <div class="grade-item">
- <span class="item-label">提优重点</span>
- <span class="item-value">找依据、析作用</span>
- </div>
- <div class="grade-item">
- <span class="item-label">拔高目标</span>
- <span class="item-value">阅读答案有层次</span>
- </div>
- </div>
- 
- <!-- 五年级 -->
- <div id="grade-5" class="grade-card">
- <h3>五年级学习重点</h3>
- <div class="grade-item">
- <span class="item-label">基础重点</span>
- <span class="item-value">中心、人物、说明文</span>
- </div>
- <div class="grade-item">
- <span class="item-label">提优重点</span>
- <span class="item-value">分析主题和结构</span>
- </div>
- <div class="grade-item">
- <span class="item-label">拔高目标</span>
- <span class="item-value">作文有中心有详略</span>
- </div>
- </div>
- 
- <!-- 六年级 -->
- <div id="grade-6" class="grade-card">
- <h3>六年级学习重点</h3>
- <div class="grade-item">
- <span class="item-label">基础重点</span>
- <span class="item-value">综合阅读、非连续性文本、文言文</span>
- </div>
- <div class="grade-item">
- <span class="item-label">提优重点</span>
- <span class="item-value">四层答题法、作文升格</span>
- </div>
- <div class="grade-item">
- <span class="item-label">拔高目标</span>
- <span class="item-value">冲刺衔接中学、综合运用</span>
- </div>
- </div>
- </div>
- <p class="roadmap-note">
- <strong>梯度特点：</strong>一年级重拼音识字基础，二年级重词语积累和阅读起步，三年级重表达完整，四年级重阅读依据，五年级重分析深度，六年级重综合运用与小升初冲刺
- </p>
- </div>
- </section>
-
- <main>
  <section class="hero dashboard-hero">
  <div class="hero-copy">
  <p class="eyebrow">小学一至六年级 · 阅读理解 · 作文提优</p>
@@ -1264,11 +1203,10 @@
     <section class="tips-section">
       <h2>&#127891; 特级教师给尖子生的四个"会思考"习惯</h2>
 
-      <div class="study-block accent" style="margin: 0 auto 26px; max-width: 1000px; background: linear-gradient(135deg, #f3e5f5 0%, #ede7f6 100%); border-left: 5px solid #9c27b0; border-radius: 12px; padding: 20px 24px;">
-        <h2 style="color: #7b1fa2; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：为什么这四个习惯比做题更重要</h2>
-        <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>三十年的观察：</strong>我带过的学生里，最后真正拉开差距的不是谁做题多，而是谁会"回头看"。做完题就算了的孩子，做一百道跟做十道没有区别——同样的错误还会再犯。而每做完一题都问自己"为什么对、为什么错、换种问法还认识吗"的孩子，每一道题都在长本事。这就是好学生和一般学生最根本的差别。</p>
-        <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>四个习惯的内在联系：</strong>①做完题问"为什么"——这是反思的习惯；②错题写错因——这是总结的习惯；③能讲明白才算真会——这是检验的习惯（讲不出来就是没真懂）；④画知识地图——这是联通的习惯（孤立的知识容易忘，联成网的知识才能活学活用）。四个习惯，一个比一个深，培养顺序可以从①开始，一个一个来。</p>
-        <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>怎么培养：</strong>不要四个一起上，孩子受不了。先花一个月只练第一个习惯——每天做完作业后，挑一题让孩子说说"为什么这么选"。坚持一个月，这个习惯变成自动反应了，再加第二个。家长的作用不是监督，是陪聊——孩子说了你听着、点头、追问一两句就行。关键是每天坚持，不是每天说很久。</p>
+      <div class="tips-note">
+        <h3>特级教师精讲：为什么这四个习惯比做题更重要</h3>
+        <p><strong>核心提醒：</strong>真正拉开差距的不是谁做题更多，而是谁会做完以后回头看。每道题都追问原因、记录错因、讲清思路、联通知识，才能把一道题变成一类题。</p>
+        <p><strong>培养顺序：</strong>先练"为什么"，再练"错因诊断"，最后加入讲题和知识地图。一次只抓一个习惯，稳定后再加下一个。</p>
       </div>
       <div class="tips-grid">
         <div class="tip-card">
@@ -1315,108 +1253,75 @@
             card.style.transform = 'translateY(0)';
           }, index * 100);
         });
-        
-        // 初始化任务状态
+
         initTasks();
       });
-      
-      // 任务切换功能
+
       function toggleTask(checkbox) {
         const taskItem = checkbox.parentElement;
         const taskText = taskItem.querySelector('.task-text');
-        
+
         checkbox.classList.toggle('completed');
         taskText.classList.toggle('completed');
-        
-        // 保存任务状态到localStorage
         saveTasks();
       }
-      
-      // 从localStorage加载任务状态
+
       function initTasks() {
-<p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>常见问题：</strong>观察法优于询问法。问孩子"你会不会概括？"得到的答案通常不准确，因为孩子缺乏元认知自我评估能力。更好的做法是让孩子做一个小任务（如用一句话概括刚读的段落），通过行为表现反推认知状态——这就是<span style="color:#11998e;">基于表现的动态评估</span>。</p>
- <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>怎么做：</strong>下表将常见表现映射到可能的认知归因和可操作的观察方法。使用时要留意——同一个表现可能同时涉及多个认知维度的薄弱，不应机械归因于单一因素。</p>
- </div>
- <div class="table-card">
- <div class="responsive-table">
- <table>
- <thead>
- <tr><th>表现</th><th>可能卡点</th><th>可以怎么观察</th></tr>
- </thead>
- <tbody>
- <tr><td>听写常错，作文错别字多</td><td>字词基础的编码—存储—提取链条断裂：读音编码不准确或字形表征不稳定</td><td>听写一组同音字，看是否能根据语境选择正确字形；分析错误类型：形近混淆 vs 同音替代 vs 笔画遗漏</td></tr>
- <tr><td>阅读题答不全</td><td>信息提取的策略性知识缺失：不知道"应该从哪里找答案"或找到了但不知如何组织</td><td>让孩子边读边划关键句，读完逐条对照题目看是否都涵盖了；观察遗漏的是"显性信息"还是"隐性推论"</td></tr>
- <tr><td>作文像流水账</td><td>叙事图式的层级意识薄弱：缺乏区分"重要事件"与"过渡事件"的认知标准，导致所有段落平均用力</td><td>在孩子写作前要求先列出"最精彩的一个画面"，并口头描述该画面的三个具体细节，再动笔</td></tr>
- <tr><td>会读但说不出意思</td><td>概括加工的"宏观规则"未内化：不会运用删除、选择、归纳、建构四个文本压缩策略</td><td>分步训练：先找中心句→再用关键词串联→最后用"谁+做了什么+结果怎样"的框架整合为一句话</td></tr>
- <tr><td>答案凭感觉</td><td>答题的基础能力系统缺位：未形成"定位依据→组织答案→回读检查"的程序化习惯</td><td>做每道阅读题都要求先圈题目关键词→在文中划线标注依据→回答后用依据对照题目验证</td></tr>
- </tbody>
- </table>
- </div>
- </div>
- </section>
+        const savedTasks = localStorage.getItem('dailyTasks');
+        if (!savedTasks) return;
 
- <section class="section">
- <div class="section-title">
- <p class="eyebrow">学习流程</p>
- <h2>诊断-练习-复盘三步法</h2>
- </div>
- <div class="plan-grid">
- <article class="plan-card">
- <span class="time-pill">5分钟</span>
- <h3>诊断</h3>
- <p>读一段短文，回答2个问题，找出卡点</p>
- </article>
- <article class="plan-card">
- <span class="time-pill">20-30分钟</span>
- <h3>练习</h3>
- <p>只练一个薄弱点，例如词语、概括、修辞或作文片段</p>
- </article>
- <article class="plan-card">
- <span class="time-pill">5分钟</span>
- <h3>复盘</h3>
- <p>看错在哪里，说出下次怎么改</p>
- </article>
- </div>
- </section>
+        const tasks = JSON.parse(savedTasks);
+        const taskItems = document.querySelectorAll('#taskList .task-item');
+        taskItems.forEach((item, index) => {
+          if (tasks[index]) {
+            const checkbox = item.querySelector('.task-checkbox');
+            const taskText = item.querySelector('.task-text');
+            checkbox?.classList.add('completed');
+            taskText?.classList.add('completed');
+          }
+        });
+      }
 
- <section class="section split">
- <div>
- <p class="eyebrow">核心能力</p>
- <h2>每个年级都围绕五条线反复练</h2>
- </div>
- <div class="skill-list">
- <article>
- <span class="skill-icon">字</span>
- <h3>字词基础</h3>
- <p>生字、多音字、近反义词、成语与词语搭配。</p>
- </article>
- <article>
- <span class="skill-icon">句</span>
- <h3>句段运用</h3>
- <p>扩句缩句、修辞、病句、过渡句和中心句。</p>
- </article>
- <article>
- <span class="skill-icon">读</span>
- <h3>阅读理解</h3>
- <p>概括内容、提取信息、理解人物与体会情感。</p>
- </article>
- <article>
- <span class="skill-icon">写</span>
- <h3>习作表达</h3>
- <p>观察、选材、结构、细节描写和修改习惯。</p>
- </article>
- <article>
- <span class="skill-icon">诗</span>
- <h3>古诗文</h3>
- <p>背诵默写、关键词理解、画面想象和文言启蒙。</p>
- </article>
- </div>
- </section>
+      function saveTasks() {
+        const taskItems = document.querySelectorAll('#taskList .task-item');
+        const tasks = Array.from(taskItems).map(item =>
+          item.querySelector('.task-checkbox')?.classList.contains('completed') || false
+        );
+        localStorage.setItem('dailyTasks', JSON.stringify(tasks));
+      }
 
- <!-- 特级教师学习箴言 -->
- <section class="tips-section">
- <h2>&#127891; 特级教师给尖子生的四个"会思考"习惯</h2>
+      function selectLayer(type) {
+        const target = type === 'top'
+          ? 'practice.html#top-student-zone'
+          : 'practice.html#avg-student-zone';
+        window.location.href = target;
+      }
 
- <div class="study-block accent" style="margin: 0 auto 26px; max-width: 1000px; background: linear-gradient(135deg, #f3e5f5 0%, #ede7f6 100%); border-left: 5px solid #9c27b0; border-radius: 12px; padding: 20px 24px;">
- <h2 style="color: #7b1fa2; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：元认知——尖子生与非尖子生的分水岭</h2>
- <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;">——心理学家在1976年提出的元认知概念，指"关于认知的认知"，包含元认知知识（知道自己的学习特点）、元认知体验（意识到自己在思考时的感受）和基础能力（计划、监控、评估自己的认知过程）。研究反复表明：元认知水平对学业成就的解释力远超智力水平。</p>
+      document.querySelectorAll('.grade-panel').forEach(panel => {
+        panel.addEventListener('click', () => {
+          panel.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            panel.style.transform = 'scale(1)';
+          }, 100);
+        });
+      });
+
+      function showGrade(grade) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelectorAll('.grade-card').forEach(card => {
+          card.classList.remove('active');
+        });
+
+        if (event?.target) {
+          event.target.classList.add('active');
+        }
+        document.getElementById('grade-' + grade)?.classList.add('active');
+      }
+    </script>
+  </main>
+  <script src="nav.js?v=83"></script>
+  <script src="table-responsive.js?v=83"></script>
+</body>
+</html>

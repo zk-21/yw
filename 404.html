@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>页面未找到 - 语文成长地图</title>
   <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="styles.css">
   <style>
     * {
       margin: 0;
@@ -16,8 +17,7 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       padding: 20px;
     }
     .error-container {
@@ -136,6 +136,27 @@
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="advanced.html">尖子生拓展</a>
+    </nav>
+  </header>
+  <main style="flex:1;display:flex;align-items:center;justify-content:center;">
   <div class="error-container">
     <div class="illustration">
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -162,5 +183,7 @@
       </div>
     </div>
   </div>
+  </main>
+  <script src="nav.js" defer></script>
 </body>
 </html>
