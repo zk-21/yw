@@ -6,7 +6,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>二年级语文 - 小学语文基础</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文二年级 · 基础知识</title>
+  <meta name="description" content="小学语文二年级基础知识，词语学习、句子练习、阅读理解、写话训练。">
+  <meta name="keywords" content="小学语文,二年级,词语,句子,阅读理解">
+  <meta property="og:title" content="小学语文二年级 · 基础知识">
+  <meta property="og:description" content="小学语文二年级基础知识，词语学习、句子练习、阅读理解、写话训练。">
+  <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css?v=83">
@@ -179,6 +184,87 @@
       .bridge-arrow { display: none; }
     }
   </style>
+
+<style>
+      .word-bank {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .word-btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 2px solid #74b9ff;
+        border-radius: 10px;
+        background: white;
+        color: #0984e3;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: left;
+      }
+      .word-btn:hover,
+      .word-btn.selected {
+        background: #e7f5ff;
+        transform: translateX(5px);
+        box-shadow: 0 3px 10px rgba(9, 132, 227, 0.3);
+      }
+
+      .char-options {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .char-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        font-weight: bold;
+        border: 3px solid #74b9ff;
+        border-radius: 15px;
+        background: white;
+        color: #0984e3;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .char-btn:hover {
+        background: #e7f5ff;
+        transform: scale(1.1);
+      }
+      .char-btn.correct {
+        background: #81c784;
+        border-color: #4caf50;
+        color: white;
+      }
+      .char-btn.wrong {
+        background: #e57373;
+        border-color: #f44336;
+        color: white;
+      }
+
+      .expand-options {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .expand-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 2px solid #ffb74d;
+        border-radius: 20px;
+        background: #fff8e1;
+        color: #e65100;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .expand-btn:hover,
+      .expand-btn.added {
+        background: #ffb74d;
+        color: white;
+        transform: scale(1.05);
+      }
+    </style>
 </head>
 <body>
   <header class="topbar">
@@ -627,86 +713,7 @@
       </div>
     </section>
 
-    <style>
-      .word-bank {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .word-btn {
-        padding: 12px 20px;
-        font-size: 16px;
-        border: 2px solid #74b9ff;
-        border-radius: 10px;
-        background: white;
-        color: #0984e3;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-align: left;
-      }
-      .word-btn:hover,
-      .word-btn.selected {
-        background: #e7f5ff;
-        transform: translateX(5px);
-        box-shadow: 0 3px 10px rgba(9, 132, 227, 0.3);
-      }
-
-      .char-options {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-      .char-btn {
-        width: 60px;
-        height: 60px;
-        font-size: 28px;
-        font-weight: bold;
-        border: 3px solid #74b9ff;
-        border-radius: 15px;
-        background: white;
-        color: #0984e3;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-      .char-btn:hover {
-        background: #e7f5ff;
-        transform: scale(1.1);
-      }
-      .char-btn.correct {
-        background: #81c784;
-        border-color: #4caf50;
-        color: white;
-      }
-      .char-btn.wrong {
-        background: #e57373;
-        border-color: #f44336;
-        color: white;
-      }
-
-      .expand-options {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .expand-btn {
-        padding: 10px 20px;
-        font-size: 16px;
-        border: 2px solid #ffb74d;
-        border-radius: 20px;
-        background: #fff8e1;
-        color: #e65100;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-      .expand-btn:hover,
-      .expand-btn.added {
-        background: #ffb74d;
-        color: white;
-        transform: scale(1.05);
-      }
-    </style>
+    
 
     <script>
       // 词语搭配游戏
@@ -851,9 +858,9 @@
       <div id="grade2-mistakes-ref" style="margin-top:20px;"></div>
     </section>
   </main>
-  <script src="nav.js?v=83"></script>
-  <script src="table-responsive.js?v=83"></script>
-  <script src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=83"></script>
+  <script defer src="table-responsive.js?v=83"></script>
+  <script defer src="data/data-loader-global.js?v=83"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {

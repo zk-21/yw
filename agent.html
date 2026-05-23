@@ -8,7 +8,12 @@
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
-  <title>AI 学习 Agent · 手机版</title>
+  <title>小学语文 AI 学习助手 · 语文成长地图</title>
+  <meta name="description" content="小学语文 AI 学习助手，智能诊断薄弱点，个性化练习推荐，一对一拔尖辅导。">
+  <meta name="keywords" content="小学语文,AI学习,智能辅导,个性化学习,诊断训练">
+  <meta property="og:title" content="小学语文 AI 学习助手 · 语文成长地图">
+  <meta property="og:description" content="小学语文 AI 学习助手，智能诊断薄弱点，个性化练习推荐，一对一拔尖辅导。">
+  <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css?v=83">
   <style>
@@ -597,10 +602,7 @@
 </head>
 <body class="agent-page">
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="回到首页">
-      <span class="brand-mark">文</span>
-      <span>语文成长地图</span>
-    </a>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
     <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
     <nav class="nav" aria-label="主导航">
       <a href="index.html">总览</a>
@@ -761,7 +763,7 @@
           <input id="agent-photo" name="photo" type="file" accept="image/*" capture="environment">
           <p class="agent-help">GitHub Pages 静态版先做图片预览，不自动 OCR。请把图片中的文字输入上方，或用语音读出。</p>
           <div class="agent-photo-preview" id="agent-photo-preview">
-            <img id="agent-photo-image" alt="题目图片预览">
+            <img id="agent-photo-image" alt="题目图片预览" loading="lazy">
             <span id="agent-photo-name"></span>
           </div>
         </div>
@@ -843,8 +845,8 @@
     </div>
   </nav>
 
-  <script src="nav.js?v=83"></script>
-  <script src="data/data-loader-global.js?v=83"></script>
-  <script src="agent.js?v=83"></script>
+  <script defer src="nav.js?v=83"></script>
+  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="agent.js?v=83"></script>
 </body>
 </html>

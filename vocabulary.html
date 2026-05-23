@@ -330,6 +330,192 @@
       }
     }
   </style>
+
+<style>
+      .section-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px;
+        box-shadow: 0 8px 22px rgba(24,33,47,0.06);
+        margin-bottom: 16px;
+      }
+      .section-card > div {
+        margin-bottom: 12px !important;
+      }
+      .section-card h3 {
+        color: #333;
+        margin-bottom: 14px;
+        font-size: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #edf0f5;
+      }
+      .section-card .lesson-title {
+        color: #667eea;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+      main .study-block.grade-four,
+      main .study-block.grade-five {
+        padding: 14px 16px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(24,33,47,0.05);
+      }
+      main .study-block.grade-four h3,
+      main .study-block.grade-five h3 {
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(141, 154, 170, 0.22);
+        font-size: 15px;
+        line-height: 1.35;
+      }
+      main .study-block.grade-four .routine,
+      main .study-block.grade-five .routine {
+        gap: 8px;
+      }
+      main .study-block.grade-four .routine p,
+      main .study-block.grade-five .routine p {
+        padding: 8px 10px;
+        font-size: 13px;
+        line-height: 1.58;
+        background: rgba(255,255,255,0.82);
+        border-color: rgba(214, 222, 234, 0.9);
+      }
+      main .study-block.grade-four .routine p strong,
+      main .study-block.grade-five .routine p strong {
+        color: #21405f;
+      }
+      main .study-block.grade-five .cards-row {
+        gap: 10px;
+      }
+      main .study-block.grade-five .mini-card.grade-five {
+        padding: 12px !important;
+        border-radius: 8px;
+      }
+      main .study-block.grade-five .mini-card.grade-five h3 {
+        margin-bottom: 10px !important;
+        padding-bottom: 0;
+        border-bottom: 0;
+        font-size: 14px !important;
+      }
+      main .study-block.grade-five .word-tags {
+        gap: 5px;
+      }
+      main .study-block.grade-five .word-tags .word-tag {
+        min-height: 26px;
+        padding: 3px 7px !important;
+        border-radius: 999px;
+        font-size: 12px;
+        line-height: 1.25;
+        box-shadow: none;
+        white-space: normal;
+      }
+      main .late-vocab-lesson {
+        display: grid;
+        gap: 7px;
+        padding: 8px 0 2px;
+      }
+      main .late-vocab-lesson-title {
+        margin: 0;
+        padding: 0 !important;
+        color: #5c7bea;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none;
+        font-size: 16px !important;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+      main .late-vocab-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      main .late-vocab-chip {
+        display: inline-flex;
+        min-height: 30px;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        color: #243041;
+        background: #f8fbff;
+        border: 1px solid #dce5f2;
+        border-radius: 999px;
+        box-shadow: 0 2px 7px rgba(35, 55, 90, 0.08);
+        line-height: 1.2;
+      }
+      main .late-vocab-chip strong {
+        color: #172033;
+        font-size: 13px;
+        font-weight: 900;
+      }
+      main .late-vocab-chip span {
+        color: #667085;
+        font-size: 12px;
+      }
+      main .late-vocab-note {
+        padding: 8px 10px;
+        font-size: 13px;
+        line-height: 1.58;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(214, 222, 234, 0.9);
+        border-radius: 8px;
+      }
+      main .study-block.grade-four .routine .late-vocab-lesson-title,
+      main .study-block.grade-five .routine .late-vocab-lesson-title {
+        padding: 0 !important;
+        font-size: 16px !important;
+        background: transparent !important;
+        border: 0 !important;
+      }
+      @media (max-width: 640px) {
+        .word-tag-container {
+          gap: 5px;
+        }
+        .word-tag {
+          padding: 4px 7px !important;
+        }
+        .word-tag .word-text {
+          font-size: 12px !important;
+        }
+        .word-tag .word-pinyin {
+          font-size: 10px !important;
+        }
+        main .study-block.grade-four,
+        main .study-block.grade-five {
+          padding: 12px !important;
+        }
+        main .study-block.grade-four .routine p,
+        main .study-block.grade-five .routine p {
+          padding: 7px 9px !important;
+          font-size: 12px !important;
+          line-height: 1.55 !important;
+        }
+        main .late-vocab-lesson-title {
+          font-size: 15px !important;
+        }
+        main .study-block.grade-four .routine .late-vocab-lesson-title,
+        main .study-block.grade-five .routine .late-vocab-lesson-title {
+          padding: 0 !important;
+          font-size: 15px !important;
+          line-height: 1.35 !important;
+        }
+        main .late-vocab-tags {
+          gap: 5px;
+        }
+        main .late-vocab-chip {
+          min-height: 28px;
+          padding: 4px 8px;
+        }
+        main .late-vocab-chip strong {
+          font-size: 12px;
+        }
+        main .late-vocab-chip span {
+          font-size: 11px;
+        }
+      }
+    </style>
 </head>
 <body>
   <header class="topbar">
@@ -339,11 +525,13 @@
       <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a class="active" href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
@@ -696,191 +884,7 @@
       </div>
     </section>
 
-    <style>
-      .section-card {
-        background: white;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 16px;
-        box-shadow: 0 8px 22px rgba(24,33,47,0.06);
-        margin-bottom: 16px;
-      }
-      .section-card > div {
-        margin-bottom: 12px !important;
-      }
-      .section-card h3 {
-        color: #333;
-        margin-bottom: 14px;
-        font-size: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #edf0f5;
-      }
-      .section-card .lesson-title {
-        color: #667eea;
-        font-weight: bold;
-        margin-bottom: 8px;
-        font-size: 14px;
-      }
-      main .study-block.grade-four,
-      main .study-block.grade-five {
-        padding: 14px 16px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(24,33,47,0.05);
-      }
-      main .study-block.grade-four h3,
-      main .study-block.grade-five h3 {
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid rgba(141, 154, 170, 0.22);
-        font-size: 15px;
-        line-height: 1.35;
-      }
-      main .study-block.grade-four .routine,
-      main .study-block.grade-five .routine {
-        gap: 8px;
-      }
-      main .study-block.grade-four .routine p,
-      main .study-block.grade-five .routine p {
-        padding: 8px 10px;
-        font-size: 13px;
-        line-height: 1.58;
-        background: rgba(255,255,255,0.82);
-        border-color: rgba(214, 222, 234, 0.9);
-      }
-      main .study-block.grade-four .routine p strong,
-      main .study-block.grade-five .routine p strong {
-        color: #21405f;
-      }
-      main .study-block.grade-five .cards-row {
-        gap: 10px;
-      }
-      main .study-block.grade-five .mini-card.grade-five {
-        padding: 12px !important;
-        border-radius: 8px;
-      }
-      main .study-block.grade-five .mini-card.grade-five h3 {
-        margin-bottom: 10px !important;
-        padding-bottom: 0;
-        border-bottom: 0;
-        font-size: 14px !important;
-      }
-      main .study-block.grade-five .word-tags {
-        gap: 5px;
-      }
-      main .study-block.grade-five .word-tags .word-tag {
-        min-height: 26px;
-        padding: 3px 7px !important;
-        border-radius: 999px;
-        font-size: 12px;
-        line-height: 1.25;
-        box-shadow: none;
-        white-space: normal;
-      }
-      main .late-vocab-lesson {
-        display: grid;
-        gap: 7px;
-        padding: 8px 0 2px;
-      }
-      main .late-vocab-lesson-title {
-        margin: 0;
-        padding: 0 !important;
-        color: #5c7bea;
-        background: transparent !important;
-        border: 0 !important;
-        box-shadow: none;
-        font-size: 16px !important;
-        font-weight: 900;
-        line-height: 1.35;
-      }
-      main .late-vocab-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-      main .late-vocab-chip {
-        display: inline-flex;
-        min-height: 30px;
-        align-items: center;
-        gap: 5px;
-        padding: 4px 10px;
-        color: #243041;
-        background: #f8fbff;
-        border: 1px solid #dce5f2;
-        border-radius: 999px;
-        box-shadow: 0 2px 7px rgba(35, 55, 90, 0.08);
-        line-height: 1.2;
-      }
-      main .late-vocab-chip strong {
-        color: #172033;
-        font-size: 13px;
-        font-weight: 900;
-      }
-      main .late-vocab-chip span {
-        color: #667085;
-        font-size: 12px;
-      }
-      main .late-vocab-note {
-        padding: 8px 10px;
-        font-size: 13px;
-        line-height: 1.58;
-        background: rgba(255,255,255,0.72);
-        border: 1px solid rgba(214, 222, 234, 0.9);
-        border-radius: 8px;
-      }
-      main .study-block.grade-four .routine .late-vocab-lesson-title,
-      main .study-block.grade-five .routine .late-vocab-lesson-title {
-        padding: 0 !important;
-        font-size: 16px !important;
-        background: transparent !important;
-        border: 0 !important;
-      }
-      @media (max-width: 640px) {
-        .word-tag-container {
-          gap: 5px;
-        }
-        .word-tag {
-          padding: 4px 7px !important;
-        }
-        .word-tag .word-text {
-          font-size: 12px !important;
-        }
-        .word-tag .word-pinyin {
-          font-size: 10px !important;
-        }
-        main .study-block.grade-four,
-        main .study-block.grade-five {
-          padding: 12px !important;
-        }
-        main .study-block.grade-four .routine p,
-        main .study-block.grade-five .routine p {
-          padding: 7px 9px !important;
-          font-size: 12px !important;
-          line-height: 1.55 !important;
-        }
-        main .late-vocab-lesson-title {
-          font-size: 15px !important;
-        }
-        main .study-block.grade-four .routine .late-vocab-lesson-title,
-        main .study-block.grade-five .routine .late-vocab-lesson-title {
-          padding: 0 !important;
-          font-size: 15px !important;
-          line-height: 1.35 !important;
-        }
-        main .late-vocab-tags {
-          gap: 5px;
-        }
-        main .late-vocab-chip {
-          min-height: 28px;
-          padding: 4px 8px;
-        }
-        main .late-vocab-chip strong {
-          font-size: 12px;
-        }
-        main .late-vocab-chip span {
-          font-size: 11px;
-        }
-      }
-    </style>
+    
 
     <!-- 一年级上册词语 -->
     <section class="section">
@@ -3181,9 +3185,9 @@
       updateAchievements();
     });
   </script>
-  <script src="nav.js?v=83"></script>
-  <script src="table-responsive.js?v=83"></script>
-  <script src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=83"></script>
+  <script defer src="table-responsive.js?v=83"></script>
+  <script defer src="data/data-loader-global.js?v=83"></script>
   <script>
     function vocabDbSwitch(category) {
       document.querySelectorAll('#vocab-db-quick .category-tab').forEach(function(t) {

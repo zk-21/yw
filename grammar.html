@@ -105,6 +105,54 @@
       color: #11998e;
     }
   </style>
+
+<style>
+    .quiz-option {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: left;
+    }
+    .quiz-option:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(5px);
+    }
+    .quiz-option.selected {
+      border-color: #ffeb3b;
+      background: rgba(255,235,59,0.2);
+    }
+    .quiz-option.correct {
+      border-color: #4caf50;
+      background: rgba(76,175,80,0.3);
+    }
+    .quiz-option.wrong {
+      border-color: #f44336;
+      background: rgba(244,67,54,0.3);
+    }
+    .quiz-next-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      background: white;
+      color: #11998e;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .quiz-next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -933,54 +981,6 @@
 
   </main>
 
-  <style>
-    .quiz-option {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      margin: 10px 0;
-      font-size: 16px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: left;
-    }
-    .quiz-option:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateX(5px);
-    }
-    .quiz-option.selected {
-      border-color: #ffeb3b;
-      background: rgba(255,235,59,0.2);
-    }
-    .quiz-option.correct {
-      border-color: #4caf50;
-      background: rgba(76,175,80,0.3);
-    }
-    .quiz-option.wrong {
-      border-color: #f44336;
-      background: rgba(244,67,54,0.3);
-    }
-    .quiz-next-btn {
-      padding: 12px 30px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 25px;
-      background: white;
-      color: #11998e;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .quiz-next-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-  </style>
-
   <script>
     const grammarQuiz = [
       {
@@ -1165,9 +1165,9 @@
       document.getElementById(grade).style.display = 'block';
     }
   </script>
-  <script src="nav.js?v=83"></script>
-  <script src="table-responsive.js?v=83"></script>
-  <script src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=83"></script>
+  <script defer src="table-responsive.js?v=83"></script>
+  <script defer src="data/data-loader-global.js?v=83"></script>
   <script>
     function switchGrammarDbTab(grade, btn) {
       document.querySelectorAll('#grammar-db-quick .grade-tab').forEach(function(t) { t.classList.remove('active'); });
