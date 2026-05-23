@@ -346,6 +346,9 @@
       <a href="grade5.html">五年级</a>
       <a href="practice.html">练习计划</a>
       <a class="active" href="vocabulary.html">词语学习</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -2635,6 +2638,23 @@
         </div>
       </div>
     </section>
+
+    <!-- ════════ 资料库：词汇速查 ════════ -->
+    <section class="section" id="vocab-db-quick" style="background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%); border-top: 3px solid #667eea; padding: 40px 5vw;">
+      <div class="section-title" style="text-align:center; max-width:900px; margin:0 auto;">
+        <p class="eyebrow" style="color:#667eea;">资料库速查</p>
+        <h2>📝 词语数据库索引</h2>
+        <p style="color:#666; font-size:15px;">数据来自 vocabulary.json — 同义词·反义词·成语·多音字·ABB/AABB</p>
+        <div class="category-tabs" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0;">
+          <button class="category-tab active" onclick="vocabDbSwitch('同义词')">同义词</button>
+          <button class="category-tab" onclick="vocabDbSwitch('反义词')">反义词</button>
+          <button class="category-tab" onclick="vocabDbSwitch('成语')">成语</button>
+          <button class="category-tab" onclick="vocabDbSwitch('多音字')">多音字</button>
+          <button class="category-tab" onclick="vocabDbSwitch('ABB')">ABB式</button>
+        </div>
+        <div id="vocab-db-content" style="max-width:900px; margin:20px auto;"></div>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -3163,6 +3183,26 @@
   </script>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    function vocabDbSwitch(category) {
+      document.querySelectorAll('#vocab-db-quick .category-tab').forEach(function(t) {
+        t.classList.remove('active');
+        if (t.textContent.trim() === category) t.classList.add('active');
+      });
+      var container = document.getElementById('vocab-db-content');
+      if (window.DataLib) {
+        if (category === '成语') {
+          DataLib.renderVocabularySection('成语', container);
+        } else if (category === '多音字') {
+          DataLib.renderVocabularySection('多音字', container);
+        } else {
+          DataLib.renderVocabularySection(category, container);
+        }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(function() { vocabDbSwitch('同义词'); }, 500); });
+  </script>
 </body>
 </html>
 

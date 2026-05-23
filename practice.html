@@ -1587,6 +1587,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -5861,6 +5862,18 @@
 
     </section>
 
+  <!-- 资料库同步：题库索引 -->
+  <section class="section" style="background:#f8fafc; padding:30px 5vw; border-top:3px solid #667eea;">
+    <div class="section-title" style="text-align:center;">
+      <p class="eyebrow">📦 资料库同步</p>
+      <h2>练习题库索引</h2>
+      <p style="color:#888; font-size:14px;">以下为资料库中结构化索引的题库内容，按年级分类</p>
+    </div>
+    <div id="exercises-index-container" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;">
+      <p style="color:#999;text-align:center;padding:20px;grid-column:1/-1;">加载中...</p>
+    </div>
+  </section>
+
   </main>
 
   <!-- 奖励弹窗 -->
@@ -5880,6 +5893,41 @@
       document.body.classList.remove('printing-training-sheet');
     });
   </script>
+  <script src="data/data-loader-global.js?v=1"></script>
   <script src="practice.js?v=83"></script>
+  <script>
+    // 渲染题库索引
+    (function(){
+      if (!window.DataLib) return;
+      DataLib.load('exercises').then(function(data){
+        var container = document.getElementById('exercises-index-container');
+        if (!container || !data || !data['题库索引']) return;
+        var grades = data['题库索引'];
+        var gradeNames = { '一年级':'1', '二年级':'2', '三年级':'3', '四年级':'4', '五年级':'5', '六年级':'6' };
+        var gradeColors = { '一年级':'#4caf50', '二年级':'#2196f3', '三年级':'#ff9800', '四年级':'#9c27b0', '五年级':'#e91e63', '六年级':'#00bcd4' };
+        var html = '';
+        Object.keys(gradeNames).forEach(function(grade){
+          var items = grades[grade];
+          if (!items) return;
+          var color = gradeColors[grade] || '#667eea';
+          html += '<div style="background:white;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid ' + color + ';">';
+          html += '<h4 style="color:' + color + ';margin:0 0 10px;font-size:15px;">' + grade + '</h4>';
+          Object.keys(items).forEach(function(cat){
+            var catItems = items[cat];
+            html += '<div style="margin-bottom:8px;">';
+            html += '<strong style="font-size:13px;color:#333;">' + cat + '</strong>';
+            html += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">';
+            catItems.slice(0, 6).forEach(function(item){
+              html += '<span style="display:inline-block;background:#f0f4ff;padding:2px 8px;border-radius:12px;font-size:11px;color:#555;">' + (item.类型 || item.题量 || '') + '</span>';
+            });
+            if (catItems.length > 6) html += '<span style="font-size:11px;color:#999;">+更多</span>';
+            html += '</div></div>';
+          });
+          html += '</div>';
+        });
+        container.innerHTML = html || '<p style="color:#999;text-align:center;grid-column:1/-1;">暂无题库数据</p>';
+      });
+    })();
+  </script>
 </body>
 </html>

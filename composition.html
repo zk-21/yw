@@ -529,6 +529,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -3604,6 +3605,27 @@
         <p style="color: #667eea; font-size: 14px; font-weight: 600; margin: 0;">📌 特级教师金句：写作的本质不是"我写了什么"，而是"我通过写这件事想表达什么"。好文章=真实素材+清晰结构+具体细节+独特的认识。</p>
       </div>
     </section>
+
+    <!-- ════════ 资料库：作文类型速查 ════════ -->
+    <section class="section" id="essay-db-section" style="background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%); border-top: 3px solid #667eea; padding: 40px 5vw;">
+      <div class="section-title" style="text-align:center; max-width:900px; margin:0 auto 20px;">
+        <p class="eyebrow" style="color:#667eea;">资料库速查</p>
+        <h2>✏️ 六种作文类型指南</h2>
+        <p style="color:#666; font-size:15px;">数据来自 model-essays.json — 写人·记事·写景·状物·想象·读后感 + 评分标准</p>
+      </div>
+      <div id="essay-db-content" style="max-width:1100px; margin:0 auto;"></div>
+    </section>
+
+    <!-- ════════ 资料库：常见写作错误 ════════ -->
+    <section class="section" id="mistakes-db-section" style="background: #fff8e1; border-top: 3px solid #e65100; padding: 40px 5vw;">
+      <div class="section-title" style="text-align:center; max-width:900px; margin:0 auto 20px;">
+        <p class="eyebrow" style="color:#e65100;">资料库速查</p>
+        <h2>⚠️ 常见错误索引</h2>
+        <p style="color:#666; font-size:15px;">数据来自 common-mistakes.json — 错别字·语法·阅读·作文·拼音·标点常见错误及纠正策略</p>
+      </div>
+      <div id="mistakes-db-content" style="max-width:900px; margin:0 auto;"></div>
+    </section>
+
   </main>
 
   <!-- 🔍 作业专题筛选脚本 -->
@@ -3674,5 +3696,18 @@
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
   <script src="composition-ai.js?v=83"></script>
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var essayContainer = document.getElementById('essay-db-content');
+        var mistakesContainer = document.getElementById('mistakes-db-content');
+        if (window.DataLib) {
+          if (essayContainer) DataLib.renderEssayTypes(essayContainer, true);
+          if (mistakesContainer) DataLib.renderCommonMistakes(mistakesContainer, '4');
+        }
+      }, 400);
+    });
+  </script>
 </body>
 </html>

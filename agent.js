@@ -91,10 +91,10 @@
   const TRACK_PROFILES = {
     '尖子生拔高': {
       title: '尖子生拔高轨',
-      copy: '目标不是多刷难题，而是把答案从“对”推到“准、深、漂亮”。重点加入深层追问、满分表达、变式迁移和限时稳定。',
+      copy: '目标不是多刷难题，而是把答案从"对"推到"准、深、漂亮"。重点加入深层追问、满分表达、变式迁移和限时稳定。',
       tags: ['深层主旨', '满分答案拆解', '一题多解', 'C卷迁移'],
       prompt: [
-        '当前按“尖子生拔高轨”设计辅导。',
+        '当前按"尖子生拔高轨"设计辅导。',
         '目标：从会做题提升到会迁移、会比较、会表达高分答案。',
         '阅读重点：深层主旨、人物复杂性、句段作用、材料整合、开放表达。',
         '作文重点：立意升级、独特选材、重点段层次、语言克制高级、首尾照应。',
@@ -107,7 +107,7 @@
       copy: '目标是稳定得分。先把题型判断、答题步骤、原文依据和同类复练做稳，再逐步进入提优题。',
       tags: ['审题三步', '答题模板', '同类复练', '错因复盘'],
       prompt: [
-        '当前按“中等生提分轨”设计辅导。',
+        '当前按"中等生提分轨"设计辅导。',
         '目标：把不稳定的会做，变成考试中稳定得分。',
         '阅读重点：圈关键词、判断题型、找原文依据、按层组织答案。',
         '作文重点：不跑题、结构完整、重点段写具体、结尾扣题。',
@@ -120,7 +120,7 @@
       copy: '先处理字词、句意、审题和基本表达。内容要更短、更明确，每次只补一个关键缺口。',
       tags: ['基础缺口', '一步一练', '短句表达', '即时纠错'],
       prompt: [
-        '当前按“基础薄弱补齐轨”设计辅导。',
+        '当前按"基础薄弱补齐轨"设计辅导。',
         '目标：先补最影响理解和表达的基础缺口。',
         '讲解方式：少讲术语，多给例子；每一步都要有学生能马上完成的小练习。',
         '避免：不要直接进入拔高题，不要一次塞太多方法。'
@@ -131,7 +131,7 @@
       copy: '把专业方法翻译成家长能问、孩子能答的话术，重点减少争执、增加复述和复练。',
       tags: ['家长提问', '孩子复述', '错因记录', '复练安排'],
       prompt: [
-        '当前按“家长陪练轨”设计辅导。',
+        '当前按"家长陪练轨"设计辅导。',
         '目标：输出家长能照着问的短句、孩子能照着做的步骤。',
         '讲解方式：每个方法都配一句家长话术和一个孩子回应标准。',
         '避免：不要输出太多教学术语。'
@@ -139,10 +139,10 @@
     },
     '自动判断': {
       title: '双轨辅导提示',
-      copy: '自动判断会先看题目、年级和任务，再决定走“拔高迁移”还是“稳定提分”。如果已经知道孩子层级，建议直接选择尖子生或中等生。',
+      copy: '自动判断会先看题目、年级和任务，再决定走"拔高迁移"还是"稳定提分"。如果已经知道孩子层级，建议直接选择尖子生或中等生。',
       tags: ['诊断定位', '教师追问', '当堂练习', '课后反馈'],
       prompt: [
-        '请先根据题目、学习阶段和任务，在输出中判断更适合“尖子生拔高轨”“中等生提分轨”“基础补齐轨”还是“家长陪练轨”。',
+        '请先根据题目、学习阶段和任务，在输出中判断更适合"尖子生拔高轨""中等生提分轨""基础补齐轨"还是"家长陪练轨"。',
         '如果题目体现高分瓶颈、迁移、作文升格或小升初冲刺，优先按尖子生拔高轨。',
         '如果题目体现审题不稳、答题模板不会、作文写不具体或错题反复，优先按中等生提分轨。'
       ].join('\n')
@@ -372,10 +372,12 @@
     renderRecords();
   }
 
-  function buildPrompt(data) {
+  var _dataContextCache = null; // 资料库上下文缓存（一次会话内复用）
+
+  function buildPrompt(data, dataContext) {
     const profile = getTrackProfile(data.level);
-    return [
-      '请以“特级教师、资深教研员、拔尖培优导师”的身份，针对下面学习问题进行辅导。',
+    var parts = [
+      '请以"特级教师、资深教研员、拔尖培优导师"的身份，针对下面学习问题进行辅导。',
       '',
       `学习阶段：${data.stage}`,
       `学科/内容：${data.subject}`,
@@ -384,21 +386,103 @@
       `题目/问题/任务：${data.question}`,
       '',
       '分层辅导要求：',
-      profile.prompt,
-      '',
-      '请直接输出学生和家长能照着做的辅导结果，不展示内部推理过程。',
-      '',
-      '输出结构：',
-      '一、学生画像与诊断定位：用1-2句话说明当前最像哪一轨，指出最关键卡点。',
-      '二、本次一对一目标：给出本次辅导要达到的可检查标准。尖子生写“拔高/迁移标准”；中等生写“稳定得分标准”。',
-      '三、特级教师讲解：给3-5条可以马上照着做的方法。尖子生要有深度追问；中等生要有固定步骤。',
-      '四、示范对比：给低分/普通做法与高分/稳定做法对比，重点展示方法，不替学生完成全部作业。',
-      '五、当堂追问：给3个老师会继续追问的问题，并说明学生答到什么程度算过关。',
-      '六、10分钟复练：安排1个同类短练习，写清完成标准。',
-      '七、课后反馈单：分别给家长看“今天解决了什么、主要错因、下次练什么”。',
-      '',
-      '控制在1200字以内，语言清楚、具体、可执行。'
-    ].join('\n');
+      profile.prompt
+    ];
+
+    // 注入资料库上下文（常见错误、教学口诀、评分标准等）
+    if (dataContext) {
+      parts.push('');
+      parts.push(dataContext);
+    }
+
+    parts.push('');
+    parts.push('请直接输出学生和家长能照着做的辅导结果，不展示内部推理过程。');
+    parts.push('');
+    parts.push('输出结构：');
+    parts.push('一、学生画像与诊断定位：用1-2句话说明当前最像哪一轨，指出最关键卡点。');
+    parts.push('二、本次一对一目标：给出本次辅导要达到的可检查标准。尖子生写"拔高/迁移标准"；中等生写"稳定得分标准"。');
+    parts.push('三、特级教师讲解：给3-5条可以马上照着做的方法。尖子生要有深度追问；中等生要有固定步骤。');
+    parts.push('四、示范对比：给低分/普通做法与高分/稳定做法对比，重点展示方法，不替学生完成全部作业。');
+    parts.push('五、当堂追问：给3个老师会继续追问的问题，并说明学生答到什么程度算过关。');
+    parts.push('六、10分钟复练：安排1个同类短练习，写清完成标准。');
+    parts.push('七、课后反馈单：分别给家长看"今天解决了什么、主要错因、下次练什么"。');
+    parts.push('');
+    parts.push('控制在1200字以内，语言清楚、具体、可执行。');
+
+    return parts.join('\n');
+  }
+
+  // 从资料库提取上下文，注入到 AI 辅导提示中
+  async function enrichDataContext(stage, subject, task) {
+    if (!window.DataLib || !window.DataLib.load) return '';
+    if (_dataContextCache) return _dataContextCache;
+
+    var gradeNum = null;
+    if (/一|1/.test(stage)) gradeNum = 1;
+    else if (/二|2/.test(stage)) gradeNum = 2;
+    else if (/三|3/.test(stage)) gradeNum = 3;
+    else if (/四|4/.test(stage)) gradeNum = 4;
+    else if (/五|5/.test(stage)) gradeNum = 5;
+    else if (/六|6/.test(stage)) gradeNum = 6;
+
+    var contextParts = [];
+
+    try {
+      // 加载常见错误库
+      var mistakes = await DataLib.load('common-mistakes');
+      if (mistakes && mistakes.错误分类) {
+        var relevant = mistakes.错误分类.filter(function(e) {
+          if (!gradeNum) return true;
+          var range = e['年级范围'];
+          if (!range || range === '1-6') return true;
+          var parts = range.split('-');
+          return gradeNum >= parseInt(parts[0], 10) && gradeNum <= parseInt(parts[1], 10);
+        });
+        if (relevant.length > 0) {
+          contextParts.push('【' + (gradeNum ? gradeNum + '年级' : '') + '常见错误与纠正策略 — 辅导时可针对性引用】');
+          relevant.forEach(function(err) {
+            contextParts.push('• ' + err.类别 + '：' + err.说明);
+            if (err.纠正策略) contextParts.push('  策略：' + err.纠正策略);
+          });
+        }
+      }
+
+      // 加载语法教学口诀
+      var grammar = await DataLib.load('grammar');
+      if (grammar) {
+        if (grammar['词性'] && grammar['词性']['教学口诀']) {
+          var tips = [];
+          Object.keys(grammar['词性']['教学口诀']).forEach(function(k) { tips.push(k + '：' + grammar['词性']['教学口诀'][k]); });
+          if (tips.length > 0) contextParts.push('【教学口诀参考】' + tips.join('；'));
+        }
+        if (grammar['修辞手法'] && grammar['修辞手法']['三层答题法']) {
+          var m = grammar['修辞手法']['三层答题法'];
+          contextParts.push('【修辞答题三层法 — 辅导阅读理解时引用】第一层：' + m['第一层'] + '；第二层：' + m['第二层'] + '；第三层：' + m['第三层']);
+        }
+        if (grammar['病句修改'] && grammar['病句修改']['修改铁律']) {
+          contextParts.push('【病句修改铁律】' + grammar['病句修改']['修改铁律']);
+        }
+      }
+
+      // 加载作文评分标准
+      if (/作文|写作|升格/.test(task) || /作文|写作/.test(subject)) {
+        var essays = await DataLib.load('model-essays');
+        if (essays && essays['20分制评分标准']) {
+          contextParts.push('\n【20分制作文评分标准 — 作文辅导时参考】');
+          essays['20分制评分标准'].forEach(function(c) {
+            contextParts.push(c.维度 + '(' + c.分值 + '分)：' + c.标准);
+          });
+        }
+      }
+    } catch(e) {
+      console.warn('资料库上下文加载失败:', e);
+    }
+
+    var result = contextParts.length > 0
+      ? '--- 以下为内置资料库参考资料，请在辅导中灵活引用 ---\n' + contextParts.join('\n')
+      : '';
+    _dataContextCache = result;
+    return result;
   }
 
   function getSystemPrompt() {
@@ -417,10 +501,11 @@
       .join('\n');
   }
 
-  async function requestAgent(data) {
+  async function requestAgent(data, dataContext) {
     const provider = getProvider(data.provider);
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), 90000);
+    const userPrompt = buildPrompt(data, dataContext || '');
     const body = provider.format === 'responses'
       ? {
           model: data.model,
@@ -428,7 +513,7 @@
           max_output_tokens: 3200,
           input: [
             { role: 'system', content: [{ type: 'input_text', text: getSystemPrompt() }] },
-            { role: 'user', content: [{ type: 'input_text', text: buildPrompt(data) }] }
+            { role: 'user', content: [{ type: 'input_text', text: userPrompt }] }
           ]
         }
       : {
@@ -438,7 +523,7 @@
           max_tokens: 3200,
           messages: [
             { role: 'system', content: getSystemPrompt() },
-            { role: 'user', content: buildPrompt(data) }
+            { role: 'user', content: userPrompt }
           ]
         };
 
@@ -541,7 +626,9 @@
     setOutput('AI 老师正在整理可直接使用的辅导建议，请稍等。', true);
 
     try {
-      const result = await requestAgent(data);
+      // 从资料库加载上下文（常见错误、口诀、评分标准）
+      var dataContext = await enrichDataContext(data.stage, data.subject, data.task);
+      var result = await requestAgent(data, dataContext);
       const limitTip = result.finishReason === 'length'
         ? '\n\n提示：本次内容达到单次输出上限。建议缩小问题范围后再生成。'
         : '';
@@ -590,7 +677,7 @@
   });
   runButton.addEventListener('click', runAgent);
   clearButton && clearButton.addEventListener('click', () => {
-    setOutput('输入问题后，点击“生成辅导”。', true);
+    setOutput('输入问题后，点击"生成辅导"。', true);
     setStatus('');
   });
   forgetKeyButton && forgetKeyButton.addEventListener('click', () => {

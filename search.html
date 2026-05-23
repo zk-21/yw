@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#63d676">
+  <title>资料库搜索 | 语文成长地图</title>
+  <meta name="description" content="全站资料库搜索：语法规则、词汇积累、文学常识、常见错误、范文方法、练习题库一键检索。">
+  <meta name="keywords" content="语文搜索,资料库检索,语法搜索,成语搜索,文学常识搜索">
+  <meta property="og:title" content="资料库搜索 | 语文成长地图">
+  <meta property="og:description" content="搜索语法、词汇、文学常识、范文等六大资料库。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=83">
+  <style>
+    .search-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 50px 5vw 60px;
+      text-align: center;
+      color: white;
+    }
+    .search-hero h1 { color: white; margin-bottom: 8px; }
+    .search-hero p { opacity: 0.85; font-size: 16px; margin-bottom: 0; }
+    
+    .search-box-wrap {
+      max-width: 640px;
+      margin: -30px auto 0;
+      padding: 0 5vw;
+      position: relative;
+      z-index: 10;
+    }
+    .search-box-inner {
+      display: flex;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+    .search-box-inner input {
+      flex: 1;
+      border: none;
+      padding: 16px 20px;
+      font-size: 16px;
+      outline: none;
+      background: transparent;
+    }
+    .search-box-inner button {
+      padding: 16px 28px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .search-box-inner button:hover { opacity: 0.9; }
+    .search-box-inner button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .filter-bar {
+      max-width: 640px;
+      margin: 16px auto 0;
+      padding: 0 5vw;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1.5px solid #ddd;
+      background: white;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .results-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 5vw 40px;
+    }
+    .result-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    .result-empty .icon { font-size: 48px; margin-bottom: 16px; }
+    .result-db-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0 10px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .result-item {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      border-left: 4px solid #667eea;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .result-item:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); transform: translateX(2px); }
+    .result-item mark { background: #fff176; padding: 1px 3px; border-radius: 2px; }
+    .result-path { font-size: 11px; color: #999; margin-top: 4px; }
+    .result-count { font-size: 12px; color: #888; margin-left: 8px; font-weight: normal; }
+
+    .quick-links {
+      max-width: 800px;
+      margin: 30px auto 40px;
+      padding: 0 5vw;
+    }
+    .quick-links h3 { text-align: center; color: #666; font-size: 14px; margin-bottom: 16px; }
+    .quick-link-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .quick-link {
+      padding: 8px 16px;
+      background: #f0f4ff;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #667eea;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .quick-link:hover { background: #667eea; color: white; }
+
+    .loading-spinner {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="practice.html">练习计划</a>
+      <a href="vocabulary.html">词语学习</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="advanced.html">尖子生拓展</a>
+      <a class="active" href="search.html">🔍 搜索</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="search-hero">
+      <h1>🔍 资料库搜索</h1>
+      <p>一键检索语法、词汇、文学常识、范文方法等六大资料库</p>
+    </section>
+
+    <div class="search-box-wrap">
+      <div class="search-box-inner">
+        <input type="text" id="searchInput" placeholder="输入关键词，如：比喻、成语、李白、病句..." autofocus>
+        <button id="searchBtn" onclick="doSearch()">搜索</button>
+      </div>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <span style="font-size:12px;color:#999;line-height:30px;">范围：</span>
+      <span class="filter-chip active" data-db="all">全部</span>
+      <span class="filter-chip" data-db="grammar">语法</span>
+      <span class="filter-chip" data-db="vocabulary">词汇</span>
+      <span class="filter-chip" data-db="literary-knowledge">文学</span>
+      <span class="filter-chip" data-db="common-mistakes">错题</span>
+      <span class="filter-chip" data-db="model-essays">作文</span>
+      <span class="filter-chip" data-db="exercises">题库</span>
+    </div>
+
+    <div class="quick-links">
+      <h3>💡 试试搜索：</h3>
+      <div class="quick-link-grid">
+        <button class="quick-link" onclick="quickSearch('比喻')">比喻</button>
+        <button class="quick-link" onclick="quickSearch('李白')">李白</button>
+        <button class="quick-link" onclick="quickSearch('病句')">病句</button>
+        <button class="quick-link" onclick="quickSearch('成语')">成语</button>
+        <button class="quick-link" onclick="quickSearch('修辞')">修辞</button>
+        <button class="quick-link" onclick="quickSearch('唐诗')">唐诗</button>
+        <button class="quick-link" onclick="quickSearch('标点')">标点</button>
+        <button class="quick-link" onclick="quickSearch('缩句')">缩句</button>
+        <button class="quick-link" onclick="quickSearch('四大名著')">四大名著</button>
+        <button class="quick-link" onclick="quickSearch('读后感')">读后感</button>
+      </div>
+    </div>
+
+    <section class="results-section" id="results">
+      <div class="result-empty">
+        <div class="icon">📦</div>
+        <p>输入关键词，搜索六大资料库</p>
+        <p style="font-size:12px;color:#bbb;">语法知识 · 词语学习 · 文学常识 · 常见错误 · 范文方法 · 练习题库</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    var currentFilter = 'all';
+
+    // 过滤器点击
+    document.getElementById('filterBar').addEventListener('click', function(e) {
+      var chip = e.target.closest('.filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      currentFilter = chip.dataset.db;
+      // 如果已有搜索内容，重新搜索
+      var q = document.getElementById('searchInput').value.trim();
+      if (q) doSearch();
+    });
+
+    // 回车搜索
+    document.getElementById('searchInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doSearch();
+    });
+
+    function quickSearch(keyword) {
+      document.getElementById('searchInput').value = keyword;
+      doSearch();
+    }
+
+    function doSearch() {
+      var keyword = document.getElementById('searchInput').value.trim();
+      if (!keyword) return;
+      
+      var resultsEl = document.getElementById('results');
+      resultsEl.innerHTML = '<div class="loading-spinner">⏳ 正在搜索六大资料库...</div>';
+
+      var searchBtn = document.getElementById('searchBtn');
+      searchBtn.disabled = true;
+      searchBtn.textContent = '搜索中...';
+
+      var dbs = currentFilter === 'all' 
+        ? null 
+        : [currentFilter];
+
+      DataLib.fuzzySearch(keyword, dbs).then(function(allResults) {
+        searchBtn.disabled = false;
+        searchBtn.textContent = '搜索';
+
+        if (!allResults || allResults.length === 0) {
+          resultsEl.innerHTML = '<div class="result-empty"><div class="icon">🔍</div><p>没有找到「' + keyword + '」相关的内容</p><p style="font-size:12px;color:#bbb;">试试换个关键词？</p></div>';
+          return;
+        }
+
+        // 按资料库分组
+        var grouped = {};
+        var dbLabels = {
+          'grammar': '📚 语法知识',
+          'vocabulary': '📝 词语学习',
+          'literary-knowledge': '📖 文学常识',
+          'common-mistakes': '⚠️ 常见错误',
+          'model-essays': '🏆 范文方法',
+          'exercises': '✏️ 练习题库'
+        };
+
+        allResults.forEach(function(r) {
+          if (!grouped[r.database]) grouped[r.database] = [];
+          grouped[r.database].push(r);
+        });
+
+        var html = '<p style="color:#888;font-size:13px;text-align:center;margin-bottom:16px;">找到 <strong>' + allResults.length + '</strong> 条与「<strong>' + keyword + '</strong>」相关的结果</p>';
+
+        Object.keys(grouped).forEach(function(db) {
+          var items = grouped[db];
+          html += '<div class="result-db-label">' + (dbLabels[db] || db) + '<span class="result-count">' + items.length + '条</span></div>';
+          
+          items.slice(0, 20).forEach(function(item) {
+            var valueText = String(item.value).substring(0, 120);
+            var pathText = item.path.replace(/^\./, '').replace(/\./g, ' › ').replace(/\[\d+\]/g, '');
+            html += '<div class="result-item">' +
+              '<div>' + highlightText(valueText, keyword) + '</div>' +
+              '<div class="result-path">' + pathText + '</div>' +
+            '</div>';
+          });
+
+          if (items.length > 20) {
+            html += '<p style="color:#999;font-size:12px;text-align:center;">... 还有 ' + (items.length - 20) + ' 条结果</p>';
+          }
+        });
+
+        resultsEl.innerHTML = html;
+      }).catch(function(err) {
+        searchBtn.disabled = false;
+        searchBtn.textContent = '搜索';
+        resultsEl.innerHTML = '<div class="result-empty"><div class="icon">⚠️</div><p>搜索出错，请稍后再试</p></div>';
+        console.error(err);
+      });
+    }
+
+    function highlightText(text, keyword) {
+      return text.replace(new RegExp('(' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
+    }
+  </script>
+  <script src="nav.js?v=83"></script>
+  <script src="table-responsive.js?v=83"></script>
+</body>
+</html>

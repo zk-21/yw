@@ -30,6 +30,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -885,9 +886,29 @@
         </div>
       </div>
     </section>
+    <!-- 资料库速查 -->
+    <section class="section" id="grade5-cheatsheet" style="background:#f5f0ff; padding:30px 5vw;">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#7b1fa2;">📖 资料库速查</p>
+        <h2>五年级语法要点 & 易错提醒</h2>
+      </div>
+      <div id="grade5-grammar-ref"></div>
+      <div id="grade5-mistakes-ref" style="margin-top:20px;"></div>
+    </section>
   </main>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        if (window.DataLib) {
+          DataLib.renderGrammarByGrade('grade5', document.getElementById('grade5-grammar-ref'));
+          DataLib.renderCommonMistakes(document.getElementById('grade5-mistakes-ref'), '5');
+        }
+      }, 300);
+    });
+  </script>
   <style>
     /* ===== 知识点递进题组表格样式 ===== */
     .knowledge-table {

@@ -36,6 +36,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a class="active" href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -63,7 +64,7 @@
 
     <section id="study-router" class="section">
       <!-- 顶部搜索筛选栏 -->
-      <div id="search-filter-bar" style="position: sticky; top: 60px; z-index: 100; background: white; padding: 15px 5vw; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px;">
+      <div id="search-filter-bar" style="position: sticky; top: calc(var(--topbar-offset) + var(--safe-top, 0px)); z-index: 100; background: white; padding: 15px 5vw; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px;">
         <div style="max-width: 1200px; margin: 0 auto; display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
           <div style="flex: 1; min-width: 250px;">
             <input type="text" id="searchInput" placeholder="搜索知识点、题型、年级..." style="width: 100%; padding: 12px 20px; border: 2px solid #e5e7eb; border-radius: 25px; font-size: 14px; transition: border-color 0.3s;" onkeyup="filterContent()">
@@ -1147,7 +1148,26 @@
         <p style="font-size: 14px; color: #667eea; font-weight: 600; margin: 0;">📌 特级教师提示：用知识图做"诊断工具"，而不是"收藏夹"——每看一个节点，问自己：这个知识点我会了吗？遇到题我能认出来吗？答错了我知道原因吗？</p>
       </div>
     </section>
+    <!-- 文学常识时间轴 -->
+    <section class="section" id="literary-timeline-section" style="background: linear-gradient(135deg, #fff8e1, #ffecb3); border-top: 3px solid #ff8f00;">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#e65100;">📜 文学常识</p>
+        <h2>中国文学史脉络 · 从先秦到明清</h2>
+        <p style="color: #666; font-size: 16px; margin-top: 8px;">资料库自动加载，帮助建立文学史时间轴概念</p>
+      </div>
+      <div id="literary-timeline-container" style="max-width: 900px; margin: 0 auto; padding: 0 5vw 40px;"></div>
+    </section>
   </main>
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        if (window.DataLib) {
+          DataLib.renderLiteraryTimeline(document.getElementById('literary-timeline-container'));
+        }
+      }, 300);
+    });
+  </script>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
   <script>

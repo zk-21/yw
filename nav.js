@@ -170,6 +170,7 @@ function enhanceTopNavigation(topbar) {
     ]),
     navLink('agent.html', 'AI Agent', currentPage === 'agent.html'),
     navLink('practice.html', '练习计划', currentPage === 'practice.html'),
+    navLink('search.html', '🔍 搜索', currentPage === 'search.html'),
   ].join('');
 }
 

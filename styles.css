@@ -2099,7 +2099,7 @@ html.view-mobile .responsive-table td::before {
 
 @media (max-width: 900px) {
   :root {
-    --topbar-offset: 6.85rem;
+    --topbar-offset: 9.5rem;
   }
 
   .hamburger { display: none; }

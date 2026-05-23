@@ -554,6 +554,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -794,11 +795,21 @@
  <p class="eyebrow">小学一至六年级 · 阅读理解 · 作文提优</p>
  <h1>特级教师式一对一拔尖辅导</h1>
  <p class="lead">先诊断、再判错因、再训练迁移。孩子只需要完成题目，系统自动生成错因画像、训练包、复测路径和拔尖晋级建议。</p>
- <div class="hero-actions">
- <a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
- <a class="button primary" href="agent.html">进入一对一拔尖辅导</a>
- <a class="button ghost" href="practice.html#flow-training">看家长闭环图</a>
- </div>
+    <div class="hero-search" style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+      <input type="text" id="hero-search-input" placeholder="🔍 快速搜索知识点、年级、题型..." style="flex:1; min-width:220px; padding:14px 18px; border:2px solid #e5e7eb; border-radius:30px; font-size:15px; background:white; transition:border-color 0.3s;" onkeydown="if(event.key==='Enter')goHeroSearch()">
+      <button onclick="goHeroSearch()" style="padding:14px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap;">搜索</button>
+    </div>
+    <script>
+      function goHeroSearch() {
+        var q = document.getElementById('hero-search-input').value.trim();
+        if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+      }
+    </script>
+    <div class="hero-actions">
+<a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
+<a class="button primary" href="agent.html">进入一对一拔尖辅导</a>
+<a class="button ghost" href="practice.html#flow-training">看家长闭环图</a>
+</div>
  </div>
  <div class="learning-card" aria-label="今日学习卡片">
  <div class="card-header">
@@ -1320,7 +1331,25 @@
         document.getElementById('grade-' + grade)?.classList.add('active');
       }
     </script>
+  <!-- ════════ 资料库概览 ════════ -->
+  <section class="section" id="data-overview" style="background: linear-gradient(135deg, #f0f4ff 0%, #f8f9ff 100%); border-top: 3px solid #667eea;">
+    <div class="section-title" style="max-width:900px;">
+      <p class="eyebrow" style="color:#667eea;">知识引擎</p>
+      <h2>📦 资料库总览</h2>
+      <p style="color:#666; font-size:16px; margin-top:8px;">六大结构化资料库，支撑全部页面内容。点击卡片查看详情。</p>
+    </div>
+    <div id="data-overview-grid" style="max-width:900px; margin:0 auto; padding:0 20px 40px;"></div>
+  </section>
   </main>
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var container = document.getElementById('data-overview-grid');
+      if (container && window.DataLib) {
+        DataLib.renderDataOverview(container);
+      }
+    });
+  </script>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
 </body>

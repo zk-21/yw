@@ -283,6 +283,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -936,6 +937,19 @@
     </div>
   </section>
 
+  <!-- 资料库同步：拼音常见错误 -->
+  <section class="section" style="background:#fff8e1; padding:30px 5vw; border-top:3px solid #ff9800;">
+    <div class="section-title" style="text-align:center;">
+      <p class="eyebrow">📦 资料库同步</p>
+      <h2>拼音常见错误 & 标点规则</h2>
+      <p style="color:#888; font-size:14px;">以下内容来自资料库（common-mistakes.json / grammar.json），与上方页面互补</p>
+    </div>
+    <div id="pinyin-data-ref" style="max-width:1100px;margin:0 auto;">
+      <div id="pinyin-mistakes-ref" style="margin-bottom:20px;"></div>
+      <div id="pinyin-punctuation-ref"></div>
+    </div>
+  </section>
+
   <script>
     // 声调练习数据
     const toneExercises = [
@@ -1136,7 +1150,66 @@
     // 页面加载时初始化
     document.addEventListener('DOMContentLoaded', initToneExercise);
   </script>
+  <script src="data/data-loader-global.js?v=1"></script>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
+  <script>
+    // 资料库同步：渲染拼音常见错误和标点规则
+    (function(){
+      if (!window.DataLib) return;
+      // 渲染拼音错误
+      DataLib.load('common-mistakes').then(function(data){
+        var container = document.getElementById('pinyin-mistakes-ref');
+        if (!container || !data || !data.错误分类) return;
+        var pinyinErr = data.错误分类.find(function(e){ return e.id === 'pinyin_err'; });
+        if (!pinyinErr) return;
+        var html = '<div class="grammar-card"><h3 style="color:#e65100;">⚠️ 拼音错误（资料库）</h3>';
+        html += '<p style="font-size:13px;color:#666;">' + pinyinErr.说明 + ' | ' + pinyinErr['年级范围'] + '年级</p>';
+        if (pinyinErr.典型错误) {
+          html += '<div class="responsive-table"><table style="font-size:12px;"><thead><tr><th>错误</th><th>正确规则/纠正</th><th>例子</th></tr></thead><tbody>';
+          pinyinErr.典型错误.forEach(function(e){
+            html += '<tr><td style="color:#e65100;">' + (e.错误 || '') + '</td>';
+            html += '<td style="color:#2e7d32;">' + (e.正确规则 || e.正确 || '') + '</td>';
+            html += '<td>' + (e.例子 || '') + '</td></tr>';
+          });
+          html += '</tbody></table></div>';
+        }
+        if (pinyinErr.纠正策略) html += '<div class="tip">💡 ' + pinyinErr.纠正策略 + '</div>';
+        html += '</div>';
+        container.innerHTML = html;
+      });
+
+      // 渲染标点规则（来自grammar.json）
+      DataLib.load('grammar').then(function(data){
+        var container = document.getElementById('pinyin-punctuation-ref');
+        if (!container || !data || !data['标点符号']) return;
+        var punct = data['标点符号'];
+        var html = '<div class="grammar-card"><h3 style="color:#667eea;">🔤 标点符号规则（资料库）</h3>';
+        // 教学口诀
+        if (punct['教学口诀']) {
+          html += '<div class="tip" style="margin-bottom:10px;">';
+          Object.keys(punct['教学口诀']).forEach(function(k){
+            html += '💡 ' + punct['教学口诀'][k] + '<br>';
+          });
+          html += '</div>';
+        }
+        // 基础标点
+        ['基础标点', '进阶标点', '高级标点'].forEach(function(cat){
+          if (!punct[cat]) return;
+          var filtered = punct[cat].filter(function(item){ return item.年级 <= 2; });
+          if (filtered.length === 0) return;
+          html += '<p style="font-size:13px;font-weight:bold;color:#555;margin:8px 0 4px;">' + cat + '（1-2年级适用）</p>';
+          filtered.forEach(function(item){
+            html += '<p style="font-size:12px;margin:2px 0;">' + item.符号 + ' ' + item.名称 + '：' + item.规则 + '</p>';
+          });
+        });
+        if (punct['小升初失分点']) {
+          html += '<p style="font-size:12px;color:#c62828;margin-top:8px;">常见失分：' + punct['小升初失分点'].join('；') + '</p>';
+        }
+        html += '</div>';
+        container.innerHTML = html;
+      });
+    })();
+  </script>
 </body>
 </html>

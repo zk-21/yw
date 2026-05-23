@@ -125,6 +125,7 @@
       <a href="vocabulary.html">词语学习</a>
       <a href="knowledge-map.html">知识总控</a>
       <a href="advanced.html">尖子生拓展</a>
+      <a href="search.html">🔍 搜索</a>
     </nav>
   </header>
 
@@ -912,6 +913,24 @@
       </div>
     </section>
 
+    <!-- ════════ 资料库：语法速查 ════════ -->
+    <section class="section" id="grammar-db-quick" style="background: #f8f9fb; border-top: 3px solid #11998e;">
+      <div class="section-title" style="max-width:900px; text-align:center;">
+        <p class="eyebrow" style="color:#11998e;">资料库速查</p>
+        <h2>📦 语法规则结构化索引</h2>
+        <p style="color:#666; font-size:16px;">数据来自 grammar.json — 选年级查看对应的知识点</p>
+        <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px 0;">
+          <button class="grade-tab" onclick="switchGrammarDbTab('grade1', this)" style="font-size:15px;">一年级</button>
+          <button class="grade-tab" onclick="switchGrammarDbTab('grade2', this)" style="font-size:15px;">二年级</button>
+          <button class="grade-tab active" onclick="switchGrammarDbTab('grade3', this)" style="font-size:15px;">三年级</button>
+          <button class="grade-tab" onclick="switchGrammarDbTab('grade4', this)" style="font-size:15px;">四年级</button>
+          <button class="grade-tab" onclick="switchGrammarDbTab('grade5', this)" style="font-size:15px;">五年级</button>
+          <button class="grade-tab" onclick="switchGrammarDbTab('grade6', this)" style="font-size:15px;">六年级</button>
+        </div>
+      </div>
+      <div id="grammar-db-content" class="grammar-section" style="max-width:900px; margin:0 auto;"></div>
+    </section>
+
   </main>
 
   <style>
@@ -1148,5 +1167,14 @@
   </script>
   <script src="nav.js?v=83"></script>
   <script src="table-responsive.js?v=83"></script>
+  <script src="data/data-loader-global.js?v=1"></script>
+  <script>
+    function switchGrammarDbTab(grade, btn) {
+      document.querySelectorAll('#grammar-db-quick .grade-tab').forEach(function(t) { t.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+      DataLib.renderGrammarByGrade(grade, document.getElementById('grammar-db-content'));
+    }
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(function() { if (window.DataLib) DataLib.renderGrammarByGrade('grade3', document.getElementById('grammar-db-content')); }, 300); });
+  </script>
 </body>
 </html>
