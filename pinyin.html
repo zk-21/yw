@@ -15,7 +15,7 @@
   <meta property="og:description" content="系统学习23个声母、24个韵母、4个声调，配合互动练习掌握拼音。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
   <style>
     .pinyin-hero {
       background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
@@ -281,9 +281,14 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -1150,9 +1155,9 @@
     // 页面加载时初始化
     document.addEventListener('DOMContentLoaded', initToneExercise);
   </script>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
     // 资料库同步：渲染拼音常见错误和标点规则
     (function(){

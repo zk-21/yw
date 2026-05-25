@@ -1,5 +1,21 @@
 {
+  "name": "yuwen-chengzhang-ditu",
+  "version": "1.0.0",
+  "description": "语文成长地图 — 小学语文学习导航、年级路线与专项训练工具",
+  "private": true,
+  "scripts": {
+    "check:js": "node check-all.js js",
+    "check:links": "node check-all.js links",
+    "check:sw": "node check-all.js sw",
+    "check:analysis": "node check-all.js analysis",
+    "check": "npm run check:js && npm run check:links && npm run check:sw && npm run check:analysis",
+    "serve": "npx serve .",
+    "version:sync": "node scripts/sync-version.js",
+    "version:bump": "node scripts/sync-version.js --bump",
+    "deploy": "echo \"Static site: push to main branch for GitHub Pages, or run 'npx vercel --prod' for Vercel.\""
+  },
   "dependencies": {
     "docx": "^9.6.1"
-  }
+  },
+  "devDependencies": {}
 }

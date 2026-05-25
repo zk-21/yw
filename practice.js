@@ -1,3 +1,18 @@
+// ══════ 安全 localStorage 读取工具 ══════
+function safeParse(key, fallback) {
+  try {
+    var raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) {
+    console.warn('[Data] localStorage 数据损坏，已重置:', key, e.message);
+    try { localStorage.removeItem(key); } catch (_) {}
+    return fallback;
+  }
+}
+function safeSet(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+}
+
 // 练习数据
 const transformData = [
   // 被字句转换
@@ -1528,9 +1543,8 @@ let currentThinking = 0;
 
 // 从localStorage加载进度
 function loadProgress() {
-  const saved = localStorage.getItem('chinesePractice');
-  if (saved) {
-    const data = JSON.parse(saved);
+  var data = safeParse('chinesePractice', null);
+  if (data) {
     currentLevel = data.level || 'easy';
     correctCount = data.correctCount || 0;
   }
@@ -1538,23 +1552,29 @@ function loadProgress() {
 
 // 保存进度到localStorage
 function saveProgress() {
-  localStorage.setItem('chinesePractice', JSON.stringify({
+  safeSet('chinesePractice', {
     level: currentLevel,
     correctCount: correctCount,
     lastDate: new Date().toISOString().split('T')[0]
-  }));
+  });
 }
 
 // 错题本功能
-function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip) {
-  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip, questionId) {
+  var wrongList = safeParse('wrongAnswers', []);
+  const now = new Date().toISOString();
   const wrongItem = {
     type: type,
     question: question,
     userAnswer: userAnswer,
     correctAnswer: correctAnswer,
     tip: tip,
-    timestamp: new Date().toISOString()
+    questionId: questionId,    // 关联题库ID，用于获取解析分级
+    timestamp: now,
+    mastery: 'new',           // new | learning | reviewing | mastered
+    reviewCount: 0,
+    lastReviewed: null,
+    nextReview: addDays(now, 3)  // 3 天后首次复习
   };
   
   wrongList.push(wrongItem);
@@ -1562,12 +1582,123 @@ function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip) {
     wrongList.shift();
   }
   
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  safeSet('wrongAnswers', wrongList);
   renderAutoRoutingPanel();
 }
 
+// ── 帮助函数 ──
+function addDays(isoDate, days) {
+  var d = new Date(isoDate);
+  d.setDate(d.getDate() + days);
+  return d.toISOString();
+}
+function daysBetween(d1, d2) {
+  return Math.floor((new Date(d2) - new Date(d1)) / 86400000);
+}
+
+// ── 间隔复习算法（间隔重复） ──
+function calculateNextReview(reviewCount) {
+  // 1→2→4→7→14→30 天间隔
+  var intervals = [1, 2, 4, 7, 14, 30];
+  var days = intervals[Math.min(reviewCount, intervals.length - 1)];
+  return addDays(new Date().toISOString(), days);
+}
+
+// ── 标记错题已复习 ──
+function markWrongItemReviewed(index, mastered) {
+  var wrongList = getWrongAnswers();
+  if (index >= 0 && index < wrongList.length) {
+    var item = wrongList[index];
+    item.reviewCount = (item.reviewCount || 0) + 1;
+    item.lastReviewed = new Date().toISOString();
+    item.nextReview = calculateNextReview(item.reviewCount);
+    if (mastered) {
+      item.mastery = 'mastered';
+    } else {
+      item.mastery = item.reviewCount >= 3 ? 'reviewing' : 'learning';
+    }
+    safeSet('wrongAnswers', wrongList);
+    renderWrongList();
+    renderAutoRoutingPanel();
+    return item;
+  }
+  return null;
+}
+
+// ── 掌握状态标签 ──
+function getMasteryLabel(mastery) {
+  var labels = { new: '🆕 新收录', learning: '📖 学习中', reviewing: '🔄 复习中', mastered: '✅ 已掌握' };
+  var colors = { new: '#f59e0b', learning: '#3b82f6', reviewing: '#8b5cf6', mastered: '#10b981' };
+  return { label: labels[mastery] || '🆕 新收录', color: colors[mastery] || '#f59e0b' };
+}
+
+// ── 导出打印错题本 ──
+function exportWrongBook(skipAnalysisLoad) {
+  var wrongList = getWrongAnswers();
+  if (wrongList.length === 0) { alert('暂无错题可导出'); return; }
+  if (!skipAnalysisLoad && !window.exercisesData) {
+    loadExercisesDataForWrongBook().finally(function() {
+      exportWrongBook(true);
+    });
+    return;
+  }
+  
+  var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
+  html += '<title>错题复习单 - 语文成长地图</title>';
+  html += '<style>body{font-family: -apple-system, "Microsoft YaHei", sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333;}';
+  html += 'h1{text-align:center; color: #4f46e5; border-bottom: 3px solid #667eea; padding-bottom: 10px;}';
+  html += '.meta{text-align:center; color: #999; font-size: 13px; margin-bottom: 24px;}';
+  html += '.wrong-item{background: #f8f9fb; border-radius: 12px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #667eea;}';
+  html += '.wrong-q{font-weight: 600; margin-bottom: 8px;}';
+  html += '.wrong-a{font-size: 14px; margin: 4px 0;} .wrong-a span{display:inline-block; min-width: 60px; color: #888; font-size: 12px;}';
+  html += '.wrong-correct{color: #10b981;} .wrong-user{color: #ef4444;}';
+  html += '.wrong-tip{background: #fff7ed; padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-size: 13px; color: #92400e;}';
+  html += '.mastery-badge{display:inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; margin-left: 8px;}';
+  html += '@media print{body{padding: 0;}.wrong-item{break-inside: avoid;}}</style></head><body>';
+  
+  html += '<h1>📝 错题复习单</h1>';
+  html += '<p class="meta">生成时间：' + new Date().toLocaleDateString('zh-CN') + ' ｜ 共 ' + wrongList.length + ' 题</p>';
+  
+  wrongList.forEach(function(item, i) {
+    var m = getMasteryLabel(item.mastery || 'new');
+    var nextRev = item.nextReview ? '下次复习：' + new Date(item.nextReview).toLocaleDateString('zh-CN') : '';
+    var analysisSource = getAnalysisSourceForWrongItem(item);
+    var analysis = analysisSource && analysisSource.解析分级;
+    html += '<div class="wrong-item">';
+    html += '<div class="wrong-q">' + (i + 1) + '. ' + escapeHTML(item.question || '') + '</div>';
+    html += '<div class="wrong-a wrong-user"><span>你的答案：</span>' + escapeHTML(item.userAnswer || '') + '</div>';
+    html += '<div class="wrong-a wrong-correct"><span>正确答案：</span>' + escapeHTML(item.correctAnswer || '') + '</div>';
+    if (item.tip) html += '<div class="wrong-tip">💡 ' + escapeHTML(item.tip) + '</div>';
+    if (analysis) {
+      html += '<div class="wrong-tip"><strong>易错点：</strong>' + escapeHTML((analysis.易错点 || []).join('；')) + '</div>';
+      if (analysis.满分表达) html += '<div class="wrong-a wrong-correct"><span>满分表达：</span>' + escapeHTML(analysis.满分表达) + '</div>';
+      if (analysis.家长讲解话术) html += '<div class="wrong-tip"><strong>家长讲解：</strong>' + escapeHTML(analysis.家长讲解话术) + '</div>';
+      if (analysis.复练任务) html += '<div class="wrong-tip"><strong>复练任务：</strong>' + escapeHTML(analysis.复练任务) + '</div>';
+    }
+    var similarExercises = getSimilarExercisesForWrongItem(item, analysisSource);
+    if (similarExercises.length) {
+      html += '<div class="wrong-tip"><strong>同类复练：</strong><ol style="margin:6px 0 0 18px;padding:0;">';
+      similarExercises.forEach(function(question) {
+        html += '<li>' + escapeHTML(question.年级) + '年级 · ' + escapeHTML(question.类型) + ' · ' + escapeHTML(question.错因码 || '') + '：' + escapeHTML(question.题目 || '') + '</li>';
+      });
+      html += '</ol></div>';
+    }
+    html += '<div style="margin-top: 6px; font-size: 12px; color: #888;">';
+    html += '<span class="mastery-badge" style="background:' + m.color + '20; color:' + m.color + ';">' + m.label + '</span>';
+    html += nextRev ? ' <span style="margin-left:8px;">' + nextRev + '</span>' : '';
+    html += '</div></div>';
+  });
+  
+  html += '</body></html>';
+  
+  var w = window.open('', '_blank', 'width=900,height=700');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function() { w.print(); }, 500);
+}
+
 function getWrongAnswers() {
-  return JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  return safeParse('wrongAnswers', []);
 }
 
 function clearWrongAnswers() {
@@ -1576,6 +1707,267 @@ function clearWrongAnswers() {
     renderWrongList();
     renderAutoRoutingPanel();
   }
+}
+
+let exercisesDataPromise = null;
+let wrongBookAnalysisRefreshPending = false;
+
+// 加载结构化题库，供错题本匹配解析分级。
+function loadExercisesDataForWrongBook() {
+  if (window.exercisesData && Array.isArray(window.exercisesData.题库)) {
+    return Promise.resolve(window.exercisesData);
+  }
+  if (exercisesDataPromise) return exercisesDataPromise;
+
+  if (window.DataLib && typeof window.DataLib.load === 'function') {
+    exercisesDataPromise = window.DataLib.load('exercises')
+      .then(data => {
+        if (data && Array.isArray(data.题库)) window.exercisesData = data;
+        return window.exercisesData || null;
+      })
+      .catch(() => null);
+    return exercisesDataPromise;
+  }
+
+  exercisesDataPromise = fetch('data/exercises.json')
+    .then(response => response.ok ? response.json() : null)
+    .then(data => {
+      if (data && Array.isArray(data.题库)) window.exercisesData = data;
+      return window.exercisesData || null;
+    })
+    .catch(() => null);
+  return exercisesDataPromise;
+}
+
+function requestWrongBookAnalysisRefresh() {
+  if (window.exercisesData || wrongBookAnalysisRefreshPending) return;
+  wrongBookAnalysisRefreshPending = true;
+  loadExercisesDataForWrongBook().then(data => {
+    if (data) renderWrongList();
+  }).finally(() => {
+    wrongBookAnalysisRefreshPending = false;
+  });
+}
+
+function getExerciseBank() {
+  return window.exercisesData && Array.isArray(window.exercisesData.题库)
+    ? window.exercisesData.题库
+    : [];
+}
+
+function normalizeQuestionText(value) {
+  return String(value || '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/第\d+题[:：]?/g, '')
+    .replace(/[“”"‘’'《》（）()，,。.!！?？、:：;；\s]/g, '')
+    .toLowerCase();
+}
+
+function findExerciseByQuestionId(questionId) {
+  if (!questionId) return null;
+  return getExerciseBank().find(q => q.id === questionId) || null;
+}
+
+function findExerciseByQuestionText(questionText) {
+  const normalized = normalizeQuestionText(questionText);
+  if (!normalized) return null;
+  return getExerciseBank().find(q => {
+    const target = normalizeQuestionText(q.题目);
+    if (!target) return false;
+    const shorter = target.length <= normalized.length ? target : normalized;
+    const longer = target.length > normalized.length ? target : normalized;
+    return shorter.length >= 12
+      ? longer.includes(shorter)
+      : target === normalized;
+  }) || null;
+}
+
+function getAnalysisSourceForWrongItem(item) {
+  return findExerciseByQuestionId(item.questionId) || findExerciseByQuestionText(item.question);
+}
+
+function getWrongItemErrorCode(item, source) {
+  const categoryAlias = {
+    b1: 'B1',
+    r1: 'R1',
+    r2: 'R2',
+    r3: 'R3',
+    r4: 'R4',
+    w1: 'W1',
+    w2: 'W2',
+    w3: 'W3',
+    c1: 'C1',
+    shenti: 'W3',
+    xinxi: 'R2',
+    gaikuo: 'R1',
+    biaoda: 'C1',
+    moban: 'R3'
+  };
+  const category = normalizeErrorCategoryId(item?.errorCategory || '');
+  return String(source?.错因码 || item?.errorCode || categoryAlias[category] || '').toUpperCase();
+}
+
+function getSimilarExercisesForWrongItem(item, source) {
+  const bank = getExerciseBank();
+  if (!bank.length) return [];
+
+  const currentId = source?.id || item?.questionId || '';
+  const errorCode = getWrongItemErrorCode(item, source);
+  const sourceSkills = new Set(source?.能力点 || []);
+  const sourceGrade = source?.年级 || Number(item?.diagnosisGrade) || null;
+  const sourceType = source?.类型 || '';
+
+  return bank
+    .filter(question => question && question.id !== currentId)
+    .map(question => {
+      let score = 0;
+      if (errorCode && question.错因码 === errorCode) score += 12;
+      if (sourceGrade && Number(question.年级) === Number(sourceGrade)) score += 2;
+      if (sourceType && question.类型 === sourceType) score += 2;
+      (question.能力点 || []).forEach(skill => {
+        if (sourceSkills.has(skill)) score += 3;
+      });
+      if (question.可打印) score += 1;
+      return score > 0 ? { question, score } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || String(a.question.id).localeCompare(String(b.question.id)))
+    .slice(0, 3)
+    .map(item => item.question);
+}
+
+function renderSimilarExerciseRecommendations(item, source) {
+  const recommendations = getSimilarExercisesForWrongItem(item, source);
+  if (!recommendations.length) return '';
+
+  const errorCode = getWrongItemErrorCode(item, source);
+  return `
+    <div class="same-error-recommendations">
+      <div class="same-error-title">同类复练路径${errorCode ? ` · ${escapeHTML(errorCode)}` : ''}</div>
+      <div class="same-error-list">
+        ${recommendations.map((question, index) => {
+          const analysis = question.解析分级 || {};
+          const task = analysis.复练任务 || question.解析 || '完成后对照满分表达复盘。';
+          return `
+            <div class="same-error-card">
+              <div class="same-error-meta">${index + 1}. ${escapeHTML(question.年级)}年级 · ${escapeHTML(question.类型)} · ${escapeHTML(question.错因码 || '')}</div>
+              <div class="same-error-question">${escapeHTML(question.题目)}</div>
+              <div class="same-error-task">复练：${escapeHTML(task)}</div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+// 获取题目解析分级（从题库中）
+function getAnalysisByQuestionId(questionId) {
+  const question = findExerciseByQuestionId(questionId);
+  return question?.解析分级 || null;
+}
+
+// 获取题目解析分级（按题目内容匹配）
+function getAnalysisByQuestionText(questionText) {
+  const question = findExerciseByQuestionText(questionText);
+  return question?.解析分级 || null;
+}
+
+function renderAnalysisField(title, content, className) {
+  if (Array.isArray(content)) {
+    if (!content.length) return '';
+    return `
+      <div class="analysis-card ${className || ''}">
+        <div class="analysis-header">${title}</div>
+        <ul class="analysis-list">${content.map(item => `<li>${escapeHTML(item)}</li>`).join('')}</ul>
+      </div>`;
+  }
+  if (!content) return '';
+  return `
+    <div class="analysis-card ${className || ''}">
+      <div class="analysis-header">${title}</div>
+      <div class="analysis-content">${escapeHTML(content)}</div>
+    </div>`;
+}
+
+function getAnswerGapTags(analysis, source) {
+  const text = [
+    analysis?.解题思路,
+    analysis?.低分示例,
+    analysis?.满分表达,
+    source?.类型,
+    source?.错因码,
+    ...(source?.能力点 || [])
+  ].join(' ');
+  const tags = [];
+
+  function add(label, desc) {
+    if (!tags.some(tag => tag.label === label)) tags.push({ label, desc });
+  }
+
+  if (/依据|原文|证据|find_evidence|R2/.test(text)) {
+    add('缺了依据', '需要回到原文或材料，写出能证明结论的关键词句。');
+  }
+  if (/分析|说明|表现|体现|作用|赏析|appreciate|R3|C1/.test(text)) {
+    add('缺了分析', '不能只给结论，要说明依据为什么能推出这个答案。');
+  }
+  if (/空泛|具体|生动|细节|太短|W1|W2|表达/.test(text)) {
+    add('语言太空', '要补动作、特点、效果或具体场景，少用“很好”“很美”这类空话。');
+  }
+  if (/题眼|中心|点题|回扣|审题|W3|organize|idea/.test(text)) {
+    add('没有回扣题目', '答案或作文要回到题眼、中心和题目要求，避免写偏。');
+  }
+  if (/概括|主干|summarize|R1/.test(text)) {
+    add('概括不完整', '概括要保留对象、事情、结果或特点，不能只摘一个细节。');
+  }
+  if (/数据|图表|材料|非连续|R4/.test(text)) {
+    add('缺少材料数据', '非连续文本要引用数字、比例或材料关键词再下结论。');
+  }
+
+  if (!tags.length) {
+    add('少了得分层', '对照满分表达，找出结论、依据、分析、回扣中缺了哪一层。');
+  }
+
+  return tags.slice(0, 4);
+}
+
+function renderLowToFullComparison(analysis, source) {
+  if (!analysis || !analysis.低分示例 || !analysis.满分表达) return '';
+  const tags = getAnswerGapTags(analysis, source);
+  return `
+    <div class="answer-compare">
+      <div class="answer-compare-title">低分答案 → 满分答案</div>
+      <div class="answer-compare-grid">
+        <div class="answer-compare-panel low">
+          <strong>低分答案</strong>
+          <p>${escapeHTML(analysis.低分示例)}</p>
+        </div>
+        <div class="answer-compare-panel high">
+          <strong>满分答案</strong>
+          <p>${escapeHTML(analysis.满分表达)}</p>
+        </div>
+      </div>
+      <div class="answer-gap-tags">
+        ${tags.map(tag => `
+          <span title="${escapeHTML(tag.desc)}">
+            <b>${escapeHTML(tag.label)}</b>
+            <em>${escapeHTML(tag.desc)}</em>
+          </span>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function renderWrongBookAnalysis(analysis, source) {
+  if (!analysis) return '';
+  return `
+    <div class="analysis-cards">
+      <div class="analysis-title">答案解析质量分级${source ? ` · ${escapeHTML(source.id || '')}` : ''}</div>
+      ${renderLowToFullComparison(analysis, source)}
+      ${renderAnalysisField('📌 标准答案', analysis.标准答案 || source?.答案, 'standard-card')}
+      ${renderAnalysisField('🧭 解题思路', analysis.解题思路 || source?.解析, '')}
+      ${renderAnalysisField('⚠️ 易错点', analysis.易错点 || [], 'mistake-card')}
+      ${renderAnalysisField('👪 家长讲解话术', analysis.家长讲解话术, 'parent-card')}
+      ${renderAnalysisField('📝 复练任务', analysis.复练任务, 'task-card')}
+    </div>`;
 }
 
 // ==================== 错因分类系统 ====================
@@ -1597,6 +1989,49 @@ const ERROR_CATEGORIES = {
   BIAO_DA: { id: 'biaoda', label: '表达错', icon: '✏️', desc: '答案不完整、不分点' },
   MO_BAN: { id: 'moban', label: '模板错', icon: '📋', desc: '套话多，没结合文本' }
 };
+
+// 错因码到训练包的映射数据（从 error-mapping.json 加载）
+let errorMappingData = null;
+
+// 加载错因映射数据
+function loadErrorMapping() {
+  return fetch('data/error-mapping.json')
+    .then(response => response.json())
+    .then(data => {
+      errorMappingData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load error mapping:', err);
+      return null;
+    });
+}
+
+// 根据错因码获取训练建议
+function getTrainingRecommendation(errorCode) {
+  if (!errorMappingData || !errorMappingData.errorCodes) {
+    return null;
+  }
+  // 尝试多种格式匹配
+  const code = String(errorCode || '').toUpperCase().trim();
+  return errorMappingData.errorCodes[code] || 
+         errorMappingData.errorCodes[code.replace('-', '_')] || 
+         errorMappingData.errorCodes[code.toLowerCase()] || null;
+}
+
+// 根据能力点获取推荐练习
+function getExercisesBySkill(skillName) {
+  if (!errorMappingData || !errorMappingData.skillRecommendations) {
+    return [];
+  }
+  return errorMappingData.skillRecommendations[skillName] || [];
+}
+
+// 根据错因码获取推荐练习列表
+function getRecommendedExercises(errorCode) {
+  const recommendation = getTrainingRecommendation(errorCode);
+  return recommendation ? recommendation.recommendedExercises || [] : [];
+}
 
 function normalizeErrorCategoryId(categoryId) {
   const id = String(categoryId || '').trim().toLowerCase();
@@ -1635,7 +2070,7 @@ function saveErrorCategory(wrongIndex, categoryId) {
   const wrongList = getWrongAnswers();
   if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
     wrongList[wrongIndex].errorCategory = normalizeErrorCategoryId(categoryId);
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    safeSet('wrongAnswers', wrongList);
     renderWrongList();
   }
 }
@@ -1648,7 +2083,7 @@ function saveReviewField(wrongIndex, field, value) {
       ...(wrongList[wrongIndex].review || {}),
       [field]: value
     };
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    safeSet('wrongAnswers', wrongList);
   }
 }
 
@@ -1657,7 +2092,7 @@ function saveRetryAnswer(wrongIndex, value) {
   const wrongList = getWrongAnswers();
   if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
     wrongList[wrongIndex].retryAnswer = value;
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    safeSet('wrongAnswers', wrongList);
   }
 }
 
@@ -1759,6 +2194,7 @@ function getReviewData() {
 let currentFilter = 'all';
 
 function renderWrongList() {
+  requestWrongBookAnalysisRefresh();
   const wrongList = getWrongAnswers();
   const container = document.getElementById('wrongList');
   const analysisDiv = document.getElementById('wrongAnalysis');
@@ -1813,12 +2249,7 @@ function renderWrongList() {
   const filterButtonsDiv = document.getElementById('filterButtons');
   let filterButtonsHTML = '';
   for (const type of Object.keys(typeStats)) {
-    filterButtonsHTML += `
-      <button class="filter-btn" onclick="filterWrong('${type}')" 
-              style="padding: 8px 16px; margin-right: 8px; border: 1px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer;">
-        ${type}
-      </button>
-    `;
+    filterButtonsHTML += '<button class="filter-btn" data-type="' + type + '" style="padding:8px 16px;margin-right:8px;border:1px solid #667eea;background:white;color:#667eea;border-radius:20px;cursor:pointer;">' + type + '</button>';
   }
   filterButtonsDiv.innerHTML = filterButtonsHTML;
   
@@ -1835,6 +2266,10 @@ function renderWrongList() {
     const advice = generateReviewAdvice(item);
     const review = item.review || {};
     
+    // 获取解析分级数据
+    const analysisSource = getAnalysisSourceForWrongItem(item);
+    const analysis = analysisSource?.解析分级 || null;
+    
     // 错因分类选择器
     const categoryOptions = Object.values(ERROR_CATEGORIES).map(c => 
       `<button class="error-cat-btn ${cat === c.id ? 'active' : ''}" 
@@ -1846,6 +2281,10 @@ function renderWrongList() {
       <div class="wrong-answer">我的答案：${escapeHTML(item.userAnswer)}</div>
       <div class="correct-answer">正确答案：${escapeHTML(item.correctAnswer)}</div>
       ${item.tip ? `<div class="wrong-tip">提示：${escapeHTML(item.tip)}</div>` : ''}`;
+    
+    // 解析分级卡片
+    const analysisHTML = renderWrongBookAnalysis(analysis, analysisSource);
+    const similarHTML = renderSimilarExerciseRecommendations(item, analysisSource);
 
     const retryHTML = item.retryMode ? `
       <div class="retry-panel">
@@ -1863,11 +2302,36 @@ function renderWrongList() {
         </div>` : ''}
       </div>` : '';
     
+    // 掌握状态
+    var mastery = getMasteryLabel(item.mastery || 'new');
+    var reviewInfo = '';
+    if (item.nextReview) {
+      var nextDate = new Date(item.nextReview);
+      var nowDate = new Date();
+      var daysLeft = daysBetween(nowDate.toISOString(), nextDate.toISOString());
+      if (daysLeft <= 0) {
+        reviewInfo = '<span style="color:#ef4444; font-size:11px;">🔔 该复习了！已超期 ' + Math.abs(daysLeft) + ' 天</span>';
+      } else if (daysLeft <= 1) {
+        reviewInfo = '<span style="color:#f59e0b; font-size:11px;">⏰ ' + daysLeft + ' 天后复习</span>';
+      } else {
+        reviewInfo = '<span style="color:#888; font-size:11px;">📅 ' + daysLeft + ' 天后复习</span>';
+      }
+      if (item.reviewCount > 0) {
+        reviewInfo += ' <span style="color:#888;">· 复习 ' + item.reviewCount + ' 次</span>';
+      }
+    }
+
     return `
     <div class="wrong-item">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span class="mastery-badge" style="display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;background:${mastery.color}20;color:${mastery.color};font-weight:600;">${mastery.label}</span>
+        <span style="font-size:11px;color:#888;">${new Date(item.timestamp).toLocaleDateString('zh-CN')} · ${reviewInfo}</span>
+      </div>
       <div class="wrong-question">${index + 1}. ${escapeHTML(item.question)}</div>
       ${answerHTML}
       ${retryHTML}
+      ${analysisHTML}
+      ${similarHTML}
       <div class="error-category-select">
         <div style="font-size:12px;color:#888;margin-bottom:6px;">分析错因（点击选择）：</div>
         <div class="error-cat-btns">${categoryOptions}</div>
@@ -1886,14 +2350,80 @@ function renderWrongList() {
         </div>
         <p>下次遇到同类题，我先做：${advice}</p>
       </div>` : ''}
-      <div style="margin-top: 10px;">
+      ${cat ? `
+      <div class="training-recommendation" data-error-code="${cat}">
+        <strong>🎯 针对性训练建议：</strong>
+        <div class="training-content" id="training-${realIndex}">
+          <div style="color:#666;font-size:13px;padding:8px 0;">加载中...</div>
+        </div>
+      </div>` : ''}
+      <div style="margin-top: 10px; display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
         ${item.retryMode ? '' : `<button class="retry-btn" onclick="retryWrong(${realIndex})">再练一次</button>`}
-        <button class="retry-btn" onclick="removeWrong(${realIndex})" style="background: #f44336; margin-left: 10px;">移除</button>
+        <button class="retry-btn" onclick="markWrongItemReviewed(${realIndex}, false)" style="background:#8b5cf6;">已复习</button>
+        <button class="retry-btn" onclick="markWrongItemReviewed(${realIndex}, true)" style="background:#10b981;">已掌握</button>
+        <button class="retry-btn" onclick="removeWrong(${realIndex})" style="background:#f44336; margin-left:auto;">移除</button>
       </div>
     </div>`;
   }).join('');
   renderErrorStats();
   renderAutoRoutingPanel();
+  
+  // 加载错因映射并渲染训练建议
+  loadErrorMapping().then(() => {
+    renderTrainingRecommendations();
+  });
+}
+
+// 渲染训练建议
+function renderTrainingRecommendations() {
+  const wrongList = getWrongAnswers();
+  wrongList.forEach((item, index) => {
+    if (!item.errorCategory) return;
+    
+    const recommendation = getTrainingRecommendation(item.errorCategory);
+    const container = document.getElementById(`training-${index}`);
+    if (!container || !recommendation) return;
+    
+    let html = '<div style="margin-top:8px;">';
+    
+    // 学习路径
+    if (recommendation.learningPath && recommendation.learningPath.length > 0) {
+      html += `
+        <div style="margin-bottom:12px;">
+          <div style="font-size:12px;font-weight:600;color:#667eea;margin-bottom:4px;">📚 学习路径</div>
+          <ol style="margin:0;padding-left:20px;font-size:13px;color:#555;">
+            ${recommendation.learningPath.map(p => `<li>${escapeHTML(p)}</li>`).join('')}
+          </ol>
+        </div>`;
+    }
+    
+    // 教学建议
+    if (recommendation.teachingTips && recommendation.teachingTips.length > 0) {
+      html += `
+        <div style="margin-bottom:12px;">
+          <div style="font-size:12px;font-weight:600;color:#f59e0b;margin-bottom:4px;">💡 家长指导</div>
+          <ul style="margin:0;padding-left:20px;font-size:13px;color:#555;">
+            ${recommendation.teachingTips.map(t => `<li>${escapeHTML(t)}</li>`).join('')}
+          </ul>
+        </div>`;
+    }
+    
+    // 推荐练习
+    if (recommendation.recommendedExercises && recommendation.recommendedExercises.length > 0) {
+      html += `
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#10b981;margin-bottom:4px;">🎯 推荐练习</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            ${recommendation.recommendedExercises.map(id => 
+              `<span style="padding:3px 10px;background:#ecfdf5;color:#059669;border-radius:12px;font-size:11px;">${escapeHTML(id)}</span>`
+            ).join('')}
+          </div>
+        </div>`;
+    }
+    
+    html += '</div>';
+    container.innerHTML = html;
+  });
 }
 
 // 渲染错因统计
@@ -2030,22 +2560,31 @@ function renderAutoRoutingPanel() {
 }
 
 // 筛选错题
-function filterWrong(type) {
+function filterWrong(type, clickedEl) {
   currentFilter = type;
   
   // 更新按钮状态
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
     btn.classList.remove('active');
     btn.style.background = 'white';
     btn.style.color = '#667eea';
   });
   
-  event.target.classList.add('active');
-  event.target.style.background = '#667eea';
-  event.target.style.color = 'white';
+  if (clickedEl) {
+    clickedEl.classList.add('active');
+    clickedEl.style.background = '#667eea';
+    clickedEl.style.color = 'white';
+  }
   
   renderWrongList();
 }
+
+// 事件委托：错题筛选按钮
+document.getElementById('filterButtons').addEventListener('click', function(e) {
+  var btn = e.target.closest('.filter-btn');
+  if (!btn || !btn.dataset.type) return;
+  filterWrong(btn.dataset.type, btn);
+});
 
 // 移除错题
 function removeWrong(index) {
@@ -2071,7 +2610,7 @@ function revealRetryAnswer(index) {
   const wrongList = getWrongAnswers();
   if (index >= 0 && index < wrongList.length) {
     wrongList[index].retryRevealed = true;
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    safeSet('wrongAnswers', wrongList);
     renderWrongList();
   }
 }
@@ -2082,7 +2621,7 @@ function cancelRetry(index) {
     wrongList[index].retryMode = false;
     wrongList[index].retryRevealed = false;
     wrongList[index].retryAnswer = '';
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    safeSet('wrongAnswers', wrongList);
     renderWrongList();
   }
 }
@@ -2524,12 +3063,12 @@ function initCheckin() {
     btn.textContent = '已打卡';
     
     if (today) today.classList.add('checked');
-    localStorage.setItem('lastCheckin', todayStr);
+    safeSet('lastCheckin', todayStr);
     
     // 更新连续打卡天数
     let streak = parseInt(localStorage.getItem('checkinStreak') || '0');
     streak++;
-    localStorage.setItem('checkinStreak', streak.toString());
+    safeSet('checkinStreak', streak.toString());
     
     // 显示奖励
     document.getElementById('rewardText').textContent = streak >= 5 
@@ -2832,7 +3371,7 @@ function getFlowPackStatus() {
 }
 
 function saveFlowPackStatus(status) {
-  localStorage.setItem('flowPackStatus', JSON.stringify(status));
+  safeSet('flowPackStatus', status);
 }
 
 function getFlowStatusText(packId) {
@@ -3032,7 +3571,7 @@ function saveFlowWrongItems(grade, paper, wrongItems) {
     wrongList.shift();
   }
 
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  safeSet('wrongAnswers', wrongList);
   renderWrongList();
   renderErrorStats();
 }
@@ -3075,7 +3614,7 @@ function calculateABScore() {
     retest: gradeData.retest,
     createdAt: new Date().toISOString()
   };
-  localStorage.setItem('lastABScoreResult', JSON.stringify(result));
+  safeSet('lastABScoreResult', result);
   saveScoreHistory(result);
   renderABScoreResult(result);
   renderFlowStatusPanel();
@@ -3175,7 +3714,7 @@ function saveScoreHistory(result) {
   while (history.length > 12) {
     history.shift();
   }
-  localStorage.setItem('scoreHistory', JSON.stringify(history));
+  safeSet('scoreHistory', history);
 }
 
 function selectABPaper(grade, paper) {
@@ -3739,7 +4278,7 @@ function submitDiagnosis() {
 
 // 保存诊断错题
 function saveDiagnosisMistakes() {
-  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  const wrongList = safeParse('wrongAnswers', []);
   
   diagnosisQuestions.forEach((q, index) => {
     if (diagnosisAnswers[index] !== q.answer) {
@@ -3749,6 +4288,7 @@ function saveDiagnosisMistakes() {
         userAnswer: q.options[diagnosisAnswers[index]],
         correctAnswer: q.options[q.answer],
         tip: q.explanation,
+        questionId: q.id,
         timestamp: new Date().toISOString()
       };
       wrongList.push(wrongItem);
@@ -3759,7 +4299,7 @@ function saveDiagnosisMistakes() {
     wrongList.splice(0, wrongList.length - 50);
   }
   
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  safeSet('wrongAnswers', wrongList);
   renderWrongList();
 }
 
@@ -3802,11 +4342,11 @@ function showDiagnosisResult(totalScore) {
   generateSuggestions(skills);
   
   // 保存诊断结果
-  localStorage.setItem('lastDiagnosisResult', JSON.stringify({
+  safeSet('lastDiagnosisResult', {
     totalScore: totalScore,
     skills: diagnosisScores,
     date: new Date().toISOString()
-  }));
+  });
 }
 
 // 生成学习建议
@@ -4002,7 +4542,7 @@ function rememberDiagnosisVariantIds(questions) {
   if (typeof localStorage === 'undefined') return;
   const existing = readRecentDiagnosisVariantIds();
   const next = [...questions.map(q => `${q.grade}-${q.paper}-${q.variant}`), ...existing].slice(0, 90);
-  localStorage.setItem('recentDiagnosisVariantIds', JSON.stringify(next));
+  safeSet('recentDiagnosisVariantIds', next);
 }
 
 function buildDynamicDiagnosisPaper(grade, paper) {
@@ -4135,7 +4675,7 @@ function submitDiagnosis() {
 
 function saveDiagnosisMistakes() {
   const questions = getActiveDiagnosisQuestions();
-  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  const wrongList = safeParse('wrongAnswers', []);
   questions.forEach((q, index) => {
     if (diagnosisAnswers[index] !== q.answer) {
       wrongList.push({
@@ -4144,6 +4684,7 @@ function saveDiagnosisMistakes() {
         userAnswer: q.options[diagnosisAnswers[index]],
         correctAnswer: q.options[q.answer],
         tip: q.explanation,
+        questionId: q.id,
         errorCategory: q.errorCategory,
         errorCode: q.errorCode,
         mistakeReason: q.mistakeReason,
@@ -4155,7 +4696,7 @@ function saveDiagnosisMistakes() {
     }
   });
   if (wrongList.length > 50) wrongList.splice(0, wrongList.length - 50);
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  safeSet('wrongAnswers', wrongList);
   renderWrongList();
 }
 
@@ -4185,7 +4726,7 @@ function showDiagnosisResult(totalScore) {
     `;
   }).join('');
   generateSuggestions(skills);
-  localStorage.setItem('lastDiagnosisResult', JSON.stringify({
+  safeSet('lastDiagnosisResult', {
     totalScore,
     skills: diagnosisScores,
     grade: currentDiagnosisMeta.grade,
@@ -4194,7 +4735,7 @@ function showDiagnosisResult(totalScore) {
     paperLabel: currentDiagnosisMeta.paperLabel,
     questionIds: getActiveDiagnosisQuestions().map(q => q.id || q.question),
     date: new Date().toISOString()
-  }));
+  });
 }
 
 function generateSuggestions(skills) {
@@ -4296,7 +4837,7 @@ function switchLayerTab(tab) {
 
   // 保存选择
   if (tab !== 'all') {
-    localStorage.setItem('studentLayer', tab);
+    safeSet('studentLayer', tab);
   }
 
   // 更新学习画像
@@ -4308,8 +4849,8 @@ function updateLearningProfile() {
   const savedLayer = localStorage.getItem('studentLayer');
 
   // 获取诊断历史数据
-  const lastResult = JSON.parse(localStorage.getItem('lastDiagnosisResult') || '{}');
-  const wrongAnswers = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  const lastResult = safeParse('lastDiagnosisResult', {});
+  const wrongAnswers = safeParse('wrongAnswers', []);
 
   // 计算各维度正确率
   const totalQuestions = wrongAnswers.length + (lastResult.totalScore || 0);
@@ -4356,7 +4897,7 @@ function updateLearningProfile() {
 // 初始化激励机制
 function initRewardSystem() {
   // 从localStorage加载积分和徽章数据
-  const rewardData = JSON.parse(localStorage.getItem('rewardData') || '{}');
+  const rewardData = safeParse('rewardData', {});
 
   const points = rewardData.points || 0;
   const badges = rewardData.badges || [];
@@ -4387,7 +4928,7 @@ function updateBadgeStatus(unlockedBadges) {
 
 // 添加积分
 function addPoints(amount, reason) {
-  const rewardData = JSON.parse(localStorage.getItem('rewardData') || '{}');
+  const rewardData = safeParse('rewardData', {});
   rewardData.points = (rewardData.points || 0) + amount;
 
   // 记录最近成就
@@ -4401,7 +4942,7 @@ function addPoints(amount, reason) {
   });
   rewardData.recentAchievements = rewardData.recentAchievements.slice(0, 5);
 
-  localStorage.setItem('rewardData', JSON.stringify(rewardData));
+  safeSet('rewardData', rewardData);
 
   // 更新显示
   const pointsEl = document.getElementById('totalPoints');
@@ -4433,13 +4974,13 @@ function animatePoints(element, targetValue) {
 
 // 解锁徽章
 function unlockBadge(badgeName) {
-  const rewardData = JSON.parse(localStorage.getItem('rewardData') || '{}');
+  const rewardData = safeParse('rewardData', {});
   if (!rewardData.badges) {
     rewardData.badges = [];
   }
   if (!rewardData.badges.includes(badgeName)) {
     rewardData.badges.push(badgeName);
-    localStorage.setItem('rewardData', JSON.stringify(rewardData));
+    safeSet('rewardData', rewardData);
 
     // 显示奖励弹窗
     showRewardModal(badgeName);
@@ -4622,8 +5163,8 @@ let currentPathType = 'top';
 
 // 获取学习统计数据
 function getLearningStats() {
-  const statsData = JSON.parse(localStorage.getItem('learningStats') || '{}');
-  const practiceHistory = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+  const statsData = safeParse('learningStats', {});
+  const practiceHistory = safeParse('practiceHistory', []);
   
   // 计算统计数据
   let totalTime = statsData.totalStudyTime || 12.5;
@@ -4825,7 +5366,7 @@ function switchPathType(type) {
   
   renderPathway();
   
-  localStorage.setItem('pathType', type);
+  safeSet('pathType', type);
 }
 
 // 渲染完整路径
@@ -5175,7 +5716,7 @@ function getThickeningProgress() {
 }
 
 function saveThickeningProgress(progress) {
-  localStorage.setItem(THICKENING_STORAGE_KEY, JSON.stringify(progress));
+  safeSet(THICKENING_STORAGE_KEY, progress);
 }
 
 function initThickeningAssessments() {
@@ -5269,7 +5810,7 @@ function getSelfAssessment() {
 }
 
 function saveSelfAssessment(data) {
-  localStorage.setItem(SELF_ASSESS_STORAGE_KEY, JSON.stringify(data));
+  safeSet(SELF_ASSESS_STORAGE_KEY, data);
 }
 
 function initSelfAssessments() {

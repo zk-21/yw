@@ -15,7 +15,7 @@
   <meta property="og:description" content="全景展示小学语文知识体系，1-6年级知识点一图掌握。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
 </head>
 <body>
   <header class="topbar">
@@ -34,9 +34,14 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a class="active" href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -1158,9 +1163,9 @@
       <div id="literary-timeline-container" style="max-width: 900px; margin: 0 auto; padding: 0 5vw 40px;"></div>
     </section>
   </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {

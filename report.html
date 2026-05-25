@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="学习报告">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#667eea">
+  <title>学习周报 | 语文成长地图</title>
+  <meta name="description" content="孩子语文学习周报：能力诊断、错因分析、进步趋势、下周训练建议。帮家长一眼看清孩子学到了什么、哪里还需要加强。">
+  <meta property="og:title" content="学习周报 | 语文成长地图">
+  <meta property="og:description" content="可视化学习报告：能力雷达图、错因分布、学习趋势、训练建议。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=90">
+  <style>
+    :root {
+      --rp-primary: #667eea;
+      --rp-green: #10b981;
+      --rp-orange: #f59e0b;
+      --rp-red: #ef4444;
+      --rp-purple: #8b5cf6;
+      --rp-card-bg: #ffffff;
+      --rp-card-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    /* ── 页面布局 ── */
+    .report-main { max-width: 1060px; margin: 0 auto; padding: 20px 5vw 50px; }
+
+    /* ── 英雄区 ── */
+    .rp-hero {
+      text-align: center;
+      padding: 28px 20px 20px;
+      margin-bottom: 10px;
+    }
+    .rp-hero .rp-icon { font-size: 48px; margin-bottom: 8px; }
+    .rp-hero h1 { font-size: 26px; color: #1f2937; margin: 0 0 6px; }
+    .rp-hero .rp-hero-sub { font-size: 14px; color: #999; }
+    .rp-hero .rp-week-range {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 16px;
+      background: #eef2ff;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #4f46e5;
+      font-weight: 600;
+    }
+
+    /* ── 空状态 ── */
+    .rp-empty {
+      text-align: center;
+      padding: 50px 20px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: var(--rp-card-shadow);
+    }
+    .rp-empty .icon { font-size: 64px; margin-bottom: 16px; }
+    .rp-empty h2 { font-size: 20px; color: #374151; margin: 0 0 8px; }
+    .rp-empty p { color: #999; font-size: 14px; max-width: 400px; margin: 0 auto 20px; line-height: 1.7; }
+    .rp-empty .rp-cta {
+      display: inline-block;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .rp-empty .rp-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(102,126,234,0.3); }
+    .rp-empty .rp-demo-hint { margin-top: 24px; font-size: 12px; color: #ccc; }
+
+    /* ── 概览卡片行 ── */
+    .rp-stats { display: none; }
+    .rp-stats.visible { display: block; }
+    .rp-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .rp-stat-card {
+      background: var(--rp-card-bg);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--rp-card-shadow);
+      border: 1px solid #f0f0f0;
+      transition: box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .rp-stat-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .rp-stat-card .rp-stat-icon { font-size: 26px; margin-bottom: 6px; }
+    .rp-stat-card .rp-stat-value { font-size: 28px; font-weight: 700; color: #1f2937; }
+    .rp-stat-card .rp-stat-label { font-size: 12px; color: #999; margin-top: 4px; }
+    .rp-stat-card .rp-stat-change {
+      font-size: 11px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .rp-stat-card .rp-stat-change.up { color: #10b981; }
+    .rp-stat-card .rp-stat-change.down { color: #ef4444; }
+    .rp-stat-card.rp-accent-blue { border-left: 3px solid #667eea; }
+    .rp-stat-card.rp-accent-green { border-left: 3px solid #10b981; }
+    .rp-stat-card.rp-accent-orange { border-left: 3px solid #f59e0b; }
+    .rp-stat-card.rp-accent-purple { border-left: 3px solid #8b5cf6; }
+
+    /* ── 图表区域 ── */
+    .rp-charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .rp-chart-box {
+      background: var(--rp-card-bg);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--rp-card-shadow);
+      border: 1px solid #f0f0f0;
+      min-height: 360px;
+    }
+    .rp-chart-box.full { grid-column: 1 / -1; }
+    .rp-chart-box h3 { font-size: 15px; color: #374151; margin: 0 0 4px; font-weight: 600; }
+    .rp-chart-box .rp-chart-sub { font-size: 12px; color: #aaa; margin-bottom: 8px; }
+    .rp-chart-inner { width: 100%; }
+
+    /* ── 薄弱项分析 ── */
+    .rp-weak-section { margin-bottom: 20px; }
+    .rp-weak-section h2 {
+      font-size: 18px; color: #1f2937; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .rp-weak-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .rp-weak-card {
+      background: white; border-radius: 12px; padding: 16px;
+      box-shadow: var(--rp-card-shadow); border: 1px solid #f0f0f0;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: all 0.2s;
+    }
+    .rp-weak-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.1); }
+    .rp-weak-card .rp-weak-code {
+      display: inline-block; padding: 2px 10px; border-radius: 12px;
+      font-size: 12px; font-weight: 700; color: white; width: fit-content;
+    }
+    .rp-weak-card .rp-weak-code.B { background: #10b981; }
+    .rp-weak-card .rp-weak-code.R { background: #f59e0b; }
+    .rp-weak-card .rp-weak-code.W { background: #ef4444; }
+    .rp-weak-card .rp-weak-code.C { background: #8b5cf6; }
+    .rp-weak-card .rp-weak-label { font-size: 14px; font-weight: 600; color: #374151; }
+    .rp-weak-card .rp-weak-count { font-size: 12px; color: #999; }
+    .rp-weak-card .rp-weak-suggestion { font-size: 12px; color: #666; line-height: 1.6; }
+
+    /* ── 训练建议 ── */
+    .rp-training { margin-bottom: 20px; }
+    .rp-training h2 {
+      font-size: 18px; color: #1f2937; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .rp-training-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rp-training-card {
+      background: white; border-radius: 14px; padding: 20px;
+      box-shadow: var(--rp-card-shadow); border: 1px solid #f0f0f0;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: all 0.2s; position: relative;
+    }
+    .rp-training-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .rp-training-card .rp-tc-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #667eea; color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+    }
+    .rp-training-card .rp-tc-title { font-size: 14px; font-weight: 600; color: #374151; }
+    .rp-training-card .rp-tc-meta { font-size: 11px; color: #aaa; display: flex; gap: 12px; }
+    .rp-training-card .rp-tc-desc { font-size: 12px; color: #666; line-height: 1.6; }
+    .rp-training-card .rp-tc-link {
+      display: inline-block; margin-top: auto; padding: 8px 16px;
+      background: #eef2ff; color: #4f46e5; border-radius: 18px;
+      text-decoration: none; font-size: 12px; font-weight: 600;
+      text-align: center; transition: all 0.2s;
+    }
+    .rp-training-card .rp-tc-link:hover { background: #667eea; color: white; }
+
+    /* ── 底部操作栏 ── */
+    .rp-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center; padding: 10px 0 20px;
+    }
+    .rp-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px; border-radius: 22px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; border: none; text-decoration: none;
+    }
+    .rp-btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .rp-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(102,126,234,0.3); }
+    .rp-btn-outline {
+      background: white; color: #667eea;
+      border: 2px solid #667eea;
+    }
+    .rp-btn-outline:hover { background: #eef2ff; }
+    .rp-btn-ghost {
+      background: transparent; color: #999;
+    }
+    .rp-btn-ghost:hover { color: #667eea; }
+
+    /* ── 数据提示 ── */
+    .rp-data-note {
+      text-align: center; padding: 10px; margin-bottom: 4px;
+      font-size: 12px; color: #bbb;
+    }
+    .rp-data-note .simulated { color: #f59e0b; }
+
+    /* ── 响应式 ── */
+    @media (max-width: 768px) {
+      .rp-stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .rp-charts-row { grid-template-columns: 1fr; }
+      .rp-training-cards { grid-template-columns: 1fr; }
+      .rp-hero h1 { font-size: 22px; }
+      .rp-stat-card .rp-stat-value { font-size: 22px; }
+    }
+    @media (max-width: 480px) {
+      .rp-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .rp-stat-card { padding: 12px 14px; }
+      .rp-stat-card .rp-stat-value { font-size: 18px; }
+    }
+
+    /* ── 打印样式 ── */
+    @media print {
+      .topbar, .mobile-bottom-nav, .breadcrumb-bar, .back-to-top, .page-nav-row,
+      .rp-actions, .rp-btn, .rp-data-note, .view-switcher, .hamburger { display: none !important; }
+      body { padding-top: 0; background: white; }
+      .rp-chart-box { break-inside: avoid; page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+      .rp-stat-card { box-shadow: none; border: 1px solid #ddd; }
+      .report-main { max-width: 100%; padding: 10px; }
+      .rp-hero { padding: 10px 0; }
+    }
+
+    /* ── Toast 提示 ── */
+    .rp-toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #1f2937; color: #fff; padding: 12px 28px; border-radius: 24px;
+      font-size: 14px; font-weight: 500; z-index: 9999;
+      opacity: 0; transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .rp-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="report.html" class="active">学习报告</a>
+      <a href="grade1.html">一年级</a>
+      <a href="grade2.html">二年级</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="practice.html">练习计划</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="report-main">
+      <!-- 英雄区 -->
+      <div class="rp-hero">
+        <div class="rp-icon">📊</div>
+        <h1>学习周报</h1>
+        <p class="rp-hero-sub">数据驱动的个性化学习分析，帮家长看清孩子的成长轨迹</p>
+        <div class="rp-week-range" id="rpWeekRange">本周</div>
+      </div>
+
+      <!-- 空状态 -->
+      <div class="rp-empty" id="rpEmpty">
+        <div class="icon">📋</div>
+        <h2>还没有学习数据</h2>
+        <p>让孩子完成一次诊断测评后，这里会自动生成专属学习报告。包括能力雷达图、错因分析、进步趋势和个性化训练建议。</p>
+        <a class="rp-cta" href="practice.html#diagnosis">🎯 开始第一次诊断</a>
+        <p class="rp-demo-hint">完成诊断后刷新本页即可看到报告</p>
+      </div>
+
+      <!-- 数据区域（初始隐藏） -->
+      <div class="rp-stats" id="rpStats">
+        <!-- 概览卡片 -->
+        <div class="rp-stats-grid" id="rpStatsGrid"></div>
+
+        <!-- 图表行 -->
+        <div class="rp-charts-row">
+          <div class="rp-chart-box">
+            <h3>🎯 能力剖面雷达图</h3>
+            <p class="rp-chart-sub">六维语文能力当前掌握程度</p>
+            <div class="rp-chart-inner" id="chartRadar" style="height:340px;"></div>
+          </div>
+          <div class="rp-chart-box">
+            <h3>📊 错因分布</h3>
+            <p class="rp-chart-sub">近30天错题按错因类型分类统计</p>
+            <div class="rp-chart-inner" id="chartDonut" style="height:340px;"></div>
+          </div>
+        </div>
+
+        <!-- 趋势图 -->
+        <div class="rp-chart-box full" style="margin-bottom:20px;">
+          <h3>📈 学习趋势</h3>
+          <p class="rp-chart-sub">近几周诊断分数变化（虚线为模拟数据）</p>
+          <div class="rp-chart-inner" id="chartTrend" style="height:280px;"></div>
+        </div>
+
+        <!-- 薄弱项分析 -->
+        <div class="rp-weak-section" id="rpWeakSection">
+          <h2>🔍 薄弱项分析</h2>
+          <div class="rp-weak-cards" id="rpWeakCards"></div>
+        </div>
+
+        <!-- 训练建议 -->
+        <div class="rp-training" id="rpTraining">
+          <h2>🎯 本周推荐训练计划</h2>
+          <div class="rp-training-cards" id="rpTrainingCards"></div>
+        </div>
+
+        <!-- 数据提示 -->
+        <p class="rp-data-note" id="rpDataNote"></p>
+
+        <!-- 操作按钮 -->
+        <div class="rp-actions">
+          <button class="rp-btn rp-btn-primary" onclick="window.print()" title="打印或保存为PDF">🖨️ 打印 / 导出PDF</button>
+          <button class="rp-btn rp-btn-outline" id="rpExportBtn" title="导出学习数据为JSON文件">💾 导出数据</button>
+          <button class="rp-btn rp-btn-outline" id="rpImportBtn" title="从JSON文件导入学习数据">📥 导入数据</button>
+          <a class="rp-btn rp-btn-outline" href="practice.html#diagnosis">📝 再做一次诊断</a>
+          <button class="rp-btn rp-btn-ghost" id="rpRefreshBtn">🔄 刷新数据</button>
+          <input type="file" id="rpImportFile" accept=".json" style="display:none">
+        </div>
+      </div><!-- /rp-stats -->
+    </div><!-- /report-main -->
+  </main>
+
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    // ── 读取本地数据 ──
+    function loadLocalData() {
+      return {
+        lastResult:  tryParse(localStorage.getItem('lastDiagnosisResult'), {}),
+        wrongList:   tryParse(localStorage.getItem('wrongAnswers'), []),
+        streak:      parseInt(localStorage.getItem('checkinStreak') || '0'),
+        rewardData:  tryParse(localStorage.getItem('rewardData'), {}),
+        quickDiag:   tryParse(localStorage.getItem('quickDiagnosis'), {}),
+        progressLog: tryParse(localStorage.getItem('progressLog'), [])
+      };
+    }
+
+    function tryParse(raw, fallback) {
+      try { return raw ? JSON.parse(raw) : fallback; } catch(e) { return fallback; }
+    }
+
+    function hasAnyData(d) {
+      return !!(d.lastResult.totalScore || d.wrongList.length || d.streak || d.quickDiag.grade);
+    }
+
+    // ── 能力维度定义 ──
+    var ABILITY_DIMS = [
+      { key: 'word',   label: '字词基础',  full: 100, desc: '识字、写字、词语积累' },
+      { key: 'extract', label: '信息提取', full: 100, desc: '从文中定位关键信息' },
+      { key: 'summary', label: '概括归纳', full: 100, desc: '概括段意、主要内容' },
+      { key: 'infer',   label: '推理整合', full: 100, desc: '推断人物、理解深层含义' },
+      { key: 'apprec',  label: '赏析评价', full: 100, desc: '修辞赏析、表达效果' },
+      { key: 'express', label: '表达输出', full: 100, desc: '写作结构、细节描写' }
+    ];
+
+    // ── 根据诊断分数推测能力画像 ──
+    function estimateAbilityProfile(d) {
+      var score = d.lastResult.totalScore || 0;
+      var gradeNum = parseInt(d.lastResult.gradeLabel) || parseInt(d.quickDiag.grade) || 3;
+      var wrongList = d.wrongList || [];
+
+      // 基础分数：从诊断总分映射（满分15 → 100%）
+      var basePercent = Math.min(1, Math.max(0.1, score / 15));
+
+      // 按错因码分布扣分
+      var errorCounts = { word: 0, extract: 0, summary: 0, infer: 0, apprec: 0, express: 0 };
+      var codeMap = {
+        'B1': 'word', 'B2': 'word', 'B3': 'word',
+        'R1': 'summary', 'R2': 'extract', 'R3': 'apprec', 'R4': 'infer',
+        'W1': 'express', 'W2': 'express', 'W3': 'express',
+        'C1': 'infer'
+      };
+
+      wrongList.forEach(function(w) {
+        var dim = codeMap[w.errorCode] || null;
+        if (dim) errorCounts[dim] = (errorCounts[dim] || 0) + 1;
+      });
+
+      var totalErrors = Object.values(errorCounts).reduce(function(a, b) { return a + b; }, 0) || 1;
+
+      // 每个维度：基础分 - 扣分（最多扣40%）
+      var profile = {};
+      ABILITY_DIMS.forEach(function(dim) {
+        var errRatio = errorCounts[dim.key] / totalErrors;
+        var penalty = errRatio * 40; // 最多扣40分
+        // 加入年级因素：低年级基础维度稍高，高年级表达维度稍高
+        var gradeBonus = 0;
+        if (gradeNum <= 2 && (dim.key === 'word')) gradeBonus = 5;
+        if (gradeNum >= 5 && (dim.key === 'express' || dim.key === 'apprec')) gradeBonus = 5;
+        var raw = Math.round(basePercent * 100 - penalty + gradeBonus);
+        profile[dim.key] = Math.max(8, Math.min(98, raw));
+      });
+
+      return profile;
+    }
+
+    // ── 错因分布 ──
+    function computeErrorDistribution(d) {
+      var wrongList = d.wrongList || [];
+      var cats = { '基础': 0, '阅读': 0, '表达': 0, '综合': 0 };
+      var catMap = {
+        'B1': '基础', 'B2': '基础', 'B3': '基础',
+        'R1': '阅读', 'R2': '阅读', 'R3': '阅读', 'R4': '阅读',
+        'W1': '表达', 'W2': '表达', 'W3': '表达',
+        'C1': '综合'
+      };
+      wrongList.forEach(function(w) {
+        var cat = catMap[w.errorCode] || '其他';
+        if (!cats[cat]) cats[cat] = 0;
+        cats[cat]++;
+      });
+      // 如果完全没有错题，显示模拟数据
+      if (Object.values(cats).reduce(function(a,b){return a+b;},0) === 0 && d.lastResult.totalScore) {
+        var s = d.lastResult.totalScore;
+        if (s <= 6) { cats['基础'] = 3; cats['阅读'] = 2; cats['表达'] = 2; }
+        else if (s <= 10) { cats['阅读'] = 2; cats['表达'] = 2; }
+        else { cats['阅读'] = 1; cats['表达'] = 1; }
+      }
+      return cats;
+    }
+
+    // ── 薄弱项详情 ──
+    function computeWeakItems(d) {
+      var wrongList = d.wrongList || [];
+      // 按错因码分组
+      var groups = {};
+      wrongList.forEach(function(w) {
+        var code = w.errorCode || '?';
+        if (!groups[code]) groups[code] = { code: code, count: 0, questions: [] };
+        groups[code].count++;
+        if (w.question) groups[code].questions.push(w.question);
+      });
+
+      // 错因码标签
+      var codeInfo = {
+        'B1': { label: '字词混淆', cat: 'B', suggestion: '加强形近字、多音字辨析训练，每天听写5个字并写错因分析。' },
+        'B2': { label: '标点错误', cat: 'B', suggestion: '专项练习标点填空，重点区分句号、问号、感叹号的使用场景。' },
+        'B3': { label: '拼音拼写', cat: 'B', suggestion: '每天5分钟拼音拼读练习，注意声母、韵母和声调的准确对应。' },
+        'R1': { label: '概括不全', cat: 'R', suggestion: '练习"谁做什么结果怎样"三段概括法，每段读完先圈关键词再归纳。' },
+        'R2': { label: '依据缺失', cat: 'R', suggestion: '阅读答题按要求补"我从文中___看出"，每题都回原文找证据句。' },
+        'R3': { label: '赏析空泛', cat: 'R', suggestion: '按"方法+特点+效果"三步答题法，赏析题不能只写"生动形象"。' },
+        'R4': { label: '推断错误', cat: 'R', suggestion: '推断题要先理解文中信息，再结合常识推理，不能主观臆断。' },
+        'W1': { label: '结构松散', cat: 'W', suggestion: '作文先列提纲：开头、中间（详写）、结尾。每段一个中心，不跑题。' },
+        'W2': { label: '细节不足', cat: 'W', suggestion: '写重点段时加入动作、神态、语言、心理和环境描写，让画面活起来。' },
+        'W3': { label: '审题偏差', cat: 'W', suggestion: '审题时圈出题眼关键词，确认题目要求在写什么、怎么写、写多少。' },
+        'C1': { label: '综合迁移', cat: 'C', suggestion: '多题型混合训练，做完后总结每类题的通用方法，建立方法武器库。' }
+      };
+
+      var items = [];
+      Object.keys(groups).forEach(function(code) {
+        var info = codeInfo[code] || { label: '未知错因(' + code + ')', cat: '?', suggestion: '回顾错题，找出共同的错误模式。' };
+        items.push({
+          code: code,
+          label: info.label,
+          cat: info.cat,
+          count: groups[code].count,
+          suggestion: info.suggestion
+        });
+      });
+
+      // 按数量降序
+      items.sort(function(a, b) { return b.count - a.count; });
+
+      // 如果没有实际错题，但有诊断结果，生成示例弱项
+      if (items.length === 0 && d.lastResult.totalScore) {
+        var s = d.lastResult.totalScore;
+        if (s <= 8) {
+          items.push({ code: 'R1', label: '概括不全', cat: 'R', count: 2, suggestion: codeInfo.R1.suggestion });
+          items.push({ code: 'W2', label: '细节不足', cat: 'W', count: 2, suggestion: codeInfo.W2.suggestion });
+          items.push({ code: 'B1', label: '字词混淆', cat: 'B', count: 1, suggestion: codeInfo.B1.suggestion });
+        } else if (s <= 12) {
+          items.push({ code: 'R2', label: '依据缺失', cat: 'R', count: 2, suggestion: codeInfo.R2.suggestion });
+          items.push({ code: 'R3', label: '赏析空泛', cat: 'R', count: 1, suggestion: codeInfo.R3.suggestion });
+        } else {
+          items.push({ code: 'R3', label: '赏析空泛', cat: 'R', count: 1, suggestion: codeInfo.R3.suggestion });
+          items.push({ code: 'W3', label: '审题偏差', cat: 'W', count: 1, suggestion: codeInfo.W3.suggestion });
+        }
+      }
+
+      return items;
+    }
+
+    // ── 生成训练建议 ──
+    function generateTrainingPlan(d, weakItems) {
+      var gradeNum = parseInt(d.lastResult.gradeLabel) || parseInt(d.quickDiag.grade) || 3;
+      var goalType = d.quickDiag.goal || 'explore';
+      var timeChoice = parseInt(d.quickDiag.time) || 15;
+
+      var plans = [];
+
+      // 根据目标生成不同计划
+      if (goalType === 'fill') {
+        plans.push({
+          title: '基础巩固训练',
+          duration: '15分钟',
+          desc: '针对薄弱知识点进行专项训练，先做2道诊断题定位问题，再练习同类题型直到掌握。',
+          link: 'practice.html#diagnosis'
+        });
+        if (weakItems.length > 0) {
+          plans.push({
+            title: '错因针对性练习',
+            duration: timeChoice + '分钟',
+            desc: '针对「' + weakItems[0].label + '」类型的题目进行专项突破，练完对照满分答案自查。',
+            link: 'practice.html#wrong-notebook'
+          });
+        } else {
+          plans.push({
+            title: '年级基础知识复习',
+            duration: '15分钟',
+            desc: '复习本年级课标要求的基础知识点，确保字词、句式、标点等基础能力没有漏洞。',
+            link: 'grade' + gradeNum + '.html'
+          });
+        }
+        plans.push({
+          title: '本周小练笔',
+          duration: '20分钟',
+          desc: '围绕一个中心写一段话，注意运用动作、神态、心理等细节描写，写完后自己读一遍修改。',
+          link: 'composition.html'
+        });
+      } else if (goalType === 'advance') {
+        plans.push({
+          title: '挑战进阶诊断',
+          duration: '15分钟',
+          desc: '完成一套拔高难度的诊断题，测试在更高难度下的表现，发现新的提升空间。',
+          link: 'practice.html#flow-training'
+        });
+        plans.push({
+          title: '深度阅读训练',
+          duration: '20分钟',
+          desc: '阅读一篇短文，按"结论+依据+分析+中心"四层法完成全部题目，对照答案逐一复盘。',
+          link: 'grade' + gradeNum + '.html'
+        });
+        plans.push({
+          title: 'AI一对一拔高',
+          duration: '15分钟',
+          desc: '将本周写的作文或阅读题发给AI辅导，获取个性化的一对一批改和升格建议。',
+          link: 'agent.html'
+        });
+      } else {
+        plans.push({
+          title: '了解年级知识地图',
+          duration: '10分钟',
+          desc: '浏览本年级课标要求、常考题型和学习重点，建立对本学期学习目标的整体认知。',
+          link: 'grade' + gradeNum + '.html'
+        });
+        plans.push({
+          title: '完成一次标准诊断',
+          duration: '15分钟',
+          desc: '通过诊断了解孩子当前的真实水平，获得详细的错因分析和能力评估报告。',
+          link: 'practice.html#diagnosis'
+        });
+        plans.push({
+          title: '探索专题学习',
+          duration: '15分钟',
+          desc: '根据孩子的兴趣选择一个专题深入学习：拼音、语法、词语、作文或拓展知识。',
+          link: 'knowledge-map.html'
+        });
+      }
+
+      return plans;
+    }
+
+    // ── 模拟历史趋势数据 ──
+    function generateTrendData(d) {
+      var score = d.lastResult.totalScore || 0;
+      var savedLog = d.progressLog || [];
+      var weeks = [];
+
+      // 如果有保存的历史记录，使用它
+      if (savedLog.length >= 2) {
+        savedLog.forEach(function(entry) {
+          weeks.push({ label: entry.week || entry.label || '', score: entry.score || 0 });
+        });
+        return weeks;
+      }
+
+      // 否则基于当前分数生成模拟趋势（标注为模拟数据）
+      var now = new Date();
+      var baseScores = [];
+      if (score >= 12) {
+        baseScores = [6, 8, 9, 11, score];
+      } else if (score >= 8) {
+        baseScores = [4, 5, 7, score];
+      } else if (score > 0) {
+        baseScores = [3, score];
+      } else {
+        baseScores = [];
+      }
+
+      for (var i = 0; i < baseScores.length; i++) {
+        var d = new Date(now);
+        d.setDate(d.getDate() - (baseScores.length - 1 - i) * 7);
+        weeks.push({
+          label: (d.getMonth()+1) + '/' + d.getDate(),
+          score: baseScores[i],
+          simulated: i < baseScores.length - 1
+        });
+      }
+
+      return weeks;
+    }
+
+    // ── 渲染 ──
+
+    function renderStatsGrid(d) {
+      var el = document.getElementById('rpStatsGrid');
+      var score = d.lastResult.totalScore || 0;
+      var wrongCount = d.wrongList.length;
+      var streak = d.streak;
+      var points = (d.rewardData && d.rewardData.points) || 0;
+      var gradeLabel = d.lastResult.gradeLabel || d.quickDiag.grade || '—';
+
+      var dateStr = '—';
+      if (d.lastResult.date) {
+        var dt = new Date(d.lastResult.date);
+        dateStr = (dt.getMonth()+1) + '/' + dt.getDate();
+      }
+
+      var html = '';
+      html += cardHTML('rp-accent-blue', '📝', score, '/ 15 分', '最近诊断成绩', dateStr ? dateStr + ' 完成' : '', '');
+      html += cardHTML('rp-accent-orange', '📒', wrongCount, '道', '错题记录', wrongCount > 0 ? '待复习巩固' : '暂无错题', '');
+      html += cardHTML('rp-accent-green', '🔥', streak, '天', '连续打卡', streak >= 7 ? '很稳定，继续保持！' : '继续加油', streak >= 7 ? 'up' : '');
+      html += cardHTML('rp-accent-purple', '⭐', points, '分', '学习积分', (d.rewardData && d.rewardData.badges && d.rewardData.badges.length > 0) ? d.rewardData.badges.join('、') : '暂无徽章', '');
+
+      el.innerHTML = html;
+    }
+
+    function cardHTML(accent, icon, value, unit, label, sub, changeClass) {
+      var changeHTML = '';
+      if (changeClass === 'up') changeHTML = '<div class="rp-stat-change up">↑ 保持上升</div>';
+      else if (changeClass === 'down') changeHTML = '<div class="rp-stat-change down">↓ 需要关注</div>';
+
+      return '<div class="rp-stat-card ' + accent + '">' +
+        '<div class="rp-stat-icon">' + icon + '</div>' +
+        '<div class="rp-stat-value">' + value + ' <span style="font-size:13px;font-weight:400;color:#888;">' + unit + '</span></div>' +
+        '<div class="rp-stat-label">' + label + '</div>' +
+        '<div class="rp-stat-sub" style="font-size:11px;color:#aaa;">' + sub + '</div>' +
+        changeHTML +
+        '</div>';
+    }
+
+    // ── Plotly 图表 ──
+
+    function renderRadarChart(profile, hasData) {
+      var el = document.getElementById('chartRadar');
+      if (!el || typeof Plotly === 'undefined') return;
+
+      var dims = ABILITY_DIMS;
+      var values = dims.map(function(d) { return profile[d.key] || 0; });
+      var labels = dims.map(function(d) { return d.label; });
+
+      var trace = {
+        type: 'scatterpolar',
+        r: values.concat([values[0]]),
+        theta: labels.concat([labels[0]]),
+        fill: 'toself',
+        fillcolor: 'rgba(102, 126, 234, 0.2)',
+        line: { color: '#667eea', width: 2 },
+        marker: { color: '#667eea', size: 6 },
+        name: '当前能力',
+        hovertemplate: '%{theta}: %{r}分<extra></extra>'
+      };
+
+      var layout = {
+        polar: {
+          radialaxis: { range: [0, 100], tickfont: { size: 10, color: '#aaa' }, ticks: '' },
+          angularaxis: { tickfont: { size: 11, color: '#374151' } }
+        },
+        margin: { t: 10, b: 20, l: 30, r: 30 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        showlegend: false,
+        font: { family: '"Microsoft YaHei","PingFang SC",Arial,sans-serif' }
+      };
+
+      Plotly.newPlot(el, [trace], layout, { responsive: true, displayModeBar: false });
+    }
+
+    function renderDonutChart(errorDist) {
+      var el = document.getElementById('chartDonut');
+      if (!el || typeof Plotly === 'undefined') return;
+
+      var categories = ['基础', '阅读', '表达', '综合'];
+      var values = categories.map(function(c) { return errorDist[c] || 0; });
+      var colors = ['#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+
+      // 如果全为0，不显示
+      var total = values.reduce(function(a,b){return a+b;}, 0);
+      if (total === 0) {
+        el.innerHTML = '<div style="text-align:center;padding:60px 0;color:#ccc;">暂无错题数据<br><span style="font-size:12px;">完成练习后这里会显示错因分布</span></div>';
+        return;
+      }
+
+      var trace = {
+        type: 'pie',
+        labels: categories,
+        values: values,
+        hole: 0.55,
+        marker: { colors: colors, line: { color: 'white', width: 2 } },
+        textinfo: 'label+percent',
+        textfont: { size: 12 },
+        hovertemplate: '%{label}: %{value}题 (%{percent})<extra></extra>',
+        sort: false
+      };
+
+      var layout = {
+        margin: { t: 10, b: 10, l: 10, r: 10 },
+        paper_bgcolor: 'transparent',
+        showlegend: false,
+        font: { family: '"Microsoft YaHei","PingFang SC",Arial,sans-serif' }
+      };
+
+      Plotly.newPlot(el, [trace], layout, { responsive: true, displayModeBar: false });
+    }
+
+    function renderTrendChart(trendData) {
+      var el = document.getElementById('chartTrend');
+      if (!el || typeof Plotly === 'undefined') return;
+
+      if (trendData.length === 0) {
+        el.innerHTML = '<div style="text-align:center;padding:50px 0;color:#ccc;">暂无学习记录<br><span style="font-size:12px;">持续使用后这里会显示诊断分数的变化趋势</span></div>';
+        return;
+      }
+
+      var xLabels = trendData.map(function(d) { return d.label; });
+      var scores = trendData.map(function(d) { return d.score; });
+      var isSim = trendData.map(function(d) { return d.simulated; });
+
+      // 实际数据
+      var realX = [], realY = [];
+      // 模拟数据
+      var simX = [], simY = [];
+      trendData.forEach(function(d, i) {
+        if (d.simulated) { simX.push(d.label); simY.push(d.score); }
+        else { realX.push(d.label); realY.push(d.score); }
+      });
+
+      var traces = [];
+
+      // 实际数据（实线）
+      if (realX.length > 0) {
+        traces.push({
+          type: 'scatter',
+          x: realX, y: realY,
+          mode: 'lines+markers',
+          name: '实际成绩',
+          line: { color: '#667eea', width: 3, shape: 'spline' },
+          marker: { color: '#667eea', size: 10, symbol: 'circle' },
+          hovertemplate: '%{x}: %{y}分 (实际)<extra></extra>'
+        });
+      }
+
+      // 模拟数据（虚线）
+      if (simX.length > 0) {
+        traces.push({
+          type: 'scatter',
+          x: simX, y: simY,
+          mode: 'lines+markers',
+          name: '模拟趋势',
+          line: { color: '#ccc', width: 2, dash: 'dash', shape: 'spline' },
+          marker: { color: '#ccc', size: 8, symbol: 'circle-open' },
+          hovertemplate: '%{x}: %{y}分 (模拟)<extra></extra>'
+        });
+      }
+
+      // 及格线
+      traces.push({
+        type: 'scatter',
+        x: xLabels,
+        y: new Array(xLabels.length).fill(9),
+        mode: 'lines',
+        name: '合格线 (9分)',
+        line: { color: '#f59e0b', width: 1, dash: 'dot' },
+        hoverinfo: 'skip'
+      });
+
+      var layout = {
+        xaxis: { title: '', tickfont: { size: 11 }, gridcolor: '#f5f5f5' },
+        yaxis: { title: '诊断分数', range: [0, 16], tickfont: { size: 11 }, gridcolor: '#f5f5f5' },
+        margin: { t: 10, b: 30, l: 40, r: 20 },
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        legend: { x: 0.01, y: 0.99, font: { size: 11 } },
+        font: { family: '"Microsoft YaHei","PingFang SC",Arial,sans-serif' },
+        hovermode: 'x unified'
+      };
+
+      Plotly.newPlot(el, traces, layout, { responsive: true, displayModeBar: false });
+    }
+
+    function renderWeakCards(weakItems) {
+      var el = document.getElementById('rpWeakCards');
+      if (!el) return;
+      if (weakItems.length === 0) {
+        el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;">暂无薄弱项数据</div>';
+        return;
+      }
+
+      var html = '';
+      weakItems.slice(0, 6).forEach(function(item) {
+        html += '<div class="rp-weak-card">' +
+          '<div><span class="rp-weak-code ' + item.cat + '">' + item.code + '</span></div>' +
+          '<div class="rp-weak-label">' + item.label + '</div>' +
+          '<div class="rp-weak-count">' + item.count + ' 道相关错题</div>' +
+          '<div class="rp-weak-suggestion">💡 ' + item.suggestion + '</div>' +
+          '</div>';
+      });
+      el.innerHTML = html;
+    }
+
+    function renderTrainingCards(plans) {
+      var el = document.getElementById('rpTrainingCards');
+      if (!el) return;
+
+      var html = '';
+      plans.forEach(function(p, i) {
+        html += '<div class="rp-training-card">' +
+          '<div class="rp-tc-num">' + (i+1) + '</div>' +
+          '<div class="rp-tc-title">' + p.title + '</div>' +
+          '<div class="rp-tc-meta"><span>⏱ ' + p.duration + '</span></div>' +
+          '<div class="rp-tc-desc">' + p.desc + '</div>' +
+          '<a class="rp-tc-link" href="' + p.link + '">去训练 →</a>' +
+          '</div>';
+      });
+      el.innerHTML = html;
+    }
+
+    // ── 初始化 ──
+    function init() {
+      var d = loadLocalData();
+
+      // 设置日期范围
+      var now = new Date();
+      var monday = new Date(now);
+      monday.setDate(now.getDate() - now.getDay() + 1); // 周一
+      if (now.getDay() === 0) monday.setDate(now.getDate() - 6);
+      var sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      var weekStr = (monday.getMonth()+1) + '/' + monday.getDate() + ' - ' + (sunday.getMonth()+1) + '/' + sunday.getDate();
+      document.getElementById('rpWeekRange').textContent = weekStr;
+
+      if (!hasAnyData(d)) {
+        // 显示空状态
+        return;
+      }
+
+      // 隐藏空状态，显示数据区
+      document.getElementById('rpEmpty').style.display = 'none';
+      document.getElementById('rpStats').classList.add('visible');
+
+      // 数据提示
+      var hasSimulated = (!d.wrongList.length && !d.progressLog.length);
+      document.getElementById('rpDataNote').innerHTML = hasSimulated
+        ? '<span class="simulated">⚠ 部分图表基于诊断结果生成示例数据，完成更多练习后数据将更准确</span>'
+        : '数据来源：本地学习记录 | 每周更新';
+
+      // 渲染各部分
+      renderStatsGrid(d);
+
+      var profile = estimateAbilityProfile(d);
+      renderRadarChart(profile, true);
+
+      var errorDist = computeErrorDistribution(d);
+      renderDonutChart(errorDist);
+
+      var trendData = generateTrendData(d);
+      renderTrendChart(trendData);
+
+      var weakItems = computeWeakItems(d);
+      renderWeakCards(weakItems);
+
+      var plans = generateTrainingPlan(d, weakItems);
+      renderTrainingCards(plans);
+    }
+
+    // 刷新按钮
+    document.getElementById('rpRefreshBtn').addEventListener('click', function() {
+      location.reload();
+    });
+
+    // ── 数据导出/导入 ──
+    // 导出：打包所有 localStorage 学习数据为 JSON 文件下载
+    document.getElementById('rpExportBtn').addEventListener('click', function() {
+      var exportData = {};
+      var keys = ['lastDiagnosisResult','wrongAnswers','checkinStreak','rewardData',
+                  'quickDiagnosis','progressLog','scoreHistory','learningStats',
+                  'practiceHistory','checkinData','lastCheckin','studentLayer','pathType',
+                  'lastABScoreResult','recentDiagnosisVariantIds','flowPackStatus'];
+      try {
+        keys.forEach(function(k) {
+          var v = localStorage.getItem(k);
+          try { exportData[k] = v ? JSON.parse(v) : null; } catch(_) { exportData[k] = v; }
+        });
+      } catch(e) { /* skip inaccessible keys */ }
+
+      var blob = new Blob([JSON.stringify({version:1, exportedAt:new Date().toISOString(), data:exportData}, null, 2)], {type:'application/json'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = '学习数据备份_' + new Date().toISOString().slice(0,10) + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('数据已导出');
+    });
+
+    // 导入：从 JSON 文件恢复数据
+    document.getElementById('rpImportBtn').addEventListener('click', function() {
+      document.getElementById('rpImportFile').click();
+    });
+    document.getElementById('rpImportFile').addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          var raw = JSON.parse(ev.target.result);
+          var data = raw.data || raw;
+          var count = 0;
+          Object.keys(data).forEach(function(k) {
+            if (data[k] !== null && data[k] !== undefined) {
+              try {
+                localStorage.setItem(k, typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k]));
+                count++;
+              } catch(_) {}
+            }
+          });
+          showToast('已导入 ' + count + ' 项数据，正在刷新...');
+          setTimeout(function() { location.reload(); }, 800);
+        } catch(err) {
+          alert('文件格式不正确，请选择有效的备份文件。');
+        }
+      };
+      reader.readAsText(file);
+      this.value = '';
+    });
+
+    // Toast 提示
+    function showToast(msg) {
+      var toast = document.createElement('div');
+      toast.className = 'rp-toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      requestAnimationFrame(function() { toast.classList.add('show'); });
+      setTimeout(function() {
+        toast.classList.remove('show');
+        setTimeout(function() { toast.remove(); }, 300);
+      }, 2000);
+    }
+
+    // Plotly 加载完成后初始化
+    function waitForPlotly() {
+      if (typeof Plotly !== 'undefined') {
+        init();
+      } else {
+        setTimeout(waitForPlotly, 200);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', waitForPlotly);
+    } else {
+      waitForPlotly();
+    }
+
+    // 响应窗口大小变化，重新渲染图表
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        var charts = ['chartRadar', 'chartDonut', 'chartTrend'];
+        charts.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el._fullLayout) {
+            Plotly.Plots.resize(el);
+          }
+        });
+      }, 300);
+    });
+  })();
+  </script>
+</body>
+</html>

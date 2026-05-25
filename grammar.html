@@ -15,7 +15,7 @@
   <meta property="og:description" content="系统梳理小学1-6年级语法知识，涵盖词性、句型、病句、关联词等核心考点。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
   <style>
     .grammar-hero {
       background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
@@ -171,9 +171,14 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -242,12 +247,12 @@
     </section>
 
     <section class="grade-tabs">
-      <button class="grade-tab" onclick="showGrade('grade1')">一年级</button>
-      <button class="grade-tab" onclick="showGrade('grade2')">二年级</button>
-      <button class="grade-tab active" onclick="showGrade('grade3')">三年级</button>
-      <button class="grade-tab" onclick="showGrade('grade4')">四年级</button>
-      <button class="grade-tab" onclick="showGrade('grade5')">五年级</button>
-      <button class="grade-tab" onclick="showGrade('grade6')">六年级</button>
+      <button class="grade-tab" data-grade="grade1">一年级</button>
+      <button class="grade-tab" data-grade="grade2">二年级</button>
+      <button class="grade-tab active" data-grade="grade3">三年级</button>
+      <button class="grade-tab" data-grade="grade4">四年级</button>
+      <button class="grade-tab" data-grade="grade5">五年级</button>
+      <button class="grade-tab" data-grade="grade6">六年级</button>
     </section>
 
     <!-- 一年级语法 -->
@@ -676,13 +681,13 @@
             <p style="margin-top: 10px;">"今天天气真好____"小明说____"我们去公园玩吧____"</p>
           </div>
           <div id="quiz-options">
-            <button class="quiz-option" onclick="checkAnswer(0)">A. ！ ， 。</button>
-            <button class="quiz-option" onclick="checkAnswer(1)">B. ！ ： ！</button>
-            <button class="quiz-option" onclick="checkAnswer(2)">C. ， ， ！</button>
-            <button class="quiz-option" onclick="checkAnswer(3)">D. ！ ， ！</button>
+            <button class="quiz-option" data-index="0">A. ！ ， 。</button>
+            <button class="quiz-option" data-index="1">B. ！ ： ！</button>
+            <button class="quiz-option" data-index="2">C. ， ， ！</button>
+            <button class="quiz-option" data-index="3">D. ！ ， ！</button>
           </div>
           <div id="quiz-feedback" style="margin-top: 20px; padding: 15px; border-radius: 10px; display: none;"></div>
-          <button class="quiz-next-btn" onclick="nextQuestion()" style="margin-top: 20px; display: none;">下一题 →</button>
+          <button class="quiz-next-btn" id="quiz-next-btn" style="margin-top: 20px; display: none;">下一题 →</button>
           <div id="quiz-progress" style="margin-top: 20px; text-align: center; font-size: 14px;">得分：0/0</div>
         </div>
       </div>
@@ -968,12 +973,12 @@
         <h2>📦 语法规则结构化索引</h2>
         <p style="color:#666; font-size:16px;">数据来自 grammar.json — 选年级查看对应的知识点</p>
         <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px 0;">
-          <button class="grade-tab" onclick="switchGrammarDbTab('grade1', this)" style="font-size:15px;">一年级</button>
-          <button class="grade-tab" onclick="switchGrammarDbTab('grade2', this)" style="font-size:15px;">二年级</button>
-          <button class="grade-tab active" onclick="switchGrammarDbTab('grade3', this)" style="font-size:15px;">三年级</button>
-          <button class="grade-tab" onclick="switchGrammarDbTab('grade4', this)" style="font-size:15px;">四年级</button>
-          <button class="grade-tab" onclick="switchGrammarDbTab('grade5', this)" style="font-size:15px;">五年级</button>
-          <button class="grade-tab" onclick="switchGrammarDbTab('grade6', this)" style="font-size:15px;">六年级</button>
+          <button class="grade-tab" data-grade="grade1" style="font-size:15px;">一年级</button>
+          <button class="grade-tab" data-grade="grade2" style="font-size:15px;">二年级</button>
+          <button class="grade-tab active" data-grade="grade3" style="font-size:15px;">三年级</button>
+          <button class="grade-tab" data-grade="grade4" style="font-size:15px;">四年级</button>
+          <button class="grade-tab" data-grade="grade5" style="font-size:15px;">五年级</button>
+          <button class="grade-tab" data-grade="grade6" style="font-size:15px;">六年级</button>
         </div>
       </div>
       <div id="grammar-db-content" class="grammar-section" style="max-width:900px; margin:0 auto;"></div>
@@ -1047,6 +1052,25 @@
 
     let currentQuestion = 0;
     let score = 0;
+    let quizAnswered = false;
+
+    // 事件委托：答题选项点击
+    document.getElementById('quiz-options').addEventListener('click', function(e) {
+      var btn = e.target.closest('.quiz-option');
+      if (!btn || quizAnswered || !btn.dataset.index) return;
+      quizAnswered = true;
+      checkAnswer(parseInt(btn.dataset.index));
+    });
+
+    // 事件委托：下一题按钮
+    document.getElementById('quiz-next-btn').addEventListener('click', function() {
+      nextQuestion();
+    });
+
+    // 事件委托：再练一次按钮（动态创建，需要委托到 quiz-container）
+    document.getElementById('quiz-container').addEventListener('click', function(e) {
+      if (e.target.id === 'quiz-restart-btn') restartQuiz();
+    });
 
     function checkAnswer(optionIndex) {
       const question = grammarQuiz[currentQuestion];
@@ -1096,7 +1120,8 @@
       const feedback = document.getElementById('quiz-feedback');
       const nextBtn = document.querySelector('.quiz-next-btn');
       
-      questionDiv.innerHTML = `<p><strong>题目 ${currentQuestion + 1}/10：</strong>${question.question}</p>`;
+      quizAnswered = false;
+      questionDiv.innerHTML = '<p><strong>题目 ' + (currentQuestion + 1) + '/10：</strong>' + question.question + '</p>';
       
       options.forEach((opt, idx) => {
         opt.textContent = question.options[idx];
@@ -1135,7 +1160,7 @@
           <h3 style="font-size: 24px; margin-bottom: 10px;">练习完成！</h3>
           <p style="font-size: 18px;">你的得分：${score}/${grammarQuiz.length}（${percentage}%）</p>
           <p style="margin-top: 20px;">${message}</p>
-          <button class="quiz-next-btn" onclick="restartQuiz()" style="margin-top: 25px;">再练一次</button>
+          <button class="quiz-next-btn" id="quiz-restart-btn" style="margin-top: 25px;">再练一次</button>
         </div>
       `;
     }
@@ -1157,23 +1182,30 @@
   </script>
 
   <script>
-    function showGrade(grade) {
-      document.querySelectorAll('.grade-tab').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.grammar-section').forEach(section => section.style.display = 'none');
-      
-      event.target.classList.add('active');
+    // 事件委托：年级选项卡切换（showGrade）
+    document.querySelector('.grade-tabs').addEventListener('click', function(e) {
+      var btn = e.target.closest('.grade-tab');
+      if (!btn || !btn.dataset.grade) return;
+      var grade = btn.dataset.grade;
+      document.querySelectorAll('.grade-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.grammar-section').forEach(function(s) { s.style.display = 'none'; });
+      btn.classList.add('active');
       document.getElementById(grade).style.display = 'block';
-    }
+    });
   </script>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
-    function switchGrammarDbTab(grade, btn) {
+    // 事件委托：语法知识库年级切换（switchGrammarDbTab）
+    document.getElementById('grammar-db-quick').addEventListener('click', function(e) {
+      var btn = e.target.closest('.grade-tab');
+      if (!btn || !btn.dataset.grade) return;
+      var grade = btn.dataset.grade;
       document.querySelectorAll('#grammar-db-quick .grade-tab').forEach(function(t) { t.classList.remove('active'); });
-      if (btn) btn.classList.add('active');
-      DataLib.renderGrammarByGrade(grade, document.getElementById('grammar-db-content'));
-    }
+      btn.classList.add('active');
+      if (window.DataLib) DataLib.renderGrammarByGrade(grade, document.getElementById('grammar-db-content'));
+    });
     document.addEventListener('DOMContentLoaded', function() { setTimeout(function() { if (window.DataLib) DataLib.renderGrammarByGrade('grade3', document.getElementById('grammar-db-content')); }, 300); });
   </script>
 </body>

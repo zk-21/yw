@@ -59,8 +59,45 @@ function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
   if (!window.isSecureContext && location.hostname !== 'localhost') return;
 
-  navigator.serviceWorker.register('service-worker.js').catch(function () {
+  navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+    // 检测新版本 SW 并提示用户刷新
+    registration.addEventListener('updatefound', function() {
+      var newWorker = registration.installing;
+      if (!newWorker) return;
+      newWorker.addEventListener('statechange', function() {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // 新版本已就绪，显示更新提示
+          showUpdateNotification();
+        }
+      });
+    });
+
+    // 如果页面已由旧版 SW 控制，检查是否有 waiting 的 SW
+    if (registration.waiting && navigator.serviceWorker.controller) {
+      showUpdateNotification();
+    }
+  }).catch(function () {
     // 安装能力不影响页面正常使用，注册失败时静默降级。
+  });
+}
+
+// PWA 更新通知条
+function showUpdateNotification() {
+  if (document.getElementById('sw-update-bar')) return;
+  var bar = document.createElement('div');
+  bar.id = 'sw-update-bar';
+  bar.innerHTML = '<span>有新版本可用</span><button id="sw-update-btn">立即更新</button>';
+  document.body.appendChild(bar);
+  document.getElementById('sw-update-btn').addEventListener('click', function() {
+    bar.remove();
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+    }
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      window.location.reload();
+    });
+    // 兜底：1.5秒后强制刷新
+    setTimeout(function() { window.location.reload(); }, 1500);
   });
 }
 
@@ -152,6 +189,7 @@ function enhanceTopNavigation(topbar) {
   
   nav.innerHTML = [
     navLink('index.html', '总览', currentPage === 'index.html'),
+    navLink('report.html', '学习报告', currentPage === 'report.html'),
     navGroup('年级切换', gradesActive, [
       navLink('grade1.html', '一年级', currentPage === 'grade1.html'),
       navLink('grade2.html', '二年级', currentPage === 'grade2.html'),
@@ -387,6 +425,7 @@ function addBreadcrumbBar() {
 
   var pageMapping = {
     'index.html':          { label: '首页',                parent: null,                         category: '总览' },
+    'report.html':         { label: '学习报告',             parent: 'index.html',                  category: '总览' },
     'grade1.html':         { label: '一年级学习指导',       parent: 'index.html',                  category: '年级专项' },
     'grade2.html':         { label: '二年级学习指导',       parent: 'index.html',                  category: '年级专项' },
     'grade3.html':         { label: '三年级学习指导',       parent: 'index.html',                  category: '年级专项' },

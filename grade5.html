@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
 
   <style>
     /* ===== 知识点递进题组表格样式 ===== */
@@ -102,18 +102,19 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section class="page-head grade-five">
-      <p class="eyebrow">五年级提升阶段</p>
-      <h1>从"会答题"提升到"能分析主题、结构和表达效果"</h1>
-      <p>五年级语文进入布鲁姆认知目标中的"分析"与"评价"层级：阅读不再是提取信息，而是辨析写法、评判表达效果；写作不再是叙事完整，而是围绕中心组织材料并形成个性化立意。本页以认知心理学为框架，帮助学生在具体→抽象、事实→观点之间建立深层思维通路。</p>
-    </section>
+    <section class="page-head" id="grade5-hero"></section>
 
     <section class="section">
       <div class="section-title">
@@ -133,26 +134,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="content-grid">
-        <article class="study-block">
-          <h2>本年级最容易掉分的 3 件事</h2>
-          <ul class="level-list">
-            <li><strong>说明文：</strong>知道说明方法，却答不出"说明了对象的什么特点"。</li>
-            <li><strong>读后感：</strong>复述故事太多，自己的感受、联系和启发太少。</li>
-            <li><strong>中心详略：</strong>作文材料不少，但没有围绕中心安排详写和略写。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>补救入口</h2>
-          <ul class="level-list">
-            <li><strong>说明文：</strong>按"方法 + 特点 + 作用"写答案。</li>
-            <li><strong>读后感：</strong>用"少复述、多感受、联系生活"检查。</li>
-            <li><strong>作文：</strong>先写中心句，再决定哪一段详写。</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+    <section class="section"><div id="grade5-mistakes"></div></section>
 
     
 
@@ -204,48 +186,8 @@
         <h2>五年级从"专项会做"到"分析有深度"</h2>
         <p style="color:#666;">五年级进入第三学段，阅读答案要有层次，作文要有中心，整本书阅读和实用性阅读也要进入稳定训练。</p>
       </div>
-      <div class="table-card">
-        <h2>课标能力对照表</h2>
-        <div class="responsive-table">
-          <table>
-            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
-            <tbody>
-              <tr><td>阅读与鉴赏</td><td>人物形象、中心思想、句段作用、古诗赏析</td><td>能写出"结论 + 依据 + 分析"</td><td>能从主题、结构、语言三方面组织答案</td></tr>
-              <tr><td>实用性阅读</td><td>说明文、语言准确性、说明方法</td><td>能说清说明对象、特点和方法作用</td><td>能比较材料信息，判断表达是否准确严谨</td></tr>
-              <tr><td>表达与交流</td><td>中心详略、读后感、作文立意</td><td>作文有中心，材料能围绕中心安排详略</td><td>能把生活经历写出变化、发现或思考</td></tr>
-              <tr><td>整本书与跨学科</td><td>读书记录、科普阅读、资料整理</td><td>能做人物关系、情节推进或知识卡片</td><td>能用资料支撑自己的观点，完成读书分享</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="loop-grid">
-        <article class="loop-card">
-          <h3>5分钟入门自测</h3>
-          <ul>
-            <li>人物题是否有具体事例，不只贴标签。</li>
-            <li>说明方法题是否写出对象特点。</li>
-            <li>"能否删去"题是否说清删后变化。</li>
-            <li>作文是否先确定中心再选材料。</li>
-            <li>读后感是否"感受多于复述"。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>三层训练安排</h3>
-          <ul>
-            <li><strong>基础：</strong>每周 2 道人物/中心题，必须补原文依据。</li>
-            <li><strong>提升：</strong>每周 1 篇说明文，练准确性和方法作用。</li>
-            <li><strong>拔尖：</strong>每月 1 本书，完成"观点 + 证据 + 感受"分享。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>评价复盘量表</h3>
-          <div class="score-line">
-            <p><strong>3分：</strong>答案分层清楚，作文中心明确，能联系文本和生活。</p>
-            <p><strong>2分：</strong>会套模板，但分析不够具体。</p>
-            <p><strong>1分：</strong>只写结论或复述故事，下次先补依据和分析。</p>
-          </div>
-        </article>
-      </div>
+      <div id="grade5-curriculum"></div>
+      <div id="grade5-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
         <div class="responsive-table">
@@ -970,13 +912,18 @@
       <div id="grade5-mistakes-ref" style="margin-top:20px;"></div>
     </section>
   </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         if (window.DataLib) {
+                    // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('5', document.getElementById('grade5-hero'));
+          DataLib.renderGradeMistakes('5', document.getElementById('grade5-mistakes'));
+          DataLib.renderGradeCurriculum('5', document.getElementById('grade5-curriculum'));
+          DataLib.renderGradeLoop('5', document.getElementById('grade5-loop'));
           DataLib.renderGrammarByGrade('grade5', document.getElementById('grade5-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade5-mistakes-ref'), '5');
         }

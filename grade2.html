@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
   <style>
     .grade-two-hero {
       background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
@@ -283,18 +283,19 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
     <main>
-    <section class="grade-two-hero">
-      <p class="eyebrow" style="color:#8d6e00;">二年级爬坡期</p>
-      <h1>二年级语文学习指导</h1>
-      <p>二年级是语文的第一个"爬坡期"——上学期识字量爆发式增长，下学期要从"读懂一句话"过渡到"读懂一段话、写清一段话"。很多一年级成绩不错的孩子，二年级开始掉队，原因很简单：阅读和写话对理解力的要求突然高了一档，之前靠死记硬背攒的底子不够用了。本页聚焦三个最关键的爬坡能力：字词辨析、阅读概括、写话扩写。</p>
-    </section>
+    <section class="page-head" id="grade2-hero"></section>
 
     <section class="section">
       <div class="section-title">
@@ -323,20 +324,7 @@
  <h2>二年级从"会读句子"到"能写一段"</h2>
  <p style="color:#666;">二年级仍属于第一学段，关键是把字词、朗读、写话和口语表达练成稳定能力。</p>
  </div>
- <div class="table-card">
- <h2>课标能力对照表</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>课标维度</th><th>课堂内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
- <tbody>
- <tr><td>识字与写字</td><td>形近字、多音字、词语搭配</td><td>能在句子中区分易混字词</td><td>能用新词写通顺句子</td></tr>
- <tr><td>阅读与鉴赏</td><td>短文概括、原因题、信息题</td><td>能说清谁做了什么、结果怎样</td><td>能补一句"我从哪里看出来"</td></tr>
- <tr><td>表达与交流</td><td>写话扩写、标点、口语表达</td><td>能写 3-5 句通顺连贯的话</td><td>能加入动作、样子、声音、心情中的两项</td></tr>
- <tr><td>梳理与探究</td><td>词语归类、观察记录</td><td>能把同类词语归类</td><td>能用观察记录写一小段</td></tr>
- </tbody>
- </table>
- </div>
- </div>
+ <div id="grade2-curriculum"></div>
       <div class="loop-grid">
         <article class="loop-card"><h3>5分钟诊断性自测</h3><p style="font-size:12px;color:#999;margin-top:2px;">快速摸清卡点位置</p><ul><li>给 5 组形近字组词，是否混淆。</li><li>读一段短文，能否一句话概括。</li><li>看图说 3 句话，是否有顺序。</li><li>写一句问句和一句感叹句。</li></ul></article>
         <article class="loop-card"><h3>三层掌握训练</h3><p style="font-size:12px;color:#999;margin-top:2px;">步步为营，一层稳了再进下一层</p><ul><li><strong>基础：</strong>每天听写 5 个词，错字写错因。</li><li><strong>提升：</strong>每周 2 次把一句话扩成 3-5 句。</li><li><strong>拔尖：</strong>一周读 1 个短故事，按起因、经过、结果复述。</li></ul></article>
@@ -648,19 +636,19 @@
           <div>
             <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 15px;">形容词</p>
             <div class="word-bank">
-              <button class="word-btn adj" data-type="adj" data-value="红红的" onclick="selectWord(this)">红红的</button>
-              <button class="word-btn adj" data-type="adj" data-value="圆圆的" onclick="selectWord(this)">圆圆的</button>
-              <button class="word-btn adj" data-type="adj" data-value="甜甜的" onclick="selectWord(this)">甜甜的</button>
-              <button class="word-btn adj" data-type="adj" data-value="高高的" onclick="selectWord(this)">高高的</button>
+              <button class="word-btn adj" data-type="adj" data-value="红红的">红红的</button>
+              <button class="word-btn adj" data-type="adj" data-value="圆圆的">圆圆的</button>
+              <button class="word-btn adj" data-type="adj" data-value="甜甜的">甜甜的</button>
+              <button class="word-btn adj" data-type="adj" data-value="高高的">高高的</button>
             </div>
           </div>
           <div>
             <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 15px;">名词</p>
             <div class="word-bank">
-              <button class="word-btn noun" data-type="noun" data-value="苹果" onclick="selectWord(this)">苹果</button>
-              <button class="word-btn noun" data-type="noun" data-value="太阳" onclick="selectWord(this)">太阳</button>
-              <button class="word-btn noun" data-type="noun" data-value="西瓜" onclick="selectWord(this)">西瓜</button>
-              <button class="word-btn noun" data-type="noun" data-value="大树" onclick="selectWord(this)">大树</button>
+              <button class="word-btn noun" data-type="noun" data-value="苹果">苹果</button>
+              <button class="word-btn noun" data-type="noun" data-value="太阳">太阳</button>
+              <button class="word-btn noun" data-type="noun" data-value="西瓜">西瓜</button>
+              <button class="word-btn noun" data-type="noun" data-value="大树">大树</button>
             </div>
           </div>
         </div>
@@ -680,11 +668,11 @@
             今天天气很（ ），我和妈妈去公（ ）里玩。
           </div>
           <div class="char-options">
-            <button class="char-btn" data-value="晴" onclick="checkChar('晴')">晴</button>
-            <button class="char-btn" data-value="睛" onclick="checkChar('睛')">睛</button>
-            <button class="char-btn" data-value="清" onclick="checkChar('清')">清</button>
-            <button class="char-btn" data-value="园" onclick="checkChar('园')">园</button>
-            <button class="char-btn" data-value="圆" onclick="checkChar('圆')">圆</button>
+            <button class="char-btn" data-value="晴">晴</button>
+            <button class="char-btn" data-value="睛">睛</button>
+            <button class="char-btn" data-value="清">清</button>
+            <button class="char-btn" data-value="园">园</button>
+            <button class="char-btn" data-value="圆">圆</button>
           </div>
           <p id="charFeedback" style="margin-top: 20px; font-size: 16px; display: none;"></p>
           <button class="next-btn" style="background: linear-gradient(135deg, #74b9ff, #81ecec); color: white; border: none; margin-top: 15px;" onclick="nextCharQuestion()">下一题</button>
@@ -699,10 +687,10 @@
           <p style="font-size: 24px; font-weight: bold; color: #333; margin-bottom: 25px;">小猫吃鱼。</p>
           <p style="font-size: 16px; color: #666; margin-bottom: 15px;">添加这些词语让句子更生动：</p>
           <div class="expand-options">
-            <button class="expand-btn" data-value="可爱的" onclick="addExpandWord(this)">可爱的</button>
-            <button class="expand-btn" data-value="在桌子旁" onclick="addExpandWord(this)">在桌子旁</button>
-            <button class="expand-btn" data-value="开心地" onclick="addExpandWord(this)">开心地</button>
-            <button class="expand-btn" data-value="香喷喷的" onclick="addExpandWord(this)">香喷喷的</button>
+            <button class="expand-btn" data-value="可爱的">可爱的</button>
+            <button class="expand-btn" data-value="在桌子旁">在桌子旁</button>
+            <button class="expand-btn" data-value="开心地">开心地</button>
+            <button class="expand-btn" data-value="香喷喷的">香喷喷的</button>
           </div>
           <div style="margin-top: 25px;">
             <p style="font-size: 16px; color: #666; margin-bottom: 10px;">你的句子：</p>
@@ -719,6 +707,15 @@
       // 词语搭配游戏
       let selectedAdj = '';
       let selectedNoun = '';
+
+      // 事件委托：词语搭配选择
+      document.querySelectorAll('.word-bank').forEach(function(container) {
+        container.addEventListener('click', function(e) {
+          var btn = e.target.closest('.word-btn');
+          if (!btn) return;
+          selectWord(btn);
+        });
+      });
 
       function selectWord(btn) {
         const type = btn.dataset.type;
@@ -760,6 +757,13 @@
         { sentence: '妹妹的眼（ ）很亮，她在（ ）水里看到了小鱼。', answers: ['睛', '清'], feedback: '太棒了！"睛"和眼睛有关，"清"和水有关。' }
       ];
 
+      // 事件委托：形近字选择
+      document.querySelector('.char-options').addEventListener('click', function(e) {
+        var btn = e.target.closest('.char-btn');
+        if (!btn) return;
+        checkChar(btn.dataset.value);
+      });
+
       function checkChar(char) {
         const current = charQuestions[charIndex];
         const feedback = document.getElementById('charFeedback');
@@ -798,6 +802,13 @@
       // 句子扩写游戏
       let expandWords = [];
       const originalSentence = '小猫吃鱼。';
+
+      // 事件委托：句子扩写选择
+      document.querySelector('.expand-options').addEventListener('click', function(e) {
+        var btn = e.target.closest('.expand-btn');
+        if (!btn) return;
+        addExpandWord(btn);
+      });
 
       function addExpandWord(btn) {
         const word = btn.dataset.value;
@@ -858,13 +869,16 @@
       <div id="grade2-mistakes-ref" style="margin-top:20px;"></div>
     </section>
   </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         if (window.DataLib) {
+                    // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('2', document.getElementById('grade2-hero'));
+          DataLib.renderGradeCurriculum('2', document.getElementById('grade2-curriculum'));
           DataLib.renderGrammarByGrade('grade2', document.getElementById('grade2-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade2-mistakes-ref'), '2');
         }

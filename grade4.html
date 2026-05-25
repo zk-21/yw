@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
   <style>
     .answer-table,
     .knowledge-table {
@@ -159,18 +159,19 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section class="page-head grade-four">
-      <p class="eyebrow">四年级核心阶段</p>
-      <h1>从"读懂内容"提升到"概括清楚、依据充分、表达有层次"</h1>
-      <p>四年级是语文能力的"整合期"。三年级学会了写一段话，四年级要学的是一篇作文里哪段该详、哪段该略，阅读答题不能只写结论、必须拿出原文证据说明"我从哪儿看出来的"。这个能力的核心转变是：从"我感觉到"变成"我能在文中找到依据并解释清楚"——这是整个小学中高年级的分水岭。</p>
-    </section>
+    <section class="page-head" id="grade4-hero"></section>
 
     <section class="section">
       <div class="section-title">
@@ -187,26 +188,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="content-grid">
-        <article class="study-block">
-          <h2>本年级最容易掉分的 3 件事</h2>
-          <ul class="level-list">
-            <li><strong>概括段意：</strong>答案太散，只抄原句，不会合并成一句完整意思。</li>
-            <li><strong>古诗理解：</strong>只背诗句和诗人资料，答题时说不出画面和情感。</li>
-            <li><strong>人物/景物描写：</strong>作文写得完整，但重点场景缺动作、神态和细节。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>补救入口</h2>
-          <ul class="level-list">
-            <li><strong>阅读：</strong>每道题都补一句"我是从文中哪里看出来的"。</li>
-            <li><strong>古诗：</strong>先说画面，再说情感，资料只作辅助。</li>
-            <li><strong>作文：</strong>每周练一个重点场景，把人、事、景写具体。</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+    <section class="section"><div id="grade4-mistakes"></div></section>
 
     
 
@@ -269,48 +251,8 @@
         <p><strong>常见问题：</strong>四年级阅读和写作常卡在三处：证据缺失、赏析太浅、描写空洞。孩子能说出“他很勇敢”，但不能指出从哪句话看出来；能写“很生动”，却说不出具体好在哪里。</p>
         <p><strong>怎么做：</strong>用三步渐进：教师先示范“读题→回文找证据→组织答案”，再给“品质词、原文句子、解释”三张提示卡扶着练，最后撤掉提示独立完成。</p>
       </div>
-      <div class="table-card">
-        <h2>课标能力对照表</h2>
-        <div class="responsive-table">
-          <table>
-            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
-            <tbody>
-              <tr><td>语言积累与梳理</td><td>词语辨析、病句、句式、修辞</td><td>能在语境中改准确、写具体</td><td>能说明关键词和修辞带来的表达效果</td></tr>
-              <tr><td>阅读与鉴赏</td><td>概括、依据、人物品质、古诗情感</td><td>答案包含结论和原文依据</td><td>能补充简要分析，说明依据为什么成立</td></tr>
-              <tr><td>表达与交流</td><td>写事作文、细节描写、详略安排</td><td>能把重点经过写具体，起因结果略写</td><td>能用动作、语言、神态、心理表现人物变化</td></tr>
-              <tr><td>整本书与实践</td><td>批注阅读、人物卡、资料整理</td><td>能记录人物、事件、感受和疑问</td><td>能围绕一个主题做读书分享或小研究</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="loop-grid">
-        <article class="loop-card">
-          <h3>5分钟入门自测</h3>
-          <ul>
-            <li>概括短文时是否写清人物、事件和结果。</li>
-            <li>人物品质题是否有原文句子作证据。</li>
-            <li>修辞赏析是否写出方法、特点和效果。</li>
-            <li>作文重点段是否有动作、神态、心理细节。</li>
-            <li>读书笔记是否有摘抄、问题和感受。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>三层训练安排</h3>
-          <ul>
-            <li><strong>基础：</strong>每天 1 道概括题，按"谁做什么结果怎样"。</li>
-            <li><strong>提升：</strong>每周 2 道依据题，答案补"从哪里看出"。</li>
-            <li><strong>拔尖：</strong>每周写 1 个重点场景，突出人物变化。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>评价复盘量表</h3>
-          <div class="score-line">
-            <p><strong>3分：</strong>答案有结论、有依据、有分析，作文详略清楚。</p>
-            <p><strong>2分：</strong>能找依据，但分析浅或表达不够完整。</p>
-            <p><strong>1分：</strong>凭感觉答题，下次只练"回原文圈证据"。</p>
-          </div>
-        </article>
-      </div>
+      <div id="grade4-curriculum"></div>
+      <div id="grade4-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
         <div class="responsive-table">
@@ -1338,13 +1280,18 @@
       <div id="grade4-mistakes-ref" style="margin-top:20px;"></div>
     </section>
   </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         if (window.DataLib) {
+                    // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('4', document.getElementById('grade4-hero'));
+          DataLib.renderGradeMistakes('4', document.getElementById('grade4-mistakes'));
+          DataLib.renderGradeCurriculum('4', document.getElementById('grade4-curriculum'));
+          DataLib.renderGradeLoop('4', document.getElementById('grade4-loop'));
           DataLib.renderGrammarByGrade('grade4', document.getElementById('grade4-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade4-mistakes-ref'), '4');
         }

@@ -15,7 +15,7 @@
   <meta property="og:description" content="系统学习小学阶段必备词汇，涵盖同义词、反义词、成语、多音字等核心知识点。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
   <style>
     .interactive-section {
       padding: 40px 5vw;
@@ -534,9 +534,14 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a class="active" href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -2650,11 +2655,11 @@
         <h2>📝 词语数据库索引</h2>
         <p style="color:#666; font-size:15px;">数据来自 vocabulary.json — 同义词·反义词·成语·多音字·ABB/AABB</p>
         <div class="category-tabs" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0;">
-          <button class="category-tab active" onclick="vocabDbSwitch('同义词')">同义词</button>
-          <button class="category-tab" onclick="vocabDbSwitch('反义词')">反义词</button>
-          <button class="category-tab" onclick="vocabDbSwitch('成语')">成语</button>
-          <button class="category-tab" onclick="vocabDbSwitch('多音字')">多音字</button>
-          <button class="category-tab" onclick="vocabDbSwitch('ABB')">ABB式</button>
+          <button class="category-tab active" data-category="同义词">同义词</button>
+          <button class="category-tab" data-category="反义词">反义词</button>
+          <button class="category-tab" data-category="成语">成语</button>
+          <button class="category-tab" data-category="多音字">多音字</button>
+          <button class="category-tab" data-category="ABB">ABB式</button>
         </div>
         <div id="vocab-db-content" style="max-width:900px; margin:20px auto;"></div>
       </div>
@@ -3185,27 +3190,27 @@
       updateAchievements();
     });
   </script>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
-    function vocabDbSwitch(category) {
-      document.querySelectorAll('#vocab-db-quick .category-tab').forEach(function(t) {
-        t.classList.remove('active');
-        if (t.textContent.trim() === category) t.classList.add('active');
-      });
+    // 事件委托：资料库类别切换
+    document.querySelector('#vocab-db-quick .category-tabs').addEventListener('click', function(e) {
+      var btn = e.target.closest('.category-tab');
+      if (!btn || !btn.dataset.category) return;
+      var category = btn.dataset.category;
+      document.querySelectorAll('#vocab-db-quick .category-tab').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
       var container = document.getElementById('vocab-db-content');
       if (window.DataLib) {
-        if (category === '成语') {
-          DataLib.renderVocabularySection('成语', container);
-        } else if (category === '多音字') {
-          DataLib.renderVocabularySection('多音字', container);
-        } else {
-          DataLib.renderVocabularySection(category, container);
-        }
+        DataLib.renderVocabularySection(category, container);
       }
-    }
-    document.addEventListener('DOMContentLoaded', function() { setTimeout(function() { vocabDbSwitch('同义词'); }, 500); });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelector('#vocab-db-quick .category-tab[data-category="同义词"]').click();
+      }, 500);
+    });
   </script>
 </body>
 </html>

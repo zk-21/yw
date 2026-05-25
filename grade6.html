@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
 </head>
 <body>
   <header class="topbar">
@@ -33,19 +33,19 @@
       <a class="active" href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section class="page-head grade-six">
-      <p class="eyebrow">六年级/小升初冲刺阶段</p>
-      <h1>从"能力达标"冲刺到"衔接中学、综合运用"</h1>
-      <p>六年级是小学语文的收官之年，核心任务是从"学会知识"过渡到"学会学习"。本页以自主学习理论为框架，强调元认知监控、认知策略自主调用和中小衔接的梯度过渡，帮助学生建立"学习的主人"意识——不仅会答题，还知道为什么这样答，更能在新情境中迁移这些方法。</p>
-      <p>六年级处于Bloom认知目标分类的最高层级——"评价"与"创造"的过渡阶段，也是小学语文能力的总装整合期。认知心理学视角下，此阶段的核心任务是将离散的子技能（概括、赏析、推断、立意）整合为可迁移的综合阅读与表达素养。依据元认知理论（Flavell），六年级学生应具备"对认知的认知"——即在解题过程中主动监控自己的思维过程：判断题型、调用策略、检验答案、修正路径。中小衔接的本质不是知识容量的增加，而是认知加工模式的升级：从依赖外部指令的"他律学习"向自我规划与反思的"自律学习"转型。本页以认知诊断框架为基础，覆盖综合阅读分层答法、非连续文本引证策略、限时作文审题立意三大核心能力域。</p>
-    </section>
+    <section class="page-head" id="grade6-hero"></section>
 
     <section class="section">
       <div class="section-title">
@@ -64,26 +64,7 @@
 
 
 
-    <section class="section">
-      <div class="content-grid">
-        <article class="study-block">
-          <h2>本年级最容易掉分的 3 件事</h2>
-          <ul class="level-list">
-            <li><strong>综合阅读：</strong>会单题答法，但一篇文章里多题型混合就漏层次。</li>
-            <li><strong>小升初限时：</strong>平时会做，限时后审题不清、答案不完整。</li>
-            <li><strong>作文审题立意：</strong>能写完整故事，但扣题、点题和认识提升不够。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>补救入口</h2>
-          <ul class="level-list">
-            <li><strong>阅读：</strong>按"结论 + 依据 + 分析 + 中心"检查答案。</li>
-            <li><strong>训练：</strong>每周至少一次限时综合题，做完立刻复盘错因。</li>
-            <li><strong>作文：</strong>先审题圈关键词，再写开头扣题和结尾升格。</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+    <section class="section"><div id="grade6-mistakes"></div></section>
 
     
 
@@ -146,20 +127,7 @@
  <h2>六年级从"综合会做"到"小升初可迁移"</h2>
  <p style="color:#666;">六年级的提优重点是综合阅读、非连续性文本、古诗文、作文审题和限时表达。新增闭环让孩子练完能判断是否真正达标。</p>
  </div>
- <div class="table-card">
- <h2>课标能力对照表</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
- <tbody>
- <tr><td>综合阅读与鉴赏</td><td>记叙文、说明文、古诗文、句段作用</td><td>能按分值分点，写出结论、依据和分析</td><td>能把内容、结构、人物情感和中心关联起来</td></tr>
- <tr><td>实用性阅读与交流</td><td>非连续性文本、图表、材料比较、建议表达</td><td>能引用材料编号、数据或关键词作答</td><td>能比较多则材料，写出合理结论和建议</td></tr>
- <tr><td>表达与交流</td><td>限时作文、审题立意、点题、结尾升格</td><td>能在限定时间内完成结构完整的作文</td><td>能写出变化、认识和中心升华，不空喊口号</td></tr>
- <tr><td>整本书与跨学科</td><td>读书项目、资料筛选、综合性学习</td><td>能整理资料并用简明语言展示观点</td><td>能把阅读积累迁移到演讲、建议、短评和作文中</td></tr>
- </tbody>
- </table>
- </div>
- </div>
+ <div id="grade6-curriculum"></div>
       <div class="content-grid">
         <article class="loop-card">
           <h3>三层训练安排</h3>
@@ -767,13 +735,18 @@
     </section>
   </main>
 
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         if (window.DataLib) {
+                    // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('6', document.getElementById('grade6-hero'));
+          DataLib.renderGradeMistakes('6', document.getElementById('grade6-mistakes'));
+          DataLib.renderGradeCurriculum('6', document.getElementById('grade6-curriculum'));
+          DataLib.renderGradeLoop('6', document.getElementById('grade6-loop'));
           DataLib.renderGrammarByGrade('grade6', document.getElementById('grade6-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade6-mistakes-ref'), '6');
         }

@@ -17,7 +17,7 @@
   <meta property="og:description" content="先诊断、再判错因、再训练迁移。A卷诊断到B卷复测、C卷迁移，帮家长看清孩子下一步练什么。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
   <style>
     /* 诊断和任务模块 */
     .diagnosis-section {
@@ -91,11 +91,19 @@
       border: 2px solid #ddd;
       border-radius: 6px;
       margin-right: 12px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.3s;
+      background: none;
+      font: inherit;
+      color: inherit;
+      padding: 0;
+    }
+    .task-checkbox:focus-visible {
+      outline: 2px solid #5b6abf;
+      outline-offset: 2px;
     }
     .task-checkbox.completed {
       background: #4caf50;
@@ -529,6 +537,423 @@
         grid-template-columns: 1fr !important;
       }
     }
+
+    /* ── 家长今日看板 ── */
+    .parent-dashboard {
+      max-width: 1000px;
+      margin: -10px auto 30px;
+      padding: 20px 5vw;
+      display: none;
+    }
+    .parent-dashboard.loaded { display: block; }
+    .pd-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .pd-header h2 { font-size: 20px; color: #1f2937; margin: 0; }
+    .pd-header .pd-date { font-size: 13px; color: #999; }
+    .pd-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    .pd-card {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border: 1px solid #f0f0f0;
+      transition: box-shadow 0.2s;
+    }
+    .pd-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .pd-card-icon { font-size: 28px; margin-bottom: 8px; }
+    .pd-card .pd-value { font-size: 28px; font-weight: 700; color: #1f2937; }
+    .pd-card .pd-label { font-size: 12px; color: #888; margin-top: 4px; }
+    .pd-card .pd-sub  { font-size: 11px; color: #aaa; margin-top: 2px; }
+    .pd-card.warn { border-left: 3px solid #f59e0b; }
+    .pd-card.good { border-left: 3px solid #10b981; }
+    .pd-card.info { border-left: 3px solid #667eea; }
+    .pd-card.danger { border-left: 3px solid #ef4444; }
+    .pd-tasks {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #eef2ff, #faf5ff);
+      border-radius: 14px;
+      padding: 20px 24px;
+      border: 1px solid #dde1f0;
+    }
+    .pd-tasks h4 { margin: 0 0 6px; color: #4f46e5; font-size: 15px; }
+    .pd-tasks .pd-task-hint { font-size: 12px; color: #888; margin-bottom: 12px; }
+    .pd-task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .pd-task-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pd-task-text { font-size: 13px; color: #374151; flex: 1; }
+    .pd-task-link {
+      font-size: 12px;
+      color: #667eea;
+      text-decoration: none;
+      padding: 4px 12px;
+      border: 1px solid #667eea;
+      border-radius: 12px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .pd-task-link:hover { background: #667eea; color: white; }
+    .pd-empty-state {
+      text-align: center;
+      padding: 30px;
+      color: #bbb;
+    }
+    .pd-empty-state .icon { font-size: 40px; margin-bottom: 10px; }
+    .pd-new-user-cta {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: #667eea;
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .pd-cards { grid-template-columns: repeat(2, 1fr); }
+      .pd-card .pd-value { font-size: 22px; }
+    }
+
+    /* ── 角色切换器 ── */
+    .role-switch-section {
+      background: linear-gradient(135deg, #f8f9ff 0%, #fef7fb 100%);
+      padding: 20px 5vw;
+      border-bottom: 1px solid #eee;
+    }
+    .role-switch-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .role-switch-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      background: white;
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .role-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 100px;
+    }
+    .role-btn:hover {
+      background: #f5f5f5;
+    }
+    .role-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .role-icon {
+      font-size: 24px;
+    }
+    .role-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ── 学生视图样式 ── */
+    .student-view {
+      padding: 20px 5vw;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .student-tasks-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .student-task-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s;
+    }
+    .student-task-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    }
+    .task-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .task-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .task-content h4 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: #1f2937;
+    }
+    .task-content p {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .task-meta {
+      display: flex;
+      gap: 12px;
+    }
+    .task-time {
+      font-size: 12px;
+      color: #888;
+    }
+    .task-action {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .task-action:hover {
+      transform: scale(1.05);
+    }
+
+    /* ── 老师视图样式 ── */
+    .teacher-view {
+      padding: 20px 5vw;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .teacher-content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .teacher-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #f0f0f0;
+    }
+    .teacher-card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .teacher-card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: #1f2937;
+    }
+    .teacher-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .teacher-card li {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .teacher-card li:last-child {
+      margin-bottom: 0;
+    }
+    .scoring-guide {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .scoring-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .scoring-item .score {
+      font-weight: 700;
+      color: #667eea;
+      font-size: 13px;
+      min-width: 80px;
+    }
+    .scoring-item span:last-child {
+      font-size: 12px;
+      color: #666;
+    }
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .resource-links a {
+      padding: 6px 14px;
+      background: #eef2ff;
+      color: #4f46e5;
+      border-radius: 16px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .resource-links a:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .student-task-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .task-action {
+        width: 100%;
+        text-align: center;
+      }
+      .role-btn {
+        min-width: 80px;
+        padding: 10px 12px;
+      }
+    }
+
+    /* ── 快速诊断入口 ── */
+    .quick-diagnosis {
+      max-width: 760px;
+      margin: 0 auto 36px;
+      padding: 0 5vw;
+    }
+    .qd-card {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.12);
+      border: 1px solid #e8ecf8;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .qd-card.solved {
+      border-color: #c8e6c9;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.1);
+    }
+    .qd-header {
+      padding: 20px 24px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .qd-header h3 { font-size: 17px; color: #1f2937; margin: 0; }
+    .qd-returning { display: none; font-size: 12px; color: #10b981; margin-left: auto; }
+    .qd-card.solved .qd-returning { display: inline; }
+    .qd-steps { display: flex; gap: 0; padding: 16px 24px; }
+    .qd-step {
+      flex: 1; text-align: center; position: relative;
+      font-size: 12px; color: #ccc; padding-top: 24px;
+      transition: color 0.3s;
+    }
+    .qd-step::before {
+      content: ''; position: absolute; top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #e5e7eb; transition: all 0.3s;
+    }
+    .qd-step::after {
+      content: ''; position: absolute; top: 4px; left: calc(50% + 8px);
+      width: calc(100% - 16px); height: 2px;
+      background: #e5e7eb; transition: background 0.3s;
+    }
+    .qd-step:last-child::after { display: none; }
+    .qd-step.active { color: #667eea; font-weight: 600; }
+    .qd-step.active::before { background: #667eea; box-shadow: 0 0 0 4px rgba(102,126,234,0.2); }
+    .qd-step.done { color: #10b981; }
+    .qd-step.done::before { background: #10b981; }
+    .qd-step.done::after { background: #10b981; }
+    .qd-body { padding: 4px 24px 24px; min-height: 110px; }
+    .qd-choices { display: flex; flex-wrap: wrap; gap: 10px; }
+    .qd-choice {
+      flex: 1; min-width: 90px; padding: 14px 16px;
+      border: 2px solid #e5e7eb; border-radius: 12px;
+      background: white; text-align: center; cursor: pointer;
+      font-size: 15px; font-weight: 600; color: #374151;
+      transition: all 0.2s; user-select: none;
+    }
+    .qd-choice:hover { border-color: #667eea; background: #f5f6ff; }
+    .qd-choice.selected { border-color: #667eea; background: #eef0ff; color: #4f46e5; }
+    .qd-choice .sub { display: block; font-size: 11px; color: #999; font-weight: 400; margin-top: 4px; }
+    .qd-result { display: none; animation: qdFadeIn 0.4s ease; }
+    @keyframes qdFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .qd-result.show { display: block; }
+    .qd-result h4 { font-size: 16px; color: #10b981; margin: 0 0 8px; }
+    .qd-path { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .qd-path-item {
+      flex: 1; min-width: 160px; padding: 14px; border-radius: 12px;
+      text-decoration: none; display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 600; transition: all 0.2s;
+    }
+    .qd-path-item.step1 { background: #eef2ff; color: #4f46e5; }
+    .qd-path-item.step2 { background: #fef3c7; color: #b45309; }
+    .qd-path-item.step3 { background: #d1fae5; color: #065f46; }
+    .qd-path-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .qd-path-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; flex-shrink: 0;
+    }
+    .qd-path-item.step1 .qd-path-num { background: #667eea; color: white; }
+    .qd-path-item.step2 .qd-path-num { background: #f59e0b; color: white; }
+    .qd-path-item.step3 .qd-path-num { background: #10b981; color: white; }
+    .qd-reset {
+      display: inline-block; margin-top: 12px; font-size: 12px;
+      color: #999; cursor: pointer; text-decoration: underline;
+    }
+    @media (max-width: 480px) {
+      .qd-choice { min-width: 70px; padding: 12px 8px; font-size: 13px; }
+      .qd-body { padding: 4px 16px 20px; }
+    }
   </style>
 </head>
 <body>
@@ -538,6 +963,7 @@
     <nav class="nav" aria-label="主导航">
       <a class="active" href="index.html">总览</a>
       <a href="agent.html">AI Agent</a>
+      <a href="report.html">学习报告</a>
       <a href="pinyin.html">拼音学习</a>
       <a href="grammar.html">语法知识</a>
       <a href="composition.html">作文专题</a>
@@ -556,7 +982,34 @@
   </header>
 
   <main>
- <!-- 分层入口模块 -->
+<!-- ════════ 快速诊断入口 ════════ -->
+<section class="quick-diagnosis" id="quickDiagnosis">
+  <div class="qd-card" id="qdCard">
+    <div class="qd-header">
+      <span style="font-size:22px;">🎯</span>
+      <h3>快速开始：30秒找到最适合的训练</h3>
+      <span class="qd-returning" id="qdReturning">✅ 已有诊断记录</span>
+    </div>
+    <div class="qd-steps" id="qdSteps">
+      <div class="qd-step active" data-step="1">1. 年级</div>
+      <div class="qd-step" data-step="2">2. 目标</div>
+      <div class="qd-step" data-step="3">3. 时间</div>
+    </div>
+    <div class="qd-body" id="qdBody">
+      <div class="qd-choices" id="qdChoices">
+        <button class="qd-choice" data-val="1">一年级<span class="sub">拼音·识字</span></button>
+        <button class="qd-choice" data-val="2">二年级<span class="sub">字词·写话</span></button>
+        <button class="qd-choice" data-val="3">三年级<span class="sub">段落·作文</span></button>
+        <button class="qd-choice" data-val="4">四年级<span class="sub">概括·赏析</span></button>
+        <button class="qd-choice" data-val="5">五年级<span class="sub">分析·立意</span></button>
+        <button class="qd-choice" data-val="6">六年级<span class="sub">综合·冲刺</span></button>
+      </div>
+      <div class="qd-result" id="qdResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 分层入口模块 -->
  <section class="layer-entry-section">
  <div class="layer-entry-container">
  <div class="layer-entry-title">
@@ -569,7 +1022,7 @@
  本系统借鉴<b>认知诊断模型</b>（CDM, Cognitive Diagnostic Model）的思路，通过错因码体系构建6维能力剖面（字词基础→信息提取→推理整合→概括归纳→赏析评价→表达输出），实现<b>基于属性的精准分层</b>，而非基于总分的粗糙分类。每个孩子进入的通道，是对其当前基础能力最匹配的最近发展区起点。
  </div>
  <div class="layer-cards">
- <div class="layer-card top-student" onclick="selectLayer('top')">
+ <div class="layer-card top-student" role="button" tabindex="0" data-layer="top" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()">
  <div class="layer-card-icon">🏆</div>
  <h3>尖子生通道</h3>
  <p>适合成绩稳定在90分以上，想要冲刺满分、竞赛题、拔尖晋级的学生</p>
@@ -582,7 +1035,7 @@
  </ul>
  <a href="practice.html#top-student-zone" class="layer-card-btn">进入尖子生通道 →</a>
  </div>
- <div class="layer-card avg-student" onclick="selectLayer('avg')">
+ <div class="layer-card avg-student" role="button" tabindex="0" data-layer="avg" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()">
  <div class="layer-card-icon">📚</div>
  <h3>中等生强化通道</h3>
  <p>适合成绩在70-90分之间，需要系统补弱、夯实基础、稳定提升的学生</p>
@@ -614,26 +1067,26 @@
  <!-- 今日任务 -->
  <div class="diagnosis-card">
  <h3>一对一拔尖辅导</h3>
- <ul class="task-list" id="taskList">
- <li class="task-item">
- <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
- <span class="task-text">A卷诊断后自动生成错因码</span>
- <span class="task-time">诊断</span>
- </li>
- <li class="task-item">
- <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
- <span class="task-text">按错因进入一对一精讲训练包</span>
- <span class="task-time">精讲</span>
- </li>
- <li class="task-item">
- <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
- <span class="task-text">B卷复测同类变式是否掌握</span>
- <span class="task-time">复测</span>
- </li>
- <li class="task-item">
- <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
- <span class="task-text">C卷混合迁移，进入拔尖晋级</span>
- <span class="task-time">拔尖</span>
+<ul class="task-list" id="taskList">
+<li class="task-item">
+<button class="task-checkbox">✓</button>
+<span class="task-text">A卷诊断后自动生成错因码</span>
+<span class="task-time">诊断</span>
+</li>
+<li class="task-item">
+<button class="task-checkbox">✓</button>
+<span class="task-text">按错因进入一对一精讲训练包</span>
+<span class="task-time">精讲</span>
+</li>
+<li class="task-item">
+<button class="task-checkbox">✓</button>
+<span class="task-text">B卷复测同类变式是否掌握</span>
+<span class="task-time">复测</span>
+</li>
+<li class="task-item">
+<button class="task-checkbox">✓</button>
+<span class="task-text">C卷混合迁移，进入拔尖晋级</span>
+<span class="task-time">拔尖</span>
  </li>
  </ul>
  <a href="practice.html#flow-training" class="diagnosis-btn secondary">看家长闭环图</a>
@@ -793,14 +1246,21 @@
  <h1>特级教师式一对一拔尖辅导</h1>
  <p class="lead">先诊断、再判错因、再训练迁移。孩子只需要完成题目，系统自动生成错因画像、训练包、复测路径和拔尖晋级建议。</p>
     <div class="hero-search" style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
-      <input type="text" id="hero-search-input" placeholder="🔍 快速搜索知识点、年级、题型..." style="flex:1; min-width:220px; padding:14px 18px; border:2px solid #e5e7eb; border-radius:30px; font-size:15px; background:white; transition:border-color 0.3s;" onkeydown="if(event.key==='Enter')goHeroSearch()">
-      <button onclick="goHeroSearch()" style="padding:14px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap;">搜索</button>
+      <input type="text" id="hero-search-input" placeholder="🔍 快速搜索知识点、年级、题型..." style="flex:1; min-width:220px; padding:14px 18px; border:2px solid #e5e7eb; border-radius:30px; font-size:15px; background:white; transition:border-color 0.3s;">
+      <button id="hero-search-btn" style="padding:14px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap;">搜索</button>
     </div>
     <script>
-      function goHeroSearch() {
+      // 事件委托：英雄区搜索
+      document.getElementById('hero-search-btn').addEventListener('click', function() {
         var q = document.getElementById('hero-search-input').value.trim();
         if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
-      }
+      });
+      document.getElementById('hero-search-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          var q = this.value.trim();
+          if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+        }
+      });
     </script>
     <div class="hero-actions">
 <a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
@@ -818,14 +1278,61 @@
  <li><span>2</span>用常考题型做A卷诊断</li>
  <li><span>3</span>自动判断错因与扣分层</li>
  <li><span>4</span>对照满分答案讲清方法</li>
- <li><span>5</span>同类变式迁移后再晋级</li>
- </ol>
- </div>
- </section>
+<li><span>5</span>同类变式迁移后再晋级</li>
+</ol>
+</div>
+</section>
 
- <section class="section teacher-note">
- <div class="section-title">
- <p class="eyebrow">第一次使用</p>
+<!-- ════════ 角色切换 & 今日看板 ════════ -->
+<section class="role-switch-section">
+  <div class="role-switch-container">
+    <div class="role-switch" id="roleSwitch">
+      <!-- JS 动态渲染角色切换器 -->
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 学生视图：今天练什么 ════════ -->
+<section class="student-view" id="studentView" style="display: none;">
+  <div class="section-title">
+    <p class="eyebrow">🎯 今日任务</p>
+    <h2>今天练什么</h2>
+    <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">专注做好今天的任务，每天进步一点点</p>
+  </div>
+  <div class="student-tasks" id="studentTasks">
+    <!-- JS 动态渲染学生任务 -->
+  </div>
+</section>
+
+<!-- ════════ 家长视图：学习报告 ════════ -->
+<section class="parent-view" id="parentView" style="display: none;">
+  <div class="section-title">
+    <p class="eyebrow">📊 学习分析</p>
+    <h2>为什么练这个</h2>
+    <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">了解孩子的学习进度和薄弱环节</p>
+  </div>
+  <div class="parent-dashboard" id="parentDashboard">
+    <div class="pd-cards" id="pdCards">
+      <!-- JS 动态渲染 -->
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 老师视图：教学指导 ════════ -->
+<section class="teacher-view" id="teacherView" style="display: none;">
+  <div class="section-title">
+    <p class="eyebrow">👨‍🏫 教学要点</p>
+    <h2>怎么讲、怎么批改</h2>
+    <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">教学指导和评分标准</p>
+  </div>
+  <div class="teacher-content" id="teacherContent">
+    <!-- JS 动态渲染 -->
+  </div>
+</section>
+
+<section class="section teacher-note">
+<div class="section-title">
+<p class="eyebrow">第一次使用</p>
  <h2>家长先按三步走，不用一次看完所有内容</h2>
  <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这个网站不是知识大全目录，而是学习路线图。先定位年级，再选一条本周路线，最后把具体题目交给 AI 或练习页处理。</p>
  </div>
@@ -1265,14 +1772,16 @@
         initTasks();
       });
 
-      function toggleTask(checkbox) {
-        const taskItem = checkbox.parentElement;
-        const taskText = taskItem.querySelector('.task-text');
-
-        checkbox.classList.toggle('completed');
+      // 事件委托：每日任务勾选
+      document.getElementById('taskList').addEventListener('click', function(e) {
+        var btn = e.target.closest('.task-checkbox');
+        if (!btn) return;
+        var taskItem = btn.parentElement;
+        var taskText = taskItem.querySelector('.task-text');
+        btn.classList.toggle('completed');
         taskText.classList.toggle('completed');
         saveTasks();
-      }
+      });
 
       function initTasks() {
         const savedTasks = localStorage.getItem('dailyTasks');
@@ -1298,12 +1807,15 @@
         localStorage.setItem('dailyTasks', JSON.stringify(tasks));
       }
 
-      function selectLayer(type) {
-        const target = type === 'top'
+      // 事件委托：分层通道卡片点击
+      document.querySelector('.layer-cards').addEventListener('click', function(e) {
+        var card = e.target.closest('.layer-card');
+        if (!card || !card.dataset.layer) return;
+        var target = card.dataset.layer === 'top'
           ? 'practice.html#top-student-zone'
           : 'practice.html#avg-student-zone';
         window.location.href = target;
-      }
+      });
 
       document.querySelectorAll('.grade-panel').forEach(panel => {
         panel.addEventListener('click', () => {
@@ -1338,9 +1850,590 @@
     <div id="data-overview-grid" style="max-width:900px; margin:0 auto; padding:0 20px 40px;"></div>
   </section>
   </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-core.js?v=90"></script>
+  <script defer src="data/role-manager.js?v=90"></script>
+  <script defer src="data/learning-path-recommender.js?v=90"></script>
+  <script defer src="data/learning-path-enhanced.js?v=90"></script>
+  <script defer src="data/smart-wrong-notebook.js?v=90"></script>
+  <script defer src="data/ai-tutor-enhanced.js?v=90"></script>
   <script>
+    // ── 角色切换和视图管理 ──
+    (function() {
+      // 安全解析localStorage数据
+      function safeParse(key, defaultValue) {
+        try {
+          var val = localStorage.getItem(key);
+          return val ? JSON.parse(val) : defaultValue;
+        } catch(e) {
+          return defaultValue;
+        }
+      }
+
+      // 获取学习数据
+      function getLearningData() {
+        return {
+          lastResult: safeParse('lastDiagnosisResult', {}),
+          wrongList: safeParse('wrongAnswers', []),
+          streak: parseInt(localStorage.getItem('checkinStreak') || '0'),
+          rewardData: safeParse('rewardData', {})
+        };
+      }
+
+      // 渲染角色切换器
+      function renderRoleSwitch() {
+        var container = document.getElementById('roleSwitch');
+        if (!container) return;
+
+        var roles = [
+          { id: 'student', name: '学生', icon: '👦', desc: '专注学习' },
+          { id: 'parent', name: '家长', icon: '👨‍👩‍👧', desc: '了解进度' },
+          { id: 'teacher', name: '老师', icon: '👨‍🏫', desc: '教学指导' }
+        ];
+
+        var currentRole = RoleManager.getCurrentRole();
+
+        var html = '<div class="role-switch-wrapper">';
+        roles.forEach(function(role) {
+          var isActive = currentRole === role.id;
+          html += '<button ' +
+            'class="role-btn' + (isActive ? ' active' : '') + '" ' +
+            'onclick="switchRole(\'' + role.id + '\')" ' +
+            'title="' + role.desc + '">' +
+            '<span class="role-icon">' + role.icon + '</span>' +
+            '<span class="role-name">' + role.name + '</span>' +
+            '</button>';
+        });
+        html += '</div>';
+
+        container.innerHTML = html;
+      }
+
+      // 切换角色
+      window.switchRole = function(roleId) {
+        if (RoleManager.setRole(roleId)) {
+          updateViews();
+        }
+      };
+
+      // 更新视图显示
+      function updateViews() {
+        var role = RoleManager.getCurrentRole();
+
+        // 隐藏所有视图
+        document.getElementById('studentView').style.display = 'none';
+        document.getElementById('parentView').style.display = 'none';
+        document.getElementById('teacherView').style.display = 'none';
+
+        // 显示当前角色视图
+        switch(role) {
+          case 'student':
+            document.getElementById('studentView').style.display = 'block';
+            renderStudentView();
+            break;
+          case 'parent':
+            document.getElementById('parentView').style.display = 'block';
+            renderParentView();
+            break;
+          case 'teacher':
+            document.getElementById('teacherView').style.display = 'block';
+            renderTeacherView();
+            break;
+        }
+      }
+
+      // 渲染学生视图 - 今天练什么（智能推荐）
+      function renderStudentView() {
+        var container = document.getElementById('studentTasks');
+        if (!container) return;
+
+        var data = getLearningData();
+        
+        // 使用增强版智能推荐引擎生成个性化任务
+        var tasks = [];
+        if (window.LearningPathEnhanced) {
+          // 分析学习行为
+          var behavior = window.LearningPathEnhanced.analyzeLearningBehavior(data);
+          
+          // 难度自适应调整
+          var difficultyAdjustment = window.LearningPathEnhanced.adjustDifficulty(data);
+          
+          // AI错因分析
+          var errorAnalysis = window.SmartWrongNotebook?.analyzeErrorCauses(data.wrongList) || {};
+          
+          // 生成个性化训练计划
+          var personalizedPlan = window.LearningPathEnhanced.generatePersonalizedPlan(data);
+          
+          // 转换为任务格式
+          if (personalizedPlan.modules && personalizedPlan.modules.length > 0) {
+            tasks = personalizedPlan.modules.map(function(module) {
+              return {
+                title: module.name,
+                description: module.objectives ? module.objectives.join('、') : '个性化训练任务',
+                duration: module.duration,
+                priority: module.priority,
+                link: 'practice.html#' + module.id,
+                type: module.id
+              };
+            });
+          }
+        }
+        
+        // 如果增强版推荐失败，使用基础推荐
+        if (tasks.length === 0) {
+          var recommendations = window.LearningPathRecommender?.getPersonalizedRecommendations(data) || {};
+          tasks = recommendations.dailyTasks || generateStudentTasks(data);
+        }
+
+        if (tasks.length === 0) {
+          container.innerHTML = 
+            '<div style="text-align:center;padding:40px;">' +
+            '<div style="font-size:48px;margin-bottom:16px;">🎯</div>' +
+            '<h3 style="color:#333;margin-bottom:8px;">准备开始学习</h3>' +
+            '<p style="color:#888;margin-bottom:20px;">完成一次诊断，系统会为你推荐今日任务</p>' +
+            '<a href="practice.html#diagnosis" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:8px;text-decoration:none;font-weight:600;">开始诊断 →</a>' +
+            '</div>';
+          return;
+        }
+
+        var html = '<div class="student-tasks-grid">';
+        tasks.forEach(function(task, index) {
+          var priorityColor = task.priority === 'high' ? 'linear-gradient(135deg, #ef4444, #dc2626)' :
+                             task.priority === 'medium' ? 'linear-gradient(135deg, #f59e0b, #d97706)' :
+                             'linear-gradient(135deg, #6b7280, #4b5563)';
+          
+          html += '<div class="student-task-card">' +
+            '<div class="task-number" style="background:' + priorityColor + '">' + (index + 1) + '</div>' +
+            '<div class="task-content">' +
+            '<h4>' + task.title + '</h4>' +
+            '<p>' + (task.description || task.desc) + '</p>' +
+            '<div class="task-meta">' +
+            '<span class="task-time">⏱️ ' + (task.duration ? task.duration + '分钟' : task.time) + '</span>' +
+            (task.priority === 'high' ? '<span style="font-size:12px;color:#ef4444;font-weight:600;margin-left:12px;">🔥 优先完成</span>' : '') +
+            '</div>' +
+            '</div>' +
+            '<a href="' + task.link + '" class="task-action">开始 →</a>' +
+            '</div>';
+        });
+        html += '</div>';
+
+        container.innerHTML = html;
+      }
+
+      // 生成学生任务
+      function generateStudentTasks(data) {
+        var tasks = [];
+        var wrongList = data.wrongList;
+        var lastResult = data.lastResult;
+        var now = new Date().toISOString();
+        var overdueCount = wrongList.filter(function(w) {
+          return w.mastery !== 'mastered' && w.nextReview && w.nextReview < now;
+        }).length;
+
+        // 任务1：错题复习
+        if (overdueCount > 0) {
+          tasks.push({
+            title: '复习超期错题',
+            desc: '有 ' + overdueCount + ' 道题需要复习，加深记忆',
+            time: '10分钟',
+            link: 'practice.html#wrong-notebook'
+          });
+        } else if (wrongList.length > 0) {
+          tasks.push({
+            title: '错题巩固',
+            desc: '复习已掌握的错题，防止遗忘',
+            time: '10分钟',
+            link: 'practice.html#wrong-notebook'
+          });
+        }
+
+        // 任务2：诊断/训练
+        if (lastResult.totalScore && lastResult.totalScore < 12) {
+          tasks.push({
+            title: '针对性训练',
+            desc: '根据诊断结果，提升薄弱环节',
+            time: '15分钟',
+            link: 'practice.html#flow-training'
+          });
+        } else if (!lastResult.totalScore) {
+          tasks.push({
+            title: '能力诊断',
+            desc: '了解当前水平，找到学习方向',
+            time: '15分钟',
+            link: 'practice.html#diagnosis'
+          });
+        } else {
+          tasks.push({
+            title: '进阶挑战',
+            desc: '挑战更高难度，突破自我',
+            time: '15分钟',
+            link: 'practice.html#diagnosis'
+          });
+        }
+
+        // 任务3：阅读/作文
+        if (lastResult.gradeLabel) {
+          tasks.push({
+            title: '阅读与写作',
+            desc: '本周阅读训练 + 小练笔',
+            time: '20分钟',
+            link: 'composition.html'
+          });
+        } else {
+          tasks.push({
+            title: '积累古诗',
+            desc: '学习一首古诗，培养语感',
+            time: '10分钟',
+            link: 'pinyin.html'
+          });
+        }
+
+        return tasks.slice(0, 3);
+      }
+
+      // 渲染家长视图 - 学习分析
+      function renderParentView() {
+        var container = document.getElementById('pdCards');
+        if (!container) return;
+
+        var data = getLearningData();
+        var lastResult = data.lastResult;
+        var wrongList = data.wrongList;
+        var streak = data.streak;
+        var points = data.rewardData.points || 0;
+        var badges = data.rewardData.badges || [];
+
+        if (!lastResult.totalScore && !wrongList.length && !streak && !points) {
+          container.innerHTML =
+            '<div class="pd-empty-state" style="grid-column:1/-1;">' +
+            '<div class="icon">👋</div>' +
+            '<p style="font-size:15px;color:#888;">还没有学习数据</p>' +
+            '<p style="font-size:13px;color:#bbb;">让孩子完成一次诊断后，看板会自动显示</p>' +
+            '<a class="pd-new-user-cta" href="practice.html#diagnosis">开始诊断</a>' +
+            '</div>';
+          return;
+        }
+
+        function fmtDate(iso) {
+          if (!iso) return '—';
+          var d = new Date(iso);
+          return d.getMonth() + 1 + '/' + d.getDate();
+        }
+
+        var diagScore = lastResult.totalScore || 0;
+        var diagGrade = lastResult.gradeLabel || '';
+        var diagDate = lastResult.date || '';
+        var overdueCount = wrongList.filter(function(w) {
+          return w.mastery !== 'mastered' && w.nextReview && w.nextReview < new Date().toISOString();
+        }).length;
+
+        var html = '';
+
+        // 卡片1：最近诊断
+        html += '<div class="pd-card info">';
+        html += '<div class="pd-card-icon">📝</div>';
+        html += '<div class="pd-value">' + diagScore + ' <span style="font-size:14px;font-weight:400;color:#888;">/ 15</span></div>';
+        html += '<div class="pd-label">最近诊断 ' + (diagGrade || '—') + '</div>';
+        html += '<div class="pd-sub">' + fmtDate(diagDate) + (diagDate ? '（' + Math.floor((Date.now() - new Date(diagDate)) / 86400000) + '天前）' : '') + '</div>';
+        html += '</div>';
+
+        // 卡片2：错题本
+        var warnClass = overdueCount > 0 ? 'warn' : 'good';
+        html += '<div class="pd-card ' + warnClass + '">';
+        html += '<div class="pd-card-icon">📒</div>';
+        html += '<div class="pd-value">' + wrongList.length + '</div>';
+        html += '<div class="pd-label">错题总数</div>';
+        html += '<div class="pd-sub">';
+        html += overdueCount > 0 ? '<span style="color:#f59e0b;font-weight:600;">' + overdueCount + ' 条超期未复习</span>' : (wrongList.length > 0 ? '全部已复习 ✓' : '暂无错题');
+        html += '</div>';
+        html += '</div>';
+
+        // 卡片3：连续打卡
+        var streakClass = streak >= 7 ? 'good' : (streak >= 3 ? 'info' : '');
+        html += '<div class="pd-card ' + streakClass + '">';
+        html += '<div class="pd-card-icon">🔥</div>';
+        html += '<div class="pd-value">' + streak + ' <span style="font-size:14px;font-weight:400;color:#888;">天</span></div>';
+        html += '<div class="pd-label">连续打卡</div>';
+        html += '<div class="pd-sub">' + (streak >= 7 ? '很稳定，继续保持！' : streak >= 3 ? '坚持就是胜利' : '继续加油') + '</div>';
+        html += '</div>';
+
+        // 卡片4：积分徽章
+        html += '<div class="pd-card info">';
+        html += '<div class="pd-card-icon">⭐</div>';
+        html += '<div class="pd-value">' + points + '</div>';
+        html += '<div class="pd-label">学习积分</div>';
+        html += '<div class="pd-sub">徽章：' + (badges.length > 0 ? badges.join('、') : '暂无') + '</div>';
+        html += '</div>';
+
+        // 查看完整报告入口
+        html += '<div style="grid-column:1/-1; text-align:center; margin-top:4px;">';
+        html += '<a href="report.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:20px;text-decoration:none;font-size:14px;font-weight:600;">📊 查看完整学习报告 →</a>';
+        html += '</div>';
+
+        container.innerHTML = html;
+      }
+
+      // 渲染老师视图 - 教学指导
+      function renderTeacherView() {
+        var container = document.getElementById('teacherContent');
+        if (!container) return;
+
+        var html = '<div class="teacher-content-grid">';
+
+        // 教学要点卡片
+        html += '<div class="teacher-card">';
+        html += '<div class="teacher-card-icon">📚</div>';
+        html += '<h3>教学要点</h3>';
+        html += '<ul>';
+        html += '<li><strong>阅读题教学：</strong>先定位问题类型，再找原文依据，最后组织语言</li>';
+        html += '<li><strong>作文教学：</strong>结构清晰（开头-中间-结尾），细节描写要具体</li>';
+        html += '<li><strong>基础知识：</strong>拼音、字词、句型要扎实，每天5分钟巩固</li>';
+        html += '</ul>';
+        html += '</div>';
+
+        // 评分标准卡片
+        html += '<div class="teacher-card">';
+        html += '<div class="teacher-card-icon">📝</div>';
+        html += '<h3>评分标准参考</h3>';
+        html += '<div class="scoring-guide">';
+        html += '<div class="scoring-item"><span class="score">A (90+)</span><span>思路清晰，表达准确，有细节</span></div>';
+        html += '<div class="scoring-item"><span class="score">B (75-89)</span><span>思路基本清楚，表达较准确</span></div>';
+        html += '<div class="scoring-item"><span class="score">C (60-74)</span><span>有思路，但表达不够完整</span></div>';
+        html += '<div class="scoring-item"><span class="score">D (60以下)</span><span>需要加强基础训练</span></div>';
+        html += '</div>';
+        html += '</div>';
+
+        // 错因分析卡片
+        html += '<div class="teacher-card">';
+        html += '<div class="teacher-card-icon">🔍</div>';
+        html += '<h3>常见错因及对策</h3>';
+        html += '<ul>';
+        html += '<li><strong>R1 审题不清：</strong>教学生圈画题目关键词</li>';
+        html += '<li><strong>R2 找依据弱：</strong>训练定位原文关键句</li>';
+        html += '<li><strong>R3 概括能力弱：</strong>练习提炼段落中心</li>';
+        html += '<li><strong>L1 表达不完整：</strong>用"因为...所以..."句式训练</li>';
+        html += '</ul>';
+        html += '</div>';
+
+        // 教学资源卡片
+        html += '<div class="teacher-card">';
+        html += '<div class="teacher-card-icon">🔗</div>';
+        html += '<h3>教学资源链接</h3>';
+        html += '<div class="resource-links">';
+        html += '<a href="knowledge-map.html">知识地图</a>';
+        html += '<a href="grammar.html">语法知识点</a>';
+        html += '<a href="vocabulary.html">词汇积累</a>';
+        html += '<a href="composition.html">作文指导</a>';
+        html += '</div>';
+        html += '</div>';
+
+        html += '</div>';
+
+        container.innerHTML = html;
+      }
+
+      // 初始化
+      function init() {
+        renderRoleSwitch();
+        updateViews();
+
+        // 监听角色变化
+        window.addEventListener('roleChange', function() {
+          renderRoleSwitch();
+          updateViews();
+        });
+      }
+
+      // DOM加载完成后初始化
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+
+    // ── 快速诊断入口 ──
+    (function() {
+      var STORAGE_KEY = 'quickDiagnosis';
+      var card = document.getElementById('qdCard');
+      var stepsEl = document.getElementById('qdSteps');
+      var choicesEl = document.getElementById('qdChoices');
+      var resultEl = document.getElementById('qdResult');
+      var returningEl = document.getElementById('qdReturning');
+      if (!card || !choicesEl) return;
+
+      var state = { grade: null, goal: null, time: null, step: 1 };
+
+      // 恢复已保存状态
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
+      if (saved && saved.grade && saved.goal && saved.time) {
+        state = saved;
+        card.classList.add('solved');
+        renderResult();
+      }
+
+      // 事件委托：选项点击
+      choicesEl.addEventListener('click', function(e) {
+        var btn = e.target.closest('.qd-choice');
+        if (!btn) return;
+        var val = btn.dataset.val;
+
+        if (state.step === 1) {
+          state.grade = val;
+          state.step = 2;
+          updateSteps();
+          renderGoalChoices();
+        } else if (state.step === 2) {
+          state.goal = val;
+          state.step = 3;
+          updateSteps();
+          renderTimeChoices();
+        } else if (state.step === 3) {
+          state.time = val;
+          state.step = 3;
+          updateSteps();
+          saveState();
+          renderResult();
+        }
+      });
+
+      // 重置按钮
+      resultEl.addEventListener('click', function(e) {
+        if (e.target.classList.contains('qd-reset')) {
+          state = { grade: null, goal: null, time: null, step: 1 };
+          localStorage.removeItem(STORAGE_KEY);
+          card.classList.remove('solved');
+          resultEl.classList.remove('show');
+          choicesEl.style.display = '';
+          updateSteps();
+          renderGradeChoices();
+        }
+      });
+
+      function updateSteps() {
+        var steps = stepsEl.querySelectorAll('.qd-step');
+        steps.forEach(function(s) {
+          var sn = parseInt(s.dataset.step);
+          s.classList.remove('active', 'done');
+          if (sn < state.step) s.classList.add('done');
+          if (sn === state.step) s.classList.add('active');
+        });
+      }
+
+      function renderGradeChoices() {
+        choicesEl.style.display = '';
+        choicesEl.innerHTML =
+          '<button class="qd-choice" data-val="1">一年级<span class="sub">拼音·识字</span></button>' +
+          '<button class="qd-choice" data-val="2">二年级<span class="sub">字词·写话</span></button>' +
+          '<button class="qd-choice" data-val="3">三年级<span class="sub">段落·作文</span></button>' +
+          '<button class="qd-choice" data-val="4">四年级<span class="sub">概括·赏析</span></button>' +
+          '<button class="qd-choice" data-val="5">五年级<span class="sub">分析·立意</span></button>' +
+          '<button class="qd-choice" data-val="6">六年级<span class="sub">综合·冲刺</span></button>';
+      }
+
+      function renderGoalChoices() {
+        choicesEl.innerHTML =
+          '<button class="qd-choice" data-val="fill">📚 补弱<span class="sub">基础薄弱，需要巩固</span></button>' +
+          '<button class="qd-choice" data-val="advance">🚀 拔高<span class="sub">成绩不错，挑战更难</span></button>' +
+          '<button class="qd-choice" data-val="explore">🔍 综合了解<span class="sub">先看看整体情况</span></button>';
+      }
+
+      function renderTimeChoices() {
+        choicesEl.innerHTML =
+          '<button class="qd-choice" data-val="5">⚡ 5分钟<span class="sub">快速诊断</span></button>' +
+          '<button class="qd-choice" data-val="15">⏱ 15分钟<span class="sub">标准训练</span></button>' +
+          '<button class="qd-choice" data-val="30">📖 30分钟<span class="sub">深入学习</span></button>';
+      }
+
+      function renderResult() {
+        if (!state.grade || !state.goal || !state.time) return;
+        choicesEl.style.display = 'none';
+        resultEl.classList.add('show');
+
+        var gradeUrl = 'grade' + state.grade + '.html';
+        var paths = [];
+
+        if (state.goal === 'fill') {
+          paths = [
+            { num: 1, cls: 'step1', text: '诊断定位：做一次' + (state.time >= 15 ? '完整' : '快速') + '诊断', url: 'practice.html#diagnosis' },
+            { num: 2, cls: 'step2', text: '查看' + ['','一','二','三','四','五','六'][state.grade] + '年级薄弱点', url: gradeUrl },
+            { num: 3, cls: 'step3', text: '针对性练习错题', url: 'practice.html#wrong-notebook' }
+          ];
+        } else if (state.goal === 'advance') {
+          paths = [
+            { num: 1, cls: 'step1', text: '查看年级拔尖重点', url: gradeUrl },
+            { num: 2, cls: 'step2', text: '挑战进阶训练', url: 'practice.html#flow-training' },
+            { num: 3, cls: 'step3', text: 'AI 一对一深度辅导', url: 'agent.html' }
+          ];
+        } else {
+          paths = [
+            { num: 1, cls: 'step1', text: '查看年级知识地图', url: gradeUrl },
+            { num: 2, cls: 'step2', text: '浏览' + ['','一','二','三','四','五','六'][state.grade] + '年级课标要求', url: gradeUrl },
+            { num: 3, cls: 'step3', text: '按兴趣选择专题学习', url: 'knowledge-map.html' }
+          ];
+        }
+
+        var timeLabel = state.time >= 30 ? '30分钟深度学习' : state.time >= 15 ? '15分钟标准训练' : '5分钟快速诊断';
+        var goalLabel = state.goal === 'fill' ? '补弱巩固' : state.goal === 'advance' ? '拔高冲刺' : '综合了解';
+
+        var html = '<h4>✅ 已为你规划：' + goalLabel + ' · ' + timeLabel + '</h4>';
+        html += '<div class="qd-path">';
+        paths.forEach(function(p) {
+          html += '<a class="qd-path-item ' + p.cls + '" href="' + p.url + '">';
+          html += '<span class="qd-path-num">' + p.num + '</span>';
+          html += '<span>' + p.text + '</span>';
+          html += '</a>';
+        });
+        html += '</div>';
+        html += '<div style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">';
+        html += '<a href="report.html" style="display:inline-flex;align-items:center;gap:4px;padding:6px 16px;background:#eef2ff;color:#4f46e5;border-radius:16px;text-decoration:none;font-size:13px;font-weight:600;">📊 查看学习报告</a>';
+        html += '<span class="qd-reset">🔄 重新选择</span>';
+        html += '</div>';
+        resultEl.innerHTML = html;
+
+        card.classList.add('solved');
+        updateSteps();
+      }
+
+      function saveState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+    })();
+
+    // ── 延迟加载资料库总览 ──
+    (function() {
+      var overviewGrid = document.getElementById('data-overview-grid');
+      if (!overviewGrid) return;
+
+      // 初始显示加载状态
+      overviewGrid.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">📦 加载中...</div>';
+
+      // 使用 IntersectionObserver 延迟加载
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            observer.disconnect();
+            
+            // 动态加载完整数据加载器
+            var script = document.createElement('script');
+            script.src = 'data/data-loader-global.js?v=90';
+            script.onload = function() {
+              // 加载完成后渲染资料库总览
+              if (window.DataLib && window.DataLib.renderDataOverview) {
+                DataLib.renderDataOverview(overviewGrid);
+              } else {
+                overviewGrid.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">加载失败，请刷新重试</div>';
+              }
+            };
+            document.body.appendChild(script);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '100px' });
+
+      observer.observe(overviewGrid);
+    })();
+  </script>
 </body>
 </html>

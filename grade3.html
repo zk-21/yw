@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
+  <link rel="stylesheet" href="styles.css?v=90">
 </head>
 <body>
   <header class="topbar">
@@ -33,18 +33,19 @@
       <a href="grade6.html">六年级</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">其他</a>
+        <div class="dropdown-content">
+          <a href="advanced.html">尖子生拓展</a>
+          <a href="knowledge-map.html">知识总控</a>
+          <a href="search.html">搜索</a>
+        </div>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section class="page-head grade-three">
-      <p class="eyebrow">三年级起步阶段</p>
-      <h1>从"写一句完整的话"提升到"围绕一个意思写一段话"</h1>
-      <p>三年级是语文学习的第一道分水岭。此前孩子学的是"字词句"，一个句子写通顺就算过关；从三年级开始，要学的是"段"——多个句子怎样围绕一个意思组织起来。阅读上，读完一段要能说出"这段话主要在讲什么"；写作上，写一段话要有一个明确的中心，每个句子都在证明这个中心。这两件事做不到，四年级的阅读答题和完整作文都会非常吃力。</p>
-    </section>
+    <section class="page-head" id="grade3-hero"></section>
 
     <section class="section">
       <div class="section-title">
@@ -61,26 +62,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="content-grid">
-        <article class="study-block">
-          <h2>本年级最容易掉分的 3 件事</h2>
-          <ul class="level-list">
-            <li><strong>写话到作文：</strong>只写一句感受，没有起因、经过和结果。</li>
-            <li><strong>自然段理解：</strong>能读懂句子，但不会概括这一段主要写什么。</li>
-            <li><strong>中心句：</strong>找到了好词好句，却说不出它围绕哪个意思服务。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>补救入口</h2>
-          <ul class="level-list">
-            <li><strong>作文：</strong>先练"一个意思写一段"，再进入完整作文。</li>
-            <li><strong>阅读：</strong>每篇短文只抓一个中心句或段意。</li>
-            <li><strong>AI：</strong>把孩子写的一段话发给 AI，让它指出"中心、顺序、细节"。</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+    <section class="section"><div id="grade3-mistakes"></div></section>
 
     
 
@@ -92,48 +74,8 @@
         <h2>三年级从"自然段"进入"习作起步"</h2>
         <p style="color:#666;">三年级进入第二学段，要把语言积累、段落阅读、片段习作和整本书阅读连接起来，形成真正能迁移的语文能力。</p>
       </div>
-      <div class="table-card">
-        <h2>课标能力对照表</h2>
-        <div class="responsive-table">
-          <table>
-            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
-            <tbody>
-              <tr><td>识字与写字</td><td>多音字、形近字、词语迁移</td><td>能结合语境判断字词，并写出准确句子</td><td>能把课内好词迁移到观察片段里</td></tr>
-              <tr><td>阅读与鉴赏</td><td>中心句、段意、信息提取、古诗画面</td><td>能找中心句，概括一个自然段主要意思</td><td>能引用关键词说明"从哪里看出来"</td></tr>
-              <tr><td>表达与交流</td><td>扩句、观察作文、一段话结构</td><td>能围绕一个意思写 4-6 句话</td><td>能写出动作、样子、声音、心情和感受</td></tr>
-              <tr><td>整本书与探究</td><td>童话、寓言、观察记录、读书分享</td><td>能讲清人物、情节和一个喜欢的地方</td><td>能做人物卡或情节图，并说出故事道理</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="loop-grid">
-        <article class="loop-card">
-          <h3>5分钟入门自测</h3>
-          <ul>
-            <li>读一段话，能不能圈出中心句。</li>
-            <li>没有中心句时，能不能自己概括段意。</li>
-            <li>给一句话加时间、地点、动作和心情。</li>
-            <li>写观察片段时，是否只写"很好看"。</li>
-            <li>读完一个故事，能不能说人物做了什么。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>三层训练安排</h3>
-          <ul>
-            <li><strong>基础：</strong>每天 1 组词语造句，句子要具体。</li>
-            <li><strong>提升：</strong>每周 2 次"中心句 + 3 个细节"片段。</li>
-            <li><strong>拔尖：</strong>每月读 1 本儿童故事书，做人物和情节记录。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>评价复盘量表</h3>
-          <div class="score-line">
-            <p><strong>3分：</strong>段意准确，片段围绕中心，细节有画面。</p>
-            <p><strong>2分：</strong>内容完整，但中心不够集中或细节偏少。</p>
-            <p><strong>1分：</strong>东一句西一句，下次先补中心句。</p>
-          </div>
-        </article>
-      </div>
+      <div id="grade3-curriculum"></div>
+      <div id="grade3-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
         <div class="responsive-table">
@@ -924,13 +866,24 @@
       <div id="grade3-mistakes-ref" style="margin-top:20px;"></div>
     </section>
   </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
-  <script>
+  <script defer src="nav.js?v=90"></script>
+  <script defer src="table-responsive.js?v=90"></script>
+  <script defer src="data/data-loader-global.js?v=90"></script>
+   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         if (window.DataLib) {
+                    // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('3', document.getElementById('grade3-hero'));
+          DataLib.renderGradeMistakes('3', document.getElementById('grade3-mistakes'));
+          DataLib.renderGradeCurriculum('3', document.getElementById('grade3-curriculum'));
+          DataLib.renderGradeLoop('3', document.getElementById('grade3-loop'));
+          // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('3', document.getElementById('grade3-hero'));
+          DataLib.renderGradeMistakes('3', document.getElementById('grade3-mistakes'));
+          DataLib.renderGradeCurriculum('3', document.getElementById('grade3-curriculum'));
+          DataLib.renderGradeLoop('3', document.getElementById('grade3-loop'));
+          // 共享资料库渲染
           DataLib.renderGrammarByGrade('grade3', document.getElementById('grade3-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade3-mistakes-ref'), '3');
         }

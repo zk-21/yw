@@ -1,182 +1,479 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文一年级 · 基础知识</title>
-  <meta name="description" content="小学语文一年级基础知识，拼音、识字、阅读、写话全覆盖，助力幼小衔接。">
-  <meta name="keywords" content="小学语文,一年级,拼音,识字,基础知识">
-  <meta property="og:title" content="小学语文一年级 · 基础知识">
-  <meta property="og:description" content="小学语文一年级基础知识，拼音、识字、阅读、写话全覆盖，助力幼小衔接。">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#63d676">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=83">
-  <style>
-    .grade-one-hero {
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fdfcfb 100%);
-      padding: 60px 5vw;
-      text-align: center;
-    }
-    .grade-one-hero h1 { color: #d63384; margin-bottom: 15px; }
-    .grade-one-hero p { color: #7c3a6e; font-size: 18px; max-width: 700px; margin: 0 auto; }
-    .section-title h2 { color: #d63384; }
-    .study-block { border-left: 4px solid #ff9a9e; }
-    .study-block.accent { border-left: 4px solid #d63384; }
-    .study-block h2 { color: #d63384; }
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="语文成长地图" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <title>小学语文一年级 · 基础知识</title>
+    <meta
+      name="description"
+      content="小学语文一年级基础知识，拼音、识字、阅读、写话全覆盖，助力幼小衔接。"
+    />
+    <meta name="keywords" content="小学语文,一年级,拼音,识字,基础知识" />
+    <meta property="og:title" content="小学语文一年级 · 基础知识" />
+    <meta
+      property="og:description"
+      content="小学语文一年级基础知识，拼音、识字、阅读、写话全覆盖，助力幼小衔接。"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#63d676" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css?v=90" />
+    <style>
+      .grade-one-hero {
+        background: linear-gradient(
+          135deg,
+          #ff9a9e 0%,
+          #fecfef 50%,
+          #fdfcfb 100%
+        );
+        padding: 60px 5vw;
+        text-align: center;
+      }
+      .grade-one-hero h1 {
+        color: #d63384;
+        margin-bottom: 15px;
+      }
+      .grade-one-hero p {
+        color: #7c3a6e;
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .section-title h2 {
+        color: #d63384;
+      }
+      .study-block {
+        border-left: 4px solid #ff9a9e;
+      }
+      .study-block.accent {
+        border-left: 4px solid #d63384;
+      }
+      .study-block h2 {
+        color: #d63384;
+      }
 
-    /* 拼音快捷参考 */
-    .pinyin-ref { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 10px; }
-    .pinyin-group { flex: 1; min-width: 180px; background: #f8f9fa; border-radius: 14px; padding: 16px; }
-    .pinyin-group h4 { margin: 0 0 10px; font-size: 14px; color: #d63384; }
-    .pinyin-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .pinyin-tags .tag {
-      display: inline-block; padding: 4px 12px; border-radius: 12px;
-      font-size: 15px; font-weight: bold; background: white; color: #555;
-      border: 1px solid #e0e0e0;
-    }
-    .pinyin-tags .tag.vowel { background: #fff3e0; border-color: #ffcc02; color: #e65100; }
-    .pinyin-tags .tag.cons  { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
-    .pinyin-tags .tag.whole { background: #fce4ec; border-color: #f48fb1; color: #d63384; }
-    .rules-box {
-      background: #fff3e0; border-radius: 14px; padding: 18px 22px;
-      border-left: 4px solid #ff9a9e; margin-top: 18px;
-    }
-    .rules-box p { margin: 6px 0; font-size: 14px; color: #555; }
-    .rules-box strong { color: #d63384; }
+      /* 拼音快捷参考 */
+      .pinyin-ref {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 10px;
+      }
+      .pinyin-group {
+        flex: 1;
+        min-width: 180px;
+        background: #f8f9fa;
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .pinyin-group h4 {
+        margin: 0 0 10px;
+        font-size: 14px;
+        color: #d63384;
+      }
+      .pinyin-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .pinyin-tags .tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: bold;
+        background: white;
+        color: #555;
+        border: 1px solid #e0e0e0;
+      }
+      .pinyin-tags .tag.vowel {
+        background: #fff3e0;
+        border-color: #ffcc02;
+        color: #e65100;
+      }
+      .pinyin-tags .tag.cons {
+        background: #e8f5e9;
+        border-color: #81c784;
+        color: #2e7d32;
+      }
+      .pinyin-tags .tag.whole {
+        background: #fce4ec;
+        border-color: #f48fb1;
+        color: #d63384;
+      }
+      .rules-box {
+        background: #fff3e0;
+        border-radius: 14px;
+        padding: 18px 22px;
+        border-left: 4px solid #ff9a9e;
+        margin-top: 18px;
+      }
+      .rules-box p {
+        margin: 6px 0;
+        font-size: 14px;
+        color: #555;
+      }
+      .rules-box strong {
+        color: #d63384;
+      }
 
-    /* 笔画表 */
-    .stroke-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
-    .stroke-card {
-      background: white; border-radius: 12px; padding: 14px; text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .stroke-card .char { font-size: 28px; font-weight: bold; color: #d63384; }
-    .stroke-card .name { font-size: 13px; color: #666; margin-top: 4px; }
-    .stroke-card .example { font-size: 24px; color: #333; margin-top: 6px; }
+      /* 笔画表 */
+      .stroke-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+      }
+      .stroke-card {
+        background: white;
+        border-radius: 12px;
+        padding: 14px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      .stroke-card .char {
+        font-size: 28px;
+        font-weight: bold;
+        color: #d63384;
+      }
+      .stroke-card .name {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+      }
+      .stroke-card .example {
+        font-size: 24px;
+        color: #333;
+        margin-top: 6px;
+      }
 
-    /* 古诗 */
-    .poem-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-    .poem-card {
-      background: #fef7f9; border-radius: 14px; padding: 16px; text-align: center;
-      border: 1px solid #fce4ec;
-    }
-    .poem-card h4 { color: #d63384; margin: 0 0 4px; font-size: 15px; }
-    .poem-card .author { color: #999; font-size: 12px; }
-    .poem-card .line { color: #555; font-size: 13px; margin-top: 6px; }
+      /* 古诗 */
+      .poem-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 14px;
+      }
+      .poem-card {
+        background: #fef7f9;
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+        border: 1px solid #fce4ec;
+      }
+      .poem-card h4 {
+        color: #d63384;
+        margin: 0 0 4px;
+        font-size: 15px;
+      }
+      .poem-card .author {
+        color: #999;
+        font-size: 12px;
+      }
+      .poem-card .line {
+        color: #555;
+        font-size: 13px;
+        margin-top: 6px;
+      }
 
-    /* 年级口诀 */
-    .routine p { font-size: 15px; }
+      /* 年级口诀 */
+      .routine p {
+        font-size: 15px;
+      }
 
-    /* 拼音易错专项 */
-    .error-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-    .error-card {
-      background: #fff3e0; border-radius: 12px; padding: 14px; border-left: 4px solid #ff9a9e;
-    }
-    .error-card h4 { margin: 0 0 6px; font-size: 14px; color: #d63384; }
-    .error-card p { margin: 3px 0; font-size: 13px; color: #555; }
-    .error-card .ex { font-weight: bold; color: #d63384; }
+      /* 拼音易错专项 */
+      .error-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+      }
+      .error-card {
+        background: #fff3e0;
+        border-radius: 12px;
+        padding: 14px;
+        border-left: 4px solid #ff9a9e;
+      }
+      .error-card h4 {
+        margin: 0 0 6px;
+        font-size: 14px;
+        color: #d63384;
+      }
+      .error-card p {
+        margin: 3px 0;
+        font-size: 13px;
+        color: #555;
+      }
+      .error-card .ex {
+        font-weight: bold;
+        color: #d63384;
+      }
 
-    /* 识字方法 */
-    .method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-    .method-card {
-      background: #fef7f9; border-radius: 14px; padding: 16px; text-align: center;
-      border: 1px solid #fce4ec;
-    }
-    .method-card h4 { color: #d63384; margin: 0 0 6px; font-size: 14px; }
-    .method-card p { color: #666; font-size: 13px; margin: 0; }
+      /* 识字方法 */
+      .method-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+      }
+      .method-card {
+        background: #fef7f9;
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+        border: 1px solid #fce4ec;
+      }
+      .method-card h4 {
+        color: #d63384;
+        margin: 0 0 6px;
+        font-size: 14px;
+      }
+      .method-card p {
+        color: #666;
+        font-size: 13px;
+        margin: 0;
+      }
 
-    /* 看图说话模板 */
-    .speaking-steps { display: grid; gap: 10px; }
-    .speaking-step {
-      display: flex; align-items: flex-start; gap: 12px;
-      background: white; border-radius: 12px; padding: 12px 16px;
-      border-left: 4px solid #ff9a9e;
-    }
-    .speaking-step .sn {
-      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
-      background: #ff9a9e; color: white; display: flex; align-items: center;
-      justify-content: center; font-size: 13px; font-weight: bold;
-    }
-    .speaking-step .st { font-size: 14px; color: #555; }
-    .speaking-step .st strong { color: #d63384; }
-    .speaking-demo {
-      background: #fef7f9; border-radius: 12px; padding: 14px 18px;
-      border: 1px dashed #f48fb1; margin-top: 12px;
-    }
-    .speaking-demo p { margin: 4px 0; font-size: 13px; color: #555; }
-    .speaking-demo .from { color: #999; font-size: 12px; }
+      /* 看图说话模板 */
+      .speaking-steps {
+        display: grid;
+        gap: 10px;
+      }
+      .speaking-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: white;
+        border-radius: 12px;
+        padding: 12px 16px;
+        border-left: 4px solid #ff9a9e;
+      }
+      .speaking-step .sn {
+        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #ff9a9e;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+      }
+      .speaking-step .st {
+        font-size: 14px;
+        color: #555;
+      }
+      .speaking-step .st strong {
+        color: #d63384;
+      }
+      .speaking-demo {
+        background: #fef7f9;
+        border-radius: 12px;
+        padding: 14px 18px;
+        border: 1px dashed #f48fb1;
+        margin-top: 12px;
+      }
+      .speaking-demo p {
+        margin: 4px 0;
+        font-size: 13px;
+        color: #555;
+      }
+      .speaking-demo .from {
+        color: #999;
+        font-size: 12px;
+      }
 
-    /* 朗读评价标准 */
-    .rubric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-    .rubric-card {
-      background: white; border-radius: 12px; padding: 16px; text-align: center;
-      border: 1px solid #fce4ec;
-    }
-    .rubric-card .icon { font-size: 28px; margin-bottom: 4px; }
-    .rubric-card h4 { color: #d63384; margin: 0 0 4px; font-size: 14px; }
-    .rubric-card p { color: #666; font-size: 12px; margin: 0; line-height: 1.5; }
+      /* 朗读评价标准 */
+      .rubric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .rubric-card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        border: 1px solid #fce4ec;
+      }
+      .rubric-card .icon {
+        font-size: 28px;
+        margin-bottom: 4px;
+      }
+      .rubric-card h4 {
+        color: #d63384;
+        margin: 0 0 4px;
+        font-size: 14px;
+      }
+      .rubric-card p {
+        color: #666;
+        font-size: 12px;
+        margin: 0;
+        line-height: 1.5;
+      }
 
-    /* 家长误区 */
-    .warning-box {
-      background: #fff3e0; border-left: 4px solid #e65100; border-radius: 10px;
-      padding: 16px 20px; margin-top: 20px;
-    }
-    .warning-box h4 { color: #e65100; margin: 0 0 8px; font-size: 15px; }
-    .warning-box p { margin: 5px 0; font-size: 14px; color: #555; }
+      /* 家长误区 */
+      .warning-box {
+        background: #fff3e0;
+        border-left: 4px solid #e65100;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-top: 20px;
+      }
+      .warning-box h4 {
+        color: #e65100;
+        margin: 0 0 8px;
+        font-size: 15px;
+      }
+      .warning-box p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+      }
 
-    /* 衔接路线图 */
-    .bridge-row { display: flex; gap: 0; align-items: center; }
-    .bridge-node {
-      flex: 1; background: white; border-radius: 14px; padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid #fce4ec;
-    }
-    .bridge-node .stage { font-size: 14px; font-weight: bold; color: #d63384; margin-bottom: 6px; }
-    .bridge-node ul { margin: 0; padding-left: 18px; }
-    .bridge-node li { font-size: 13px; color: #555; margin: 3px 0; }
-    .bridge-arrow { padding: 0 10px; font-size: 22px; color: #ff9a9e; }
+      /* 衔接路线图 */
+      .bridge-row {
+        display: flex;
+        gap: 0;
+        align-items: center;
+      }
+      .bridge-node {
+        flex: 1;
+        background: white;
+        border-radius: 14px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        border: 1px solid #fce4ec;
+      }
+      .bridge-node .stage {
+        font-size: 14px;
+        font-weight: bold;
+        color: #d63384;
+        margin-bottom: 6px;
+      }
+      .bridge-node ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .bridge-node li {
+        font-size: 13px;
+        color: #555;
+        margin: 3px 0;
+      }
+      .bridge-arrow {
+        padding: 0 10px;
+        font-size: 22px;
+        color: #ff9a9e;
+      }
 
-    /* 每日10分钟拔尖训练 */
-    .daily-plan { display: flex; gap: 10px; margin: 16px 0; }
-    .daily-step {
-      flex: 1; background: white; border-radius: 12px; padding: 14px 12px;
-      text-align: center; border: 1px solid #fce4ec;
-    }
-    .daily-step .time { font-size: 20px; font-weight: bold; color: #d63384; }
-    .daily-step .task { font-size: 13px; color: #555; margin-top: 4px; }
-    .daily-step .hint { font-size: 11px; color: #999; margin-top: 2px; }
+      /* 每日10分钟拔尖训练 */
+      .daily-plan {
+        display: flex;
+        gap: 10px;
+        margin: 16px 0;
+      }
+      .daily-step {
+        flex: 1;
+        background: white;
+        border-radius: 12px;
+        padding: 14px 12px;
+        text-align: center;
+        border: 1px solid #fce4ec;
+      }
+      .daily-step .time {
+        font-size: 20px;
+        font-weight: bold;
+        color: #d63384;
+      }
+      .daily-step .task {
+        font-size: 13px;
+        color: #555;
+        margin-top: 4px;
+      }
+      .daily-step .hint {
+        font-size: 11px;
+        color: #999;
+        margin-top: 2px;
+      }
 
-    /* 看图说话普通vs拔尖对比 */
-    .g1-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .g1-box {
-      background: white; border-radius: 10px; padding: 14px;
-      border: 1px solid #fce4ec;
-    }
-    .g1-box .tag { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
-    .g1-box.basic .tag { color: #e74c3c; }
-    .g1-box.advanced .tag { color: #27ae60; }
-    .g1-box p { margin: 3px 0; font-size: 13px; color: #555; line-height: 1.6; }
+      /* 看图说话普通vs拔尖对比 */
+      .g1-compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .g1-box {
+        background: white;
+        border-radius: 10px;
+        padding: 14px;
+        border: 1px solid #fce4ec;
+      }
+      .g1-box .tag {
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+      .g1-box.basic .tag {
+        color: #e74c3c;
+      }
+      .g1-box.advanced .tag {
+        color: #27ae60;
+      }
+      .g1-box p {
+        margin: 3px 0;
+        font-size: 13px;
+        color: #555;
+        line-height: 1.6;
+      }
 
-    @media (max-width: 768px) {
-      .grade-one-hero { padding: 40px 5vw; }
-      .grade-one-hero h1 { font-size: 24px; }
-      .pinyin-ref { flex-direction: column; }
-      .stroke-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-      .poem-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .error-grid,
-      .rubric-grid { grid-template-columns: 1fr; }
-      .method-grid { grid-template-columns: repeat(2, 1fr); }
-      .daily-plan { flex-direction: column; }
-      .g1-compare { grid-template-columns: 1fr; }
-      .bridge-row { flex-direction: column; gap: 12px; }
-      .bridge-arrow { display: none; }
-    }
-  </style>
+      @media (max-width: 768px) {
+        .grade-one-hero {
+          padding: 40px 5vw;
+        }
+        .grade-one-hero h1 {
+          font-size: 24px;
+        }
+        .pinyin-ref {
+          flex-direction: column;
+        }
+        .stroke-grid {
+          grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        }
+        .poem-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+        .error-grid,
+        .rubric-grid {
+          grid-template-columns: 1fr;
+        }
+        .method-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .daily-plan {
+          flex-direction: column;
+        }
+        .g1-compare {
+          grid-template-columns: 1fr;
+        }
+        .bridge-row {
+          flex-direction: column;
+          gap: 12px;
+        }
+        .bridge-arrow {
+          display: none;
+        }
+      }
+    </style>
 
-<style>
+    <style>
       .pinyin-game-grid {
         display: flex;
         gap: 10px;
@@ -244,544 +541,1502 @@
         padding: 10px;
       }
     </style>
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
-    <nav class="nav" aria-label="主导航">
-      <a href="index.html">总览</a>
-      <a href="agent.html">AI Agent</a>
-      <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
-      <a class="active" href="grade1.html">一年级</a>
-      <a href="grade2.html">二年级</a>
-      <a href="grade3.html">三年级</a>
-      <a href="grade4.html">四年级</a>
-      <a href="grade5.html">五年级</a>
-      <a href="grade6.html">六年级</a>
-      <a href="practice.html">练习计划</a>
-      <a href="vocabulary.html">词语学习</a>
-      <a href="knowledge-map.html">知识总控</a>
-      <a href="advanced.html">尖子生拓展</a>
-      <a href="search.html">🔍 搜索</a>
-    </nav>
-  </header>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html"
+        ><span class="brand-mark">文</span><span>语文成长地图</span></a
+      ><button class="hamburger" id="hamburger-btn" aria-label="菜单">
+        ☰
+      </button>
+      <nav class="nav" aria-label="主导航">
+        <a href="index.html">总览</a>
+        <a href="agent.html">AI Agent</a>
+        <a href="pinyin.html">拼音学习</a>
+        <a href="grammar.html">语法知识</a>
+        <a href="composition.html">作文专题</a>
+        <a class="active" href="grade1.html">一年级</a>
+        <a href="grade2.html">二年级</a>
+        <a href="grade3.html">三年级</a>
+        <a href="grade4.html">四年级</a>
+        <a href="grade5.html">五年级</a>
+        <a href="grade6.html">六年级</a>
+        <a href="practice.html">练习计划</a>
+        <a href="vocabulary.html">词语学习</a>
+        <div class="nav-dropdown">
+          <a href="#" class="dropdown-toggle">其他</a>
+          <div class="dropdown-content">
+            <a href="advanced.html">尖子生拓展</a>
+            <a href="knowledge-map.html">知识总控</a>
+            <a href="search.html">搜索</a>
+          </div>
+        </div>
+      </nav>
+    </header>
 
     <main>
-    <section class="grade-one-hero">
-      <p class="eyebrow" style="color:#d63384;">零基础起步</p>
-      <h1>一年级语文学习指导</h1>
-      <p>一年级是语文学习的"地基期"。拼音、识字、朗读、看图说话——这几样看似简单，但每一样都决定了后面六年的学习效率和信心。这个阶段的核心不是学了多少，而是每一项是否变得"不用想就能做到"：拼读不犹豫、认字不磕巴、朗读不断句。本页聚焦这四个关键能力，帮孩子在最短的时间里打好底子。</p>
-    </section>
+      <section class="page-head" id="grade1-hero"></section>
 
-    <section class="section">
-      <div class="section-title">
-        <p class="eyebrow" style="color:#d63384;">核心导航</p>
-        <h2>一年级语文能力发展路径</h2>
-        <p style="color:#666;">聚焦拼音拼读、识字组词、朗读理解和看图说话四项基本功。每日训练与错题复盘统一在练习页完成。</p>
-      </div>
-      <div class="route-grid">
-        <article class="route-card"><h3>拼音拼读</h3><p>声母轻短、韵母响亮、声调一次到位。</p><div class="route-links"><a href="pinyin.html">拼音学习</a></div></article>
-        <article class="route-card"><h3>识字运用</h3><p>认字后要组词，再用词说完整句子。</p><div class="route-links"><a href="vocabulary.html">词语学习</a></div></article>
-        <article class="route-card"><h3>朗读理解</h3><p>不添漏字，读完能说"谁做了什么"。</p><div class="route-links"><a href="#reading-lesson">朗读课</a></div></article>
-        <article class="route-card"><h3>长期训练</h3><p>每日打卡、错题复盘统一在练习页完成。</p><div class="route-links"><a href="practice.html">练习计划</a></div></article>
-        <article class="route-card"><h3>一对一闭环</h3><p>先做本年级阶段卷，再去错因精讲、C卷迁移和打印训练单。</p><div class="route-links"><a href="#grade1-stage-assessment">阶段卷</a><a href="practice.html#error-masterclass">错因精讲</a><a href="practice.html#flow-training">C卷评分器</a><a href="practice.html#print-training">打印单</a></div></article>
-      </div>
-    </section>
-
-    <section class="section grade-closed-loop">
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>诊断本质：</strong>孩子拼读慢，不是笨，是大脑还没把"认字"这件事练到自动挡——每个字都要停下来想一想，当然顾不上理解句子意思。认字会读不会用，说明记住的是字的"照片"，没有存这个字能怎么用。</p>
-<p><strong>怎么练：</strong>四个能力不能一起抓。先练识字（每天5个字），识字稳了再练朗读（读完能说出大意），朗读通了再练表达。每一项准确率到90%以上再进下一项。别赶进度，走稳比走快重要一百倍。</p>
- </div>
- <div class="section-title">
- <p class="eyebrow" style="color:#d63384;">课标对照 · 训练闭环</p>
- <h2>一年级从"会认会读"到"能说能用"</h2>
- <p style="color:#666;">按第一学段要求，把识字写字、阅读鉴赏、表达交流、梳理探究变成可检查的学习任务。</p>
- </div>
- <div class="table-card">
- <h2>课标能力对照表</h2>
- <div class="responsive-table"><table><thead><tr><th>课标维度</th><th>课堂内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead><tbody>
- <tr><td>识字与写字</td><td>拼音、笔画、偏旁、生活识字</td><td>能拼读音节，认读生字并组词说句</td><td>能借助拼音读短句和绘本</td></tr>
- <tr><td>阅读与鉴赏</td><td>朗读停顿、课文复述、古诗画面</td><td>读准字音，读完说"谁做什么"</td><td>能说出一小段主要内容</td></tr>
- <tr><td>表达与交流</td><td>看图说话、完整句</td><td>说清时间、地点、人物、事情、心情</td><td>能把一句话扩成 2-3 句</td></tr>
- <tr><td>梳理与探究</td><td>偏旁归类、生活识字</td><td>能把同偏旁字放在一起记</td><td>能主动从绘本和生活中收集新字</td></tr>
- </tbody></table></div>
- </div>
-      <div class="loop-grid">
-        <article class="loop-card"><h3>5分钟诊断性自测</h3><p style="font-size:12px;color:#999;margin-top:2px;">快速摸清卡点位置</p><ul><li>任取 5 个音节，能不能直接拼读。</li><li>任取 5 个生字，能不能组词并说一句话。</li><li>朗读 3 句话，是否有停顿。</li><li>看一幅图，能不能说清谁在哪里做什么。</li></ul></article>
-        <article class="loop-card"><h3>三层掌握训练</h3><p style="font-size:12px;color:#999;margin-top:2px;">步步为营，一层稳了再进下一层</p><ul><li><strong>基础：</strong>拼音 5 分钟 + 认字 5 个 + 朗读 1 段。</li><li><strong>提升：</strong>每个新字组 2 个词，再选 1 个词说句子。</li><li><strong>拔尖：</strong>一周读 1 本绘本，用 3 句话讲给家长听。</li></ul></article>
-        <article class="loop-card"><h3>形成性评价量表</h3><p style="font-size:12px;color:#999;margin-top:2px;">不打总分，看孩子卡在哪一层</p><div class="score-line"><p><strong>3分：</strong>读准、说清、能迁移到新图或新句。</p><p><strong>2分：</strong>提醒下能完成，但慢或不完整。</p><p><strong>1分：</strong>只会背不会用，下次只补这一项。</p></div></article>
-      </div>
-      <div class="table-card" style="margin-top:18px;"><h2>本周分阶诊断训练题</h2><p style="font-size:12px;color:#999;margin-bottom:6px;">三层递进，看孩子卡在哪一级</p><div class="responsive-table"><table><thead><tr><th>层级</th><th>孩子要做</th><th>答案标准</th><th>家长追问</th></tr></thead><tbody>
-        <tr><td>基础</td><td>拼读 b-a、m-a、p-o、d-i、t-u</td><td>声母、韵母、声调读准</td><td>哪个音最容易混</td></tr>
-        <tr><td>提升</td><td>用"花、草、鸟、雨、书"组词并说句子</td><td>组词准确，句子完整</td><td>能不能加地点和心情</td></tr>
-        <tr><td>拔尖</td><td>看图说 3 句话</td><td>时间、地点、人物、事情、心情完整</td><td>如果你在图里会怎么做</td></tr>
-      </tbody></table></div></div>
-    </section>
-
-    <section class="section pre-diagnostic">
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>诊断本质：</strong>不要一上来就教，先花5分钟摸清孩子卡在哪。常见三类起点：(1) 耳朵和眼睛没"接线"——能读拼音但对不上字；(2) 词语在脑子里"睡着"了——听能懂、主动说不出；(3) 只会蹦词不会说句——"小鸟""飞"连不成"小鸟在天上飞"。</p>
-        <p><strong>怎么用诊断结果：</strong>13-15分直接进精讲课；9-12分先补拼音和组词，别急着练表达；8分以下回到拼音页和词语页打底。诊断的目的不是看"差几分"，而是看"离下一级台阶还差什么"。</p>
-      </div>
- <div class="section-title">
- <p class="eyebrow" style="color:#d63384;">课前诊断卷 · 10分钟</p>
- <h2>一年级先测：拼音、组词、朗读、看图说话</h2>
- <p style="color:#666;">先看孩子卡在哪一层，再决定是补拼音、补字词，还是直接进句子表达。</p>
- </div>
- <div class="content-grid" style="margin-bottom:18px;">
- <article class="study-block">
- <h2>诊断材料</h2>
- <p>小鸟在树上唱歌。小朋友在操场上做游戏。大家玩得真开心啊！</p>
- </article>
- <article class="study-block accent">
-<h2>诊断维度</h2>
-<p style="font-size:12px;color:#999;margin-bottom:6px;">三维快速筛查</p>
- <div class="routine">
- <p><strong>拼音：</strong>能不能把 b、p、m、f 读准。</p>
- <p><strong>识字：</strong>能不能把字放进词语里。</p>
- <p><strong>表达：</strong>能不能说清谁、在哪里、做什么。</p>
- </div>
- </article>
- </div>
- <div class="table-card">
- <h2>题目、答案和评分</h2>
- <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th></th></tr></thead><tbody>
- <tr><td>1. 拼读 b-a、m-a</td><td>ba、ma</td><td>每个 1 分，读音准确</td><td>把声母和韵母分开读，不会连起来——这是正常的，孩子大脑还没习惯把两个音快速"粘"成一个，多示范几次就好。</td></tr>
- <tr><td>2. 给"花、书"各组 1 个词</td><td>花园、花朵；书包、读书</td><td>每词 1 分</td><td>只会认字，不会组词——字的意思还没跟字形"绑"在一起，记的是字的照片，不是有意义的符号。多练组词就好。</td></tr>
- <tr><td>3. 小鸟在树上做什么？</td><td>唱歌。</td><td>找到动作 2 分</td><td>只答"小鸟"，没有动作——听问题时脑子里只蹦出了最熟悉的名词，还没学会把问题和答案完整对应起来。</td></tr>
- <tr><td>4. 这句"大家玩得真开心啊！"读出什么语气？</td><td>开心、高兴的语气。</td><td>1 分</td><td>不会联系感叹号判断语气——孩子还没意识到标点符号是"提示器"，读到感叹号应该读出感情来。</td></tr>
- <tr><td>5. 用一句完整的话说"小朋友在操场上做游戏"</td><td>小朋友在操场上开心地做游戏。</td><td>人物、地点、动作各 1 分</td><td>只说一句很短的话，没有地点——脑子里想说的话挺多，但一次只能输出一个信息块，多要素句子还需要练。</td></tr>
- </tbody></table></div>
- </div>
- <div class="table-card" style="margin-top:18px;">
-        <h2>诊断结果使用建议</h2>
-        <p style="font-size:12px;color:#999;margin-bottom:6px;">根据诊断结果定位最佳教学起点</p>
-        <div class="responsive-table"><table><thead><tr><th>分数</th><th>孩子状态</th><th>卡在哪一层</th><th>第一步怎么补</th></tr></thead><tbody>
-          <tr><td>13-15分</td><td>可以直接进课堂精讲和拔尖题组</td><td>基础已经很稳，下一步要练的是换场景、换材料后的灵活运用——同一项能力在不同材料上都能用出来。</td><td>重点做变式题和口头表达。</td></tr>
-          <tr><td>9-12分</td><td>基础可用，但句子表达不稳</td><td>字词关过了，卡在句子组织上——需要在"字→词→句"的跳跃处搭把手（如填空式引导、示范仿说）。</td><td>先补拼音和组词，再练一句话说完整。</td></tr>
-          <tr><td>8分以下</td><td>拼读或识字基础薄弱</td><td>当前水平和课标要求有差距，问题出在拼音和认字的基础环节——先建立拼音和字形的牢固联系，暂缓表达要求。</td><td>先回到拼音学习页和词语学习页。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section lesson-pack">
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>诊断本质：</strong>一年级孩子的学习方式是"看你做→跟你做→自己做"。跳过示范直接让孩子自己做，最容易卡在拼读、识字和表达三个位置。</p>
-        <p><strong>怎么教：</strong>拼读用"音素粘连法"，识字走"字→词→句"三步，看图说话用"五问法"。每一步都先示范，再跟读跟说，最后让孩子独立完成。</p>
-      </div>
-      <div class="section-title">
-        <p class="eyebrow" style="color:#d63384;">孩子直接学</p>
-        <h2>一年级精讲课：拼读、识字、看图说话</h2>
-      </div>
-      <div class="content-grid">
-        <article class="study-block"><h2>知识点讲解</h2><ul class="level-list"><li><strong>拼读三步：</strong>先读声母，再读韵母，最后连起来。</li><li><strong>识字三步：</strong>先认字形，再组词，最后说句子。</li><li><strong>看图五问：</strong>什么时候、在哪里、谁、做什么、心情怎样。</li></ul></article>
-        <article class="study-block accent"><h2>教师示范</h2><div class="routine"><p><strong>拼读：</strong>b - a - ba，加声调读 bā、bá、bǎ、bà。</p><p><strong>识字：</strong>"花"可以说鲜花、花园，再说"花园里开着美丽的花"。</p><p><strong>表达：</strong>"小女孩画画"升级成"星期天上午，小女孩坐在书桌前认真地画一朵红花"。</p></div></article>
-      </div>
-      <div class="table-card" style="margin-top:18px;"><h2>例题、解析和变式</h2><div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>解析（含原因）</th><th>变式练习</th></tr></thead><tbody><tr><td>拼读 m-ǎ</td><td>m-ǎ → mǎ</td><td>先分开读声母和韵母，再连起来读，三声要读出先降后升的拐弯。</td><td>拼读 p-í、tù、nǚ。</td></tr><tr><td>用"书"说一句话</td><td>我在教室里认真地看书。</td><td>一句话要有三要素：谁、在哪、怎样做。</td><td>用"雨、花、鸟"说句子。</td></tr></tbody></table></div></div>
-      <div class="study-block accent" style="margin-top:18px; margin-bottom:18px;">
-        <h2>朗读训练提示</h2>
-        <p><strong>诊断本质：</strong>朗读不等于把字念出声，真正的朗读要做到读准字、读出停顿、读懂内容。</p>
-        <p><strong>怎么做：</strong>用"三遍朗读法"：第一遍指读，第二遍读停顿和语气，第三遍读完说大意。</p>
-      </div>
-      <div class="section-title"><p class="eyebrow" style="color:#d63384;">课堂精讲 2</p><h2>一年级朗读课：读准、停顿、说大意</h2></div>
-      <div class="content-grid"><article class="study-block"><h2>课堂材料</h2><p>小鸟在树上唱歌。小朋友们在操场上做游戏。大家玩得真开心啊！</p><ul class="level-list"><li><strong>第一遍：</strong>指读，不添字不漏字。</li><li><strong>第二遍：</strong>句号停一停，感叹号读出开心。</li><li><strong>第三遍：</strong>读完说大意。</li></ul></article><article class="study-block accent"><h2>常见朗读错误分析</h2><div class="routine"><p><strong>唱读拖音：</strong>多半是认字占用了太多精力，需要短句反复示范。</p><p><strong>读完不懂：</strong>每一句读完都追问"谁在做什么"。</p></div></article></div>
-      <div class="table-card" style="margin-top:18px;"><h2>题目、答案和变式</h2><div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>解析（含原因）</th><th>变式练习</th></tr></thead><tbody><tr><td>第一句话写谁做什么？</td><td>小鸟在树上唱歌。</td><td>找"谁"和"做什么"。</td><td>"小鱼在水里游。"写谁做什么？</td></tr><tr><td>感叹号读出什么语气？</td><td>开心、高兴的语气。</td><td>"真开心啊"表达强烈心情。</td><td>读"花儿真美啊！"</td></tr></tbody></table></div></div>
-      <div class="study-block accent" style="margin-top:18px; margin-bottom:18px;">
-        <h2>识字训练提示</h2>
-        <p><strong>诊断本质：</strong>识字的难点不是只记字形，而是把字形、意思和用法连起来。</p>
-        <p><strong>怎么教：</strong>先看偏旁和字形，再组两个生活中的词，最后用其中一个词说完整句。</p>
-      </div>
-      <div class="section-title"><p class="eyebrow" style="color:#d63384;">课堂精讲 3</p><h2>一年级识字课：从单字到句子</h2></div>
-      <div class="table-card"><h2>题目、答案、解析、常见错误</h2><div class="responsive-table"><table><thead><tr><th>任务</th><th>标准答案</th><th>解析（含原因）</th><th>常见错误分析</th><th>变式</th></tr></thead><tbody><tr><td>"山"组词</td><td>大山、高山、山上</td><td>先组生活中见过的词。</td><td>只会读字，不知道意思。</td><td>给"水、田、月"组词。</td></tr><tr><td>用"山"说句子</td><td>远处有一座高高的大山。</td><td>句子有完整意思，还加了样子。</td><td>只说"山很高"，信息太少。</td><td>用"水"说一句具体的话。</td></tr><tr><td>偏旁归类</td><td>河、湖、海都和水有关。</td><td>三点水常表示和水有关。</td><td>只背字形，不会发现规律。</td><td>找 3 个木字旁的字。</td></tr></tbody></table></div></div>
-      <div class="study-block accent" style="margin-top:18px; margin-bottom:18px;">
-        <h2>拔尖训练提示</h2>
-        <p><strong>诊断本质：</strong>拔尖生要重点练迁移，避免只会原题、换个场景就不会。</p>
-        <p><strong>怎么练：</strong>同一项能力用课本、绘本、生活标牌、看图表达多种材料反复练，让孩子说出"我是怎么想的"。</p>
-      </div>
-      <div class="section-title">
-        <p class="eyebrow" style="color:#d63384;">拔尖题库 · 批改样例</p>
-        <h2>一年级高质量题组：从会读到会表达</h2>
-        <p style="color:#666;">每组题都按"基础、提升、拔尖、迁移"递进。做完后重点看错因，不追求一次做很多。</p>
-      </div>
-      <div class="table-card"><h2>递进题组</h2><div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与常见错因</th></tr></thead><tbody><tr><td>基础</td><td>拼读 n-ǚ、lǜ、j-ü</td><td>nǚ、lǜ、jū</td><td>ü 遇到 j 要去两点但读音不变。</td></tr><tr><td>提升</td><td>用"雨"组 2 个词并说一句话</td><td>下雨、雨伞；今天下雨了，我带了一把雨伞。</td><td>句子要表达完整意思，不只堆词。</td></tr><tr><td>拔尖</td><td>读句子"妹妹把书放进书包里。"说清谁做什么</td><td>妹妹把书放进书包里。</td><td>抓人物和动作，不能只答"书包"。</td></tr><tr><td>迁移</td><td>看图说 3 句话：小男孩浇花</td><td>早上，小男孩在阳台上给花浇水。花儿开得很美。小男孩心里很开心。</td><td>五要素越完整，表达越稳。</td></tr></tbody></table></div></div>
-      <article class="study-block accent" style="margin-top:18px;">
-        <h2>常见错因分析</h2>
-        <div class="routine">
-          <p><strong>拼音错：</strong>b/d/p/q 混，用手势和口型建立区分线索。</p>
-          <p><strong>识字错：</strong>只认单字不会组词，需要通过"字→词→句"链条反复激活。</p>
-          <p><strong>表达错：</strong>只说一个短句，用五问法逐步补完整。</p>
+      <section class="section">
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">核心导航</p>
+          <h2>一年级语文能力发展路径</h2>
+          <p style="color: #666">
+            聚焦拼音拼读、识字组词、朗读理解和看图说话四项基本功。每日训练与错题复盘统一在练习页完成。
+          </p>
         </div>
-      </article>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>阶段测评</h2>
-        <div class="responsive-table"><table><thead><tr><th>测评项</th><th>达标</th><th>提升</th><th>拔尖</th></tr></thead><tbody>
-          <tr><td>拼音</td><td>能拼读常见音节</td><td>能纠正常见易混音</td><td>能借助拼音读短句</td></tr>
-          <tr><td>识字</td><td>能认字组词</td><td>能用词说句子</td><td>能发现偏旁规律</td></tr>
-          <tr><td>表达</td><td>能说完整一句话</td><td>能说 2-3 句话</td><td>能讲清画面和心情</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
+        <div class="route-grid">
+          <article class="route-card">
+            <h3>拼音拼读</h3>
+            <p>声母轻短、韵母响亮、声调一次到位。</p>
+            <div class="route-links"><a href="pinyin.html">拼音学习</a></div>
+          </article>
+          <article class="route-card">
+            <h3>识字运用</h3>
+            <p>认字后要组词，再用词说完整句子。</p>
+            <div class="route-links">
+              <a href="vocabulary.html">词语学习</a>
+            </div>
+          </article>
+          <article class="route-card">
+            <h3>朗读理解</h3>
+            <p>不添漏字，读完能说"谁做了什么"。</p>
+            <div class="route-links"><a href="#reading-lesson">朗读课</a></div>
+          </article>
+          <article class="route-card">
+            <h3>长期训练</h3>
+            <p>每日打卡、错题复盘统一在练习页完成。</p>
+            <div class="route-links"><a href="practice.html">练习计划</a></div>
+          </article>
+          <article class="route-card">
+            <h3>一对一闭环</h3>
+            <p>先做本年级阶段卷，再去错因精讲、C卷迁移和打印训练单。</p>
+            <div class="route-links">
+              <a href="#grade1-stage-assessment">阶段卷</a
+              ><a href="practice.html#error-masterclass">错因精讲</a
+              ><a href="practice.html#flow-training">C卷评分器</a
+              ><a href="practice.html#print-training">打印单</a>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <section class="section advanced-bank">
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>诊断本质：</strong>最大陷阱叫"假掌握"：第一轮做对了，隔一周换道同类型的题又错了。这说明知识只在原题入口里能被想起，还没有迁移到新情境。</p>
-        <p><strong>怎么练：</strong>二轮训练的核心是"换个样子考你"。每个知识点按原题、换材料、加干扰、新情境四步推进，做错的题隔一天再测一次。</p>
-      </div>
-      <div class="section-title">
-        <p class="eyebrow" style="color:#d63384;">二轮加厚题库</p>
-        <h2>一年级按知识点闯关：拼音、识字、朗读表达</h2>
-        <p style="color:#666;">每个核心知识点都安排 4 道递进题，孩子做完要能说出"我错在哪里、下次怎么改"。</p>
-      </div>
-      <div class="table-card">
-        <h2>知识点递进题组</h2>
-        <div class="responsive-table"><table><thead><tr><th>知识点</th><th>递进题</th><th>标准答案/要点</th><th>解析与常见错因</th></tr></thead><tbody>
-          <tr><td>拼音拼读</td><td>1. 拼读 b-a、p-o、m-i、f-u</td><td>ba、po、mi、fu</td><td>先分声母韵母，再连读；常错在拖音或漏读韵母。</td></tr>
-          <tr><td>拼音拼读</td><td>2. 区分 b、d、p、q，并各组一个音节</td><td>ba、da、pa、qi 等</td><td>用口型和笔画方向区分，不能只靠猜。</td></tr>
-          <tr><td>拼音拼读</td><td>3. 拼读 j-ü、q-ü、x-ü</td><td>ju、qu、xu，ü 去两点读音不变</td><td>规则题要说清"见 j q x 去两点"。</td></tr>
-          <tr><td>拼音拼读</td><td>4. 借助拼音读短句：mā ma qí chē</td><td>妈妈骑车。</td><td>拔尖要求不是读单音，而是把音节连成句意。</td></tr>
-          <tr><td>识字运用</td><td>1. 给"日、月、山、水"各组 1 个词</td><td>日出、月亮、大山、河水</td><td>认字要放进词语，避免只会读不会用。</td></tr>
-          <tr><td>识字运用</td><td>2. 选字填空：我用（目/木）看书；树上有（目/木）头</td><td>目、木</td><td>看意思判断，目和眼睛有关，木和树木有关。</td></tr>
-          <tr><td>识字运用</td><td>3. 把"河、湖、海"归类并说明理由</td><td>都带三点水，都和水有关</td><td>从偏旁发现规律，属于迁移能力。</td></tr>
-          <tr><td>识字运用</td><td>4. 用"花园"说一句具体的话</td><td>春天，花园里开满了五颜六色的花。</td><td>句子要有时间或地点，还要写出样子。</td></tr>
-          <tr><td>朗读表达</td><td>1. 读句子后回答：小鱼在水里游。谁做什么？</td><td>小鱼在水里游。</td><td>抓"谁"和"做什么"，不能只答"小鱼"。</td></tr>
-          <tr><td>朗读表达</td><td>2. 读两句话并停顿：小鸟飞来了。花儿真美啊！</td><td>句号停一停，感叹号读出喜爱</td><td>朗读不是唱读，要读出句子意思。</td></tr>
-          <tr><td>朗读表达</td><td>3. 看图说 3 句话：小朋友扫地</td><td>早上，小朋友在教室里扫地。地面变干净了。大家都很开心。</td><td>按时间、地点、人物、事情、结果说完整。</td></tr>
-          <tr><td>朗读表达</td><td>4. 听完小故事，用一句话说大意</td><td>谁做了什么，结果怎样</td><td>拔尖孩子要能从听到的内容中提取主干。</td></tr>
-        </tbody></table></div>
-      </div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>写话批改加厚</h2>
-        <div class="responsive-table"><table><thead><tr><th>孩子原文</th><th>老师批注</th><th>升格稿</th><th>二次练习</th></tr></thead><tbody>
-          <tr><td>小猫玩球。</td><td>太短，只说了事情，没有地点、动作和结果。</td><td>星期天上午，小猫在院子里追着皮球跑来跑去，玩得可开心了。</td><td>把"小狗跑来"改成一句完整话。</td></tr>
-          <tr><td>我很开心。</td><td>只有心情，没有事情，像空话。</td><td>我看到小鸟飞到树枝上唱歌，心里开心极了。</td><td>给"我很高兴"补上看到的事情。</td></tr>
-        </tbody></table></div>
-      </div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>错因分析与阶段测评</h2>
-        <div class="responsive-table"><table><thead><tr><th>类型</th><th>典型表现</th><th>立刻补救</th><th>测评标准</th></tr></thead><tbody>
-          <tr><td>拼音混读</td><td>b/d/p/q、n/l、平翘舌混</td><td>每天只练 2 组易混音，读准再写</td><td>随机 8 个音节，错不超过 1 个</td></tr>
-          <tr><td>识字孤立</td><td>会认字，不会组词造句</td><td>每个字走"字-词-句"三步</td><td>8 个生字能组词并说 4 个完整句</td></tr>
-          <tr><td>朗读无意</td><td>读完不知道讲什么</td><td>每句读完问"谁做什么"</td><td>30 字短文能读准并说一句大意</td></tr>
-          <tr><td>表达缺要素</td><td>只说"小孩玩"</td><td>用五问法补时间、地点、动作、心情</td><td>看图能连续说 3 句，有结果或心情</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
+      <section class="section grade-closed-loop">
+      
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">课标对照 · 训练闭环</p>
+          <h2>一年级从"会认会读"到"能说能用"</h2>
+          <p style="color: #666">
+            按第一学段要求，把识字写字、阅读鉴赏、表达交流、梳理探究变成可检查的学习任务。
+          </p>
+        </div>
+        <div id="grade1-curriculum"></div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>5分钟诊断性自测</h3>
+            <p style="font-size: 12px; color: #999; margin-top: 2px">
+              快速摸清卡点位置
+            </p>
+            <ul>
+              <li>任取 5 个音节，能不能直接拼读。</li>
+              <li>任取 5 个生字，能不能组词并说一句话。</li>
+              <li>朗读 3 句话，是否有停顿。</li>
+              <li>看一幅图，能不能说清谁在哪里做什么。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>三层掌握训练</h3>
+            <p style="font-size: 12px; color: #999; margin-top: 2px">
+              步步为营，一层稳了再进下一层
+            </p>
+            <ul>
+              <li>
+                <strong>基础：</strong>拼音 5 分钟 + 认字 5 个 + 朗读 1 段。
+              </li>
+              <li>
+                <strong>提升：</strong>每个新字组 2 个词，再选 1 个词说句子。
+              </li>
+              <li>
+                <strong>拔尖：</strong>一周读 1 本绘本，用 3 句话讲给家长听。
+              </li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>形成性评价量表</h3>
+            <p style="font-size: 12px; color: #999; margin-top: 2px">
+              不打总分，看孩子卡在哪一层
+            </p>
+            <div class="score-line">
+              <p><strong>3分：</strong>读准、说清、能迁移到新图或新句。</p>
+              <p><strong>2分：</strong>提醒下能完成，但慢或不完整。</p>
+              <p><strong>1分：</strong>只会背不会用，下次只补这一项。</p>
+            </div>
+          </article>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>本周分阶诊断训练题</h2>
+          <p style="font-size: 12px; color: #999; margin-bottom: 6px">
+            三层递进，看孩子卡在哪一级
+          </p>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>层级</th>
+                  <th>孩子要做</th>
+                  <th>答案标准</th>
+                  <th>家长追问</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>基础</td>
+                  <td>拼读 b-a、m-a、p-o、d-i、t-u</td>
+                  <td>声母、韵母、声调读准</td>
+                  <td>哪个音最容易混</td>
+                </tr>
+                <tr>
+                  <td>提升</td>
+                  <td>用"花、草、鸟、雨、书"组词并说句子</td>
+                  <td>组词准确，句子完整</td>
+                  <td>能不能加地点和心情</td>
+                </tr>
+                <tr>
+                  <td>拔尖</td>
+                  <td>看图说 3 句话</td>
+                  <td>时间、地点、人物、事情、心情完整</td>
+                  <td>如果你在图里会怎么做</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-    <section class="section stage-assessment" id="grade1-stage-assessment">
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>诊断本质：</strong>阶段测评不能只看总分。紧张考砸不等于能力不够，听写全对也不等于真正掌握，关键要看错因落在拼音、识字、朗读还是表达。</p>
-        <p><strong>怎么用测评结果：</strong>按 A 卷诊断、B 卷变式验证、C 卷迁移确认三步走。字词类问题回词语页重学，阅读类问题回阅读模板练，表达类问题回作文专题补。</p>
-      </div>
-      <div class="section-title">
-        <p class="eyebrow" style="color:#d63384;">阶段测评卷 · 20分钟</p>
-        <h2>一年级小测：拼音、识字、朗读、看图说话</h2>
-        <p style="color:#666;">做题时不追求快，重点看孩子能不能读准、说完整、知道错在哪里。</p>
-      </div>
-      <div class="content-grid">
+      <section class="section pre-diagnostic">
+       
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">课前诊断卷 · 10分钟</p>
+          <h2>一年级先测：拼音、组词、朗读、看图说话</h2>
+          <p style="color: #666">
+            先看孩子卡在哪一层，再决定是补拼音、补字词，还是直接进句子表达。
+          </p>
+        </div>
+        <div class="content-grid" style="margin-bottom: 18px">
+          <article class="study-block">
+            <h2>诊断材料</h2>
+            <p>小鸟在树上唱歌。小朋友在操场上做游戏。大家玩得真开心啊！</p>
+          </article>
+          <article class="study-block accent">
+            <h2>诊断维度</h2>
+            <p style="font-size: 12px; color: #999; margin-bottom: 6px">
+              三维快速筛查
+            </p>
+            <div class="routine">
+              <p><strong>拼音：</strong>能不能把 b、p、m、f 读准。</p>
+              <p><strong>识字：</strong>能不能把字放进词语里。</p>
+              <p><strong>表达：</strong>能不能说清谁、在哪里、做什么。</p>
+            </div>
+          </article>
+        </div>
+        <div class="table-card">
+          <h2>题目、答案和评分</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>题目</th>
+                  <th>标准答案</th>
+                  <th>评分点</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1. 拼读 b-a、m-a</td>
+                  <td>ba、ma</td>
+                  <td>每个 1 分，读音准确</td>
+                  <td>
+                    把声母和韵母分开读，不会连起来——这是正常的，孩子大脑还没习惯把两个音快速"粘"成一个，多示范几次就好。
+                  </td>
+                </tr>
+                <tr>
+                  <td>2. 给"花、书"各组 1 个词</td>
+                  <td>花园、花朵；书包、读书</td>
+                  <td>每词 1 分</td>
+                  <td>
+                    只会认字，不会组词——字的意思还没跟字形"绑"在一起，记的是字的照片，不是有意义的符号。多练组词就好。
+                  </td>
+                </tr>
+                <tr>
+                  <td>3. 小鸟在树上做什么？</td>
+                  <td>唱歌。</td>
+                  <td>找到动作 2 分</td>
+                  <td>
+                    只答"小鸟"，没有动作——听问题时脑子里只蹦出了最熟悉的名词，还没学会把问题和答案完整对应起来。
+                  </td>
+                </tr>
+                <tr>
+                  <td>4. 这句"大家玩得真开心啊！"读出什么语气？</td>
+                  <td>开心、高兴的语气。</td>
+                  <td>1 分</td>
+                  <td>
+                    不会联系感叹号判断语气——孩子还没意识到标点符号是"提示器"，读到感叹号应该读出感情来。
+                  </td>
+                </tr>
+                <tr>
+                  <td>5. 用一句完整的话说"小朋友在操场上做游戏"</td>
+                  <td>小朋友在操场上开心地做游戏。</td>
+                  <td>人物、地点、动作各 1 分</td>
+                  <td>
+                    只说一句很短的话，没有地点——脑子里想说的话挺多，但一次只能输出一个信息块，多要素句子还需要练。
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>诊断结果使用建议</h2>
+          <p style="font-size: 12px; color: #999; margin-bottom: 6px">
+            根据诊断结果定位最佳教学起点
+          </p>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>分数</th>
+                  <th>孩子状态</th>
+                  <th>卡在哪一层</th>
+                  <th>第一步怎么补</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>13-15分</td>
+                  <td>可以直接进课堂精讲和拔尖题组</td>
+                  <td>
+                    基础已经很稳，下一步要练的是换场景、换材料后的灵活运用——同一项能力在不同材料上都能用出来。
+                  </td>
+                  <td>重点做变式题和口头表达。</td>
+                </tr>
+                <tr>
+                  <td>9-12分</td>
+                  <td>基础可用，但句子表达不稳</td>
+                  <td>
+                    字词关过了，卡在句子组织上——需要在"字→词→句"的跳跃处搭把手（如填空式引导、示范仿说）。
+                  </td>
+                  <td>先补拼音和组词，再练一句话说完整。</td>
+                </tr>
+                <tr>
+                  <td>8分以下</td>
+                  <td>拼读或识字基础薄弱</td>
+                  <td>
+                    当前水平和课标要求有差距，问题出在拼音和认字的基础环节——先建立拼音和字形的牢固联系，暂缓表达要求。
+                  </td>
+                  <td>先回到拼音学习页和词语学习页。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section lesson-pack">
+    
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">孩子直接学</p>
+          <h2>一年级精讲课：拼读、识字、看图说话</h2>
+        </div>
+        <div class="content-grid">
+          <article class="study-block">
+            <h2>知识点讲解</h2>
+            <ul class="level-list">
+              <li>
+                <strong>拼读三步：</strong>先读声母，再读韵母，最后连起来。
+              </li>
+              <li><strong>识字三步：</strong>先认字形，再组词，最后说句子。</li>
+              <li>
+                <strong>看图五问：</strong
+                >什么时候、在哪里、谁、做什么、心情怎样。
+              </li>
+            </ul>
+          </article>
+          <article class="study-block accent">
+            <h2>教师示范</h2>
+            <div class="routine">
+              <p>
+                <strong>拼读：</strong>b - a - ba，加声调读 bā、bá、bǎ、bà。
+              </p>
+              <p>
+                <strong>识字：</strong
+                >"花"可以说鲜花、花园，再说"花园里开着美丽的花"。
+              </p>
+              <p>
+                <strong>表达：</strong
+                >"小女孩画画"升级成"星期天上午，小女孩坐在书桌前认真地画一朵红花"。
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>例题、解析和变式</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>题目</th>
+                  <th>标准答案</th>
+                  <th>解析（含原因）</th>
+                  <th>变式练习</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>拼读 m-ǎ</td>
+                  <td>m-ǎ → mǎ</td>
+                  <td>
+                    先分开读声母和韵母，再连起来读，三声要读出先降后升的拐弯。
+                  </td>
+                  <td>拼读 p-í、tù、nǚ。</td>
+                </tr>
+                <tr>
+                  <td>用"书"说一句话</td>
+                  <td>我在教室里认真地看书。</td>
+                  <td>一句话要有三要素：谁、在哪、怎样做。</td>
+                  <td>用"雨、花、鸟"说句子。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="study-block accent"
+          style="margin-top: 18px; margin-bottom: 18px"
+        >
+          <h2>朗读训练提示</h2>
+          <p>
+            <strong>诊断本质：</strong
+            >朗读不等于把字念出声，真正的朗读要做到读准字、读出停顿、读懂内容。
+          </p>
+          <p>
+            <strong>怎么做：</strong
+            >用"三遍朗读法"：第一遍指读，第二遍读停顿和语气，第三遍读完说大意。
+          </p>
+        </div>
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">课堂精讲 2</p>
+          <h2>一年级朗读课：读准、停顿、说大意</h2>
+        </div>
+        <div class="content-grid">
+          <article class="study-block">
+            <h2>课堂材料</h2>
+            <p>小鸟在树上唱歌。小朋友们在操场上做游戏。大家玩得真开心啊！</p>
+            <ul class="level-list">
+              <li><strong>第一遍：</strong>指读，不添字不漏字。</li>
+              <li><strong>第二遍：</strong>句号停一停，感叹号读出开心。</li>
+              <li><strong>第三遍：</strong>读完说大意。</li>
+            </ul>
+          </article>
+          <article class="study-block accent">
+            <h2>常见朗读错误分析</h2>
+            <div class="routine">
+              <p>
+                <strong>唱读拖音：</strong
+                >多半是认字占用了太多精力，需要短句反复示范。
+              </p>
+              <p><strong>读完不懂：</strong>每一句读完都追问"谁在做什么"。</p>
+            </div>
+          </article>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>题目、答案和变式</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>题目</th>
+                  <th>标准答案</th>
+                  <th>解析（含原因）</th>
+                  <th>变式练习</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>第一句话写谁做什么？</td>
+                  <td>小鸟在树上唱歌。</td>
+                  <td>找"谁"和"做什么"。</td>
+                  <td>"小鱼在水里游。"写谁做什么？</td>
+                </tr>
+                <tr>
+                  <td>感叹号读出什么语气？</td>
+                  <td>开心、高兴的语气。</td>
+                  <td>"真开心啊"表达强烈心情。</td>
+                  <td>读"花儿真美啊！"</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="study-block accent"
+          style="margin-top: 18px; margin-bottom: 18px"
+        >
+          <h2>识字训练提示</h2>
+          <p>
+            <strong>诊断本质：</strong
+            >识字的难点不是只记字形，而是把字形、意思和用法连起来。
+          </p>
+          <p>
+            <strong>怎么教：</strong
+            >先看偏旁和字形，再组两个生活中的词，最后用其中一个词说完整句。
+          </p>
+        </div>
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">课堂精讲 3</p>
+          <h2>一年级识字课：从单字到句子</h2>
+        </div>
+        <div class="table-card">
+          <h2>题目、答案、解析、常见错误</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>任务</th>
+                  <th>标准答案</th>
+                  <th>解析（含原因）</th>
+                  <th>常见错误分析</th>
+                  <th>变式</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>"山"组词</td>
+                  <td>大山、高山、山上</td>
+                  <td>先组生活中见过的词。</td>
+                  <td>只会读字，不知道意思。</td>
+                  <td>给"水、田、月"组词。</td>
+                </tr>
+                <tr>
+                  <td>用"山"说句子</td>
+                  <td>远处有一座高高的大山。</td>
+                  <td>句子有完整意思，还加了样子。</td>
+                  <td>只说"山很高"，信息太少。</td>
+                  <td>用"水"说一句具体的话。</td>
+                </tr>
+                <tr>
+                  <td>偏旁归类</td>
+                  <td>河、湖、海都和水有关。</td>
+                  <td>三点水常表示和水有关。</td>
+                  <td>只背字形，不会发现规律。</td>
+                  <td>找 3 个木字旁的字。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="study-block accent"
+          style="margin-top: 18px; margin-bottom: 18px"
+        >
+          <h2>拔尖训练提示</h2>
+          <p>
+            <strong>诊断本质：</strong
+            >拔尖生要重点练迁移，避免只会原题、换个场景就不会。
+          </p>
+          <p>
+            <strong>怎么练：</strong
+            >同一项能力用课本、绘本、生活标牌、看图表达多种材料反复练，让孩子说出"我是怎么想的"。
+          </p>
+        </div>
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">拔尖题库 · 批改样例</p>
+          <h2>一年级高质量题组：从会读到会表达</h2>
+          <p style="color: #666">
+            每组题都按"基础、提升、拔尖、迁移"递进。做完后重点看错因，不追求一次做很多。
+          </p>
+        </div>
+        <div class="table-card">
+          <h2>递进题组</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>层级</th>
+                  <th>题目</th>
+                  <th>标准答案</th>
+                  <th>解析与常见错因</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>基础</td>
+                  <td>拼读 n-ǚ、lǜ、j-ü</td>
+                  <td>nǚ、lǜ、jū</td>
+                  <td>ü 遇到 j 要去两点但读音不变。</td>
+                </tr>
+                <tr>
+                  <td>提升</td>
+                  <td>用"雨"组 2 个词并说一句话</td>
+                  <td>下雨、雨伞；今天下雨了，我带了一把雨伞。</td>
+                  <td>句子要表达完整意思，不只堆词。</td>
+                </tr>
+                <tr>
+                  <td>拔尖</td>
+                  <td>读句子"妹妹把书放进书包里。"说清谁做什么</td>
+                  <td>妹妹把书放进书包里。</td>
+                  <td>抓人物和动作，不能只答"书包"。</td>
+                </tr>
+                <tr>
+                  <td>迁移</td>
+                  <td>看图说 3 句话：小男孩浇花</td>
+                  <td>
+                    早上，小男孩在阳台上给花浇水。花儿开得很美。小男孩心里很开心。
+                  </td>
+                  <td>五要素越完整，表达越稳。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <article class="study-block accent" style="margin-top: 18px">
+          <h2>常见错因分析</h2>
+          <div class="routine">
+            <p>
+              <strong>拼音错：</strong>b/d/p/q 混，用手势和口型建立区分线索。
+            </p>
+            <p>
+              <strong>识字错：</strong
+              >只认单字不会组词，需要通过"字→词→句"链条反复激活。
+            </p>
+            <p><strong>表达错：</strong>只说一个短句，用五问法逐步补完整。</p>
+          </div>
+        </article>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>阶段测评</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>测评项</th>
+                  <th>达标</th>
+                  <th>提升</th>
+                  <th>拔尖</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>拼音</td>
+                  <td>能拼读常见音节</td>
+                  <td>能纠正常见易混音</td>
+                  <td>能借助拼音读短句</td>
+                </tr>
+                <tr>
+                  <td>识字</td>
+                  <td>能认字组词</td>
+                  <td>能用词说句子</td>
+                  <td>能发现偏旁规律</td>
+                </tr>
+                <tr>
+                  <td>表达</td>
+                  <td>能说完整一句话</td>
+                  <td>能说 2-3 句话</td>
+                  <td>能讲清画面和心情</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section advanced-bank">
+
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">二轮加厚题库</p>
+          <h2>一年级按知识点闯关：拼音、识字、朗读表达</h2>
+          <p style="color: #666">
+            每个核心知识点都安排 4
+            道递进题，孩子做完要能说出"我错在哪里、下次怎么改"。
+          </p>
+        </div>
+        <div class="table-card">
+          <h2>知识点递进题组</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>知识点</th>
+                  <th>递进题</th>
+                  <th>标准答案/要点</th>
+                  <th>解析与常见错因</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>拼音拼读</td>
+                  <td>1. 拼读 b-a、p-o、m-i、f-u</td>
+                  <td>ba、po、mi、fu</td>
+                  <td>先分声母韵母，再连读；常错在拖音或漏读韵母。</td>
+                </tr>
+                <tr>
+                  <td>拼音拼读</td>
+                  <td>2. 区分 b、d、p、q，并各组一个音节</td>
+                  <td>ba、da、pa、qi 等</td>
+                  <td>用口型和笔画方向区分，不能只靠猜。</td>
+                </tr>
+                <tr>
+                  <td>拼音拼读</td>
+                  <td>3. 拼读 j-ü、q-ü、x-ü</td>
+                  <td>ju、qu、xu，ü 去两点读音不变</td>
+                  <td>规则题要说清"见 j q x 去两点"。</td>
+                </tr>
+                <tr>
+                  <td>拼音拼读</td>
+                  <td>4. 借助拼音读短句：mā ma qí chē</td>
+                  <td>妈妈骑车。</td>
+                  <td>拔尖要求不是读单音，而是把音节连成句意。</td>
+                </tr>
+                <tr>
+                  <td>识字运用</td>
+                  <td>1. 给"日、月、山、水"各组 1 个词</td>
+                  <td>日出、月亮、大山、河水</td>
+                  <td>认字要放进词语，避免只会读不会用。</td>
+                </tr>
+                <tr>
+                  <td>识字运用</td>
+                  <td>2. 选字填空：我用（目/木）看书；树上有（目/木）头</td>
+                  <td>目、木</td>
+                  <td>看意思判断，目和眼睛有关，木和树木有关。</td>
+                </tr>
+                <tr>
+                  <td>识字运用</td>
+                  <td>3. 把"河、湖、海"归类并说明理由</td>
+                  <td>都带三点水，都和水有关</td>
+                  <td>从偏旁发现规律，属于迁移能力。</td>
+                </tr>
+                <tr>
+                  <td>识字运用</td>
+                  <td>4. 用"花园"说一句具体的话</td>
+                  <td>春天，花园里开满了五颜六色的花。</td>
+                  <td>句子要有时间或地点，还要写出样子。</td>
+                </tr>
+                <tr>
+                  <td>朗读表达</td>
+                  <td>1. 读句子后回答：小鱼在水里游。谁做什么？</td>
+                  <td>小鱼在水里游。</td>
+                  <td>抓"谁"和"做什么"，不能只答"小鱼"。</td>
+                </tr>
+                <tr>
+                  <td>朗读表达</td>
+                  <td>2. 读两句话并停顿：小鸟飞来了。花儿真美啊！</td>
+                  <td>句号停一停，感叹号读出喜爱</td>
+                  <td>朗读不是唱读，要读出句子意思。</td>
+                </tr>
+                <tr>
+                  <td>朗读表达</td>
+                  <td>3. 看图说 3 句话：小朋友扫地</td>
+                  <td>
+                    早上，小朋友在教室里扫地。地面变干净了。大家都很开心。
+                  </td>
+                  <td>按时间、地点、人物、事情、结果说完整。</td>
+                </tr>
+                <tr>
+                  <td>朗读表达</td>
+                  <td>4. 听完小故事，用一句话说大意</td>
+                  <td>谁做了什么，结果怎样</td>
+                  <td>拔尖孩子要能从听到的内容中提取主干。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>写话批改加厚</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>孩子原文</th>
+                  <th>老师批注</th>
+                  <th>升格稿</th>
+                  <th>二次练习</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>小猫玩球。</td>
+                  <td>太短，只说了事情，没有地点、动作和结果。</td>
+                  <td>
+                    星期天上午，小猫在院子里追着皮球跑来跑去，玩得可开心了。
+                  </td>
+                  <td>把"小狗跑来"改成一句完整话。</td>
+                </tr>
+                <tr>
+                  <td>我很开心。</td>
+                  <td>只有心情，没有事情，像空话。</td>
+                  <td>我看到小鸟飞到树枝上唱歌，心里开心极了。</td>
+                  <td>给"我很高兴"补上看到的事情。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>错因分析与阶段测评</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>类型</th>
+                  <th>典型表现</th>
+                  <th>立刻补救</th>
+                  <th>测评标准</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>拼音混读</td>
+                  <td>b/d/p/q、n/l、平翘舌混</td>
+                  <td>每天只练 2 组易混音，读准再写</td>
+                  <td>随机 8 个音节，错不超过 1 个</td>
+                </tr>
+                <tr>
+                  <td>识字孤立</td>
+                  <td>会认字，不会组词造句</td>
+                  <td>每个字走"字-词-句"三步</td>
+                  <td>8 个生字能组词并说 4 个完整句</td>
+                </tr>
+                <tr>
+                  <td>朗读无意</td>
+                  <td>读完不知道讲什么</td>
+                  <td>每句读完问"谁做什么"</td>
+                  <td>30 字短文能读准并说一句大意</td>
+                </tr>
+                <tr>
+                  <td>表达缺要素</td>
+                  <td>只说"小孩玩"</td>
+                  <td>用五问法补时间、地点、动作、心情</td>
+                  <td>看图能连续说 3 句，有结果或心情</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section stage-assessment" id="grade1-stage-assessment">
+
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">阶段测评卷 · 20分钟</p>
+          <h2>一年级小测：拼音、识字、朗读、看图说话</h2>
+          <p style="color: #666">
+            做题时不追求快，重点看孩子能不能读准、说完整、知道错在哪里。
+          </p>
+        </div>
+        <div class="content-grid">
+          <article class="study-block">
+            <h2>测评材料</h2>
+            <p>
+              小猫在院子里玩球。球滚到花盆旁边，小猫轻轻跑过去，用爪子把球推回来。小猫玩得真开心啊！
+            </p>
+          </article>
+          <article class="study-block accent">
+            <h2>答题要求</h2>
+            <div class="routine">
+              <p><strong>拼音：</strong>先分开读，再连起来读。</p>
+              <p><strong>识字：</strong>每个字先组词，再说一句话。</p>
+              <p><strong>表达：</strong>回答必须有"谁 + 在哪里 + 做什么"。</p>
+            </div>
+          </article>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>A卷：题目、答案和评分</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>题目</th>
+                  <th>标准答案</th>
+                  <th>评分点</th>
+                  <th>常见错因</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1. 拼读 p-én、q-iú、m-āo</td>
+                  <td>pén、qiú、māo</td>
+                  <td>每个 1 分，声调准确</td>
+                  <td>
+                    只读声母，漏读韵母或声调——耳朵听到韵母和声调后，信息在大脑中"停留"时间太短，需要先分开读再慢慢连起来。
+                  </td>
+                </tr>
+                <tr>
+                  <td>2. 给"花、球、猫"各组 1 个词</td>
+                  <td>花朵、皮球、小猫等</td>
+                  <td>每词 1 分，词义正确</td>
+                  <td>
+                    只会认字，不会放进词语——字形和意思的联系还没打通两条路，能认读但不能主动用，需要多在生活中组词激活。
+                  </td>
+                </tr>
+                <tr>
+                  <td>3. 第一句话写谁在哪里做什么？</td>
+                  <td>小猫在院子里玩球。</td>
+                  <td>人物、地点、事情各 1 分</td>
+                  <td>
+                    只答"小猫"或"玩球"，不完整——做题时只抓住了一个关键词，问题要求回答的完整内容还没学会对应。
+                  </td>
+                </tr>
+                <tr>
+                  <td>4. 感叹号要读出什么语气？</td>
+                  <td>开心、高兴的语气。</td>
+                  <td>能说出心情 2 分</td>
+                  <td>
+                    只会读字，不理解句子情感——孩子还没学会"读标点"，读到感叹号、问号时需要有意识地去感受句子的语气。
+                  </td>
+                </tr>
+                <tr>
+                  <td>5. 看图说话：小朋友浇花，说 3 句话</td>
+                  <td>
+                    早上，小朋友在阳台上给花浇水。花儿开得很美。小朋友心里很开心。
+                  </td>
+                  <td>时间、地点、人物、动作、心情共 5 分</td>
+                  <td>
+                    只说一句，缺少地点或心情——这是发展中完全正常的阶段，孩子一开始只能输出一个核心信息，之后再慢慢加细节，每次加一个维度。
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card" id="grade1-b-test" style="margin-top: 18px">
+          <h2>B卷：同类变式迁移</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>变式题</th>
+                  <th>标准答案/要点</th>
+                  <th>错因编码</th>
+                  <th>通过标准</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1. 拼读 t-ǔ、h-uā、x-iǎo</td>
+                  <td>tǔ、huā、xiǎo，声调读完整。</td>
+                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td>能先分开读，再连成完整音节。</td>
+                </tr>
+                <tr>
+                  <td>2. 给"水、鸟、书"组词，并选一个说句子</td>
+                  <td>水杯、小鸟、书本；我在书桌前看书。</td>
+                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td>词语正确，句子有完整意思。</td>
+                </tr>
+                <tr>
+                  <td>3. 读句子：小狗在草地上追蝴蝶。回答谁在哪里做什么</td>
+                  <td>小狗在草地上追蝴蝶。</td>
+                  <td><a href="practice.html#pack-r1">R1</a></td>
+                  <td>人物、地点、事情都说全。</td>
+                </tr>
+                <tr>
+                  <td>4. 看图说话：小朋友捡起地上的纸</td>
+                  <td>
+                    放学后，小朋友在操场边捡起地上的纸。他把纸放进垃圾桶。校园变干净了，他很开心。
+                  </td>
+                  <td><a href="practice.html#pack-w1">W1</a></td>
+                  <td>至少 3 句，补动作和心情。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>测后复盘</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>得分</th>
+                  <th>判断</th>
+                  <th>下一步补救</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>14-16分</td>
+                  <td>达成拔尖基础</td>
+                  <td>每天读 1 段短文，并用 3 句话讲大意。</td>
+                </tr>
+                <tr>
+                  <td>10-13分</td>
+                  <td>能完成，但表达不够完整</td>
+                  <td>继续练"谁在哪里做什么"，每题补地点和心情。</td>
+                </tr>
+                <tr>
+                  <td>9分以下</td>
+                  <td>拼读或识字迁移不稳</td>
+                  <td>先回到拼音和字词句三步，不急着做长阅读。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-card" style="margin-top: 18px">
+          <h2>测后分流路径</h2>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>错因编码</th>
+                  <th>错在哪</th>
+                  <th>先补哪里</th>
+                  <th>下一步练什么</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td>拼音读不准</td>
+                  <td>拼音学习页 + B1训练包</td>
+                  <td>先练声母韵母，再练两拼音节。</td>
+                </tr>
+                <tr>
+                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td>只会组词不会说句</td>
+                  <td>词语学习页 + B1训练包</td>
+                  <td>每个词都说一句完整话。</td>
+                </tr>
+                <tr>
+                  <td><a href="practice.html#pack-w1">W1</a></td>
+                  <td>表达太短</td>
+                  <td>写话练习页 + W1训练包</td>
+                  <td>每天扩一句，补时间、地点、动作和心情。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section content-grid">
         <article class="study-block">
-          <h2>测评材料</h2>
-          <p>小猫在院子里玩球。球滚到花盆旁边，小猫轻轻跑过去，用爪子把球推回来。小猫玩得真开心啊！</p>
+          <h2>一年级必须形成的 5 个能力</h2>
+          <ul class="check-list">
+            <li>拼音拼读：能正确拼读两拼和三拼音节。</li>
+            <li>识字认读：能借助拼音读短句和儿歌。</li>
+            <li>正确书写：掌握基本笔画和笔顺。</li>
+            <li>朗读表达：读准、停顿、说大意。</li>
+            <li>倾听专注：能听懂问题并完整回答。</li>
+          </ul>
         </article>
         <article class="study-block accent">
-          <h2>答题要求</h2>
+          <h2>一年级提优总口诀</h2>
           <div class="routine">
-            <p><strong>拼音：</strong>先分开读，再连起来读。</p>
-            <p><strong>识字：</strong>每个字先组词，再说一句话。</p>
-            <p><strong>表达：</strong>回答必须有"谁 + 在哪里 + 做什么"。</p>
+            <p><strong>拼音：</strong>声母轻，韵母响，声调准。</p>
+            <p><strong>识字：</strong>字不离词，词不离句。</p>
+            <p><strong>朗读：</strong>读完说大意。</p>
+            <p><strong>表达：</strong>五问答全就完整。</p>
           </div>
         </article>
-      </div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>A卷：题目、答案和评分</h2>
-        <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
- <tr><td>1. 拼读 p-én、q-iú、m-āo</td><td>pén、qiú、māo</td><td>每个 1 分，声调准确</td><td>只读声母，漏读韵母或声调——耳朵听到韵母和声调后，信息在大脑中"停留"时间太短，需要先分开读再慢慢连起来。</td></tr>
- <tr><td>2. 给"花、球、猫"各组 1 个词</td><td>花朵、皮球、小猫等</td><td>每词 1 分，词义正确</td><td>只会认字，不会放进词语——字形和意思的联系还没打通两条路，能认读但不能主动用，需要多在生活中组词激活。</td></tr>
- <tr><td>3. 第一句话写谁在哪里做什么？</td><td>小猫在院子里玩球。</td><td>人物、地点、事情各 1 分</td><td>只答"小猫"或"玩球"，不完整——做题时只抓住了一个关键词，问题要求回答的完整内容还没学会对应。</td></tr>
- <tr><td>4. 感叹号要读出什么语气？</td><td>开心、高兴的语气。</td><td>能说出心情 2 分</td><td>只会读字，不理解句子情感——孩子还没学会"读标点"，读到感叹号、问号时需要有意识地去感受句子的语气。</td></tr>
- <tr><td>5. 看图说话：小朋友浇花，说 3 句话</td><td>早上，小朋友在阳台上给花浇水。花儿开得很美。小朋友心里很开心。</td><td>时间、地点、人物、动作、心情共 5 分</td><td>只说一句，缺少地点或心情——这是发展中完全正常的阶段，孩子一开始只能输出一个核心信息，之后再慢慢加细节，每次加一个维度。</td></tr>
-        </tbody></table></div>
-      </div>
-      <div class="table-card" id="grade1-b-test" style="margin-top:18px;">
-        <h2>B卷：同类变式迁移</h2>
-        <div class="responsive-table"><table><thead><tr><th>变式题</th><th>标准答案/要点</th><th>错因编码</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>1. 拼读 t-ǔ、h-uā、x-iǎo</td><td>tǔ、huā、xiǎo，声调读完整。</td><td><a href="practice.html#pack-b1">B1</a></td><td>能先分开读，再连成完整音节。</td></tr>
-          <tr><td>2. 给"水、鸟、书"组词，并选一个说句子</td><td>水杯、小鸟、书本；我在书桌前看书。</td><td><a href="practice.html#pack-b1">B1</a></td><td>词语正确，句子有完整意思。</td></tr>
-          <tr><td>3. 读句子：小狗在草地上追蝴蝶。回答谁在哪里做什么</td><td>小狗在草地上追蝴蝶。</td><td><a href="practice.html#pack-r1">R1</a></td><td>人物、地点、事情都说全。</td></tr>
-          <tr><td>4. 看图说话：小朋友捡起地上的纸</td><td>放学后，小朋友在操场边捡起地上的纸。他把纸放进垃圾桶。校园变干净了，他很开心。</td><td><a href="practice.html#pack-w1">W1</a></td><td>至少 3 句，补动作和心情。</td></tr>
-        </tbody></table></div>
-      </div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>测后复盘</h2>
-        <div class="responsive-table"><table><thead><tr><th>得分</th><th>判断</th><th>下一步补救</th></tr></thead><tbody>
-          <tr><td>14-16分</td><td>达成拔尖基础</td><td>每天读 1 段短文，并用 3 句话讲大意。</td></tr>
-          <tr><td>10-13分</td><td>能完成，但表达不够完整</td><td>继续练"谁在哪里做什么"，每题补地点和心情。</td></tr>
-          <tr><td>9分以下</td><td>拼读或识字迁移不稳</td><td>先回到拼音和字词句三步，不急着做长阅读。</td></tr>
-        </tbody></table></div>
-      </div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>测后分流路径</h2>
-        <div class="responsive-table"><table><thead><tr><th>错因编码</th><th>错在哪</th><th>先补哪里</th><th>下一步练什么</th></tr></thead><tbody>
-          <tr><td><a href="practice.html#pack-b1">B1</a></td><td>拼音读不准</td><td>拼音学习页 + B1训练包</td><td>先练声母韵母，再练两拼音节。</td></tr>
-          <tr><td><a href="practice.html#pack-b1">B1</a></td><td>只会组词不会说句</td><td>词语学习页 + B1训练包</td><td>每个词都说一句完整话。</td></tr>
-          <tr><td><a href="practice.html#pack-w1">W1</a></td><td>表达太短</td><td>写话练习页 + W1训练包</td><td>每天扩一句，补时间、地点、动作和心情。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section content-grid">
-      <article class="study-block"><h2>一年级必须形成的 5 个能力</h2><ul class="check-list"><li>拼音拼读：能正确拼读两拼和三拼音节。</li><li>识字认读：能借助拼音读短句和儿歌。</li><li>正确书写：掌握基本笔画和笔顺。</li><li>朗读表达：读准、停顿、说大意。</li><li>倾听专注：能听懂问题并完整回答。</li></ul></article>
-      <article class="study-block accent"><h2>一年级提优总口诀</h2><div class="routine"><p><strong>拼音：</strong>声母轻，韵母响，声调准。</p><p><strong>识字：</strong>字不离词，词不离句。</p><p><strong>朗读：</strong>读完说大意。</p><p><strong>表达：</strong>五问答全就完整。</p></div></article>
-    </section>
+      <!-- 游戏化互动练习区 -->
+      <section
+        class="section"
+        style="
+          background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+          padding: 50px 5vw;
+        "
+      >
+        <div class="section-title" style="text-align: center">
+          <p class="eyebrow" style="color: rgba(255, 255, 255, 0.8)">
+            🎮 趣味小游戏
+          </p>
+          <h2 style="color: white">边玩边学，快乐成长</h2>
+        </div>
 
-    <!-- 游戏化互动练习区 -->
-    <section class="section" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 50px 5vw;">
-      <div class="section-title" style="text-align: center;">
-        <p class="eyebrow" style="color: rgba(255,255,255,0.8);">🎮 趣味小游戏</p>
-        <h2 style="color: white;">边玩边学，快乐成长</h2>
-      </div>
-
-      <!-- 拼音配对游戏 -->
-      <div class="game-card" style="background: white; border-radius: 20px; padding: 30px; max-width: 800px; margin: 0 auto 30px;">
-        <h3 style="color: #d63384; margin-bottom: 20px; text-align: center;">🔤 拼音配对小能手</h3>
-        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
-          <div>
-            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 10px;">声母</p>
-            <div class="pinyin-game-grid">
-              <button class="pinyin-game-btn" data-value="b" onclick="matchPinyin('b')">b</button>
-              <button class="pinyin-game-btn" data-value="p" onclick="matchPinyin('p')">p</button>
-              <button class="pinyin-game-btn" data-value="m" onclick="matchPinyin('m')">m</button>
-              <button class="pinyin-game-btn" data-value="f" onclick="matchPinyin('f')">f</button>
+        <!-- 拼音配对游戏 -->
+        <div
+          class="game-card"
+          style="
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+          "
+        >
+          <h3 style="color: #d63384; margin-bottom: 20px; text-align: center">
+            🔤 拼音配对小能手
+          </h3>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              gap: 30px;
+              margin-bottom: 20px;
+            "
+          >
+            <div>
+              <p
+                style="
+                  font-size: 14px;
+                  color: #666;
+                  text-align: center;
+                  margin-bottom: 10px;
+                "
+              >
+                声母
+              </p>
+              <div class="pinyin-game-grid">
+                <button
+                  class="pinyin-game-btn"
+                  data-value="b"
+                >
+                  b
+                </button>
+                <button
+                  class="pinyin-game-btn"
+                  data-value="p"
+                >
+                  p
+                </button>
+                <button
+                  class="pinyin-game-btn"
+                  data-value="m"
+                >
+                  m
+                </button>
+                <button
+                  class="pinyin-game-btn"
+                  data-value="f"
+                >
+                  f
+                </button>
+              </div>
+            </div>
+            <div style="font-size: 30px; color: #999">+</div>
+            <div>
+              <p
+                style="
+                  font-size: 14px;
+                  color: #666;
+                  text-align: center;
+                  margin-bottom: 10px;
+                "
+              >
+                韵母
+              </p>
+              <div class="pinyin-game-grid">
+                <button
+                  class="pinyin-game-btn"
+                  data-value="a"
+                >
+                  ā
+                </button>
+                <button
+                  class="pinyin-game-btn"
+                  data-value="o"
+                >
+                  ō
+                </button>
+                <button
+                  class="pinyin-game-btn"
+                  data-value="e"
+                >
+                  ē
+                </button>
+                <button
+                  class="pinyin-game-btn"
+                  data-value="i"
+                >
+                  ī
+                </button>
+              </div>
+            </div>
+            <div style="font-size: 30px; color: #999">=</div>
+            <div>
+              <p
+                style="
+                  font-size: 14px;
+                  color: #666;
+                  text-align: center;
+                  margin-bottom: 10px;
+                "
+              >
+                结果
+              </p>
+              <div
+                id="pinyinResult"
+                style="
+                  font-size: 48px;
+                  font-weight: bold;
+                  color: #d63384;
+                  text-align: center;
+                  padding: 15px 30px;
+                  border: 3px dashed #f48fb1;
+                  border-radius: 15px;
+                  min-width: 80px;
+                "
+              >
+                ?
+              </div>
             </div>
           </div>
-          <div style="font-size: 30px; color: #999;">+</div>
-          <div>
-            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 10px;">韵母</p>
-            <div class="pinyin-game-grid">
-              <button class="pinyin-game-btn" data-value="a" onclick="matchPinyin('a')">ā</button>
-              <button class="pinyin-game-btn" data-value="o" onclick="matchPinyin('o')">ō</button>
-              <button class="pinyin-game-btn" data-value="e" onclick="matchPinyin('e')">ē</button>
-              <button class="pinyin-game-btn" data-value="i" onclick="matchPinyin('i')">ī</button>
-            </div>
-          </div>
-          <div style="font-size: 30px; color: #999;">=</div>
-          <div>
-            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 10px;">结果</p>
-            <div id="pinyinResult" style="font-size: 48px; font-weight: bold; color: #d63384; text-align: center; padding: 15px 30px; border: 3px dashed #f48fb1; border-radius: 15px; min-width: 80px;">?</div>
+          <div style="text-align: center">
+            <button
+              class="next-btn"
+              style="
+                background: linear-gradient(135deg, #ff9a9e, #fecfef);
+                color: white;
+                border: none;
+              "
+              onclick="clearPinyin()"
+            >
+              重新开始
+            </button>
+            <p
+              id="pinyinHint"
+              style="
+                margin-top: 15px;
+                font-size: 14px;
+                color: #666;
+                display: none;
+              "
+            ></p>
           </div>
         </div>
-        <div style="text-align: center;">
-          <button class="next-btn" style="background: linear-gradient(135deg, #ff9a9e, #fecfef); color: white; border: none;" onclick="clearPinyin()">重新开始</button>
-          <p id="pinyinHint" style="margin-top: 15px; font-size: 14px; color: #666; display: none;"></p>
+
+        <!-- 识字卡片翻转游戏 -->
+        <div
+          class="game-card"
+          style="
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+          "
+        >
+          <h3 style="color: #d63384; margin-bottom: 20px; text-align: center">
+            📚 识字翻翻乐
+          </h3>
+          <div class="flip-card-grid">
+            <div class="flip-card" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span
+                    style="font-size: 36px; font-weight: bold; color: #d63384"
+                    >花</span
+                  >
+                </div>
+                <div class="flip-card-back">
+                  <p style="font-size: 16px; color: #333">花朵、花园</p>
+                  <p style="font-size: 14px; color: #666; margin-top: 5px">
+                    huā
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span
+                    style="font-size: 36px; font-weight: bold; color: #d63384"
+                    >山</span
+                  >
+                </div>
+                <div class="flip-card-back">
+                  <p style="font-size: 16px; color: #333">大山、高山</p>
+                  <p style="font-size: 14px; color: #666; margin-top: 5px">
+                    shān
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span
+                    style="font-size: 36px; font-weight: bold; color: #d63384"
+                    >水</span
+                  >
+                </div>
+                <div class="flip-card-back">
+                  <p style="font-size: 16px; color: #333">河水、水杯</p>
+                  <p style="font-size: 14px; color: #666; margin-top: 5px">
+                    shuǐ
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span
+                    style="font-size: 36px; font-weight: bold; color: #d63384"
+                    >鸟</span
+                  >
+                </div>
+                <div class="flip-card-back">
+                  <p style="font-size: 16px; color: #333">小鸟、飞鸟</p>
+                  <p style="font-size: 14px; color: #666; margin-top: 5px">
+                    niǎo
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span
+                    style="font-size: 36px; font-weight: bold; color: #d63384"
+                    >书</span
+                  >
+                </div>
+                <div class="flip-card-back">
+                  <p style="font-size: 16px; color: #333">书本、书包</p>
+                  <p style="font-size: 14px; color: #666; margin-top: 5px">
+                    shū
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flip-card" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault()}">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span
+                    style="font-size: 36px; font-weight: bold; color: #d63384"
+                    >雨</span
+                  >
+                </div>
+                <div class="flip-card-back">
+                  <p style="font-size: 16px; color: #333">下雨、雨伞</p>
+                  <p style="font-size: 14px; color: #666; margin-top: 5px">
+                    yǔ
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            style="
+              text-align: center;
+              font-size: 14px;
+              color: #999;
+              margin-top: 20px;
+            "
+          >
+            点击卡片查看拼音和词语
+          </p>
         </div>
-      </div>
 
-      <!-- 识字卡片翻转游戏 -->
-      <div class="game-card" style="background: white; border-radius: 20px; padding: 30px; max-width: 800px; margin: 0 auto;">
-        <h3 style="color: #d63384; margin-bottom: 20px; text-align: center;">📚 识字翻翻乐</h3>
-        <div class="flip-card-grid">
-          <div class="flip-card" onclick="flipCard(this)">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <span style="font-size: 36px; font-weight: bold; color: #d63384;">花</span>
-              </div>
-              <div class="flip-card-back">
-                <p style="font-size: 16px; color: #333;">花朵、花园</p>
-                <p style="font-size: 14px; color: #666; margin-top: 5px;">huā</p>
-              </div>
-            </div>
+        <!-- 看图说话游戏 -->
+        <div
+          class="game-card"
+          style="
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 30px auto 0;
+          "
+        >
+          <h3 style="color: #d63384; margin-bottom: 20px; text-align: center">
+            🖼️ 看图说句子
+          </h3>
+          <div style="text-align: center; margin-bottom: 20px">
+            <div style="font-size: 64px; margin-bottom: 15px">🌳🐦</div>
+            <p style="font-size: 18px; color: #333">
+              请用"小鸟、树、唱歌"说一句话
+            </p>
           </div>
-          <div class="flip-card" onclick="flipCard(this)">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <span style="font-size: 36px; font-weight: bold; color: #d63384;">山</span>
-              </div>
-              <div class="flip-card-back">
-                <p style="font-size: 16px; color: #333;">大山、高山</p>
-                <p style="font-size: 14px; color: #666; margin-top: 5px;">shān</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card" onclick="flipCard(this)">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <span style="font-size: 36px; font-weight: bold; color: #d63384;">水</span>
-              </div>
-              <div class="flip-card-back">
-                <p style="font-size: 16px; color: #333;">河水、水杯</p>
-                <p style="font-size: 14px; color: #666; margin-top: 5px;">shuǐ</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card" onclick="flipCard(this)">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <span style="font-size: 36px; font-weight: bold; color: #d63384;">鸟</span>
-              </div>
-              <div class="flip-card-back">
-                <p style="font-size: 16px; color: #333;">小鸟、飞鸟</p>
-                <p style="font-size: 14px; color: #666; margin-top: 5px;">niǎo</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card" onclick="flipCard(this)">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <span style="font-size: 36px; font-weight: bold; color: #d63384;">书</span>
-              </div>
-              <div class="flip-card-back">
-                <p style="font-size: 16px; color: #333;">书本、书包</p>
-                <p style="font-size: 14px; color: #666; margin-top: 5px;">shū</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-card" onclick="flipCard(this)">
-            <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <span style="font-size: 36px; font-weight: bold; color: #d63384;">雨</span>
-              </div>
-              <div class="flip-card-back">
-                <p style="font-size: 16px; color: #333;">下雨、雨伞</p>
-                <p style="font-size: 14px; color: #666; margin-top: 5px;">yǔ</p>
-              </div>
-            </div>
+          <div style="max-width: 400px; margin: 0 auto">
+            <input
+              type="text"
+              id="sentenceInput"
+              placeholder="输入你的句子..."
+              style="
+                width: 100%;
+                padding: 15px;
+                font-size: 16px;
+                border: 2px solid #f48fb1;
+                border-radius: 12px;
+                text-align: center;
+              "
+            />
+            <button
+              class="next-btn"
+              style="
+                background: linear-gradient(135deg, #ff9a9e, #fecfef);
+                color: white;
+                border: none;
+                margin-top: 15px;
+                width: 100%;
+              "
+              onclick="checkSentence()"
+            >
+              检查答案
+            </button>
+            <p
+              id="sentenceFeedback"
+              style="
+                margin-top: 15px;
+                font-size: 14px;
+                text-align: center;
+                display: none;
+              "
+            ></p>
           </div>
         </div>
-        <p style="text-align: center; font-size: 14px; color: #999; margin-top: 20px;">点击卡片查看拼音和词语</p>
-      </div>
+      </section>
 
-      <!-- 看图说话游戏 -->
-      <div class="game-card" style="background: white; border-radius: 20px; padding: 30px; max-width: 800px; margin: 30px auto 0;">
-        <h3 style="color: #d63384; margin-bottom: 20px; text-align: center;">🖼️ 看图说句子</h3>
-        <div style="text-align: center; margin-bottom: 20px;">
-          <div style="font-size: 64px; margin-bottom: 15px;">🌳🐦</div>
-          <p style="font-size: 18px; color: #333;">请用"小鸟、树、唱歌"说一句话</p>
-        </div>
-        <div style="max-width: 400px; margin: 0 auto;">
-          <input type="text" id="sentenceInput" placeholder="输入你的句子..." style="width: 100%; padding: 15px; font-size: 16px; border: 2px solid #f48fb1; border-radius: 12px; text-align: center;">
-          <button class="next-btn" style="background: linear-gradient(135deg, #ff9a9e, #fecfef); color: white; border: none; margin-top: 15px; width: 100%;" onclick="checkSentence()">检查答案</button>
-          <p id="sentenceFeedback" style="margin-top: 15px; font-size: 14px; text-align: center; display: none;"></p>
-        </div>
-      </div>
-    </section>
+      <script>
+        // 拼音配对游戏
+        let selectedInitial = "";
+        let selectedFinal = "";
 
-    
-
-    <script>
-      // 拼音配对游戏
-      let selectedInitial = '';
-      let selectedFinal = '';
-
-      function matchPinyin(value) {
-        const vowels = ['a', 'o', 'e', 'i', 'u', 'ü'];
-        
-        if (vowels.includes(value)) {
-          selectedFinal = value;
-        } else {
-          selectedInitial = value;
-        }
-
-        // 更新按钮状态
-        document.querySelectorAll('.pinyin-game-btn').forEach(btn => {
-          btn.classList.remove('selected');
-          if (btn.dataset.value === selectedInitial || btn.dataset.value === selectedFinal) {
-            btn.classList.add('selected');
-          }
+        // 事件委托：拼音配对选择
+        document.querySelectorAll('.pinyin-game-grid').forEach(function(grid) {
+          grid.addEventListener('click', function(e) {
+            var btn = e.target.closest('.pinyin-game-btn');
+            if (!btn || !btn.dataset.value) return;
+            matchPinyin(btn.dataset.value);
+          });
         });
 
-        // 显示结果
-        const result = document.getElementById('pinyinResult');
-        const hint = document.getElementById('pinyinHint');
-        
-        if (selectedInitial && selectedFinal) {
-          result.textContent = selectedInitial + selectedFinal;
-          hint.style.display = 'block';
-          hint.textContent = `太棒了！${selectedInitial} + ${selectedFinal} = ${selectedInitial}${selectedFinal}`;
-          hint.style.color = '#4caf50';
-        } else if (selectedInitial || selectedFinal) {
-          result.textContent = selectedInitial || selectedFinal;
-        } else {
-          result.textContent = '?';
-          hint.style.display = 'none';
-        }
-      }
+        function matchPinyin(value) {
+          const vowels = ["a", "o", "e", "i", "u", "ü"];
 
-      function clearPinyin() {
-        selectedInitial = '';
-        selectedFinal = '';
-        document.querySelectorAll('.pinyin-game-btn').forEach(btn => btn.classList.remove('selected'));
-        document.getElementById('pinyinResult').textContent = '?';
-        document.getElementById('pinyinHint').style.display = 'none';
-      }
+          if (vowels.includes(value)) {
+            selectedFinal = value;
+          } else {
+            selectedInitial = value;
+          }
 
-      // 识字卡片翻转
-      function flipCard(card) {
-        card.classList.toggle('flipped');
-      }
+          // 更新按钮状态
+          document.querySelectorAll(".pinyin-game-btn").forEach((btn) => {
+            btn.classList.remove("selected");
+            if (
+              btn.dataset.value === selectedInitial ||
+              btn.dataset.value === selectedFinal
+            ) {
+              btn.classList.add("selected");
+            }
+          });
 
-      // 看图说话检查
-      function checkSentence() {
-        const input = document.getElementById('sentenceInput').value.trim();
-        const feedback = document.getElementById('sentenceFeedback');
-        
-        if (!input) {
-          feedback.textContent = '请输入你的句子哦！';
-          feedback.style.color = '#f44336';
-          feedback.style.display = 'block';
-          return;
+          // 显示结果
+          const result = document.getElementById("pinyinResult");
+          const hint = document.getElementById("pinyinHint");
+
+          if (selectedInitial && selectedFinal) {
+            result.textContent = selectedInitial + selectedFinal;
+            hint.style.display = "block";
+            hint.textContent = `太棒了！${selectedInitial} + ${selectedFinal} = ${selectedInitial}${selectedFinal}`;
+            hint.style.color = "#4caf50";
+          } else if (selectedInitial || selectedFinal) {
+            result.textContent = selectedInitial || selectedFinal;
+          } else {
+            result.textContent = "?";
+            hint.style.display = "none";
+          }
         }
 
-        // 检查是否包含关键词
-        const hasBird = input.includes('小鸟') || input.includes('鸟');
-        const hasTree = input.includes('树') || input.includes('树上') || input.includes('树下');
-        const hasSing = input.includes('唱歌') || input.includes('唱');
-
-        if (hasBird && hasTree && hasSing) {
-          feedback.textContent = '🎉 太棒了！你的句子包含了所有关键词，说得很完整！';
-          feedback.style.color = '#4caf50';
-        } else if (hasBird && (hasTree || hasSing)) {
-          feedback.textContent = '👍 不错！再想想，还可以加上什么？';
-          feedback.style.color = '#ff9800';
-        } else {
-          feedback.textContent = '💡 提示：试着用上"小鸟"、"树"和"唱歌"这几个词。';
-          feedback.style.color = '#2196f3';
+        function clearPinyin() {
+          selectedInitial = "";
+          selectedFinal = "";
+          document
+            .querySelectorAll(".pinyin-game-btn")
+            .forEach((btn) => btn.classList.remove("selected"));
+          document.getElementById("pinyinResult").textContent = "?";
+          document.getElementById("pinyinHint").style.display = "none";
         }
-        
-        feedback.style.display = 'block';
-      }
+
+        // 智能卡片翻转（事件委托）
+        document.querySelector('.flip-card-grid').addEventListener('click', function(e) {
+          var card = e.target.closest('.flip-card');
+          if (!card) return;
+          flipCard(card);
+        });
+
+        // 识字卡片翻转
+        function flipCard(card) {
+          card.classList.toggle("flipped");
+        }
+
+        // 看图说话检查
+        function checkSentence() {
+          const input = document.getElementById("sentenceInput").value.trim();
+          const feedback = document.getElementById("sentenceFeedback");
+
+          if (!input) {
+            feedback.textContent = "请输入你的句子哦！";
+            feedback.style.color = "#f44336";
+            feedback.style.display = "block";
+            return;
+          }
+
+          // 检查是否包含关键词
+          const hasBird = input.includes("小鸟") || input.includes("鸟");
+          const hasTree =
+            input.includes("树") ||
+            input.includes("树上") ||
+            input.includes("树下");
+          const hasSing = input.includes("唱歌") || input.includes("唱");
+
+          if (hasBird && hasTree && hasSing) {
+            feedback.textContent =
+              "🎉 太棒了！你的句子包含了所有关键词，说得很完整！";
+            feedback.style.color = "#4caf50";
+          } else if (hasBird && (hasTree || hasSing)) {
+            feedback.textContent = "👍 不错！再想想，还可以加上什么？";
+            feedback.style.color = "#ff9800";
+          } else {
+            feedback.textContent =
+              '💡 提示：试着用上"小鸟"、"树"和"唱歌"这几个词。';
+            feedback.style.color = "#2196f3";
+          }
+
+          feedback.style.display = "block";
+        }
+      </script>
+
+      <!-- 资料库速查 -->
+      <section
+        class="section"
+        id="grade1-cheatsheet"
+        style="background: #fff5f7; padding: 30px 5vw"
+      >
+        <div class="section-title">
+          <p class="eyebrow" style="color: #d63384">📖 资料库速查</p>
+          <h2>一年级语法要点 & 易错提醒</h2>
+        </div>
+        <div id="grade1-grammar-ref"></div>
+        <div id="grade1-mistakes-ref" style="margin-top: 20px"></div>
+      </section>
+    </main>
+    <script defer src="nav.js?v=90"></script>
+    <script defer src="table-responsive.js?v=90"></script>
+    <script defer src="data/data-loader-global.js?v=90"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          if (window.DataLib) {
+                      // 数据驱动渲染：年级元数据模块
+          DataLib.renderGradeHero('1', document.getElementById('grade1-hero'));
+          DataLib.renderGradeCurriculum('1', document.getElementById('grade1-curriculum'));
+          DataLib.renderGrammarByGrade(
+              "grade1",
+              document.getElementById("grade1-grammar-ref"),
+            );
+            DataLib.renderCommonMistakes(
+              document.getElementById("grade1-mistakes-ref"),
+              "1",
+            );
+          }
+        }, 300);
+      });
     </script>
-
-    <!-- 资料库速查 -->
-    <section class="section" id="grade1-cheatsheet" style="background:#fff5f7; padding:30px 5vw;">
-      <div class="section-title">
-        <p class="eyebrow" style="color:#d63384;">📖 资料库速查</p>
-        <h2>一年级语法要点 & 易错提醒</h2>
-      </div>
-      <div id="grade1-grammar-ref"></div>
-      <div id="grade1-mistakes-ref" style="margin-top:20px;"></div>
-    </section>
-  </main>
-  <script defer src="nav.js?v=83"></script>
-  <script defer src="table-responsive.js?v=83"></script>
-  <script defer src="data/data-loader-global.js?v=83"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        if (window.DataLib) {
-          DataLib.renderGrammarByGrade('grade1', document.getElementById('grade1-grammar-ref'));
-          DataLib.renderCommonMistakes(document.getElementById('grade1-mistakes-ref'), '1');
-        }
-      }, 300);
-    });
-  </script>
-</body>
+  </body>
 </html>
-
