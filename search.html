@@ -15,7 +15,7 @@
   <meta property="og:description" content="搜索语法、词汇、文学常识、范文等六大资料库。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=90">
+  <link rel="stylesheet" href="styles.css?v=92">
   <style>
     .search-hero {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -291,19 +291,19 @@
     <div class="search-box-wrap">
       <div class="search-box-inner">
         <input type="text" id="searchInput" placeholder="输入关键词，如：比喻、成语、李白、病句..." autofocus>
-        <button id="searchBtn" onclick="doSearch()">搜索</button>
+        <button id="searchBtn">搜索</button>
       </div>
     </div>
 
     <div class="filter-bar" id="filterBar">
       <span style="font-size:12px;color:#999;line-height:30px;">范围：</span>
-      <span class="filter-chip active" data-db="all">全部</span>
-      <span class="filter-chip" data-db="grammar">语法</span>
-      <span class="filter-chip" data-db="vocabulary">词汇</span>
-      <span class="filter-chip" data-db="literary-knowledge">文学</span>
-      <span class="filter-chip" data-db="common-mistakes">错题</span>
-      <span class="filter-chip" data-db="model-essays">作文</span>
-      <span class="filter-chip" data-db="exercises">题库</span>
+      <span class="filter-chip active" data-type="all">全部</span>
+      <span class="filter-chip" data-type="grammar">语法</span>
+      <span class="filter-chip" data-type="vocabulary">词汇</span>
+      <span class="filter-chip" data-type="literary">文学</span>
+      <span class="filter-chip" data-type="mistake">错题</span>
+      <span class="filter-chip" data-type="essay">作文</span>
+      <span class="filter-chip" data-type="exercise">题库</span>
     </div>
 
     <!-- 年级筛选 -->
@@ -427,7 +427,7 @@
       if (!chip) return;
       document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
       chip.classList.add('active');
-      currentFilter = chip.dataset.db;
+      currentFilter = chip.dataset.type;
       var q = document.getElementById('searchInput').value.trim();
       if (q) doSearch();
     });
@@ -468,15 +468,35 @@
     // ── 搜索按钮 ──
     document.getElementById('searchBtn').addEventListener('click', function() { doSearch(); });
 
-    // ── 过滤年级匹配 ──
-    function matchGrade(item, grade) {
-      if (grade === 'all') return true;
-      // 尝试从 path 或 value 中提取年级信息
-      var path = (item.path || '').toLowerCase();
-      var value = String(item.value || '').toLowerCase();
-      var gradeMap = { '1': '一年', '2': '二年', '3': '三年', '4': '四年', '5': '五年', '6': '六年' };
-      var gradeText = gradeMap[grade] || '';
-      return path.indexOf(gradeText) >= 0 || value.indexOf(gradeText) >= 0 || path.indexOf('grade' + grade) >= 0;
+    function getTypeLabel(type) {
+      var labels = {
+        grammar: '📚 语法知识',
+        vocabulary: '📝 词语学习',
+        literary: '📖 文学常识',
+        mistake: '⚠️ 常见错误',
+        essay: '🏆 作文方法',
+        exercise: '✏️ 练习题库'
+      };
+      return labels[type] || type;
+    }
+
+    function getGradeLabel(grade) {
+      if (!grade || grade === 0 || grade === '0') return '通用';
+      return grade + '年级';
+    }
+
+    function getItemGradeLabel(item) {
+      return item.gradeRange || getGradeLabel(item.grade);
+    }
+
+    function getDifficultyLabel(difficulty) {
+      var labels = {
+        basic: '基础',
+        improve: '提高',
+        advanced: '拔尖',
+        exam: '小升初'
+      };
+      return labels[difficulty] || difficulty || '';
     }
 
     // ── 无结果推荐 ──
@@ -514,16 +534,14 @@
       searchBtn.disabled = true;
       searchBtn.textContent = '搜索中...';
 
-      var dbs = currentFilter === 'all' ? null : [currentFilter];
+      var options = {
+        type: currentFilter === 'all' ? null : currentFilter,
+        grade: currentGrade
+      };
 
-      DataLib.fuzzySearch(keyword, dbs).then(function(allResults) {
+      DataLib.searchIndex(keyword, options).then(function(allResults) {
         searchBtn.disabled = false;
         searchBtn.textContent = '搜索';
-
-        // 年级过滤
-        if (currentGrade !== 'all' && allResults) {
-          allResults = allResults.filter(function(item) { return matchGrade(item, currentGrade); });
-        }
 
         // 保存到最近搜索
         saveRecentSearch(keyword);
@@ -552,35 +570,29 @@
           return;
         }
 
-        // 按资料库分组
+        // 按资料类型分组
         var grouped = {};
-        var dbLabels = {
-          'grammar': '📚 语法知识',
-          'vocabulary': '📝 词语学习',
-          'literary-knowledge': '📖 文学常识',
-          'common-mistakes': '⚠️ 常见错误',
-          'model-essays': '🏆 范文方法',
-          'exercises': '✏️ 练习题库'
-        };
 
         allResults.forEach(function(r) {
-          if (!grouped[r.database]) grouped[r.database] = [];
-          grouped[r.database].push(r);
+          if (!grouped[r.type]) grouped[r.type] = [];
+          grouped[r.type].push(r);
         });
 
         var gradeLabel = currentGrade === 'all' ? '' : ' · ' + currentGrade + '年级';
         var html = '<p style="color:#888;font-size:13px;text-align:center;margin-bottom:16px;">找到 <strong>' + allResults.length + '</strong> 条与「<strong>' + escapeHTML(keyword) + '</strong>」相关的结果' + gradeLabel + '</p>';
 
-        Object.keys(grouped).forEach(function(db) {
-          var items = grouped[db];
-          html += '<div class="result-db-label">' + (dbLabels[db] || db) + '<span class="result-count">' + items.length + '条</span></div>';
+        Object.keys(grouped).forEach(function(type) {
+          var items = grouped[type];
+          html += '<div class="result-db-label">' + getTypeLabel(type) + '<span class="result-count">' + items.length + '条</span></div>';
           
           items.slice(0, 20).forEach(function(item) {
-            var valueText = String(item.value).substring(0, 120);
-            var pathText = item.path.replace(/^\./, '').replace(/\./g, ' \u203a ').replace(/\[\d+\]/g, '');
+            var summaryText = item.summary || item.content || item.title;
+            summaryText = String(summaryText).substring(0, 150);
+            var metaParts = [getItemGradeLabel(item), item.category, getDifficultyLabel(item.difficulty)].filter(Boolean);
             html += '<div class="result-item">' +
-              '<div>' + highlightText(valueText, keyword) + '</div>' +
-              '<div class="result-path">' + pathText + '</div>' +
+              '<div><strong>' + highlightText(item.title, keyword) + '</strong></div>' +
+              '<div>' + highlightText(summaryText, keyword) + '</div>' +
+              '<div class="result-path">' + escapeHTML(metaParts.join(' · ')) + ' · ' + escapeHTML(item.source || '') + '</div>' +
             '</div>';
           });
 
@@ -599,14 +611,16 @@
     }
 
     function highlightText(text, keyword) {
-      return text.replace(new RegExp('(' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
+      var escaped = escapeHTML(text);
+      var safeKeyword = escapeHTML(keyword).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return escaped.replace(new RegExp('(' + safeKeyword + ')', 'gi'), '<mark>$1</mark>');
     }
 
     // 初始化最近搜索
     renderRecentSearches();
   </script>
-  <script defer src="nav.js?v=90"></script>
-  <script defer src="table-responsive.js?v=90"></script>
-  <script defer src="data/data-loader-global.js?v=90"></script>
+  <script defer src="nav.js?v=92"></script>
+  <script defer src="table-responsive.js?v=92"></script>
+  <script defer src="data/data-loader-global.js?v=92"></script>
 </body>
 </html>

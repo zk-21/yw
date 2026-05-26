@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=90">
+  <link rel="stylesheet" href="styles.css?v=92">
 </head>
 <body>
   <header class="topbar">
@@ -128,24 +128,7 @@
  <p style="color:#666;">六年级的提优重点是综合阅读、非连续性文本、古诗文、作文审题和限时表达。新增闭环让孩子练完能判断是否真正达标。</p>
  </div>
  <div id="grade6-curriculum"></div>
-      <div class="content-grid">
-        <article class="loop-card">
-          <h3>三层训练安排</h3>
-          <ul>
-            <li><strong>基础：</strong>每天 1 道综合题，按题干圈关键词。</li>
-            <li><strong>提升：</strong>每周 1 次限时阅读，错题改成满分答案。</li>
-            <li><strong>拔尖：</strong>每两周 1 次小升初模拟，复盘审题、速度和表达。</li>
-          </ul>
-        </article>
-        <article class="loop-card">
-          <h3>评价复盘量表</h3>
-          <div class="score-line">
-            <p><strong>3分：</strong>答题分层、材料有据、作文扣题且有认识提升。</p>
-            <p><strong>2分：</strong>会答主要内容，但漏分析、漏中心或速度不稳。</p>
-            <p><strong>1分：</strong>审题不清、凭感觉写，下次先练题干拆解。</p>
-          </div>
-        </article>
-      </div>
+      <div id="grade6-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
         <div class="responsive-table">
@@ -382,20 +365,20 @@
       <div class="table-card" style="margin-top:18px;">
         <h2>A卷判码表</h2>
         <div class="responsive-table"><table><thead><tr><th>A卷题号</th><th>扣分表现</th><th>判定错因码</th><th>马上去练</th></tr></thead><tbody>
-          <tr><td>1</td><td>题型判断不准</td><td><a href="practice.html#pack-c1">C1</a></td><td>综合题型训练包</td></tr>
-          <tr><td>2</td><td>语言准确性题漏删后变化</td><td><a href="practice.html#pack-r3">R3</a></td><td>赏析和说明文训练包</td></tr>
-          <tr><td>3</td><td>建议题没有引用材料</td><td><a href="practice.html#pack-r4">R4</a></td><td>非连续文本训练包</td></tr>
-          <tr><td>4</td><td>数据题不会比较</td><td><a href="practice.html#pack-r4">R4</a></td><td>非连续文本训练包</td></tr>
-          <tr><td>5</td><td>作文提纲没扣题眼</td><td><a href="practice.html#pack-w3">W3</a></td><td>审题扣题训练包</td></tr>
+          <tr><td>1</td><td>题型判断不准</td><td><a href="practice.html#pack-c1" class="error-code-link" data-error-code="C1" onclick="JumpManager.jumpToPractice('C1'); return false;">C1</a></td><td>综合题型训练包</td></tr>
+          <tr><td>2</td><td>语言准确性题漏删后变化</td><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>赏析和说明文训练包</td></tr>
+          <tr><td>3</td><td>建议题没有引用材料</td><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>非连续文本训练包</td></tr>
+          <tr><td>4</td><td>数据题不会比较</td><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>非连续文本训练包</td></tr>
+          <tr><td>5</td><td>作文提纲没扣题眼</td><td><a href="practice.html#pack-w3" class="error-code-link" data-error-code="W3" onclick="JumpManager.jumpToPractice('W3'); return false;">W3</a></td><td>审题扣题训练包</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" id="grade6-b-test" style="margin-top:18px;">
         <h2>B卷：同类变式迁移</h2>
         <div class="responsive-table"><table><thead><tr><th>变式题</th><th>标准答案/要点</th><th>错因编码</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>1. 判断"结尾一句在全文中的作用"属于什么题型</td><td>句段作用题，重点从内容、结构、中心三层思考。</td><td><a href="practice.html#pack-c1">C1</a></td><td>先判断题型，再决定答题层次。</td></tr>
-          <tr><td>2. "一般情况下"能删去吗？</td><td>不能。它限制范围，表示不是所有情况都如此，删去后说法绝对，体现语言严谨。</td><td><a href="practice.html#pack-r3">R3</a></td><td>能写出词义、删后变化和严谨性。</td></tr>
-          <tr><td>3. 根据材料：阅读 30 分钟以上的学生作文按时完成率为 78%，每周只读 1 次为 46%，提建议</td><td>建议每天坚持阅读 30 分钟以上，因为材料显示阅读稳定的学生作文按时完成率更高。</td><td><a href="practice.html#pack-r4">R4</a></td><td>建议有数据依据，不凭常识空说。</td></tr>
-          <tr><td>4. 给《这一次，我做对了》列提纲</td><td>题眼：这一次、做对了；中心：从犹豫到主动承担；详写：关键选择和心理变化。</td><td><a href="practice.html#pack-w3">W3</a></td><td>题眼、中心、详写和点题都明确。</td></tr>
+          <tr><td>1. 判断"结尾一句在全文中的作用"属于什么题型</td><td>句段作用题，重点从内容、结构、中心三层思考。</td><td><a href="practice.html#pack-c1" class="error-code-link" data-error-code="C1" onclick="JumpManager.jumpToPractice('C1'); return false;">C1</a></td><td>先判断题型，再决定答题层次。</td></tr>
+          <tr><td>2. "一般情况下"能删去吗？</td><td>不能。它限制范围，表示不是所有情况都如此，删去后说法绝对，体现语言严谨。</td><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>能写出词义、删后变化和严谨性。</td></tr>
+          <tr><td>3. 根据材料：阅读 30 分钟以上的学生作文按时完成率为 78%，每周只读 1 次为 46%，提建议</td><td>建议每天坚持阅读 30 分钟以上，因为材料显示阅读稳定的学生作文按时完成率更高。</td><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>建议有数据依据，不凭常识空说。</td></tr>
+          <tr><td>4. 给《这一次，我做对了》列提纲</td><td>题眼：这一次、做对了；中心：从犹豫到主动承担；详写：关键选择和心理变化。</td><td><a href="practice.html#pack-w3" class="error-code-link" data-error-code="W3" onclick="JumpManager.jumpToPractice('W3'); return false;">W3</a></td><td>题眼、中心、详写和点题都明确。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
@@ -409,9 +392,9 @@
       <div class="table-card" style="margin-top:18px;">
         <h2>测后分流路径</h2>
         <div class="responsive-table"><table><thead><tr><th>错因编码</th><th>错在哪</th><th>先补哪里</th><th>下一步练什么</th></tr></thead><tbody>
-          <tr><td><a href="practice.html#pack-c1">C1</a></td><td>题型误判</td><td>本页"综合阅读和非连续性文本"精讲 + C1训练包</td><td>每题先写考点：概括、作用、比较、建议或中心。</td></tr>
-          <tr><td><a href="practice.html#pack-r4">R4</a></td><td>材料题不引用数据</td><td>非连续文本题组 + R4训练包</td><td>答案中必须出现材料编号、数字或关键词。</td></tr>
-          <tr><td><a href="practice.html#pack-w3">W3</a></td><td>作文扣题不稳</td><td>作文批改加厚 + W3训练包</td><td>重写题眼、中心、重点段和点题结尾。</td></tr>
+          <tr><td><a href="practice.html#pack-c1" class="error-code-link" data-error-code="C1" onclick="JumpManager.jumpToPractice('C1'); return false;">C1</a></td><td>题型误判</td><td>本页"综合阅读和非连续性文本"精讲 + C1训练包</td><td>每题先写考点：概括、作用、比较、建议或中心。</td></tr>
+          <tr><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>材料题不引用数据</td><td>非连续文本题组 + R4训练包</td><td>答案中必须出现材料编号、数字或关键词。</td></tr>
+          <tr><td><a href="practice.html#pack-w3" class="error-code-link" data-error-code="W3" onclick="JumpManager.jumpToPractice('W3'); return false;">W3</a></td><td>作文扣题不稳</td><td>作文批改加厚 + W3训练包</td><td>重写题眼、中心、重点段和点题结尾。</td></tr>
         </tbody></table></div>
       </div>
     </section>
@@ -756,9 +739,9 @@
   </nav>
 
 
-  <script defer src="nav.js?v=90"></script>
-  <script defer src="table-responsive.js?v=90"></script>
-  <script defer src="data/data-loader-global.js?v=90"></script>
+  <script defer src="nav.js?v=92"></script>
+  <script defer src="table-responsive.js?v=92"></script>
+  <script defer src="data/data-loader-global.js?v=92"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
@@ -774,5 +757,6 @@
       }, 300);
     });
   </script>
+<script defer src="data/jump-manager.js"></script>
 </body>
 </html>

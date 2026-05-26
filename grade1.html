@@ -27,7 +27,7 @@
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#63d676" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="styles.css?v=90" />
+    <link rel="stylesheet" href="styles.css?v=92" />
     <style>
       .grade-one-hero {
         background: linear-gradient(
@@ -1424,19 +1424,19 @@
                 <tr>
                   <td>1. 拼读 t-ǔ、h-uā、x-iǎo</td>
                   <td>tǔ、huā、xiǎo，声调读完整。</td>
-                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td><a href="practice.html#pack-b1" class="error-code-link" data-error-code="B1" onclick="JumpManager.jumpToPractice('B1'); return false;">B1</a></td>
                   <td>能先分开读，再连成完整音节。</td>
                 </tr>
                 <tr>
                   <td>2. 给"水、鸟、书"组词，并选一个说句子</td>
                   <td>水杯、小鸟、书本；我在书桌前看书。</td>
-                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td><a href="practice.html#pack-b1" class="error-code-link" data-error-code="B1" onclick="JumpManager.jumpToPractice('B1'); return false;">B1</a></td>
                   <td>词语正确，句子有完整意思。</td>
                 </tr>
                 <tr>
                   <td>3. 读句子：小狗在草地上追蝴蝶。回答谁在哪里做什么</td>
                   <td>小狗在草地上追蝴蝶。</td>
-                  <td><a href="practice.html#pack-r1">R1</a></td>
+                  <td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td>
                   <td>人物、地点、事情都说全。</td>
                 </tr>
                 <tr>
@@ -1444,7 +1444,7 @@
                   <td>
                     放学后，小朋友在操场边捡起地上的纸。他把纸放进垃圾桶。校园变干净了，他很开心。
                   </td>
-                  <td><a href="practice.html#pack-w1">W1</a></td>
+                  <td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td>
                   <td>至少 3 句，补动作和心情。</td>
                 </tr>
               </tbody>
@@ -1496,19 +1496,19 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td><a href="practice.html#pack-b1" class="error-code-link" data-error-code="B1" onclick="JumpManager.jumpToPractice('B1'); return false;">B1</a></td>
                   <td>拼音读不准</td>
                   <td>拼音学习页 + B1训练包</td>
                   <td>先练声母韵母，再练两拼音节。</td>
                 </tr>
                 <tr>
-                  <td><a href="practice.html#pack-b1">B1</a></td>
+                  <td><a href="practice.html#pack-b1" class="error-code-link" data-error-code="B1" onclick="JumpManager.jumpToPractice('B1'); return false;">B1</a></td>
                   <td>只会组词不会说句</td>
                   <td>词语学习页 + B1训练包</td>
                   <td>每个词都说一句完整话。</td>
                 </tr>
                 <tr>
-                  <td><a href="practice.html#pack-w1">W1</a></td>
+                  <td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td>
                   <td>表达太短</td>
                   <td>写话练习页 + W1训练包</td>
                   <td>每天扩一句，补时间、地点、动作和心情。</td>
@@ -2037,9 +2037,9 @@
     </div>
   </nav>
 
-    <script defer src="nav.js?v=90"></script>
-    <script defer src="table-responsive.js?v=90"></script>
-    <script defer src="data/data-loader-global.js?v=90"></script>
+    <script defer src="nav.js?v=92"></script>
+    <script defer src="table-responsive.js?v=92"></script>
+    <script defer src="data/data-loader-global.js?v=92"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
@@ -2059,5 +2059,6 @@
         }, 300);
       });
     </script>
-  </body>
+  <script defer src="data/jump-manager.js"></script>
+</body>
 </html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文学常识 - 小升初必备</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #818cf8;
+      --secondary: #0891b2;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.25rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      z-index: 80;
+      --topbar-offset: 3.25rem;
+    }
+
+    .topbar-back {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      font-size: 1.25rem;
+    }
+
+    .topbar-title {
+      flex: 1;
+      text-align: center;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .main-content {
+      padding: calc(var(--topbar-offset) + 1rem) 1rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      color: var(--text-light);
+      font-size: 0.875rem;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0.5rem 0;
+      margin-bottom: 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-tabs::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: var(--card);
+      border-radius: 20px;
+      font-size: 0.875rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .section-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .section-card h3 {
+      font-size: 1.125rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-light);
+    }
+
+    .topic-item {
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .topic-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .topic-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .topic-content {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .key-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .key-point {
+      padding: 0.25rem 0.75rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+      color: white;
+      border-radius: 15px;
+      font-size: 0.75rem;
+    }
+
+    .poem-list {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .poem-item {
+      padding: 0.75rem;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      border-left: 3px solid var(--primary);
+    }
+
+    .book-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .book-icon {
+      width: 50px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .book-info {
+      flex: 1;
+    }
+
+    .book-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .book-points {
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3.5rem;
+      background: var(--card);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 80;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.625rem;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <a href="index.html" class="topbar-back">←</a>
+    <h1 class="topbar-title">文学常识</h1>
+  </nav>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1>📚 小升初文学常识</h1>
+      <p>必背古诗词 · 名著考点 · 文学典故</p>
+    </header>
+
+    <div class="category-tabs" id="categoryTabs">
+      <button class="tab-btn active" data-tab="mustread">必读考点</button>
+      <button class="tab-btn" data-tab="ancient">古代文学</button>
+      <button class="tab-btn" data-tab="modern">现代文学</button>
+      <button class="tab-btn" data-tab="foreign">外国文学</button>
+      <button class="tab-btn" data-tab="form">文学体裁</button>
+    </div>
+
+    <!-- 必读考点 -->
+    <section class="content-section active" id="mustread">
+      <div class="section-card">
+        <h3>📖 必读名著考点</h3>
+        <div class="book-card">
+          <div class="book-icon">三</div>
+          <div class="book-info">
+            <div class="book-title">《三国演义》罗贯中</div>
+            <div class="book-points">考点：桃园三结义 · 三顾茅庐 · 诸葛亮 · 曹操</div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-icon">水</div>
+          <div class="book-info">
+            <div class="book-title">《水浒传》施耐庵</div>
+            <div class="book-points">考点：108将 · 武松打虎 · 林冲 · 宋江</div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-icon">西</div>
+          <div class="book-info">
+            <div class="book-title">《西游记》吴承恩</div>
+            <div class="book-points">考点：唐僧师徒 · 孙悟空 · 大闹天宫 · 三打白骨精</div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-icon">红</div>
+          <div class="book-info">
+            <div class="book-title">《红楼梦》曹雪芹</div>
+            <div class="book-points">考点：贾宝玉 · 林黛玉 · 薛宝钗 · 金陵十二钗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>🖋️ 必背古诗词（15首）</h3>
+        <div class="poem-list">
+          <div class="poem-item">《静夜思》李白 · 床前明月光，疑是地上霜</div>
+          <div class="poem-item">《春晓》孟浩然 · 春眠不觉晓，处处闻啼鸟</div>
+          <div class="poem-item">《登鹳雀楼》王之涣 · 白日依山尽，黄河入海流</div>
+          <div class="poem-item">《悯农》李绅 · 锄禾日当午，汗滴禾下土</div>
+          <div class="poem-item">《咏鹅》骆宾王 · 白毛浮绿水，红掌拨清波</div>
+          <div class="poem-item">《望庐山瀑布》李白 · 飞流直下三千尺</div>
+          <div class="poem-item">《山行》杜牧 · 停车坐爱枫林晚</div>
+          <div class="poem-item">《回乡偶书》贺知章 · 少小离家老大回</div>
+          <div class="poem-item">《赠汪伦》李白 · 桃花潭水深千尺</div>
+          <div class="poem-item">《黄鹤楼送孟浩然》李白 · 故人西辞黄鹤楼</div>
+          <div class="poem-item">《出塞》王昌龄 · 但使龙城飞将在</div>
+          <div class="poem-item">《绝句》杜甫 · 两个黄鹂鸣翠柳</div>
+          <div class="poem-item">《望天门山》李白 · 天门中断楚江开</div>
+          <div class="poem-item">《游子吟》孟郊 · 慈母手中线，游子身上衣</div>
+          <div class="poem-item">《枫桥夜泊》张继 · 月落乌啼霜满天</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 必知文学典故</h3>
+        <div class="topic-item">
+          <div class="topic-title">四面楚歌</div>
+          <div class="topic-content">出处：《史记·项羽本纪》 · 形容四面受敌的困境</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">负荆请罪</div>
+          <div class="topic-content">出处：《史记·廉颇蔺相如列传》 · 主动承认错误</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">纸上谈兵</div>
+          <div class="topic-content">出处：《史记·廉颇蔺相如列传》 · 空谈理论，不切实际</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">破釜沉舟</div>
+          <div class="topic-content">出处：《史记·项羽本纪》 · 下定决心，不留退路</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">卧薪尝胆</div>
+          <div class="topic-content">出处：《史记·越王勾践世家》 · 忍辱负重，发愤图强</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 中国古代文学 -->
+    <section class="content-section" id="ancient">
+      <div class="section-card">
+        <h3>🏛️ 先秦文学</h3>
+        <div class="topic-item">
+          <div class="topic-title">《诗经》</div>
+          <div class="topic-content">中国最早的诗歌总集，收录305篇，分风、雅、颂三类</div>
+          <div class="key-points">
+            <span class="key-point">关雎蒹葭</span>
+            <span class="key-point">赋比兴手法</span>
+            <span class="key-point">现实主义</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">《楚辞》</div>
+          <div class="topic-content">屈原创作的新诗体，浪漫主义源头</div>
+          <div class="key-points">
+            <span class="key-point">离骚</span>
+            <span class="key-point">香草美人</span>
+            <span class="key-point">浪漫主义</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>☁️ 唐诗</h3>
+        <div class="topic-item">
+          <div class="topic-title">初唐四杰</div>
+          <div class="topic-content">王勃、杨炯、卢照邻、骆宾王</div>
+          <div class="key-points">
+            <span class="key-point">革新诗风</span>
+            <span class="key-point">扩展题材</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">盛唐诗人</div>
+          <div class="topic-content">李白、杜甫、王维、孟浩然</div>
+          <div class="key-points">
+            <span class="key-point">李白：浪漫主义</span>
+            <span class="key-point">杜甫：现实主义</span>
+            <span class="key-point">王维：山水田园</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">中唐诗人</div>
+          <div class="topic-content">白居易、刘禹锡、韩愈、柳宗元</div>
+          <div class="key-points">
+            <span class="key-point">新乐府运动</span>
+            <span class="key-point">古文运动</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>🎋 宋词</h3>
+        <div class="topic-item">
+          <div class="topic-title">豪放派</div>
+          <div class="topic-content">以苏轼、辛弃疾为代表</div>
+          <div class="key-points">
+            <span class="key-point">苏轼：旷达</span>
+            <span class="key-point">辛弃疾：爱国</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">婉约派</div>
+          <div class="topic-content">以柳永、李清照为代表</div>
+          <div class="key-points">
+            <span class="key-point">柳永：市井词</span>
+            <span class="key-point">李清照：闺阁词</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 中国现代文学 -->
+    <section class="content-section" id="modern">
+      <div class="section-card">
+        <h3>🌅 五四时期</h3>
+        <div class="topic-item">
+          <div class="topic-title">鲁迅</div>
+          <div class="topic-content">原名周树人，文学家、思想家</div>
+          <div class="key-points">
+            <span class="key-point">狂人日记</span>
+            <span class="key-point">阿Q正传</span>
+            <span class="key-point">呐喊彷徨</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">冰心</div>
+          <div class="topic-content">儿童文学家</div>
+          <div class="key-points">
+            <span class="key-point">繁星春水</span>
+            <span class="key-point">母爱童真自然</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📖 三十年代</h3>
+        <div class="topic-item">
+          <div class="topic-title">茅盾</div>
+          <div class="topic-content">社会剖析派代表</div>
+          <div class="key-points">
+            <span class="key-point">子夜</span>
+            <span class="key-point">农村三部曲</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">老舍</div>
+          <div class="topic-content">人民艺术家</div>
+          <div class="key-points">
+            <span class="key-point">骆驼祥子</span>
+            <span class="key-point">四世同堂</span>
+            <span class="key-point">京味小说</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">巴金</div>
+          <div class="topic-content">激流三部曲</div>
+          <div class="key-points">
+            <span class="key-point">家春秋</span>
+            <span class="key-point">憩园寒夜</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 外国文学 -->
+    <section class="content-section" id="foreign">
+      <div class="section-card">
+        <h3>🏛️ 古典文学</h3>
+        <div class="topic-item">
+          <div class="topic-title">古希腊神话</div>
+          <div class="topic-content">奥林匹斯诸神传说</div>
+          <div class="key-points">
+            <span class="key-point">宙斯雅典娜</span>
+            <span class="key-point">普罗米修斯</span>
+            <span class="key-point">特洛伊战争</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">莎士比亚</div>
+          <div class="topic-content">英国戏剧家</div>
+          <div class="key-points">
+            <span class="key-point">四大悲剧</span>
+            <span class="key-point">哈姆雷特</span>
+            <span class="key-point">罗密欧与朱丽叶</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 近代文学</h3>
+        <div class="topic-item">
+          <div class="topic-title">雨果</div>
+          <div class="topic-content">法国作家 · 浪漫主义</div>
+          <div class="key-points">
+            <span class="key-point">巴黎圣母院</span>
+            <span class="key-point">悲惨世界</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">托尔斯泰</div>
+          <div class="topic-content">俄国作家</div>
+          <div class="key-points">
+            <span class="key-point">战争与和平</span>
+            <span class="key-point">安娜卡列尼娜</span>
+            <span class="key-point">复活</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📚 儿童文学</h3>
+        <div class="topic-item">
+          <div class="topic-title">安徒生</div>
+          <div class="topic-content">丹麦童话大师</div>
+          <div class="key-points">
+            <span class="key-point">丑小鸭</span>
+            <span class="key-point">卖火柴的小女孩</span>
+            <span class="key-point">皇帝的新装</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">格林兄弟</div>
+          <div class="topic-content">德国童话作家</div>
+          <div class="key-points">
+            <span class="key-point">白雪公主</span>
+            <span class="key-point">灰姑娘</span>
+            <span class="key-point">小红帽</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 文学体裁 -->
+    <section class="content-section" id="form">
+      <div class="section-card">
+        <h3>🪶 诗歌</h3>
+        <div class="topic-item">
+          <div class="topic-title">古体诗</div>
+          <div class="topic-content">唐代以前的诗</div>
+          <div class="key-points">
+            <span class="key-point">不限字数</span>
+            <span class="key-point">不限韵律</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">近体诗</div>
+          <div class="topic-content">唐代形成的格律诗</div>
+          <div class="key-points">
+            <span class="key-point">律诗8句</span>
+            <span class="key-point">绝句4句</span>
+            <span class="key-point">押韵对仗</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">词</div>
+          <div class="topic-content">宋代主流诗歌形式</div>
+          <div class="key-points">
+            <span class="key-point">词牌名</span>
+            <span class="key-point">上阙下阙</span>
+            <span class="key-point">豪放婉约</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📖 小说</h3>
+        <div class="topic-item">
+          <div class="topic-title">古代小说</div>
+          <div class="topic-content">从志怪到章回</div>
+          <div class="key-points">
+            <span class="key-point">志怪小说</span>
+            <span class="key-point">唐传奇</span>
+            <span class="key-point">明清章回体</span>
+          </div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-title">现代小说</div>
+          <div class="topic-content">五四以来的小说</div>
+          <div class="key-points">
+            <span class="key-point">短中长篇</span>
+            <span class="key-point">第一人称</span>
+            <span class="key-point">第三人称</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      </svg>
+      <span>首页</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+      </svg>
+      <span>练习</span>
+    </a>
+    <a href="literary.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+      </svg>
+      <span>知识</span>
+    </a>
+  </nav>
+
+  <script>
+    // Tab切换
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.content-section');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.tab;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        sections.forEach(s => s.classList.remove('active'));
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

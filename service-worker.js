@@ -7,7 +7,7 @@
 //   非 200 响应 — 不缓存
 // 版本管理：保留上一版本以供回滚
 
-const CACHE_VERSION = 90; // 修改此数字即可刷新全部缓存
+const CACHE_VERSION = 92; // 修改此数字即可刷新全部缓存
 const CACHE_NAME = `diandian-v${CACHE_VERSION}`;
 const MAX_CACHES_TO_KEEP = 2; // 保留最新的2个版本
 
