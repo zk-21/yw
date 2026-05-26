@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=92">
+  <link rel="stylesheet" href="styles.css?v=96">
 </head>
 <body>
   <header class="topbar">
@@ -45,11 +45,107 @@
   </header>
 
   <main>
+    <aside class="toc-sidebar" id="toc-sidebar">
+      <div class="toc-header">
+        <span class="toc-icon">📚</span>
+        <span class="toc-title">目录导航</span>
+        <button class="toc-toggle" id="toc-toggle">☰</button>
+      </div>
+      <nav class="toc-nav" id="toc-nav">
+        <ul>
+          <li><a href="#section-diagnosis" class="toc-link">阶段诊断</a></li>
+          <li><a href="#section-lecture" class="toc-link">特级教师精讲</a></li>
+          <li><a href="#section-mistakes" class="toc-link">错因分析</a></li>
+          <li><a href="#section-assessment" class="toc-link">阶段测评</a></li>
+          <li><a href="#section-capabilities" class="toc-link">能力培养</a></li>
+          <li><a href="#section-templates" class="toc-link">答题模板</a></li>
+          <li><a href="#section-grammar" class="toc-link">语法要点</a></li>
+        </ul>
+      </nav>
+    </aside>
+
     <section class="page-head" id="grade6-hero"></section>
 
-    <section class="section">
+    <section class="learning-goals" id="learning-goals">
+      <div class="goals-header">
+        <div class="goals-title">
+          <span class="goals-icon">🎯</span>
+          <h2>今日学习目标</h2>
+        </div>
+        <div class="goals-progress">
+          <span class="progress-text">学习进度：</span>
+          <div class="progress-ring">
+            <svg class="progress-ring-svg" viewBox="0 0 100 100">
+              <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
+              <circle class="progress-ring-fill" cx="50" cy="50" r="45" id="progress-ring"></circle>
+            </svg>
+            <span class="progress-percent" id="progress-percent">0%</span>
+          </div>
+        </div>
+      </div>
+      <div class="goals-content">
+        <div class="goal-card required">
+          <span class="goal-tag required-tag">⭐ 必学</span>
+          <h3>综合阅读答题</h3>
+          <p>学会判断题型、按分值分层作答、引用原文依据</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="1"> 能判断概括题、赏析题、作用题</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="2"> 能按分值组织答案层次</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="3"> 能引用原文关键词句作答</label>
+          </div>
+        </div>
+        <div class="goal-card required">
+          <span class="goal-tag required-tag">⭐ 必学</span>
+          <h3>非连续文本</h3>
+          <p>学会从图表中提取信息、比较数据、得出结论</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="4"> 能看懂表格和图表数据</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="5"> 能比较不同数据得出结论</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="6"> 能根据材料提建议</label>
+          </div>
+        </div>
+        <div class="goal-card optional">
+          <span class="goal-tag optional-tag">📖 选学</span>
+          <h3>作文审题立意</h3>
+          <p>学会抓住题眼、确定中心、选择材料</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="7"> 能圈出题目中的题眼</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="8"> 能确定写作中心和重点</label>
+          </div>
+        </div>
+        <div class="goal-card advanced">
+          <span class="goal-tag advanced-tag">🚀 拓展</span>
+          <h3>满分答案训练</h3>
+          <p>学习满分答案的答题结构和表达方式</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="9"> 能分析满分答案的结构</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="10"> 能在练习中模仿满分表达</label>
+          </div>
+        </div>
+      </div>
+      <div class="goals-summary">
+        <div class="summary-item">
+          <span class="summary-icon">📝</span>
+          <span class="summary-label">完成目标：</span>
+          <span class="summary-value" id="completed-count">0</span>
+          <span class="summary-total">/ 10</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-icon">⏱️</span>
+          <span class="summary-label">建议时长：</span>
+          <span class="summary-value">约 45 分钟</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-icon">📊</span>
+          <span class="summary-label">学习路径：</span>
+          <span class="summary-value">诊断 → 精讲 → 练习 → 复盘</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="section-diagnosis">
       <div class="section-title">
-        <p class="eyebrow">高年级联动</p>
+        <p class="eyebrow">⭐ 必学 · 高年级联动</p>
         <h2>作文三轮批改与打印训练单一起用</h2>
         <p style="color:#666;">六年级作文不能只看结果，要像特级教师那样分轮修改：先改中心，再改重点段，再改结尾，最后打印记录复练。</p>
       </div>
@@ -60,25 +156,17 @@
       </div>
     </section>
 
-    
+    <section class="section" id="section-mistakes"><div id="grade6-mistakes"></div></section>
 
-
-
-    <section class="section"><div id="grade6-mistakes"></div></section>
-
-    
-
-
-
-    <section class="section pre-diagnostic">
+    <section class="section pre-diagnostic" id="section-lecture">
       <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
+ <h2>⭐ 必学 · 特级教师精讲</h2>
  
  <p><strong>常见问题：</strong>小升初诊断中最具区分度的四类表现：(1) 题型识别自动化水平——需有意识判断题型 vs 自动识别题型，后者是综合卷高分的前提；(2) 材料引证质量——从"引用材料"到"精准引用+比较分析+合理推论"的梯度差异，反映非连续性文本阅读的深度；(3) 审题的完整性——仅看到表层事件 vs 能同时识别题眼、范围、立意方向，后者是高分作文的基础；(4) 答案检核行为——写完即止 vs 能对照分值检查完整性，反映了基础能力能力的分化。</p>
  <p><strong>怎么做：</strong>依据诊断结果实施差异化教学：题型识别弱→强化题干关键词与答题模板的配对训练（每天5题混合题型快速判类）；材料引证浅→从"看懂图表"开始，逐步过渡到"数据比较→推论佐证→多材料综合"；审题不完整→专项训练"圈题眼→定范围→明立意"三步审题法；缺基础能力→引入"答题清单"在限时训练中强制执行离场检查。</p>
  </div>
  <div class="section-title">
- <p class="eyebrow" style="color:#0d47a1;">课前诊断卷 · 15分钟</p>
+ <p class="eyebrow" style="color:#0d47a1;">⭐ 必学 · 课前诊断卷 · 15分钟</p>
  <h2>六年级先测：综合阅读、非连续文本、审题立意</h2>
  <p style="color:#666;">六年级一对一辅导先看孩子是否会判断题型、引用材料，并把作文写出扣题和认识提升。</p>
  </div>
@@ -96,15 +184,86 @@
  </div>
  </article>
  </div>
- <div class="table-card">
- <h2>题目、答案和评分</h2>
- <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
- <tr><td>1. 小然是怎样的人？</td><td>小然是认真负责、默默做事的人。从他主动捡起水沟里的纸团，没被表扬也继续值日可以看出。</td><td>特点、两处依据、分析共 5 分</td><td>只写"小然很好"。</td></tr>
- <tr><td>2. "老师没有表扬他，他也只是笑了笑"表现了什么？</td><td>表现小然做事不是为了被表扬，而是有责任感，能突出人物品质。</td><td>内容、人物品质、作用共 4 分</td><td>只写"他很开心"。</td></tr>
- <tr><td>3. 根据材料二给同学提一条建议</td><td>建议同学每天坚持阅读 30 分钟以上，因为材料显示这类学生作文按时完成比例更高。</td><td>建议、数据依据共 4 分</td><td>只凭常识说"多读书"。</td></tr>
- <tr><td>4. 材料二能说明什么？</td><td>阅读频率和作文完成情况有关，阅读时间越稳定，作文按时完成比例越高。</td><td>比较对象、数据、结论共 4 分</td><td>只抄一个数字，不比较。</td></tr>
- <tr><td>5. 给《这一次，我做对了》列审题提纲</td><td>题眼：这一次、做对了。中心：从犹豫到主动承担。详写：关键选择和心理变化。</td><td>题眼、中心、详写共 5 分</td><td>只写事情，没有"做对"的认识。</td></tr>
- </tbody></table></div>
+ <div class="quiz-container">
+ <h2>📝 课前小测（诊断题）</h2>
+ <div class="quiz-progress">
+ <span class="progress-label">完成进度</span>
+ <div class="progress-bar">
+ <div class="progress-fill" id="quiz-progress"></div>
+ </div>
+ <span class="progress-count" id="quiz-count">0/5</span>
+ </div>
+ 
+ <div class="quiz-score" id="quiz-score">
+ <span class="score-icon">🏆</span>
+ <span class="score-text">得分：</span>
+ <span class="score-value">0</span>
+ </div>
+
+ <div class="quiz-question" id="quiz-1">
+ <div class="question-header">
+ <span class="question-number">第 1 题</span>
+ <span class="question-score">（5分）</span>
+ </div>
+ <p class="question-text">小然是怎样的人？</p>
+ <textarea class="answer-input" id="answer-1" placeholder="请输入你的答案..."></textarea>
+ <button class="submit-btn" onclick="checkAnswer(1)">提交答案</button>
+ <div class="feedback" id="feedback-1"></div>
+ </div>
+
+ <div class="quiz-question" id="quiz-2" style="display:none;">
+ <div class="question-header">
+ <span class="question-number">第 2 题</span>
+ <span class="question-score">（4分）</span>
+ </div>
+ <p class="question-text">"老师没有表扬他，他也只是笑了笑"表现了什么？</p>
+ <textarea class="answer-input" id="answer-2" placeholder="请输入你的答案..."></textarea>
+ <button class="submit-btn" onclick="checkAnswer(2)">提交答案</button>
+ <div class="feedback" id="feedback-2"></div>
+ </div>
+
+ <div class="quiz-question" id="quiz-3" style="display:none;">
+ <div class="question-header">
+ <span class="question-number">第 3 题</span>
+ <span class="question-score">（4分）</span>
+ </div>
+ <p class="question-text">根据材料二给同学提一条建议</p>
+ <textarea class="answer-input" id="answer-3" placeholder="请输入你的答案..."></textarea>
+ <button class="submit-btn" onclick="checkAnswer(3)">提交答案</button>
+ <div class="feedback" id="feedback-3"></div>
+ </div>
+
+ <div class="quiz-question" id="quiz-4" style="display:none;">
+ <div class="question-header">
+ <span class="question-number">第 4 题</span>
+ <span class="question-score">（4分）</span>
+ </div>
+ <p class="question-text">材料二能说明什么？</p>
+ <textarea class="answer-input" id="answer-4" placeholder="请输入你的答案..."></textarea>
+ <button class="submit-btn" onclick="checkAnswer(4)">提交答案</button>
+ <div class="feedback" id="feedback-4"></div>
+ </div>
+
+ <div class="quiz-question" id="quiz-5" style="display:none;">
+ <div class="question-header">
+ <span class="question-number">第 5 题</span>
+ <span class="question-score">（5分）</span>
+ </div>
+ <p class="question-text">给《这一次，我做对了》列审题提纲</p>
+ <textarea class="answer-input" id="answer-5" placeholder="请输入你的答案..."></textarea>
+ <button class="submit-btn" onclick="checkAnswer(5)">提交答案</button>
+ <div class="feedback" id="feedback-5"></div>
+ </div>
+
+ <div class="quiz-result" id="quiz-result" style="display:none;">
+ <h3>🎉 测试完成！</h3>
+ <div class="result-score">
+ <span class="result-value" id="final-score">0</span>
+ <span class="result-total">/ 22分</span>
+ </div>
+ <p class="result-comment" id="result-comment"></p>
+ <button class="restart-btn" onclick="restartQuiz()">重新答题</button>
+ </div>
  </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>起点建议</h2>
@@ -128,6 +287,7 @@
  <p style="color:#666;">六年级的提优重点是综合阅读、非连续性文本、古诗文、作文审题和限时表达。新增闭环让孩子练完能判断是否真正达标。</p>
  </div>
  <div id="grade6-curriculum"></div>
+      <div id="grade6-unit-matrix" style="margin-top:18px;"></div>
       <div id="grade6-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
@@ -336,9 +496,9 @@
       </div>
     </section>
 
-    <section class="section stage-assessment" id="grade6-stage-assessment">
+    <section class="section stage-assessment" id="section-assessment">
       <div class="section-title">
-        <p class="eyebrow" style="color:#0d47a1;">阶段测评卷 · 30分钟</p>
+        <p class="eyebrow" style="color:#0d47a1;">⭐ 必学 · 阶段测评卷 · 30分钟</p>
         <h2>六年级小测：综合阅读、非连续文本、限时作文</h2>
         <p style="color:#666;">这套卷直接对接小升初，重点测判断题型、找材料、分层作答。</p>
       </div>
@@ -399,9 +559,9 @@
       </div>
     </section>
 
-    <section class="section content-grid">
+    <section class="section content-grid" id="section-capabilities">
       <article class="study-block">
-        <h2>六年级必须形成的 6 个能力</h2>
+        <h2>⭐ 必学 · 六年级必须形成的 6 个能力</h2>
         <ul class="check-list">
           <li>综合阅读：能应对记叙文、说明文、非连续性文本、古诗文综合题型。先判断题型，再按分值分点作答。</li>
           <li>非连续性文本：能从图表、表格、多材料中提取和比较信息。先看标题、单位和条件，再找数据依据。</li>
@@ -633,7 +793,7 @@
 
  <section class="section">
  <div class="section-title">
- <p class="eyebrow">低分到满分</p>
+ <p class="eyebrow">🚀 拓展 · 低分到满分</p>
  <h2>六年级拔尖要训练满分答案</h2>
  </div>
  <div class="content-grid">
@@ -708,9 +868,9 @@
 </div>
     </section>
     <!-- 资料库速查 -->
-    <section class="section" id="grade6-cheatsheet" style="background:#f5f0ff; padding:30px 5vw;">
+    <section class="section" id="section-grammar" style="background:#f5f0ff; padding:30px 5vw;">
       <div class="section-title">
-        <p class="eyebrow" style="color:#7b1fa2;">📖 资料库速查</p>
+        <p class="eyebrow" style="color:#7b1fa2;">📖 选学 · 资料库速查</p>
         <h2>六年级语法要点 & 易错提醒</h2>
       </div>
       <div id="grade6-grammar-ref"></div>
@@ -739,9 +899,9 @@
   </nav>
 
 
-  <script defer src="nav.js?v=92"></script>
-  <script defer src="table-responsive.js?v=92"></script>
-  <script defer src="data/data-loader-global.js?v=92"></script>
+  <script defer src="nav.js?v=96"></script>
+  <script defer src="table-responsive.js?v=96"></script>
+  <script defer src="data/data-loader-global.js?v=96"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
@@ -750,12 +910,305 @@
           DataLib.renderGradeHero('6', document.getElementById('grade6-hero'));
           DataLib.renderGradeMistakes('6', document.getElementById('grade6-mistakes'));
           DataLib.renderGradeCurriculum('6', document.getElementById('grade6-curriculum'));
+          DataLib.renderGradeUnitMatrix('6', document.getElementById('grade6-unit-matrix'));
           DataLib.renderGradeLoop('6', document.getElementById('grade6-loop'));
           DataLib.renderGrammarByGrade('grade6', document.getElementById('grade6-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade6-mistakes-ref'), '6');
         }
       }, 300);
     });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 学习目标进度追踪
+      const checkboxes = document.querySelectorAll('.goal-checkbox');
+      const progressRing = document.getElementById('progress-ring');
+      const progressPercent = document.getElementById('progress-percent');
+      const completedCount = document.getElementById('completed-count');
+      const totalGoals = checkboxes.length;
+      
+      // 从 localStorage 读取保存的进度
+      function loadProgress() {
+        const saved = localStorage.getItem('grade6-progress');
+        if (saved) {
+          const progress = JSON.parse(saved);
+          checkboxes.forEach(checkbox => {
+            const goalId = checkbox.getAttribute('data-goal');
+            if (progress[goalId]) {
+              checkbox.checked = true;
+            }
+          });
+        }
+        updateProgress();
+      }
+      
+      // 保存进度到 localStorage
+      function saveProgress() {
+        const progress = {};
+        checkboxes.forEach(checkbox => {
+          const goalId = checkbox.getAttribute('data-goal');
+          progress[goalId] = checkbox.checked;
+        });
+        localStorage.setItem('grade6-progress', JSON.stringify(progress));
+      }
+      
+      // 更新进度显示
+      function updateProgress() {
+        const checkedCount = document.querySelectorAll('.goal-checkbox:checked').length;
+        const percent = Math.round((checkedCount / totalGoals) * 100);
+        
+        // 更新圆环进度
+        const circumference = 2 * Math.PI * 45;
+        const offset = circumference - (percent / 100) * circumference;
+        progressRing.style.strokeDashoffset = offset;
+        
+        // 更新文字
+        progressPercent.textContent = percent + '%';
+        completedCount.textContent = checkedCount;
+        
+        // 完成时显示庆祝效果
+        if (percent === 100) {
+          showCompletionAnimation();
+        }
+      }
+      
+      // 显示完成动画
+      function showCompletionAnimation() {
+        const celebration = document.createElement('div');
+        celebration.innerHTML = '🎉';
+        celebration.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:1000;animation:celebrate 1s ease-out forwards;';
+        document.body.appendChild(celebration);
+        setTimeout(() => celebration.remove(), 1000);
+      }
+      
+      // 绑定事件
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          saveProgress();
+          updateProgress();
+        });
+      });
+      
+      // 初始化
+      loadProgress();
+      
+      // 如果没有保存的进度，随机选中必学目标作为默认
+      const hasProgress = localStorage.getItem('grade6-progress');
+      if (!hasProgress) {
+        // 默认选中前两个必学目标作为起点
+        const defaultGoals = ['1', '2', '4'];
+        defaultGoals.forEach(goalId => {
+          const checkbox = document.querySelector(`[data-goal="${goalId}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        });
+        saveProgress();
+        updateProgress();
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tocLinks = document.querySelectorAll('.toc-link');
+      const tocToggle = document.getElementById('toc-toggle');
+      const tocSidebar = document.getElementById('toc-sidebar');
+      
+      // 创建浮动按钮
+      const floatBtn = document.createElement('button');
+      floatBtn.className = 'toc-float-btn';
+      floatBtn.textContent = '目录';
+      floatBtn.onclick = function() {
+        tocSidebar.classList.toggle('visible');
+      };
+      document.body.appendChild(floatBtn);
+      
+      // 点击目录链接平滑滚动
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            const offsetTop = targetElement.offsetTop - 100;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+            
+            // 移动端点击后隐藏侧边栏
+            tocSidebar.classList.remove('visible');
+          }
+        });
+      });
+      
+      // 点击收起按钮
+      tocToggle.addEventListener('click', function() {
+        tocSidebar.classList.remove('visible');
+      });
+      
+      // 滚动时高亮当前目录项
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            tocLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }, {
+        rootMargin: '-100px 0px -50% 0px',
+        threshold: 0.1
+      });
+      
+      // 观察所有section
+      const sections = document.querySelectorAll('section[id^="section-"]');
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+  <script>
+    let quizScore = 0;
+    let currentQuestion = 1;
+    const totalQuestions = 5;
+    
+    const answers = {
+      1: {
+        score: 5,
+        keywords: ['认真负责', '默默做事', '主动捡起', '值日', '不图表扬'],
+        feedback: '回答得很好！小然确实是一个认真负责、默默做事的人。',
+        correctAnswer: '小然是认真负责、默默做事的人。从他主动捡起水沟里的纸团，没被表扬也继续值日可以看出。',
+        tips: '答题技巧：要结合文章中的具体事例来分析人物特点，不能只说"他很好"。'
+      },
+      2: {
+        score: 4,
+        keywords: ['责任感', '不是为了表扬', '品质', '不图名利'],
+        feedback: '太棒了！这句话确实体现了小然的责任感。',
+        correctAnswer: '表现小然做事不是为了被表扬，而是有责任感，能突出人物品质。',
+        tips: '答题技巧：分析句子作用时，要联系上下文和人物性格。'
+      },
+      3: {
+        score: 4,
+        keywords: ['阅读', '30分钟', '坚持', '每天', '数据'],
+        feedback: '正确！你的建议很有依据。',
+        correctAnswer: '建议同学每天坚持阅读30分钟以上，因为材料显示这类学生作文按时完成比例更高。',
+        tips: '答题技巧：提建议时要结合材料中的数据，不能只凭常识空说。'
+      },
+      4: {
+        score: 4,
+        keywords: ['阅读频率', '作文', '有关', '比例', '稳定'],
+        feedback: '分析得很准确！',
+        correctAnswer: '阅读频率和作文完成情况有关，阅读时间越稳定，作文按时完成比例越高。',
+        tips: '答题技巧：要对数据进行比较分析，不能只抄一个数字。'
+      },
+      5: {
+        score: 5,
+        keywords: ['题眼', '中心', '详写', '做对了', '心理'],
+        feedback: '审题很到位！',
+        correctAnswer: '题眼：这一次、做对了。中心：从犹豫到主动承担。详写：关键选择和心理变化。',
+        tips: '答题技巧：审题要抓住题眼，明确中心和详写内容。'
+      }
+    };
+    
+    function checkAnswer(questionNum) {
+      const userAnswer = document.getElementById('answer-' + questionNum).value.trim();
+      const feedbackDiv = document.getElementById('feedback-' + questionNum);
+      const answerData = answers[questionNum];
+      
+      if (!userAnswer) {
+        feedbackDiv.innerHTML = '<h4>⚠️ 请先输入答案</h4><p>请在答题框中输入你的答案后再提交。</p>';
+        feedbackDiv.className = 'feedback feedback-info';
+        return;
+      }
+      
+      let isCorrect = false;
+      let matchedKeywords = [];
+      
+      for (const keyword of answerData.keywords) {
+        if (userAnswer.includes(keyword)) {
+          matchedKeywords.push(keyword);
+        }
+      }
+      
+      if (matchedKeywords.length >= 2) {
+        isCorrect = true;
+        quizScore += answerData.score;
+      }
+      
+      updateScore();
+      updateProgress();
+      
+      if (isCorrect) {
+        feedbackDiv.innerHTML = '<h4>✅ 回答正确！+' + answerData.score + '分</h4>' +
+                               '<p>' + answerData.feedback + '</p>' +
+                               '<div class="tips">💡 ' + answerData.tips + '</div>';
+        feedbackDiv.className = 'feedback correct';
+      } else {
+        feedbackDiv.innerHTML = '<h4>❌ 还需努力</h4>' +
+                               '<p>你的答案：' + userAnswer + '</p>' +
+                               '<div class="correct-answer"><strong>参考答案：</strong>' + answerData.correctAnswer + '</div>' +
+                               '<div class="tips">💡 ' + answerData.tips + '</div>';
+        feedbackDiv.className = 'feedback incorrect';
+      }
+      
+      setTimeout(() => {
+        if (questionNum < totalQuestions) {
+          document.getElementById('quiz-' + questionNum).style.display = 'none';
+          document.getElementById('quiz-' + (questionNum + 1)).style.display = 'block';
+          currentQuestion = questionNum + 1;
+        } else {
+          showResult();
+        }
+      }, 2000);
+    }
+    
+    function updateScore() {
+      document.getElementById('quiz-score').querySelector('.score-value').textContent = quizScore;
+    }
+    
+    function updateProgress() {
+      const progress = (currentQuestion / totalQuestions) * 100;
+      document.getElementById('quiz-progress').style.width = progress + '%';
+      document.getElementById('quiz-count').textContent = currentQuestion + '/' + totalQuestions;
+    }
+    
+    function showResult() {
+      document.getElementById('quiz-5').style.display = 'none';
+      document.getElementById('quiz-result').style.display = 'block';
+      document.getElementById('final-score').textContent = quizScore;
+      
+      let comment = '';
+      if (quizScore >= 18) {
+        comment = '🌟 太棒了！你已经具备小升初综合题基础，可以直接进入限时卷和满分答案复盘。';
+      } else if (quizScore >= 13) {
+        comment = '👍 不错！你能做题，但分层和依据不足，建议补句段作用、非连续文本和作文审题。';
+      } else {
+        comment = '💪 加油！你的题型判断、材料引用还不稳，建议先练题干拆解，再做短文概括和材料定位。';
+      }
+      document.getElementById('result-comment').textContent = comment;
+    }
+    
+    function restartQuiz() {
+      quizScore = 0;
+      currentQuestion = 1;
+      updateScore();
+      updateProgress();
+      
+      for (let i = 1; i <= totalQuestions; i++) {
+        document.getElementById('quiz-' + i).style.display = 'none';
+        document.getElementById('answer-' + i).value = '';
+        document.getElementById('feedback-' + i).className = 'feedback';
+      }
+      
+      document.getElementById('quiz-result').style.display = 'none';
+      document.getElementById('quiz-1').style.display = 'block';
+    }
   </script>
 <script defer src="data/jump-manager.js"></script>
 </body>

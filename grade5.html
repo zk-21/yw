@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=92">
+  <link rel="stylesheet" href="styles.css?v=96">
 
   <style>
     /* ===== 知识点递进题组表格样式 ===== */
@@ -114,11 +114,107 @@
   </header>
 
   <main>
+    <aside class="toc-sidebar" id="toc-sidebar">
+      <div class="toc-header">
+        <span class="toc-icon">📚</span>
+        <span class="toc-title">目录导航</span>
+        <button class="toc-toggle" id="toc-toggle">☰</button>
+      </div>
+      <nav class="toc-nav" id="toc-nav">
+        <ul>
+          <li><a href="#learning-goals" class="toc-link">学习目标</a></li>
+          <li><a href="#section-overview" class="toc-link">页面定位</a></li>
+          <li><a href="#section-reading" class="toc-link">阅读分析</a></li>
+          <li><a href="#section-expository" class="toc-link">说明文阅读</a></li>
+          <li><a href="#section-writing" class="toc-link">作文立意</a></li>
+          <li><a href="#section-classical" class="toc-link">文言文入门</a></li>
+          <li><a href="#grade5-stage-assessment" class="toc-link">阶段测评</a></li>
+        </ul>
+      </nav>
+    </aside>
+
     <section class="page-head" id="grade5-hero"></section>
 
-    <section class="section">
+    <section class="learning-goals" id="learning-goals">
+      <div class="goals-header">
+        <div class="goals-title">
+          <span class="goals-icon">🎯</span>
+          <h2>今日学习目标</h2>
+        </div>
+        <div class="goals-progress">
+          <span class="progress-text">学习进度：</span>
+          <div class="progress-ring">
+            <svg class="progress-ring-svg" viewBox="0 0 100 100">
+              <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
+              <circle class="progress-ring-fill" cx="50" cy="50" r="45" id="progress-ring"></circle>
+            </svg>
+            <span class="progress-percent" id="progress-percent">0%</span>
+          </div>
+        </div>
+      </div>
+      <div class="goals-content">
+        <div class="goal-card required">
+          <span class="goal-tag required-tag">⭐ 必学</span>
+          <h3>阅读分析</h3>
+          <p>学会组织答案，答出深度</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="1"> 能分析人物形象</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="2"> 能理解文章深层含义</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="3"> 能组织完整答案</label>
+          </div>
+        </div>
+        <div class="goal-card required">
+          <span class="goal-tag required-tag">⭐ 必学</span>
+          <h3>说明文阅读</h3>
+          <p>掌握说明文的阅读方法</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="4"> 能找出说明对象</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="5"> 能识别说明方法</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="6"> 能理解说明顺序</label>
+          </div>
+        </div>
+        <div class="goal-card optional">
+          <span class="goal-tag optional-tag">📖 选学</span>
+          <h3>作文立意</h3>
+          <p>学会确定作文中心，安排详略</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="7"> 能确定作文中心</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="8"> 能安排详略得当</label>
+          </div>
+        </div>
+        <div class="goal-card advanced">
+          <span class="goal-tag advanced-tag">🚀 拓展</span>
+          <h3>文言文入门</h3>
+          <p>初步理解文言文内容</p>
+          <div class="goal-checklist">
+            <label><input type="checkbox" class="goal-checkbox" data-goal="9"> 能理解文言文大意</label>
+            <label><input type="checkbox" class="goal-checkbox" data-goal="10"> 能翻译简单句子</label>
+          </div>
+        </div>
+      </div>
+      <div class="goals-summary">
+        <div class="summary-item">
+          <span class="summary-icon">📝</span>
+          <span class="summary-label">完成目标：</span>
+          <span class="summary-value" id="completed-count">0</span>
+          <span class="summary-total">/ 10</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-icon">⏱️</span>
+          <span class="summary-label">建议时长：</span>
+          <span class="summary-value">约 50 分钟</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-icon">📊</span>
+          <span class="summary-label">学习路径：</span>
+          <span class="summary-value">阅读 → 说明文 → 作文 → 文言文</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="section-overview">
       <div class="section-title">
-        <p class="eyebrow">页面定位</p>
+        <p class="eyebrow">⭐ 必学 · 页面定位</p>
         <h2>五年级页先解决"怎么答出深度"</h2>
         <p style="color: #666;">这里保留记叙文、说明文、文言文、古诗和作文的年级用法；完整方法体系和高频训练，放到专题页继续查。</p>
       </div>
@@ -187,6 +283,7 @@
         <p style="color:#666;">五年级进入第三学段，阅读答案要有层次，作文要有中心，整本书阅读和实用性阅读也要进入稳定训练。</p>
       </div>
       <div id="grade5-curriculum"></div>
+      <div id="grade5-unit-matrix" style="margin-top:18px;"></div>
       <div id="grade5-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
@@ -312,7 +409,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="section-reading">
       <div class="section-title">
         <p class="eyebrow">拔尖题库 · 批改样例</p>
         <h2>五年级高质量题组：说明文、人物、立意</h2>
@@ -514,7 +611,7 @@
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="section-expository">
       <div class="table-card">
         <h2>五年级知识点使用总表</h2>
         <div class="responsive-table">
@@ -535,7 +632,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="section-writing">
       <div class="section-title">
         <p class="eyebrow">阅读理解</p>
         <h2>五年级阅读要从"答案正确"走向"分析充分"</h2>
@@ -615,7 +712,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="section-classical">
       <div class="section-title">
         <p class="eyebrow">文言文启蒙</p>
         <h2>五年级文言文不求难，关键是会借助注释理解</h2>
@@ -933,9 +1030,90 @@
     </div>
   </nav>
 
-  <script defer src="nav.js?v=92"></script>
-  <script defer src="table-responsive.js?v=92"></script>
-  <script defer src="data/data-loader-global.js?v=92"></script>
+  <script defer src="nav.js?v=96"></script>
+  <script defer src="table-responsive.js?v=96"></script>
+  <script defer src="data/data-loader-global.js?v=96"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 学习目标进度追踪
+      const checkboxes = document.querySelectorAll('.goal-checkbox');
+      const progressRing = document.getElementById('progress-ring');
+      const progressPercent = document.getElementById('progress-percent');
+      const completedCount = document.getElementById('completed-count');
+      const totalGoals = checkboxes.length;
+      
+      if (checkboxes.length === 0) return;
+      
+      function loadProgress() {
+        const saved = localStorage.getItem('grade5-progress');
+        if (saved) {
+          const progress = JSON.parse(saved);
+          checkboxes.forEach(checkbox => {
+            const goalId = checkbox.getAttribute('data-goal');
+            if (progress[goalId]) {
+              checkbox.checked = true;
+            }
+          });
+        }
+        updateProgress();
+      }
+      
+      function saveProgress() {
+        const progress = {};
+        checkboxes.forEach(checkbox => {
+          const goalId = checkbox.getAttribute('data-goal');
+          progress[goalId] = checkbox.checked;
+        });
+        localStorage.setItem('grade5-progress', JSON.stringify(progress));
+      }
+      
+      function updateProgress() {
+        const checkedCount = document.querySelectorAll('.goal-checkbox:checked').length;
+        const percent = Math.round((checkedCount / totalGoals) * 100);
+        
+        const circumference = 2 * Math.PI * 45;
+        const offset = circumference - (percent / 100) * circumference;
+        progressRing.style.strokeDashoffset = offset;
+        
+        progressPercent.textContent = percent + '%';
+        completedCount.textContent = checkedCount;
+        
+        if (percent === 100) {
+          showCompletionAnimation();
+        }
+      }
+      
+      function showCompletionAnimation() {
+        const celebration = document.createElement('div');
+        celebration.innerHTML = '🎉';
+        celebration.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:1000;animation:celebrate 1s ease-out forwards;';
+        document.body.appendChild(celebration);
+        setTimeout(() => celebration.remove(), 1000);
+      }
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          saveProgress();
+          updateProgress();
+        });
+      });
+      
+      loadProgress();
+      
+      const hasProgress = localStorage.getItem('grade5-progress');
+      if (!hasProgress) {
+        const defaultGoals = ['1', '2', '4'];
+        defaultGoals.forEach(goalId => {
+          const checkbox = document.querySelector(`[data-goal="${goalId}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        });
+        saveProgress();
+        updateProgress();
+      }
+    });
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
@@ -944,11 +1122,72 @@
           DataLib.renderGradeHero('5', document.getElementById('grade5-hero'));
           DataLib.renderGradeMistakes('5', document.getElementById('grade5-mistakes'));
           DataLib.renderGradeCurriculum('5', document.getElementById('grade5-curriculum'));
+          DataLib.renderGradeUnitMatrix('5', document.getElementById('grade5-unit-matrix'));
           DataLib.renderGradeLoop('5', document.getElementById('grade5-loop'));
           DataLib.renderGrammarByGrade('grade5', document.getElementById('grade5-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade5-mistakes-ref'), '5');
         }
       }, 300);
+    });
+    
+    // 目录导航功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const tocLinks = document.querySelectorAll('.toc-link');
+      const tocToggle = document.getElementById('toc-toggle');
+      const tocSidebar = document.getElementById('toc-sidebar');
+      
+      // 创建浮动按钮
+      const floatBtn = document.createElement('button');
+      floatBtn.className = 'toc-float-btn';
+      floatBtn.textContent = '目录';
+      floatBtn.onclick = function() {
+        tocSidebar.classList.toggle('visible');
+      };
+      document.body.appendChild(floatBtn);
+      
+      // 点击目录链接平滑滚动
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            const offsetTop = targetElement.offsetTop - 100;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+            
+            // 移动端点击后隐藏侧边栏
+            tocSidebar.classList.remove('visible');
+          }
+        });
+      });
+      
+      // 点击收起按钮
+      tocToggle.addEventListener('click', function() {
+        tocSidebar.classList.remove('visible');
+      });
+      
+      // 滚动时高亮当前目录项
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            tocLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '-100px 0px -60% 0px' });
+      
+      document.querySelectorAll('section[id]').forEach(section => {
+        observer.observe(section);
+      });
     });
   </script>
 <script defer src="data/jump-manager.js"></script>

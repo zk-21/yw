@@ -15,7 +15,7 @@
   <meta property="og:description" content="系统学习小学阶段必备词汇，涵盖同义词、反义词、成语、多音字等核心知识点。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=92">
+  <link rel="stylesheet" href="styles.css?v=96">
   <style>
     .interactive-section {
       padding: 40px 5vw;
@@ -2653,13 +2653,14 @@
       <div class="section-title" style="text-align:center; max-width:900px; margin:0 auto;">
         <p class="eyebrow" style="color:#667eea;">资料库速查</p>
         <h2>📝 词语数据库索引</h2>
-        <p style="color:#666; font-size:15px;">数据来自 vocabulary.json — 同义词·反义词·成语·多音字·ABB/AABB</p>
+        <p style="color:#666; font-size:15px;">数据来自 vocabulary.json — 同义词·反义词·成语·多音字·ABB/AABB·年级词汇</p>
         <div class="category-tabs" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0;">
           <button class="category-tab active" data-category="同义词">同义词</button>
           <button class="category-tab" data-category="反义词">反义词</button>
           <button class="category-tab" data-category="成语">成语</button>
           <button class="category-tab" data-category="多音字">多音字</button>
           <button class="category-tab" data-category="ABB">ABB式</button>
+          <button class="category-tab" data-category="年级词汇">年级词汇</button>
         </div>
         <div id="vocab-db-content" style="max-width:900px; margin:20px auto;"></div>
       </div>
@@ -3190,9 +3191,9 @@
       updateAchievements();
     });
   </script>
-  <script defer src="nav.js?v=92"></script>
-  <script defer src="table-responsive.js?v=92"></script>
-  <script defer src="data/data-loader-global.js?v=92"></script>
+  <script defer src="nav.js?v=96"></script>
+  <script defer src="table-responsive.js?v=96"></script>
+  <script defer src="data/data-loader-global.js?v=96"></script>
   <script>
     // 事件委托：资料库类别切换
     document.querySelector('#vocab-db-quick .category-tabs').addEventListener('click', function(e) {
