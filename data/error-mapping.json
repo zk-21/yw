@@ -1,0 +1,337 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "lastUpdated": "2026-05-26",
+    "description": "错因码到训练包和专题页面的映射配置"
+  },
+  "errorCodes": {
+    "B1": {
+      "id": "B1",
+      "label": "字词拼音",
+      "description": "拼音、识字、形近字或语境运用不稳",
+      "skills": ["拼音认读", "识字写字", "词语运用"],
+      "recommendedExercises": ["g1_001", "g1_002", "g1_003", "g2_001", "g2_002"],
+      "learningPath": [
+        "先复习声母韵母基础",
+        "练习拼音拼读",
+        "区分形近字",
+        "结合语境理解词语"
+      ],
+      "teachingTips": [
+        "多进行拼音卡片游戏",
+        "对比形近字的不同点",
+        "用组词帮助理解字义"
+      ],
+      "jumpLinks": {
+        "rulePage": "pinyin.html#rules",
+        "practicePage": "practice.html#pack-b1",
+        "vocabularyPage": "vocabulary.html#grade1"
+      }
+    },
+    "R1": {
+      "id": "R1",
+      "label": "概括主干",
+      "description": "概括照抄、漏人物事件结果",
+      "skills": ["概括能力", "信息提取", "要点归纳"],
+      "recommendedExercises": ["g2_003", "g3_001", "g3_002", "g4_001"],
+      "learningPath": [
+        "学习找中心句",
+        "练习提炼关键词",
+        "掌握概括公式：人物+事件+结果",
+        "对比原文和概括内容"
+      ],
+      "teachingTips": [
+        "用彩色笔标出关键信息",
+        "教孩子用自己的话复述",
+        "多做概括对比练习"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-r1",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "R2": {
+      "id": "R2",
+      "label": "原文依据",
+      "description": "人物、原因、情感题缺少材料依据",
+      "skills": ["文本证据", "细节查找", "推理判断"],
+      "recommendedExercises": ["g3_002", "g4_003", "g5_001", "g5_002"],
+      "learningPath": [
+        "学会定位原文关键句",
+        "练习引用原文回答问题",
+        "掌握“依据+分析”答题结构",
+        "区分直接证据和间接证据"
+      ],
+      "teachingTips": [
+        "要求答案中必须包含原文引用",
+        "用引号标记原文内容",
+        "训练“从哪里看出来”的思维"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-r2",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "R3": {
+      "id": "R3",
+      "label": "赏析语言",
+      "description": "赏析或说明文语言只背术语，不联系原文",
+      "skills": ["修辞赏析", "语言品味", "表达技巧"],
+      "recommendedExercises": ["g4_002", "g5_002", "g6_001"],
+      "learningPath": [
+        "识别常见修辞手法",
+        "理解每种修辞的作用",
+        "联系语境分析表达效果",
+        "掌握赏析答题模板"
+      ],
+      "teachingTips": [
+        "先找例子再讲术语",
+        "用“手法+效果+情感”三层分析法",
+        "对比赏析不同段落"
+      ],
+      "jumpLinks": {
+        "rulePage": "grammar.html#rhetoric",
+        "practicePage": "practice.html#pack-r3",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "R4": {
+      "id": "R4",
+      "label": "材料数据",
+      "description": "非连续文本没有引用材料、数字或关键词",
+      "skills": ["信息检索", "数据分析", "图表解读"],
+      "recommendedExercises": ["g6_002"],
+      "learningPath": [
+        "学会看图表标题和图例",
+        "提取关键数据和数字",
+        "理解数据之间的关系",
+        "用数据支持观点"
+      ],
+      "teachingTips": [
+        "训练快速扫描找数字",
+        "要求答案中必须包含数据",
+        "练习图表转换为文字"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-r4",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "W1": {
+      "id": "W1",
+      "label": "写话观察",
+      "description": "写话或观察片段太短、太空",
+      "skills": ["观察能力", "细节描写", "语言表达"],
+      "recommendedExercises": ["g1_004", "g1_005", "g2_004", "g3_004"],
+      "learningPath": [
+        "学习五感观察法",
+        "练习写具体细节",
+        "掌握“看+想+感”结构",
+        "扩展句子长度"
+      ],
+      "teachingTips": [
+        "带孩子实地观察",
+        "用提问引导细节描写",
+        "对比“干巴巴”和“生动”的句子"
+      ],
+      "jumpLinks": {
+        "rulePage": "composition.html#writing-basics",
+        "practicePage": "practice.html#pack-w1",
+        "exercisePage": "practice.html#writing"
+      }
+    },
+    "W2": {
+      "id": "W2",
+      "label": "重点段",
+      "description": "作文重点段薄，缺少变化和认识",
+      "skills": ["段落写作", "细节展开", "中心深化"],
+      "recommendedExercises": ["g3_003", "g4_003", "g5_003"],
+      "learningPath": [
+        "学习段落结构：总-分-总",
+        "练习用具体事例支撑观点",
+        "加入细节描写和感受",
+        "深化中心思想"
+      ],
+      "teachingTips": [
+        "用思维导图规划段落",
+        "要求每段至少有一个具体例子",
+        "教孩子加入内心活动"
+      ],
+      "jumpLinks": {
+        "rulePage": "composition.html#paragraph-writing",
+        "practicePage": "practice.html#pack-w2",
+        "exercisePage": "practice.html#writing"
+      }
+    },
+    "W3": {
+      "id": "W3",
+      "label": "审题扣题",
+      "description": "作文题眼、中心、材料和点题不稳",
+      "skills": ["审题能力", "主题把握", "选材立意"],
+      "recommendedExercises": ["g6_003", "g6_004"],
+      "learningPath": [
+        "学会圈画题眼",
+        "明确写作中心",
+        "选择合适材料",
+        "练习首尾点题"
+      ],
+      "teachingTips": [
+        "用提问法审题：写什么？怎么写？为什么写？",
+        "列审题提纲再动笔",
+        "检查每段是否扣题"
+      ],
+      "jumpLinks": {
+        "rulePage": "composition.html#topic-analysis",
+        "practicePage": "practice.html#pack-w3",
+        "exercisePage": "practice.html#writing"
+      }
+    },
+    "C1": {
+      "id": "C1",
+      "label": "综合题型",
+      "description": "综合题型判断慢，分层答题不清楚",
+      "skills": ["综合分析", "逻辑推理", "答题规范"],
+      "recommendedExercises": ["g5_001", "g5_004", "g6_001"],
+      "learningPath": [
+        "分解复杂问题",
+        "学习分层答题",
+        "掌握答题格式",
+        "练习时间管理"
+      ],
+      "teachingTips": [
+        "用序号清晰分点",
+        "教孩子先易后难",
+        "练习限时答题"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-c1",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "SHEN_TI": {
+      "id": "SHEN_TI",
+      "label": "审题错",
+      "description": "没看清问什么",
+      "skills": ["审题能力", "理解题意"],
+      "recommendedExercises": ["g6_003"],
+      "learningPath": [
+        "读题时划出关键词",
+        "明确题目要求",
+        "确认答题范围"
+      ],
+      "teachingTips": [
+        "要求读题至少两遍",
+        "用不同颜色笔标记要求",
+        "复述题目要求"
+      ],
+      "jumpLinks": {
+        "rulePage": "composition.html#topic-analysis",
+        "practicePage": "practice.html#pack-w3",
+        "exercisePage": "practice.html#writing"
+      }
+    },
+    "XIN_XI": {
+      "id": "XIN_XI",
+      "label": "信息错",
+      "description": "没回原文找依据",
+      "skills": ["信息提取", "原文定位"],
+      "recommendedExercises": ["g3_002", "g4_003"],
+      "learningPath": [
+        "学会在文中找答案",
+        "用原文句子支撑观点",
+        "标记关键信息"
+      ],
+      "teachingTips": [
+        "要求答案必须来自文本",
+        "训练快速定位能力",
+        "用引号引用原文"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-r2",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "GAI_KUO": {
+      "id": "GAI_KUO",
+      "label": "概括错",
+      "description": "太笼统或漏要点",
+      "skills": ["概括能力", "要点提取"],
+      "recommendedExercises": ["g2_003", "g3_001", "g3_002"],
+      "learningPath": [
+        "识别文本主要内容",
+        "提炼核心要点",
+        "用简洁语言表达"
+      ],
+      "teachingTips": [
+        "练习用一句话概括",
+        "对比概括的详略",
+        "教孩子抓住关键人物和事件"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-r1",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "BIAO_DA": {
+      "id": "BIAO_DA",
+      "label": "表达错",
+      "description": "答案不完整、不分点",
+      "skills": ["语言表达", "答题规范"],
+      "recommendedExercises": ["g4_004", "g4_005"],
+      "learningPath": [
+        "学习完整表达",
+        "练习分点答题",
+        "使用连接词"
+      ],
+      "teachingTips": [
+        "要求答案有头有尾",
+        "教孩子用序号分点",
+        "检查是否有遗漏"
+      ],
+      "jumpLinks": {
+        "rulePage": "knowledge-map.html#reading-templates",
+        "practicePage": "practice.html#pack-c1",
+        "exercisePage": "practice.html#reading"
+      }
+    },
+    "MO_BAN": {
+      "id": "MO_BAN",
+      "label": "模板错",
+      "description": "套话多，没结合文本",
+      "skills": ["灵活运用", "文本结合"],
+      "recommendedExercises": ["g4_002", "g5_002"],
+      "learningPath": [
+        "理解模板的适用场景",
+        "学会结合具体文本",
+        "避免生硬套用"
+      ],
+      "teachingTips": [
+        "先理解再套用",
+        "要求必须结合文本内容",
+        "对比模板和实际应用"
+      ],
+      "jumpLinks": {
+        "rulePage": "grammar.html#rhetoric",
+        "practicePage": "practice.html#pack-r3",
+        "exercisePage": "practice.html#reading"
+      }
+    }
+  },
+  "skillRecommendations": {
+    "拼音认读": ["g1_001", "g1_002"],
+    "识字写字": ["g1_003"],
+    "词语运用": ["g2_001", "g2_002"],
+    "概括能力": ["g2_003", "g3_001", "g3_002"],
+    "阅读理解": ["g3_002", "g4_001", "g4_002", "g4_003"],
+    "写作表达": ["g1_004", "g1_005", "g2_004", "g3_003", "g3_004"],
+    "句式变换": ["g3_005", "g4_004", "g4_005"],
+    "作文技巧": ["g5_003", "g5_004", "g6_003", "g6_004"],
+    "综合阅读": ["g5_001", "g5_002", "g6_001", "g6_002"]
+  }
+}
