@@ -1,9 +1,10 @@
 {
   "_meta": {
     "version": "2.0",
-    "lastUpdated": "2026-05-25",
+    "lastUpdated": "2026-05-27",
     "description": "常见错误库",
-    "itemCount": 2
+    "itemCount": 9,
+    "sectionCount": 2
   },
   "错误分类": [
     {

@@ -799,7 +799,7 @@
   }
 
   /**
-   * 渲染教材单元覆盖矩阵（雏形）
+   * 渲染教材单元映射矩阵
    */
   function renderGradeUnitMatrix(gradeId, container) {
     if (!container) return;
@@ -809,20 +809,28 @@
       var rows = matrix.rows || [];
       if (!rows.length) return;
 
-      var html = '<div class="table-card"><h2>' + (matrix.title || '教材单元覆盖矩阵') + '</h2>';
-      if (matrix.note) html += '<p style="color:#666;margin-top:-4px;">' + matrix.note + '</p>';
+      var html = '<div class="table-card"><h2>' + (matrix.title || '教材单元映射') + '</h2>';
+      if (matrix.textbookVersion) {
+        html += '<p style="color:#333;font-weight:600;margin-top:-4px;margin-bottom:6px;">教材版本：' + matrix.textbookVersion + '</p>';
+      }
+      if (matrix.note) html += '<p style="color:#666;margin-top:0;">' + matrix.note + '</p>';
       html += '<div class="responsive-table"><table><thead><tr>';
-      (matrix.headers || ['单元方向', '词语重点', '阅读重点', '习作重点', '配套训练']).forEach(function(h) {
+      (matrix.headers || ['学期', '单元 / 代表课文', '核心能力', '典型题型', '常见错因']).forEach(function(h) {
         html += '<th>' + h + '</th>';
       });
       html += '</tr></thead><tbody>';
       rows.forEach(function(row) {
+        var lessonText = row.lesson ? '<div style="font-size:12px;color:#666;margin-top:4px;">' + row.lesson + '</div>' : '';
+        var unitCell = row.unit || row.direction || '';
+        if (row.theme) {
+          unitCell += '<div style="font-size:12px;color:#666;margin-top:4px;">主题：' + row.theme + '</div>';
+        }
         html += '<tr>' +
-          '<td>' + (row.unit || '') + '</td>' +
-          '<td>' + (row.words || '') + '</td>' +
-          '<td>' + (row.reading || '') + '</td>' +
-          '<td>' + (row.writing || '') + '</td>' +
-          '<td>' + (row.practice || '') + '</td>' +
+          '<td>' + (row.semester || row.term || '') + '</td>' +
+          '<td>' + unitCell + lessonText + '</td>' +
+          '<td>' + (row.focus || row.words || '') + '</td>' +
+          '<td>' + (row.questionTypes || row.reading || '') + '</td>' +
+          '<td>' + (row.commonMistakes || row.writing || row.practice || '') + '</td>' +
         '</tr>';
       });
       html += '</tbody></table></div></div>';

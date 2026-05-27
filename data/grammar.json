@@ -1,9 +1,10 @@
 {
   "_meta": {
     "version": "2.0",
-    "lastUpdated": "2026-05-25",
+    "lastUpdated": "2026-05-27",
     "description": "语法知识库",
-    "itemCount": 7
+    "itemCount": 81,
+    "sectionCount": 8
   },
   "词性": {
     "实词": [
