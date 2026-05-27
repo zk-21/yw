@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=96">
+  <link rel="stylesheet" href="styles.css?v=97">
   <style>
     .grade-two-hero {
       background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
@@ -421,6 +421,7 @@
  <p style="color:#666;">二年级仍属于第一学段，关键是把字词、朗读、写话和口语表达练成稳定能力。</p>
  </div>
  <div id="grade2-curriculum"></div>
+      <div id="grade2-unit-matrix" style="margin-top:18px;"></div>
       <div class="loop-grid">
         <article class="loop-card"><h3>5分钟诊断性自测</h3><p style="font-size:12px;color:#999;margin-top:2px;">快速摸清卡点位置</p><ul><li>给 5 组形近字组词，是否混淆。</li><li>读一段短文，能否一句话概括。</li><li>看图说 3 句话，是否有顺序。</li><li>写一句问句和一句感叹句。</li></ul></article>
         <article class="loop-card"><h3>三层掌握训练</h3><p style="font-size:12px;color:#999;margin-top:2px;">步步为营，一层稳了再进下一层</p><ul><li><strong>基础：</strong>每天听写 5 个词，错字写错因。</li><li><strong>提升：</strong>每周 2 次把一句话扩成 3-5 句。</li><li><strong>拔尖：</strong>一周读 1 个短故事，按起因、经过、结果复述。</li></ul></article>
@@ -1077,6 +1078,7 @@
                     // 数据驱动渲染：年级元数据模块
           DataLib.renderGradeHero('2', document.getElementById('grade2-hero'));
           DataLib.renderGradeCurriculum('2', document.getElementById('grade2-curriculum'));
+          DataLib.renderGradeUnitMatrix('2', document.getElementById('grade2-unit-matrix'));
           DataLib.renderGrammarByGrade('grade2', document.getElementById('grade2-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade2-mistakes-ref'), '2');
         }
@@ -1143,6 +1145,7 @@
       });
     });
   </script>
+<script defer src="data/grade-stage-assessment.js?v=98"></script>
 <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=96">
+  <link rel="stylesheet" href="styles.css?v=97">
   <style>
     .answer-table,
     .knowledge-table {
@@ -348,6 +348,7 @@
         <p><strong>怎么做：</strong>用三步渐进：教师先示范“读题→回文找证据→组织答案”，再给“品质词、原文句子、解释”三张提示卡扶着练，最后撤掉提示独立完成。</p>
       </div>
       <div id="grade4-curriculum"></div>
+      <div id="grade4-unit-matrix" style="margin-top:18px;"></div>
       <div id="grade4-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
@@ -1489,6 +1490,7 @@
           DataLib.renderGradeHero('4', document.getElementById('grade4-hero'));
           DataLib.renderGradeMistakes('4', document.getElementById('grade4-mistakes'));
           DataLib.renderGradeCurriculum('4', document.getElementById('grade4-curriculum'));
+          DataLib.renderGradeUnitMatrix('4', document.getElementById('grade4-unit-matrix'));
           DataLib.renderGradeLoop('4', document.getElementById('grade4-loop'));
           DataLib.renderGrammarByGrade('grade4', document.getElementById('grade4-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade4-mistakes-ref'), '4');
@@ -1556,6 +1558,7 @@
       });
     });
   </script>
+<script defer src="data/grade-stage-assessment.js?v=98"></script>
 <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=96">
+  <link rel="stylesheet" href="styles.css?v=97">
 </head>
 <body>
   <header class="topbar">
@@ -171,6 +171,7 @@
         <p style="color:#666;">三年级进入第二学段，要把语言积累、段落阅读、片段习作和整本书阅读连接起来，形成真正能迁移的语文能力。</p>
       </div>
       <div id="grade3-curriculum"></div>
+      <div id="grade3-unit-matrix" style="margin-top:18px;"></div>
       <div id="grade3-loop"></div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
@@ -1075,11 +1076,7 @@
           DataLib.renderGradeHero('3', document.getElementById('grade3-hero'));
           DataLib.renderGradeMistakes('3', document.getElementById('grade3-mistakes'));
           DataLib.renderGradeCurriculum('3', document.getElementById('grade3-curriculum'));
-          DataLib.renderGradeLoop('3', document.getElementById('grade3-loop'));
-          // 数据驱动渲染：年级元数据模块
-          DataLib.renderGradeHero('3', document.getElementById('grade3-hero'));
-          DataLib.renderGradeMistakes('3', document.getElementById('grade3-mistakes'));
-          DataLib.renderGradeCurriculum('3', document.getElementById('grade3-curriculum'));
+          DataLib.renderGradeUnitMatrix('3', document.getElementById('grade3-unit-matrix'));
           DataLib.renderGradeLoop('3', document.getElementById('grade3-loop'));
           // 共享资料库渲染
           DataLib.renderGrammarByGrade('grade3', document.getElementById('grade3-grammar-ref'));
@@ -1148,6 +1145,7 @@
       });
     });
   </script>
+<script defer src="data/grade-stage-assessment.js?v=98"></script>
 <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

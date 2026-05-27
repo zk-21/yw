@@ -657,6 +657,33 @@ h3 {
   font-size: 18px;
 }
 
+.teacher-details {
+  max-width: 820px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(64, 80, 100, 0.14);
+  border-radius: 10px;
+}
+
+.teacher-details summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--deep-blue);
+}
+
+.teacher-details summary::marker {
+  color: var(--deep-blue);
+}
+
+.teacher-details p {
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
 .practice-head {
   background: var(--soft-rose);
 }
@@ -1366,6 +1393,17 @@ td {
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 18px;
+}
+
+.print-sheet-data-note {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #eef4ff;
+  color: #36507a;
+  font-size: 14px;
+  line-height: 1.6;
+  border-left: 4px solid #667eea;
 }
 
 .print-sheet-grid {
@@ -6204,7 +6242,7 @@ html.view-mobile .mobile-bottom-nav a.active span {
 }
 .answer-compare-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 .answer-compare-panel {
@@ -6219,6 +6257,10 @@ html.view-mobile .mobile-bottom-nav a.active span {
 .answer-compare-panel.high {
   background: #ecfdf5;
   border-color: #86efac;
+}
+.answer-compare-panel.critique {
+  background: #fff7ed;
+  border-color: #fdba74;
 }
 .answer-compare-panel strong {
   display: block;
@@ -6674,6 +6716,280 @@ html.view-mobile .exercise-detail-head {
 
 .jump-btn-exercise:hover {
   background: #fde68a;
+}
+
+.grade-stage-panel {
+  margin: 18px 0 24px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.grade-stage-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.grade-stage-switches,
+.grade-stage-toolbar-actions,
+.grade-stage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.grade-stage-switch,
+.grade-stage-ghost-btn,
+.grade-stage-primary-btn,
+.grade-stage-action-link {
+  border-radius: 999px;
+  border: 1px solid #d8dee9;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.grade-stage-switch,
+.grade-stage-ghost-btn {
+  background: #fff;
+  color: #415160;
+}
+
+.grade-stage-primary-btn,
+.grade-stage-action-link {
+  background: linear-gradient(135deg, #ff8a3d, #ff6b2d);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(255, 107, 45, 0.2);
+}
+
+.grade-stage-switch.active {
+  background: #17324d;
+  border-color: #17324d;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(23, 50, 77, 0.16);
+}
+
+.grade-stage-switch:hover,
+.grade-stage-ghost-btn:hover,
+.grade-stage-primary-btn:hover,
+.grade-stage-action-link:hover {
+  transform: translateY(-1px);
+}
+
+.grade-stage-panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.grade-stage-panel-head h3 {
+  margin: 6px 0 8px;
+  color: #17324d;
+  font-size: 24px;
+}
+
+.grade-stage-panel-head p {
+  margin: 0;
+  color: #516273;
+}
+
+.grade-stage-kicker,
+.grade-stage-result-kicker {
+  margin: 0;
+  color: #ff6b2d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.grade-stage-points-total {
+  min-width: 144px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff1e7, #fff8f2);
+  color: #8a4518;
+  font-weight: 800;
+  text-align: center;
+}
+
+.grade-stage-checklist {
+  display: grid;
+  gap: 12px;
+}
+
+.grade-stage-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid #e5ebf1;
+  background: #fbfcfd;
+}
+
+.grade-stage-item input[type="checkbox"] {
+  margin-top: 4px;
+  accent-color: #ff6b2d;
+}
+
+.grade-stage-item-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.grade-stage-item-copy strong {
+  color: #17324d;
+  font-size: 15px;
+}
+
+.grade-stage-item-copy small {
+  color: #617180;
+}
+
+.grade-stage-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  color: #526171;
+  font-size: 13px;
+}
+
+.grade-stage-code,
+.grade-stage-points {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.grade-stage-code {
+  background: #eaf3ff;
+  color: #255d95;
+}
+
+.grade-stage-points {
+  background: #fff0d9;
+  color: #975e10;
+}
+
+.grade-stage-result {
+  margin-top: 18px;
+  color: #516273;
+}
+
+.grade-stage-result-card {
+  border-radius: 22px;
+  border: 1px solid rgba(255, 107, 45, 0.12);
+  background: linear-gradient(135deg, #fff9f4, #ffffff);
+  padding: 20px;
+}
+
+.grade-stage-result-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.grade-stage-result-top h3 {
+  margin: 6px 0 8px;
+  color: #17324d;
+  font-size: 28px;
+}
+
+.grade-stage-result-top p {
+  margin: 0;
+  color: #516273;
+}
+
+.grade-stage-result-main {
+  max-width: 300px;
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #17324d;
+  color: #fff;
+}
+
+.grade-stage-result-main span,
+.grade-stage-result-main small {
+  opacity: 0.9;
+}
+
+.grade-stage-result-main strong {
+  font-size: 18px;
+}
+
+.grade-stage-result-table {
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+.grade-stage-result-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.grade-stage-result-table th,
+.grade-stage-result-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eceff3;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.grade-stage-result-table th {
+  color: #17324d;
+  font-weight: 800;
+}
+
+.grade-stage-selected {
+  background: rgba(255, 107, 45, 0.1);
+}
+
+.grade-stage-hit {
+  background: rgba(23, 50, 77, 0.08);
+}
+
+@media (max-width: 768px) {
+  .grade-stage-panel-head h3,
+  .grade-stage-result-top h3 {
+    font-size: 22px;
+  }
+
+  .grade-stage-result-main {
+    max-width: none;
+    width: 100%;
+  }
+
+  .grade-stage-switch,
+  .grade-stage-ghost-btn,
+  .grade-stage-primary-btn,
+  .grade-stage-action-link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 

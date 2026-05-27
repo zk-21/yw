@@ -499,6 +499,26 @@
       return labels[difficulty] || difficulty || '';
     }
 
+    function getSummaryText(item) {
+      var summaryText = item.summary || item.content || item.title || '';
+      summaryText = String(summaryText)
+        .replace(/\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ' ')
+        .replace(/[{}\[\]\"]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      if (!summaryText || summaryText === item.title) {
+        summaryText = String(item.content || item.title || '')
+          .replace(/\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ' ')
+          .replace(/[{}\[\]\"]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
+      if (!summaryText) summaryText = String(item.title || '');
+      return summaryText.substring(0, 150);
+    }
+
     // ── 无结果推荐 ──
     function getSuggestions(keyword) {
       var suggestions = [];
@@ -586,8 +606,7 @@
           html += '<div class="result-db-label">' + getTypeLabel(type) + '<span class="result-count">' + items.length + '条</span></div>';
           
           items.slice(0, 20).forEach(function(item) {
-            var summaryText = item.summary || item.content || item.title;
-            summaryText = String(summaryText).substring(0, 150);
+            var summaryText = getSummaryText(item);
             var metaParts = [getItemGradeLabel(item), item.category, getDifficultyLabel(item.difficulty)].filter(Boolean);
             html += '<div class="result-item">' +
               '<div><strong>' + highlightText(item.title, keyword) + '</strong></div>' +
@@ -621,6 +640,6 @@
   </script>
   <script defer src="nav.js?v=96"></script>
   <script defer src="table-responsive.js?v=96"></script>
-  <script defer src="data/data-loader-global.js?v=96"></script>
+  <script defer src="data/data-loader-global.js?v=97"></script>
 </body>
 </html>

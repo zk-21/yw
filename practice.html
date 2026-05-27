@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=96">
+  <link rel="stylesheet" href="styles.css?v=97">
   <style>
     /* 互动练习区域样式 */
     .interactive-practice {
@@ -3273,38 +3273,39 @@
     <section class="section" id="print-training">
       <div class="section-title">
         <p class="eyebrow">打印训练单</p>
-        <h2>线下一对一辅导闭环单：A卷答题、判码、训练、B卷复测、C卷迁移、家长签字</h2>
-        <p style="color:#666;">适合家长打印后陪孩子做：先完成 A 卷，再判错因码，选 1-2 个训练包集中练，用 B 卷复测同类迁移，最后用 C 卷检查混合题能否稳定过关。</p>
+        <h2>线下一对一辅导闭环单：A卷答题、系统判码结果、训练、B卷复测、C卷迁移、家长签字</h2>
+        <p style="color:#666;">适合家长打印后陪孩子做：先完成 A 卷，由系统自动生成错因码和训练路径；打印单会自动回填主攻错因和下一课，家长只需按单执行训练、复测和迁移。</p>
       </div>
       <div class="print-sheet-actions">
-        <button class="flow-action-btn" type="button" onclick="document.body.classList.add('printing-training-sheet'); window.print();">打印本训练单</button>
+        <button class="flow-action-btn" type="button" onclick="printTrainingSheet()">打印本训练单</button>
         <a class="flow-action-btn" href="#flow-training">去电子评分器</a>
         <a class="flow-action-btn" href="#peak-promotion">拔尖晋级标准</a>
         <a class="flow-action-btn" href="composition.html#three-round-revision">作文三轮批改</a>
       </div>
+      <p class="print-sheet-data-note" id="printTrainingStatus">将自动读取最近一次系统诊断/评分结果，并回填错因码、主攻训练包和下一课。</p>
       <div class="table-card">
         <div class="print-sheet-grid">
           <article class="print-sheet-card wide">
             <h3>学生信息</h3>
             <div class="print-sheet-meta">
               <p>姓名：<span class="blank-line"></span></p>
-              <p>年级：<span class="blank-line"></span></p>
-              <p>日期：<span class="blank-line"></span></p>
+              <p>年级：<span class="blank-line" id="printStudentGrade"></span></p>
+              <p>日期：<span class="blank-line" id="printGeneratedDate"></span></p>
             </div>
             <div class="print-sheet-meta">
-              <p>A卷得分：<span class="blank-line"></span></p>
-              <p>B卷结果：通过 / 需再练</p>
-              <p>C卷迁移：通过 / 需回炉</p>
+              <p>A卷得分：<span class="blank-line" id="printAScore"></span></p>
+              <p>B卷结果：<span class="blank-line" id="printBResult">通过 / 需再练</span></p>
+              <p>C卷迁移：<span class="blank-line" id="printCResult">通过 / 需回炉</span></p>
             </div>
             <div class="print-sheet-meta">
-              <p>本次主攻错因码：<span class="blank-line"></span></p>
-              <p>学习画像等级：<span class="blank-line"></span></p>
-              <p>下一课：<span class="blank-line"></span></p>
+              <p>本次主攻错因码：<span class="blank-line" id="printMainErrorCode"></span></p>
+              <p>学习画像等级：<span class="blank-line" id="printProfileLevel"></span></p>
+              <p>下一课：<span class="blank-line" id="printNextLesson"></span></p>
             </div>
           </article>
           <article class="print-sheet-card">
             <h3>A卷答题纸</h3>
-            <ul class="print-check-list">
+            <ul class="print-check-list" id="printAnswerSheet">
               <li>第1题答案：<span class="blank-line"></span></li>
               <li>第2题答案：<span class="blank-line"></span></li>
               <li>第3题答案：<span class="blank-line"></span></li>
@@ -3313,11 +3314,11 @@
             </ul>
           </article>
           <article class="print-sheet-card">
-            <h3>A卷判码表</h3>
+            <h3>A卷系统判码结果表</h3>
             <div class="responsive-table">
               <table>
                 <thead><tr><th>题号</th><th>扣分点</th><th>错因码</th><th>先练哪里</th></tr></thead>
-                <tbody>
+                <tbody id="printDiagnosisRows">
                   <tr><td>1</td><td></td><td>B1 / R1 / R2 / R3 / R4 / W1 / W2 / W3 / C1</td><td></td></tr>
                   <tr><td>2</td><td></td><td></td><td></td></tr>
                   <tr><td>3</td><td></td><td></td><td></td></tr>
@@ -3332,7 +3333,7 @@
             <div class="responsive-table">
               <table>
                 <thead><tr><th>错因码</th><th>训练包</th><th>基础题</th><th>提升题</th><th>拔尖题</th><th>错因复盘</th></tr></thead>
-                <tbody>
+                <tbody id="printTrainingRows">
                   <tr><td>B1</td><td>字词拼音</td><td>□</td><td>□</td><td>□</td><td></td></tr>
                   <tr><td>R1</td><td>概括主干</td><td>□</td><td>□</td><td>□</td><td></td></tr>
                   <tr><td>R2</td><td>原文依据</td><td>□</td><td>□</td><td>□</td><td></td></tr>
@@ -3371,10 +3372,10 @@
             <div class="signature-grid">
               <p>孩子自评：<span class="blank-line"></span></p>
               <p>家长检查：<span class="blank-line"></span></p>
-              <p>下次主攻：<span class="blank-line"></span></p>
+              <p>下次主攻：<span class="blank-line" id="printNextFocus"></span></p>
               <p>家长签字：<span class="blank-line"></span></p>
             </div>
-            <p style="color:#666;margin:0;">复盘句式：我这次错在 <span class="blank-line"></span>，正确方法是 <span class="blank-line"></span>，下次先做 <span class="blank-line"></span>。</p>
+            <p style="color:#666;margin:0;">复盘句式：我这次错在 <span class="blank-line" id="printReviewError"></span>，正确方法是 <span class="blank-line" id="printReviewMethod"></span>，下次先做 <span class="blank-line" id="printReviewNext"></span>。</p>
           </article>
           <article class="print-sheet-card wide">
             <h3>拔尖晋级记录</h3>
@@ -3395,7 +3396,7 @@
             <div class="responsive-table">
               <table>
                 <thead><tr><th>错因码</th><th>当天重讲</th><th>3天后复练</th><th>7天后复测</th><th>是否进入下一课</th></tr></thead>
-                <tbody>
+                <tbody id="printReviewRows">
                   <tr><td>B1/R1/R2/R3/R4/W1/W2/W3/C1</td><td>□ 已重讲方法</td><td>□ 同类题通过</td><td>□ C卷迁移通过</td><td>是 / 否</td></tr>
                   <tr><td>本次错因码：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>下一课：<span class="blank-line"></span></td></tr>
                   <tr><td>本次错因码：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>日期：<span class="blank-line"></span></td><td>下一课：<span class="blank-line"></span></td></tr>
@@ -5478,7 +5479,7 @@
           </div>
 
           <!-- ════ 判码表 ════ -->
-          <h4 style="color: #e65100; font-size: 16px; margin: 0 0 8px;">🔑 A卷判码表（系统自动匹配，家长对照看）</h4>
+          <h4 style="color: #e65100; font-size: 16px; margin: 0 0 8px;">🔑 A卷判码表（系统自动匹配并生成训练路径）</h4>
           <p style="color: #888; font-size: 13px; margin-bottom: 14px;">判码不需要死记硬背——<strong>概括类题扣分 → R1</strong>，<strong>写话/观察类题扣分 → W1</strong>。这次诊断发现：孩子 R1 和 W1 都扣了分。</p>
           <div class="responsive-table" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
             <table>
@@ -5928,7 +5929,7 @@
     });
   </script>
   <script defer src="data/data-loader-global.js?v=96"></script>
-  <script defer src="practice.js?v=83"></script>
+  <script defer src="practice.js?v=84"></script>
   <script>
     // 渲染题库索引与解析质量分级样例
     (function(){
@@ -5991,9 +5992,10 @@
         var tags = getGapTags(item, analysis);
         return [
           '<div class="answer-compare">',
-            '<div class="answer-compare-title">低分答案 → 满分答案</div>',
+            '<div class="answer-compare-title">低分答案 + 错因点评 + 满分答案</div>',
             '<div class="answer-compare-grid">',
               '<div class="answer-compare-panel low"><strong>低分答案</strong><p>' + escapeHTML(analysis.低分示例) + '</p></div>',
+              '<div class="answer-compare-panel critique"><strong>错因点评</strong><p>' + escapeHTML(analysis.错因点评 || '这份答案方向碰到了边，但关键依据或完整表达没有写出来。') + '</p></div>',
               '<div class="answer-compare-panel high"><strong>满分答案</strong><p>' + escapeHTML(analysis.满分表达) + '</p></div>',
             '</div>',
             '<div class="answer-gap-tags">',
@@ -6231,6 +6233,7 @@
             '<div><strong>标准答案</strong><p>' + escapeHTML(analysis.标准答案 || item.答案 || '') + '</p></div>',
             '<div><strong>怎么想</strong><p>' + escapeHTML(analysis.解题思路 || item.解析 || '') + '</p></div>',
             '<div><strong>易错点</strong>' + renderList(analysis.易错点 || []) + '</div>',
+            '<div><strong>错因点评</strong><p>' + escapeHTML(analysis.错因点评 || '') + '</p></div>',
             '<div><strong>家长讲解话术</strong><p>' + escapeHTML(analysis.家长讲解话术 || '') + '</p></div>',
             '<div><strong>复练任务</strong><p>' + escapeHTML(analysis.复练任务 || '') + '</p></div>',
           '</div>'
@@ -6256,6 +6259,7 @@
           '<section class="exercise-detail-section"><h3>标准答案</h3><p>' + escapeHTML(analysis.标准答案 || item.答案 || '') + '</p></section>',
           '<section class="exercise-detail-section"><h3>解题思路</h3><p>' + escapeHTML(analysis.解题思路 || item.解析 || '') + '</p></section>',
           '<section class="exercise-detail-section"><h3>易错点</h3>' + renderList(analysis.易错点 || []) + '</section>',
+          '<section class="exercise-detail-section"><h3>错因点评</h3><p>' + escapeHTML(analysis.错因点评 || '') + '</p></section>',
           '<section class="exercise-detail-section"><h3>家长讲解话术</h3><p>' + escapeHTML(analysis.家长讲解话术 || '') + '</p></section>',
           '<section class="exercise-detail-section"><h3>复练任务</h3><p>' + escapeHTML(analysis.复练任务 || '') + '</p></section>',
           '<div class="exercise-detail-actions">',
@@ -6287,7 +6291,7 @@
         html += '<h1>语文训练单</h1><p class="meta">' + escapeHTML(item.年级) + '年级 · ' + escapeHTML(item.类型) + ' · ' + escapeHTML(item.错因码 || '') + '</p>';
         html += '<div class="box"><h2>题目区</h2><p>' + escapeHTML(item.题目) + '</p></div>';
         html += '<div class="box"><h2>学生作答区</h2><div class="lines"><span></span><span></span><span></span><span></span></div></div>';
-        html += '<div class="box answer"><h2>标准答案</h2><p>' + escapeHTML(analysis.标准答案 || item.答案 || '') + '</p><h2>满分表达</h2><p>' + escapeHTML(analysis.满分表达 || '') + '</p></div>';
+        html += '<div class="box answer"><h2>标准答案</h2><p>' + escapeHTML(analysis.标准答案 || item.答案 || '') + '</p><h2>低分答案</h2><p>' + escapeHTML(analysis.低分示例 || '') + '</p><h2>错因点评</h2><p>' + escapeHTML(analysis.错因点评 || '') + '</p><h2>满分表达</h2><p>' + escapeHTML(analysis.满分表达 || '') + '</p></div>';
         html += '<div class="box parent"><h2>家长讲解话术</h2><p>' + escapeHTML(analysis.家长讲解话术 || '') + '</p></div>';
         html += '<div class="box task"><h2>复练任务</h2><p>' + escapeHTML(analysis.复练任务 || '') + '</p></div>';
         html += '</body></html>';
@@ -6309,7 +6313,7 @@
         }
         var compare = '';
         if (analysis.低分示例 || analysis.满分表达) {
-          compare = '<div class="box compare"><h3>低分答案 → 满分答案</h3><p><strong>低分：</strong>' + escapeHTML(analysis.低分示例 || '') + '</p><p><strong>满分：</strong>' + escapeHTML(analysis.满分表达 || item.答案 || '') + '</p></div>';
+          compare = '<div class="box compare"><h3>低分答案 + 错因点评 + 满分答案</h3><p><strong>低分：</strong>' + escapeHTML(analysis.低分示例 || '') + '</p><p><strong>点评：</strong>' + escapeHTML(analysis.错因点评 || '') + '</p><p><strong>满分：</strong>' + escapeHTML(analysis.满分表达 || item.答案 || '') + '</p></div>';
         }
         return [
           '<section class="sheet-item">',
@@ -6317,7 +6321,7 @@
             '<p class="sheet-meta">' + escapeHTML(item.年级) + '年级 · ' + escapeHTML(item.类型) + ' · ' + escapeHTML(item.错因码 || '') + '</p>',
             '<div class="box"><h3>学生作答区</h3><div class="lines"><span></span><span></span><span></span><span></span></div></div>',
             compare,
-            '<div class="box answer"><h3>标准答案</h3><p>' + escapeHTML(analysis.标准答案 || item.答案 || '') + '</p><h3>满分表达</h3><p>' + escapeHTML(analysis.满分表达 || '') + '</p></div>',
+            '<div class="box answer"><h3>标准答案</h3><p>' + escapeHTML(analysis.标准答案 || item.答案 || '') + '</p><h3>错因点评</h3><p>' + escapeHTML(analysis.错因点评 || '') + '</p><h3>满分表达</h3><p>' + escapeHTML(analysis.满分表达 || '') + '</p></div>',
             '<div class="box parent"><h3>家长讲解话术</h3><p>' + escapeHTML(analysis.家长讲解话术 || '') + '</p></div>',
             '<div class="box task"><h3>复练任务</h3><p>' + escapeHTML(analysis.复练任务 || '') + '</p></div>',
           '</section>'
@@ -6377,7 +6381,7 @@
               '<div class="error-pack-section"><b>低分卡点</b><div class="error-pack-examples">',
                 gapLabels.slice(0, 4).map(function(label) { return '<span>' + escapeHTML(label) + '</span>'; }).join('') || '<span>待补充</span>',
               '</div></div>',
-              compareItem ? '<div class="error-pack-section"><b>低分对比</b><div class="error-pack-compare"><p><strong>低分：</strong>' + escapeHTML(compareItem.解析分级.低分示例 || '') + '</p><p><strong>满分：</strong>' + escapeHTML(compareItem.解析分级.满分表达 || compareItem.答案 || '') + '</p></div></div>' : '',
+              compareItem ? '<div class="error-pack-section"><b>低分对比</b><div class="error-pack-compare"><p><strong>低分：</strong>' + escapeHTML(compareItem.解析分级.低分示例 || '') + '</p><p><strong>点评：</strong>' + escapeHTML(compareItem.解析分级.错因点评 || '') + '</p><p><strong>满分：</strong>' + escapeHTML(compareItem.解析分级.满分表达 || compareItem.答案 || '') + '</p></div></div>' : '',
               '<div class="error-pack-section"><b>复练任务</b><p>' + escapeHTML(firstPractice) + '</p>',
               '</div>',
               '<div class="quality-card-actions">',

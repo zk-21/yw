@@ -17,6 +17,7 @@ const path = require('path');
 const ROOT = __dirname;
 const HTML_DIR = ROOT;
 const DATA_DIR = path.join(ROOT, 'data');
+const GENERIC_LOW_RE = /^(?:只写|只填|只列|只翻译|只选字|只加了一个词|只换了个别词|只写总笔画|只写后半个词|只写音节|只写一个读音|只写大概意思|改动很多，但|成语意思接近|答案不完整|（待补充）|\(待补充\)|待补充)/;
 
 let errors = 0;
 
@@ -257,9 +258,126 @@ function isSpecificPracticeTask(value) {
   return /写|读|找|圈|改|列|分析|概括|赏析|扩写|缩句|标|区分|观察|给|按|用|以|把|完成|至少|\d|[“《（]/.test(text);
 }
 
-// ── 4. 题库解析分级完整性检查 ─────────────────────────────
+function checkStructuredMetaCounts() {
+  console.log('\n=== 4. 资料库元数据计数检查 ===');
+
+  const targets = [
+    {
+      file: 'model-essays.json',
+      sections: ['作文类型', '写作通用方法'],
+      countEntries(data) {
+        return this.sections.reduce((sum, key) => {
+          const value = data[key];
+          return sum + (Array.isArray(value) ? value.length : 0);
+        }, 0);
+      }
+    },
+    {
+      file: 'common-mistakes.json',
+      sections: ['错误分类', '学习方法'],
+      countEntries(data) {
+        return this.sections.reduce((sum, key) => {
+          const value = data[key];
+          return sum + (Array.isArray(value) ? value.length : 0);
+        }, 0);
+      }
+    },
+    {
+      file: 'vocabulary.json',
+      sections: ['同义词', '反义词', '成语', '多音字', '词语形式', '年级词汇'],
+      countEntries(data) {
+        function countVocabulary(value) {
+          let count = 0;
+          if (Array.isArray(value)) {
+            value.forEach(item => {
+              if (typeof item === 'string') {
+                count++;
+              } else if (item && typeof item === 'object') {
+                if (item['词A'] && item['词B']) count++;
+                else if (item['词语'] || item['成语'] || item['字']) count++;
+                else count += countVocabulary(item);
+              }
+            });
+            return count;
+          }
+          if (value && typeof value === 'object') {
+            Object.values(value).forEach(child => {
+              count += countVocabulary(child);
+            });
+          }
+          return count;
+        }
+        return this.sections.reduce((sum, key) => sum + countVocabulary(data[key]), 0);
+      }
+    },
+    {
+      file: 'grammar.json',
+      sections: ['词性', '标点符号', '句型变换', '关联词', '病句修改', '修辞手法', '句子基础', '二年级语法'],
+      countEntries(data) {
+        let count = 0;
+        function walk(value) {
+          if (Array.isArray(value)) {
+            value.forEach(walk);
+            return;
+          }
+          if (!value || typeof value !== 'object') return;
+          if (value['名称'] || value['类型'] || value['病因'] || value['关系'] || value['符号']) {
+            count++;
+            return;
+          }
+          Object.values(value).forEach(walk);
+        }
+        this.sections.forEach(key => walk(data[key]));
+        return count;
+      }
+    },
+    {
+      file: 'grades.json',
+      sections: ['1', '2', '3', '4', '5', '6'],
+      countEntries(data) {
+        return this.sections.filter(key => data[key]).length;
+      }
+    }
+  ];
+
+  targets.forEach(target => {
+    const { file, sections } = target;
+    const fullPath = path.join(DATA_DIR, file);
+    if (!fs.existsSync(fullPath)) {
+      log(false, `${file} 不存在`);
+      return;
+    }
+
+    let data;
+    try {
+      data = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+    } catch (e) {
+      log(false, `${file} JSON 解析失败: ${e.message}`);
+      return;
+    }
+
+    const actualCount = target.countEntries(data);
+    const metaCount = data._meta && data._meta.itemCount;
+    const sectionCount = sections.length;
+    const metaSectionCount = data._meta && data._meta.sectionCount;
+
+    if (metaCount !== actualCount) {
+      log(false, `${file} _meta.itemCount=${metaCount}，实际条目数 ${actualCount}`);
+    } else {
+      log(true, `${file} itemCount=${actualCount}`);
+    }
+
+    if (metaSectionCount !== sectionCount) {
+      log(false, `${file} _meta.sectionCount=${metaSectionCount}，实际分组数 ${sectionCount}`);
+    } else {
+      log(true, `${file} sectionCount=${sectionCount}`);
+    }
+  });
+}
+
+// ── 5. 题库解析分级完整性检查 ─────────────────────────────
 function checkExerciseAnalysis() {
-  console.log('\n=== 4. 题库解析分级检查 ===');
+  console.log('\n=== 5. 题库解析分级检查 ===');
 
   const file = path.join(DATA_DIR, 'exercises.json');
   if (!fs.existsSync(file)) {
@@ -293,6 +411,7 @@ function checkExerciseAnalysis() {
     '解题思路',
     '易错点',
     '低分示例',
+    '错因点评',
     '满分表达',
     '家长讲解话术',
     '复练任务'
@@ -321,10 +440,17 @@ function checkExerciseAnalysis() {
 
     qualityChecked++;
     const lowScore = analysis['低分示例'];
+    const critique = analysis['错因点评'];
     const fullScore = analysis['满分表达'];
     const similarity = bigramSimilarity(lowScore, fullScore);
     if (similarity >= 0.82) {
       log(false, `${label} 低分示例与满分表达太像，相似度 ${(similarity * 100).toFixed(0)}%`);
+    }
+    if (GENERIC_LOW_RE.test(String(lowScore || '').trim())) {
+      log(false, `${label} 低分示例仍像程序兜底，不像真实低分答案`);
+    }
+    if (String(critique || '').trim().length < 12) {
+      log(false, `${label} 错因点评过短，缺少可教学解释`);
     }
 
     if (!hasParentFollowUp(analysis['家长讲解话术'])) {
@@ -360,6 +486,7 @@ const mode = process.argv[2] || 'all';
 if (mode === 'js' || mode === 'all') checkJsSyntax();
 if (mode === 'links' || mode === 'all') checkLinks();
 if (mode === 'sw' || mode === 'all') checkServiceWorker();
+if (mode === 'analysis' || mode === 'all') checkStructuredMetaCounts();
 if (mode === 'analysis' || mode === 'all') checkExerciseAnalysis();
 
 if (errors > 0) {

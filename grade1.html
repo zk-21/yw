@@ -27,7 +27,7 @@
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#63d676" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="styles.css?v=96" />
+    <link rel="stylesheet" href="styles.css?v=97" />
     <style>
       .grade-one-hero {
         background: linear-gradient(
@@ -708,6 +708,7 @@
           </p>
         </div>
         <div id="grade1-curriculum"></div>
+        <div id="grade1-unit-matrix" style="margin-top: 18px"></div>
         <div class="loop-grid">
           <article class="loop-card">
             <h3>5分钟诊断性自测</h3>
@@ -2214,6 +2215,7 @@
                       // 数据驱动渲染：年级元数据模块
           DataLib.renderGradeHero('1', document.getElementById('grade1-hero'));
           DataLib.renderGradeCurriculum('1', document.getElementById('grade1-curriculum'));
+          DataLib.renderGradeUnitMatrix('1', document.getElementById('grade1-unit-matrix'));
           DataLib.renderGrammarByGrade(
               "grade1",
               document.getElementById("grade1-grammar-ref"),
@@ -2226,6 +2228,7 @@
         }, 300);
       });
     </script>
+  <script defer src="data/grade-stage-assessment.js?v=98"></script>
   <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

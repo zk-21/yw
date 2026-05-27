@@ -1671,6 +1671,8 @@ function exportWrongBook(skipAnalysisLoad) {
     if (item.tip) html += '<div class="wrong-tip">💡 ' + escapeHTML(item.tip) + '</div>';
     if (analysis) {
       html += '<div class="wrong-tip"><strong>易错点：</strong>' + escapeHTML((analysis.易错点 || []).join('；')) + '</div>';
+      if (analysis.低分示例) html += '<div class="wrong-a wrong-user"><span>低分答案：</span>' + escapeHTML(analysis.低分示例) + '</div>';
+      if (analysis.错因点评) html += '<div class="wrong-tip"><strong>错因点评：</strong>' + escapeHTML(analysis.错因点评) + '</div>';
       if (analysis.满分表达) html += '<div class="wrong-a wrong-correct"><span>满分表达：</span>' + escapeHTML(analysis.满分表达) + '</div>';
       if (analysis.家长讲解话术) html += '<div class="wrong-tip"><strong>家长讲解：</strong>' + escapeHTML(analysis.家长讲解话术) + '</div>';
       if (analysis.复练任务) html += '<div class="wrong-tip"><strong>复练任务：</strong>' + escapeHTML(analysis.复练任务) + '</div>';
@@ -1934,11 +1936,15 @@ function renderLowToFullComparison(analysis, source) {
   const tags = getAnswerGapTags(analysis, source);
   return `
     <div class="answer-compare">
-      <div class="answer-compare-title">低分答案 → 满分答案</div>
+      <div class="answer-compare-title">低分答案 + 错因点评 + 满分答案</div>
       <div class="answer-compare-grid">
         <div class="answer-compare-panel low">
           <strong>低分答案</strong>
           <p>${escapeHTML(analysis.低分示例)}</p>
+        </div>
+        <div class="answer-compare-panel critique">
+          <strong>错因点评</strong>
+          <p>${escapeHTML(analysis.错因点评 || '这份答案方向碰到了边，但关键依据或完整表达没有写出来。')}</p>
         </div>
         <div class="answer-compare-panel high">
           <strong>满分答案</strong>
@@ -1965,6 +1971,7 @@ function renderWrongBookAnalysis(analysis, source) {
       ${renderAnalysisField('📌 标准答案', analysis.标准答案 || source?.答案, 'standard-card')}
       ${renderAnalysisField('🧭 解题思路', analysis.解题思路 || source?.解析, '')}
       ${renderAnalysisField('⚠️ 易错点', analysis.易错点 || [], 'mistake-card')}
+      ${renderAnalysisField('🩺 错因点评', analysis.错因点评, 'low-score-card')}
       ${renderAnalysisField('👪 家长讲解话术', analysis.家长讲解话术, 'parent-card')}
       ${renderAnalysisField('📝 复练任务', analysis.复练任务, 'task-card')}
     </div>`;
@@ -3939,6 +3946,161 @@ function buildNextLessonPath() {
   };
 }
 
+function formatPrintDate(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('zh-CN');
+}
+
+function setPrintText(id, value, fallback = '') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = value || fallback;
+}
+
+function getLatestDiagnosisWrongItems(lastDiagnosisResult, wrongAnswers) {
+  if (!lastDiagnosisResult || !Array.isArray(wrongAnswers)) return [];
+  const diagnosisDate = new Date(lastDiagnosisResult.date || 0).getTime();
+  const questionIds = new Set(Array.isArray(lastDiagnosisResult.questionIds) ? lastDiagnosisResult.questionIds : []);
+  return wrongAnswers
+    .filter(item => {
+      if (!item) return false;
+      if (questionIds.size && item.questionId && questionIds.has(item.questionId)) return true;
+      if (item.diagnosisGrade && String(item.diagnosisGrade) !== String(lastDiagnosisResult.grade)) return false;
+      if (item.diagnosisPaper && String(item.diagnosisPaper) !== String(lastDiagnosisResult.paper)) return false;
+      const itemTime = new Date(item.timestamp || 0).getTime();
+      if (!diagnosisDate || !itemTime) return false;
+      return Math.abs(itemTime - diagnosisDate) <= 10 * 60 * 1000;
+    })
+    .sort((a, b) => new Date(a.timestamp || 0).getTime() - new Date(b.timestamp || 0).getTime());
+}
+
+function getPrintMainIssue(codes) {
+  if (!codes || !codes.length) return null;
+  return getFlowPack(codes[0]) || null;
+}
+
+function buildPrintTrainingRows(uniqueCodes) {
+  if (!uniqueCodes.length) {
+    return '<tr><td colspan="6">暂无系统判码结果，先完成一次 A/B/C 卷诊断或评分。</td></tr>';
+  }
+  return uniqueCodes.map(code => {
+    const pack = getFlowPack(code);
+    const title = pack ? pack.title : '对应训练包';
+    const problem = pack ? pack.problem : '按系统结果进入对应训练。';
+    return `<tr><td>${escapeHTML(code)}</td><td>${escapeHTML(title)}</td><td>□</td><td>□</td><td>□</td><td>${escapeHTML(problem)}</td></tr>`;
+  }).join('');
+}
+
+function buildPrintDiagnosisRows(items) {
+  if (!items.length) {
+    return [
+      '<tr><td>1</td><td>完成 A 卷后自动生成</td><td>-</td><td>系统将推荐对应训练包</td></tr>',
+      '<tr><td>2</td><td>完成 A 卷后自动生成</td><td>-</td><td>系统将推荐对应训练包</td></tr>',
+      '<tr><td>3</td><td>完成 A 卷后自动生成</td><td>-</td><td>系统将推荐对应训练包</td></tr>'
+    ].join('');
+  }
+  return items.slice(0, 8).map((item, index) => {
+    const code = getWrongItemErrorCode(item, getAnalysisSourceForWrongItem(item)) || '-';
+    const pack = getFlowPack(code);
+    const tip = item.mistakeReason || item.tip || '系统已记录本题薄弱点。';
+    return `<tr><td>${index + 1}</td><td>${escapeHTML(tip)}</td><td>${escapeHTML(code)}</td><td>${escapeHTML(pack ? `${pack.code} ${pack.title}` : '进入对应训练包')}</td></tr>`;
+  }).join('');
+}
+
+function buildPrintReviewRows(uniqueCodes, nextLessonTitle) {
+  if (!uniqueCodes.length) {
+    return '<tr><td>等待系统判码</td><td>日期：________</td><td>日期：________</td><td>日期：________</td><td>先完成 A 卷诊断</td></tr>';
+  }
+  return uniqueCodes.slice(0, 3).map(code => {
+    return `<tr><td>${escapeHTML(code)}</td><td>□ 已重讲方法</td><td>日期：________</td><td>日期：________</td><td>${escapeHTML(nextLessonTitle)}</td></tr>`;
+  }).join('');
+}
+
+function buildPrintAnswerSheet(lastDiagnosisResult, wrongItems) {
+  const list = document.getElementById('printAnswerSheet');
+  if (!list) return;
+  if (!lastDiagnosisResult) {
+    list.innerHTML = [
+      '<li>第1题答案：<span class="blank-line"></span></li>',
+      '<li>第2题答案：<span class="blank-line"></span></li>',
+      '<li>第3题答案：<span class="blank-line"></span></li>',
+      '<li>第4题答案：<span class="blank-line"></span></li>',
+      '<li>第5题答案：<span class="blank-line"></span></li>'
+    ].join('');
+    return;
+  }
+  const paperLabel = lastDiagnosisResult.paperLabel || getPaperLabel(lastDiagnosisResult.paper);
+  const items = new Array(5).fill(null).map((_, index) => {
+    const wrong = wrongItems[index];
+    const answerText = wrong ? (wrong.userAnswer || '已记录到错题本') : '';
+    return `<li>${paperLabel}第${index + 1}题答案：<span class="blank-line">${escapeHTML(answerText)}</span></li>`;
+  });
+  list.innerHTML = items.join('');
+}
+
+function updatePrintTrainingSheet() {
+  const statusEl = document.getElementById('printTrainingStatus');
+  const lastDiagnosisResult = safeParse('lastDiagnosisResult', null);
+  const lastABResult = readLastABScoreResult();
+  const wrongAnswers = getWrongAnswers();
+  const latestDiagnosisWrongItems = getLatestDiagnosisWrongItems(lastDiagnosisResult, wrongAnswers);
+  const profile = buildLearningProfile();
+  const nextLesson = buildNextLessonPath();
+  const codeStats = latestDiagnosisWrongItems.reduce((acc, item) => {
+    const code = getWrongItemErrorCode(item, getAnalysisSourceForWrongItem(item));
+    if (code) acc[code] = (acc[code] || 0) + 1;
+    return acc;
+  }, {});
+  const uniqueCodes = Object.entries(codeStats)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(entry => entry[0]);
+  const mainIssue = getPrintMainIssue(uniqueCodes);
+  const diagnosisTotalPoints = Number(lastDiagnosisResult?.totalPoints || 15);
+  const aScore = lastDiagnosisResult ? `${lastDiagnosisResult.totalScore || 0}/${diagnosisTotalPoints}` : '';
+  const generatedDate = formatPrintDate(lastDiagnosisResult?.date || lastABResult?.createdAt || new Date().toISOString());
+  const gradeLabel = lastDiagnosisResult?.gradeLabel || lastABResult?.gradeLabel || '';
+  const nextLessonTitle = nextLesson?.title ? nextLesson.title.replace(/^下一课：/, '') : '';
+  const reviewMethod = mainIssue ? mainIssue.problem : '先完成系统诊断';
+
+  setPrintText('printStudentGrade', gradeLabel);
+  setPrintText('printGeneratedDate', generatedDate);
+  setPrintText('printAScore', aScore);
+  setPrintText('printBResult', lastABResult?.paper === 'b' ? (lastABResult.wrongCount === 0 ? '通过' : '需再练') : '通过 / 需再练');
+  setPrintText('printCResult', lastABResult && isCPaper(lastABResult.paper) ? (lastABResult.wrongCount === 0 ? '通过' : '需回炉') : '通过 / 需回炉');
+  setPrintText('printMainErrorCode', mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '');
+  setPrintText('printProfileLevel', profile.level || '');
+  setPrintText('printNextLesson', nextLessonTitle);
+  setPrintText('printNextFocus', mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '');
+  setPrintText('printReviewError', mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '');
+  setPrintText('printReviewMethod', reviewMethod);
+  setPrintText('printReviewNext', nextLessonTitle);
+
+  const diagnosisRows = document.getElementById('printDiagnosisRows');
+  if (diagnosisRows) diagnosisRows.innerHTML = buildPrintDiagnosisRows(latestDiagnosisWrongItems);
+
+  const trainingRows = document.getElementById('printTrainingRows');
+  if (trainingRows) trainingRows.innerHTML = buildPrintTrainingRows(uniqueCodes);
+
+  const reviewRows = document.getElementById('printReviewRows');
+  if (reviewRows) reviewRows.innerHTML = buildPrintReviewRows(uniqueCodes, nextLessonTitle || '进入下一课');
+
+  buildPrintAnswerSheet(lastDiagnosisResult, latestDiagnosisWrongItems);
+
+  if (statusEl) {
+    statusEl.textContent = lastDiagnosisResult || lastABResult
+      ? `已回填最近一次系统结果：${gradeLabel || ''}${lastDiagnosisResult?.paperLabel || lastABResult?.paperLabel || ''}，主攻 ${mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '待系统判码'}。`
+      : '暂无系统结果。先完成一次 A/B/C 卷诊断或电子评分，打印单会自动回填错因码和训练路径。';
+  }
+}
+
+function printTrainingSheet() {
+  updatePrintTrainingSheet();
+  document.body.classList.add('printing-training-sheet');
+  window.print();
+}
+
 function renderNextLessonPanel() {
   const panel = document.getElementById('nextLessonPanel');
   if (!panel) return;
@@ -3979,6 +4141,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initABScorePanel();
   renderLearningProfilePanel();
   renderNextLessonPanel();
+  updatePrintTrainingSheet();
   renderAutoRoutingPanel();
   
   // 关闭奖励弹窗
@@ -4853,8 +5016,9 @@ function updateLearningProfile() {
   const wrongAnswers = safeParse('wrongAnswers', []);
 
   // 计算各维度正确率
+  const diagnosisTotalPoints = Number(lastResult.totalPoints || 15);
   const totalQuestions = wrongAnswers.length + (lastResult.totalScore || 0);
-  const correctRate = totalQuestions > 0 ? Math.round((lastResult.totalScore || 0) / 15 * 100) : 0;
+  const correctRate = totalQuestions > 0 ? Math.round((lastResult.totalScore || 0) / diagnosisTotalPoints * 100) : 0;
 
   if (savedLayer === 'top') {
     // 尖子生画像更新

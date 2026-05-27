@@ -104,6 +104,55 @@
     .example-box strong {
       color: #11998e;
     }
+    .grammar-quick-grid,
+    .grammar-two-col-grid {
+      min-width: 0;
+    }
+    .grammar-two-col-grid > * {
+      min-width: 0;
+    }
+    .grammar-badge-row {
+      flex-wrap: wrap;
+    }
+    .grammar-badge-row h4 {
+      flex: 1 1 260px;
+      min-width: 0;
+    }
+    .grammar-table-scroll {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    @media (max-width: 900px) {
+      .grammar-quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+    @media (max-width: 760px) {
+      .grammar-hero p {
+        font-size: 16px;
+      }
+      .grammar-quick-grid,
+      .grammar-two-col-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .grammar-badge-row {
+        align-items: flex-start !important;
+      }
+    }
+    html.view-mobile .grammar-hero p {
+      font-size: 16px;
+    }
+    html.view-mobile .grammar-quick-grid,
+    html.view-mobile .grammar-two-col-grid {
+      grid-template-columns: 1fr !important;
+    }
+    html.view-mobile .grammar-badge-row {
+      align-items: flex-start !important;
+    }
   </style>
 
 <style>
@@ -190,7 +239,7 @@
 
  <!-- 快速导航 -->
  <section style="padding: 20px 5vw; background: #f7f8fb;">
- <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+ <div class="grammar-quick-grid" style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
  <a href="#grammar-question-bank" class="quick-pill" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 14px; text-decoration: none; color: #333; font-size: 13px; text-align: center;"><strong style="color: #11998e;">📝 分级训练题</strong><br><span style="color: #888; font-size: 11px;">A/B/C级 + 尖子生挑战</span></a>
  <a href="#grammar-traps" class="quick-pill" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 14px; text-decoration: none; color: #333; font-size: 13px; text-align: center;"><strong style="color: #e65100;">⚠️ 陷阱挑战</strong><br><span style="color: #888; font-size: 11px;">尖子生常踩的5个坑</span></a>
  <a href="#grammar-ai-link" class="quick-pill" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 14px; text-decoration: none; color: #333; font-size: 13px; text-align: center;"><strong style="color: #11998e;">🤖 AI 语法诊断</strong><br><span style="color: #888; font-size: 11px;">智能错题分析+变式训练</span></a>
@@ -608,7 +657,7 @@
           <p style="font-size: 12px; color: #666;">（因果关系 + 递进关系）</p>
         </div>
         <p><strong>辨析易混淆关联词：</strong></p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="grammar-two-col-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <div style="background: #fff3e0; padding: 10px; border-radius: 8px;">
             <p style="font-weight: bold; color: #e65100;">虽然...但是...（转折）</p>
             <p style="font-size: 12px;">虽然我很努力，但是我没有成功。</p>
@@ -710,7 +759,7 @@
 
         <!-- A 级 -->
         <div style="background: #e0f2f1; border-radius: 14px; padding: 22px; margin-bottom: 16px; border-left: 5px solid #11998e;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="grammar-badge-row" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
             <span style="display: inline-block; background: #11998e; color: white; border-radius: 8px; padding: 4px 14px; font-weight: 800; font-size: 14px;">A 级</span>
             <h4 style="margin: 0; color: #00695c; font-size: 16px;">长难句拆解 — 把复杂句子拆成"骨架+枝叶"</h4>
           </div>
@@ -718,6 +767,7 @@
           <div style="background: white; border-radius: 10px; padding: 16px;">
             <p style="margin: 0 0 10px; font-weight: bold; color: #333; font-size: 13px;">🔧 请拆解下面这个长句，写出主干（主语+谓语+宾语）和每一层修饰：</p>
             <p style="margin: 0 0 12px; padding: 10px; background: #f5f5f5; border-radius: 6px; font-size: 13px; line-height: 1.8;">"在老师的耐心指导下，那个曾经害怕写作文的小男孩，终于能够自信地在全班同学面前朗读自己写的精彩故事了。"</p>
+            <div class="grammar-table-scroll">
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
               <tr style="background: #e0f2f1;"><th style="padding: 8px; border: 1px solid #b2dfdb; text-align: left; width: 80px;">拆解步骤</th><th style="padding: 8px; border: 1px solid #b2dfdb; text-align: left;">填写</th><th style="padding: 8px; border: 1px solid #b2dfdb; text-align: left; width: 200px;">参考答案</th></tr>
               <tr><td style="padding: 8px; border: 1px solid #b2dfdb; font-weight: bold;">主干</td><td style="padding: 8px; border: 1px solid #b2dfdb; color: #ccc;">________________</td><td style="padding: 8px; border: 1px solid #b2dfdb; font-size: 11px;">小男孩朗读故事。</td></tr>
@@ -726,30 +776,33 @@
               <tr><td style="padding: 8px; border: 1px solid #b2dfdb; font-weight: bold;">状语②</td><td style="padding: 8px; border: 1px solid #b2dfdb; color: #ccc;">________________</td><td style="padding: 8px; border: 1px solid #b2dfdb; font-size: 11px;">终于、能够自信地、在全班同学面前（方式/状态/地点）</td></tr>
               <tr><td style="padding: 8px; border: 1px solid #b2dfdb; font-weight: bold;">定语②</td><td style="padding: 8px; border: 1px solid #b2dfdb; color: #ccc;">________________</td><td style="padding: 8px; border: 1px solid #b2dfdb; font-size: 11px;">自己写的、精彩的（修饰"故事"）</td></tr>
             </table>
+            </div>
           </div>
         </div>
 
         <!-- B 级 -->
         <div style="background: #fff3e0; border-radius: 14px; padding: 22px; margin-bottom: 16px; border-left: 5px solid #ff9800;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="grammar-badge-row" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
             <span style="display: inline-block; background: #ff9800; color: white; border-radius: 8px; padding: 4px 14px; font-weight: 800; font-size: 14px;">B 级</span>
             <h4 style="margin: 0; color: #e65100; font-size: 16px;">深层病句诊断 — 不只改错，还要说出"病因+药方"</h4>
           </div>
           <p style="font-size: 13px; color: #555; margin: 0 0 12px;">普通学生看到病句只改一个"通顺版"。尖子生改病句会多走两步：判断病因类型 → 说出修改逻辑 → 给出同类防错规则。</p>
           <div style="background: white; border-radius: 10px; padding: 16px;">
             <p style="margin: 0 0 12px; font-weight: bold; color: #333; font-size: 13px;">🔧 下面每个句子都有问题，请写：病因类型 + 修改后句子 + 防错规则：</p>
+            <div class="grammar-table-scroll">
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
               <tr style="background: #fff3e0;"><th style="padding: 8px; border: 1px solid #ffe0b2; text-align: left; width: 35%;">原句</th><th style="padding: 8px; border: 1px solid #ffe0b2; text-align: left; width: 15%;">病因</th><th style="padding: 8px; border: 1px solid #ffe0b2; text-align: left; width: 25%;">修改</th><th style="padding: 8px; border: 1px solid #ffe0b2; text-align: left; width: 25%;">防错规则</th></tr>
               <tr><td style="padding: 8px; border: 1px solid #ffe0b2;">① 通过这次考试，使同学们更加重视基础知识了。</td><td style="padding: 8px; border: 1px solid #ffe0b2; color: #e65100; font-size: 11px;">缺少主语</td><td style="padding: 8px; border: 1px solid #ffe0b2; color: #ccc; font-size: 11px;">____________</td><td style="padding: 8px; border: 1px solid #ffe0b2; font-size: 11px; color: #00695c;"><strong>规则：</strong>"通过……使……"句式必定缺主语，删"通过"或删"使"。</td></tr>
               <tr><td style="padding: 8px; border: 1px solid #ffe0b2;">② 他不但语文学得好，而且数学也学得好，所以同学们都很佩服他，因此老师也经常表扬他。</td><td style="padding: 8px; border: 1px solid #ffe0b2; color: #e65100; font-size: 11px;">关联词堆砌</td><td style="padding: 8px; border: 1px solid #ffe0b2; color: #ccc; font-size: 11px;">____________</td><td style="padding: 8px; border: 1px solid #ffe0b2; font-size: 11px; color: #00695c;"><strong>规则：</strong>一句话里关联词不超过2组，多余的全删。</td></tr>
               <tr><td style="padding: 8px; border: 1px solid #ffe0b2;">③ 我们要养成认真思考问题、善于分析问题、解决问题的能力。</td><td style="padding: 8px; border: 1px solid #ffe0b2; color: #e65100; font-size: 11px;">搭配不当</td><td style="padding: 8px; border: 1px solid #ffe0b2; color: #ccc; font-size: 11px;">____________</td><td style="padding: 8px; border: 1px solid #ffe0b2; font-size: 11px; color: #00695c;"><strong>规则：</strong>多个"的"字短语并列时，每个都要和动词能搭配。如果搭配不了，就要补动词。</td></tr>
             </table>
+            </div>
           </div>
         </div>
 
         <!-- C 级 -->
         <div style="background: #ede7f6; border-radius: 14px; padding: 22px; margin-bottom: 16px; border-left: 5px solid #7b1fa2;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="grammar-badge-row" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
             <span style="display: inline-block; background: #7b1fa2; color: white; border-radius: 8px; padding: 4px 14px; font-weight: 800; font-size: 14px;">C 级</span>
             <h4 style="margin: 0; color: #6a1b9a; font-size: 16px;">句式变换升格 — 用最精准的句式表达最丰富的意思</h4>
           </div>
@@ -757,6 +810,7 @@
           <div style="background: white; border-radius: 10px; padding: 16px;">
             <p style="margin: 0 0 10px; font-weight: bold; color: #333; font-size: 13px;">✍️ 把下面同一句话改写成 4 种不同句式，并说明每种句式最适合用在什么场景：</p>
             <p style="margin: 0 0 14px; padding: 10px; background: #f5f5f5; border-radius: 6px; font-size: 13px;"><strong>原句：</strong>这场大雨让运动会延期了。</p>
+            <div class="grammar-table-scroll">
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
               <tr style="background: #ede7f6;"><th style="padding: 8px; border: 1px solid #d1c4e9; text-align: left; width: 80px;">句式</th><th style="padding: 8px; border: 1px solid #d1c4e9; text-align: left;">改写</th><th style="padding: 8px; border: 1px solid #d1c4e9; text-align: left; width: 160px;">适用场景</th></tr>
               <tr><td style="padding: 8px; border: 1px solid #d1c4e9; font-weight: bold;">反问句</td><td style="padding: 8px; border: 1px solid #d1c4e9; color: #ccc;">________________</td><td style="padding: 8px; border: 1px solid #d1c4e9; font-size: 11px; color: #7b1fa2;">用于强调无奈、突出客观原因</td></tr>
@@ -764,17 +818,18 @@
               <tr><td style="padding: 8px; border: 1px solid #d1c4e9; font-weight: bold;">把字句</td><td style="padding: 8px; border: 1px solid #d1c4e9; color: #ccc;">________________</td><td style="padding: 8px; border: 1px solid #d1c4e9; font-size: 11px; color: #7b1fa2;">突出"大雨"的主动影响</td></tr>
               <tr><td style="padding: 8px; border: 1px solid #d1c4e9; font-weight: bold;">比喻+拟人</td><td style="padding: 8px; border: 1px solid #d1c4e9; color: #ccc;">________________</td><td style="padding: 8px; border: 1px solid #d1c4e9; font-size: 11px; color: #7b1fa2;">用于记叙文开头，增加文学性</td></tr>
             </table>
+            </div>
           </div>
         </div>
 
         <!-- 尖子生挑战 -->
         <div style="background: linear-gradient(135deg, #fff5f5, #ffebee); border-radius: 14px; padding: 22px; border: 2px dashed #C00000;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+          <div class="grammar-badge-row" style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
             <span style="display: inline-block; background: #C00000; color: white; border-radius: 8px; padding: 4px 14px; font-weight: 800; font-size: 14px;">🏆 尖子生挑战</span>
             <h4 style="margin: 0; color: #C00000; font-size: 16px;">修辞手法鉴赏 — 不只会"认修辞"，更会"评价修辞"</h4>
           </div>
           <p style="font-size: 13px; color: #c62828; margin: 0 0 14px;">普通学生看到修辞题回答"用了比喻，很生动"。尖子生要答出三层：是什么修辞 → 写出了什么特点 → 表达了什么情感或效果。</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+          <div class="grammar-two-col-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
             <div style="background: white; border-radius: 10px; padding: 14px; border: 1px solid #ffcdd2;">
               <p style="font-weight: bold; color: #C00000; margin: 0 0 8px; font-size: 13px;">🎯 挑战1：赏析下面句子</p>
               <p style="margin: 0 0 10px; padding: 10px; background: #fff5f5; border-radius: 6px; font-size: 12px; line-height: 1.7;">"秋天到了，金黄的银杏叶像一把把小扇子，扇走了夏天的炎热。"</p>
@@ -853,7 +908,7 @@
       <div class="table-card" id="grammar-ai-link" style="max-width: 1100px; margin: 0 auto 30px;">
         <h2 style="color: #11998e;">🤖 AI 辅导联动：语法智能诊断与训练</h2>
         <p style="color: #666; font-size: 14px; margin-bottom: 18px;">做错的语法题不知道怎么改？把这些题粘贴给 AI 特级教师，获得病因诊断和举一反三训练。</p>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+        <div class="grammar-two-col-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
           <a href="agent.html?task=语法诊断&genre=病句修改" class="hover-card" style="display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #11998e, #38ef7d); color: white; border-radius: 12px; padding: 18px; text-decoration: none;">
             <span style="font-size: 28px;">🔍</span>
             <div>
