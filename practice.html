@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=97">
+  <link rel="stylesheet" href="styles.css?v=100">
   <style>
     /* 互动练习区域样式 */
     .interactive-practice {
@@ -1596,6 +1596,38 @@
     </nav>
   </header>
 
+  <main>
+    <section class="page-head practice-head">
+      <p class="eyebrow">每日练习</p>
+      <h1>用 30 到 45 分钟完成一次有效复习</h1>
+      <p>这页负责把诊断、训练、复测和复盘排成可执行顺序，让孩子每天知道先做什么、后做什么。</p>
+    </section>
+
+    <section class="section teacher-note">
+      <div class="section-title" style="text-align: center;">
+        <p class="eyebrow">练习页路线</p>
+        <h2>先做 A 卷诊断，再按错因进入训练和复测</h2>
+        <p style="color:#666;">先用 15 分钟找到真实薄弱点，再看系统生成的分层路径、训练包和下一课安排；每日计划、阶段测评和错题复盘都统一在这页执行。</p>
+      </div>
+      <div class="route-grid">
+        <article class="route-card">
+          <h3>1. 先诊断</h3>
+          <p>孩子只做题，系统自动生成错因码、薄弱项和首轮训练建议。</p>
+          <div class="route-links"><a href="#diagnosis">A 卷诊断</a><a href="#stage-assessment">阶段测评</a></div>
+        </article>
+        <article class="route-card">
+          <h3>2. 再分流</h3>
+          <p>根据诊断结果进入尖子生或中等生路径，按训练包补最薄弱的一类题。</p>
+          <div class="route-links"><a href="#layer-learning">分层路径</a><a href="#learning-path-viz">成长路线图</a></div>
+        </article>
+        <article class="route-card">
+          <h3>3. 最后复测</h3>
+          <p>用 B 卷看同类变式是否掌握，再用 C 卷和错题本检查能不能迁移。</p>
+          <div class="route-links"><a href="#flow-training">训练闭环</a><a href="#wrong-notebook">错题复盘</a></div>
+        </article>
+      </div>
+    </section>
+
   <!-- 入门诊断测评区域 -->
   <section class="diagnosis-area" id="diagnosis">
     <div class="diagnosis-container">
@@ -2731,7 +2763,7 @@
   </section>
 
   <!-- 错题本 -->
-  <section class="section" style="background: #f7f8fb;">
+  <section class="section" id="wrong-notebook" style="background: #f7f8fb;">
     <div class="wrong-notebook" style="max-width: 900px; margin: 0 auto;">
       <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button><button class="clear-wrong-btn" onclick="exportWrongBook()" style="background:#10b981;margin-left:8px;">🖨️ 导出打印</button></h3>
       <p class="wrongbook-note">每次错题会自动进入个人错题库。系统先判断错因，再按间隔重复（1→2→4→7→14→30天）安排复习；标记"已掌握"后停止提醒，考前优先复习超期未练的题。</p>
@@ -2819,13 +2851,6 @@
       </div>
     </div>
   </section>
-
-  <main>
-    <section class="page-head practice-head">
-      <p class="eyebrow">每日练习</p>
-      <h1>用 30 到 45 分钟完成一次有效复习</h1>
-      <p>时间不需要很长，关键是每天覆盖朗读、积累、阅读和表达，让语文能力持续生长。</p>
-    </section>
 
     <section class="section plan-grid">
       <article class="plan-card">
@@ -3273,7 +3298,7 @@
     <section class="section" id="print-training">
       <div class="section-title">
         <p class="eyebrow">打印训练单</p>
-        <h2>线下一对一辅导闭环单：A卷答题、系统判码结果、训练、B卷复测、C卷迁移、家长签字</h2>
+        <h2>线下一对一辅导闭环单：A卷答题、系统分析结果、训练、B卷复测、C卷迁移、家长签字</h2>
         <p style="color:#666;">适合家长打印后陪孩子做：先完成 A 卷，由系统自动生成错因码和训练路径；打印单会自动回填主攻错因和下一课，家长只需按单执行训练、复测和迁移。</p>
       </div>
       <div class="print-sheet-actions">
@@ -3314,7 +3339,7 @@
             </ul>
           </article>
           <article class="print-sheet-card">
-            <h3>A卷系统判码结果表</h3>
+            <h3>A卷系统分析结果表</h3>
             <div class="responsive-table">
               <table>
                 <thead><tr><th>题号</th><th>扣分点</th><th>错因码</th><th>先练哪里</th></tr></thead>
@@ -3737,7 +3762,7 @@
         </article>
         <article>
           <strong>系统完成</strong>
-          <span>A卷诊断判码、同类变式迁移、错题本复习提醒、测后分流。</span>
+          <span>A卷诊断分析、换题复测、错题本复习提醒、测后训练建议。</span>
         </article>
       </div>
       <div class="content-grid" style="margin-bottom:18px;">
@@ -5423,7 +5448,7 @@
           <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; margin-bottom: 24px; padding: 14px; background: #f0fdf4; border-radius: 10px;">
             <span style="background: #667eea; color: white; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">A卷诊断</span>
             <span style="color: #999; font-weight: 700;">→</span>
-            <span style="background: #e65100; color: white; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">判码表</span>
+            <span style="background: #e65100; color: white; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">问题分析</span>
             <span style="color: #999; font-weight: 700;">→</span>
             <span style="background: #9c27b0; color: white; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 600;">B卷变式</span>
             <span style="color: #999; font-weight: 700;">→</span>
@@ -5479,8 +5504,8 @@
           </div>
 
           <!-- ════ 判码表 ════ -->
-          <h4 style="color: #e65100; font-size: 16px; margin: 0 0 8px;">🔑 A卷判码表（系统自动匹配并生成训练路径）</h4>
-          <p style="color: #888; font-size: 13px; margin-bottom: 14px;">判码不需要死记硬背——<strong>概括类题扣分 → R1</strong>，<strong>写话/观察类题扣分 → W1</strong>。这次诊断发现：孩子 R1 和 W1 都扣了分。</p>
+          <h4 style="color: #e65100; font-size: 16px; margin: 0 0 8px;">🔑 A卷问题分析表（系统自动匹配并生成训练路径）</h4>
+          <p style="color: #888; font-size: 13px; margin-bottom: 14px;">这些代码不需要死记硬背——<strong>概括类题扣分 → R1</strong>，<strong>写话/观察类题扣分 → W1</strong>。这次诊断发现：孩子 R1 和 W1 都扣了分。</p>
           <div class="responsive-table" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
             <table>
               <thead><tr style="background: #fff3e0;"><th style="width: 50px;">题号</th><th>扣分表现</th><th style="width: 80px;">错因码</th><th>马上去练</th></tr></thead>
@@ -5520,7 +5545,7 @@
           </div>
 
           <!-- ════ B卷：同类变式迁移 ════ -->
-          <h4 style="color: #9c27b0; font-size: 16px; margin: 0 0 8px;">🔄 B卷 · 同类变式迁移（错哪儿练哪儿）</h4>
+          <h4 style="color: #9c27b0; font-size: 16px; margin: 0 0 8px;">🔄 B卷 · 换题再练（错哪儿练哪儿）</h4>
           <p style="color: #888; font-size: 13px; margin-bottom: 14px;">A卷诊断出 R1（概括弱）和 W1（观察空），B卷出同类但不同材料的题——换场景、换材料，考查的是否真正掌握了方法。</p>
           <div class="responsive-table" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
             <table>
@@ -5588,7 +5613,7 @@
             </div>
 
             <div>
-              <h4 style="color: #C00000; font-size: 16px; margin: 0 0 10px;">🔀 测后分流路径</h4>
+              <h4 style="color: #C00000; font-size: 16px; margin: 0 0 10px;">🔀 做完后下一步怎么练</h4>
               <p style="color: #888; font-size: 13px; margin-bottom: 12px;">根据错因编码，系统自动把孩子分配到对应的训练路径：</p>
               <div class="responsive-table" style="border-radius: 10px; overflow: hidden;">
                 <table>
@@ -5616,7 +5641,7 @@
           <div style="padding: 16px 20px; background: linear-gradient(135deg, #f0f4ff, #f3e5f5); border-radius: 12px; border: 1px dashed #667eea; text-align: center;">
             <p style="font-size: 13px; color: #555; margin: 0;">
               <strong style="color: #4f46e5;">💡 核心逻辑：</strong>
-              A卷诊断 → 判码归类 → B卷变式验证 → 复盘打分 → 分流训练。
+              A卷诊断 → 问题归类 → B卷换题验证 → 复盘打分 → 对应训练。
               诊断不只看"错了几题"，而是看<strong>哪种错因最集中</strong>，然后集中火力攻克。
               全部流程可在 <a href="practice.html#dual-track-system" style="color: #667eea; font-weight: 600;">练习计划页</a> 或 <a href="agent.html" style="color: #9c27b0; font-weight: 600;">AI辅导</a> 中自动化完成。
             </p>
@@ -5921,14 +5946,14 @@
     </div>
   </div>
 
-  <script defer src="nav.js?v=96"></script>
-  <script defer src="table-responsive.js?v=96"></script>
+  <script defer src="nav.js?v=100"></script>
+  <script defer src="table-responsive.js?v=100"></script>
   <script>
     window.addEventListener('afterprint', function () {
       document.body.classList.remove('printing-training-sheet');
     });
   </script>
-  <script defer src="data/data-loader-global.js?v=96"></script>
+  <script defer src="data/data-loader-global.js?v=100"></script>
   <script defer src="practice.js?v=84"></script>
   <script>
     // 渲染题库索引与解析质量分级样例
@@ -6516,6 +6541,6 @@
       }
     })();
   </script>
-  <script defer src="page-toc.js?v=96"></script>
+  <script defer src="page-toc.js?v=100"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@
   <meta property="og:description" content="三阶段作文提优系统：小学打基础、小升初冲刺、初中衔接，特级教师一对一作文辅导与AI智能批改">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=96">
+  <link rel="stylesheet" href="styles.css?v=100">
   <style>
     .hw-filter-pill { border: 2px solid #e0e0e0; background: white; color: #555; }
     .hw-filter-pill.active { border-color: #667eea; background: #667eea; color: white; }
@@ -672,80 +672,55 @@
  <!-- ════════ 作文专题总控台 ════════ -->
  <section class="section" id="composition-hub" style="background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%); padding: 30px 5vw; border-bottom: 1px solid #e8ecf4;">
  <div style="max-width: 1100px; margin: 0 auto;">
- <p style="color: #667eea; font-weight: 700; font-size: 14px; margin-bottom: 8px; text-align: center;">📋 作文专题总控台 — 按需求快速跳转</p>
- <div class="hub-nav-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
- <a href="#stage-roadmap" class="hover-lift-sm" style="display: block; background: linear-gradient(135deg, #fef9ef, #f3e5f5); border: 2px solid #667eea; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">🗺️</span>
- <strong style="color: #4f46e5; font-size: 12px;">三阶段路线</strong>
- <span style="color: #888; font-size: 10px;">小学→小升初→初中</span>
- </a>
- <a href="#grade-topics" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">📖</span>
- <strong style="color: #4f46e5; font-size: 12px;">年级题库</strong>
- <span style="color: #888; font-size: 10px;">1-6年级常考作文</span>
- </a>
- <a href="#topic-angle-bank" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">🎯</span>
- <strong style="color: #4f46e5; font-size: 12px;">角度库</strong>
- <span style="color: #888; font-size: 10px;">选题材+定重点段</span>
- </a>
- <a href="#topic-methods" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">✍️</span>
- <strong style="color: #4f46e5; font-size: 12px;">题材专项</strong>
- <span style="color: #888; font-size: 10px;">写人/写事/写景方法</span>
- </a>
- <a href="#homework-writing-people" class="hover-border-orange hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">📝</span>
- <strong style="color: #e65100; font-size: 12px;">作业专题</strong>
- <span style="color: #888; font-size: 10px;">批改+题库+自改法</span>
- </a>
- <a href="#teacher-records" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">🎬</span>
- <strong style="color: #4f46e5; font-size: 12px;">批改实录</strong>
- <span style="color: #888; font-size: 10px;">普通→高分写法</span>
- </a>
- <a href="#three-round-revision" class="hover-border-purple hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">🔄</span>
- <strong style="color: #7b1fa2; font-size: 12px;">三轮批改</strong>
- <span style="color: #888; font-size: 10px;">原稿→满分稿</span>
- </a>
- <a href="#ai-tutor" class="hover-border-teal hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">🤖</span>
- <strong style="color: #00695c; font-size: 12px;">AI批改</strong>
- <span style="color: #888; font-size: 10px;">智能辅导+升格</span>
- </a>
- <a href="#score-rubric" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">📊</span>
- <strong style="color: #4f46e5; font-size: 12px;">评分标准</strong>
- <span style="color: #888; font-size: 10px;">满分作文自查表</span>
- </a>
- <a href="#homework-collection" class="hover-border-red hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">📦</span>
- <strong style="color: #C00000; font-size: 12px;">作业合集</strong>
- <span style="color: #888; font-size: 10px;">3-6年级专题规划</span>
- </a>
- <a href="#report-pipeline" class="hover-lift-sm" style="display: block; background: linear-gradient(135deg, #e8eaf6, #fff3e0); border: 2px solid #11998e; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
- <span style="display: block; font-size: 20px; margin-bottom: 4px;">🔧</span>
- <strong style="color: #00695c; font-size: 12px;">报告生产线</strong>
- <span style="color: #888; font-size: 10px;">错因→模板→复练→话术</span>
- </a>
- </div>
- </div>
- </section>
+<p style="color: #667eea; font-weight: 700; font-size: 14px; margin-bottom: 8px; text-align: center;">📋 作文专题总控台 — 先看入口，再看方法</p>
+<div class="hub-nav-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+<a href="#stage-roadmap" class="hover-lift-sm" style="display: block; background: linear-gradient(135deg, #fef9ef, #f3e5f5); border: 2px solid #667eea; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
+<span style="display: block; font-size: 20px; margin-bottom: 4px;">🗺️</span>
+<strong style="color: #4f46e5; font-size: 12px;">三阶段路线</strong>
+<span style="color: #888; font-size: 10px;">小学→衔接→初中</span>
+</a>
+<a href="#grade-topics" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
+<span style="display: block; font-size: 20px; margin-bottom: 4px;">📖</span>
+<strong style="color: #4f46e5; font-size: 12px;">年级题库</strong>
+<span style="color: #888; font-size: 10px;">先看每年级常考什么</span>
+</a>
+<a href="#topic-methods" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
+<span style="display: block; font-size: 20px; margin-bottom: 4px;">✍️</span>
+<strong style="color: #4f46e5; font-size: 12px;">题材专项</strong>
+<span style="color: #888; font-size: 10px;">写人/写事/写景</span>
+</a>
+<a href="#homework-writing-people" class="hover-border-orange hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
+<span style="display: block; font-size: 20px; margin-bottom: 4px;">📝</span>
+<strong style="color: #e65100; font-size: 12px;">作业专题</strong>
+<span style="color: #888; font-size: 10px;">批改+自改+复练</span>
+</a>
+<a href="#ai-tutor" class="hover-border-teal hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
+<span style="display: block; font-size: 20px; margin-bottom: 4px;">🤖</span>
+<strong style="color: #00695c; font-size: 12px;">AI批改</strong>
+<span style="color: #888; font-size: 10px;">智能辅导+升格</span>
+</a>
+<a href="#score-rubric" class="hover-border-blue hover-lift-sm" style="display: block; background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; text-decoration: none; text-align: center; transition: all 0.2s; font-size: 13px;">
+<span style="display: block; font-size: 20px; margin-bottom: 4px;">📊</span>
+<strong style="color: #4f46e5; font-size: 12px;">评分标准</strong>
+<span style="color: #888; font-size: 10px;">满分作文自查表</span>
+</a>
+</div>
+</div>
+</section>
 
  <!-- ════════ 三阶段成长路线：小学到初中作文提优 ════════ -->
  <section class="section" id="stage-roadmap" style="background: linear-gradient(135deg, #fef9ef 0%, #f8f9ff 50%, #f3e5f5 100%); border-top: 4px solid #667eea; border-bottom: 1px solid #e8ecf4;">
  <div class="section-title">
  <p class="eyebrow">🎯 体系总览</p>
  <h2>作文提优不止小学：三阶段成长路线</h2>
- <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">从"写出完整的一段话"到"写出有思想的一篇文"，每个阶段都有明确的提优重点。</p>
+<p style="color: var(--muted); font-size: 16px; margin-top: 8px;">先把话写完整，再把重点写清，最后把认识写深。</p>
  </div>
 
  <div class="study-block accent" style="max-width: 1100px; margin: 0 auto 20px; background: linear-gradient(135deg, #f0f4ff 0%, #fef7fb 100%); border-left: 5px solid #667eea; border-radius: 12px; padding: 20px 24px;">
- <h2 style="color: #667eea; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：小学生写作发展的认知模型</h2>
- <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>理论基础一：写作认知模型</strong>——写作不是从审题到成文的线性过程，而是"任务环境⇌长时记忆⇌计划→转译→复查"的递归循环。三阶段路线的设计依据：三四年级重在"转译"训练（将脑中画面转化为文字）；五六年级加强"计划"环节（审题立意、选材详略、结构安排）；小升初冲刺"复查"能力（从读者视角审视和修改自己的文章）。</p>
-        <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>理论基础二：Bereiter知识转换理论</strong>——写作分为两个层次：①"知识讲述"（Knowledge Telling）——儿童将脑中已有知识线性输出，想到什么写什么，这解释了流水账的产生机制；②"知识转换"（Knowledge Transforming）——写作者在书写过程中不断与自身对话，通过写作发现新的理解。尖子生的标志是能从"知识讲述"过渡到"知识转换"——写作过程本身成为深化思考的引擎，而非思想的简单记录。</p>
-        <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>教学策略：</strong>①三四年级核心任务：建立从"说"到"写"的通道——先口头描述再书面记录，降低工作记忆的认知负荷；②五六年级核心任务："写前3分钟"制度——动笔前必须完成"一句话中心+三个要点+最精彩画面"的提纲，强制激活计划环节；③小升初衔接核心任务：每次写作后必须完成"自我批改"——对照评分标准给文章打分并写30字修改说明，训练元认知复查能力。</p>
+<h2 style="color: #667eea; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：写作怎么一步步升格</h2>
+<p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>先说人话版：</strong>三四年级先练“把看到的说清楚、写出来”；五六年级再练“先想好中心，再决定详写哪里”；小升初重点是“写完以后会自己改”。</p>
+        <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>最重要的变化：</strong>孩子不能只把想到的东西一股脑写出来，而要学会边写边筛选。写作真正拉开差距的地方，不是词多不多，而是会不会围绕中心取舍材料。</p>
+        <p style="font-size: 14px; line-height: 1.9; color: #333;"><strong>落地做法：</strong>三四年级先口头说，再落笔写；五六年级动笔前先写 3 句提纲；小升初每次都对照评分标准改一轮，把“会写”变成“会改”。</p>
       </div>
       <div style="max-width: 1100px; margin: 0 auto;">
  <div class="responsive-table" style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(102,126,234,0.12);">
@@ -870,40 +845,25 @@
  <div class="section-title">
  <p class="eyebrow">学习导航</p>
  <h2>按年级找题目，按题材练方法</h2>
- <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">页面调整为"年级入口 → 题材专项 → 技巧升格 → 满分冲刺"，家长和孩子可以直接跳到需要的部分</p>
- </div>
- <div class="teacher-lab">
- <div class="quick-nav">
- <a href="#grade-topics"><strong>一至六年级题库</strong><span>看每个年级常考什么、怎么写</span></a>
- <a href="#topic-angle-bank"><strong>题目角度库</strong><span>拿到题目先找可写角度和重点段</span></a>
- <a href="#grade-writing-standard"><strong>年级标准</strong><span>一至六年级从达标到拔尖怎么练</span></a>
- <a href="#picture-writing"><strong>看图写话</strong><span>一二年级核心，先练完整和顺序</span></a>
- <a href="#ai-tutor"><strong>AI 特级教师</strong><span>输入问题、拍照或语音，获得辅导</span></a>
- <a href="#master-teacher"><strong>特级教师思维</strong><span>从题目快速拆出中心、材料和重点段</span></a>
- <a href="#topic-methods"><strong>题材专项</strong><span>写人、写事、写景、状物等专属方法</span></a>
- <a href="#homework-writing-people"><strong>作业专题</strong><span>三年级写人作业批改与复练</span></a>
- <a href="#homework-question-bank"><strong>分级题库</strong><span>A/B/C三级 + 尖子生立意挑战</span></a>
- <a href="#homework-self-revise"><strong>五步自改法</strong><span>学生按步骤自己修改作文</span></a>
- <a href="#homework-print-sheets"><strong>打印作业单</strong><span>构思/自查/升格/追问/修改记录</span></a>
- <a href="#homework-ai-link"><strong>AI批改联动</strong><span>一键跳转智能批改和升格</span></a>
- <a href="#homework-score-rubric"><strong>20分评分表</strong><span>题目/特点/事例/描写/语言/结尾</span></a>
- <a href="#topic-training-tasks"><strong>题型训练卡</strong><span>每类作文按审题、片段、修改训练</span></a>
- <a href="#skill-upgrade"><strong>技巧升格</strong><span>细节、句段、重点段、首尾提分</span></a>
- <a href="#teacher-records"><strong>老师实录</strong><span>普通写法到高分写法的批改过程</span></a>
- <a href="#three-round-revision"><strong>三轮批改</strong><span>原稿到满分稿的完整修改链</span></a>
- <a href="#peak-writing"><strong>拔尖追问</strong><span>特级教师再追一步，逼近满分边界</span></a>
- <a href="#loss-points"><strong>失分诊断</strong><span>跑题、流水账、结尾空泛怎么改</span></a>
- <a href="#score-rubric"><strong>评分标准</strong><span>按阅卷维度自查作文</span></a>
- <a href="#final-check"><strong>考前冲刺</strong><span>写前、写中、写后的满分清单</span></a>
- </div>
- </div>
- </section>
+<p style="color: var(--muted); font-size: 16px; margin-top: 8px;">页面只保留最常用的 6 个入口，先找年级和题材，再看批改和评分。</p>
+</div>
+<div class="teacher-lab">
+<div class="quick-nav">
+<a href="#grade-topics"><strong>一至六年级题库</strong><span>看每个年级常考什么、怎么写</span></a>
+<a href="#topic-methods"><strong>题材专项</strong><span>写人、写事、写景、状物</span></a>
+<a href="#homework-writing-people"><strong>作业专题</strong><span>批改、题库、自改一起看</span></a>
+<a href="#ai-tutor"><strong>AI 特级教师</strong><span>输入问题或作文，直接辅导</span></a>
+<a href="#score-rubric"><strong>评分标准</strong><span>按阅卷维度自查作文</span></a>
+<a href="#three-round-revision"><strong>三轮批改</strong><span>从原稿到高分稿</span></a>
+</div>
+</div>
+</section>
 
  <section class="section" id="ai-tutor" style="background:#f7f8fb;">
  <div class="section-title">
  <p class="eyebrow">AI 特级教师</p>
- <h2>输入问题、题目或材料，获得特级教师辅导建议</h2>
- <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">使用 DeepSeek API，可辅导语文、数学、英语、科学、综合实践、学习规划等；学科和年级只作参考，不做限制</p>
+ <h2>输入作文、阅读题或片段，获得特级教师辅导建议</h2>
+ <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">使用 DeepSeek API，可辅导作文、阅读理解、古诗文、语文知识和表达修改，更适合作为这个作文专题页里的即时陪练。</p>
  </div>
  <div class="ai-tool">
  <div class="ai-panel">
@@ -923,11 +883,9 @@
  <option value="自动判断" selected>自动判断</option>
  <option value="作文/写作辅导">作文/写作辅导</option>
  <option value="阅读理解辅导">阅读理解辅导</option>
- <option value="数学解题辅导">数学解题辅导</option>
- <option value="英语学习辅导">英语学习辅导</option>
- <option value="科学/综合题辅导">科学/综合题辅导</option>
- <option value="知识点讲解">知识点讲解</option>
+ <option value="语文知识点讲解">语文知识点讲解</option>
  <option value="片段修改升格">片段修改升格</option>
+ <option value="读后感/表达辅导">读后感/表达辅导</option>
  <option value="学习规划建议">学习规划建议</option>
  </select>
  </div>
@@ -942,27 +900,13 @@
  <option value="五年级">五年级</option>
  <option value="六年级">六年级</option>
  <option value="初中">初中</option>
- <option value="高中">高中</option>
- <option value="大学/成人学习">大学/成人学习</option>
  <option value="家长辅导">家长辅导</option>
  </select>
  </div>
  <div class="ai-field">
- <label for="ai-genre">学科/内容类型（可选）</label>
+ <label for="ai-genre">作文/内容类型（可选）</label>
  <select id="ai-genre" name="genre">
  <option value="不限/自动判断" selected>不限/自动判断</option>
- <option value="语文">语文</option>
- <option value="数学">数学</option>
- <option value="英语">英语</option>
- <option value="科学">科学</option>
- <option value="道德与法治">道德与法治</option>
- <option value="信息科技">信息科技</option>
- <option value="历史">历史</option>
- <option value="地理">地理</option>
- <option value="生物">生物</option>
- <option value="物理">物理</option>
- <option value="化学">化学</option>
- <option value="跨学科/综合实践">跨学科/综合实践</option>
  <option value="阅读理解">阅读理解</option>
  <option value="基础知识">基础知识</option>
  <option value="古诗文">古诗文</option>
@@ -976,6 +920,7 @@
  <option value="想象作文">想象作文</option>
  <option value="读后感">读后感</option>
  <option value="半命题作文">半命题作文</option>
+ <option value="材料作文/任务作文">材料作文/任务作文</option>
  <option value="书信/应用文">书信/应用文</option>
  <option value="其他">其他</option>
  </select>
@@ -1001,7 +946,7 @@
  </div>
  <div class="ai-field full">
  <label for="essay-title">题目 / 问题 / 任务</label>
- <input id="essay-title" name="title" type="text" placeholder="例如：三角形面积怎么讲 / 这篇阅读怎么答 / 修改下面这段话 / 英语时态怎么区分" required>
+ <input id="essay-title" name="title" type="text" placeholder="例如：这篇作文结尾太空怎么改 / 这道阅读题为什么失分 / 帮我列《那一刻我长大了》提纲" required>
  <div class="ai-inline-actions">
  <button class="ai-btn secondary" id="voice-title" type="button">语音输入题目</button>
  </div>
@@ -1016,8 +961,8 @@
  </div>
  </div>
  <div class="ai-field full">
- <label for="essay-material">补充说明 / 已有想法 / 原文 / 解题过程（可选）</label>
- <textarea id="essay-material" name="material" placeholder="例如：粘贴题目原文、阅读材料、作文片段、计算过程、错题答案，或说明孩子卡在哪一步。"></textarea>
+ <label for="essay-material">补充说明 / 原文 / 孩子答案（可选）</label>
+ <textarea id="essay-material" name="material" placeholder="例如：粘贴作文原文、阅读材料、孩子答案，或说明卡在审题、重点段、结尾哪一步。"></textarea>
  <div class="ai-inline-actions">
  <button class="ai-btn secondary" id="voice-material" type="button">语音输入素材</button>
  </div>
@@ -1073,7 +1018,7 @@
  </div>
 
  <div class="study-block accent" style="margin-bottom:16px; background: linear-gradient(135deg, #e8f5e9 0%, #e0f2f1 100%); border-left: 5px solid #11998e; border-radius: 10px; padding: 16px 20px;">
- <p style="font-size: 13px; line-height: 1.8; color: #333; margin: 0;"><strong style="color: #11998e;">🎓 精讲：</strong>下表展示了各年级从"普通写法"到"升格写法"的认知跃迁路径。教师诊断的核心要义不在于"指出哪里不好"，而在于<strong>识别写作者所处的</strong>并提供恰好位于其最近发展区的升格方向——这是支架式教学在作文辅导中的具体体现。低年级需要"写完整"的框架（加入时间、地点、动作），中年级需要"写具体"的策略（细节放大、慢镜头），高年级需要"写深刻"的思维（前后对比、认识变化）。</p>
+ <p style="font-size: 13px; line-height: 1.8; color: #333; margin: 0;"><strong style="color: #11998e;">🎓 精讲：</strong>下表不是让孩子背术语，而是帮家长一眼看懂：不同年级该从哪里提分。低年级先把句子写完整，中年级重点把画面写具体，高年级再练前后变化和认识提升。批改时别一上来只说“写得不好”，先看孩子现在卡在完整、具体，还是写深。</p>
  </div>
  <div class="responsive-table">
  <table>
@@ -1106,7 +1051,7 @@
  </div>
 
  <div class="study-block accent" style="margin-bottom:16px; background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%); border-left: 5px solid #ff9800; border-radius: 10px; padding: 16px 20px;">
- <p style="font-size: 13px; line-height: 1.8; color: #333; margin: 0;"><strong style="color: #e65100;">🎓 精讲：</strong>写作角度库的本质是<strong>指南</strong>。模型指出，写作的第一步是在"任务环境"中构建"写作的"——即从题目中识别关键约束条件（题眼），再从长时记忆中搜索可用的内容素材。对小学生而言，这一"计划"环节是最薄弱的。角度库的价值在于：将隐性的专家写作计划策略外化为显性的"可写角度→重点段→结尾落点"三层选择框架，帮助写作者快速通过计划阶段，将认知资源释放给更重要的"转译"（把思想转化为文字）环节。</p>
+ <p style="font-size: 13px; line-height: 1.8; color: #333; margin: 0;"><strong style="color: #e65100;">🎓 精讲：</strong>写作角度库就是给孩子一个起步台。很多孩子不是完全没内容，而是一拿到题目就不知道从哪件事下手。先从“可写角度、重点段、结尾落点”里选一个最真实、最容易写具体的方向，再开写，速度和质量都会稳很多。</p>
  </div>
  <div class="responsive-table">
  <table>
@@ -1723,7 +1668,7 @@
 
  <div class="study-block accent" style="max-width: 1100px; margin: 0 auto 20px; background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%); border-left: 5px solid #7b1fa2; border-radius: 12px; padding: 20px 24px;">
  <h2 style="color: #7b1fa2; margin-bottom: 10px; font-size: 16px;">🎓 特级教师精讲：六大核心题型的基础能力分析</h2>
- <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>理论基础：体裁认知图式</strong>——每类作文题对应写作者脑中的一个“体裁图式”：一组关于该类文章“应该怎么写”的隐性期待和程序。写人作文常围绕“典型事件 + 细节描写 + 品质感悟”，写事作文常围绕“起因 → 经过（慢镜头）→ 结果 → 感悟”，写景作文强调“顺序 + 多感官 + 感受”，想象作文强调“设定 + 冲突 + 解决 + 主题”，读后感则更看重“内容简述 + 真实感受 + 联系生活”。</p>
+ <p style="font-size: 14px; line-height: 1.9; color: #333; margin-bottom: 8px;"><strong>先抓题型，再抓方法</strong>。这六类题看起来不一样，其实每类都有固定抓手：写人要用事例立人，写事要把关键一幕写慢，写景要按顺序加感受，想象要有设定也有逻辑，读后感要少复述多联系生活。</p>
  <p style="font-size: 14px; line-height: 1.9; color: #333;">页面下面不是给孩子背模板，而是把这几类题最常见的失分点和最稳的提分抓手拆开来看，方便家长和孩子快速定位：这次到底是审题没准、选材太空，还是重点段没写开。</p>
  </div>
 
@@ -1904,7 +1849,7 @@
       </div>
 
       <div class="study-block accent" style="max-width: 800px; margin: 0 auto 24px; background: rgba(255,255,255,0.12); border-left: 4px solid rgba(255,255,255,0.8); border-radius: 12px; padding: 18px 22px;">
-        <p style="font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.95); margin: 0;"><strong style="color: #fff;">🎓 精讲：</strong>范文教学容易堕入"模仿→雷同"的陷阱。基于Hayes-Flower模型，范文赏析的正确路径是<strong>"逆向工程"阅读法</strong>：将优秀范文视为写作专家计划的产物，反向拆解其"审题选择→材料组织→重点段设计→结尾落点"的决策链路，而非简单模仿其表面语言。学生阅读范文时应问："如果是我拿这个题目，我会怎么写？这位作者做了哪些我没想到的选择？"——这种对比式阅读才能激活知识转换（Bereiter, 1980），将范文从"仿写模板"升级为"认知冲突资源"。</p>
+        <p style="font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.95); margin: 0;"><strong style="color: #fff;">🎓 精讲：</strong>看范文不是为了照抄句子，而是为了看别人怎么选材料、怎么展开重点段、怎么收结尾。读范文时可以边看边问：同一个题目，我会选哪件事？这篇范文最出彩的是哪一段？这样看，范文才会从“参考答案”变成“写法提示”。</p>
       </div>
 
       <!-- 三年级范文 -->
@@ -3823,10 +3768,10 @@
       });
     })();
   </script>
-  <script defer src="nav.js?v=96"></script>
-  <script defer src="table-responsive.js?v=96"></script>
+  <script defer src="nav.js?v=100"></script>
+  <script defer src="table-responsive.js?v=100"></script>
   <script defer src="composition-ai.js?v=90"></script>
-  <script defer src="data/data-loader-global.js?v=96"></script>
+  <script defer src="data/data-loader-global.js?v=100"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
@@ -3839,6 +3784,6 @@
       }, 400);
     });
   </script>
-  <script defer src="page-toc.js?v=96"></script>
+  <script defer src="page-toc.js?v=100"></script>
 </body>
 </html>

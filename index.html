@@ -17,7 +17,7 @@
   <meta property="og:description" content="先诊断、再判错因、再训练迁移。A卷诊断到B卷复测、C卷迁移，帮家长看清孩子下一步练什么。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=96">
+  <link rel="stylesheet" href="styles.css?v=100">
   <style>
     /* 诊断和任务模块 */
     .diagnosis-section {
@@ -982,6 +982,86 @@
   </header>
 
   <main>
+<section class="hero dashboard-hero">
+<div class="hero-copy">
+<p class="eyebrow">小学一至六年级 · 阅读理解 · 作文提优</p>
+<h1>特级教师式一对一拔尖辅导</h1>
+<p class="lead">先诊断、再判错因、再训练迁移。孩子只需要完成题目，系统自动生成错因画像、训练包、复测路径和拔尖晋级建议。</p>
+    <div class="hero-search" style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+      <input type="text" id="hero-search-input" placeholder="🔍 快速搜索知识点、年级、题型..." style="flex:1; min-width:220px; padding:14px 18px; border:2px solid #e5e7eb; border-radius:30px; font-size:15px; background:white; transition:border-color 0.3s;">
+      <button id="hero-search-btn" style="padding:14px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap;">搜索</button>
+    </div>
+    <script>
+      // 事件委托：英雄区搜索
+      document.getElementById('hero-search-btn').addEventListener('click', function() {
+        var q = document.getElementById('hero-search-input').value.trim();
+        if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+      });
+      document.getElementById('hero-search-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          var q = this.value.trim();
+          if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+        }
+      });
+    </script>
+    <div class="hero-actions">
+<a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
+<a class="button primary" href="agent.html">进入一对一拔尖辅导</a>
+<a class="button ghost" href="practice.html#flow-training">看家长闭环图</a>
+</div>
+</div>
+<div class="learning-card" aria-label="今日学习卡片">
+<div class="card-header">
+<span>特级教师式方法</span>
+<strong>五步设计</strong>
+</div>
+<ol class="timeline">
+<li><span>1</span>按课标维度定位年级能力</li>
+<li><span>2</span>用常考题型做A卷诊断</li>
+<li><span>3</span>自动判断错因与扣分层</li>
+<li><span>4</span>对照满分答案讲清方法</li>
+<li><span>5</span>换题再练稳了再晋级</li>
+</ol>
+</div>
+</section>
+
+<section class="section teacher-note">
+<div class="section-title">
+<p class="eyebrow">开始使用</p>
+<h2>先看年级，再做诊断，再把具体题目交给专题页</h2>
+<p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这不是知识目录，而是一张学习路线图。首页先帮家长确认从哪一页起步，再把练习、作文和 AI 分工讲清楚。</p>
+</div>
+<div class="route-grid">
+<article class="route-card">
+<h3>1. 先看年级</h3>
+<p>从孩子当前年级进入，看本年级目标、易错点和本周训练重点。</p>
+<div class="route-links">
+<a href="grade1.html">一年级</a>
+<a href="grade3.html">三年级</a>
+<a href="grade4.html">四年级</a>
+<a href="grade5.html">五年级</a>
+<a href="grade6.html">六年级</a>
+</div>
+</article>
+<article class="route-card">
+<h3>2. 再做诊断</h3>
+<p>用 A 卷先找真实薄弱点，再决定走分层强化还是拔尖晋级路线。</p>
+<div class="route-links">
+<a href="practice.html#diagnosis">15分钟诊断</a>
+<a href="practice.html#layer-learning">分层路径</a>
+</div>
+</article>
+<article class="route-card">
+<h3>3. 最后进专题</h3>
+<p>作文问题去作文页，具体题目和错因追问交给 AI 或练习页闭环处理。</p>
+<div class="route-links">
+<a href="composition.html">作文专题</a>
+<a href="agent.html">AI辅导</a>
+</div>
+</article>
+</div>
+</section>
+
 <!-- ════════ 快速诊断入口 ════════ -->
 <section class="quick-diagnosis" id="quickDiagnosis">
   <div class="qd-card" id="qdCard">
@@ -1165,7 +1245,7 @@
  </li>
  <li style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; display: flex; gap: 10px;">
  <span style="color: #9c27b0; font-weight: bold;">4.</span>
- <span><strong>B 卷复测</strong> - 同类变式迁移</span>
+ <span><strong>B 卷复测</strong> - 换题再练</span>
  </li>
  <li style="padding: 10px 0; display: flex; gap: 10px;">
  <span style="color: #9c27b0; font-weight: bold;">5.</span>
@@ -1240,49 +1320,6 @@
  </div>
  </div>
  </section>
- <section class="hero dashboard-hero">
- <div class="hero-copy">
- <p class="eyebrow">小学一至六年级 · 阅读理解 · 作文提优</p>
- <h1>特级教师式一对一拔尖辅导</h1>
- <p class="lead">先诊断、再判错因、再训练迁移。孩子只需要完成题目，系统自动生成错因画像、训练包、复测路径和拔尖晋级建议。</p>
-    <div class="hero-search" style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
-      <input type="text" id="hero-search-input" placeholder="🔍 快速搜索知识点、年级、题型..." style="flex:1; min-width:220px; padding:14px 18px; border:2px solid #e5e7eb; border-radius:30px; font-size:15px; background:white; transition:border-color 0.3s;">
-      <button id="hero-search-btn" style="padding:14px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap;">搜索</button>
-    </div>
-    <script>
-      // 事件委托：英雄区搜索
-      document.getElementById('hero-search-btn').addEventListener('click', function() {
-        var q = document.getElementById('hero-search-input').value.trim();
-        if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
-      });
-      document.getElementById('hero-search-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          var q = this.value.trim();
-          if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
-        }
-      });
-    </script>
-    <div class="hero-actions">
-<a class="button primary" href="practice.html#diagnosis">开始15分钟诊断</a>
-<a class="button primary" href="agent.html">进入一对一拔尖辅导</a>
-<a class="button ghost" href="practice.html#flow-training">看家长闭环图</a>
-</div>
- </div>
- <div class="learning-card" aria-label="今日学习卡片">
- <div class="card-header">
- <span>特级教师式方法</span>
- <strong>五步设计</strong>
- </div>
- <ol class="timeline">
- <li><span>1</span>按课标维度定位年级能力</li>
- <li><span>2</span>用常考题型做A卷诊断</li>
- <li><span>3</span>自动判断错因与扣分层</li>
- <li><span>4</span>对照满分答案讲清方法</li>
-<li><span>5</span>同类变式迁移后再晋级</li>
-</ol>
-</div>
-</section>
-
 <!-- ════════ 角色切换 & 今日看板 ════════ -->
 <section class="role-switch-section">
   <div class="role-switch-container">
@@ -1329,43 +1366,6 @@
     <!-- JS 动态渲染 -->
   </div>
 </section>
-
-<section class="section teacher-note">
-<div class="section-title">
-<p class="eyebrow">第一次使用</p>
- <h2>家长先按三步走，不用一次看完所有内容</h2>
- <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这个网站不是知识大全目录，而是学习路线图。先定位年级，再选一条本周路线，最后把具体题目交给 AI 或练习页处理。</p>
- </div>
- <div class="route-grid">
- <article class="route-card">
- <h3>1. 先选年级</h3>
- <p>从孩子当前年级进入，看本年级目标、容易掉分的地方和家长检查清单。</p>
- <div class="route-links">
- <a href="grade1.html">低年级</a>
- <a href="grade3.html">三年级</a>
- <a href="grade4.html">四年级</a>
- <a href="grade5.html">五年级</a>
- <a href="grade6.html">六年级</a>
- </div>
- </article>
- <article class="route-card">
- <h3>2. 再看本周路线</h3>
- <p>不要每天乱练。每周只抓一个阅读点、一个表达点、一个错题复盘点。</p>
- <div class="route-links">
- <a href="practice.html">练习计划</a>
- <a href="knowledge-map.html#training-loop">训练闭环</a>
- </div>
- </article>
- <article class="route-card">
- <h3>3. 具体题目进 AI</h3>
- <p>遇到阅读题、作文片段、错题原因，再把题目发给 AI 辅导，得到可执行步骤。</p>
- <div class="route-links">
- <a href="agent.html">打开 AI 辅导</a>
- <a href="composition.html">作文专题</a>
- </div>
- </article>
- </div>
- </section>
 
  <!-- 🔥 四大核心入口：家长一眼找到关键功能 -->
  <section class="section" style="background: linear-gradient(135deg, #f8f9ff 0%, #fef7fb 100%); border-top: 4px solid #667eea;">
@@ -1456,63 +1456,6 @@
  </div>
  </section>
 
- <section class="section teacher-note">
- <div class="section-title">
- <p class="eyebrow">入口分工</p>
- <h2>先选页面，再开始学</h2>
- <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按"总控台、年级页、作文页、专项页、练习页"分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
- </div>
- <div class="route-grid">
- <article class="route-card">
- <h3>知识总控台</h3>
- <p>查知识分类、题型模板、页面索引，先判断问题属于哪一类。</p>
- <div class="route-links">
- <a href="knowledge-map.html">打开总控台</a>
- <a href="knowledge-map.html#knowledge-index">知识索引</a>
- <a href="knowledge-map.html#template-index">模板总表</a>
- </div>
- </article>
- <article class="route-card">
- <h3>年级学习</h3>
- <p>按一至六年级看目标、易错点、提优重点和每周训练。</p>
- <div class="route-links">
- <a href="grade1.html">一年级</a>
- <a href="grade2.html">二年级</a>
- <a href="grade3.html">三年级</a>
- <a href="grade4.html">四年级</a>
- <a href="grade5.html">五年级</a>
- <a href="grade6.html">六年级</a>
- </div>
- </article>
- <article class="route-card">
- <h3>作文专题</h3>
- <p>解决作文审题、选材、结构、重点段、语言升格和评分自查。</p>
- <div class="route-links">
- <a href="composition.html">作文专题</a>
- <a href="composition.html#topic-methods">题材方法</a>
- <a href="composition.html#teacher-records">批改实录</a>
- </div>
- </article>
- <article class="route-card">
- <h3>基础专项</h3>
- <p>拼音、语法、词语各自独立补弱，不和年级规划混在一起。</p>
- <div class="route-links">
- <a href="pinyin.html">拼音</a>
- <a href="grammar.html">语法</a>
- <a href="vocabulary.html">词语</a>
- </div>
- </article>
- <article class="route-card">
- <h3>练习复盘</h3>
- <p>用诊断、训练和错题复盘把知识变成稳定得分能力。</p>
- <div class="route-links">
- <a href="practice.html#diagnosis">诊断</a>
- <a href="practice.html#templates">阅读模板</a>
- <a href="practice.html">练习计划</a>
- </div>
- </article>
- </div>
- </section>
 
  <section id="map" class="section">
  <div class="section-title">
@@ -1850,8 +1793,8 @@
     <div id="data-overview-grid" style="max-width:900px; margin:0 auto; padding:0 20px 40px;"></div>
   </section>
   </main>
-  <script defer src="nav.js?v=96"></script>
-  <script defer src="table-responsive.js?v=96"></script>
+  <script defer src="nav.js?v=100"></script>
+  <script defer src="table-responsive.js?v=100"></script>
   <script defer src="data/data-loader-core.js?v=90"></script>
   <script defer src="data/role-manager.js?v=90"></script>
   <script defer src="data/learning-path-recommender.js?v=90"></script>
@@ -2418,7 +2361,7 @@
             
             // 动态加载完整数据加载器
             var script = document.createElement('script');
-            script.src = 'data/data-loader-global.js?v=96';
+            script.src = 'data/data-loader-global.js?v=100';
             script.onload = function() {
               // 加载完成后渲染资料库总览
               if (window.DataLib && window.DataLib.renderDataOverview) {

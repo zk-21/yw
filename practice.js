@@ -3983,7 +3983,7 @@ function getPrintMainIssue(codes) {
 
 function buildPrintTrainingRows(uniqueCodes) {
   if (!uniqueCodes.length) {
-    return '<tr><td colspan="6">暂无系统判码结果，先完成一次 A/B/C 卷诊断或评分。</td></tr>';
+    return '<tr><td colspan="6">暂无系统分析结果，先完成一次 A/B/C 卷诊断或评分。</td></tr>';
   }
   return uniqueCodes.map(code => {
     const pack = getFlowPack(code);
@@ -4011,7 +4011,7 @@ function buildPrintDiagnosisRows(items) {
 
 function buildPrintReviewRows(uniqueCodes, nextLessonTitle) {
   if (!uniqueCodes.length) {
-    return '<tr><td>等待系统判码</td><td>日期：________</td><td>日期：________</td><td>日期：________</td><td>先完成 A 卷诊断</td></tr>';
+    return '<tr><td>等待系统分析</td><td>日期：________</td><td>日期：________</td><td>日期：________</td><td>先完成 A 卷诊断</td></tr>';
   }
   return uniqueCodes.slice(0, 3).map(code => {
     return `<tr><td>${escapeHTML(code)}</td><td>□ 已重讲方法</td><td>日期：________</td><td>日期：________</td><td>${escapeHTML(nextLessonTitle)}</td></tr>`;
@@ -4090,7 +4090,7 @@ function updatePrintTrainingSheet() {
 
   if (statusEl) {
     statusEl.textContent = lastDiagnosisResult || lastABResult
-      ? `已回填最近一次系统结果：${gradeLabel || ''}${lastDiagnosisResult?.paperLabel || lastABResult?.paperLabel || ''}，主攻 ${mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '待系统判码'}。`
+      ? `已回填最近一次系统结果：${gradeLabel || ''}${lastDiagnosisResult?.paperLabel || lastABResult?.paperLabel || ''}，主攻 ${mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '待系统分析'}。`
       : '暂无系统结果。先完成一次 A/B/C 卷诊断或电子评分，打印单会自动回填错因码和训练路径。';
   }
 }

@@ -329,7 +329,8 @@ function addMobileBottomNav() {
     'grade3.html',
     'grade4.html',
     'grade5.html',
-    'grade6.html'
+    'grade6.html',
+    'advanced.html'
   ];
 
   var items = [
@@ -512,7 +513,7 @@ function addPageNav() {
 
   var currentPage = getCurrentPage();
   var gradePages = ['grade1.html', 'grade2.html', 'grade3.html', 'grade4.html', 'grade5.html', 'grade6.html'];
-  var topicPages = ['pinyin.html', 'grammar.html', 'vocabulary.html', 'composition.html', 'knowledge-map.html'];
+  var topicPages = ['knowledge-map.html', 'pinyin.html', 'grammar.html', 'vocabulary.html', 'composition.html', 'advanced.html'];
 
   var isGradePage = gradePages.indexOf(currentPage) !== -1;
   var isTopicPage = topicPages.indexOf(currentPage) !== -1;
@@ -573,13 +574,15 @@ function addPageNav() {
     'grade1.html': '← 一年级', 'grade2.html': '← 二年级', 'grade3.html': '← 三年级',
     'grade4.html': '← 四年级', 'grade5.html': '← 五年级', 'grade6.html': '← 六年级',
     'pinyin.html': '← 拼音学习', 'grammar.html': '← 语法知识', 'vocabulary.html': '← 词语学习',
-    'composition.html': '← 作文专题', 'knowledge-map.html': '← 知识总控'
+    'composition.html': '← 作文专题', 'knowledge-map.html': '← 知识总控',
+    'advanced.html': '← 尖子生拓展'
   };
   var nextLabels = {
     'grade1.html': '一年级 →', 'grade2.html': '二年级 →', 'grade3.html': '三年级 →',
     'grade4.html': '四年级 →', 'grade5.html': '五年级 →', 'grade6.html': '六年级 →',
     'pinyin.html': '拼音学习 →', 'grammar.html': '语法知识 →', 'vocabulary.html': '词语学习 →',
-    'composition.html': '作文专题 →', 'knowledge-map.html': '知识总控 →'
+    'composition.html': '作文专题 →', 'knowledge-map.html': '知识总控 →',
+    'advanced.html': '尖子生拓展 →'
   };
 
   var navRow = document.createElement('div');
