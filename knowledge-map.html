@@ -15,34 +15,12 @@
   <meta property="og:description" content="全景展示小学语文知识体系，1-6年级知识点一图掌握。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
-    <nav class="nav" aria-label="主导航">
-      <a href="index.html">总览</a>
-      <a href="agent.html">AI Agent</a>
-      <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
-      <a href="grade1.html">一年级</a>
-      <a href="grade2.html">二年级</a>
-      <a href="grade3.html">三年级</a>
-      <a href="grade4.html">四年级</a>
-      <a href="grade5.html">五年级</a>
-      <a href="grade6.html">六年级</a>
-      <a href="practice.html">练习计划</a>
-      <a href="vocabulary.html">词语学习</a>
-      <div class="nav-dropdown">
-        <a href="#" class="dropdown-toggle">其他</a>
-        <div class="dropdown-content">
-          <a href="advanced.html">尖子生拓展</a>
-          <a href="knowledge-map.html">知识总控</a>
-          <a href="search.html">搜索</a>
-        </div>
-      </div>
-    </nav>
+    <nav class="nav" aria-label="主导航"></nav>
   </header>
 
   <main>
@@ -96,11 +74,12 @@
             <button id="clearFilter" style="padding: 12px 20px; background: #f3f4f6; border: none; border-radius: 10px; font-size: 14px; cursor: pointer;" onclick="clearFilters()">清除筛选</button>
           </div>
         </div>
+        <p id="filter-result-tip" style="max-width: 1200px; margin: 10px auto 0; color: #6b7280; font-size: 13px; display: none;">当前筛选下没有匹配内容，试试放宽年级或分类条件。</p>
       </div>
 
       <div class="section-title">
         <p class="eyebrow">学习导航</p>
-        <h2>孩子拿到任务，先按这 5 个入口分流</h2>
+        <h2>孩子拿到任务，先按这 6 个入口分流</h2>
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">先决定孩子现在最需要哪一种帮助，再进入对应页面，不要同时开太多页。</p>
       </div>
       <div class="route-grid">
@@ -128,16 +107,45 @@
         </article>
         <article class="route-card">
           <h3>3. 查答题模板</h3>
-          <p>适合阅读、古诗文、口语交际、应用文题目不会组织答案。</p>
+          <p>适合阅读、古诗文、口语交际、应用文、记叙文、说明文、非连续性文本题目不会组织答案。</p>
           <div class="route-links">
             <a href="#template-index">答题模板总表</a>
+            <a href="oral-communication.html">口语专题</a>
+            <a href="application-writing.html">应用文专题</a>
+            <a href="integrated-learning.html">综合性学习专题</a>
+            <a href="narrative-reading.html">记叙文专题</a>
+            <a href="non-continuous-text.html">非连续性文本专题</a>
+            <a href="expository-reading.html">说明文专题</a>
+            <a href="classical-reading.html">古诗文专题</a>
+            <a href="literary.html">文学常识专题</a>
+            <a href="modern-poetry.html">现代诗 / 儿童诗专题</a>
             <a href="#reading-templates">阅读模板</a>
-            <a href="#classic-system">古诗文模板</a>
+            <a href="#narrative-system">记叙文模板</a>
+            <a href="#expository-system">说明文模板</a>
+            <a href="classical-reading.html">古诗文模板</a>
             <a href="#application-writing-system">应用文模板</a>
           </div>
         </article>
         <article class="route-card">
-          <h3>4. 练作文</h3>
+          <h3>4. 补易漏专题</h3>
+          <p>适合口语交际、应用文、综合性学习、非连续性文本、现代诗、整本书阅读、文学常识这些总被忽略的模块。</p>
+          <div class="route-links">
+            <a href="extra-topics.html">易漏专题入口</a>
+            <a href="oral-communication.html">口语交际</a>
+            <a href="application-writing.html">应用文专题</a>
+            <a href="integrated-learning.html">综合性学习专题</a>
+            <a href="non-continuous-text.html">非连续性文本专题</a>
+            <a href="literary.html">文学常识专题</a>
+            <a href="literary.html#literary-order">文学常识学习顺序</a>
+            <a href="modern-poetry.html">现代诗 / 儿童诗专题</a>
+            <a href="book-reading.html">整本书阅读专题</a>
+            <a href="#oral-communication">口语交际</a>
+            <a href="#modern-poetry-system">现代诗</a>
+            <a href="#application-writing-system">应用文与综合速查</a>
+          </div>
+        </article>
+        <article class="route-card">
+          <h3>5. 练作文</h3>
           <p>适合拿到作文题不知道写什么、怎么写具体、怎么冲刺高分。</p>
           <div class="route-links">
             <a href="composition.html">作文专题</a>
@@ -147,7 +155,7 @@
           </div>
         </article>
         <article class="route-card">
-          <h3>5. 做练习复盘</h3>
+          <h3>6. 做练习复盘</h3>
           <p>适合已经看过方法，需要诊断薄弱点、安排训练和复盘错题。</p>
           <div class="route-links">
             <a href="practice.html#diagnosis">诊断测评</a>
@@ -167,7 +175,8 @@
               <tr><td>阅读题答不到点</td><td>题型总表 + 阅读题型体系</td><td>圈题干关键词，判断是概括、词句、人物、中心还是作用题，再按模板补齐依据和情感。</td><td>答案里有题型关键词、原文依据和完整表达。</td></tr>
               <tr><td>作文不知道写什么</td><td>作文方法卡</td><td>先判断写人、写事、写景、状物、想象或读后感，再写"中心 + 材料 + 重点段"三行提纲。</td><td>题目不跑偏，重点段能占全文三分之一左右。</td></tr>
               <tr><td>基础题老是粗心丢分</td><td>易错诊断 + 词语专项 + 标点专项</td><td>每次错题标出错因，是概念不会、语境不会、格式不会，还是审题漏条件。</td><td>错题能写出"错因、正确方法、下次提醒"。</td></tr>
-              <tr><td>古诗文只会背不会答</td><td>古诗文体系 + 古诗文实战</td><td>按"字词意思、画面内容、诗人情感、道理启示"四层训练。</td><td>不是只翻译诗句，能写出画面和情感。</td></tr>
+              <tr><td>古诗文只会背不会答</td><td><a href="classical-reading.html">古诗文专题</a> + 古诗文实战</td><td>按"字词意思、画面内容、诗人情感、道理启示"四层训练。</td><td>不是只翻译诗句，能写出画面和情感。</td></tr>
+              <tr><td>口语交际、应用文、整本书阅读总找不到入口</td><td>易漏专题入口 + 对应专题锚点</td><td>先按题型确定是口语、应用文、现代诗还是整本书，再跳到对应页做一轮模板训练。</td><td>能说清“这类任务先去哪页、先按什么步骤完成”。</td></tr>
               <tr><td>想系统提分</td><td>分年级目标 + 训练闭环</td><td>按年级确定重点，每周只抓 1 到 2 个薄弱点，练题后必须复盘。</td><td>每周留下可检查的错题本、片段练习或模板改写。</td></tr>
               <tr><td>想拔尖但不知道怎么练</td><td>年级页拔尖路径 + 拔尖辅导检查</td><td>先看当前年级的"本页使用顺序"和"家长检查清单"，再对照低分到拔尖样例改写答案。</td><td>能说出自己处在基础达标、能力提升还是拔尖发展层。</td></tr>
               <tr><td>升年级后明显吃力</td><td>年级衔接 + 练习计划</td><td>回到上一个年级页看衔接要求，再用练习页补 2 周短板训练。</td><td>能补齐上一阶段最关键的阅读、表达或作文能力。</td></tr>
@@ -191,6 +200,7 @@
             </thead>
             <tbody>
               <tr><td>知识总控台</td><td>总目录、知识索引、题型模板速查。</td><td>不知道该看哪页、想快速查答题框架。</td><td>不做大量完整训练题。</td></tr>
+              <tr><td>易漏专题入口</td><td>把口语交际、应用文、综合性学习、现代诗、整本书阅读单独拎出来分流。</td><td>明明学过一点，但总不知道该去哪里系统补。</td><td>不重复承担完整年级主线。</td></tr>
               <tr><td>年级页面</td><td>年级目标、易错点、提优路径、周训练。</td><td>孩子几年级，该学什么、怎么补弱。</td><td>不堆跨年级大全。</td></tr>
               <tr><td>作文专题</td><td>作文审题、选材、结构、细节、升格和评分。</td><td>拿到作文题不知道从哪些方面写。</td><td>不处理拼音、词语等基础专项。</td></tr>
               <tr><td>拼音/语法/词语</td><td>专项知识、规则、易错点和专项题型。</td><td>基础知识不稳、考试基础题丢分。</td><td>不做完整年级规划。</td></tr>
@@ -218,10 +228,10 @@
               <tr><td>拼音、标调、整体认读、易混音</td><td><a href="pinyin.html">拼音学习</a></td><td><a href="grade1.html">一年级</a></td><td>先看规则，再在一年级页做日常训练。</td></tr>
               <tr><td>词语、成语、近反义词、搭配</td><td><a href="vocabulary.html">词语学习</a></td><td><a href="#word-system">本页词语速查</a></td><td>先查词义和辨析，再造句运用。</td></tr>
               <tr><td>扩句缩句、病句、句式转换、标点</td><td><a href="grammar.html">语法知识</a></td><td><a href="#punctuation-system">本页标点专项</a></td><td>基础题丢分时优先看语法页。</td></tr>
-              <tr><td>阅读理解题型模板</td><td><a href="#reading-templates">本页阅读题型体系</a></td><td><a href="practice.html#templates">练习计划</a></td><td>先背得分点，再用练习页迁移。</td></tr>
+              <tr><td>阅读理解题型模板</td><td><a href="#reading-templates">本页阅读题型体系</a></td><td><a href="narrative-reading.html">记叙文专题</a> / <a href="expository-reading.html">说明文专题</a> / <a href="non-continuous-text.html">非连续性文本专题</a> / <a href="practice.html#templates">练习计划</a></td><td>先分清是连续记叙类、连续说明类，还是图表材料题，再用对应方法迁移。</td></tr>
               <tr><td>作文审题、选材、结构、升格</td><td><a href="composition.html">作文专题</a></td><td><a href="#writing-cards">本页作文方法卡</a></td><td>本页只速查，完整训练进作文专题。</td></tr>
-              <tr><td>古诗文、现代诗、文言启蒙</td><td><a href="#classic-system">本页古诗文体系</a></td><td><a href="grade4.html">四年级</a> / <a href="grade5.html">五年级</a> / <a href="grade6.html">六年级</a></td><td>低年级看画面，高年级看意象、情感和手法。</td></tr>
-              <tr><td>应用文、口语交际、综合性学习</td><td><a href="#application-writing-system">本页应用文模板</a></td><td><a href="#oral-communication">口语交际</a></td><td>按格式要素检查，不能只写大概意思。</td></tr>
+              <tr><td>古诗文、现代诗、文学常识</td><td><a href="classical-reading.html">古诗文专题</a> / <a href="modern-poetry.html">现代诗 / 儿童诗专题</a> / <a href="literary.html">文学常识专题</a></td><td><a href="grade4.html#section-poetry">四年级</a> / <a href="grade5.html#section-classical">五年级</a> / <a href="grade6.html#section-classical">六年级</a></td><td>古诗文看画面、情感、炼字和文言理解；现代诗看意象、节奏、想象和情感；文学常识看作家作品、名著、典故和体裁。</td></tr>
+              <tr><td>应用文、口语交际、综合性学习</td><td><a href="#application-writing-system">本页应用文与综合模板</a></td><td><a href="oral-communication.html">口语交际专题</a> / <a href="application-writing.html">应用文专题</a> / <a href="integrated-learning.html">综合性学习专题</a></td><td>先分清是格式题还是材料整合题，再调用对应方法。</td></tr>
               <tr><td>每周训练、错题复盘、诊断测评</td><td><a href="practice.html">练习计划</a></td><td><a href="#training-loop">本页训练闭环</a></td><td>学完知识后，用练习页安排训练。</td></tr>
             </tbody>
           </table>
@@ -425,7 +435,8 @@
               <tr><td>标题作用</td><td>题干问"标题有什么妙处"。</td><td>点明对象/线索 + 概括内容 + 暗示中心。</td><td>"那盏灯"既点明写作对象，又贯穿全文，还暗示妈妈默默陪伴的爱。</td></tr>
               <tr><td>环境描写作用</td><td>题干问"这处景物描写有什么作用"。</td><td>交代背景 + 烘托心情 + 推动情节/突出中心。</td><td>雨越下越大，烘托了"我"焦急的心情，也为妈妈冒雨送伞作铺垫。</td></tr>
               <tr><td>段落作用</td><td>题干问"开头/结尾/中间段有什么作用"。</td><td>开头：引出下文、设置悬念；中间：承上启下；结尾：总结全文、点明中心。</td><td>结尾再次写掌声，照应开头，也点明"勇敢尝试会带来成长"的中心。</td></tr>
-              <tr><td>非连续性文本</td><td>图表、通知、材料组合题。</td><td>提取信息 + 比较数据 + 得出结论/提出建议。</td><td>从表格看，阅读时间越长，阅读成绩越高。因此建议每天保持稳定阅读。</td></tr>
+              <tr><td>说明文阅读</td><td>对象、特点、方法、顺序、准确性。</td><td>对象特点 + 方法作用 + 准确性/顺序作用。</td><td>文章主要介绍了……；这句话运用了……说明了……；不能删……。完整闭环去 <a href="expository-reading.html">说明文专题</a>。</td></tr>
+              <tr><td>非连续性文本</td><td>图表、表格、多材料组合题。</td><td>提取信息 + 比较数据 + 得出结论/提出建议。</td><td>从表格看，阅读时间越长，阅读成绩越高。因此建议每天保持稳定阅读。完整闭环去 <a href="non-continuous-text.html">非连续性文本专题</a>。</td></tr>
             </tbody>
           </table>
         </div>
@@ -565,7 +576,7 @@
     <section id="complete-system" class="section teacher-note">
       <div class="section-title">
         <p class="eyebrow">知识体系补全</p>
-        <h2>小学语文还要补齐这 8 个高频板块</h2>
+        <h2>小学语文还要补齐这 12 个高频板块</h2>
         <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这些内容在考试和日常学习中经常出现，但容易被家长当成"小知识点"忽略。补上以后，知识体系才更接近完整的小学语文框架。</p>
       </div>
       <div class="teacher-grid">
@@ -573,10 +584,14 @@
         <article class="teacher-card"><h3>书写查字典</h3><p>笔画笔顺、偏旁部首、间架结构、音序查字法、部首查字法。</p></article>
         <article class="teacher-card"><h3>标点专项</h3><p>逗号、句号、问号、感叹号、冒号、引号、省略号、破折号的用法。</p></article>
         <article class="teacher-card"><h3>阅读文体</h3><p>记叙文、说明文、童话、寓言、散文、科普文、非连续性文本。</p></article>
+        <article class="teacher-card"><h3>记叙文阅读</h3><p>人物形象、中心思想、句段作用、环境描写、标题作用和词句含义的提分模板。</p></article>
+        <article class="teacher-card"><h3>说明文阅读</h3><p>说明对象、说明方法、说明顺序、语言准确性和信息概括的稳定答法。</p></article>
         <article class="teacher-card"><h3>现代诗与儿童诗</h3><p>抓意象、节奏、想象和情感，避免只把诗句翻译成普通话。</p></article>
+        <article class="teacher-card"><h3>应用文与综合速查</h3><p>请假条、留言条、通知、倡议书、建议书、资料整合和图表表达的模板总表。</p></article>
+        <article class="teacher-card"><h3>传统文化与文学常识</h3><p>节日习俗、成语故事、寓言神话、名言警句和作家作品的常考要点。</p></article>
         <article class="teacher-card"><h3>古诗文体系</h3><p>古诗分类、常见意象、情感判断、文言实词、断句和翻译。</p></article>
         <article class="teacher-card"><h3>词语专项</h3><p>成语、近反义词、词语搭配、感情色彩、多义词、关联词、俗语。</p></article>
-        <article class="teacher-card"><h3>应用文与综合性学习</h3><p>请假条、留言条、通知、倡议书、建议书、资料整合和图表表达。</p></article>
+        <article class="teacher-card"><h3>单元能力地图</h3><p>按主题看教材，按能力做训练，把阅读、表达和写作能力连成线。</p></article>
       </div>
     </section>
 
@@ -684,10 +699,87 @@
       </div>
     </section>
 
-    <section id="modern-poetry-system" class="section">
+    <section id="narrative-system" class="section">
       <div class="section-title">
         <p class="eyebrow">补充五</p>
+        <h2>记叙文阅读：先看人物和事件，再答作用、情感和中心</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这部分负责模板速查。如果要把人物形象、中心思想、句段作用、环境描写、标题作用和词句含义练成完整闭环，直接去 <a href="narrative-reading.html" style="color:#9c4221; font-weight:700;">记叙文阅读专题页</a>。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>常考题型</th><th>答题思路</th><th>答题模板</th><th>提分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>人物形象</td><td>先选最准确的特点，再找动作、语言、神态或事件依据。</td><td>他/她是一个……的人。从“……”可以看出，因为……表现了他/她……。</td><td>不要只贴“善良、勇敢”标签，必须带原文依据。</td></tr>
+              <tr><td>中心思想</td><td>先概括写了什么事，再说情感或道理。</td><td>文章通过写……，表达了……，告诉我们……。</td><td>不要只写“很感人”，要说清感人在什么地方。</td></tr>
+              <tr><td>句段作用</td><td>先看位置，再从内容、结构、情感中心三层筛选。</td><td>内容上写了……；结构上起到……作用；情感/中心上表现了……。</td><td>“承上启下”只是结构词，不是完整答案。</td></tr>
+              <tr><td>环境描写作用</td><td>环境要连到人物心情、情节发展和中心。</td><td>这里写出了……的环境，烘托了……，为下文……作铺垫/突出……。</td><td>不要只说“写了天气”“景色很美”。</td></tr>
+              <tr><td>标题作用</td><td>先判断标题是不是对象、线索、悬念或中心提示。</td><td>题目“……”概括了……，也是……的线索，点明/暗示了……。</td><td>不是每个标题都要三项全写，要结合全文取舍。</td></tr>
+              <tr><td>词句含义</td><td>先说表层意思，再联系上下文走到深层。</td><td>表面上指……，实际上写出了……，表现了人物……/表达了……。</td><td>不要把词语从文章里拎出来单独解释。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>低分答案</th><th>问题分析</th><th>升格答案</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>父亲很好，很爱我。</td><td>只有结论，没有细节依据和分析。</td><td>父亲是一个关爱孩子、默默付出的人。从他冒雪送“我”去车站、买热包子这些细节可以看出，他把对孩子的爱藏在行动里。</td><td>连续练 3 道人物题，固定按“特点 + 依据 + 分析”作答。</td></tr>
+              <tr><td>写天气冷，承上启下。</td><td>只写了结构词，没有说内容和中心。</td><td>这里写雪大、风冷，交代了恶劣环境，烘托父亲送行的辛苦，也让父爱的深沉更突出。</td><td>找 3 道作用题，每题都补全“内容 + 结构 + 情感/中心”。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="expository-system" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充六</p>
+        <h2>说明文与科普文：先抓对象特点，再答方法、顺序和准确性</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这部分负责模板速查。如果要把说明对象、说明方法、词语能否删去、说明顺序、信息概括和段落作用练成完整闭环，直接去 <a href="expository-reading.html" style="color:#2f855a; font-weight:700;">说明文阅读专题页</a>。</p>
+      </div>
+      <div class="table-card">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>常考题型</th><th>答题思路</th><th>答题模板</th><th>提分提醒</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>说明对象与特点</td><td>先锁定说明对象，再概括文章主要从哪几方面介绍它的特点。</td><td>本文主要说明了……，从……、……、……等方面介绍了它的……特点。</td><td>不要只写“它很厉害”，要写具体方面和具体特点。</td></tr>
+              <tr><td>说明方法作用</td><td>判断方法后，马上补对象特点和表达效果。</td><td>这句话运用了……的说明方法，具体/准确/形象地说明了……的……特点。</td><td>方法题只答方法名通常不够，必须跟“说明了什么”。</td></tr>
+              <tr><td>说明文语言</td><td>比较删词前后意思是否变绝对，回到准确性和严谨性。</td><td>不能删。“……”表示……，删去后变成……，与事实不符，体现说明文语言的准确性。</td><td>词义、删后变化、准确性三点缺一不可。</td></tr>
+              <tr><td>说明顺序</td><td>先看段落先后内容，再判断是时间、空间还是逻辑顺序。</td><td>文章先写……，再写……，最后写……，这是按照……顺序来说明的，这样更有条理。</td><td>不能只写“按顺序写”，要把顺序名称说出来。</td></tr>
+              <tr><td>信息提取概括</td><td>给每段打一个“这段介绍什么”的标签，再压缩成几个要点。</td><td>第……段主要介绍了……；全文主要从……、……、……几方面介绍……。</td><td>去掉例子和细节，保留对象、特点和方面。</td></tr>
+              <tr><td>段落作用</td><td>兼顾内容和结构，看这段在全文中的位置和功能。</td><td>内容上写了……；结构上起到……作用；对全文说明起到……。</td><td>开头常引出对象，中间常补充分层，结尾常总结强调。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>低分答案</th><th>问题分析</th><th>升格答案</th><th>训练任务</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>不能删，不准确。</td><td>只表态，没有解释词义，也没比较删前删后。</td><td>不能删。“大约”表示估计，不是精确数字；删去后变成完全确定的说法，与实际情况可能不符，体现了说明文语言的准确性。</td><td>连续练 5 道“能否删去”题，固定按“词义 + 删后变化 + 准确性”作答。</td></tr>
+              <tr><td>用了列数字。</td><td>只认出了方法，没有继续写对象特点和效果。</td><td>这句话运用了列数字的说明方法，用“三四个”准确说明松鼠一胎幼崽的数量，使说明更具体、更准确。</td><td>找 3 句说明句，每句都补全“方法 + 对象特点 + 作用”。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="modern-poetry-system" class="section">
+      <div class="section-title">
+        <p class="eyebrow">补充九</p>
         <h2>现代诗与儿童诗：读出画面、节奏和情感</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这部分负责模板速查。如果要把画面题、情感题、修辞赏析、仿写和比较阅读练成完整闭环，直接去 <a href="modern-poetry.html" style="color:#c05621; font-weight:700;">现代诗 / 儿童诗专题页</a>。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -722,8 +814,9 @@
 
     <section id="application-writing-system" class="section alt-bg">
       <div class="section-title">
-        <p class="eyebrow">补充六</p>
-        <h2>应用文与综合性学习：格式不丢分，表达能落地</h2>
+        <p class="eyebrow">补充十</p>
+        <h2>应用文与综合速查：先分格式题，再分材料题</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这部分负责模板速查。格式类任务直接去 <a href="application-writing.html" style="color:#0b6bcb; font-weight:700;">应用文专题页</a>，材料整合、图表表达和活动方案直接去 <a href="integrated-learning.html" style="color:#0f766e; font-weight:700;">综合性学习专题页</a>。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -762,6 +855,7 @@
               <tr><td>寓言神话</td><td>想象特点、人物愿望、故事道理。</td><td>概括情节、评价人物、续写改写。</td><td>找"愿望、困难、办法、结果、道理"五项。</td></tr>
               <tr><td>名言警句</td><td>学习、惜时、诚信、爱国、勤奋等主题。</td><td>按语境填句、写作文引用。</td><td>每句配一个适用场景，不只背原句。</td></tr>
               <tr><td>作家作品</td><td>课文作者、代表作品、人物形象或写作特点。</td><td>文学常识选择、阅读背景理解。</td><td>用"作者 + 作品 + 一个关键词"记忆。</td></tr>
+              <tr><td>文学常识系统复习</td><td>作家作品、四大名著、典故、古诗词、体裁和时代脉络。</td><td>小升初综合题、连线题、判断题、阅读背景题。</td><td>直接进入 <a href="literary.html">文学常识专题</a>，按“判类型 -> 看骨架 -> 查资料库 -> 做迁移”完成一轮。</td></tr>
             </tbody>
           </table>
         </div>
@@ -772,6 +866,7 @@
       <div class="section-title">
         <p class="eyebrow">补充八</p>
         <h2>古诗文体系：会背只是第一步，会赏析才是提优</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这部分负责模板速查。如果要把古诗画面、情感、炼字、文言释词、译句和启示练成完整闭环，直接去 <a href="classical-reading.html" style="color:#2f6f5e; font-weight:700;">古诗文阅读专题页</a>。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -815,7 +910,7 @@
 
     <section id="word-system" class="section">
       <div class="section-title">
-        <p class="eyebrow">补充九</p>
+        <p class="eyebrow">补充十一</p>
         <h2>词语专项：词语不是会背就行，关键是会用</h2>
       </div>
       <div class="table-card">
@@ -841,7 +936,7 @@
 
     <section id="unit-map" class="section alt-bg">
       <div class="section-title">
-        <p class="eyebrow">补充十</p>
+        <p class="eyebrow">补充十二</p>
         <h2>单元能力地图：按主题看教材，按能力做训练</h2>
       </div>
       <div class="table-card">
@@ -1158,21 +1253,87 @@
       <div class="section-title">
         <p class="eyebrow" style="color:#e65100;">📜 文学常识</p>
         <h2>中国文学史脉络 · 从先秦到明清</h2>
-        <p style="color: #666; font-size: 16px; margin-top: 8px;">资料库自动加载，帮助建立文学史时间轴概念</p>
+        <p style="color: #666; font-size: 16px; margin-top: 8px;">资料库自动加载，帮助建立文学史时间轴概念，也可直接进入 <a href="literary.html" style="color:#92400e; font-weight:700;">文学常识专题页</a> 做系统复习</p>
       </div>
       <div id="literary-timeline-container" style="max-width: 900px; margin: 0 auto; padding: 0 5vw 40px;"></div>
     </section>
   </main>
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="page-toc.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        if (window.DataLib) {
-          DataLib.renderLiteraryTimeline(document.getElementById('literary-timeline-container'));
+        var dataLoader = window.DataLibCore || window.DataLib;
+        var container = document.getElementById('literary-timeline-container');
+        if (!container || !dataLoader || typeof dataLoader.load !== 'function') return;
+
+        function escapeHTML(value) {
+          return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
         }
-      }, 300);
+
+        dataLoader.load('literary-knowledge').then(function(data) {
+          if (!data) return;
+
+          var timeline = data['文学史脉络'];
+          var html = '<div class="timeline">';
+
+          if (timeline && timeline.朝代) {
+            timeline.朝代.forEach(function(dynasty) {
+              html += '<div class="timeline-item" style="background:white; border-radius:12px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border-left:4px solid #667eea;">';
+              html += '<h4 style="color:#667eea; margin:0 0 8px;">' + escapeHTML(dynasty.朝代) + ' <small style="color:#888;">' + escapeHTML(dynasty.时间) + '</small></h4>';
+              html += '<p style="font-size:13px; color:#555; margin:0 0 6px;">' + escapeHTML(dynasty.特点) + '</p>';
+              html += '<p style="font-size:12px; color:#888;"><strong>代表作家：</strong>' + escapeHTML((dynasty.代表作家 || []).join('、')) + '</p>';
+              html += '<p style="font-size:12px; color:#888;"><strong>代表作品：</strong>' + escapeHTML((dynasty.代表作品 || []).join('、')) + '</p>';
+              html += '</div>';
+            });
+          } else {
+            var fallbackRows = [
+              { name: '先秦文学', source: data.中国古代文学 && data.中国古代文学.先秦文学, color: '#667eea' },
+              { name: '唐诗', source: data.中国古代文学 && data.中国古代文学.唐诗, color: '#e65100' },
+              { name: '宋词', source: data.中国古代文学 && data.中国古代文学.宋词, color: '#2e7d32' },
+              { name: '明清小说', source: data.中国古代文学 && data.中国古代文学.明清小说, color: '#8e24aa' },
+              { name: '中国现代文学', source: data.中国现代文学, color: '#1565c0' },
+              { name: '外国文学', source: data.外国文学, color: '#6d4c41' }
+            ];
+
+            fallbackRows.forEach(function(row) {
+              var items = [];
+              if (Array.isArray(row.source)) {
+                items = row.source;
+              } else if (row.source && typeof row.source === 'object') {
+                Object.keys(row.source).forEach(function(key) {
+                  items = items.concat(row.source[key] || []);
+                });
+              }
+              if (!items.length) return;
+
+              var topics = items.slice(0, 5).map(function(item) {
+                return item.topic || item.书名 || item.典故 || '';
+              }).filter(Boolean);
+              var points = [];
+              items.slice(0, 3).forEach(function(item) {
+                if (Array.isArray(item.key_points)) points = points.concat(item.key_points.slice(0, 2));
+                if (Array.isArray(item.考点)) points = points.concat(item.考点.slice(0, 2));
+              });
+
+              html += '<div class="timeline-item" style="background:white; border-radius:12px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border-left:4px solid ' + row.color + ';">';
+              html += '<h4 style="color:' + row.color + '; margin:0 0 8px;">' + escapeHTML(row.name) + '</h4>';
+              html += '<p style="font-size:13px; color:#555; margin:0 0 6px;"><strong>代表内容：</strong>' + escapeHTML(topics.join('、')) + '</p>';
+              html += '<p style="font-size:12px; color:#888;"><strong>记忆关键词：</strong>' + escapeHTML(points.slice(0, 8).join('、')) + '</p>';
+              html += '</div>';
+            });
+          }
+
+          html += '</div>';
+          html += '<p style="text-align:center; margin:18px 0 0;"><a href="literary.html" style="display:inline-flex; padding:10px 18px; border-radius:999px; background:#fff7ed; color:#92400e; font-weight:700; text-decoration:none; border:1px solid #fed7aa;">进入完整文学常识专题</a></p>';
+          container.innerHTML = html;
+        });
     });
   </script>
   <script>
@@ -1223,9 +1384,17 @@
         section.style.display = shouldShow ? 'block' : 'none';
       });
       
-      // 显示/隐藏搜索结果提示
-      const visibleSections = document.querySelectorAll('main section[style="display: block"]');
-      const hasResults = visibleSections.length > 0;
+      var visibleCount = 0;
+      sections.forEach(function(section) {
+        if (section.style.display !== 'none') {
+          visibleCount += 1;
+        }
+      });
+
+      var tip = document.getElementById('filter-result-tip');
+      if (tip) {
+        tip.style.display = visibleCount > 0 ? 'none' : 'block';
+      }
     }
     
     function clearFilters() {

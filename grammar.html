@@ -15,7 +15,7 @@
   <meta property="og:description" content="系统梳理小学1-6年级语法知识，涵盖词性、句型、病句、关联词等核心考点。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
   <style>
     .grammar-hero {
       background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
@@ -1055,6 +1055,160 @@
   </main>
 
   <script>
+    var grammarDataLoader = null;
+
+    function renderGrammarByGradeLocal(grade, container) {
+      if (!container || !grammarDataLoader || typeof grammarDataLoader.load !== 'function') return;
+      var gradeNum = parseInt(String(grade || '').replace('grade', ''), 10);
+      if (!gradeNum) return;
+
+      grammarDataLoader.load('grammar').then(function(data) {
+        if (!data) {
+          container.innerHTML = '<p style="color:#999; text-align:center; padding:20px;">资料加载中...</p>';
+          return;
+        }
+
+        var html = '';
+
+        var allPunctuation = [];
+        if (data['标点符号']) {
+          ['基础标点', '进阶标点', '高级标点'].forEach(function(cat) {
+            if (data['标点符号'][cat]) {
+              data['标点符号'][cat].forEach(function(item) {
+                if (item.年级 <= gradeNum) allPunctuation.push(item);
+              });
+            }
+          });
+        }
+        if (allPunctuation.length > 0) {
+          html += '<div class="grammar-card"><h3>🔜 标点符号</h3>';
+          allPunctuation.forEach(function(item) {
+            html += '<p><strong>' + item.符号 + ' ' + item.名称 + '：</strong>' + item.规则 + '</p>';
+            if (item.正例) html += '<div class="example-box"><strong>例子：</strong>' + item.正例 + '</div>';
+          });
+          html += '</div>';
+        }
+
+        if (data['词性']) {
+          var allCiXing = [];
+          ['实词', '虚词'].forEach(function(type) {
+            if (data['词性'][type]) {
+              data['词性'][type].forEach(function(item) {
+                if (item.适用年级 <= gradeNum) allCiXing.push(item);
+              });
+            }
+          });
+          if (allCiXing.length > 0) {
+            html += '<div class="grammar-card"><h3>📚 词性知识</h3>';
+            allCiXing.forEach(function(item) {
+              html += '<p><strong>' + item.名称 + '：</strong>' + item.定义 + '</p>';
+              html += '<div class="example-box"><strong>例子：</strong>' + (item.例子 ? item.例子.join('、') : '') + '</div>';
+            });
+            if (data['词性']['教学口诀']) {
+              var ciXingTips = Object.values(data['词性']['教学口诀']).filter(Boolean);
+              if (ciXingTips.length) {
+                html += '<div class="tip">💡 ' + ciXingTips[0] + '</div>';
+              }
+            }
+            html += '</div>';
+          }
+        }
+
+        if (data['修辞手法'] && data['修辞手法']['基础修辞']) {
+          var applicableRhetoric = data['修辞手法']['基础修辞'].filter(function(item) { return item.年级 <= gradeNum; });
+          if (applicableRhetoric.length > 0) {
+            html += '<div class="grammar-card"><h3>🎯 修辞手法</h3>';
+            applicableRhetoric.forEach(function(item) {
+              html += '<p><strong>' + item.名称 + '：</strong>' + item.定义 + '</p>';
+              html += '<div class="example-box"><strong>例子：</strong>' + (item.正例 || '') + '</div>';
+            });
+            if (data['修辞手法']['三层答题法']) {
+              html += '<details style="margin-top:10px;"><summary style="cursor:pointer;color:#667eea;font-weight:bold;">📻 修辞三层答题法</summary>';
+              Object.entries(data['修辞手法']['三层答题法']).forEach(function(entry) {
+                if (entry[0] === '满分示例') {
+                  html += '<div class="example-box">✅ ' + entry[1] + '</div>';
+                } else {
+                  html += '<p style="font-size:13px;margin:6px 0;">' + entry[0] + '：' + entry[1] + '</p>';
+                }
+              });
+              html += '</details>';
+            }
+            html += '</div>';
+          }
+        }
+
+        if (data['关联词'] && data['关联词']['分类']) {
+          var applicableConnectors = data['关联词']['分类'].filter(function(item) { return item.年级 <= gradeNum; });
+          if (applicableConnectors.length > 0) {
+            html += '<div class="grammar-card"><h3>🔆 关联词</h3>';
+            applicableConnectors.forEach(function(item) {
+              html += '<p><strong>' + item.关系 + '：</strong>' + item.关联词.join(' / ') + '</p>';
+              if (item.例句) html += '<div class="example-box">' + item.例句 + '</div>';
+            });
+            html += '</div>';
+          }
+        }
+
+        if (data['病句修改'] && data['病句修改']['常见类型']) {
+          var applicableSickSentences = data['病句修改']['常见类型'].filter(function(item) { return item.年级 <= gradeNum; });
+          if (applicableSickSentences.length > 0) {
+            html += '<div class="grammar-card"><h3>📝 病句类型</h3>';
+            applicableSickSentences.forEach(function(item) {
+              html += '<p><strong>' + item.病因 + '：</strong>' + item.说明 + '</p>';
+              html += '<div class="example-box">❌ ' + item.病句 + '<br>✅ ' + item.修改 + '</div>';
+            });
+            if (data['病句修改']['修改铁律']) {
+              html += '<div class="tip">🔡 ' + data['病句修改']['修改铁律'] + '</div>';
+            }
+            html += '</div>';
+          }
+        }
+
+        if (data['句型变换']) {
+          var allSentencePatterns = [];
+          ['基础变换', '进阶变换'].forEach(function(type) {
+            if (data['句型变换'][type]) {
+              allSentencePatterns = allSentencePatterns.concat(data['句型变换'][type]);
+            }
+          });
+          var applicableSentencePatterns = allSentencePatterns.filter(function(item) { return item.年级 <= gradeNum; });
+          if (applicableSentencePatterns.length > 0) {
+            html += '<div class="grammar-card"><h3>🔄 句型变换</h3>';
+            applicableSentencePatterns.forEach(function(item) {
+              html += '<p><strong>' + item.类型 + '：</strong>' + (item.格式 || item.定义 || item.口诀 || item.方法 || '') + '</p>';
+              html += '<div class="example-box"><strong>例子：</strong>' + (item.正例 || '') + '</div>';
+            });
+            if (data['句型变换']['缩句铁律']) {
+              html += '<div class="tip">✂️ ' + data['句型变换']['缩句铁律'] + '</div>';
+            }
+            if (data['句型变换']['扩句铁律']) {
+              html += '<div class="tip">🧩 ' + data['句型变换']['扩句铁律'] + '</div>';
+            }
+            html += '</div>';
+          }
+        }
+
+        var allTips = [];
+        if (data['词性'] && data['词性']['教学口诀']) {
+          Object.entries(data['词性']['教学口诀']).forEach(function(entry) { allTips.push(entry[0] + '：' + entry[1]); });
+        }
+        if (data['标点符号'] && data['标点符号']['教学口诀']) {
+          Object.entries(data['标点符号']['教学口诀']).forEach(function(entry) { allTips.push(entry[0] + '：' + entry[1]); });
+        }
+        if (data['标点符号'] && data['标点符号']['小升初失分点']) {
+          data['标点符号']['小升初失分点'].forEach(function(item) { allTips.push(item); });
+        }
+        if (allTips.length > 0) {
+          html += '<div class="grammar-card"><h3>📚 学习口诀</h3>';
+          allTips.forEach(function(item) {
+            html += '<div class="tip" style="margin-bottom:8px;">💡 ' + item + '</div>';
+          });
+          html += '</div>';
+        }
+
+        container.innerHTML = html || '<p style="color:#999; text-align:center; padding:20px;">暂无该年级的语法资料</p>';
+      });
+    }
     const grammarQuiz = [
       {
         question: '请选出下面句子中使用正确的标点符号：<br>"今天天气真好____"小明说____"我们去公园玩吧____"',
@@ -1261,9 +1415,9 @@
       document.getElementById(grade).style.display = 'block';
     });
   </script>
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
   <script>
     // 事件委托：语法知识库年级切换（switchGrammarDbTab）
     document.getElementById('grammar-db-quick').addEventListener('click', function(e) {
@@ -1272,9 +1426,12 @@
       var grade = btn.dataset.grade;
       document.querySelectorAll('#grammar-db-quick .grade-tab').forEach(function(t) { t.classList.remove('active'); });
       btn.classList.add('active');
-      if (window.DataLib) DataLib.renderGrammarByGrade(grade, document.getElementById('grammar-db-content'));
+      renderGrammarByGradeLocal(grade, document.getElementById('grammar-db-content'));
     });
-    document.addEventListener('DOMContentLoaded', function() { setTimeout(function() { if (window.DataLib) DataLib.renderGrammarByGrade('grade3', document.getElementById('grammar-db-content')); }, 300); });
+    document.addEventListener('DOMContentLoaded', function() {
+      grammarDataLoader = window.DataLibCore || window.DataLib;
+      renderGrammarByGradeLocal('grade3', document.getElementById('grammar-db-content'));
+    });
   </script>
 </body>
 </html>

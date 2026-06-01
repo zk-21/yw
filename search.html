@@ -8,14 +8,14 @@
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
-  <title>小学语文资料库搜索 · 语文成长地图</title>
-  <meta name="description" content="全站资料库搜索：语法规则、词汇积累、文学常识、常见错误、范文方法、练习题库一键检索。">
-  <meta name="keywords" content="语文搜索,资料库检索,语法搜索,成语搜索,文学常识搜索">
+  <title>资料库搜索 | 语文成长地图</title>
+  <meta name="description" content="全站资料库搜索，支持语法、词语、文学常识、常见错误、作文方法和练习题库的一站式检索。">
+  <meta name="keywords" content="语文搜索,资料库搜索,语法搜索,成语搜索,文学常识搜索">
   <meta property="og:title" content="资料库搜索 | 语文成长地图">
-  <meta property="og:description" content="搜索语法、词汇、文学常识、范文等六大资料库。">
+  <meta property="og:description" content="搜索语法、词语、文学常识、常见错误、作文方法和练习题库。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
   <style>
     .search-hero {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -24,8 +24,7 @@
       color: white;
     }
     .search-hero h1 { color: white; margin-bottom: 8px; }
-    .search-hero p { opacity: 0.85; font-size: 16px; margin-bottom: 0; }
-    
+    .search-hero p { opacity: 0.9; font-size: 16px; margin-bottom: 0; }
     .search-box-wrap {
       max-width: 640px;
       margin: -30px auto 0;
@@ -58,19 +57,19 @@
       cursor: pointer;
       transition: opacity 0.2s;
     }
-    .search-box-inner button:hover { opacity: 0.9; }
-    .search-box-inner button:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .filter-bar {
-      max-width: 640px;
+    .search-box-inner button:hover { opacity: 0.92; }
+    .search-box-inner button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .filter-bar, .grade-filter-bar {
+      max-width: 700px;
       margin: 16px auto 0;
       padding: 0 5vw;
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
     }
-    .filter-chip {
+    .filter-chip, .grade-filter-chip {
       padding: 6px 14px;
       border-radius: 20px;
       border: 1.5px solid #ddd;
@@ -79,12 +78,11 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .filter-chip.active {
+    .filter-chip.active, .grade-filter-chip.active {
       background: #667eea;
       color: white;
       border-color: #667eea;
     }
-
     .results-section {
       max-width: 800px;
       margin: 0 auto;
@@ -105,6 +103,7 @@
       font-weight: bold;
     }
     .result-item {
+      display: block;
       background: white;
       border-radius: 10px;
       padding: 14px 18px;
@@ -115,46 +114,87 @@
       transition: all 0.15s;
       font-size: 13px;
       line-height: 1.7;
+      color: inherit;
+      text-decoration: none;
     }
     .result-item:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); transform: translateX(2px); }
     .result-item mark { background: #fff176; padding: 1px 3px; border-radius: 2px; }
     .result-path { font-size: 11px; color: #999; margin-top: 4px; }
     .result-count { font-size: 12px; color: #888; margin-left: 8px; font-weight: normal; }
-
-    .quick-links {
+    .quick-links, .quick-link-pack, .topic-entry-card {
       max-width: 800px;
-      margin: 30px auto 40px;
+      margin: 18px auto 0;
       padding: 0 5vw;
     }
-    .quick-links h3 { text-align: center; color: #666; font-size: 14px; margin-bottom: 16px; }
-    .quick-link-grid {
+    .quick-links h3, .pack-title {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+    .quick-link-grid, .quick-link-pack .pack-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       justify-content: center;
     }
-    .quick-link {
+    .quick-link, .pack-chip {
       padding: 8px 16px;
-      background: #f0f4ff;
       border-radius: 20px;
       font-size: 13px;
-      color: #667eea;
       cursor: pointer;
-      border: none;
+      border: 1px solid #e4e7f0;
+      background: white;
+      color: #4f46e5;
       transition: all 0.2s;
     }
-    .quick-link:hover { background: #667eea; color: white; }
-
-    .loading-spinner {
-      text-align: center;
-      padding: 40px;
-      color: #999;
+    .quick-link:hover, .pack-chip:hover {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
     }
-
-    /* ── 增强搜索：最近搜索、年级筛选、无结果推荐 ── */
+    .topic-entry-card .card-inner {
+      background: linear-gradient(135deg, #fffaf2, #f5fbff);
+      border: 1px solid #eadccb;
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 12px 28px rgba(146, 64, 14, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .topic-entry-card h3 {
+      margin: 0 0 6px;
+      color: #30261d;
+      font-size: 16px;
+    }
+    .topic-entry-card p {
+      margin: 0;
+      color: #6f6257;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .topic-entry-card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #92400e, #b7791f);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 12px 22px rgba(146, 64, 14, 0.16);
+      white-space: nowrap;
+    }
     .recent-searches {
       max-width: 700px;
-      margin: 0 auto 12px;
+      margin: 12px auto 0;
       display: none;
       flex-wrap: wrap;
       align-items: center;
@@ -162,15 +202,15 @@
       padding: 0 16px;
     }
     .recent-searches.visible { display: flex; }
-    .recent-searches .recent-label {
+    .recent-label {
       font-size: 11px;
       color: #999;
       margin-right: 4px;
       white-space: nowrap;
     }
-    .recent-tag {
+    .recent-tag, .suggested-tag {
       display: inline-block;
-      padding: 3px 10px;
+      padding: 4px 10px;
       background: #f3f4f6;
       border: 1px solid #e5e7eb;
       border-radius: 14px;
@@ -179,48 +219,18 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    .recent-tag:hover { background: #eef2ff; border-color: #667eea; color: #4f46e5; }
+    .recent-tag:hover, .suggested-tag:hover {
+      background: #eef2ff;
+      border-color: #667eea;
+      color: #4f46e5;
+    }
     .recent-clear {
       font-size: 10px;
       color: #bbb;
       cursor: pointer;
       margin-left: 4px;
     }
-    .recent-clear:hover { color: #f44336; }
-
-    .grade-filter-bar {
-      max-width: 700px;
-      margin: 0 auto 8px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      padding: 0 16px;
-    }
-    .grade-filter-bar .gf-label {
-      font-size: 12px;
-      color: #999;
-      line-height: 26px;
-      white-space: nowrap;
-    }
-    .grade-filter-chip {
-      display: inline-block;
-      padding: 2px 10px;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 12px;
-      font-size: 11px;
-      color: #888;
-      cursor: pointer;
-      background: white;
-      transition: all 0.15s;
-    }
-    .grade-filter-chip:hover { border-color: #667eea; color: #4f46e5; }
-    .grade-filter-chip.active {
-      background: #667eea;
-      color: white;
-      border-color: #667eea;
-    }
-
+    .recent-clear:hover { color: #ef4444; }
     .suggested-search {
       margin-top: 16px;
       text-align: center;
@@ -230,67 +240,34 @@
       color: #999;
       margin-bottom: 8px;
     }
-    .suggested-tag {
-      display: inline-block;
-      margin: 3px;
-      padding: 5px 14px;
-      background: #f8f9ff;
-      border: 1px solid #dde1f0;
-      border-radius: 16px;
-      font-size: 12px;
-      color: #4f46e5;
-      cursor: pointer;
-      transition: all 0.2s;
+    .loading-spinner {
+      text-align: center;
+      padding: 40px;
+      color: #999;
     }
-    .suggested-tag:hover {
-      background: #667eea;
-      color: white;
-      border-color: #667eea;
-    }
-
     @media (max-width: 600px) {
-      .recent-searches, .grade-filter-bar { padding: 0 8px; gap: 4px; }
-      .recent-tag, .grade-filter-chip { font-size: 10px; padding: 2px 8px; }
+      .recent-searches, .grade-filter-bar, .filter-bar { padding: 0 8px; gap: 4px; }
+      .recent-tag, .grade-filter-chip, .filter-chip, .suggested-tag { font-size: 10px; padding: 3px 8px; }
+      .search-box-inner button { padding: 16px 20px; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
-    <nav class="nav" aria-label="主导航">
-      <a href="index.html">总览</a>
-      <a href="agent.html">AI Agent</a>
-      <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
-      <a href="grade1.html">一年级</a>
-      <a href="grade2.html">二年级</a>
-      <a href="grade3.html">三年级</a>
-      <a href="grade4.html">四年级</a>
-      <a href="grade5.html">五年级</a>
-      <a href="grade6.html">六年级</a>
-      <a href="practice.html">练习计划</a>
-      <a href="vocabulary.html">词语学习</a>
-      <div class="nav-dropdown">
-        <a href="#" class="dropdown-toggle">其他</a>
-        <div class="dropdown-content">
-          <a href="advanced.html">尖子生拓展</a>
-          <a href="knowledge-map.html">知识总控</a>
-          <a href="search.html">搜索</a>
-        </div>
-      </div>
-    </nav>
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a>
+    <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航"></nav>
   </header>
 
   <main>
     <section class="search-hero">
-      <h1>🔍 资料库搜索</h1>
-      <p>一键检索语法、词汇、文学常识、范文方法等六大资料库</p>
+      <h1>资料库搜索</h1>
+      <p>一键检索语法、词语、文学常识、作文方法、错题与练习题库。</p>
     </section>
 
     <div class="search-box-wrap">
       <div class="search-box-inner">
-        <input type="text" id="searchInput" placeholder="输入关键词，如：比喻、成语、李白、病句..." autofocus>
+        <input type="text" id="searchInput" placeholder="输入关键词，例如：比喻、成语、李白、病句" autofocus>
         <button id="searchBtn">搜索</button>
       </div>
     </div>
@@ -299,16 +276,15 @@
       <span style="font-size:12px;color:#999;line-height:30px;">范围：</span>
       <span class="filter-chip active" data-type="all">全部</span>
       <span class="filter-chip" data-type="grammar">语法</span>
-      <span class="filter-chip" data-type="vocabulary">词汇</span>
+      <span class="filter-chip" data-type="vocabulary">词语</span>
       <span class="filter-chip" data-type="literary">文学</span>
       <span class="filter-chip" data-type="mistake">错题</span>
       <span class="filter-chip" data-type="essay">作文</span>
       <span class="filter-chip" data-type="exercise">题库</span>
     </div>
 
-    <!-- 年级筛选 -->
     <div class="grade-filter-bar" id="gradeFilterBar">
-      <span class="gf-label">年级：</span>
+      <span class="recent-label">年级：</span>
       <span class="grade-filter-chip active" data-grade="all">全部</span>
       <span class="grade-filter-chip" data-grade="1">一年级</span>
       <span class="grade-filter-chip" data-grade="2">二年级</span>
@@ -318,15 +294,14 @@
       <span class="grade-filter-chip" data-grade="6">六年级</span>
     </div>
 
-    <!-- 最近搜索 -->
     <div class="recent-searches" id="recentSearches">
-      <span class="recent-label">最近：</span>
+      <span class="recent-label">最近搜索：</span>
       <span id="recentTags"></span>
       <span class="recent-clear" id="clearRecent" title="清除最近搜索">清除</span>
     </div>
 
     <div class="quick-links">
-      <h3>💡 试试搜索：</h3>
+      <h3>试试这些关键词</h3>
       <div class="quick-link-grid">
         <button class="quick-link" data-keyword="比喻">比喻</button>
         <button class="quick-link" data-keyword="李白">李白</button>
@@ -341,11 +316,45 @@
       </div>
     </div>
 
+    <div class="quick-link-pack">
+      <div class="pack-title">文学常识热词</div>
+      <div class="pack-row">
+        <button class="pack-chip" data-keyword="鲁迅">鲁迅</button>
+        <button class="pack-chip" data-keyword="冰心">冰心</button>
+        <button class="pack-chip" data-keyword="四大名著">四大名著</button>
+        <button class="pack-chip" data-keyword="唐诗">唐诗</button>
+        <button class="pack-chip" data-keyword="宋词">宋词</button>
+        <button class="pack-chip" data-keyword="典故">典故</button>
+      </div>
+    </div>
+
+    <div class="topic-entry-card">
+      <div class="card-inner">
+        <div>
+          <h3>直接前往文学常识专题</h3>
+          <p>如果你主要想查作家作品、四大名著、典故、古诗词或体裁判断，直接进入专题会更快。</p>
+        </div>
+        <a href="literary.html">打开文学常识专题</a>
+      </div>
+    </div>
+
+    <div class="quick-link-pack">
+      <div class="pack-title">文学常识快捷入口</div>
+      <div class="pack-row">
+        <button class="pack-chip" data-keyword="文学常识">文学常识总览</button>
+        <button class="pack-chip" data-keyword="四大名著">四大名著</button>
+        <button class="pack-chip" data-keyword="古诗词">古诗词</button>
+        <button class="pack-chip" data-keyword="成语故事">成语故事</button>
+        <button class="pack-chip" data-keyword="体裁">体裁判断</button>
+        <button class="pack-chip" data-keyword="李白">李白</button>
+      </div>
+    </div>
+
     <section class="results-section" id="results">
       <div class="result-empty">
-        <div class="icon">📦</div>
-        <p>输入关键词，搜索六大资料库</p>
-        <p style="font-size:12px;color:#bbb;">语法知识 · 词语学习 · 文学常识 · 常见错误 · 范文方法 · 练习题库</p>
+        <div class="icon">📚</div>
+        <p>输入关键词，搜索六大资料库。</p>
+        <p style="font-size:12px;color:#bbb;">语法知识 · 词语学习 · 文学常识 · 常见错误 · 作文方法 · 练习题库</p>
       </div>
     </section>
   </main>
@@ -355,12 +364,9 @@
     var currentGrade = 'all';
     var RECENT_KEY = 'searchRecent';
     var MAX_RECENT = 8;
+    var SEARCH_INDEX_URL = 'data/search-index.json';
+    var searchIndexPromise = null;
 
-    function escapeHTML(str) {
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    // ── 同义词/关联词映射（无结果时推荐） ──
     var RELATED_TERMS = {
       '比喻': ['修辞', '拟人', '排比', '夸张'],
       '李白': ['唐诗', '杜甫', '静夜思', '望庐山瀑布'],
@@ -377,105 +383,173 @@
       '作文': ['写作', '范文', '写人', '记事', '写景'],
       '阅读': ['阅读理解', '概括', '赏析', '中心思想']
     };
-    // 所有快捷搜索词
+
     var ALL_QUICK_TERMS = Object.keys(RELATED_TERMS);
 
-    // ── 最近搜索 ──
-    function getRecentSearches() {
-      try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
-      catch(e) { return []; }
+    function escapeHTML(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
     }
+
+    function loadSearchIndex() {
+      if (searchIndexPromise) return searchIndexPromise;
+      searchIndexPromise = fetch(SEARCH_INDEX_URL).then(function (response) {
+        if (!response.ok) throw new Error('Failed to load search index: ' + response.status);
+        return response.json();
+      }).then(function (index) {
+        if (!index || !Array.isArray(index.items)) throw new Error('Invalid search index payload');
+        return index;
+      }).catch(function (err) {
+        searchIndexPromise = null;
+        throw err;
+      });
+      return searchIndexPromise;
+    }
+
+    function getSearchText(item) {
+      var typeKeywords = {
+        grammar: '语法 知识',
+        vocabulary: '词汇 词语',
+        literary: '文学 常识',
+        mistake: '错题 常见错误 易错',
+        essay: '作文 写作 范文 方法',
+        exercise: '题库 练习 习题'
+      };
+
+      return [
+        item.title,
+        item.summary,
+        item.content,
+        item.category,
+        item.source,
+        typeKeywords[item.type] || item.type,
+        item.difficulty,
+        (item.abilities || []).join(' '),
+        (item.keywords || []).join(' ')
+      ].filter(Boolean).join(' ').toLowerCase();
+    }
+
+    function parseGradeRange(text) {
+      var raw = String(text || '');
+      var rangeMatch = raw.match(/([1-6])\s*(?:-|—|~|至|到)\s*([1-6])\s*年?级?/);
+      if (rangeMatch) {
+        return {
+          min: Math.min(parseInt(rangeMatch[1], 10), parseInt(rangeMatch[2], 10)),
+          max: Math.max(parseInt(rangeMatch[1], 10), parseInt(rangeMatch[2], 10))
+        };
+      }
+      var singleMatch = raw.match(/([1-6])\s*年级/);
+      if (singleMatch) {
+        var value = parseInt(singleMatch[1], 10);
+        return { min: value, max: value };
+      }
+      return null;
+    }
+
+    function matchGrade(item, gradeValue) {
+      if (!gradeValue || gradeValue === 'all') return true;
+      var target = parseInt(gradeValue, 10);
+      if (!target) return true;
+
+      var minGrade = parseInt(item.minGrade, 10);
+      var maxGrade = parseInt(item.maxGrade, 10);
+      if (minGrade && maxGrade) return target >= minGrade && target <= maxGrade;
+
+      var range = parseGradeRange(item.gradeRange) || parseGradeRange(item.category);
+      if (!range && item.content) {
+        var applicable = String(item.content).match(/适用年级["']?\s*[:：]?\s*["']?\s*([1-6]\s*(?:-|—|~|至|到)\s*[1-6]\s*年级|[1-6]\s*年级)/);
+        range = applicable ? parseGradeRange(applicable[1]) : null;
+      }
+      if (range) return target >= range.min && target <= range.max;
+
+      var grade = parseInt(item.grade, 10);
+      return !grade || grade === target;
+    }
+
+    function searchIndexInternal(keyword, options) {
+      var opts = options || {};
+      var filterType = opts.type || null;
+      var filterGrade = opts.grade || null;
+      var keywordText = String(keyword || '').toLowerCase().trim();
+      var keywords = keywordText.split(/\s+/).filter(function (item) { return item.length > 0; });
+
+      if (!keywords.length) return Promise.resolve([]);
+
+      return loadSearchIndex().then(function (index) {
+        var results = index.items.filter(function (item) {
+          var content = getSearchText(item);
+          var matchAll = keywords.every(function (part) {
+            return content.indexOf(part) >= 0;
+          });
+          if (!matchAll) return false;
+          if (filterType && item.type !== filterType) return false;
+          if (!matchGrade(item, filterGrade)) return false;
+          return true;
+        });
+
+        results.sort(function (a, b) {
+          var aTitleMatch = a.title.toLowerCase().indexOf(keywordText) >= 0 ? 0 : 1;
+          var bTitleMatch = b.title.toLowerCase().indexOf(keywordText) >= 0 ? 0 : 1;
+          if (aTitleMatch !== bTitleMatch) return aTitleMatch - bTitleMatch;
+          return (a.grade || 0) - (b.grade || 0);
+        });
+
+        return results;
+      });
+    }
+
+    function getQueryParam(name) {
+      return new URLSearchParams(window.location.search).get(name) || '';
+    }
+
+    function warmSearchIndex() {
+      loadSearchIndex().catch(function () {});
+    }
+
+    function getRecentSearches() {
+      try {
+        return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
     function saveRecentSearch(keyword) {
-      var recent = getRecentSearches();
-      recent = recent.filter(function(r) { return r !== keyword; });
+      var recent = getRecentSearches().filter(function (item) {
+        return item !== keyword;
+      });
       recent.unshift(keyword);
       if (recent.length > MAX_RECENT) recent.length = MAX_RECENT;
       localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
       renderRecentSearches();
     }
+
     function renderRecentSearches() {
       var container = document.getElementById('recentSearches');
       var tagsEl = document.getElementById('recentTags');
       var recent = getRecentSearches();
       if (recent.length === 0) {
         container.classList.remove('visible');
+        tagsEl.innerHTML = '';
         return;
       }
       container.classList.add('visible');
-      var html = '';
-      recent.forEach(function(kw) {
-        html += '<span class="recent-tag" data-kw="' + escapeHTML(kw) + '">' + escapeHTML(kw) + '</span>';
-      });
-      tagsEl.innerHTML = html;
+      tagsEl.innerHTML = recent.map(function (kw) {
+        return '<span class="recent-tag" data-kw="' + escapeHTML(kw) + '">' + escapeHTML(kw) + '</span>';
+      }).join('');
     }
-    // 最近搜索点击
-    document.getElementById('recentTags').addEventListener('click', function(e) {
-      var tag = e.target.closest('.recent-tag');
-      if (!tag || !tag.dataset.kw) return;
-      document.getElementById('searchInput').value = tag.dataset.kw;
-      doSearch();
-    });
-    // 清除最近搜索
-    document.getElementById('clearRecent').addEventListener('click', function() {
-      localStorage.removeItem(RECENT_KEY);
-      renderRecentSearches();
-    });
-
-    // ── 过滤器点击（资料库） ──
-    document.getElementById('filterBar').addEventListener('click', function(e) {
-      var chip = e.target.closest('.filter-chip');
-      if (!chip) return;
-      document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
-      chip.classList.add('active');
-      currentFilter = chip.dataset.type;
-      var q = document.getElementById('searchInput').value.trim();
-      if (q) doSearch();
-    });
-
-    // ── 年级筛选 ──
-    document.getElementById('gradeFilterBar').addEventListener('click', function(e) {
-      var chip = e.target.closest('.grade-filter-chip');
-      if (!chip) return;
-      document.querySelectorAll('.grade-filter-chip').forEach(function(c) { c.classList.remove('active'); });
-      chip.classList.add('active');
-      currentGrade = chip.dataset.grade;
-      var q = document.getElementById('searchInput').value.trim();
-      if (q) doSearch();
-    });
-
-    // ── 回车搜索 + / 快捷键 ──
-    document.getElementById('searchInput').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { doSearch(); }
-      if (e.key === 'Escape') { this.value = ''; this.focus(); }
-    });
-    // 全局 / 快捷键聚焦搜索框
-    document.addEventListener('keydown', function(e) {
-      if (e.key === '/' && document.activeElement !== document.getElementById('searchInput') &&
-          e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        document.getElementById('searchInput').focus();
-      }
-    });
-
-    // ── 快速搜索按钮 ──
-    document.querySelector('.quick-link-grid').addEventListener('click', function(e) {
-      var btn = e.target.closest('.quick-link');
-      if (!btn || !btn.dataset.keyword) return;
-      document.getElementById('searchInput').value = btn.dataset.keyword;
-      doSearch();
-    });
-
-    // ── 搜索按钮 ──
-    document.getElementById('searchBtn').addEventListener('click', function() { doSearch(); });
 
     function getTypeLabel(type) {
       var labels = {
-        grammar: '📚 语法知识',
-        vocabulary: '📝 词语学习',
-        literary: '📖 文学常识',
-        mistake: '⚠️ 常见错误',
-        essay: '🏆 作文方法',
-        exercise: '✏️ 练习题库'
+        grammar: '语法知识',
+        vocabulary: '词语学习',
+        literary: '文学常识',
+        mistake: '常见错误',
+        essay: '作文方法',
+        exercise: '练习题库'
       };
       return labels[type] || type;
     }
@@ -503,130 +577,79 @@
       var summaryText = item.summary || item.content || item.title || '';
       summaryText = String(summaryText)
         .replace(/\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ' ')
-        .replace(/[{}\[\]\"]/g, ' ')
+        .replace(/[{}\[\]"]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
-
       if (!summaryText || summaryText === item.title) {
         summaryText = String(item.content || item.title || '')
           .replace(/\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ' ')
-          .replace(/[{}\[\]\"]/g, ' ')
+          .replace(/[{}\[\]"]/g, ' ')
           .replace(/\s+/g, ' ')
           .trim();
       }
-
-      if (!summaryText) summaryText = String(item.title || '');
-      return summaryText.substring(0, 150);
+      return (summaryText || String(item.title || '')).substring(0, 150);
     }
 
-    // ── 无结果推荐 ──
+    function withSearchParam(url, keyword) {
+      if (!keyword) return url;
+      var parts = url.split('#');
+      var base = parts[0];
+      var hash = parts[1] ? '#' + parts[1] : '';
+      var joiner = base.indexOf('?') >= 0 ? '&' : '?';
+      return base + joiner + 'q=' + encodeURIComponent(keyword) + hash;
+    }
+
+    function getResultHref(item, keyword) {
+      var source = item.source || '';
+      var typePageMap = {
+        grammar: 'grammar.html',
+        vocabulary: 'vocabulary.html',
+        literary: 'literary.html#data-library',
+        mistake: 'practice.html#diagnosis',
+        essay: 'composition.html',
+        exercise: 'practice.html'
+      };
+
+      if (item.type === 'literary') {
+        var category = item.category || '';
+        if (category.indexOf('必背古诗词') >= 0) return withSearchParam('literary.html#must-know', keyword);
+        if (category.indexOf('必读名著') >= 0 || item.title === '四大名著') return withSearchParam('literary.html#must-know', keyword);
+        if (category.indexOf('典故') >= 0) return withSearchParam('literary.html#memory-frames', keyword);
+        if (category.indexOf('体裁') >= 0) return withSearchParam('literary.html#genre-table', keyword);
+        if (category.indexOf('中国古代文学') >= 0 || category.indexOf('中国现当代文学') >= 0 || category.indexOf('外国文学') >= 0) {
+          return withSearchParam('literary.html#timeline', keyword);
+        }
+        return withSearchParam('literary.html#data-library', keyword);
+      }
+
+      if (source === 'literary-knowledge.json') return withSearchParam('literary.html#data-library', keyword);
+      if (source === 'grammar.json') return 'grammar.html';
+      if (source === 'vocabulary.json') return 'vocabulary.html';
+      if (source === 'common-mistakes.json') return 'practice.html#diagnosis';
+      if (source === 'model-essays.json') return 'composition.html';
+      if (source === 'exercises.json') return 'practice.html';
+      return typePageMap[item.type] || 'knowledge-map.html';
+    }
+
     function getSuggestions(keyword) {
       var suggestions = [];
-      // 1. 从 RELATED_TERMS 找关联词
       var related = RELATED_TERMS[keyword];
       if (related) {
-        related.forEach(function(r) { suggestions.push(r); });
+        related.forEach(function (item) {
+          suggestions.push(item);
+        });
       }
-      // 2. 部分匹配的快捷搜索词
-      ALL_QUICK_TERMS.forEach(function(term) {
+      ALL_QUICK_TERMS.forEach(function (term) {
         if (term !== keyword && term.indexOf(keyword) >= 0 && suggestions.indexOf(term) < 0) {
           suggestions.push(term);
         }
       });
-      // 3. 补充默认热词
       if (suggestions.length < 3) {
-        ['修辞手法', '修改病句', '成语故事', '古诗', '阅读理解'].forEach(function(t) {
-          if (suggestions.indexOf(t) < 0 && t !== keyword) suggestions.push(t);
+        ['修辞手法', '修改病句', '成语故事', '古诗', '阅读理解'].forEach(function (term) {
+          if (term !== keyword && suggestions.indexOf(term) < 0) suggestions.push(term);
         });
       }
       return suggestions.slice(0, 6);
-    }
-
-    // ── 主搜索函数 ──
-    function doSearch() {
-      var keyword = document.getElementById('searchInput').value.trim();
-      if (!keyword) return;
-      
-      var resultsEl = document.getElementById('results');
-      resultsEl.innerHTML = '<div class="loading-spinner">⏳ 正在搜索六大资料库...</div>';
-
-      var searchBtn = document.getElementById('searchBtn');
-      searchBtn.disabled = true;
-      searchBtn.textContent = '搜索中...';
-
-      var options = {
-        type: currentFilter === 'all' ? null : currentFilter,
-        grade: currentGrade
-      };
-
-      DataLib.searchIndex(keyword, options).then(function(allResults) {
-        searchBtn.disabled = false;
-        searchBtn.textContent = '搜索';
-
-        // 保存到最近搜索
-        saveRecentSearch(keyword);
-
-        if (!allResults || allResults.length === 0) {
-          var suggestions = getSuggestions(keyword);
-          var suggestHtml = '';
-          if (suggestions.length > 0) {
-            suggestHtml = '<div class="suggested-search"><p>试试这些相关内容：</p>';
-            suggestions.forEach(function(s) {
-              suggestHtml += '<span class="suggested-tag" data-kw="' + escapeHTML(s) + '">' + escapeHTML(s) + '</span>';
-            });
-            suggestHtml += '</div>';
-          }
-          resultsEl.innerHTML = '<div class="result-empty"><div class="icon">🔍</div><p>没有找到「' + escapeHTML(keyword) + '」相关的内容</p><p style="font-size:12px;color:#bbb;">试试调整年级筛选或换个关键词？</p>' + suggestHtml + '</div>';
-
-          // 绑定推荐词点击
-          setTimeout(function() {
-            document.querySelectorAll('.suggested-tag').forEach(function(tag) {
-              tag.addEventListener('click', function() {
-                document.getElementById('searchInput').value = tag.dataset.kw;
-                doSearch();
-              });
-            });
-          }, 50);
-          return;
-        }
-
-        // 按资料类型分组
-        var grouped = {};
-
-        allResults.forEach(function(r) {
-          if (!grouped[r.type]) grouped[r.type] = [];
-          grouped[r.type].push(r);
-        });
-
-        var gradeLabel = currentGrade === 'all' ? '' : ' · ' + currentGrade + '年级';
-        var html = '<p style="color:#888;font-size:13px;text-align:center;margin-bottom:16px;">找到 <strong>' + allResults.length + '</strong> 条与「<strong>' + escapeHTML(keyword) + '</strong>」相关的结果' + gradeLabel + '</p>';
-
-        Object.keys(grouped).forEach(function(type) {
-          var items = grouped[type];
-          html += '<div class="result-db-label">' + getTypeLabel(type) + '<span class="result-count">' + items.length + '条</span></div>';
-          
-          items.slice(0, 20).forEach(function(item) {
-            var summaryText = getSummaryText(item);
-            var metaParts = [getItemGradeLabel(item), item.category, getDifficultyLabel(item.difficulty)].filter(Boolean);
-            html += '<div class="result-item">' +
-              '<div><strong>' + highlightText(item.title, keyword) + '</strong></div>' +
-              '<div>' + highlightText(summaryText, keyword) + '</div>' +
-              '<div class="result-path">' + escapeHTML(metaParts.join(' · ')) + ' · ' + escapeHTML(item.source || '') + '</div>' +
-            '</div>';
-          });
-
-          if (items.length > 20) {
-            html += '<p style="color:#999;font-size:12px;text-align:center;">... 还有 ' + (items.length - 20) + ' 条结果</p>';
-          }
-        });
-
-        resultsEl.innerHTML = html;
-      }).catch(function(err) {
-        searchBtn.disabled = false;
-        searchBtn.textContent = '搜索';
-        resultsEl.innerHTML = '<div class="result-empty"><div class="icon">⚠️</div><p>搜索出错，请稍后再试</p></div>';
-        console.error(err);
-      });
     }
 
     function highlightText(text, keyword) {
@@ -635,11 +658,165 @@
       return escaped.replace(new RegExp('(' + safeKeyword + ')', 'gi'), '<mark>$1</mark>');
     }
 
-    // 初始化最近搜索
+    function doSearch() {
+      var keyword = document.getElementById('searchInput').value.trim();
+      if (!keyword) return;
+
+      var resultsEl = document.getElementById('results');
+      var searchBtn = document.getElementById('searchBtn');
+      var options = {
+        type: currentFilter === 'all' ? null : currentFilter,
+        grade: currentGrade
+      };
+
+      resultsEl.innerHTML = '<div class="loading-spinner">正在搜索六大资料库...</div>';
+      searchBtn.disabled = true;
+      searchBtn.textContent = '搜索中...';
+
+      searchIndexInternal(keyword, options).then(function (allResults) {
+        searchBtn.disabled = false;
+        searchBtn.textContent = '搜索';
+        saveRecentSearch(keyword);
+
+        if (!allResults || allResults.length === 0) {
+          var suggestions = getSuggestions(keyword);
+          var suggestHtml = '';
+          if (suggestions.length > 0) {
+            suggestHtml = '<div class="suggested-search"><p>试试这些相关内容：</p>' +
+              suggestions.map(function (item) {
+                return '<span class="suggested-tag" data-kw="' + escapeHTML(item) + '">' + escapeHTML(item) + '</span>';
+              }).join('') +
+              '</div>';
+          }
+          resultsEl.innerHTML = '<div class="result-empty"><div class="icon">🔍</div><p>没有找到「' + escapeHTML(keyword) + '」相关内容</p><p style="font-size:12px;color:#bbb;">试试调整年级筛选或换一个关键词。</p>' + suggestHtml + '</div>';
+          document.querySelectorAll('.suggested-tag').forEach(function (tag) {
+            tag.addEventListener('click', function () {
+              document.getElementById('searchInput').value = tag.dataset.kw;
+              doSearch();
+            });
+          });
+          return;
+        }
+
+        var grouped = {};
+        allResults.forEach(function (item) {
+          if (!grouped[item.type]) grouped[item.type] = [];
+          grouped[item.type].push(item);
+        });
+
+        var gradeLabel = currentGrade === 'all' ? '' : ' · ' + currentGrade + '年级';
+        var html = '<p style="color:#888;font-size:13px;text-align:center;margin-bottom:16px;">找到 <strong>' + allResults.length + '</strong> 条与「<strong>' + escapeHTML(keyword) + '</strong>」相关的结果' + gradeLabel + '</p>';
+
+        Object.keys(grouped).forEach(function (type) {
+          var items = grouped[type];
+          html += '<div class="result-db-label">' + getTypeLabel(type) + '<span class="result-count">' + items.length + '条</span></div>';
+          items.slice(0, 20).forEach(function (item) {
+            var summaryText = getSummaryText(item);
+            var metaParts = [getItemGradeLabel(item), item.category, getDifficultyLabel(item.difficulty)].filter(Boolean);
+            var href = getResultHref(item, keyword);
+            html += '<a class="result-item" href="' + escapeHTML(href) + '">' +
+              '<div><strong>' + highlightText(item.title, keyword) + '</strong></div>' +
+              '<div>' + highlightText(summaryText, keyword) + '</div>' +
+              '<div class="result-path">' + escapeHTML(metaParts.join(' · ')) + ' · ' + escapeHTML(item.source || '') + '</div>' +
+              '</a>';
+          });
+          if (items.length > 20) {
+            html += '<p style="color:#999;font-size:12px;text-align:center;">还有 ' + (items.length - 20) + ' 条结果未展开</p>';
+          }
+        });
+
+        resultsEl.innerHTML = html;
+      }).catch(function (err) {
+        searchBtn.disabled = false;
+        searchBtn.textContent = '搜索';
+        resultsEl.innerHTML = '<div class="result-empty"><div class="icon">⚠️</div><p>搜索出错，请稍后再试</p></div>';
+        console.error(err);
+      });
+    }
+
+    document.getElementById('recentTags').addEventListener('click', function (event) {
+      var tag = event.target.closest('.recent-tag');
+      if (!tag || !tag.dataset.kw) return;
+      document.getElementById('searchInput').value = tag.dataset.kw;
+      doSearch();
+    });
+
+    document.getElementById('clearRecent').addEventListener('click', function () {
+      localStorage.removeItem(RECENT_KEY);
+      renderRecentSearches();
+    });
+
+    document.getElementById('filterBar').addEventListener('click', function (event) {
+      var chip = event.target.closest('.filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.filter-chip').forEach(function (item) {
+        item.classList.remove('active');
+      });
+      chip.classList.add('active');
+      currentFilter = chip.dataset.type;
+      if (document.getElementById('searchInput').value.trim()) doSearch();
+    });
+
+    document.getElementById('gradeFilterBar').addEventListener('click', function (event) {
+      var chip = event.target.closest('.grade-filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.grade-filter-chip').forEach(function (item) {
+        item.classList.remove('active');
+      });
+      chip.classList.add('active');
+      currentGrade = chip.dataset.grade;
+      if (document.getElementById('searchInput').value.trim()) doSearch();
+    });
+
+    document.getElementById('searchInput').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') doSearch();
+      if (event.key === 'Escape') {
+        this.value = '';
+        this.focus();
+      }
+    });
+
+    document.getElementById('searchInput').addEventListener('focus', warmSearchIndex, { once: true });
+
+    document.addEventListener('keydown', function (event) {
+      if (
+        event.key === '/' &&
+        document.activeElement !== document.getElementById('searchInput') &&
+        event.target.tagName !== 'INPUT' &&
+        event.target.tagName !== 'TEXTAREA'
+      ) {
+        event.preventDefault();
+        document.getElementById('searchInput').focus();
+      }
+    });
+
+    document.querySelector('.quick-link-grid').addEventListener('click', function (event) {
+      var btn = event.target.closest('.quick-link');
+      if (!btn || !btn.dataset.keyword) return;
+      document.getElementById('searchInput').value = btn.dataset.keyword;
+      doSearch();
+    });
+
+    document.querySelectorAll('.quick-link-pack').forEach(function (pack) {
+      pack.addEventListener('click', function (event) {
+        var btn = event.target.closest('.pack-chip');
+        if (!btn || !btn.dataset.keyword) return;
+        document.getElementById('searchInput').value = btn.dataset.keyword;
+        doSearch();
+      });
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', doSearch);
+
     renderRecentSearches();
+
+    var initialQuery = getQueryParam('q').trim();
+    if (initialQuery) {
+      document.getElementById('searchInput').value = initialQuery;
+      doSearch();
+    }
   </script>
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
 </body>
 </html>

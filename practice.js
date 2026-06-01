@@ -14,1522 +14,7 @@ function safeSet(key, value) {
 }
 
 // 练习数据
-const transformData = [
-  // 被字句转换
-  {
-    type: '被字句',
-    sentence: '小明打死了蚊子。',
-    options: ['蚊子被小明打死了。', '蚊子打了小明。', '小明被蚊子打死了。', '蚊子是小明打死的。'],
-    answer: 0,
-    level: 'easy',
-    explanation: '把字句改被字句的方法是：将动作的承受者（蚊子）放到前面，加上"被"字，再加上动作的发出者（小明）。',
-    mistakeReason: '容易把施动者和受动者弄反。被字句的结构是"受动者+被+施动者+动作"。'
-  },
-  {
-    type: '被字句',
-    sentence: '小红写完了作业。',
-    options: ['作业被小红写完了。', '小红被作业写完了。', '作业写完了小红。', '写完了小红的作业。'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    type: '被字句',
-    sentence: '爸爸修好了自行车。',
-    options: ['自行车被爸爸修好了。', '爸爸被自行车修好了。', '修好了爸爸的自行车。', '自行车修好了爸爸。'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    type: '被字句',
-    sentence: '老师表扬了小明。',
-    options: ['小明被老师表扬了。', '老师被小明表扬了。', '表扬了老师的小明。', '小明表扬了老师。'],
-    answer: 0,
-    level: 'easy'
-  },
-  // 把字句转换
-  {
-    type: '把字句',
-    sentence: '妈妈洗好了衣服。',
-    options: ['衣服被妈妈洗好了。', '妈妈把衣服洗好了。', '衣服洗好了妈妈。', '洗好了妈妈的衣服。'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    type: '把字句',
-    sentence: '弟弟吃完了蛋糕。',
-    options: ['蛋糕被弟弟吃完了。', '弟弟把蛋糕吃完了。', '蛋糕吃完了弟弟。', '吃完了弟弟的蛋糕。'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    type: '把字句',
-    sentence: '妹妹画好了图画。',
-    options: ['图画被妹妹画好了。', '妹妹把图画画好了。', '图画画好了妹妹。', '画好了妹妹的图画。'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    type: '把字句',
-    sentence: '哥哥整理好了书包。',
-    options: ['书包被哥哥整理好了。', '哥哥把书包整理好了。', '书包整理好了哥哥。', '整理好了哥哥的书包。'],
-    answer: 1,
-    level: 'easy'
-  },
-  // 反问句转换
-  {
-    type: '反问句',
-    sentence: '我们不应该珍惜时间。',
-    options: ['我们怎么不珍惜时间呢？', '我们难道应该浪费时间吗？', '我们难道不应该珍惜时间吗？', '我们珍惜时间。'],
-    answer: 2,
-    level: 'medium'
-  },
-  {
-    type: '反问句',
-    sentence: '这是一本好书。',
-    options: ['这不是一本好书吗？', '这难道是一本好书吗？', '这难道不是一本好书吗？', '这真是一本好书。'],
-    answer: 2,
-    level: 'medium'
-  },
-  {
-    type: '反问句',
-    sentence: '他是一个勇敢的人。',
-    options: ['他不是一个勇敢的人吗？', '他难道是一个勇敢的人吗？', '他难道不是一个勇敢的人吗？', '他真是勇敢。'],
-    answer: 2,
-    level: 'medium'
-  },
-  {
-    type: '反问句',
-    sentence: '我们应该帮助同学。',
-    options: ['我们怎么不帮助同学呢？', '我们难道应该帮助同学吗？', '我们难道不应该帮助同学吗？', '我们要帮助同学。'],
-    answer: 2,
-    level: 'medium'
-  },
-  // 陈述句转换
-  {
-    type: '陈述句',
-    sentence: '这个问题难道很难吗？',
-    options: ['这个问题不难。', '这个问题很难。', '这个问题很简单。', '这个问题不是很难。'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '陈述句',
-    sentence: '你难道不开心吗？',
-    options: ['你很开心。', '你不开心。', '你难道开心吗？', '你是不是开心？'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '陈述句',
-    sentence: '他难道不是好学生吗？',
-    options: ['他是好学生。', '他不是好学生。', '他难道是好学生吗？', '他是个学生。'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '陈述句',
-    sentence: '这难道不是美丽的风景吗？',
-    options: ['这是美丽的风景。', '这不是美丽的风景。', '这难道是美丽的风景吗？', '这风景很美。'],
-    answer: 0,
-    level: 'medium'
-  },
-  // 扩句练习
-  {
-    type: '扩句',
-    sentence: '小鸟飞。',
-    options: ['小鸟在天上飞。', '可爱的小鸟在天上飞。', '可爱的小鸟在蓝天上自由地飞。', '小鸟飞得很高。'],
-    answer: 2,
-    level: 'hard'
-  },
-  {
-    type: '扩句',
-    sentence: '小猫吃鱼。',
-    options: ['小猫在吃鱼。', '可爱的小猫在吃鱼。', '可爱的小猫在桌子旁津津有味地吃鱼。', '小猫吃得很香。'],
-    answer: 2,
-    level: 'hard'
-  },
-  {
-    type: '扩句',
-    sentence: '太阳升起。',
-    options: ['太阳从东方升起。', '红红的太阳从东方升起。', '红红的太阳从东方慢慢升起。', '太阳升得很高。'],
-    answer: 2,
-    level: 'hard'
-  },
-  {
-    type: '扩句',
-    sentence: '花儿开放。',
-    options: ['花儿在春天开放。', '美丽的花儿在春天开放。', '美丽的花儿在春天竞相开放。', '花儿开得很美。'],
-    answer: 2,
-    level: 'hard'
-  },
-  // 缩句练习
-  {
-    type: '缩句',
-    sentence: '可爱的小鸟在蓝天上自由地飞。',
-    options: ['小鸟飞。', '可爱的小鸟飞。', '小鸟在天上飞。', '小鸟自由地飞。'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    type: '缩句',
-    sentence: '妈妈在厨房里认真地做饭。',
-    options: ['妈妈做饭。', '妈妈在做饭。', '妈妈认真地做饭。', '妈妈在厨房做饭。'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    type: '缩句',
-    sentence: '小明在教室里认真地写作业。',
-    options: ['小明写作业。', '小明在写作业。', '小明认真地写作业。', '小明在教室写作业。'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    type: '缩句',
-    sentence: '红红的太阳从东方慢慢升起。',
-    options: ['太阳升起。', '太阳从东方升起。', '红红的太阳升起。', '太阳慢慢升起。'],
-    answer: 0,
-    level: 'hard'
-  },
-  // 更多被字句
-  {
-    type: '被字句',
-    sentence: '大风刮倒了大树。',
-    options: ['大树被大风刮倒了。', '大风被大树刮倒了。', '刮倒了大风的大树。', '大树刮倒了大风。'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    type: '被字句',
-    sentence: '雨水打湿了衣服。',
-    options: ['衣服被雨水打湿了。', '雨水被衣服打湿了。', '打湿了雨水的衣服。', '衣服打湿了雨水。'],
-    answer: 0,
-    level: 'easy'
-  },
-  // 更多把字句
-  {
-    type: '把字句',
-    sentence: '小明收拾好了房间。',
-    options: ['房间被小明收拾好了。', '小明把房间收拾好了。', '房间收拾好了小明。', '收拾好了小明的房间。'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    type: '把字句',
-    sentence: '妹妹打扫干净了院子。',
-    options: ['院子被妹妹打扫干净了。', '妹妹把院子打扫干净了。', '院子打扫干净了妹妹。', '打扫干净了妹妹的院子。'],
-    answer: 1,
-    level: 'easy'
-  },
-  // 更多反问句
-  {
-    type: '反问句',
-    sentence: '我们应该好好学习。',
-    options: ['我们怎么不好好学习呢？', '我们难道应该好好学习吗？', '我们难道不应该好好学习吗？', '我们要好好学习。'],
-    answer: 2,
-    level: 'medium'
-  },
-  {
-    type: '反问句',
-    sentence: '这是正确的答案。',
-    options: ['这不是正确的答案吗？', '这难道是正确的答案吗？', '这难道不是正确的答案吗？', '这答案是正确的。'],
-    answer: 2,
-    level: 'medium'
-  },
-  // 更多陈述句
-  {
-    type: '陈述句',
-    sentence: '他难道不喜欢读书吗？',
-    options: ['他喜欢读书。', '他不喜欢读书。', '他难道喜欢读书吗？', '他是不是喜欢读书？'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '陈述句',
-    sentence: '这难道不是有趣的故事吗？',
-    options: ['这是有趣的故事。', '这不是有趣的故事。', '这难道是有趣的故事吗？', '这故事很有趣。'],
-    answer: 0,
-    level: 'medium'
-  },
-  // 更多句式练习 —— 双重否定句
-  {
-    type: '双重否定句',
-    sentence: '我们不得不努力学习。',
-    options: ['我们必须努力学习。', '我们可以努力学习。', '我们不用努力学习。', '我们努力学习不行。'],
-    answer: 0,
-    level: 'hard',
-    explanation: '双重否定句用两个否定词表达肯定的意思，"不得不"就是"一定要"'
-  },
-  {
-    type: '双重否定句',
-    sentence: '这件事没有人不知道。',
-    options: ['这件事人人都知道。', '这件事没人知道。', '这件事大家知道吗？', '这件事大家都知道吧。'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    type: '双重否定句',
-    sentence: '没有一个同学不喜欢王老师。',
-    options: ['所有同学都喜欢王老师。', '有些同学喜欢王老师。', '同学们不喜欢王老师。', '王老师不喜欢同学们。'],
-    answer: 0,
-    level: 'hard'
-  },
-  // 关联词造句
-  {
-    type: '关联词',
-    sentence: '用"因为……所以……"造句（下雨 / 没去公园）',
-    options: ['因为下雨，所以没去公园。', '下雨了，没去公园。', '虽然下雨，但没去公园。', '下雨没去公园。'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '关联词',
-    sentence: '用"虽然……但是……"造句（题目难 / 做出来了）',
-    options: ['虽然题目难，但是做出来了。', '因为题目难，所以做出来了。', '题目难，做出来了。', '如果题目难，就做出来了。'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '关联词',
-    sentence: '用"如果……就……"造句（明天晴天 / 去爬山）',
-    options: ['如果明天晴天，就去爬山。', '因为明天晴天，所以去爬山。', '明天晴天去爬山。', '虽然明天晴天，但去爬山。'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    type: '关联词',
-    sentence: '用"不仅……而且……"造句（学习好 / 乐于助人）',
-    options: ['他不仅学习好，而且乐于助人。', '他因为学习好，所以乐于助人。', '他虽然学习好，但乐于助人。', '他学习好乐于助人。'],
-    answer: 0,
-    level: 'medium'
-  },
-  // 更多扩句
-  {
-    type: '扩句',
-    sentence: '风吹过。',
-    options: ['温暖的风吹过。', '温暖的风轻轻吹过。', '温暖的风轻轻吹过金色的稻田。', '风吹过去了。'],
-    answer: 2,
-    level: 'hard'
-  },
-  {
-    type: '扩句',
-    sentence: '小鱼游。',
-    options: ['小鱼在水里游。', '小鱼在水里快活地游。', '小鱼在水里快活地游来游去。', '小鱼游走了。'],
-    answer: 2,
-    level: 'hard'
-  },
-  // 更多缩句
-  {
-    type: '缩句',
-    sentence: '美丽的蝴蝶在花丛中快乐地飞舞。',
-    options: ['蝴蝶飞舞。', '蝴蝶在花丛飞舞。', '美丽的蝴蝶飞舞。', '蝴蝶快乐地飞舞。'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    type: '缩句',
-    sentence: '我的好朋友小明在教室里大声朗读课文。',
-    options: ['小明朗读课文。', '小明在教室朗读。', '朋友朗读课文。', '我在教室朗读。'],
-    answer: 0,
-    level: 'hard'
-  },
-  // 仿写句子
-  {
-    type: '仿写',
-    sentence: '仿写：云朵像棉花糖，软软的，白白的。\n仿写"雪花像___"',
-    options: ['雪花像羽毛，轻轻的，白白的。', '云朵像棉花糖，软软的，白白的。', '雪花很白很轻。', '雪花飘下来。'],
-    answer: 0,
-    level: 'hard',
-    explanation: '仿写要注意结构和修辞一致：像什么 + 两个重叠词描述特征'
-  },
-  {
-    type: '仿写',
-    sentence: '仿写：春天是花儿绽放的季节，是万物复苏的季节。\n仿写"秋天是___"',
-    options: ['秋天是果实累累的季节，是充满丰收喜悦的季节。', '秋天有很多果实。', '秋天让人感到开心。', '秋天来了，树叶落了。'],
-    answer: 0,
-    level: 'hard'
-  }
-];
 
-const rhetoricData = [
-  // 基础题：判断修辞 - 比喻
-  {
-    type: 'identify',
-    sentence: '弯弯的月亮像小船。',
-    answer: '比喻',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把月亮比作小船，用了"像"这个比喻词'
-  },
-  {
-    type: 'identify',
-    sentence: '太阳像一个大火球。',
-    answer: '比喻',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把太阳比作大火球，形象地写出了太阳的炎热'
-  },
-  {
-    type: 'identify',
-    sentence: '大象的耳朵像扇子。',
-    answer: '比喻',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把大象的耳朵比作扇子，突出了耳朵大的特点'
-  },
-  {
-    type: 'identify',
-    sentence: '平静的湖面像一面镜子。',
-    answer: '比喻',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把湖面比作镜子，写出了湖水的平静'
-  },
-  // 基础题：判断修辞 - 拟人
-  {
-    type: 'identify',
-    sentence: '花儿笑弯了腰。',
-    answer: '拟人',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把花儿当作人来写，赋予它"笑"的动作'
-  },
-  {
-    type: 'identify',
-    sentence: '小鸟在树上唱歌。',
-    answer: '拟人',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把小鸟当作人来写，让小鸟有了唱歌的能力'
-  },
-  {
-    type: 'identify',
-    sentence: '风儿轻轻地抚摸着我的脸。',
-    answer: '拟人',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把风当作人来写，赋予它"抚摸"的动作'
-  },
-  {
-    type: 'identify',
-    sentence: '小草从土里探出头来。',
-    answer: '拟人',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '把小草当作人来写，"探出头"是人的动作'
-  },
-  // 基础题：判断修辞 - 排比
-  {
-    type: 'identify',
-    sentence: '书是钥匙，书是明灯，书是朋友。',
-    answer: '排比',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '用了三个结构相似的句子，增强了表达效果'
-  },
-  {
-    type: 'identify',
-    sentence: '下课了，同学们有的跳绳，有的打球，有的看书。',
-    answer: '排比',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '用了"有的...有的...有的..."的排比句式'
-  },
-  {
-    type: 'identify',
-    sentence: '春天来了，草绿了，花开了，小鸟歌唱了。',
-    answer: '排比',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '用了三个结构相似的短句，描绘春天的景象'
-  },
-  {
-    type: 'identify',
-    sentence: '我们要爱学习，爱劳动，爱祖国。',
-    answer: '排比',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '用了三个"爱..."的排比句式'
-  },
-  // 基础题：判断修辞 - 夸张
-  {
-    type: 'identify',
-    sentence: '他高得能摸到天。',
-    answer: '夸张',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '故意夸大了他的身高，突出他很高'
-  },
-  {
-    type: 'identify',
-    sentence: '教室里静得连根针掉下来都能听见。',
-    answer: '夸张',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '故意夸大了安静的程度，突出教室很静'
-  },
-  {
-    type: 'identify',
-    sentence: '他饿得能吃下一头牛。',
-    answer: '夸张',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '故意夸大了饥饿的程度，突出他很饿'
-  },
-  {
-    type: 'identify',
-    sentence: '飞流直下三千尺。',
-    answer: '夸张',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'easy',
-    tip: '用夸张手法写出了瀑布很高'
-  },
-  // 提优题：说明好处
-  {
-    type: 'explain',
-    sentence: '小鸟在树上唱歌。',
-    answer: '拟人',
-    options: ['让句子更生动有趣', '让句子更长', '让句子更难', '没有好处'],
-    level: 'medium',
-    tip: '把小鸟当作人来写，让读者感觉小鸟像人一样有感情'
-  },
-  {
-    type: 'explain',
-    sentence: '教室里静得连根针掉下来都能听见。',
-    answer: '夸张',
-    options: ['突出教室很安静', '说明教室很小', '说明针很响', '没有好处'],
-    level: 'medium',
-    tip: '用夸张的手法，让读者更能感受到教室的安静'
-  },
-  {
-    type: 'explain',
-    sentence: '弯弯的月亮像小船。',
-    answer: '比喻',
-    options: ['让月亮的形状更形象', '让句子更难理解', '没有好处', '让句子变短'],
-    level: 'medium',
-    tip: '用比喻让抽象的月亮形状变得具体可感'
-  },
-  {
-    type: 'explain',
-    sentence: '书是钥匙，书是明灯，书是朋友。',
-    answer: '排比',
-    options: ['增强表达气势', '让句子更短', '让句子更简单', '没有好处'],
-    level: 'medium',
-    tip: '排比句式能增强语势，表达更有力量'
-  },
-  // 拔高题：仿写和改写
-  {
-    type: 'rewrite',
-    sentence: '太阳升起来了。',
-    answer: '拟人',
-    options: ['太阳公公慢慢爬上了天空', '太阳很大', '太阳是圆的', '太阳很热'],
-    level: 'hard',
-    tip: '把太阳当作人来写，让句子更生动'
-  },
-  {
-    type: 'rewrite',
-    sentence: '树叶落下来。',
-    answer: '比喻',
-    options: ['树叶像蝴蝶一样飘落下来', '树叶很多', '树叶是绿色的', '树叶从树上掉下来'],
-    level: 'hard',
-    tip: '把树叶比作蝴蝶，让画面感更强'
-  },
-  {
-    type: 'rewrite',
-    sentence: '小草生长。',
-    answer: '拟人',
-    options: ['小草从土里探出头来', '小草是绿色的', '小草很多', '小草长高了'],
-    level: 'hard',
-    tip: '把小草当作人来写，用"探出头"更生动'
-  },
-  {
-    type: 'rewrite',
-    sentence: '雨下得很大。',
-    answer: '夸张',
-    options: ['雨下得像瓢泼一样', '雨是水做的', '雨从天上落下来', '下雨了'],
-    level: 'hard',
-    tip: '用夸张手法突出雨大的特点'
-  },
-  {
-    type: 'rewrite',
-    sentence: '同学们很开心。',
-    answer: '排比',
-    options: ['同学们有的笑，有的跳，有的拍手', '同学们很高兴', '同学们在玩耍', '同学们很多'],
-    level: 'hard',
-    tip: '用排比句式能更生动地表现开心的样子'
-  },
-  // 更多拔高题
-  {
-    type: 'identify',
-    sentence: '小溪唱着歌向前流去。',
-    answer: '拟人',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'medium',
-    tip: '把小溪当作人来写，赋予它"唱歌"的能力'
-  },
-  {
-    type: 'identify',
-    sentence: '圆圆的苹果像红灯笼。',
-    answer: '比喻',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'medium',
-    tip: '把苹果比作红灯笼，写出了苹果又圆又红的特点'
-  },
-  {
-    type: 'identify',
-    sentence: '他跑得像飞一样快。',
-    answer: '夸张',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'medium',
-    tip: '用夸张手法突出他跑得快'
-  },
-  {
-    type: 'identify',
-    sentence: '我爱妈妈，我爱爸爸，我爱我的家。',
-    answer: '排比',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    level: 'medium',
-    tip: '用排比句式表达对家人的爱'
-  },
-  {
-    type: 'rewrite',
-    sentence: '雪花飘落。',
-    answer: '比喻',
-    options: ['雪花像棉花糖一样飘落', '雪花是白色的', '雪花从天上落下', '下雪了'],
-    level: 'hard',
-    tip: '把雪花比作棉花糖，突出雪花的轻盈洁白'
-  },
-  {
-    type: 'rewrite',
-    sentence: '星星很亮。',
-    answer: '比喻',
-    options: ['星星像钻石一样闪亮', '星星很多', '星星在天上', '星星会发光'],
-    level: 'hard',
-    tip: '把星星比作钻石，突出星星的闪亮'
-  },
-  // ===== 更多修辞题（设问/反问/对比/反复/对偶/引用） =====
-  {
-    type: 'identify',
-    sentence: '什么是幸福？幸福就是一家人在一起。',
-    answer: '设问',
-    options: ['设问', '反问', '比喻', '拟人'],
-    level: 'medium',
-    tip: '自问自答，是为了引起读者的注意和思考'
-  },
-  {
-    type: 'identify',
-    sentence: '你难道不知道要节约用水吗？',
-    answer: '反问',
-    options: ['反问', '设问', '疑问', '夸张'],
-    level: 'medium',
-    tip: '用疑问句表达确定的意思，加强表达效果'
-  },
-  {
-    type: 'identify',
-    sentence: '有的人健壮如牛，有的人瘦弱如柴。',
-    answer: '对比',
-    options: ['对比', '比喻', '排比', '夸张'],
-    level: 'medium',
-    tip: '把完全不同的两个事物放在一起比较，突出差异'
-  },
-  {
-    type: 'identify',
-    sentence: '盼望着，盼望着，春天终于来了。',
-    answer: '反复',
-    options: ['反复', '排比', '比喻', '夸张'],
-    level: 'medium',
-    tip: '有意重复"盼望着"，强调了对春天的期待之情'
-  },
-  {
-    type: 'identify',
-    sentence: '日出江花红胜火，春来江水绿如蓝。',
-    answer: '对偶',
-    options: ['对偶', '排比', '比喻', '拟人'],
-    level: 'hard',
-    tip: '上下两句字数相等、结构相同，节奏感强'
-  },
-  {
-    type: 'identify',
-    sentence: '正如高尔基所说："书籍是人类进步的阶梯。"',
-    answer: '引用',
-    options: ['引用', '比喻', '拟人', '夸张'],
-    level: 'medium',
-    tip: '引用名人的话，增强说服力'
-  },
-  {
-    type: 'explain',
-    sentence: '你难道不应该好好反思自己的行为吗？',
-    answer: '反问',
-    options: ['用反问加强语气，更强调"应该反思"', '这是一个普通的问题', '这是设问，自问自答', '没有用修辞'],
-    level: 'hard',
-    tip: '反问句的回答已在问题中，用强烈语气表达确定的意思'
-  },
-  {
-    type: 'explain',
-    sentence: '光说有什么用？重要的是去做。',
-    answer: '设问',
-    options: ['用设问引起读者思考光说不做的区别', '用反问表达确定的意思', '用比喻说明道理', '没有修辞手法'],
-    level: 'hard',
-    tip: '设问是自问自答，先抛出问题，再给出答案'
-  },
-  {
-    type: 'rewrite',
-    sentence: '他一点也不怕困难。',
-    answer: '反问',
-    options: ['他难道怕困难吗？', '他怎么会怕困难呢？', '他怕困难。', '困难没什么好怕的。'],
-    level: 'hard',
-    tip: '用反问表达"不怕"，语气更强烈'
-  },
-  {
-    type: 'rewrite',
-    sentence: '妈妈很关心我。',
-    answer: '设问',
-    options: ['谁最关心我？当然是妈妈。', '妈妈难道不关心我吗？', '妈妈最关心我。', '我很关心妈妈。'],
-    level: 'hard',
-    tip: '设问先问后答，突出"妈妈"这个答案'
-  }
-];
-
-const poemData = [
-  {
-    title: '静夜思',
-    author: '李白',
-    text: '床前明月光，疑是地上霜。举头望明月，_____。',
-    answers: ['低头思故乡'],
-    tips: '提示：这首诗描写了诗人思念故乡的情感'
-  },
-  {
-    title: '春晓',
-    author: '孟浩然',
-    text: '春眠不觉晓，处处闻啼鸟。夜来风雨声，_____。',
-    answers: ['花落知多少'],
-    tips: '提示：诗中写到了春天早晨醒来听到鸟叫声'
-  },
-  {
-    title: '登鹳雀楼',
-    author: '王之涣',
-    text: '白日依山尽，黄河入海流。欲穷千里目，_____。',
-    answers: ['更上一层楼'],
-    tips: '提示：这句诗告诉我们要有更高的追求'
-  },
-  {
-    title: '悯农（其二）',
-    author: '李绅',
-    text: '锄禾日当午，汗滴禾下土。谁知盘中餐，_____。',
-    answers: ['粒粒皆辛苦'],
-    tips: '提示：这首诗告诉我们要珍惜粮食'
-  },
-  {
-    title: '咏柳',
-    author: '贺知章',
-    text: '碧玉妆成一树高，万条垂下绿丝绦。不知细叶谁裁出，_____。',
-    answers: ['二月春风似剪刀'],
-    tips: '提示：这首诗用了比喻，把春风比作剪刀'
-  },
-  {
-    title: '望庐山瀑布',
-    author: '李白',
-    text: '日照香炉生紫烟，遥看瀑布挂前川。飞流直下三千尺，_____。',
-    answers: ['疑是银河落九天'],
-    tips: '提示：诗中用了夸张手法描写瀑布的壮观'
-  },
-  {
-    title: '游子吟',
-    author: '孟郊',
-    text: '慈母手中线，游子身上衣。临行密密缝，_____。谁言寸草心，报得三春晖。',
-    answers: ['意恐迟迟归'],
-    tips: '提示：这首诗表达了母亲对游子的深深关爱'
-  },
-  {
-    title: '江雪',
-    author: '柳宗元',
-    text: '千山鸟飞绝，万径人踪灭。孤舟蓑笠翁，_____。',
-    answers: ['独钓寒江雪'],
-    tips: '提示：诗中描绘了一幅幽静寒冷的画面'
-  },
-  {
-    title: '赠汪伦',
-    author: '李白',
-    text: '李白乘舟将欲行，忽闻岸上踏歌声。桃花潭水深千尺，_____。',
-    answers: ['不及汪伦送我情'],
-    tips: '提示：诗人用"深千尺"的潭水也比不上朋友的情谊'
-  },
-  {
-    title: '江南春',
-    author: '杜牧',
-    text: '千里莺啼绿映红，水村山郭酒旗风。南朝四百八十寺，_____。',
-    answers: ['多少楼台烟雨中'],
-    tips: '提示：诗中描绘了江南春天的美景和历史遗迹'
-  },
-  {
-    title: '回乡偶书',
-    author: '贺知章',
-    text: '少小离家老大回，乡音无改鬓毛衰。儿童相见不相识，_____。',
-    answers: ['笑问客从何处来'],
-    tips: '提示：诗人回到家乡，孩子们都不认识他了'
-  },
-  {
-    title: '九月九日忆山东兄弟',
-    author: '王维',
-    text: '独在异乡为异客，每逢佳节倍思亲。遥知兄弟登高处，_____。',
-    answers: ['遍插茱萸少一人'],
-    tips: '提示：重阳节诗人思念远方的兄弟'
-  }
-];
-
-const vocabData = [
-  // 简单难度 - 基础词语
-  {
-    sentence: '春天来了，小草______从土里钻出来。',
-    options: ['慢慢', '快快', '轻轻', '悄悄'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '他______学习，成绩进步很大。',
-    options: ['认真地', '开心地', '慢慢地', '轻轻地'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '妈妈______把书包递给我。',
-    options: ['开心地', '轻轻地', '慢慢地', '认真地'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    sentence: '小鸟______在树上唱歌。',
-    options: ['开心地', '慢慢地', '轻轻地', '认真地'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '爸爸______走进房间。',
-    options: ['慢慢', '快快', '轻轻', '悄悄'],
-    answer: 2,
-    level: 'easy'
-  },
-  {
-    sentence: '雨______下着。',
-    options: ['慢慢', '哗哗', '轻轻', '悄悄'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    sentence: '弟弟______跑过来。',
-    options: ['慢慢', '快快', '轻轻', '悄悄'],
-    answer: 1,
-    level: 'easy'
-  },
-  {
-    sentence: '妹妹______笑了。',
-    options: ['开心地', '慢慢地', '轻轻地', '认真地'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '花儿______开放。',
-    options: ['慢慢', '快快', '轻轻', '悄悄'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '风______吹着。',
-    options: ['慢慢', '呼呼', '轻轻', '悄悄'],
-    answer: 1,
-    level: 'easy'
-  },
-  // 中等难度 - 词语搭配
-  {
-    sentence: '太阳______升起，照亮了整个大地。',
-    options: ['慢慢地', '高高地', '缓缓地', '快速地'],
-    answer: 1,
-    level: 'medium'
-  },
-  {
-    sentence: '秋天到了，树叶______飘落下来。',
-    options: ['慢慢地', '轻轻地', '纷纷地', '快快地'],
-    answer: 2,
-    level: 'medium'
-  },
-  {
-    sentence: '同学们______听老师讲课。',
-    options: ['认真地', '开心地', '慢慢地', '轻轻地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '小明______完成了作业。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '妈妈______做晚饭。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '爷爷______看报纸。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 2,
-    level: 'medium'
-  },
-  {
-    sentence: '妹妹______画画。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 1,
-    level: 'medium'
-  },
-  {
-    sentence: '小猫______吃鱼。',
-    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '小鸟______飞翔。',
-    options: ['自由地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '小溪______流淌。',
-    options: ['慢慢', '哗哗', '欢快地', '悄悄'],
-    answer: 2,
-    level: 'medium'
-  },
-  // 较难难度 - 词语辨析
-  {
-    sentence: '听到这个好消息，大家______欢呼起来。',
-    options: ['开心地', '高兴地', '兴奋地', '激动地'],
-    answer: 3,
-    level: 'hard'
-  },
-  {
-    sentence: '他______完成了作业，然后出去玩了。',
-    options: ['认真地', '快速地', '仔细地', '顺利地'],
-    answer: 3,
-    level: 'hard'
-  },
-  {
-    sentence: '运动员______冲向终点。',
-    options: ['快速地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '老师______批改作业。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 3,
-    level: 'hard'
-  },
-  {
-    sentence: '孩子们______玩耍。',
-    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '雪花______飘落。',
-    options: ['慢慢', '轻轻', '纷纷地', '欢快地'],
-    answer: 1,
-    level: 'hard'
-  },
-  {
-    sentence: '同学们______讨论问题。',
-    options: ['热烈地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '妈妈______收拾房间。',
-    options: ['认真地', '开心地', '快速地', '仔细地'],
-    answer: 2,
-    level: 'hard'
-  },
-  {
-    sentence: '太阳______照耀着大地。',
-    options: ['温暖地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '河水______流过村庄。',
-    options: ['缓缓地', '快速地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  // 更多练习
-  {
-    sentence: '弟弟______吃苹果。',
-    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '姐姐______看书。',
-    options: ['认真地', '开心地', '慢慢地', '轻轻地'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '小狗______摇尾巴。',
-    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '小鸡______吃米。',
-    options: ['慢慢', '快快', '轻轻', '悄悄'],
-    answer: 0,
-    level: 'easy'
-  },
-  {
-    sentence: '蜜蜂______采蜜。',
-    options: ['忙碌地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '蝴蝶______飞舞。',
-    options: ['美丽地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '树叶______摇动。',
-    options: ['轻轻', '慢慢', '哗哗', '悄悄'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '海浪______拍打着沙滩。',
-    options: ['猛烈地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '火车______驶过大桥。',
-    options: ['快速地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '飞机______飞向蓝天。',
-    options: ['高高地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '同学们______打扫教室。',
-    options: ['认真地', '开心地', '快速地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '农民______收割庄稼。',
-    options: ['忙碌地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '画家______画风景。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 3,
-    level: 'hard'
-  },
-  {
-    sentence: '音乐家______演奏乐曲。',
-    options: ['深情地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '厨师______做美食。',
-    options: ['精心地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '医生______看病。',
-    options: ['认真地', '开心地', '慢慢地', '仔细地'],
-    answer: 3,
-    level: 'hard'
-  },
-  {
-    sentence: '警察______巡逻。',
-    options: ['认真地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '消防员______灭火。',
-    options: ['勇敢地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'hard'
-  },
-  {
-    sentence: '孩子们______读书。',
-    options: ['认真地', '开心地', '慢慢地', '大声地'],
-    answer: 3,
-    level: 'medium'
-  },
-  {
-    sentence: '鸟儿______歌唱。',
-    options: ['欢快地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '星星______闪烁。',
-    options: ['明亮地', '慢慢地', '轻轻地', '仔细地'],
-    answer: 0,
-    level: 'medium'
-  },
-  {
-    sentence: '月亮______升起。',
-    options: ['慢慢地', '高高地', '缓缓地', '快速地'],
-    answer: 2,
-    level: 'medium'
-  },
-  // 更多词语练习
-  { sentence: '小溪______流向远方。', options: ['缓缓地', '快快地', '轻轻地', '悄悄地'], answer: 0, level: 'easy' },
-  { sentence: '枫叶______飘落在水面上。', options: ['慢慢地', '快快地', '呼呼地', '悄悄地'], answer: 0, level: 'easy' },
-  { sentence: '弟弟______把糖果藏了起来。', options: ['悄悄地', '快快地', '大声地', '高兴地'], answer: 0, level: 'easy' },
-  { sentence: '奶奶______地抚摸我的头。', options: ['温柔地', '愤怒地', '着急地', '大声地'], answer: 0, level: 'easy' },
-  { sentence: '运动员______跃过了横杆。', options: ['轻轻地', '重重地', '慢慢地', '悄悄地'], answer: 0, level: 'medium' },
-  { sentence: '雨点儿______打在窗户上。', options: ['轻轻地', '重重地', '慢慢', '呼呼地'], answer: 1, level: 'medium' },
-  { sentence: '音乐家______拉起小提琴。', options: ['优雅地', '愤怒地', '着急地', '大声地'], answer: 0, level: 'medium' },
-  { sentence: '卡车______驶过泥泞的小路。', options: ['颠簸地', '平稳地', '轻轻地', '缓缓地'], answer: 0, level: 'medium' },
-  { sentence: '花瓣______落在她的肩上。', options: ['轻轻地', '重重地', '快快地', '大声地'], answer: 0, level: 'medium' },
-  { sentence: '旗手______升起了国旗。', options: ['庄重地', '随意地', '快乐地', '轻轻'], answer: 0, level: 'medium' },
-  { sentence: '他______抓住了最后一根绳子。', options: ['拼命地', '轻轻地', '慢慢地', '随意地'], answer: 0, level: 'hard' },
-  { sentence: '月光______洒在小院里。', options: ['温柔地', '猛烈地', '匆匆地', '慌乱地'], answer: 0, level: 'hard' },
-  { sentence: '孩子______扑进妈妈怀里。', options: ['幸福地', '痛苦地', '愤怒地', '慢慢'], answer: 0, level: 'hard' },
-  { sentence: '毛笔在宣纸上______游走。', options: ['流畅地', '僵硬地', '慢慢地', '断断续续'], answer: 0, level: 'hard' },
-  { sentence: '春风______吹绿了江南岸。', options: ['悄悄地', '猛烈地', '重重地', '大声地'], answer: 0, level: 'hard' }
-];
-
-const readingData = [
-  // 三年级短文（简单）
-  {
-    text: '春天的公园真美啊！柳树发出了嫩绿的新芽，桃花绽开了粉红的笑脸。小河解冻了，哗哗地唱着歌。草地上，小朋友们在放风筝、做游戏，开心极了！',
-    question: '这段话主要写了什么？',
-    options: ['春天公园的美丽景色和小朋友玩耍', '小朋友们在公园里放风筝', '柳树发芽了', '小河解冻了'],
-    answer: 0,
-    level: 'easy',
-    grade: 3
-  },
-  {
-    text: '小猫花花特别喜欢吃鱼。每天早上，它都会蹲在鱼缸旁边，盯着里面的金鱼看。有时候，它还会伸出爪子去抓，逗得我们哈哈大笑。',
-    question: '小猫花花喜欢做什么？',
-    options: ['喜欢吃鱼', '喜欢睡觉', '喜欢抓老鼠', '喜欢晒太阳'],
-    answer: 0,
-    level: 'easy',
-    grade: 3
-  },
-  {
-    text: '今天是星期天，天气晴朗。我和妈妈一起去超市买东西。超市里的东西真多呀！有水果、蔬菜、玩具，还有我最喜欢的巧克力。',
-    question: '"我"和谁一起去超市？',
-    options: ['爸爸', '妈妈', '爷爷', '奶奶'],
-    answer: 1,
-    level: 'easy',
-    grade: 3
-  },
-  {
-    text: '秋天到了，树上的叶子变黄了，一片片飘落下来，像一只只黄色的蝴蝶。小朋友们在树下捡树叶，做书签，开心极了。',
-    question: '树叶像什么？',
-    options: ['蝴蝶', '小船', '扇子', '羽毛'],
-    answer: 0,
-    level: 'easy',
-    grade: 3
-  },
-  {
-    text: '下课了，同学们来到操场上活动。有的跳绳，有的踢毽子，有的跑步，还有的打乒乓球。校园里到处都是欢声笑语。',
-    question: '这段话主要写了什么？',
-    options: ['同学们在操场上活动', '同学们在上课', '同学们在画画', '同学们在看书'],
-    answer: 0,
-    level: 'easy',
-    grade: 3
-  },
-  // 四年级短文（中等）
-  {
-    text: '小明每天早上都坚持跑步。他说跑步不仅能锻炼身体，还能让他一天都精力充沛。现在他的身体越来越强壮了，体育成绩也提高了很多。',
-    question: '小明坚持跑步有什么收获？',
-    options: ['身体变强壮，成绩提高', '认识了新朋友', '学会了游泳', '变得更聪明'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '读书是一件很快乐的事。通过读书，我们可以学到很多知识，了解很多有趣的事情。书就像一位好朋友，陪伴我们成长，教会我们道理。',
-    question: '作者为什么说读书是快乐的事？',
-    options: ['能学到知识，了解有趣的事', '书很便宜', '读书可以打发时间', '书很好看'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '夏天的夜晚，萤火虫在草丛中飞来飞去，像一盏盏小灯笼。青蛙在池塘边呱呱地叫着，好像在开演唱会。星星在天上眨着眼睛，美丽极了。',
-    question: '文中把萤火虫比作什么？',
-    options: ['小灯笼', '星星', '灯笼', '灯泡'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '小红是个乐于助人的好孩子。有一次，同学忘记带雨伞，她主动把自己的伞借给同学。还有一次，她帮老师整理作业本，受到了老师的表扬。',
-    question: '从哪里可以看出小红乐于助人？',
-    options: ['借伞给同学，帮老师整理作业', '学习成绩好', '喜欢读书', '长得漂亮'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '蚂蚁是一种非常勤劳的小动物。它们每天都忙着寻找食物，然后搬回洞里储存起来。即使遇到困难，它们也从不放弃，总是团结在一起克服困难。',
-    question: '蚂蚁有什么特点？',
-    options: ['勤劳、团结', '懒惰、自私', '聪明、狡猾', '胆小、怕事'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  // 五年级短文（较难）
-  {
-    text: '在一个寒冷的冬天，一只小鸟不小心从树上掉下来，冻得瑟瑟发抖。一位小朋友看见了，赶紧把小鸟捧在手里，用自己的体温温暖它。最后，小鸟恢复了体力，飞向了蓝天。',
-    question: '小朋友是怎样帮助小鸟的？',
-    options: ['用体温温暖小鸟', '给小鸟喂食', '把小鸟带回家', '给小鸟唱歌'],
-    answer: 0,
-    level: 'hard',
-    grade: 5
-  },
-  {
-    text: '时间就像流水一样，一去不复返。我们应该珍惜每一分每一秒，努力学习，做有意义的事情。只有这样，当我们回首往事时，才不会感到后悔。',
-    question: '这段话告诉我们什么道理？',
-    options: ['要珍惜时间', '时间过得很慢', '时间可以倒流', '时间不重要'],
-    answer: 0,
-    level: 'hard',
-    grade: 5
-  },
-  {
-    text: '母爱是世界上最伟大的爱。妈妈每天为我们做饭、洗衣服、辅导功课，从不抱怨。她们用无私的爱呵护着我们成长，是我们最应该感谢的人。',
-    question: '为什么说母爱是伟大的？',
-    options: ['妈妈无私地照顾我们', '妈妈很漂亮', '妈妈很有钱', '妈妈很年轻'],
-    answer: 0,
-    level: 'hard',
-    grade: 5
-  },
-  {
-    text: '学习就像爬山，只有坚持不懈，才能到达山顶。在学习的过程中，我们会遇到很多困难，但只要不放弃，一步一步往上爬，就一定能取得成功。',
-    question: '这段话用了什么修辞手法？',
-    options: ['比喻', '拟人', '排比', '夸张'],
-    answer: 0,
-    level: 'hard',
-    grade: 5
-  },
-  {
-    text: '在一次运动会上，小明参加了跑步比赛。虽然他一开始跑得很慢，但他没有放弃，而是咬紧牙关，奋力追赶。最后，他超过了所有对手，获得了第一名。',
-    question: '小明为什么能获得第一名？',
-    options: ['坚持不懈，奋力追赶', '跑得很快', '运气好', '对手太弱'],
-    answer: 0,
-    level: 'hard',
-    grade: 5
-  },
-  // 更多阅读短文
-  {
-    text: '雨后的早晨，空气特别清新。草叶上挂着一颗颗晶莹的露珠，在阳光下闪闪发光。小鸟从巢里探出头来，用清脆的歌声迎接新的一天。',
-    question: '这段话描写的是什么时间的美景？',
-    options: ['雨后清晨', '炎热的午后', '宁静的夜晚', '冬天的黄昏'],
-    answer: 0,
-    level: 'easy',
-    grade: 3
-  },
-  {
-    text: '小华以前写字很潦草，老师经常提醒他。后来他每天坚持练字，一笔一画地写。现在他的字工整多了，老师还在班上表扬了他。',
-    question: '小华的字为什么变好了？',
-    options: ['每天坚持练字', '老师教得好', '换了新笔', '同学帮忙'],
-    answer: 0,
-    level: 'easy',
-    grade: 3
-  },
-  {
-    text: '森林是一个天然的氧吧。树木通过光合作用吸收二氧化碳，释放氧气，让空气变得清新。所以我们常说，森林是地球的肺。',
-    question: '文中把森林比作什么？',
-    options: ['地球的肺', '天然的画', '动物的家', '人类的粮仓'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '我家养了一只小狗叫旺旺。它全身雪白，只有耳朵是棕色的。它最喜欢的事就是跟在我身后，我走到哪它跟到哪。我放学回家时，旺旺总是第一个冲到门口迎接我。',
-    question: '从哪些地方可以看出旺旺喜欢"我"？',
-    options: ['跟在我身后、第一个到门口迎接', '全身雪白很漂亮', '喜欢吃骨头', '耳朵是棕色的'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '剪纸是中国民间艺术之一。一把剪刀，一张红纸，在民间艺人的手里就能变成栩栩如生的花鸟鱼虫。每逢过年过节，人们都会贴上红色的窗花，寓意吉祥如意。',
-    question: '人们为什么在过年过节贴窗花？',
-    options: ['寓意吉祥如意', '因为好看', '因为便宜', '因为是习俗'],
-    answer: 0,
-    level: 'medium',
-    grade: 4
-  },
-  {
-    text: '在所有的颜色中，我最喜欢蓝色。蓝色是天空的颜色，让人感到宽广和自由；蓝色也是大海的颜色，让人感到深沉和神秘。每当我穿上蓝色的衣服，心情就会特别平静。',
-    question: '作者喜欢蓝色的原因不包括哪一项？',
-    options: ['蓝色代表热情活力', '蓝色让人感到宽广自由', '蓝色是天空和大海的颜色', '蓝色让人心情平静'],
-    answer: 0,
-    level: 'medium',
-    grade: 5
-  },
-  {
-    text: '阳光穿过树叶的缝隙，在地上投下星星点点的光斑。微风吹过，光斑也跳起舞来。我伸出手，让光斑落在手心里，暖暖的，像一小捧流动的金子。',
-    question: '文中把光斑比作什么？',
-    options: ['流动的金子', '星星', '钻石', '水珠'],
-    answer: 0,
-    level: 'hard',
-    grade: 5
-  },
-  {
-    text: '祖父的旧书架上放满了书。有些书皮已经泛黄，书角也卷了起来，但祖父仍然像宝贝一样珍爱它们。他说，每一本书里都藏着一位老师，读书就是与这些老师对话。',
-    question: '祖父为什么说"每一本书里都藏着一位老师"？',
-    options: ['因为书能教给人知识和道理', '因为书里有老师的照片', '因为老师写的书才值得看', '因为祖父以前是老师'],
-    answer: 0,
-    level: 'hard',
-    grade: 6
-  },
-  {
-    text: '夜空是一幅巨大的画布，星星是洒在上面的碎钻石。我躺在草地上，一颗一颗地数着，却发现怎么也数不完——有的星星调皮地眨眼睛，有的害羞地躲在云朵后面。',
-    question: '文中"有的星星调皮地眨眼睛"使用了什么修辞？',
-    options: ['拟人', '比喻', '夸张', '排比'],
-    answer: 0,
-    level: 'hard',
-    grade: 6
-  },
-  {
-    text: '垃圾变成宝贝？这事儿听起来像天方夜谭，但在现代科技的帮助下，越来越多的废弃物被重新利用。比如，厨余垃圾可以做成肥料，塑料瓶可以做成衣服……变废为宝，每个人都应该学一学。',
-    question: '这段话的主要观点是什么？',
-    options: ['垃圾可以在科技的帮助下变废为宝', '垃圾又脏又臭', '垃圾应该全部埋掉', '垃圾处理很简单'],
-    answer: 0,
-    level: 'hard',
-    grade: 6
-  }
-];
-
-const thinkingData = [
-  // ===== 升格训练 =====
-  {
-    type: 'upgrade',
-    badge: '升格训练',
-    title: '升格训练：把句子写生动',
-    original: '我很开心。',
-    improved: '我的心里像吃了蜜一样甜，嘴角忍不住向上翘起。',
-    question: '以上两个句子，哪个写得更好？为什么？',
-    options: [
-      { text: 'A句（润色后）更好，因为用了比喻让"开心"更具体形象', correct: true },
-      { text: 'B句（原句）更好，因为句子更短更简单', correct: false },
-      { text: '两句话写得一样好，没有区别', correct: false },
-      { text: '原句更好，因为看起来更真实', correct: false }
-    ],
-    explanation: '满分句运用了比喻修辞（"像吃了蜜一样甜"）和动作描写（"嘴角向上翘起"），把抽象的"开心"变成了可以看见的画面。这就是"用具体代替抽象"的写作技巧——不直接告诉读者你的感受，而是通过描写让读者自己感受到。'
-  },
-  {
-    type: 'upgrade',
-    badge: '升格训练',
-    title: '升格训练：把动作写具体',
-    original: '他跑得很快。',
-    improved: '他像一阵风似的冲了出去，双腿飞快地交替着，身后扬起一片尘土。',
-    question: '两个句子表达"跑得快"的意思，哪个更好？为什么？',
-    options: [
-      { text: '润色句更好，因为它用比喻和细节描写让画面更生动', correct: true },
-      { text: '原句更好，因为简单直接，一看就懂', correct: false },
-      { text: '两句话没有区别，意思一样', correct: false },
-      { text: '润色句太夸张了，不够真实', correct: false }
-    ],
-    explanation: '满分句用了三个技巧：①比喻（"像一阵风"）让速度变得可感；②动作分解（"双腿飞快地交替"）让画面更具体；③环境烘托（"扬起一片尘土"）侧面描写速度。这就是"把笼统变具体"的写作方法——不要只告诉读者"很快"，要让他们看到"有多快"。'
-  },
-  {
-    type: 'upgrade',
-    badge: '升格训练',
-    title: '升格训练：把环境写安静',
-    original: '教室里很安静。',
-    improved: '教室里静得出奇，连窗外树叶沙沙的声音都听得一清二楚，同学们连大气都不敢喘。',
-    question: '写"安静"的两个句子，哪个更打动人？为什么？',
-    options: [
-      { text: '润色句更好，因为用细节和侧面描写让人感受到安静', correct: true },
-      { text: '原句更好，因为简洁明了不啰嗦', correct: false },
-      { text: '两个句子写得一样好', correct: false },
-      { text: '润色句写得不够准确，没有直接说安静', correct: false }
-    ],
-    explanation: '满分句用的是"侧面烘托"手法：不直接说"安静"，而是通过"树叶沙沙声都听得见""大气都不敢喘"来让读者自己感受到安静的程度。好的写作不是告诉读者结论，而是让读者自己得出结论。'
-  },
-  // ===== 对比分析 =====
-  {
-    type: 'compare',
-    badge: '对比分析',
-    title: '对比分析：阅读题回答',
-    compareLow: '小明很勇敢。',
-    compareHigh: '从"小明毫不犹豫地冲进火海救小猫"这句话可以看出，小明是一个勇敢的人。因为"毫不犹豫"说明他没想危险，"冲进火海"说明他在最危险时刻选择救人。',
-    question: '同一道题的两个答案，哪个得分更高？为什么？',
-    options: [
-      { text: '满分答案更好，因为它有原文依据和详细分析', correct: true },
-      { text: '低分答案更好，因为简洁直接不啰嗦', correct: false },
-      { text: '两个答案得分应该一样', correct: false },
-      { text: '满分答案太长，考试写不完', correct: false }
-    ],
-    explanation: '低分答案只给了结论，没有证明过程，阅卷老师无法判断你是否读懂了文章。满分答案做到了三点：①引用原文关键词当证据；②解释关键词含义（"毫不犹豫"说明…）；③分析行为背后的品质。这就是阅读题的"观点+证据+分析"答题法——结论只是起点，依据和分析才是得分的关键。'
-  },
-  {
-    type: 'compare',
-    badge: '对比分析',
-    title: '对比分析：概括段落大意',
-    compareLow: '这段写了公园。',
-    compareHigh: '这段话描写了春天公园的美丽景色：柳树发芽、桃花盛开、小河解冻，以及小朋友们在草地上开心玩耍的场景。',
-    question: '概括段落大意的两个答案，哪个更符合要求？为什么？',
-    options: [
-      { text: '满分答案更好，因为它具体写出了段落中的要素', correct: true },
-      { text: '低分答案更好，因为概括本身就是简单说重点', correct: false },
-      { text: '两个答案都可以，得分一样', correct: false },
-      { text: '低分答案更简洁，所以更好', correct: false }
-    ],
-    explanation: '概括内容不是"越短越好"，而是"准确全面"。低分答案只说"写了公园"，太笼统，没有体现段落的核心内容。满分答案做到了：①点明主题（春天公园景色）；②列举具体内容（柳树、桃花、小河、小朋友）；③用"：列举"的结构让条理清晰。好的概括能让没读过原文的人也能知道段落写了什么。'
-  },
-  {
-    type: 'compare',
-    badge: '对比分析',
-    title: '对比分析：理解词语含义',
-    compareLow: '"骄傲"的意思是自以为了不起。',
-    compareHigh: '在这个句子中，"骄傲"的意思是"自豪"——妈妈看到孩子取得了好成绩，心里感到光荣和高兴，而不是"自大"的意思。',
-    question: '解释"骄傲"这个词的两个答案，哪个更准确？为什么？',
-    options: [
-      { text: '满分答案更好，因为它结合语境解释了词语的准确含义', correct: true },
-      { text: '低分答案更好，因为词典释义就是那个意思', correct: false },
-      { text: '两个答案都对，得分一样', correct: false },
-      { text: '满分答案写得太啰嗦了', correct: false }
-    ],
-    explanation: '理解词语题的关键是"结合语境"！很多词语在不同句子中有不同含义。低分答案只给了通用解释，没有联系句子内容。满分答案做到了：①点明在句中的具体含义；②结合上下文解释为什么是这个意思；③和常见含义做区分。这就是"词不离句"的阅读方法。'
-  },
-  // ===== 效果赏析 =====
-  {
-    type: 'analyze',
-    badge: '效果赏析',
-    title: '效果赏析：比喻的作用',
-    sentence: '弯弯的月亮像小船，挂在深蓝色的夜空中。',
-    question: '这句话中"弯弯的月亮像小船"这个比喻起到了什么作用？',
-    options: [
-      { text: '把月亮的形状写得形象生动，让读者能想象出月亮弯弯的样子', correct: true },
-      { text: '说明月亮真的变成了一艘小船', correct: false },
-      { text: '只是为了让句子变得更长更好看', correct: false },
-      { text: '没有特别的作用，怎么写都可以', correct: false }
-    ],
-    explanation: '比喻的核心作用是"化抽象为具体"和"化陌生为熟悉"。月亮的形状是抽象的，但"小船"是读者熟悉的事物。作者把月亮比作小船，读者就能在脑海中想象出月亮弯弯的、静静挂在夜空中的画面。修辞不是装饰，而是帮助读者"看见"的工具。'
-  },
-  {
-    type: 'analyze',
-    badge: '效果赏析',
-    title: '效果赏析：拟人的作用',
-    sentence: '小鸟在树枝上欢快地唱歌。',
-    question: '作者为什么用"唱歌"来形容小鸟的叫声？如果改成"小鸟在树枝上叫"，效果有什么不同？',
-    options: [
-      { text: '"唱歌"让小鸟有了人的情感，画面更温暖美好', correct: true },
-      { text: '用"唱歌"只是换一种说法，意思完全一样', correct: false },
-      { text: '用"唱歌"让句子更长，显得更有文采', correct: false },
-      { text: '用"叫"更准确，因为小鸟本来就是在叫', correct: false }
-    ],
-    explanation: '拟人的作用是把事物"人格化"，让读者产生情感共鸣。用"唱歌"代替"叫"，小鸟就不再是普通动物，而像一个快乐的歌唱家，传递了"欢快""美好"的感受。如果改成"叫"，就只是客观描述，缺少了情感色彩。拟人是让描写"有温度"的修辞。'
-  },
-  {
-    type: 'analyze',
-    badge: '效果赏析',
-    title: '效果赏析：排比的作用',
-    sentence: '书是钥匙，能打开知识的大门；书是明灯，能照亮前进的道路；书是朋友，能陪伴我们成长。',
-    question: '作者为什么连续用三个"书是…"的句式？如果只写第一句，效果有什么不同？',
-    options: [
-      { text: '排比句式层层递进，增强了表达的气势和感染力', correct: true },
-      { text: '写三句比写一句显得字数更多，看上去更认真', correct: false },
-      { text: '三句话是重复表达同一个意思，没有区别', correct: false },
-      { text: '写一句更好，因为更简洁不啰嗦', correct: false }
-    ],
-    explanation: '排比的作用是"层层递进，增强语势"。三个"书是…"从"钥匙"（认知工具）到"明灯"（方向引导）到"朋友"（情感陪伴），一层比一层深入，让读者对书的价值有更丰富的认识。如果只写第一句，道理虽然没错，但缺少了情感的积累和递进的力量。排比不是简单重复，而是"螺旋上升"地强化观点。'
-  },
-  // ===== 更多思维训练 =====
-  {
-    type: 'upgrade',
-    badge: '升格训练',
-    title: '升格训练：把"夏天很热"写具体',
-    original: '夏天真热啊。',
-    improved: '太阳像大火球一样挂在头顶，知了在树上拼命地叫着，小狗伸着舌头趴在树荫下喘着粗气。',
-    question: '两个句子写"热"，哪个能让人真正感受到热？为什么？',
-    options: [
-      { text: '润色句更好，用了多种感官（看、听）让"热"具体可感', correct: true },
-      { text: '原句更好，简单直接就能说明气温高', correct: false },
-      { text: '两句话写得一样好', correct: false },
-      { text: '润色句太啰嗦，浪费笔墨', correct: false }
-    ],
-    explanation: '满分句用了"多感官描写"：视觉（太阳像大火球）、听觉（知了叫）、观察（小狗喘气），从多个角度让人感受到"热"。好的描写不是告诉结论，而是调动读者的感官。'
-  },
-  {
-    type: 'compare',
-    badge: '对比分析',
-    title: '对比分析：作文开头比较',
-    compareLow: '今天天气很好，我去公园玩。',
-    compareHigh: '推开窗的那一刻，阳光像金币一样洒在书桌上，我知道今天一定要去公园——那片草地上的蒲公英，应该已经在风中等我了。',
-    question: '这两个作文开头，哪个更能吸引读者？为什么？',
-    options: [
-      { text: '改进后的开头更好，有画面感、有诗意、有悬念', correct: true },
-      { text: '原开头更好，简洁明了不需要太复杂', correct: false },
-      { text: '两个开头效果一样，看个人喜好', correct: false },
-      { text: '改进后的句子太长，考试时写不完', correct: false }
-    ],
-    explanation: '改进后的开头用了三个技巧：①场景描写（阳光像金币）让画面更美；②制造期待（"一定要去"）；③拟人（蒲公英在等我）让文字有情感。好的开头就像一个钩子，让人忍不住往下读。'
-  },
-  {
-    type: 'analyze',
-    badge: '效果赏析',
-    title: '效果赏析：夸张的作用',
-    sentence: '他饿得前胸贴后背，肚子咕咕叫得像打雷。',
-    question: '作者为什么要用这种说法来写"饿"？如果改成"他很饿"，效果有什么不同？',
-    options: [
-      { text: '夸张让"饿"的程度变得非常突出，给人留下深刻印象', correct: true },
-      { text: '这样说不够准确，应该直接说"他很饿"', correct: false },
-      { text: '两种写法效果一样，随便写', correct: false },
-      { text: '这样说太夸张了，不真实', correct: false }
-    ],
-    explanation: '夸张的作用是"突出特征，强化印象"。普通读者可能不觉得"很饿"有多严重，但"前胸贴后背""肚子叫得像打雷"让饿变得非常具体和好笑，读者一下就记住了。夸张是"放大镜"——把特点放大到让人无法忽视的程度。'
-  },
-  {
-    type: 'analyze',
-    badge: '效果赏析',
-    title: '效果赏析：对比的作用',
-    sentence: '以前他连举手都不敢，现在却能在全班面前演讲。',
-    question: '作者为什么把"以前"和"现在"放在一起写？有什么好处？',
-    options: [
-      { text: '通过对比让"变化"更明显，突出人物的成长', correct: true },
-      { text: '这是无意中写出来的，没什么特别用处', correct: false },
-      { text: '对比只是一种装饰，删掉也不影响', correct: false },
-      { text: '对比让句子变得更长，显得有文采', correct: false }
-    ],
-    explanation: '对比的作用是"突显差异，强化变化"。单独写"他现在能演讲"冲击力不够；把"以前不敢举手"放在一起，读者就能清晰地看到一个人成长的跨度。对比就是"放尺子"——让读者一眼看到变化有多大。'
-  },
-  {
-    type: 'upgrade',
-    badge: '升格训练',
-    title: '升格训练：把"离别"写动情',
-    original: '奶奶送我上车，我很难过。',
-    improved: '车开动了。奶奶还站在站台上，一只手举着给我打包的粽子，另一只手在脸上快速擦了一下。我转过头，眼泪才敢掉下来。',
-    question: '两个句子写离别，哪个更让人心有触动？为什么？',
-    options: [
-      { text: '润色句更好，它用细节（粽子、擦脸、转头）让离别变得真实可感', correct: true },
-      { text: '原句更好，难过就是难过，不需要写那么多', correct: false },
-      { text: '两个句子表达的意思一样，没有区别', correct: false },
-      { text: '润色句不适合小学生写，太成熟了', correct: false }
-    ],
-    explanation: '满分句最厉害的地方是"不说难过却让人更难过"。奶奶塞粽子、快速擦脸这些动作，比直接写"很爱你"更打动人心。而"转过头，眼泪才敢掉下来"更是把少年的倔强和不舍写活了。这就是"用动作写情感"——不写泪，让读者看见泪。'
-  }
-];
 
 // 当前状态
 let currentTransform = 0;
@@ -1540,6 +25,492 @@ let currentVocab = 0;
 let currentLevel = 'easy';
 let correctCount = 0;
 let currentThinking = 0;
+let rhetoricData = null;
+let poemData = null;
+let transformData = null;
+let readingData = null;
+let vocabData = null;
+let thinkingData = null;
+let dynamicDiagnosisBank = null;
+let rhetoricDataPromise = null;
+let poemDataPromise = null;
+let transformDataPromise = null;
+let readingDataPromise = null;
+let vocabDataPromise = null;
+let thinkingDataPromise = null;
+let dynamicDiagnosisBankPromise = null;
+let practiceDataVersion = null;
+let hasInitializedInteractivePractice = false;
+
+function getPracticeDataVersion() {
+  if (practiceDataVersion !== null) {
+    return practiceDataVersion;
+  }
+
+  const scripts = document.getElementsByTagName('script');
+  for (let i = scripts.length - 1; i >= 0; i--) {
+    const src = scripts[i].getAttribute('src') || '';
+    if (src.includes('practice.js') || src.includes('data-loader-global.js') || src.includes('data-loader-core.js')) {
+      const match = src.match(/[?&]v=([^&]+)/);
+      if (match) {
+        practiceDataVersion = match[1];
+        return practiceDataVersion;
+      }
+    }
+  }
+
+  practiceDataVersion = 'dev';
+  return practiceDataVersion;
+}
+
+function loadPracticeDataset(name) {
+  const dataLib = window.DataLib || window.DataLibCore;
+  if (dataLib && typeof dataLib.load === 'function') {
+    return dataLib.load(name);
+  }
+
+  const url = `data/${name}.json?v=${encodeURIComponent(getPracticeDataVersion())}`;
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      throw new Error(`Failed to load: ${url} (${response.status})`);
+    }
+    return response.json();
+  });
+}
+
+function getExercisesCollection(data) {
+  if (!data || typeof data !== 'object') {
+    return null;
+  }
+  if (Array.isArray(data.items)) {
+    return data.items;
+  }
+
+  const firstArray = Object.keys(data)
+    .map(key => data[key])
+    .find(Array.isArray);
+
+  return firstArray || null;
+}
+
+function cacheExercisesDataset(data) {
+  const items = getExercisesCollection(data);
+  if (!items) {
+    return null;
+  }
+  window.exercisesData = data;
+  window.exercisesDataItems = items;
+  return data;
+}
+
+function loadExercisesDataset() {
+  if (window.exercisesDataItems && Array.isArray(window.exercisesDataItems)) {
+    return Promise.resolve(window.exercisesData);
+  }
+  if (window.exercisesData && getExercisesCollection(window.exercisesData)) {
+    window.exercisesDataItems = getExercisesCollection(window.exercisesData);
+    return Promise.resolve(window.exercisesData);
+  }
+  if (window.__exercisesDataPromise) {
+    return window.__exercisesDataPromise;
+  }
+
+  const dataLib = window.DataLib || window.DataLibCore;
+  const request = dataLib && typeof dataLib.load === 'function'
+    ? dataLib.load('exercises')
+    : fetch(`data/exercises.json?v=${encodeURIComponent(getPracticeDataVersion())}`).then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load exercises.json (${response.status})`);
+        }
+        return response.json();
+      });
+
+  window.__exercisesDataPromise = request
+    .then(data => cacheExercisesDataset(data))
+    .catch(err => {
+      window.__exercisesDataPromise = null;
+      throw err;
+    });
+
+  return window.__exercisesDataPromise;
+}
+
+window.loadExercisesDataset = loadExercisesDataset;
+
+function ensureTransformData() {
+  if (Array.isArray(transformData)) {
+    return Promise.resolve(transformData);
+  }
+  if (transformDataPromise) {
+    return transformDataPromise;
+  }
+
+  transformDataPromise = loadPracticeDataset('practice-transform')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid transform practice data');
+      }
+      transformData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load transform practice data:', err);
+      return null;
+    })
+    .finally(() => {
+      transformDataPromise = null;
+    });
+
+  return transformDataPromise;
+}
+
+function ensureReadingData() {
+  if (Array.isArray(readingData)) {
+    return Promise.resolve(readingData);
+  }
+  if (readingDataPromise) {
+    return readingDataPromise;
+  }
+
+  readingDataPromise = loadPracticeDataset('practice-reading')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid reading practice data');
+      }
+      readingData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load reading practice data:', err);
+      return null;
+    })
+    .finally(() => {
+      readingDataPromise = null;
+    });
+
+  return readingDataPromise;
+}
+
+function ensureRhetoricData() {
+  if (Array.isArray(rhetoricData)) {
+    return Promise.resolve(rhetoricData);
+  }
+  if (rhetoricDataPromise) {
+    return rhetoricDataPromise;
+  }
+
+  rhetoricDataPromise = loadPracticeDataset('practice-rhetoric')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid rhetoric practice data');
+      }
+      rhetoricData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load rhetoric practice data:', err);
+      return null;
+    })
+    .finally(() => {
+      rhetoricDataPromise = null;
+    });
+
+  return rhetoricDataPromise;
+}
+
+function ensurePoemData() {
+  if (Array.isArray(poemData)) {
+    return Promise.resolve(poemData);
+  }
+  if (poemDataPromise) {
+    return poemDataPromise;
+  }
+
+  poemDataPromise = loadPracticeDataset('practice-poem')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid poem practice data');
+      }
+      poemData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load poem practice data:', err);
+      return null;
+    })
+    .finally(() => {
+      poemDataPromise = null;
+    });
+
+  return poemDataPromise;
+}
+
+function ensureVocabData() {
+  if (Array.isArray(vocabData)) {
+    return Promise.resolve(vocabData);
+  }
+  if (vocabDataPromise) {
+    return vocabDataPromise;
+  }
+
+  vocabDataPromise = loadPracticeDataset('practice-vocab')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid vocab practice data');
+      }
+      vocabData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load vocab practice data:', err);
+      return null;
+    })
+    .finally(() => {
+      vocabDataPromise = null;
+    });
+
+  return vocabDataPromise;
+}
+
+function ensureThinkingData() {
+  if (Array.isArray(thinkingData)) {
+    return Promise.resolve(thinkingData);
+  }
+  if (thinkingDataPromise) {
+    return thinkingDataPromise;
+  }
+
+  thinkingDataPromise = loadPracticeDataset('practice-thinking')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid thinking practice data');
+      }
+      thinkingData = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load thinking practice data:', err);
+      return null;
+    })
+    .finally(() => {
+      thinkingDataPromise = null;
+    });
+
+  return thinkingDataPromise;
+}
+
+function ensureDynamicDiagnosisBank() {
+  if (Array.isArray(dynamicDiagnosisBank)) {
+    return Promise.resolve(dynamicDiagnosisBank);
+  }
+  if (dynamicDiagnosisBankPromise) {
+    return dynamicDiagnosisBankPromise;
+  }
+
+  dynamicDiagnosisBankPromise = loadPracticeDataset('practice-dynamic-diagnosis')
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid dynamic diagnosis bank');
+      }
+      dynamicDiagnosisBank = data;
+      return data;
+    })
+    .catch(err => {
+      console.warn('Failed to load dynamic diagnosis bank:', err);
+      return null;
+    })
+    .finally(() => {
+      dynamicDiagnosisBankPromise = null;
+    });
+
+  return dynamicDiagnosisBankPromise;
+}
+
+function renderPracticeOptionsMessage(container, message) {
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = '';
+  if (!message) {
+    return;
+  }
+
+  const notice = document.createElement('p');
+  notice.style.margin = '0';
+  notice.style.padding = '14px 16px';
+  notice.style.background = '#f8fafc';
+  notice.style.border = '1px dashed #cbd5e1';
+  notice.style.borderRadius = '12px';
+  notice.style.color = '#64748b';
+  notice.textContent = message;
+  container.appendChild(notice);
+}
+
+function renderTransformState(questionText, sentenceText, optionsMessage) {
+  const question = document.getElementById('transformQuestion');
+  const sentence = document.getElementById('transformSentence');
+  const options = document.getElementById('transformOptions');
+
+  if (question) {
+    question.textContent = questionText || '';
+  }
+  if (sentence) {
+    sentence.textContent = sentenceText || '';
+  }
+  renderPracticeOptionsMessage(options, optionsMessage);
+}
+
+function renderReadingState(textValue, questionValue, optionsMessage) {
+  const text = document.getElementById('readingText');
+  const question = document.getElementById('readingQuestion');
+  const options = document.getElementById('readingOptions');
+
+  if (text) {
+    text.textContent = textValue || '';
+  }
+  if (question) {
+    question.textContent = questionValue || '';
+  }
+  renderPracticeOptionsMessage(options, optionsMessage);
+}
+
+function renderRhetoricState(sentenceText, optionsMessage) {
+  const sentence = document.getElementById('rhetoricSentence');
+  const options = document.getElementById('rhetoricOptions');
+
+  if (sentence) {
+    sentence.textContent = sentenceText || '';
+  }
+  renderPracticeOptionsMessage(options, optionsMessage);
+}
+
+function renderPoemState(titleText, bodyHtml) {
+  const title = document.getElementById('poemTitle');
+  const text = document.getElementById('poemText');
+
+  if (title) {
+    title.textContent = titleText || '';
+  }
+  if (text) {
+    text.innerHTML = bodyHtml || '';
+  }
+}
+
+function renderVocabState(sentenceText, optionsMessage) {
+  const sentence = document.getElementById('vocabSentence');
+  const options = document.getElementById('vocabOptions');
+
+  if (sentence) {
+    sentence.textContent = sentenceText || '';
+  }
+  renderPracticeOptionsMessage(options, optionsMessage);
+}
+
+function renderThinkingState(badgeText, contentHtml) {
+  const badge = document.getElementById('thinkingBadge');
+  const content = document.getElementById('thinkingContent');
+  const explanation = document.getElementById('thinkingExplanation');
+  const nextBtn = document.getElementById('thinkingNextBtn');
+
+  if (badge) {
+    badge.textContent = badgeText || '';
+    badge.className = 'thinking-badge upgrade';
+  }
+  if (content) {
+    content.innerHTML = contentHtml || '';
+  }
+  if (explanation) {
+    explanation.style.display = 'none';
+  }
+  if (nextBtn) {
+    nextBtn.style.display = 'none';
+  }
+}
+
+function getReadingItemsForCurrentLevel() {
+  if (!Array.isArray(readingData)) {
+    return [];
+  }
+  return readingData.filter(item => item.level === currentLevel);
+}
+
+function getVocabItemsForCurrentLevel() {
+  if (!Array.isArray(vocabData)) {
+    return [];
+  }
+  return vocabData.filter(item => item.level === currentLevel);
+}
+
+function getActivePracticeMode() {
+  const activeButton = document.querySelector('.mode-btn[data-mode].active');
+  return activeButton ? activeButton.dataset.mode : 'transform';
+}
+
+function syncPracticeLevelButtons() {
+  document.querySelectorAll('.mode-btn[data-level]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.level === currentLevel);
+  });
+}
+
+function initPracticeMode(mode) {
+  switch (mode) {
+    case 'transform':
+      initTransform();
+      break;
+    case 'rhetoric':
+      initRhetoric();
+      break;
+    case 'poem':
+      initPoem();
+      break;
+    case 'reading':
+      initReading();
+      break;
+    case 'vocabulary':
+      initVocab();
+      break;
+    case 'thinking':
+      initThinking();
+      break;
+    default:
+      initTransform();
+      break;
+  }
+}
+
+function initInteractivePractice() {
+  if (hasInitializedInteractivePractice) {
+    return;
+  }
+
+  hasInitializedInteractivePractice = true;
+  initPracticeMode(getActivePracticeMode());
+}
+
+function observeInteractivePractice() {
+  const section = document.querySelector('.interactive-practice');
+  if (!section) {
+    initInteractivePractice();
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    initInteractivePractice();
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      observer.disconnect();
+      initInteractivePractice();
+    }
+  }, {
+    rootMargin: '300px 0px'
+  });
+
+  observer.observe(section);
+}
 
 // 从localStorage加载进度
 function loadProgress() {
@@ -1716,28 +687,16 @@ let wrongBookAnalysisRefreshPending = false;
 
 // 加载结构化题库，供错题本匹配解析分级。
 function loadExercisesDataForWrongBook() {
+  if (window.exercisesDataItems && Array.isArray(window.exercisesDataItems)) {
+    return Promise.resolve(window.exercisesData);
+  }
   if (window.exercisesData && Array.isArray(window.exercisesData.题库)) {
+    window.exercisesDataItems = window.exercisesData.题库;
     return Promise.resolve(window.exercisesData);
   }
   if (exercisesDataPromise) return exercisesDataPromise;
 
-  if (window.DataLib && typeof window.DataLib.load === 'function') {
-    exercisesDataPromise = window.DataLib.load('exercises')
-      .then(data => {
-        if (data && Array.isArray(data.题库)) window.exercisesData = data;
-        return window.exercisesData || null;
-      })
-      .catch(() => null);
-    return exercisesDataPromise;
-  }
-
-  exercisesDataPromise = fetch('data/exercises.json')
-    .then(response => response.ok ? response.json() : null)
-    .then(data => {
-      if (data && Array.isArray(data.题库)) window.exercisesData = data;
-      return window.exercisesData || null;
-    })
-    .catch(() => null);
+  exercisesDataPromise = loadExercisesDataset().catch(() => null);
   return exercisesDataPromise;
 }
 
@@ -1752,7 +711,9 @@ function requestWrongBookAnalysisRefresh() {
 }
 
 function getExerciseBank() {
-  return window.exercisesData && Array.isArray(window.exercisesData.题库)
+  return window.exercisesDataItems && Array.isArray(window.exercisesDataItems)
+    ? window.exercisesDataItems
+    : window.exercisesData && Array.isArray(window.exercisesData.题库)
     ? window.exercisesData.题库
     : [];
 }
@@ -2644,27 +1605,46 @@ function initModeSwitch() {
         document.getElementById(btn.dataset.mode + 'Practice').style.display = 'block';
         document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
-        if (btn.dataset.mode === 'thinking') {
-          initThinking();
-        }
+        hasInitializedInteractivePractice = true;
+        initPracticeMode(btn.dataset.mode);
       } else if (btn.dataset.level) {
         currentLevel = btn.dataset.level;
         document.querySelectorAll('[data-level]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         saveProgress();
+        if (hasInitializedInteractivePractice) {
+          const activeMode = getActivePracticeMode();
+          if (activeMode === 'reading' || activeMode === 'vocabulary') {
+            initPracticeMode(activeMode);
+          }
+        }
       }
     });
   });
 }
 
 // 句式转换练习
-function initTransform() {
+async function initTransform() {
   const question = document.getElementById('transformQuestion');
   const sentence = document.getElementById('transformSentence');
   const options = document.getElementById('transformOptions');
   
-  const data = transformData[currentTransform];
+  if (!question || !sentence || !options) {
+    return;
+  }
+
+  if (!Array.isArray(transformData)) {
+    renderTransformState('句式转换加载中...', '正在准备题目，请稍候。', '题目加载中，请稍候。');
+  }
+
+  const dataset = await ensureTransformData();
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    renderTransformState('句式转换暂时不可用', '题目加载失败，请稍后重试。', '暂时无法加载题目。');
+    return;
+  }
+
+  currentTransform = currentTransform % dataset.length;
+  const data = dataset[currentTransform];
   question.textContent = `把下面的句子改写成"${data.type}"`;
   sentence.textContent = data.sentence;
   
@@ -2687,7 +1667,11 @@ function initTransform() {
 }
 
 function checkTransform(index) {
-  const data = transformData[currentTransform];
+  if (!Array.isArray(transformData) || transformData.length === 0) {
+    return;
+  }
+
+  const data = transformData[currentTransform % transformData.length];
   const options = document.querySelectorAll('#transformOptions .transform-btn');
   
   options.forEach((opt, i) => {
@@ -2713,16 +1697,36 @@ function checkTransform(index) {
 }
 
 function nextTransform() {
+  if (!Array.isArray(transformData) || transformData.length === 0) {
+    initTransform();
+    return;
+  }
+
   currentTransform = (currentTransform + 1) % transformData.length;
   initTransform();
 }
 
 // 修辞判断练习
-function initRhetoric() {
+async function initRhetoric() {
   const sentence = document.getElementById('rhetoricSentence');
   const options = document.getElementById('rhetoricOptions');
-  
-  const data = rhetoricData[currentRhetoric];
+
+  if (!sentence || !options) {
+    return;
+  }
+
+  if (!Array.isArray(rhetoricData)) {
+    renderRhetoricState('修辞判断加载中...', '题目加载中，请稍候。');
+  }
+
+  const dataset = await ensureRhetoricData();
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    renderRhetoricState('修辞判断暂时不可用', '暂时无法加载题目。');
+    return;
+  }
+
+  currentRhetoric = currentRhetoric % dataset.length;
+  const data = dataset[currentRhetoric];
   sentence.textContent = data.sentence;
   
   options.innerHTML = '';
@@ -2744,7 +1748,11 @@ function initRhetoric() {
 }
 
 function checkRhetoric(index) {
-  const data = rhetoricData[currentRhetoric];
+  if (!Array.isArray(rhetoricData) || rhetoricData.length === 0) {
+    return;
+  }
+
+  const data = rhetoricData[currentRhetoric % rhetoricData.length];
   const options = document.querySelectorAll('#rhetoricOptions .rhetoric-btn');
   
   options.forEach((opt, i) => {
@@ -2771,23 +1779,47 @@ function checkRhetoric(index) {
 }
 
 function nextRhetoric() {
+  if (!Array.isArray(rhetoricData) || rhetoricData.length === 0) {
+    initRhetoric();
+    return;
+  }
+
   currentRhetoric = (currentRhetoric + 1) % rhetoricData.length;
   initRhetoric();
 }
 
 // 古诗填空练习
-function initPoem() {
+async function initPoem() {
   const title = document.getElementById('poemTitle');
   const text = document.getElementById('poemText');
-  
-  const data = poemData[currentPoem];
+
+  if (!title || !text) {
+    return;
+  }
+
+  if (!Array.isArray(poemData)) {
+    renderPoemState('古诗填空加载中...', '<p style="margin:0;color:#64748b;">正在准备题目，请稍候。</p>');
+  }
+
+  const dataset = await ensurePoemData();
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    renderPoemState('古诗填空暂时不可用', '<p style="margin:0;color:#64748b;">暂时无法加载题目。</p>');
+    return;
+  }
+
+  currentPoem = currentPoem % dataset.length;
+  const data = dataset[currentPoem];
   title.textContent = data.title;
   text.innerHTML = data.text;
 }
 
 function checkPoem() {
+  if (!Array.isArray(poemData) || poemData.length === 0) {
+    return;
+  }
+
   const inputs = document.querySelectorAll('#poemText input');
-  const data = poemData[currentPoem];
+  const data = poemData[currentPoem % poemData.length];
   let allCorrect = true;
   
   inputs.forEach((input, i) => {
@@ -2809,18 +1841,38 @@ function checkPoem() {
 }
 
 function nextPoem() {
+  if (!Array.isArray(poemData) || poemData.length === 0) {
+    initPoem();
+    return;
+  }
+
   currentPoem = (currentPoem + 1) % poemData.length;
   initPoem();
 }
 
 // 阅读练习
-function initReading() {
+async function initReading() {
   const text = document.getElementById('readingText');
   const question = document.getElementById('readingQuestion');
   const options = document.getElementById('readingOptions');
   
-  const filteredData = readingData.filter(d => d.level === currentLevel);
+  if (!text || !question || !options) {
+    return;
+  }
+
+  if (!Array.isArray(readingData)) {
+    renderReadingState('阅读理解加载中...', '正在准备题目，请稍候。', '题目加载中，请稍候。');
+  }
+
+  const dataset = await ensureReadingData();
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    renderReadingState('阅读理解暂时不可用', '题目加载失败，请稍后重试。', '暂时无法加载题目。');
+    return;
+  }
+
+  const filteredData = getReadingItemsForCurrentLevel();
   if (filteredData.length === 0) {
+    renderReadingState('当前难度暂无题目', '请切换难度后再试。', '暂时没有可练习的内容。');
     return;
   }
   const data = filteredData[currentReading % filteredData.length];
@@ -2847,7 +1899,7 @@ function initReading() {
 }
 
 function checkReading(index) {
-  const filteredData = readingData.filter(d => d.level === currentLevel);
+  const filteredData = getReadingItemsForCurrentLevel();
   if (filteredData.length === 0) {
     return;
   }
@@ -2882,12 +1934,27 @@ function nextReading() {
 }
 
 // 词语选择练习
-function initVocab() {
+async function initVocab() {
   const sentence = document.getElementById('vocabSentence');
   const options = document.getElementById('vocabOptions');
-  
-  const filteredData = vocabData.filter(d => d.level === currentLevel);
+
+  if (!sentence || !options) {
+    return;
+  }
+
+  if (!Array.isArray(vocabData)) {
+    renderVocabState('词语选择加载中...', '题目加载中，请稍候。');
+  }
+
+  const dataset = await ensureVocabData();
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    renderVocabState('词语选择暂时不可用', '暂时无法加载题目。');
+    return;
+  }
+
+  const filteredData = getVocabItemsForCurrentLevel();
   if (filteredData.length === 0) {
+    renderVocabState('当前难度暂无题目', '请切换难度后再试。');
     return;
   }
   const data = filteredData[currentVocab % filteredData.length];
@@ -2913,7 +1980,7 @@ function initVocab() {
 }
 
 function checkVocab(index) {
-  const filteredData = vocabData.filter(d => d.level === currentLevel);
+  const filteredData = getVocabItemsForCurrentLevel();
   if (filteredData.length === 0) {
     return;
   }
@@ -2942,20 +2009,41 @@ function checkVocab(index) {
 }
 
 function nextVocab() {
+  if (!Array.isArray(vocabData) || vocabData.length === 0) {
+    initVocab();
+    return;
+  }
+
   currentVocab++;
   initVocab();
 }
 
 // 思维进阶练习
-function initThinking() {
-  const data = thinkingData[currentThinking % thinkingData.length];
+async function initThinking() {
   const badge = document.getElementById('thinkingBadge');
   const content = document.getElementById('thinkingContent');
   const explanation = document.getElementById('thinkingExplanation');
   const nextBtn = document.getElementById('thinkingNextBtn');
 
+  if (!badge || !content || !explanation || !nextBtn) {
+    return;
+  }
+
   explanation.style.display = 'none';
   nextBtn.style.display = 'none';
+
+  if (!Array.isArray(thinkingData)) {
+    renderThinkingState('思维进阶加载中...', '<p style="margin:0;color:#64748b;">正在准备题目，请稍候。</p>');
+  }
+
+  const dataset = await ensureThinkingData();
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    renderThinkingState('思维进阶暂时不可用', '<p style="margin:0;color:#64748b;">暂时无法加载题目。</p>');
+    return;
+  }
+
+  currentThinking = currentThinking % dataset.length;
+  const data = dataset[currentThinking];
 
   badge.textContent = data.badge;
   badge.className = 'thinking-badge ' + data.type;
@@ -3015,6 +2103,10 @@ function initThinking() {
 }
 
 function checkThinking(index) {
+  if (!Array.isArray(thinkingData) || thinkingData.length === 0) {
+    return;
+  }
+
   const data = thinkingData[currentThinking % thinkingData.length];
   const options = document.querySelectorAll('#thinkingOptions .thinking-opt');
 
@@ -3045,6 +2137,11 @@ function checkThinking(index) {
 }
 
 function nextThinking() {
+  if (!Array.isArray(thinkingData) || thinkingData.length === 0) {
+    initThinking();
+    return;
+  }
+
   currentThinking++;
   initThinking();
 }
@@ -4126,13 +3223,9 @@ function renderNextLessonPanel() {
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
   loadProgress();
+  syncPracticeLevelButtons();
   initModeSwitch();
-  initTransform();
-  initRhetoric();
-  initPoem();
-  initReading();
-  initVocab();
-  initThinking();
+  observeInteractivePractice();
   initCheckin();
   renderWrongList();
   renderErrorStats();
@@ -4158,240 +3251,19 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==================== 诊断测评功能 ====================
 
 // 诊断测评题目数据
-const diagnosisQuestions = [
-  // 字词基础（1-5题）
-  {
-    type: '字词基础',
-    question: '下列词语中，与"安静"意思最相近的是：',
-    options: ['吵闹', '宁静', '热闹', '活泼'],
-    answer: 1,
-    explanation: '正确答案：宁静。"安静"和"宁静"都表示没有声音、安稳平静的意思，是近义词。',
-    mistakeReason: '容易混淆"安静"与其他词的含义，"吵闹""热闹"与"安静"是反义词，"活泼"形容的是人的性格。'
-  },
-  {
-    type: '字词基础',
-    question: '下列句子中，哪个词语用得不恰当？',
-    options: [
-      '春天来了，大地一片生机勃勃。',
-      '他说话总是夸夸其谈，很有学问。',
-      '这次考试，我胸有成竹。',
-      '她的歌声悦耳动听。'
-    ],
-    answer: 1,
-    explanation: '正确答案：第二句。"夸夸其谈"是贬义词，形容说话浮夸不切实际，不能用来赞美别人有学问。',
-    mistakeReason: '没有理解"夸夸其谈"的感情色彩，误用了贬义词。'
-  },
-  {
-    type: '字词基础',
-    question: '"情不自禁"的"禁"，意思是：',
-    options: ['禁止', '忍住', '禁止的地方', '忍受'],
-    answer: 1,
-    explanation: '正确答案：忍住。"情不自禁"意思是感情激动得不能控制。',
-    mistakeReason: '不熟悉成语中单个字的意思。'
-  },
-  {
-    type: '字词基础',
-    question: '下列哪个词与其他三个不是同一类？',
-    options: ['菊花', '梅花', '雪花', '桃花'],
-    answer: 2,
-    explanation: '正确答案：雪花。其他都是植物的花，雪花是自然现象。',
-    mistakeReason: '没有正确分类，把自然现象和植物的花混在一起了。'
-  },
-  {
-    type: '字词基础',
-    question: '把句子补充完整：太阳像______一样挂在天空。',
-    options: ['小船', '圆盘', '月牙', '镰刀'],
-    answer: 1,
-    explanation: '正确答案：圆盘。用圆盘最贴切地描述了太阳的形状。',
-    mistakeReason: '比喻不贴切，小船、月牙、镰刀常用来形容月亮。'
-  },
-  // 阅读理解（6-10题）
-  {
-    type: '阅读理解',
-    question: '春天到了，公园里的花都开了。有红的、黄的、白的，五颜六色，美丽极了。这段话主要写了：',
-    options: [
-      '春天来了',
-      '公园里的花很美',
-      '花的颜色很多',
-      '公园很美'
-    ],
-    answer: 1,
-    explanation: '正确答案：公园里的花很美。这段话描述了春天公园里花开的美丽景象。',
-    mistakeReason: '概括不全面，只看到部分内容而没有抓住主要意思。'
-  },
-  {
-    type: '阅读理解',
-    question: '小明每天早上都坚持跑步，从不间断。这句话主要表现了小明的什么品质？',
-    options: ['勤劳', '勇敢', '有毅力', '善良'],
-    answer: 2,
-    explanation: '正确答案：有毅力。"从不间断"体现了他有毅力。',
-    mistakeReason: '没有抓住关键词"从不间断"来理解人物品质。'
-  },
-  {
-    type: '阅读理解',
-    question: '读书可以让我们学到很多知识，可以让我们明白很多道理。这句话的主要意思是：',
-    options: [
-      '读书很有趣',
-      '读书有很多好处',
-      '读书要认真',
-      '读书可以解闷'
-    ],
-    answer: 1,
-    explanation: '正确答案：读书有很多好处。这句话列举了读书的两个好处。',
-    mistakeReason: '没有正确理解句子要表达的主要观点。'
-  },
-  {
-    type: '阅读理解',
-    question: '下列哪句话是比喻句？',
-    options: [
-      '小鸟在树上唱歌。',
-      '他长得像他爸爸。',
-      '弯弯的月亮像小船。',
-      '我好像认识他。'
-    ],
-    answer: 2,
-    explanation: '正确答案：弯弯的月亮像小船。把月亮比作小船，有比喻词"像"。',
-    mistakeReason: '把比较和比喻混淆了，不是所有有"像"的句子都是比喻句。'
-  },
-  {
-    type: '阅读理解',
-    question: '"这件事真让人感动。"这句话中的"感动"可以换成哪个词？',
-    options: ['难过', '激动', '生气', '高兴'],
-    answer: 1,
-    explanation: '正确答案：激动。感动和激动在某些语境下可以互换。',
-    mistakeReason: '不理解词语在具体语境中的意思。'
-  },
-  // 写作表达（11-15题）
-  {
-    type: '写作表达',
-    question: '写人的文章，一般要先写什么？',
-    options: ['人物的外貌', '人物的品质', '具体事例', '人物的爱好'],
-    answer: 0,
-    explanation: '正确答案：人物的外貌。写人通常先介绍外貌，让读者对人物有初步印象。',
-    mistakeReason: '不熟悉写人文章的基本结构。'
-  },
-  {
-    type: '写作表达',
-    question: '下列哪个结尾方式不恰当？',
-    options: [
-      '首尾呼应',
-      '点明中心',
-      '画蛇添足',
-      '总结全文'
-    ],
-    answer: 2,
-    explanation: '正确答案：画蛇添足。画蛇添足是贬义词，指做多余的事，反而不好。',
-    mistakeReason: '不理解成语的意思和写作方法。'
-  },
-  {
-    type: '写作表达',
-    question: '写一件事，最重要的是写清楚：',
-    options: ['时间、地点、人物', '事情的经过', '事情的结果', '以上都是'],
-    answer: 3,
-    explanation: '正确答案：以上都是。写事要写清楚六要素。',
-    mistakeReason: '不知道写事的六要素。'
-  },
-  {
-    type: '写作表达',
-    question: '下列哪句话写得最生动？',
-    options: [
-      '花开了。',
-      '花开了，真好看。',
-      '花儿张开了笑脸。',
-      '有很多花开了。'
-    ],
-    answer: 2,
-    explanation: '正确答案：花儿张开了笑脸。用了拟人的手法，写得很生动。',
-    mistakeReason: '不会运用修辞手法让句子更生动。'
-  },
-  {
-    type: '写作表达',
-    question: '作文题目"一件______的事"，横线处填哪个词最合适？',
-    options: ['难忘', '美丽', '高大', '明亮'],
-    answer: 0,
-    explanation: '正确答案：难忘。只有"难忘"能用来形容事。',
-    mistakeReason: '词语搭配不当，不理解哪些词可以修饰"事"。'
-  }
-];
-
-// 诊断测评状态
 let currentDiagnosisQuestion = 0;
 let diagnosisAnswers = [];
 let diagnosisScores = {
-  '字词基础': 0,
-  '阅读理解': 0,
-  '写作表达': 0
+  '瀛楄瘝鍩虹': 0,
+  '闃呰鐞嗚В': 0,
+  '鍐欎綔琛ㄨ揪': 0
 };
 
-// 开始诊断测评
-function startDiagnosis() {
-  currentDiagnosisQuestion = 0;
-  diagnosisAnswers = new Array(diagnosisQuestions.length).fill(null);
-  document.getElementById('diagnosisIntro').style.display = 'grid';
-  document.getElementById('diagnosisQuiz').style.display = 'block';
-  document.getElementById('diagnosisResult').style.display = 'none';
-  renderDiagnosisQuestion();
-}
-
-// 渲染诊断测评题目
-function renderDiagnosisQuestion() {
-  const question = diagnosisQuestions[currentDiagnosisQuestion];
-  const questionCard = document.getElementById('questionCard');
-  
-  let optionsHTML = '';
-  question.options.forEach((option, index) => {
-    const isSelected = diagnosisAnswers[currentDiagnosisQuestion] === index;
-    optionsHTML += `
-      <button class="option-btn ${isSelected ? 'selected' : ''}" 
-              onclick="selectDiagnosisOption(${index})">
-        ${option}
-      </button>
-    `;
-  });
-  
-  questionCard.innerHTML = `
-    <div class="question-type">${question.type}</div>
-    <div class="question-text">${currentDiagnosisQuestion + 1}. ${question.question}</div>
-    <div class="question-options">${optionsHTML}</div>
-  `;
-  
-  // 更新进度
-  const progress = ((currentDiagnosisQuestion + 1) / diagnosisQuestions.length) * 100;
-  document.getElementById('quizProgress').style.width = progress + '%';
-  document.getElementById('currentQ').textContent = currentDiagnosisQuestion + 1;
-  
-  // 更新导航按钮
-  updateDiagnosisNav();
-}
-
-// 选择诊断选项
 function selectDiagnosisOption(index) {
   diagnosisAnswers[currentDiagnosisQuestion] = index;
   renderDiagnosisQuestion();
 }
 
-// 更新诊断导航按钮
-function updateDiagnosisNav() {
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const submitBtn = document.getElementById('submitBtn');
-  
-  prevBtn.style.display = currentDiagnosisQuestion > 0 ? 'inline-block' : 'none';
-  
-  if (currentDiagnosisQuestion < diagnosisQuestions.length - 1) {
-    nextBtn.style.display = 'inline-block';
-    submitBtn.style.display = 'none';
-  } else {
-    nextBtn.style.display = 'none';
-    submitBtn.style.display = 'inline-block';
-  }
-  
-  // 如果当前题已作答则启用按钮
-  nextBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
-  submitBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
-}
-
-// 上一题
 function prevQuestion() {
   if (currentDiagnosisQuestion > 0) {
     currentDiagnosisQuestion--;
@@ -4399,170 +3271,6 @@ function prevQuestion() {
   }
 }
 
-// 下一题
-function nextQuestion() {
-  if (currentDiagnosisQuestion < diagnosisQuestions.length - 1) {
-    currentDiagnosisQuestion++;
-    renderDiagnosisQuestion();
-  }
-}
-
-// 提交诊断测评
-function submitDiagnosis() {
-  // 检查是否所有题都已作答
-  const unanswered = diagnosisAnswers.includes(null);
-  if (unanswered) {
-    alert('请完成所有题目后再提交！');
-    return;
-  }
-  
-  // 计算得分
-  let totalScore = 0;
-  diagnosisScores = {
-    '字词基础': 0,
-    '阅读理解': 0,
-    '写作表达': 0
-  };
-  
-  diagnosisQuestions.forEach((q, index) => {
-    const isCorrect = diagnosisAnswers[index] === q.answer;
-    if (isCorrect) {
-      totalScore++;
-      diagnosisScores[q.type]++;
-    }
-  });
-  
-  // 保存到错题本
-  saveDiagnosisMistakes();
-  
-  // 显示结果
-  showDiagnosisResult(totalScore);
-}
-
-// 保存诊断错题
-function saveDiagnosisMistakes() {
-  const wrongList = safeParse('wrongAnswers', []);
-  
-  diagnosisQuestions.forEach((q, index) => {
-    if (diagnosisAnswers[index] !== q.answer) {
-      const wrongItem = {
-        type: '诊断测评 - ' + q.type,
-        question: q.question,
-        userAnswer: q.options[diagnosisAnswers[index]],
-        correctAnswer: q.options[q.answer],
-        tip: q.explanation,
-        questionId: q.id,
-        timestamp: new Date().toISOString()
-      };
-      wrongList.push(wrongItem);
-    }
-  });
-  
-  if (wrongList.length > 50) {
-    wrongList.splice(0, wrongList.length - 50);
-  }
-  
-  safeSet('wrongAnswers', wrongList);
-  renderWrongList();
-}
-
-// 显示诊断结果
-function showDiagnosisResult(totalScore) {
-  document.getElementById('diagnosisQuiz').style.display = 'none';
-  document.getElementById('diagnosisResult').style.display = 'block';
-  
-  // 设置总得分
-  document.getElementById('totalScore').textContent = totalScore;
-  
-  // 渲染技能得分
-  const skills = [
-    { name: '字词基础', score: diagnosisScores['字词基础'], max: 5 },
-    { name: '阅读理解', score: diagnosisScores['阅读理解'], max: 5 },
-    { name: '写作表达', score: diagnosisScores['写作表达'], max: 5 }
-  ];
-  
-  const skillScoresDiv = document.getElementById('skillScores');
-  let skillScoresHTML = '';
-  skills.forEach(skill => {
-    const percentage = (skill.score / skill.max) * 100;
-    let levelClass = 'good';
-    if (percentage < 60) levelClass = 'weak';
-    else if (percentage < 80) levelClass = 'medium';
-    
-    skillScoresHTML += `
-      <div class="skill-item">
-        <div class="skill-name">${skill.name}</div>
-        <div class="skill-bar">
-          <div class="skill-fill ${levelClass}" style="width: ${percentage}%"></div>
-        </div>
-        <div class="skill-score">${skill.score}/${skill.max}</div>
-      </div>
-    `;
-  });
-  skillScoresDiv.innerHTML = skillScoresHTML;
-  
-  // 生成学习建议
-  generateSuggestions(skills);
-  
-  // 保存诊断结果
-  safeSet('lastDiagnosisResult', {
-    totalScore: totalScore,
-    skills: diagnosisScores,
-    date: new Date().toISOString()
-  });
-}
-
-// 生成学习建议
-function generateSuggestions(skills) {
-  const suggestionsDiv = document.getElementById('suggestions');
-  let suggestionsHTML = '<h3>📝 个性化学习建议</h3>';
-  
-  skills.forEach(skill => {
-    const percentage = (skill.score / skill.max) * 100;
-    
-    if (percentage < 60) {
-      suggestionsHTML += `
-        <div class="suggestion-item">
-          <div class="suggestion-title">⚠️ ${skill.name}需要加强</div>
-          <div class="suggestion-text">
-            建议加强${skill.name}练习，每天花更多时间在这方面。可以先从基础题开始，循序渐进。
-          </div>
-        </div>
-      `;
-    } else if (percentage < 80) {
-      suggestionsHTML += `
-        <div class="suggestion-item">
-          <div class="suggestion-title">📚 ${skill.name}有提升空间</div>
-          <div class="suggestion-text">
-            ${skill.name}基础还不错，可以多做些提高题，巩固知识掌握得更牢固。
-          </div>
-        </div>
-      `;
-    } else {
-      suggestionsHTML += `
-        <div class="suggestion-item">
-          <div class="suggestion-title">🎉 ${skill.name}表现优秀</div>
-          <div class="suggestion-text">
-            ${skill.name}学得很好！可以挑战一些更难的题目，保持优势。
-          </div>
-        </div>
-      `;
-    }
-  });
-  
-  suggestionsDiv.innerHTML = suggestionsHTML;
-}
-
-// 重置诊断测评
-function resetDiagnosis() {
-  document.getElementById('diagnosisIntro').style.display = 'grid';
-  document.getElementById('diagnosisQuiz').style.display = 'none';
-  document.getElementById('diagnosisResult').style.display = 'none';
-  currentDiagnosisQuestion = 0;
-  diagnosisAnswers = [];
-}
-
-// 跳转到练习
 function goToPractice() {
   // 滚动到练习区域
   document.querySelector('.interactive-practice').scrollIntoView({ behavior: 'smooth' });
@@ -4616,67 +3324,10 @@ let currentDiagnosisMeta = {
   paperLabel: 'A卷诊断'
 };
 
-function makeDynamicQuestion(type, errorCategory, errorCode, band, variant, question, options, answer, explanation, mistakeReason) {
-  return { type, errorCategory, errorCode, band, variant, question, options, answer, explanation, mistakeReason };
-}
-
 function getDynamicDiagnosisBank() {
-  return [
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'lower', 'syn-1', '下列词语中，与“安静”意思最相近的是：', ['吵闹', '宁静', '热闹', '活泼'], 1, '“宁静”和“安静”意思相近。', '近义词辨析不稳。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'lower', 'ctx-1', '选择合适的词语：小鸟在树上______地唱歌。', ['欢快', '寒冷', '坚硬', '笔直'], 0, '“欢快地唱歌”搭配合适。', '词语搭配和语境判断不稳。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'lower', 'idiom-1', '“自言自语”的意思是：', ['自己跟自己说话', '大声唱歌', '认真写字', '别人一起说'], 0, '“自言自语”就是自己对自己说话。', '成语整体理解不稳。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'lower', 'class-1', '下列哪个词与其他三个不是同一类？', ['铅笔', '橡皮', '尺子', '苹果'], 3, '前三个是学习用品，“苹果”是水果。', '没有按类别归纳。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'lower', 'rhet-1', '下列哪句话用了拟人？', ['花儿张开了笑脸。', '花是红色的。', '我喜欢花。', '花开在路边。'], 0, '“张开了笑脸”把花当作人来写。', '修辞判断不稳。'),
-
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'middle', 'syn-2', '下列词语中，与“赞赏”意思最相近的是：', ['批评', '欣赏', '躲藏', '等待'], 1, '“欣赏”接近“赞赏”的意思。', '没有分清褒义词和普通动作词。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'middle', 'ctx-2', '选择合适的词语：面对难题，他没有退缩，而是______地思考。', ['专心致志', '垂头丧气', '手忙脚乱', '东张西望'], 0, '“专心致志”符合认真思考的语境。', '没有抓住人物状态。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'middle', 'idiom-2', '“胸有成竹”常用来形容：', ['做事前已有把握', '胸口有竹子', '非常害怕', '随便决定'], 0, '“胸有成竹”表示事前已有充分准备和把握。', '成语不能按字面理解。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'middle', 'class-2', '下列哪个词与其他三个不是同一类？', ['拟人', '比喻', '排比', '记叙'], 3, '前三个是修辞手法，“记叙”是表达方式。', '语文概念分类不清。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'middle', 'rhet-2', '“这难道不是最好的礼物吗？”属于：', ['反问', '比喻', '拟人', '夸张'], 0, '用疑问形式表达肯定语气，是反问。', '句式语气判断不稳。'),
-
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'upper', 'syn-3', '下列词语中，与“斟酌”意思最接近的是：', ['反复考虑', '随意选择', '马上拒绝', '大声朗读'], 0, '“斟酌”表示仔细考虑、权衡。', '书面词语积累不足。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'upper', 'ctx-3', '选择合适的词语：这组数据______地说明了问题的严重性。', ['直观', '芬芳', '清脆', '漫长'], 0, '数据能“直观地说明”问题。', '说明文常用词语积累不足。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'upper', 'idiom-3', '“意味深长”常用来形容：', ['话语含义深刻', '路很漫长', '声音很尖', '颜色很浅'], 0, '“意味深长”表示含义深刻，值得回味。', '抽象成语语义不稳。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'upper', 'class-3', '下列哪个概念与其他三个不是同一类？', ['列数字', '作比较', '打比方', '心理描写'], 3, '前三个是说明方法，“心理描写”是人物描写。', '说明文和记叙文方法混淆。'),
-    makeDynamicQuestion('字词基础', 'b1', 'B1', 'upper', 'rhet-3', '“时间像细沙，从指缝间悄悄溜走”主要用了：', ['比喻和拟人', '设问和反问', '排比和对偶', '夸张和引用'], 0, '把时间比作细沙，“溜走”又带有拟人意味。', '综合修辞判断不足。'),
-
-    makeDynamicQuestion('阅读理解', 'r1', 'R1', 'lower', 'main-1', '“小兔种下萝卜，每天浇水。秋天，萝卜长得又大又甜。”这段话主要写了：', ['小兔爱吃萝卜', '小兔种萝卜并收获了', '秋天很美', '萝卜很甜'], 1, '主要人物是小兔，事情是种萝卜并收获。', '概括时漏了人物和事件。'),
-    makeDynamicQuestion('阅读理解', 'r2', 'R2', 'lower', 'evi-1', '“小猫躲在椅子下面，一声也不叫。”从哪里能看出小猫害怕？', ['躲在椅子下面', '椅子很大', '小猫很漂亮', '房间很亮'], 0, '“躲在椅子下面”是原文依据。', '回答人物特点时缺少原文依据。'),
-    makeDynamicQuestion('阅读理解', 'r3', 'R3', 'lower', 'lang-1', '“小河唱着歌向前跑。”这句话写出了小河的什么特点？', ['活泼欢快', '又脏又臭', '一动不动', '很害怕'], 0, '“唱着歌”“跑”写出小河活泼。', '不会联系修辞和表达效果。'),
-    makeDynamicQuestion('阅读理解', 'r4', 'R4', 'lower', 'data-1', '表格显示：周一借书20本，周二借书35本。哪天借书更多？', ['周二', '周一', '一样多', '无法判断'], 0, '35本比20本多。', '没有读取表格数据。'),
-    makeDynamicQuestion('阅读理解', 'r2', 'R2', 'lower', 'word-1', '“小明急得直跺脚。”说明小明：', ['很着急', '很开心', '很安静', '很困'], 0, '“直跺脚”表现着急。', '不会从动作理解心情。'),
-
-    makeDynamicQuestion('阅读理解', 'r1', 'R1', 'middle', 'main-2', '“小雨第一次上台很紧张，但她深吸一口气，终于完整地讲完了故事。”这段话主要写了：', ['小雨克服紧张完成讲故事', '小雨喜欢故事', '台上很高', '大家很安静'], 0, '抓住人物、困难和结果。', '概括时漏了变化过程。'),
-    makeDynamicQuestion('阅读理解', 'r2', 'R2', 'middle', 'evi-2', '“父亲站在雨里，把伞一直偏向我这边。”最能表现父亲关爱的依据是：', ['把伞偏向我', '雨下得大', '父亲站着', '我在路上'], 0, '伞偏向“我”是关爱的动作依据。', '没有把动作和品质联系起来。'),
-    makeDynamicQuestion('阅读理解', 'r3', 'R3', 'middle', 'lang-2', '“雨点像断了线的珠子落下来”写出了雨的什么特点？', ['又密又急', '很轻很小', '完全没下', '颜色很多'], 0, '“断了线的珠子”表现雨密集、下得急。', '赏析没有扣住关键词。'),
-    makeDynamicQuestion('阅读理解', 'r4', 'R4', 'middle', 'data-2', '材料显示：乘公交上学占45%，步行占30%，骑车占25%。最多的是：', ['乘公交', '步行', '骑车', '一样多'], 0, '45%最大。', '非连续文本数据读取不准。'),
-    makeDynamicQuestion('阅读理解', 'r2', 'R2', 'middle', 'word-2', '“他迟疑了一下，还是举起了手。”这里“迟疑”说明他：', ['有点犹豫', '十分坚定', '非常生气', '马上睡着'], 0, '“迟疑”表示犹豫不决。', '没有抓住心理变化。'),
-
-    makeDynamicQuestion('阅读理解', 'r1', 'R1', 'upper', 'main-3', '“材料介绍了塑料袋使用量大、降解慢，并提出减少使用和循环利用的建议。”主要内容是：', ['塑料袋问题及解决建议', '塑料袋很轻', '人们喜欢购物', '循环利用很麻烦'], 0, '说明文概括要抓问题和建议。', '非连续/说明材料概括不完整。'),
-    makeDynamicQuestion('阅读理解', 'r2', 'R2', 'upper', 'evi-3', '判断父亲“默默付出”，最有力的一组依据是：', ['冒雪送站、买热包子、目送离开', '车站很远、雪很大、包子很热', '孩子很感动、天气很冷、路灯很暗', '父亲说话少、文章很长、结尾点题'], 0, '人物评价要用多个行动细节支撑。', '依据没有和人物特点对应。'),
-    makeDynamicQuestion('阅读理解', 'r3', 'R3', 'upper', 'lang-3', '“父亲的背影被雪光拉得很长。”这句话的作用最恰当的是：', ['烘托父亲默默付出的形象和离别氛围', '说明父亲个子很高', '交代雪很白', '突出车站很大'], 0, '环境和背影描写能烘托人物与情感。', '句子作用分析不够深入。'),
-    makeDynamicQuestion('阅读理解', 'r4', 'R4', 'upper', 'data-3', '材料显示：树荫区温度32℃，水泥空地温度39℃。最合理的建议是：', ['增加树荫和遮阳设施', '减少树木', '中午多跑步', '取消户外活动'], 0, '树荫区温度更低，能改善户外环境。', '不能用数据推出建议。'),
-    makeDynamicQuestion('阅读理解', 'r2', 'R2', 'upper', 'word-3', '“这份沉默不是冷淡，而是父亲深藏的牵挂。”这里“沉默”表现的是：', ['含蓄的关爱', '不愿理人', '完全没有感情', '忘记说话'], 0, '结合后文“牵挂”可知沉默表现含蓄的爱。', '没有联系上下文理解词义。'),
-
-    makeDynamicQuestion('写作表达', 'w1', 'W1', 'lower', 'order-1', '看图写话时，第一步通常先写：', ['图上有谁在哪里', '结尾感受', '引用名言', '写一大段心理'], 0, '低年级写话先交代人物和地点。', '写话顺序不清。'),
-    makeDynamicQuestion('写作表达', 'w2', 'W2', 'lower', 'detail-1', '哪句话写得更具体？', ['小狗跑。', '小狗摇着尾巴跑过来。', '小狗。', '跑。'], 1, '加入动作“摇着尾巴”更具体。', '表达太短，缺少细节。'),
-    makeDynamicQuestion('写作表达', 'w3', 'W3', 'lower', 'topic-1', '作文题目“一件开心的事”，内容最合适的是：', ['写一次快乐的经历', '介绍一种水果', '说明铅笔用法', '抄一首古诗'], 0, '题眼是“开心的事”。', '审题扣题不稳。'),
-    makeDynamicQuestion('写作表达', 'w2', 'W2', 'lower', 'vivid-1', '下列哪句话写得最生动？', ['花开了。', '花开了，真好看。', '花儿张开了笑脸。', '有很多花开了。'], 2, '拟人让句子更生动。', '不会用修辞让表达生动。'),
-    makeDynamicQuestion('写作表达', 'w3', 'W3', 'lower', 'end-1', '写完“一次快乐的游戏”，结尾最合适的是：', ['这次游戏让我非常快乐。', '铅笔很长。', '我买了苹果。', '月亮升起来了。'], 0, '结尾要回扣快乐的游戏。', '结尾没有扣题。'),
-
-    makeDynamicQuestion('写作表达', 'w1', 'W1', 'middle', 'order-2', '写一件事，最重要的是写清楚：', ['起因、经过、结果', '只写天气', '只写人物外貌', '只写题目'], 0, '写事要有完整过程。', '记事结构不清。'),
-    makeDynamicQuestion('写作表达', 'w2', 'W2', 'middle', 'detail-2', '把“妈妈很累”写具体，最好补充：', ['动作和神态细节', '妈妈的身高', '天气预报', '书包颜色'], 0, '动作和神态能表现辛苦。', '重点段缺少细节展开。'),
-    makeDynamicQuestion('写作表达', 'w3', 'W3', 'middle', 'topic-2', '作文题“那次，我真勇敢”，最重要的题眼是：', ['勇敢', '那次', '我', '真'], 0, '中心应围绕“勇敢”。', '没有抓住中心词。'),
-    makeDynamicQuestion('写作表达', 'w2', 'W2', 'middle', 'vivid-2', '把“他跑得很快”写生动，最合适的是：', ['他像离弦的箭一样冲了出去。', '他跑。', '他很快很快。', '他不慢。'], 0, '比喻能写出速度快。', '表达升级方法不足。'),
-    makeDynamicQuestion('写作表达', 'w3', 'W3', 'middle', 'end-2', '写“我学会了坚持”，结尾最合适的是：', ['这件事让我明白，坚持会带来改变。', '我回家了。', '操场上有人。', '这支笔很好。'], 0, '结尾要点明坚持的意义。', '点题意识不足。'),
-
-    makeDynamicQuestion('写作表达', 'w1', 'W1', 'upper', 'order-3', '写成长类作文，最应该突出的是：', ['事情带来的变化和认识', '只写事情发生了', '只写人物名字', '只写景色'], 0, '成长类作文要写出变化和认识。', '中心立意不清。'),
-    makeDynamicQuestion('写作表达', 'w2', 'W2', 'upper', 'detail-3', '作文重点段要从普通变拔尖，最需要补：', ['动作、语言、心理和认识变化', '更多形容词堆叠', '只写结果', '只换题目'], 0, '多层细节和认识变化能提升重点段。', '重点段只有情节，没有层次。'),
-    makeDynamicQuestion('写作表达', 'w3', 'W3', 'upper', 'topic-3', '作文题“藏在细节里的爱”，最适合的写法是：', ['用具体细节表现爱', '直接喊口号说爱', '只写风景', '介绍学习用品'], 0, '题眼是“细节”和“爱”。', '审题层次不够。'),
-    makeDynamicQuestion('写作表达', 'w2', 'W2', 'upper', 'vivid-3', '哪句话更像高分作文表达？', ['失败像一盆冷水，但也让我第一次认真看见自己的不足。', '我失败了。', '失败不好。', '我很难过。'], 0, '比喻和认识变化让表达更有层次。', '表达缺少思考深度。'),
-    makeDynamicQuestion('写作表达', 'w3', 'W3', 'upper', 'end-3', '写“我终于战胜了自己”，结尾最合适的是：', ['原来战胜自己，就是敢迈出害怕的那一步。', '我很高兴。', '事情结束了。', '大家都走了。'], 0, '结尾要写出对题目的理解。', '题意升华不够。')
-  ];
+  return Array.isArray(dynamicDiagnosisBank) ? dynamicDiagnosisBank : [];
 }
+
 
 function getDynamicDiagnosisSelectValue(id, fallback) {
   const el = document.getElementById(id);
@@ -4735,7 +3386,7 @@ function buildDynamicDiagnosisPaper(grade, paper) {
 }
 
 function getActiveDiagnosisQuestions() {
-  return activeDiagnosisQuestions.length ? activeDiagnosisQuestions : diagnosisQuestions;
+  return activeDiagnosisQuestions;
 }
 
 function updateDiagnosisPaperCopy() {
@@ -4749,12 +3400,38 @@ function updateDiagnosisPaperCopy() {
   }
 }
 
-function startDiagnosis() {
+async function startDiagnosis() {
   const grade = getDynamicDiagnosisSelectValue('diagnosisGradeSelect', '3');
   const paper = getDynamicDiagnosisSelectValue('diagnosisPaperSelect', 'a');
   const gradeProfile = DYNAMIC_DIAGNOSIS_GRADES[grade] || DYNAMIC_DIAGNOSIS_GRADES[3];
   const paperProfile = DYNAMIC_DIAGNOSIS_PAPERS[paper] || DYNAMIC_DIAGNOSIS_PAPERS.a;
-  activeDiagnosisQuestions = buildDynamicDiagnosisPaper(grade, paper);
+  const startBtn = document.querySelector('.start-diagnosis-btn');
+  const startBtnLabel = startBtn ? startBtn.textContent : '';
+
+  if (startBtn) {
+    startBtn.disabled = true;
+    startBtn.textContent = '加载题目中...';
+  }
+
+  const bank = await ensureDynamicDiagnosisBank();
+
+  if (startBtn) {
+    startBtn.disabled = false;
+    startBtn.textContent = startBtnLabel || '开始15分钟诊断';
+  }
+
+  if (!Array.isArray(bank) || bank.length === 0) {
+    alert('诊断题目加载失败，请稍后重试。');
+    return;
+  }
+
+  const generatedQuestions = buildDynamicDiagnosisPaper(grade, paper);
+  activeDiagnosisQuestions = generatedQuestions;
+  if (!generatedQuestions.length) {
+    alert('暂时无法生成本套诊断题，请稍后重试。');
+    return;
+  }
+
   currentDiagnosisMeta = { grade, paper, gradeLabel: gradeProfile.label, paperLabel: paperProfile.label };
   rememberDiagnosisVariantIds(activeDiagnosisQuestions);
   currentDiagnosisQuestion = 0;

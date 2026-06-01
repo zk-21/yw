@@ -373,6 +373,48 @@
   }
 
   var _dataContextCache = null; // 资料库上下文缓存（一次会话内复用）
+  var _agentDataCache = {};
+  var _agentDataLoads = {};
+
+  function getDataAssetVersion() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = scripts.length - 1; i >= 0; i--) {
+      var src = scripts[i].getAttribute('src') || '';
+      if (src.indexOf('agent.js') === -1 && src.indexOf('nav.js') === -1) continue;
+      var match = src.match(/[?&]v=([^&]+)/);
+      if (match) return match[1];
+    }
+    return 'dev';
+  }
+
+  function loadAgentData(name) {
+    if (window.DataLib && typeof window.DataLib.load === 'function') {
+      return window.DataLib.load(name);
+    }
+    if (window.DataLibCore && typeof window.DataLibCore.load === 'function') {
+      return window.DataLibCore.load(name);
+    }
+    if (_agentDataCache[name]) return Promise.resolve(_agentDataCache[name]);
+    if (_agentDataLoads[name]) return _agentDataLoads[name];
+
+    _agentDataLoads[name] = fetch('data/' + name + '.json?v=' + encodeURIComponent(getDataAssetVersion()))
+      .then(function(response) {
+        if (!response.ok) throw new Error('Failed to load ' + name);
+        return response.json();
+      })
+      .then(function(data) {
+        _agentDataCache[name] = data;
+        delete _agentDataLoads[name];
+        return data;
+      })
+      .catch(function(error) {
+        delete _agentDataLoads[name];
+        console.warn('Agent data load failed:', name, error);
+        return null;
+      });
+
+    return _agentDataLoads[name];
+  }
 
   function buildPrompt(data, dataContext) {
     const profile = getTrackProfile(data.level);
@@ -414,7 +456,6 @@
 
   // 从资料库提取上下文，注入到 AI 辅导提示中
   async function enrichDataContext(stage, subject, task) {
-    if (!window.DataLib || !window.DataLib.load) return '';
     if (_dataContextCache) return _dataContextCache;
 
     var gradeNum = null;
@@ -429,7 +470,7 @@
 
     try {
       // 加载常见错误库
-      var mistakes = await DataLib.load('common-mistakes');
+      var mistakes = await loadAgentData('common-mistakes');
       if (mistakes && mistakes.错误分类) {
         var relevant = mistakes.错误分类.filter(function(e) {
           if (!gradeNum) return true;
@@ -448,7 +489,7 @@
       }
 
       // 加载语法教学口诀
-      var grammar = await DataLib.load('grammar');
+      var grammar = await loadAgentData('grammar');
       if (grammar) {
         if (grammar['词性'] && grammar['词性']['教学口诀']) {
           var tips = [];
@@ -466,7 +507,7 @@
 
       // 加载作文评分标准
       if (/作文|写作|升格/.test(task) || /作文|写作/.test(subject)) {
-        var essays = await DataLib.load('model-essays');
+        var essays = await loadAgentData('model-essays');
         if (essays && essays['20分制评分标准']) {
           contextParts.push('\n【20分制作文评分标准 — 作文辅导时参考】');
           essays['20分制评分标准'].forEach(function(c) {

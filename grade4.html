@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
   <style>
     .answer-table,
     .knowledge-table {
@@ -1033,7 +1033,7 @@
       </div>
       <div class="table-card">
         <h2>四年级古诗知识怎么用：诗人情感速查</h2>
-        <p style="color:#666;">四年级先掌握情感类型、意象和答题句式；更完整的诗人体系建议到 <a href="knowledge-map.html#classic-system" style="color:var(--deep-blue);font-weight:800;">知识总控台古诗文体系</a> 查。</p>
+        <p style="color:#666;">四年级先掌握情感类型、意象和答题句式；更完整的古诗文答题闭环建议到 <a href="classical-reading.html" style="color:var(--deep-blue);font-weight:800;">古诗文阅读专题页</a> 查。</p>
         <div class="responsive-table">
           <table>
             <thead>
@@ -1475,9 +1475,10 @@
     </div>
   </nav>
 
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
+  <script defer src="data/grade-page-renderer.js?v=115"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // 学习目标进度追踪
@@ -1561,7 +1562,6 @@
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
         if (window.DataLib) {
                     // 数据驱动渲染：年级元数据模块
           DataLib.renderGradeHero('4', document.getElementById('grade4-hero'));
@@ -1572,7 +1572,6 @@
           DataLib.renderGrammarByGrade('grade4', document.getElementById('grade4-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade4-mistakes-ref'), '4');
         }
-      }, 300);
     });
     
     // 目录导航功能
@@ -1635,7 +1634,7 @@
       });
     });
   </script>
-<script defer src="data/grade-stage-assessment.js?v=98"></script>
+<script defer src="data/grade-stage-assessment.js?v=115"></script>
 <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 //   非 200 响应 — 不缓存
 // 版本管理：保留上一版本以供回滚
 
-const CACHE_VERSION = 100; // 修改此数字即可刷新全部缓存
+const CACHE_VERSION = 115; // 修改此数字即可刷新全部缓存
 const CACHE_NAME = `diandian-v${CACHE_VERSION}`;
 const MAX_CACHES_TO_KEEP = 2; // 保留最新的2个版本
 
@@ -66,8 +66,21 @@ const PRECACHE = [
   './agent.html',
   './report.html',
   './404.html',
+  './extra-topics.html',
+  './oral-communication.html',
+  './application-writing.html',
+  './integrated-learning.html',
+  './narrative-reading.html',
+  './non-continuous-text.html',
+  './expository-reading.html',
+  './classical-reading.html',
+  './literary.html',
+  './modern-poetry.html',
+  './book-reading.html',
   './styles.css',
   './nav.js',
+  './index-home-core.js',
+  './index-home-role.js',
   './table-responsive.js',
   './data/data-loader-global.js',
   './data/data-loader-core.js',

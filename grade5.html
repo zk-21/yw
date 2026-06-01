@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
 
   <style>
     /* ===== 知识点递进题组表格样式 ===== */
@@ -809,6 +809,7 @@
       <div class="section-title">
         <p class="eyebrow">文言文启蒙</p>
         <h2>五年级文言文不求难，关键是会借助注释理解</h2>
+        <p style="color:#666;">本页保留五年级文言文和古诗情感的起步方法；如果要把古诗画面、情感、炼字、文言释词、译句和启示练成完整闭环，直接去 <a href="classical-reading.html" style="color:#0f766e; font-weight:800;">古诗文阅读专题页</a>。</p>
       </div>
       <div class="study-block accent" style="margin-bottom:18px;">
  <h2>特级教师精讲</h2>
@@ -1131,9 +1132,10 @@
     </div>
   </nav>
 
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
+  <script defer src="data/grade-page-renderer.js?v=115"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // 学习目标进度追踪
@@ -1217,7 +1219,6 @@
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
         if (window.DataLib) {
                     // 数据驱动渲染：年级元数据模块
           DataLib.renderGradeHero('5', document.getElementById('grade5-hero'));
@@ -1228,7 +1229,6 @@
           DataLib.renderGrammarByGrade('grade5', document.getElementById('grade5-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade5-mistakes-ref'), '5');
         }
-      }, 300);
     });
     
     // 目录导航功能
@@ -1291,7 +1291,7 @@
       });
     });
   </script>
-<script defer src="data/grade-stage-assessment.js?v=98"></script>
+<script defer src="data/grade-stage-assessment.js?v=115"></script>
 <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

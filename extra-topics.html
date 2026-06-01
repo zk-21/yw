@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#d97706">
+  <title>小学语文易漏专题入口 | 口语交际、应用文、综合性学习、非连续性文本快速分流</title>
+  <meta name="description" content="把小学语文里最容易被忽略的专题单独拎出来：口语交际、应用文、综合性学习、非连续性文本、现代诗与儿童诗、整本书阅读。先判断题型，再进入对应训练入口。">
+  <meta name="keywords" content="小学语文口语交际,应用文,综合性学习,非连续性文本,现代诗,整本书阅读,专题入口">
+  <meta property="og:title" content="小学语文易漏专题入口 | 口语交际、应用文、综合性学习、非连续性文本快速分流">
+  <meta property="og:description" content="把容易被忽略的语文专题单独分流，先找对入口，再去训练。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --extra-ink: #1f2937;
+      --extra-muted: #52606d;
+      --extra-border: #e7e5e4;
+      --extra-warm: #fff7ed;
+      --extra-mint: #effcf4;
+      --extra-blue: #eff6ff;
+      --extra-shadow: 0 18px 40px rgba(31, 41, 55, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 26%),
+        linear-gradient(180deg, #fffaf2 0%, #f8fbff 42%, #ffffff 100%);
+    }
+    .extra-topics-head {
+      background:
+        linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(16, 185, 129, 0.12)),
+        #fffaf4;
+      border-bottom: 1px solid rgba(217, 119, 6, 0.12);
+    }
+    .extra-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 56px;
+    }
+    .purpose-note {
+      background: linear-gradient(135deg, #fff9ec, #f7fff8);
+      border: 1px solid #f1d4a5;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--extra-shadow);
+      color: var(--extra-ink);
+    }
+    .purpose-note strong {
+      color: #b45309;
+    }
+    .topic-grid,
+    .template-grid,
+    .practice-grid,
+    .check-grid,
+    .compare-grid,
+    .plan-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .topic-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .topic-card,
+    .template-card,
+    .practice-card,
+    .check-card,
+    .compare-card,
+    .plan-card {
+      background: white;
+      border: 1px solid var(--extra-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--extra-shadow);
+    }
+    .topic-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .topic-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -30px -30px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .topic-card:nth-child(2n)::after {
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 54px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff1cf;
+      color: #b45309;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .topic-card h3,
+    .compare-card h3,
+    .plan-card h3 {
+      margin: 14px 0 10px;
+      color: var(--extra-ink);
+      line-height: 1.35;
+    }
+    .topic-card p,
+    .compare-card p,
+    .plan-card p {
+      margin: 0;
+      color: var(--extra-muted);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+    .mini-chips,
+    .topic-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .mini-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--extra-blue);
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .topic-links a,
+    .cta-strip a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .topic-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: #b45309;
+      border: 1px solid #f6d8a8;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .topic-links a:hover {
+      transform: translateY(-1px);
+      background: #ffedd5;
+      box-shadow: 0 12px 20px rgba(180, 83, 9, 0.12);
+    }
+    .compare-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .template-grid,
+    .practice-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 64px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d97706, #10b981);
+    }
+    .template-card strong,
+    .practice-card strong,
+    .check-card strong {
+      color: var(--extra-ink);
+    }
+    .template-titleline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .template-titleline span {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f766e;
+      background: #ecfeff;
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      color: #334155;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: #b45309;
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .practice-card,
+    .check-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+    .practice-card p,
+    .check-card p {
+      margin: 0;
+      color: var(--extra-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .practice-card ul,
+    .check-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--extra-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .practice-card .mini-chips {
+      margin-top: 16px;
+    }
+    .compare-card:nth-child(1) {
+      background: linear-gradient(135deg, #fff7ed, #ffffff);
+    }
+    .compare-card:nth-child(2) {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+    }
+    .compare-card:nth-child(3) {
+      background: linear-gradient(135deg, #effcf4, #ffffff);
+    }
+    .compare-card:nth-child(4) {
+      background: linear-gradient(135deg, #fdf4ff, #ffffff);
+    }
+    .plan-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .plan-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--extra-muted);
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .cta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .cta-strip a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      color: white;
+      box-shadow: 0 14px 26px rgba(217, 119, 6, 0.18);
+    }
+    .cta-strip a.secondary {
+      background: white;
+      color: #0f766e;
+      border: 1px solid #99f6e4;
+      box-shadow: none;
+    }
+    @media (max-width: 900px) {
+      .topic-grid,
+      .template-grid,
+      .practice-grid,
+      .check-grid,
+      .compare-grid,
+      .plan-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="pinyin.html">拼音学习</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="practice.html">练习计划</a>
+    </nav>
+  </header>
+
+  <main>
+  <section class="page-head extra-topics-head">
+      <p class="eyebrow">易漏专题入口</p>
+      <h1>把最容易被忽略的 7 类语文专题单独拎出来</h1>
+      <p>口语交际、应用文、综合性学习、非连续性文本、现代诗与儿童诗、整本书阅读、文学常识，常常不是“完全没学过”，而是“不知道先去哪页、先练什么”。这页只负责分流，不重复堆大而全内容。</p>
+    </section>
+
+    <div class="extra-shell">
+      <section class="section">
+        <div class="purpose-note">
+          <strong>这页怎么用：</strong>先判断孩子现在卡在哪一类任务里，再点进对应专题。每次只抓 1 类，不要六个一起补。补完后回到 <a href="practice.html#diagnosis" style="color:#b45309; font-weight:700;">练习计划</a> 做诊断或复盘，才容易形成稳定得分能力。
+        </div>
+
+        <div class="topic-grid">
+          <article class="topic-card" id="extra-oral">
+            <span class="topic-badge">01 口语</span>
+            <h3>口语交际</h3>
+            <p>适合转述、劝说、推荐、采访、讨论发言这些“会想不会说”的任务。重点不是说得多，而是说得清楚、得体、有理由。</p>
+            <div class="mini-chips">
+              <span>二至六年级</span>
+              <span>先练称呼 + 理由 + 建议</span>
+            </div>
+            <div class="topic-links">
+              <a href="oral-communication.html">进完整口语专题</a>
+              <a href="#quick-templates">用本页速用模板</a>
+              <a href="knowledge-map.html#oral-communication">看口语模板</a>
+              <a href="knowledge-map.html#oral-practice">做口语实战</a>
+            </div>
+          </article>
+
+          <article class="topic-card" id="extra-practical">
+            <span class="topic-badge">02 应用文</span>
+            <h3>应用文</h3>
+            <p>适合请假条、留言条、通知、倡议书、建议书这些“知道大概意思，但总丢格式分”的任务。先保格式，再补表达。</p>
+            <div class="mini-chips">
+              <span>二至六年级</span>
+              <span>先查格式要素</span>
+            </div>
+            <div class="topic-links">
+              <a href="application-writing.html">进完整应用文专题</a>
+              <a href="knowledge-map.html#application-writing-system">看应用文模板</a>
+              <a href="composition.html">回作文页补表达</a>
+            </div>
+          </article>
+
+          <article class="topic-card" id="extra-integrated">
+            <span class="topic-badge">03 综合</span>
+            <h3>综合性学习</h3>
+            <p>适合资料整合、图表表达、提出建议、活动方案这类“材料都看了，但不会组织答案”的任务。核心是提炼共同信息，再生成结论。</p>
+            <div class="mini-chips">
+              <span>四至六年级</span>
+              <span>先分材料，再下结论</span>
+            </div>
+            <div class="topic-links">
+              <a href="integrated-learning.html">进完整综合专题</a>
+              <a href="knowledge-map.html#application-writing-system">看资料整合模板</a>
+              <a href="practice.html#diagnosis">测综合表达短板</a>
+            </div>
+          </article>
+
+          <article class="topic-card" id="extra-nct">
+            <span class="topic-badge">04 阅读</span>
+            <h3>非连续性文本</h3>
+            <p>适合图表、表格、多材料、判断正误和提建议这类“看到了数据，却不会用材料说话”的任务。核心是先看标题和单位，再做比较和结论。</p>
+            <div class="mini-chips">
+              <span>四至六年级</span>
+              <span>先看条件，再写依据</span>
+            </div>
+            <div class="topic-links">
+              <a href="non-continuous-text.html">进完整非连续文本专题</a>
+              <a href="knowledge-map.html#reading-templates">看阅读模板</a>
+              <a href="practice.html#pack-r4">做 R4 训练包</a>
+            </div>
+          </article>
+
+          <article class="topic-card" id="extra-poetry">
+            <span class="topic-badge">05 诗歌</span>
+            <h3>现代诗与儿童诗</h3>
+            <p>适合“只会把诗句翻译成普通话”的孩子。先抓画面、节奏、想象和情感，不要一上来空讲主题。</p>
+            <div class="mini-chips">
+              <span>三至六年级</span>
+              <span>先圈意象，再说感受</span>
+            </div>
+            <div class="topic-links">
+              <a href="modern-poetry.html">进完整现代诗专题</a>
+              <a href="knowledge-map.html#modern-poetry-system">看现代诗方法</a>
+              <a href="grade3.html#section-literature">三年级起步</a>
+              <a href="grade6.html#section-literature">六年级进阶</a>
+            </div>
+          </article>
+
+          <article class="topic-card" id="extra-books">
+            <span class="topic-badge">06 整书</span>
+            <h3>整本书阅读</h3>
+            <p>适合“读过一本书，却说不清人物、情节和主题”的情况。低段先讲人物和事情，高段再讲成长变化和主题理解。</p>
+            <div class="mini-chips">
+              <span>三至六年级</span>
+              <span>先复述，再分析</span>
+            </div>
+            <div class="topic-links">
+              <a href="book-reading.html">进完整整书专题</a>
+              <a href="grade3.html#section-literature">三年级整书起步</a>
+              <a href="grade5.html#section-literature">五年级主题理解</a>
+              <a href="grade6.html#section-literature">六年级综合表达</a>
+            </div>
+          </article>
+
+          <article class="topic-card" id="extra-literary">
+            <span class="topic-badge">07 文常</span>
+            <h3>文学常识</h3>
+            <p>适合作者作品、四大名著、典故出处、古诗词积累、体裁判断和时代脉络这些“背了很多却串不起来”的任务。先按类型分流，再用骨架补字段。</p>
+            <div class="mini-chips">
+              <span>三至六年级</span>
+              <span>先分类，再补字段</span>
+            </div>
+            <div class="topic-links">
+              <a href="literary.html">进文学常识专题</a>
+              <a href="knowledge-map.html#culture-system">看知识总控里的文学索引</a>
+              <a href="search.html?q=%E6%96%87%E5%AD%A6%E5%B8%B8%E8%AF%86">直接搜文学常识</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg">
+        <div class="section-title">
+          <p class="eyebrow">分流规则</p>
+          <h2>别再把不同任务混进同一页里</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这几类内容经常被误塞进作文页或年级页，结果家长越看越乱。先分清页面职责，效率会高很多。</p>
+        </div>
+        <div class="compare-grid">
+          <article class="compare-card">
+            <h3>作文专题</h3>
+            <p>负责审题、选材、结构、细节、升格和批改。遇到作文题不会写，先去这里。</p>
+          </article>
+          <article class="compare-card">
+            <h3>易漏专题</h3>
+            <p>负责口语交际、应用文、综合性学习、非连续性文本、现代诗、整本书阅读、文学常识这几类常被忽略的模块。</p>
+          </article>
+          <article class="compare-card">
+            <h3>知识总控</h3>
+            <p>负责总目录、索引和模板速查。拿不准该去哪页时，先到这里判断入口。</p>
+          </article>
+          <article class="compare-card">
+            <h3>练习计划</h3>
+            <p>负责诊断、训练和复盘。看完方法后，要回这里把能力真正练出来。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">速用模板</p>
+          <h2>今天就能直接拿去说、拿去写的 6 组模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">先别追求“写得多漂亮”，先把结构搭对。把下面的骨架说顺、写顺，再去看更完整的专题页。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <div class="template-titleline">
+              <h3>口语交际模板</h3>
+              <span>先说得体</span>
+            </div>
+            <p>适用于劝说、推荐、讨论发言、采访回答。先交代对象，再给理由，最后提建议或总结。</p>
+            <div class="template-box">
+              <b>开头：</b>“我想对……说 / 我推荐……，因为……”<br>
+              <b>中间：</b>“第一……，第二……，最重要的是……”<br>
+              <b>结尾：</b>“所以我建议…… / 希望大家可以……”
+            </div>
+            <div class="template-note">自查一句：我有没有称呼对象？有没有至少 2 个具体理由？语气是不是商量式而不是命令式？</div>
+          </article>
+
+          <article class="template-card">
+            <div class="template-titleline">
+              <h3>应用文模板</h3>
+              <span>先保格式</span>
+            </div>
+            <p>适用于留言条、请假条、通知、建议书等。先把格式写完整，再看内容是否清楚。</p>
+            <div class="template-box">
+              <b>格式顺序：</b>称呼 -> 正文 -> 署名 -> 日期<br>
+              <b>正文骨架：</b>“因为什么事，要做什么，希望对方知道 / 配合 / 同意。”<br>
+              <b>通知补充：</b>时间、地点、对象、事情四项不能漏。
+            </div>
+            <div class="template-note">自查一句：这类文体最怕“意思差不多但格式丢分”，所以先数格式，再看句子顺不顺。</div>
+          </article>
+
+          <article class="template-card">
+            <div class="template-titleline">
+              <h3>综合性学习模板</h3>
+              <span>先整材料</span>
+            </div>
+            <p>适用于资料整合、图表表达、提出建议、活动方案。先从材料中提共同点，再得出结论或建议。</p>
+            <div class="template-box">
+              <b>整合：</b>“材料一说明……，材料二补充……，两则材料共同告诉我们……”<br>
+              <b>结论：</b>“我得出的结论是……”<br>
+              <b>建议：</b>“针对这个问题，我建议……，因为……”
+            </div>
+            <div class="template-note">自查一句：我的结论是不是从材料里长出来的？有没有只凭感觉提建议、没有回到材料依据？</div>
+          </article>
+
+          <article class="template-card">
+            <div class="template-titleline">
+              <h3>现代诗与儿童诗模板</h3>
+              <span>先画面感</span>
+            </div>
+            <p>适用于“这首诗写了什么 / 表达了什么 / 为什么这样写”这类问题。不要只翻译诗句。</p>
+            <div class="template-box">
+              <b>画面：</b>“诗中写了……，让我看到……”<br>
+              <b>感受：</b>“这些景物 / 意象让我感到……”<br>
+              <b>情感：</b>“诗人借这些画面表达了……”
+            </div>
+            <div class="template-note">自查一句：我是不是只写了“很美、很快乐、很伤感”这类空话？有没有说出具体景物和感受来源？</div>
+          </article>
+
+          <article class="template-card">
+            <div class="template-titleline">
+              <h3>整本书阅读模板</h3>
+              <span>先人物事件</span>
+            </div>
+            <p>适用于读书交流、人物评价、喜欢片段、主题理解。低年级先讲人物和事情，高年级再补主题。</p>
+            <div class="template-box">
+              <b>内容：</b>“这本书主要写了谁，在什么情况下，做了什么事。”<br>
+              <b>片段：</b>“我印象最深的是……，因为这里写出了……”<br>
+              <b>主题：</b>“从这个人物 / 情节里，我看到了……”
+            </div>
+            <div class="template-note">自查一句：我说的是“整本书里的关键人物和变化”，还是只报了一个书名、讲了一句“我很喜欢”？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="mini-practice">
+        <div class="section-title">
+          <p class="eyebrow">最小练习</p>
+          <h2>不用准备太久，今天就能做的 6 个小练习</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">每个练习控制在 5 到 8 分钟，做完马上复述“我用了哪个模板”。只要能复述，就不是死记。</p>
+        </div>
+        <div class="practice-grid">
+          <article class="practice-card">
+            <h3>口语交际</h3>
+            <p>题目：同学总是课间大声喧哗，你想劝他在走廊轻声说话。</p>
+            <ul>
+              <li>先写 1 个称呼，再写 2 个理由，最后写 1 条建议。</li>
+              <li>朗读时注意语气不能冲，最好带“我们可以……”</li>
+            </ul>
+            <div class="mini-chips"><span>完成标准：说清对象 + 理由 + 建议</span></div>
+          </article>
+
+          <article class="practice-card">
+            <h3>应用文</h3>
+            <p>题目：明天上午去医院复查，请写一张请假条给班主任。</p>
+            <ul>
+              <li>先不看内容，先把称呼、正文、署名、日期四格列出来。</li>
+              <li>正文只写一件事：什么原因、请假多久。</li>
+            </ul>
+            <div class="mini-chips"><span>完成标准：四项格式齐全</span></div>
+          </article>
+
+          <article class="practice-card">
+            <h3>综合性学习</h3>
+            <p>题目：看两则“同学每日阅读时间”的材料，说出共同现象并提一条建议。</p>
+            <ul>
+              <li>先写“材料一说明……，材料二说明……”。</li>
+              <li>再写“共同看出……，所以建议……”。</li>
+            </ul>
+            <div class="mini-chips"><span>完成标准：结论从材料里长出来</span></div>
+          </article>
+
+          <article class="practice-card">
+            <h3>现代诗与儿童诗</h3>
+            <p>题目：读一首写春天的儿童诗，圈出 3 个景物词，再说画面和情感。</p>
+            <ul>
+              <li>不要先写“春天真美”，先写“我看到了什么”。</li>
+              <li>再补一句“这些景物让我感到……”。</li>
+            </ul>
+            <div class="mini-chips"><span>完成标准：画面 + 感受至少两层</span></div>
+          </article>
+
+          <article class="practice-card">
+            <h3>整本书阅读</h3>
+            <p>题目：说说最近读过的一本书里，你最喜欢的一个人物和一件事。</p>
+            <ul>
+              <li>先说人物是谁，再说做了什么，最后说为什么印象深。</li>
+              <li>高年级再补一句“这件事让我看到了人物的什么变化”。</li>
+            </ul>
+            <div class="mini-chips"><span>完成标准：不是只报书名</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="parent-checklist">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>家长不用讲很多，只问这几句就够了</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">检查时别一上来改答案。先问“你在做哪类任务、用了什么模板、最容易错哪一步”，孩子会更快形成方法意识。</p>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>先问任务类型</h3>
+            <p>你现在做的是口语交际、应用文、综合性学习、非连续性文本、现代诗，还是整本书阅读？</p>
+            <ul>
+              <li>能分清题型，后面才知道该调哪套方法。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>再问第一步</h3>
+            <p>你这类题第一步应该先做什么？是看格式、找材料，还是圈景物词？</p>
+            <ul>
+              <li>第一步说不出来，通常说明方法还没真正掌握。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>最后问易错点</h3>
+            <p>你这次最容易漏掉哪一步？是没有理由、没写格式、没写依据，还是只写了结论？</p>
+            <ul>
+              <li>能说出“最容易错什么”，下次才更容易真正避免。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">
+          <p class="eyebrow">两周打法</p>
+          <h2>补这类专题，最怕“今天看一点、明天忘一点”</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">每次只抓 1 类专题，走“模板速查 -> 当天表达 -> 隔天复述 -> 周末复盘”的短闭环。</p>
+        </div>
+        <div class="plan-grid">
+          <article class="plan-card">
+            <h3>第 1 周：先把入口走对</h3>
+            <p>目标是让孩子知道“这类任务先去哪一页、按什么步骤做”。</p>
+            <ul>
+              <li>第 1 天：选一个专题，看对应模板和常错点。</li>
+              <li>第 2 天：做 1 次口头表达或 1 次书面模板填空。</li>
+              <li>第 3 天：让孩子复述“这类题应该怎么下手”。</li>
+              <li>周末：回到练习页做一次短诊断，记录最容易漏掉的一步。</li>
+            </ul>
+          </article>
+          <article class="plan-card">
+            <h3>第 2 周：从“会看”变成“会用”</h3>
+            <p>目标是把方法迁移到类似任务上，而不是只会一题。</p>
+            <ul>
+              <li>同专题再做 2 题，要求步骤一致，但内容换掉。</li>
+              <li>答案不只写结论，要补依据、格式或情感说明。</li>
+              <li>家长检查时只问三句：你在做哪类任务？先看哪里？最容易错哪一步？</li>
+              <li>能回答清楚，再换下一个专题。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note">
+        <div class="section-title">
+          <p class="eyebrow">马上进入</p>
+          <h2>先选一个，不要同时开六个</h2>
+        </div>
+        <div class="cta-strip">
+          <a href="oral-communication.html">先补口语交际</a>
+          <a href="application-writing.html">先补应用文</a>
+          <a href="integrated-learning.html" class="secondary">先补综合性学习</a>
+          <a href="non-continuous-text.html">先补非连续性文本</a>
+          <a href="modern-poetry.html">先补现代诗</a>
+          <a href="book-reading.html" class="secondary">先补整本书阅读</a>
+          <a href="practice.html#diagnosis" class="secondary">做一次诊断复盘</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>
+          <article class="template-card">
+            <div class="template-titleline">
+              <h3>非连续性文本模板</h3>
+              <span>先读材料</span>
+            </div>
+            <p>适用于图表、表格、多材料、判断正误和根据材料提建议。先看标题、单位和条件，再做比较和结论。</p>
+            <div class="template-box">
+              <b>提取：</b>“从图表 / 材料可以看出……”<br>
+              <b>比较：</b>“A 比 B……，说明……”<br>
+              <b>建议：</b>“根据材料，建议……，因为……”
+            </div>
+            <div class="template-note">自查一句：我的答案里有没有真正用上数据、对象、时间和条件？还是只凭常识在说？</div>
+          </article>
+
+          <article class="practice-card">
+            <h3>非连续性文本</h3>
+            <p>题目：根据图表数据“每天阅读30分钟以上的学生作文按时完成率85%，不足10分钟的仅32%”，说出结论并提一条建议。</p>
+            <ul>
+              <li>先比较 85% 和 32%，再说“说明了什么”。</li>
+              <li>建议必须和“每天阅读时间”直接对应。</li>
+            </ul>
+            <div class="mini-chips"><span>完成标准：结论和建议都有数据依据</span></div>
+          </article>

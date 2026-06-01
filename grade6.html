@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
 </head>
 <body>
   <header class="topbar">
@@ -57,6 +57,7 @@
           <li><a href="#section-path" class="toc-link">升级路径</a></li>
           <li><a href="#section-expression" class="toc-link">综合运用</a></li>
           <li><a href="#section-literature" class="toc-link">整本书与现代诗</a></li>
+          <li><a href="#section-classical" class="toc-link">古诗文升级</a></li>
           <li><a href="#section-lecture" class="toc-link">课前先测</a></li>
           <li><a href="#section-diagnosis" class="toc-link">作文联动</a></li>
           <li><a href="#section-mistakes" class="toc-link">错因分析</a></li>
@@ -394,6 +395,40 @@
           <tr><td>人物成长分析</td><td>前后变化 + 关键事件 + 成长认识。</td><td>答案有层次，不只贴“勇敢、善良”等标签。</td><td><a href="knowledge-map.html#oral-communication">读书分享</a></td></tr>
           <tr><td>现代诗综合赏析</td><td>意象 + 手法 + 情感 + 主题。</td><td>四层基本完整，能从词句回到中心。</td><td><a href="knowledge-map.html#modern-poetry-system">现代诗专题</a></td></tr>
           <tr><td>比较阅读</td><td>比较两首诗或两段内容的共同点和不同点。</td><td>能按角度比较，不混着写。</td><td><a href="knowledge-map.html#modern-poetry-system">比较思路</a></td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section" id="section-classical">
+      <div class="section-title">
+        <p class="eyebrow">古诗文升级</p>
+        <h2>六年级古诗文要从“读懂”走到“能分层赏析和概括道理”</h2>
+        <p style="color:#666;">本页保留六年级古诗文的年级目标和满分标准；如果要把古诗画面、情感、炼字、文言释词、译句和启示练成完整闭环，直接去 <a href="classical-reading.html" style="color:#0f766e; font-weight:800;">古诗文阅读专题页</a>。</p>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block">
+          <h3>六年级古诗冲刺点</h3>
+          <div class="routine">
+            <p><strong>先看意象：</strong>月、柳、雁、梅、舟这些词往往决定情感方向。</p>
+            <p><strong>再补手法：</strong>借景抒情、托物言志、动静结合、对比、炼字都要落到画面和情感。</p>
+            <p><strong>最后回中心：</strong>不能只说“写了什么”，还要说“怎样表达”。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>六年级文言冲刺点</h3>
+          <div class="routine">
+            <p><strong>释词：</strong>词义一定放回句子里判断，不凭现代常见义乱猜。</p>
+            <p><strong>译句：</strong>先拆关键词，再调顺语序，最后补省略内容。</p>
+            <p><strong>启示：</strong>先扣故事人物做法和结果，再上升到道理。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card">
+        <h2>六年级古诗文下一步直接去哪</h2>
+        <div class="responsive-table"><table><thead><tr><th>任务</th><th>先看哪里</th><th>到什么程度算过关</th></tr></thead><tbody>
+          <tr><td>古诗画面 / 情感 / 炼字</td><td><a href="classical-reading.html">古诗文专题</a></td><td>能做到“意象 + 画面 + 手法/字义 + 情感”四层完整。</td></tr>
+          <tr><td>文言释词 / 译句 / 启示</td><td><a href="classical-reading.html">古诗文专题</a></td><td>能做到“释词准确、译句通顺、启示扣故事”。</td></tr>
+          <tr><td>做完后复盘</td><td><a href="practice.html#reading-answer-bank">答案对照</a> / <a href="practice.html#poemPractice">古诗练习</a></td><td>能说清自己是卡在题型判断、关键词、情感还是表达层次。</td></tr>
         </tbody></table></div>
       </div>
     </section>
@@ -1009,12 +1044,12 @@
   </nav>
 
 
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
+  <script defer src="data/grade-page-renderer.js?v=115"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
         if (window.DataLib) {
                     // 数据驱动渲染：年级元数据模块
           DataLib.renderGradeHero('6', document.getElementById('grade6-hero'));
@@ -1025,7 +1060,6 @@
           DataLib.renderGrammarByGrade('grade6', document.getElementById('grade6-grammar-ref'));
           DataLib.renderCommonMistakes(document.getElementById('grade6-mistakes-ref'), '6');
         }
-      }, 300);
     });
   </script>
   <script>
@@ -1320,7 +1354,7 @@
       document.getElementById('quiz-1').style.display = 'block';
     }
   </script>
-<script defer src="data/grade-stage-assessment.js?v=98"></script>
+<script defer src="data/grade-stage-assessment.js?v=115"></script>
 <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

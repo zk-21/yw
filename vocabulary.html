@@ -15,7 +15,7 @@
   <meta property="og:description" content="系统学习小学阶段必备词汇，涵盖同义词、反义词、成语、多音字等核心知识点。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
   <style>
     .interactive-section {
       padding: 40px 5vw;
@@ -2667,6 +2667,89 @@
   </main>
 
   <script>
+    var vocabDataLoader = null;
+
+    function renderVocabularySectionLocal(category, container, limit) {
+      if (!container || !vocabDataLoader || typeof vocabDataLoader.load !== 'function') return;
+      vocabDataLoader.load('vocabulary').then(function(data) {
+        if (!data) return;
+        var html = '';
+        var items = data[category];
+        if (!items) return;
+
+        if (category === '多音字' && Array.isArray(items)) {
+          var displayPolyphonic = limit ? items.slice(0, limit) : items;
+          html += '<div class="responsive-table"><table><thead><tr><th>字</th><th>读音1</th><th>读音2</th></tr></thead><tbody>';
+          displayPolyphonic.forEach(function(item) {
+            html += '<tr><td style="font-size:24px;font-weight:bold;">' + item.字 + '</td>';
+            html += '<td>' + item.读音1 + '</td><td>' + item.读音2 + '</td></tr>';
+          });
+          html += '</tbody></table></div>';
+        } else if (category === '反义词' && typeof items === 'object' && !Array.isArray(items)) {
+          Object.entries(items).forEach(function(entry) {
+            html += '<h4 style="color:#667eea; margin:12px 0 8px;">' + entry[0] + '反义词</h4>';
+            entry[1].forEach(function(item) {
+              html += '<div class="vocab-chip" style="display:inline-block; background:#fff3e0; padding:6px 12px; margin:4px; border-radius:20px; font-size:14px;">';
+              html += item.词A + ' → ' + item.词B;
+              html += '</div>';
+            });
+          });
+        } else if (category === '词语形式' && typeof items === 'object' && !Array.isArray(items)) {
+          Object.entries(items).forEach(function(entry) {
+            html += '<h4 style="color:#667eea; margin:12px 0 8px;">' + entry[0] + '</h4>';
+            entry[1].forEach(function(item) {
+              var word = typeof item === 'string' ? item : (item.词语 || '');
+              html += '<div class="vocab-chip" style="display:inline-block; background:#e8f5e9; padding:6px 12px; margin:4px; border-radius:20px; font-size:14px;">' + word + '</div>';
+            });
+          });
+        } else if (Array.isArray(items)) {
+          var displayItems = limit ? items.slice(0, limit) : items;
+          displayItems.forEach(function(item) {
+            if (item.成语) {
+              html += '<div class="vocab-chip" style="display:inline-block; background:#f0f4ff; padding:6px 12px; margin:4px; border-radius:20px; font-size:14px;">';
+              html += '<strong>' + item.成语 + '</strong>';
+              if (item.拼音) html += ' <small style="color:#888;">' + item.拼音 + '</small>';
+              if (item.释义) html += ' - ' + item.释义;
+              html += '</div>';
+            } else if (item.词语) {
+              html += '<div class="vocab-chip" style="display:inline-block; background:#eef8f2; padding:6px 12px; margin:4px; border-radius:20px; font-size:14px;">';
+              html += '<strong>' + item.词语 + '</strong>';
+              if (item.拼音) html += ' <small style="color:#888;">' + item.拼音 + '</small>';
+              if (item.释义) html += ' - ' + item.释义;
+              if (item.例句) html += '<br><small style="color:#666;">例：' + item.例句 + '</small>';
+              html += '</div>';
+            } else if (item.词A && item.词B) {
+              html += '<div class="vocab-chip" style="display:inline-block; background:#fff3e0; padding:6px 12px; margin:4px; border-radius:20px; font-size:14px;">';
+              html += item.词A + ' → ' + item.词B;
+              html += '</div>';
+            }
+          });
+        } else if (typeof items === 'object') {
+          Object.entries(items).forEach(function(entry) {
+            var catName = entry[0];
+            var catItems = entry[1];
+            if (!Array.isArray(catItems)) return;
+            html += '<h4 style="color:#667eea; margin:12px 0 8px;">' + catName + '</h4>';
+            catItems.forEach(function(item) {
+              var word = item.成语 || item.词语 || item.字 || '';
+              html += '<div class="vocab-chip" style="display:inline-block; background:#f0f4ff; padding:6px 12px; margin:4px; border-radius:20px; font-size:14px;">';
+              html += '<strong>' + word + '</strong>';
+              if (item.拼音) html += ' <small style="color:#888;">' + item.拼音 + '</small>';
+              if (item.释义) html += ' - ' + item.释义;
+              if (item.例句) html += '<br><small style="color:#666;">例：' + item.例句 + '</small>';
+              html += '</div>';
+            });
+          });
+        }
+
+        var tipKey = category + '教学口诀';
+        if (data[tipKey]) {
+          html += '<div class="tip" style="margin-top:12px;">💡 ' + data[tipKey] + '</div>';
+        }
+
+        container.innerHTML = html;
+      });
+    }
     // 词语数据（带拼音）
     const vocabularies = [
       // 自然季节
@@ -3190,9 +3273,9 @@
       updateAchievements();
     });
   </script>
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
   <script>
     // 事件委托：资料库类别切换
     document.querySelector('#vocab-db-quick .category-tabs').addEventListener('click', function(e) {
@@ -3202,14 +3285,11 @@
       document.querySelectorAll('#vocab-db-quick .category-tab').forEach(function(t) { t.classList.remove('active'); });
       btn.classList.add('active');
       var container = document.getElementById('vocab-db-content');
-      if (window.DataLib) {
-        DataLib.renderVocabularySection(category, container);
-      }
+      renderVocabularySectionLocal(category, container);
     });
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
+      vocabDataLoader = window.DataLibCore || window.DataLib;
         document.querySelector('#vocab-db-quick .category-tab[data-category="同义词"]').click();
-      }, 500);
     });
   </script>
 </body>

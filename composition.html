@@ -15,7 +15,7 @@
   <meta property="og:description" content="三阶段作文提优系统：小学打基础、小升初冲刺、初中衔接，特级教师一对一作文辅导与AI智能批改">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=100">
+  <link rel="stylesheet" href="styles.css?v=115">
   <style>
     .hw-filter-pill { border: 2px solid #e0e0e0; background: white; color: #555; }
     .hw-filter-pill.active { border-color: #667eea; background: #667eea; color: white; }
@@ -3768,22 +3768,122 @@
       });
     })();
   </script>
-  <script defer src="nav.js?v=100"></script>
-  <script defer src="table-responsive.js?v=100"></script>
-  <script defer src="composition-ai.js?v=90"></script>
-  <script defer src="data/data-loader-global.js?v=100"></script>
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="composition-ai.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
         var essayContainer = document.getElementById('essay-db-content');
         var mistakesContainer = document.getElementById('mistakes-db-content');
-        if (window.DataLib) {
-          if (essayContainer) DataLib.renderEssayTypes(essayContainer, true);
-          if (mistakesContainer) DataLib.renderCommonMistakes(mistakesContainer, '4');
+        var dataLoader = window.DataLibCore || window.DataLib;
+        if (!dataLoader || typeof dataLoader.load !== 'function') return;
+
+        function renderCommonMistakesLocal(container, grade) {
+          if (!container) return;
+          dataLoader.load('common-mistakes').then(function(data) {
+            if (!data || !data.错误分类) return;
+            var html = '';
+            data.错误分类.forEach(function(errType) {
+              if (grade) {
+                var range = errType['年级范围'];
+                if (range && range !== '1-6') {
+                  var parts = range.split('-');
+                  var g = parseInt(grade, 10);
+                  if (g < parseInt(parts[0], 10) || g > parseInt(parts[1], 10)) return;
+                }
+              }
+
+              html += '<div class="grammar-card" style="margin-bottom:12px;">';
+              html += '<h4 style="color:#e65100;">⚠️ ' + errType.类别 + ' <small style="color:#888; font-weight:normal;">年级' + errType['年级范围'] + '</small></h4>';
+              html += '<p style="font-size:13px; color:#555;">' + errType.说明 + '</p>';
+              if (errType.典型错误) {
+                html += '<div class="responsive-table" style="margin-top:8px;"><table style="font-size:12px;"><thead><tr><th>错误</th><th>正确/改善</th><th>原因/表现</th></tr></thead><tbody>';
+                errType.典型错误.slice(0, 5).forEach(function(item) {
+                  html += '<tr><td style="color:#e65100;">' + (item.错误 || item.错误示例 || '') + '</td>';
+                  html += '<td style="color:#2e7d32;">' + (item.正确 || item.正确句式 || item.正确示例 || item.正确规则 || item.改善 || '') + '</td>';
+                  html += '<td>' + (item.原因 || item.说明 || item.表现 || item.例子 || '') + '</td></tr>';
+                });
+                html += '</tbody></table></div>';
+              }
+              if (errType.纠正策略) {
+                html += '<div class="tip">💡 ' + errType.纠正策略 + '</div>';
+              }
+              html += '</div>';
+            });
+            container.innerHTML = html;
+          });
         }
-      }, 400);
+
+        function renderEssayTypesLocal(container, showMethods) {
+          if (!container) return;
+          dataLoader.load('model-essays').then(function(data) {
+            if (!data) return;
+            var html = '';
+
+            if (data.作文类型) {
+              html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;">';
+              data.作文类型.forEach(function(type) {
+                html += '<div class="grammar-card" style="margin-bottom:0;">';
+                html += '<h4>✍️ ' + type.类型 + '</h4>';
+                html += '<p style="font-size:13px;color:#666;margin:0 0 8px;">' + type.说明 + '</p>';
+
+                var elements34 = type['3-4年级要素'];
+                if (elements34) {
+                  html += '<p style="font-size:12px;color:#888;"><strong>3-4年级：</strong>' + elements34.join(' → ') + '</p>';
+                }
+                var elements56 = type['5-6年级要素'];
+                if (elements56) {
+                  html += '<p style="font-size:12px;color:#888;"><strong>5-6年级：</strong>' + elements56.join(' → ') + '</p>';
+                }
+                if (type.要素 && !elements34 && !elements56) {
+                  html += '<p style="font-size:12px;color:#888;">' + (Array.isArray(type.要素) ? type.要素.join(' → ') : type.要素) + '</p>';
+                }
+                if (type.常见问题) {
+                  html += '<div style="margin-top:6px;">';
+                  type.常见问题.slice(0, 2).forEach(function(problem) {
+                    html += '<p style="font-size:11px;color:#c62828;margin:2px 0;">⚠️ ' + problem + '</p>';
+                  });
+                  html += '</div>';
+                }
+                html += '</div>';
+              });
+              html += '</div>';
+            }
+
+            if (showMethods && data.写作通用方法) {
+              html += '<div class="grammar-card" style="margin-top:16px;"><h4>📝 写作通用方法</h4>';
+              data.写作通用方法.forEach(function(method) {
+                var methodBody = method.说明 || method.description || method.内容 || method.content || '';
+                if (Array.isArray(methodBody)) methodBody = methodBody.join(' → ');
+                html += '<p style="margin:8px 0;"><strong>' + (method.名称 || method.name || '') + '：</strong>' + methodBody + '</p>';
+              });
+              html += '</div>';
+            }
+
+            var scoreRows = data['20分制评分标准'];
+            if (!scoreRows && data.评分标准 && data.评分标准['20分制']) {
+              scoreRows = Object.keys(data.评分标准['20分制']).map(function(level) {
+                return { 维度: level, 分值: '', 标准: data.评分标准['20分制'][level] };
+              });
+            }
+            if (scoreRows) {
+              html += '<div class="grammar-card" style="margin-top:16px;"><h4>📳 20分制作文评分标准</h4>';
+              html += '<div class="responsive-table"><table style="font-size:12px;"><thead><tr><th>维度</th><th>分值</th><th>评分标准</th></tr></thead><tbody>';
+              scoreRows.forEach(function(item) {
+                html += '<tr><td>' + item.维度 + '</td><td>' + (item.分值 ? item.分值 + '分' : '-') + '</td><td>' + item.标准 + '</td></tr>';
+              });
+              html += '</tbody></table></div></div>';
+            }
+
+            container.innerHTML = html;
+          });
+        }
+
+        if (essayContainer) renderEssayTypesLocal(essayContainer, true);
+        if (mistakesContainer) renderCommonMistakesLocal(mistakesContainer, '4');
     });
   </script>
-  <script defer src="page-toc.js?v=100"></script>
+  <script defer src="page-toc.js?v=115"></script>
 </body>
 </html>

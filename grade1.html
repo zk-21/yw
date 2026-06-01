@@ -27,7 +27,7 @@
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#63d676" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="styles.css?v=100" />
+    <link rel="stylesheet" href="styles.css?v=115" />
     <style>
       .grade-one-hero {
         background: linear-gradient(
@@ -2209,12 +2209,12 @@
     </div>
   </nav>
 
-    <script defer src="nav.js?v=100"></script>
-    <script defer src="table-responsive.js?v=100"></script>
-    <script defer src="data/data-loader-global.js?v=100"></script>
+    <script defer src="nav.js?v=115"></script>
+    <script defer src="table-responsive.js?v=115"></script>
+    <script defer src="data/data-loader-core.js?v=115"></script>
+    <script defer src="data/grade-page-renderer.js?v=115"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(function () {
           if (window.DataLib) {
                       // 数据驱动渲染：年级元数据模块
           DataLib.renderGradeHero('1', document.getElementById('grade1-hero'));
@@ -2229,10 +2229,9 @@
               "1",
             );
           }
-        }, 300);
       });
     </script>
-  <script defer src="data/grade-stage-assessment.js?v=98"></script>
+  <script defer src="data/grade-stage-assessment.js?v=115"></script>
   <script defer src="data/jump-manager.js"></script>
 </body>
 </html>

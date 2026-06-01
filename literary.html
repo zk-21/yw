@@ -1,653 +1,1432 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文学常识 - 小升初必备</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#92400e">
+  <title>小学语文文学常识专题 | 作家作品、四大名著、典故、体裁、小升初</title>
+  <meta name="description" content="小学语文文学常识专题页：系统梳理作家作品、四大名著、文学典故、古诗词积累、文学体裁和小升初常考点，提供记忆骨架、示范对照、年级路线和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文文学常识,作家作品,四大名著,文学典故,小升初文学常识,传统文化,文学体裁">
+  <meta property="og:title" content="小学语文文学常识专题 | 作家作品、四大名著、典故、体裁、小升初">
+  <meta property="og:description" content="文学常识不要死背。用时间线、人物关系、出处含义和题型骨架，把常识变成会用的得分能力。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-light: #818cf8;
-      --secondary: #0891b2;
-      --accent: #f59e0b;
-      --success: #10b981;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --border: #e2e8f0;
-      --radius: 12px;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --literary-ink: #30261d;
+      --literary-muted: #6f6257;
+      --literary-border: #eadccb;
+      --literary-gold: #b7791f;
+      --literary-brown: #92400e;
+      --literary-green: #2f6f5e;
+      --literary-cream: #fff8ed;
+      --literary-shadow: 0 18px 40px rgba(48, 38, 29, 0.08);
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding-bottom: 80px;
+      background:
+        radial-gradient(circle at top left, rgba(183, 121, 31, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(47, 111, 94, 0.11), transparent 24%),
+        linear-gradient(180deg, #fffaf2 0%, #ffffff 44%, #fdfaf6 100%);
     }
-
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3.25rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex;
-      align-items: center;
-      padding: 0 1rem;
-      z-index: 80;
-      --topbar-offset: 3.25rem;
+    .literary-head {
+      background:
+        linear-gradient(135deg, rgba(183, 121, 31, 0.18), rgba(47, 111, 94, 0.12)),
+        #fff8ed;
+      border-bottom: 1px solid rgba(146, 64, 14, 0.12);
     }
-
-    .topbar-back {
-      width: 2rem;
-      height: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-decoration: none;
-      font-size: 1.25rem;
-    }
-
-    .topbar-title {
-      flex: 1;
-      text-align: center;
-      color: white;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .main-content {
-      padding: calc(var(--topbar-offset) + 1rem) 1rem 1rem;
-      max-width: 800px;
+    .literary-shell {
+      max-width: 1180px;
       margin: 0 auto;
+      padding: 0 5vw 60px;
     }
-
-    .page-header {
-      text-align: center;
-      margin-bottom: 1.5rem;
+    .literary-shell .section {
+      scroll-margin-top: calc(var(--topbar-offset) + var(--safe-top, 0px) + 1rem);
     }
-
-    .page-header h1 {
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
+    .literary-note {
+      background: linear-gradient(135deg, #fff4dd, #f5fff8);
+      border: 1px solid #efd7ab;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--literary-shadow);
+      color: var(--literary-ink);
     }
-
-    .page-header p {
-      color: var(--text-light);
-      font-size: 0.875rem;
+    .literary-note strong {
+      color: var(--literary-brown);
     }
-
-    .category-tabs {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding: 0.5rem 0;
-      margin-bottom: 1rem;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .category-tabs::-webkit-scrollbar { display: none; }
-
-    .tab-btn {
-      flex-shrink: 0;
-      padding: 0.5rem 1rem;
-      border: none;
-      background: var(--card);
-      border-radius: 20px;
-      font-size: 0.875rem;
-      color: var(--text-light);
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: var(--shadow);
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: white;
-    }
-
-    .content-section {
-      display: none;
-    }
-
-    .content-section.active {
-      display: block;
-    }
-
-    .section-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      box-shadow: var(--shadow);
-    }
-
-    .section-card h3 {
-      font-size: 1.125rem;
-      color: var(--primary);
-      margin-bottom: 0.75rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--primary-light);
-    }
-
-    .topic-item {
-      padding: 1rem;
-      background: var(--bg);
-      border-radius: 8px;
-      margin-bottom: 0.75rem;
-    }
-
-    .topic-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .topic-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .topic-content {
-      font-size: 0.875rem;
-      color: var(--text-light);
-      margin-bottom: 0.75rem;
-    }
-
-    .key-points {
+    .literary-quick-nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 10px;
+      margin-top: 18px;
     }
-
-    .key-point {
-      padding: 0.25rem 0.75rem;
-      background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-      color: white;
-      border-radius: 15px;
-      font-size: 0.75rem;
+    .literary-quick-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid #efd7ab;
+      color: var(--literary-brown);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(146, 64, 14, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-
-    .poem-list {
+    .literary-quick-nav a:hover {
+      transform: translateY(-1px);
+      background: #fff1d6;
+      box-shadow: 0 12px 24px rgba(146, 64, 14, 0.14);
+    }
+    .literary-flow-card {
+      background: linear-gradient(135deg, #fffaf2, #f6fbf7);
+      border: 1px solid #efd7ab;
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--literary-shadow);
+    }
+    .literary-flow-grid {
       display: grid;
-      gap: 0.5rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
     }
-
-    .poem-item {
-      padding: 0.75rem;
-      background: var(--bg);
-      border-radius: 8px;
-      font-size: 0.875rem;
-      border-left: 3px solid var(--primary);
+    .literary-flow-step {
+      background: white;
+      border: 1px solid #f0e2cf;
+      border-radius: 18px;
+      padding: 18px 16px;
+      box-shadow: 0 8px 20px rgba(146, 64, 14, 0.06);
+      min-height: 156px;
     }
-
-    .book-card {
-      display: flex;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--bg);
-      border-radius: 8px;
-      margin-bottom: 0.75rem;
-    }
-
-    .book-icon {
-      width: 50px;
-      height: 60px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 4px;
-      display: flex;
+    .literary-flow-step .flow-index {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--literary-brown), var(--literary-gold));
       color: white;
-      font-size: 1.5rem;
-      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 700;
     }
-
-    .book-info {
-      flex: 1;
+    .literary-flow-step h3 {
+      margin: 12px 0 8px;
+      color: var(--literary-ink);
+      font-size: 17px;
+      line-height: 1.4;
     }
-
-    .book-title {
+    .literary-flow-step p {
+      margin: 0;
+      color: var(--literary-muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .router-grid,
+    .memory-grid,
+    .data-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .memory-grid,
+    .data-grid,
+    .cta-grid,
+    .loop-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .router-card,
+    .memory-card,
+    .data-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--literary-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--literary-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -26px -28px auto;
+      width: 112px;
+      height: 112px;
+      border-radius: 999px;
+      background: rgba(183, 121, 31, 0.09);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(47, 111, 94, 0.08);
+    }
+    .router-card h3,
+    .memory-card h3,
+    .data-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--literary-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .memory-card p,
+    .data-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--literary-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .literary-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 76px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff1d6;
+      color: var(--literary-brown);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .literary-chips,
+    .literary-links,
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .literary-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eefbf5;
+      color: var(--literary-green);
+      font-size: 12px;
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.25rem;
     }
-
-    .book-points {
-      font-size: 0.75rem;
-      color: var(--accent);
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3.5rem;
-      background: var(--card);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-      z-index: 80;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-      color: var(--text-light);
+    .literary-links a,
+    .cta-actions a {
       text-decoration: none;
-      font-size: 0.625rem;
-      padding: 0.25rem 0.75rem;
+      font-weight: 600;
     }
-
-    .nav-item.active {
-      color: var(--primary);
+    .literary-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #fff8ed;
+      color: var(--literary-brown);
+      border: 1px solid #efd7ab;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-
-    .nav-item svg {
-      width: 1.25rem;
-      height: 1.25rem;
+    .literary-links a:hover {
+      transform: translateY(-1px);
+      background: #ffedcc;
+      box-shadow: 0 12px 20px rgba(146, 64, 14, 0.12);
+    }
+    .memory-card,
+    .data-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .memory-card::before,
+    .data-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--literary-gold), var(--literary-green));
+    }
+    .memory-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fffdf8;
+      border: 1px dashed #d8c3a6;
+      color: #4b5563;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .memory-box b {
+      color: var(--literary-brown);
+    }
+    .memory-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fef2e8;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .data-status {
+      color: var(--literary-muted);
+      font-size: 13px;
+      margin: 0 0 14px;
+    }
+    .literary-filter-panel {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 16px;
+      padding: 16px 18px;
+      border: 1px solid #eadccb;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fffdf8, #f6fbf7);
+      box-shadow: var(--literary-shadow);
+    }
+    .literary-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .literary-filter-input {
+      flex: 1 1 260px;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 14px;
+      border: 1px solid #e2c8a2;
+      background: white;
+      font-size: 14px;
+      color: var(--literary-ink);
+      outline: none;
+    }
+    .literary-filter-input:focus {
+      border-color: var(--literary-gold);
+      box-shadow: 0 0 0 3px rgba(183, 121, 31, 0.12);
+    }
+    .literary-filter-reset {
+      min-height: 44px;
+      padding: 0 16px;
+      border: none;
+      border-radius: 14px;
+      background: #fff1d6;
+      color: var(--literary-brown);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .literary-filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .literary-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid #e8d5bc;
+      background: white;
+      color: var(--literary-brown);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .literary-filter-chip.active {
+      background: linear-gradient(135deg, var(--literary-brown), var(--literary-gold));
+      color: white;
+      border-color: transparent;
+    }
+    .data-empty-state {
+      display: none;
+      margin-top: 10px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fef2e8;
+      border: 1px dashed #f0c89a;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .data-section {
+      margin-top: 18px;
+    }
+    .data-section:first-child {
+      margin-top: 0;
+    }
+    .data-section h3 {
+      margin: 0 0 12px;
+      color: var(--literary-brown);
+      font-size: 18px;
+    }
+    .data-cluster {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .data-mini-card {
+      background: #fffdf8;
+      border: 1px solid #f0e2cf;
+      border-radius: 16px;
+      padding: 14px 16px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .data-mini-card strong {
+      display: block;
+      color: var(--literary-ink);
+      margin-bottom: 6px;
+    }
+    .data-mini-card p {
+      margin: 0;
+      color: var(--literary-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .data-mini-card ul,
+    .check-card ul,
+    .loop-card ul {
+      margin: 10px 0 0 18px;
+      color: var(--literary-muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .list-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .list-pills span {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: var(--literary-brown);
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .data-card.literary-match > h3,
+    .data-section.literary-match > h3 {
+      color: #9a3412;
+    }
+    .data-mini-card.literary-match {
+      background: linear-gradient(135deg, #fff7e8, #fffcf4);
+      border-color: #e5b56f;
+      box-shadow: 0 0 0 3px rgba(183, 121, 31, 0.12);
+    }
+    .list-pills .literary-entry.literary-match {
+      background: linear-gradient(135deg, var(--literary-brown), var(--literary-gold));
+      color: white;
+      box-shadow: 0 8px 16px rgba(146, 64, 14, 0.18);
+    }
+    .worksheet-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .worksheet-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+    .worksheet-card {
+      background: white;
+      border: 1px solid var(--literary-border);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--literary-shadow);
+    }
+    .worksheet-card h3 {
+      margin: 0 0 12px;
+      color: var(--literary-ink);
+    }
+    .worksheet-line {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed #e8d5bc;
+      color: var(--literary-muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .worksheet-line:last-child {
+      border-bottom: none;
+    }
+    .worksheet-line strong {
+      color: var(--literary-brown);
+    }
+    .worksheet-checks {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .worksheet-checks label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--literary-muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .worksheet-checks input {
+      margin-top: 5px;
+      accent-color: var(--literary-brown);
+    }
+    .print-button {
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--literary-brown), var(--literary-gold));
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+      padding: 10px 18px;
+      box-shadow: 0 12px 22px rgba(146, 64, 14, 0.16);
+      white-space: nowrap;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--literary-ink);
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fff9f0 100%);
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--literary-brown), var(--literary-gold));
+      color: white;
+      box-shadow: 0 14px 26px rgba(146, 64, 14, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--literary-green);
+      border: 1px solid #bfe5d8;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .memory-grid,
+      .data-grid,
+      .check-grid,
+      .literary-flow-grid,
+      .worksheet-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+      .worksheet-head {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 640px) {
+      .literary-flow-step {
+        min-height: auto;
+      }
+      .literary-filter-input {
+        flex-basis: 100%;
+      }
+    }
+    @media print {
+      .topbar,
+      .page-head,
+      .literary-quick-nav,
+      .print-button,
+      .literary-shell > .section:not(#print-worksheet) {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+      }
+      .literary-shell {
+        max-width: none;
+        padding: 0;
+      }
+      #print-worksheet {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .worksheet-card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="topbar">
-    <a href="index.html" class="topbar-back">←</a>
-    <h1 class="topbar-title">文学常识</h1>
-  </nav>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
 
-  <main class="main-content">
-    <header class="page-header">
-      <h1>📚 小升初文学常识</h1>
-      <p>必背古诗词 · 名著考点 · 文学典故</p>
-    </header>
+  <main>
+    <section class="page-head literary-head">
+      <p class="eyebrow">文学常识专题</p>
+      <h1>不是把作家作品背散点，而是建立一张能调用的常识网</h1>
+      <p>文学常识常见丢分，不是因为完全没背，而是作者、作品、人物、典故、体裁和时代线索混在一起。这里把小升初高频内容拆成可记、可查、可迁移的任务卡。</p>
+    </section>
 
-    <div class="category-tabs" id="categoryTabs">
-      <button class="tab-btn active" data-tab="mustread">必读考点</button>
-      <button class="tab-btn" data-tab="ancient">古代文学</button>
-      <button class="tab-btn" data-tab="modern">现代文学</button>
-      <button class="tab-btn" data-tab="foreign">外国文学</button>
-      <button class="tab-btn" data-tab="form">文学体裁</button>
+    <div class="literary-shell">
+      <section class="section">
+        <div class="literary-note">
+          <strong>这页怎么用：</strong>先判断题目考的是作家作品、名著人物、文学典故、古诗积累、体裁判断还是时代脉络，再套对应记忆骨架。背完不要停在默写，要回到 <a href="practice.html#diagnosis" style="color:#92400e; font-weight:700;">练习计划</a> 做小题复盘，或者用 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，带孩子梳理一个小学语文文学常识点：先判断题型，再用作者作品、人物事件、出处含义或体裁特点的骨架讲清楚，并给3道迁移小题。" style="color:#92400e; font-weight:700;">AI 辅导</a> 生成迁移小题。
+        </div>
+        <nav class="literary-quick-nav" aria-label="文学常识页内导航">
+          <a href="#task-router">题型分流</a>
+          <a href="#memory-frames">记忆骨架</a>
+          <a href="#must-know">小升初清单</a>
+          <a href="#data-library">资料库</a>
+          <a href="#timeline">时间线</a>
+          <a href="#genre-table">体裁判断</a>
+          <a href="#print-worksheet">打印学习单</a>
+          <a href="#training-loop">15 分钟闭环</a>
+          <a href="knowledge-map.html#culture-system">回知识总控</a>
+        </nav>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="literary-badge">01 作家</span>
+            <h3>作家作品配对</h3>
+            <p>适合“这篇文章作者是谁”“代表作品是什么”“作者有什么关键词”这类题。不要孤立背人名，要和作品、时代、风格放在一起。</p>
+            <div class="literary-chips">
+              <span>三至六年级</span>
+              <span>作者 + 作品 + 关键词</span>
+            </div>
+            <div class="literary-links">
+              <a href="#memory-frames">看记忆骨架</a>
+              <a href="#data-library">查资料库</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="literary-badge">02 名著</span>
+            <h3>四大名著与整本书</h3>
+            <p>适合人物、情节、作者、事件匹配题。低年级先认人物和故事，高年级再说人物特点、情节意义和主题。</p>
+            <div class="literary-chips">
+              <span>四至六年级高频</span>
+              <span>书名 + 作者 + 人物 + 事件</span>
+            </div>
+            <div class="literary-links">
+              <a href="#must-know">看必备清单</a>
+              <a href="book-reading.html">整本书阅读</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="literary-badge">03 典故</span>
+            <h3>成语典故和出处</h3>
+            <p>适合解释成语、判断语境、联系生活谈启示。关键不是只背含义，而是能说清故事、人物做法和道理。</p>
+            <div class="literary-chips">
+              <span>三至六年级</span>
+              <span>谁 + 做了什么 + 含义</span>
+            </div>
+            <div class="literary-links">
+              <a href="#memory-frames">看典故骨架</a>
+              <a href="vocabulary.html">词语学习</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="literary-badge">04 古诗</span>
+            <h3>古诗词积累</h3>
+            <p>适合诗句补写、诗人朝代、主题分类和画面理解。会背只是第一步，还要知道诗句适合放在哪类题里。</p>
+            <div class="literary-chips">
+              <span>一至六年级</span>
+              <span>诗题 + 作者 + 主题</span>
+            </div>
+            <div class="literary-links">
+              <a href="#must-know">看必背清单</a>
+              <a href="classical-reading.html">古诗文阅读</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="literary-badge">05 体裁</span>
+            <h3>文学体裁判断</h3>
+            <p>适合诗歌、小说、散文、寓言、神话、童话等分类题。判断体裁要看“内容怎么组织”和“表达目的”，不要只看标题。</p>
+            <div class="literary-chips">
+              <span>四至六年级</span>
+              <span>形式 + 内容 + 目的</span>
+            </div>
+            <div class="literary-links">
+              <a href="#genre-table">看体裁表</a>
+              <a href="#data-library">查体裁知识</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="literary-badge">06 脉络</span>
+            <h3>文学史时间线</h3>
+            <p>适合高年级和小升初拓展题。先把先秦、唐诗、宋词、明清小说、现代文学这些大块排顺，再填代表作家。</p>
+            <div class="literary-chips">
+              <span>五至六年级</span>
+              <span>时代 + 文体 + 代表作家</span>
+            </div>
+            <div class="literary-links">
+              <a href="#timeline">看时间线</a>
+              <a href="advanced.html">尖子生拓展</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="literary-order">
+        <div class="section-title">
+          <p class="eyebrow">先读顺序</p>
+          <h2>第一次进这页，先按这四步走</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不要一上来就翻表格。先分类型，再看骨架，再查资料，最后做迁移，学习效率会高很多。</p>
+        </div>
+        <div class="literary-flow-card">
+          <div class="literary-flow-grid">
+            <article class="literary-flow-step">
+              <span class="flow-index">1</span>
+              <h3>先判类型</h3>
+              <p>先判断是作家作品、名著人物、典故出处、古诗词、体裁判断还是时代脉络。</p>
+            </article>
+            <article class="literary-flow-step">
+              <span class="flow-index">2</span>
+              <h3>再看骨架</h3>
+              <p>对应类型只记最关键字段，不要背成一整段流水账。</p>
+            </article>
+            <article class="literary-flow-step">
+              <span class="flow-index">3</span>
+              <h3>查资料库</h3>
+              <p>用下方资料卡把容易混的作家、作品、故事和体裁补齐。</p>
+            </article>
+            <article class="literary-flow-step">
+              <span class="flow-index">4</span>
+              <h3>做迁移</h3>
+              <p>用学习单或 AI 小测把知识点换个问法再说一遍，才算真的会用。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="memory-frames">
+        <div class="section-title">
+          <p class="eyebrow">记忆骨架</p>
+          <h2>六类文学常识，分别用六套骨架记</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不要把所有常识都当成“背诵题”。不同题型要记的关键字段不一样，背错方向就容易越背越乱。</p>
+        </div>
+        <div class="memory-grid">
+          <article class="memory-card">
+            <h3>作家作品</h3>
+            <p>适合作者、作品、时代、风格配对题。</p>
+            <div class="memory-box">
+              <b>骨架：</b>作者 -> 时代 / 国别 -> 代表作品 -> 一个关键词。<br>
+              <b>示例：</b>鲁迅 -> 现代文学 -> 《呐喊》《彷徨》 -> 思想深刻、批判现实。<br>
+              <b>练法：</b>每个作家只先抓 1 到 2 个最稳关键词。
+            </div>
+            <div class="memory-note">自查：我是不是只记了名字，没有记住作品和关键词？</div>
+          </article>
+
+          <article class="memory-card">
+            <h3>名著人物</h3>
+            <p>适合四大名著、整本书人物、故事情节匹配题。</p>
+            <div class="memory-box">
+              <b>骨架：</b>书名 -> 作者 -> 主要人物 -> 典型事件 -> 人物特点。<br>
+              <b>示例：</b>《西游记》 -> 吴承恩 -> 孙悟空 -> 大闹天宫、三打白骨精 -> 勇敢机智。<br>
+              <b>练法：</b>用“一人一事一特点”做卡片。
+            </div>
+            <div class="memory-note">自查：我能不能说出一个事件来证明人物特点？</div>
+          </article>
+
+          <article class="memory-card">
+            <h3>文学典故</h3>
+            <p>适合成语解释、语境判断、启示表达题。</p>
+            <div class="memory-box">
+              <b>骨架：</b>典故名 -> 出处 -> 谁做了什么 -> 现在用来形容什么。<br>
+              <b>示例：</b>负荆请罪 -> 《史记》 -> 廉颇主动认错 -> 表示主动承认错误。<br>
+              <b>练法：</b>每个典故配一个生活化小句子。
+            </div>
+            <div class="memory-note">自查：我能不能判断这个成语能不能用在当前语境？</div>
+          </article>
+
+          <article class="memory-card">
+            <h3>古诗词</h3>
+            <p>适合补诗句、诗人配对、主题分类和表达题。</p>
+            <div class="memory-box">
+              <b>骨架：</b>诗题 -> 作者 -> 朝代 -> 关键诗句 -> 主题。<br>
+              <b>示例：</b>《游子吟》 -> 孟郊 -> 唐代 -> 慈母手中线 -> 母爱、感恩。<br>
+              <b>练法：</b>按写景、送别、思乡、爱国、哲理、童趣分类整理。
+            </div>
+            <div class="memory-note">自查：我是不是只会背句子，不知道它表达什么主题？</div>
+          </article>
+
+          <article class="memory-card">
+            <h3>文学体裁</h3>
+            <p>适合体裁判断、阅读背景和表达方式题。</p>
+            <div class="memory-box">
+              <b>骨架：</b>体裁 -> 主要特征 -> 常见题型 -> 答题提醒。<br>
+              <b>示例：</b>寓言 -> 短小故事讲道理 -> 概括情节、谈启示 -> 不能只复述故事。<br>
+              <b>练法：</b>每种体裁配一个代表作品和一个常见题。
+            </div>
+            <div class="memory-note">自查：我能不能说清“它为什么属于这种体裁”？</div>
+          </article>
+
+          <article class="memory-card">
+            <h3>时代脉络</h3>
+            <p>适合文学史排序、代表作家归类、小升初拓展题。</p>
+            <div class="memory-box">
+              <b>骨架：</b>时代 -> 代表文体 -> 代表作家 -> 代表作品。<br>
+              <b>示例：</b>唐代 -> 唐诗 -> 李白、杜甫、王维 -> 山水、送别、现实关怀。<br>
+              <b>练法：</b>先排大时代，再填 2 到 3 个代表人物。
+            </div>
+            <div class="memory-note">自查：我有没有把唐诗、宋词、元曲、明清小说这条主线排顺？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="must-know">
+        <div class="section-title">
+          <p class="eyebrow">小升初必备</p>
+          <h2>先把最容易考的清单记稳</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>板块</th><th>必须掌握</th><th>常考方式</th><th>记忆办法</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>四大名著</td><td>作者、主要人物、典型情节、人物特点。</td><td>人物事件配对、判断出处、概括人物特点。</td><td>按“书名 + 作者 + 人物 + 事件”做四列卡片。</td></tr>
+                <tr><td>古诗词</td><td>诗题、作者、关键诗句、主题类型。</td><td>补诗句、诗人配对、按主题填句。</td><td>先按主题分类，再背整首。</td></tr>
+                <tr><td>文学典故</td><td>出处、故事大意、现在含义、适用语境。</td><td>解释成语、判断运用、联系生活谈启示。</td><td>按“谁 + 做了什么 + 告诉我们什么”复述。</td></tr>
+                <tr><td>作家作品</td><td>课文作者、代表作品、时代或国别、一个关键词。</td><td>选择题、连线题、阅读背景理解。</td><td>每位作家先记一个最稳标签。</td></tr>
+                <tr><td>文学体裁</td><td>诗歌、小说、散文、寓言、神话、童话的特征。</td><td>判断体裁、说明表达特点。</td><td>看结构、人物、想象和表达目的。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="data-library">
+        <div class="section-title">
+          <p class="eyebrow">资料库</p>
+          <h2>站内文学常识库：自动读取作家、作品、典故和体裁</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">下面内容从 <code>data/literary-knowledge.json</code> 加载。数据加载失败时，页面会保留基础清单，不影响主线学习。</p>
+        </div>
+        <div class="literary-filter-panel">
+          <div class="literary-filter-row">
+            <input class="literary-filter-input" id="literaryFilterInput" type="text" placeholder="在本页筛选：如 李白、四大名著、典故、体裁、唐诗">
+            <button class="literary-filter-reset" type="button" id="literaryFilterReset">清除筛选</button>
+          </div>
+          <div class="literary-filter-chips" id="literaryFilterChips">
+            <button class="literary-filter-chip active" type="button" data-filter="all">全部</button>
+            <button class="literary-filter-chip" type="button" data-filter="中国古代文学">古代文学</button>
+            <button class="literary-filter-chip" type="button" data-filter="中国现代文学">现代作家</button>
+            <button class="literary-filter-chip" type="button" data-filter="必读名著">名著</button>
+            <button class="literary-filter-chip" type="button" data-filter="文学典故">典故</button>
+            <button class="literary-filter-chip" type="button" data-filter="古诗词">古诗词</button>
+            <button class="literary-filter-chip" type="button" data-filter="文学体裁">体裁</button>
+          </div>
+          <div class="data-empty-state" id="literaryFilterEmpty">没有匹配的卡片，试试换个关键词或点“全部”。</div>
+        </div>
+        <p class="data-status" id="literary-data-status">正在加载文学常识资料库...</p>
+        <div class="data-grid" id="literary-data-grid">
+          <article class="data-card literary-entry literary-group-card" data-literary-group="中国古代文学" data-literary-text="四大名著 典故出处 作家作品 体裁">
+            <h3>四大名著</h3>
+            <p>《三国演义》《水浒传》《西游记》《红楼梦》是小升初高频文学常识。先记作者、人物和典型事件。</p>
+            <div class="list-pills">
+              <span class="literary-entry" data-literary-text="三顾茅庐">三顾茅庐</span>
+              <span class="literary-entry" data-literary-text="武松打虎">武松打虎</span>
+              <span class="literary-entry" data-literary-text="三打白骨精">三打白骨精</span>
+              <span class="literary-entry" data-literary-text="金陵十二钗">金陵十二钗</span>
+            </div>
+          </article>
+          <article class="data-card literary-entry literary-group-card" data-literary-group="文学典故" data-literary-text="典故出处 负荆请罪 四面楚歌 纸上谈兵">
+            <h3>典故出处</h3>
+            <p>四面楚歌、负荆请罪、纸上谈兵、破釜沉舟、卧薪尝胆，先按故事和含义配对。</p>
+            <div class="list-pills">
+              <span class="literary-entry" data-literary-text="出处">出处</span>
+              <span class="literary-entry" data-literary-text="人物">人物</span>
+              <span class="literary-entry" data-literary-text="含义">含义</span>
+              <span class="literary-entry" data-literary-text="语境">语境</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="timeline">
+        <div class="section-title">
+          <p class="eyebrow">时间线</p>
+          <h2>小学阶段先抓这条文学常识主线</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>阶段</th><th>代表内容</th><th>先记什么</th><th>容易混淆</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>先秦</td><td>《诗经》《楚辞》、诸子百家。</td><td>《诗经》是最早诗歌总集，孔子、孟子、老子、庄子属于诸子百家。</td><td>不要把《诗经》和唐诗混在一个时代。</td></tr>
+                <tr><td>唐代</td><td>唐诗高度繁荣。</td><td>李白浪漫、杜甫现实、王维山水田园、孟浩然山水田园。</td><td>李白和杜甫常一起考，但风格不同。</td></tr>
+                <tr><td>宋代</td><td>宋词、散文继续发展。</td><td>苏轼、辛弃疾偏豪放，柳永、李清照偏婉约。</td><td>不要只记“宋词”，还要记词人风格。</td></tr>
+                <tr><td>明清</td><td>章回小说和四大名著。</td><td>《三国演义》《水浒传》《西游记》《红楼梦》及其作者。</td><td>四大名著作者最容易张冠李戴。</td></tr>
+                <tr><td>现代</td><td>鲁迅、冰心、老舍、巴金等作家作品。</td><td>鲁迅、冰心、老舍等先用“作者 + 代表作品 + 关键词”记。</td><td>现代作家作品不要和古代小说混背。</td></tr>
+                <tr><td>外国文学</td><td>寓言、童话、小说和经典作家。</td><td>安徒生童话、伊索寓言、莎士比亚戏剧等高频内容。</td><td>国别和体裁常混，需要一起记。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="genre-table">
+        <div class="section-title">
+          <p class="eyebrow">体裁判断</p>
+          <h2>看到作品时，先判断它主要怎么表达</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>体裁</th><th>主要特征</th><th>常见题型</th><th>答题提醒</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>诗歌</td><td>语言凝练，有节奏和意象。</td><td>画面、情感、炼字、修辞。</td><td>不要只翻译句子，要说景物和情感。</td></tr>
+                <tr><td>小说</td><td>有人物、情节、环境。</td><td>人物形象、情节作用、主题理解。</td><td>人物特点要用事件证明。</td></tr>
+                <tr><td>散文</td><td>形散神聚，常借景抒情、托物言志。</td><td>中心思想、句段作用、情感变化。</td><td>要抓贯穿全文的情感线索。</td></tr>
+                <tr><td>寓言</td><td>故事短小，结尾常含道理。</td><td>概括故事、谈启示、联系生活。</td><td>不能只复述故事，要说启示。</td></tr>
+                <tr><td>神话</td><td>想象奇特，解释自然或表达愿望。</td><td>人物愿望、想象特点、故事意义。</td><td>看“人们为什么这样想象”。</td></tr>
+                <tr><td>童话</td><td>想象丰富，常有拟人和夸张。</td><td>人物评价、情节续写、道理启示。</td><td>注意童话中的愿望、困难和变化。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“背过但不会用”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实问法</th><th>低分表达</th><th>更稳表达</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>作家作品</td><td>请写出《繁星》《春水》的作者。</td><td>好像是现代作家。</td><td>作者是冰心，她的作品常写母爱、童真和自然。</td><td>不只记作者，还补一个关键词。</td></tr>
+                <tr><td>名著人物</td><td>“三打白骨精”出自哪部名著？表现了孙悟空什么特点？</td><td>出自《西游记》，孙悟空很厉害。</td><td>出自吴承恩的《西游记》，表现了孙悟空机智勇敢、善于识破妖怪伪装。</td><td>书名、作者、事件、特点要连起来。</td></tr>
+                <tr><td>典故理解</td><td>“纸上谈兵”现在常用来形容什么？</td><td>就是在纸上打仗。</td><td>现在常用来形容只会空谈理论，不能结合实际解决问题。</td><td>要说现代含义，不要只解释字面。</td></tr>
+                <tr><td>体裁判断</td><td>寓言和童话有什么不同？</td><td>都是故事。</td><td>寓言通常故事短小，重点在说明道理；童话想象更丰富，常用拟人、夸张来表现人物和情节。</td><td>要比较表达目的和想象方式。</td></tr>
+                <tr><td>时间线</td><td>唐诗、宋词、明清小说分别对应什么文学高峰？</td><td>都是古代文学。</td><td>唐代以诗歌成就最突出，宋代词发展繁荣，明清时期章回小说成熟，四大名著是重点。</td><td>先按时代，再按文体记。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>三到六年级，文学常识分别练到什么程度</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>达标标准</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>三年级</td><td>成语故事、儿童诗、整本书人物和片段。</td><td>能按“谁做了什么、我明白什么”复述故事。</td><td><a href="grade3.html#section-literature">三年级整本书与儿童诗</a></td></tr>
+                <tr><td>四年级</td><td>寓言神话、作家作品初步配对、传统节日。</td><td>能说清故事道理和节日习俗，不只背名称。</td><td><a href="grade4.html#section-literature">四年级文学与表达</a></td></tr>
+                <tr><td>五年级</td><td>四大名著人物、古诗主题、作家关键词。</td><td>能用事件证明人物特点，能按主题调用诗句。</td><td><a href="grade5.html#section-literature">五年级主题理解</a></td></tr>
+                <tr><td>六年级</td><td>小升初文学常识综合、时代脉络、体裁判断。</td><td>能把作者作品、时代文体和题型要求联系起来。</td><td><a href="grade6.html#section-literature">六年级综合表达</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>家长陪孩子背文学常识，只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>这是哪类常识？</h3>
+            <p>先判断是作家作品、名著人物、文学典故、古诗主题、体裁特点，还是时间线。类型分不清，背诵字段就会错。</p>
+            <ul>
+              <li>孩子能说出类型，才知道该调哪套骨架。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你能补齐几个字段？</h3>
+            <p>作家作品至少说作者、作品、关键词；典故至少说出处、故事、含义；名著至少说书名、人物、事件。</p>
+            <ul>
+              <li>不要只问“背会了吗”，要问字段是否完整。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你能用到题里吗？</h3>
+            <p>让孩子用刚背的常识做一个选择、连线、填空或解释题。能迁移，才算真正掌握。</p>
+            <ul>
+              <li>每次背完都配 2 到 3 道小题，比反复默读更有效。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="print-worksheet">
+        <div class="worksheet-head">
+          <div class="section-title" style="text-align:left;margin:0;">
+            <p class="eyebrow">打印学习单</p>
+            <h2>一张纸完成“分类 -> 补字段 -> 做迁移”</h2>
+            <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">适合家长陪练或课后复盘。每次只填 3 到 5 个文学常识点，比一次性抄一大页更容易记住。</p>
+          </div>
+          <button class="print-button" type="button" onclick="window.print()">打印本学习单</button>
+        </div>
+        <div class="worksheet-grid">
+          <article class="worksheet-card">
+            <h3>今天要背的 3 个点</h3>
+            <div class="worksheet-line"><strong>第 1 个</strong><span>类型：______　名称：________________　关键字段：________________________</span></div>
+            <div class="worksheet-line"><strong>第 2 个</strong><span>类型：______　名称：________________　关键字段：________________________</span></div>
+            <div class="worksheet-line"><strong>第 3 个</strong><span>类型：______　名称：________________　关键字段：________________________</span></div>
+            <div class="worksheet-line"><strong>易混点</strong><span>我最容易把 __________________ 和 __________________ 混在一起。</span></div>
+            <div class="worksheet-line"><strong>复述句</strong><span>不看答案，我能用“谁 / 哪本书 / 什么事件 / 什么特点”说清：________________________</span></div>
+          </article>
+          <article class="worksheet-card">
+            <h3>家长陪练打勾</h3>
+            <div class="worksheet-checks">
+              <label><input type="checkbox"> 能判断它属于作家作品、名著人物、典故、古诗、体裁或时间线。</label>
+              <label><input type="checkbox"> 能补齐对应字段，不只背一个孤立名字。</label>
+              <label><input type="checkbox"> 能说出一个例子或事件来证明。</label>
+              <label><input type="checkbox"> 能做 2 道迁移小题，换问法也能答。</label>
+              <label><input type="checkbox"> 隔天不看答案还能复述一遍。</label>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>文学常识训练，不要只停在“看一遍”</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">高效做法是“分类型、补字段、做迁移、隔天复述”。每次只抓一个小板块，孩子更容易形成稳定记忆。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判类型</h3>
+            <p>拿到 5 个知识点，先分成作家作品、名著人物、典故、古诗、体裁或时间线。</p>
+            <ul>
+              <li>例：《西游记》归名著，负荆请罪归典故，李白归作家作品和古诗。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 5 分钟：补字段</h3>
+            <p>按对应骨架补齐关键字段，不求一次全背多，只求字段完整。</p>
+            <ul>
+              <li>例：书名、作者、人物、事件、特点。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：做小题</h3>
+            <p>马上做连线、选择、填空或解释题，看看能不能把刚背的内容调出来。</p>
+            <ul>
+              <li>例：给人物和事件连线，再解释人物特点。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 3 分钟：隔天复述安排</h3>
+            <p>把最容易混的 3 个点写成复述卡，第二天不看答案说一遍。</p>
+            <ul>
+              <li>例：李白和杜甫、苏轼和辛弃疾、寓言和童话。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 生成文学常识小测</h3>
+            <p>适合把今天背的 10 个点变成选择、连线、填空、解释题，并要求孩子用骨架说出为什么。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=单元测试/专项练习&amp;level=小升初冲刺&amp;question=请围绕小学语文文学常识，生成10道小升初风格小测：包含作家作品、四大名著、文学典故、古诗词和体裁判断，并给答案与讲解。">生成 10 题小测</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请帮我把一组文学常识整理成记忆卡：每条包含类型、关键字段、易混点和一道迁移小题。" class="secondary">整理记忆卡</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到站内训练系统</h3>
+            <p>适合已经知道要背什么，下一步想做诊断、查模板，或者回到易漏专题继续处理整本书、现代诗和古诗文。</p>
+            <div class="cta-actions">
+              <a href="practice.html#diagnosis">做 15 分钟诊断</a>
+              <a href="knowledge-map.html#culture-system" class="secondary">看知识总控速查</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="classical-reading.html" class="secondary">去古诗文专题</a>
+            </div>
+          </article>
+        </div>
+      </section>
     </div>
-
-    <!-- 必读考点 -->
-    <section class="content-section active" id="mustread">
-      <div class="section-card">
-        <h3>📖 必读名著考点</h3>
-        <div class="book-card">
-          <div class="book-icon">三</div>
-          <div class="book-info">
-            <div class="book-title">《三国演义》罗贯中</div>
-            <div class="book-points">考点：桃园三结义 · 三顾茅庐 · 诸葛亮 · 曹操</div>
-          </div>
-        </div>
-        <div class="book-card">
-          <div class="book-icon">水</div>
-          <div class="book-info">
-            <div class="book-title">《水浒传》施耐庵</div>
-            <div class="book-points">考点：108将 · 武松打虎 · 林冲 · 宋江</div>
-          </div>
-        </div>
-        <div class="book-card">
-          <div class="book-icon">西</div>
-          <div class="book-info">
-            <div class="book-title">《西游记》吴承恩</div>
-            <div class="book-points">考点：唐僧师徒 · 孙悟空 · 大闹天宫 · 三打白骨精</div>
-          </div>
-        </div>
-        <div class="book-card">
-          <div class="book-icon">红</div>
-          <div class="book-info">
-            <div class="book-title">《红楼梦》曹雪芹</div>
-            <div class="book-points">考点：贾宝玉 · 林黛玉 · 薛宝钗 · 金陵十二钗</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>🖋️ 必背古诗词（15首）</h3>
-        <div class="poem-list">
-          <div class="poem-item">《静夜思》李白 · 床前明月光，疑是地上霜</div>
-          <div class="poem-item">《春晓》孟浩然 · 春眠不觉晓，处处闻啼鸟</div>
-          <div class="poem-item">《登鹳雀楼》王之涣 · 白日依山尽，黄河入海流</div>
-          <div class="poem-item">《悯农》李绅 · 锄禾日当午，汗滴禾下土</div>
-          <div class="poem-item">《咏鹅》骆宾王 · 白毛浮绿水，红掌拨清波</div>
-          <div class="poem-item">《望庐山瀑布》李白 · 飞流直下三千尺</div>
-          <div class="poem-item">《山行》杜牧 · 停车坐爱枫林晚</div>
-          <div class="poem-item">《回乡偶书》贺知章 · 少小离家老大回</div>
-          <div class="poem-item">《赠汪伦》李白 · 桃花潭水深千尺</div>
-          <div class="poem-item">《黄鹤楼送孟浩然》李白 · 故人西辞黄鹤楼</div>
-          <div class="poem-item">《出塞》王昌龄 · 但使龙城飞将在</div>
-          <div class="poem-item">《绝句》杜甫 · 两个黄鹂鸣翠柳</div>
-          <div class="poem-item">《望天门山》李白 · 天门中断楚江开</div>
-          <div class="poem-item">《游子吟》孟郊 · 慈母手中线，游子身上衣</div>
-          <div class="poem-item">《枫桥夜泊》张继 · 月落乌啼霜满天</div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>📚 必知文学典故</h3>
-        <div class="topic-item">
-          <div class="topic-title">四面楚歌</div>
-          <div class="topic-content">出处：《史记·项羽本纪》 · 形容四面受敌的困境</div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">负荆请罪</div>
-          <div class="topic-content">出处：《史记·廉颇蔺相如列传》 · 主动承认错误</div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">纸上谈兵</div>
-          <div class="topic-content">出处：《史记·廉颇蔺相如列传》 · 空谈理论，不切实际</div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">破釜沉舟</div>
-          <div class="topic-content">出处：《史记·项羽本纪》 · 下定决心，不留退路</div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">卧薪尝胆</div>
-          <div class="topic-content">出处：《史记·越王勾践世家》 · 忍辱负重，发愤图强</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 中国古代文学 -->
-    <section class="content-section" id="ancient">
-      <div class="section-card">
-        <h3>🏛️ 先秦文学</h3>
-        <div class="topic-item">
-          <div class="topic-title">《诗经》</div>
-          <div class="topic-content">中国最早的诗歌总集，收录305篇，分风、雅、颂三类</div>
-          <div class="key-points">
-            <span class="key-point">关雎蒹葭</span>
-            <span class="key-point">赋比兴手法</span>
-            <span class="key-point">现实主义</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">《楚辞》</div>
-          <div class="topic-content">屈原创作的新诗体，浪漫主义源头</div>
-          <div class="key-points">
-            <span class="key-point">离骚</span>
-            <span class="key-point">香草美人</span>
-            <span class="key-point">浪漫主义</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>☁️ 唐诗</h3>
-        <div class="topic-item">
-          <div class="topic-title">初唐四杰</div>
-          <div class="topic-content">王勃、杨炯、卢照邻、骆宾王</div>
-          <div class="key-points">
-            <span class="key-point">革新诗风</span>
-            <span class="key-point">扩展题材</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">盛唐诗人</div>
-          <div class="topic-content">李白、杜甫、王维、孟浩然</div>
-          <div class="key-points">
-            <span class="key-point">李白：浪漫主义</span>
-            <span class="key-point">杜甫：现实主义</span>
-            <span class="key-point">王维：山水田园</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">中唐诗人</div>
-          <div class="topic-content">白居易、刘禹锡、韩愈、柳宗元</div>
-          <div class="key-points">
-            <span class="key-point">新乐府运动</span>
-            <span class="key-point">古文运动</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>🎋 宋词</h3>
-        <div class="topic-item">
-          <div class="topic-title">豪放派</div>
-          <div class="topic-content">以苏轼、辛弃疾为代表</div>
-          <div class="key-points">
-            <span class="key-point">苏轼：旷达</span>
-            <span class="key-point">辛弃疾：爱国</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">婉约派</div>
-          <div class="topic-content">以柳永、李清照为代表</div>
-          <div class="key-points">
-            <span class="key-point">柳永：市井词</span>
-            <span class="key-point">李清照：闺阁词</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 中国现代文学 -->
-    <section class="content-section" id="modern">
-      <div class="section-card">
-        <h3>🌅 五四时期</h3>
-        <div class="topic-item">
-          <div class="topic-title">鲁迅</div>
-          <div class="topic-content">原名周树人，文学家、思想家</div>
-          <div class="key-points">
-            <span class="key-point">狂人日记</span>
-            <span class="key-point">阿Q正传</span>
-            <span class="key-point">呐喊彷徨</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">冰心</div>
-          <div class="topic-content">儿童文学家</div>
-          <div class="key-points">
-            <span class="key-point">繁星春水</span>
-            <span class="key-point">母爱童真自然</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>📖 三十年代</h3>
-        <div class="topic-item">
-          <div class="topic-title">茅盾</div>
-          <div class="topic-content">社会剖析派代表</div>
-          <div class="key-points">
-            <span class="key-point">子夜</span>
-            <span class="key-point">农村三部曲</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">老舍</div>
-          <div class="topic-content">人民艺术家</div>
-          <div class="key-points">
-            <span class="key-point">骆驼祥子</span>
-            <span class="key-point">四世同堂</span>
-            <span class="key-point">京味小说</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">巴金</div>
-          <div class="topic-content">激流三部曲</div>
-          <div class="key-points">
-            <span class="key-point">家春秋</span>
-            <span class="key-point">憩园寒夜</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 外国文学 -->
-    <section class="content-section" id="foreign">
-      <div class="section-card">
-        <h3>🏛️ 古典文学</h3>
-        <div class="topic-item">
-          <div class="topic-title">古希腊神话</div>
-          <div class="topic-content">奥林匹斯诸神传说</div>
-          <div class="key-points">
-            <span class="key-point">宙斯雅典娜</span>
-            <span class="key-point">普罗米修斯</span>
-            <span class="key-point">特洛伊战争</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">莎士比亚</div>
-          <div class="topic-content">英国戏剧家</div>
-          <div class="key-points">
-            <span class="key-point">四大悲剧</span>
-            <span class="key-point">哈姆雷特</span>
-            <span class="key-point">罗密欧与朱丽叶</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>📚 近代文学</h3>
-        <div class="topic-item">
-          <div class="topic-title">雨果</div>
-          <div class="topic-content">法国作家 · 浪漫主义</div>
-          <div class="key-points">
-            <span class="key-point">巴黎圣母院</span>
-            <span class="key-point">悲惨世界</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">托尔斯泰</div>
-          <div class="topic-content">俄国作家</div>
-          <div class="key-points">
-            <span class="key-point">战争与和平</span>
-            <span class="key-point">安娜卡列尼娜</span>
-            <span class="key-point">复活</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>📚 儿童文学</h3>
-        <div class="topic-item">
-          <div class="topic-title">安徒生</div>
-          <div class="topic-content">丹麦童话大师</div>
-          <div class="key-points">
-            <span class="key-point">丑小鸭</span>
-            <span class="key-point">卖火柴的小女孩</span>
-            <span class="key-point">皇帝的新装</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">格林兄弟</div>
-          <div class="topic-content">德国童话作家</div>
-          <div class="key-points">
-            <span class="key-point">白雪公主</span>
-            <span class="key-point">灰姑娘</span>
-            <span class="key-point">小红帽</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 文学体裁 -->
-    <section class="content-section" id="form">
-      <div class="section-card">
-        <h3>🪶 诗歌</h3>
-        <div class="topic-item">
-          <div class="topic-title">古体诗</div>
-          <div class="topic-content">唐代以前的诗</div>
-          <div class="key-points">
-            <span class="key-point">不限字数</span>
-            <span class="key-point">不限韵律</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">近体诗</div>
-          <div class="topic-content">唐代形成的格律诗</div>
-          <div class="key-points">
-            <span class="key-point">律诗8句</span>
-            <span class="key-point">绝句4句</span>
-            <span class="key-point">押韵对仗</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">词</div>
-          <div class="topic-content">宋代主流诗歌形式</div>
-          <div class="key-points">
-            <span class="key-point">词牌名</span>
-            <span class="key-point">上阙下阙</span>
-            <span class="key-point">豪放婉约</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <h3>📖 小说</h3>
-        <div class="topic-item">
-          <div class="topic-title">古代小说</div>
-          <div class="topic-content">从志怪到章回</div>
-          <div class="key-points">
-            <span class="key-point">志怪小说</span>
-            <span class="key-point">唐传奇</span>
-            <span class="key-point">明清章回体</span>
-          </div>
-        </div>
-        <div class="topic-item">
-          <div class="topic-title">现代小说</div>
-          <div class="topic-content">五四以来的小说</div>
-          <div class="key-points">
-            <span class="key-point">短中长篇</span>
-            <span class="key-point">第一人称</span>
-            <span class="key-point">第三人称</span>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-      </svg>
-      <span>首页</span>
-    </a>
-    <a href="practice.html" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-      </svg>
-      <span>练习</span>
-    </a>
-    <a href="literary.html" class="nav-item active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-      </svg>
-      <span>知识</span>
-    </a>
-  </nav>
-
+  <script defer src="nav.js?v=115"></script>
+  <script defer src="table-responsive.js?v=115"></script>
+  <script defer src="data/data-loader-core.js?v=115"></script>
   <script>
-    // Tab切换
-    const tabs = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.content-section');
+    document.addEventListener('DOMContentLoaded', function() {
+      function escapeHTML(value) {
+        return String(value == null ? '' : value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const targetId = tab.dataset.tab;
+      function renderTopicCard(item) {
+        var title = item.topic || item.书名 || item.典故 || item;
+        var content = item.content || item.出处 || item.含义 || '';
+        var points = item.key_points || item.考点 || [];
+        var tagText = [title, content].concat(points).join(' ');
+        var html = '<div class="data-mini-card literary-entry" data-literary-text="' + escapeHTML(tagText) + '"><strong>' + escapeHTML(title) + '</strong>';
+        if (content) {
+          html += '<p>' + escapeHTML(content) + '</p>';
+        }
+        if (Array.isArray(points) && points.length) {
+          html += '<div class="list-pills">' + points.map(function(point) {
+            return '<span>' + escapeHTML(point) + '</span>';
+          }).join('') + '</div>';
+        }
+        html += '</div>';
+        return html;
+      }
 
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+      function renderSection(title, groups) {
+        var html = '<article class="data-card literary-group-card" data-literary-group="' + escapeHTML(title) + '"><h3>' + escapeHTML(title) + '</h3>';
+        Object.keys(groups || {}).forEach(function(groupName) {
+          var list = groups[groupName];
+          html += '<div class="data-section literary-subgroup" data-literary-group="' + escapeHTML(groupName) + '"><h3>' + escapeHTML(groupName) + '</h3><div class="data-cluster">';
+          if (Array.isArray(list)) {
+            html += list.slice(0, 4).map(function(item) {
+              if (typeof item === 'string') {
+                return '<div class="data-mini-card literary-entry" data-literary-text="' + escapeHTML(item) + '"><strong>' + escapeHTML(item) + '</strong><p>按“诗题 + 作者 + 主题”补充复述。</p></div>';
+              }
+              return renderTopicCard(item);
+            }).join('');
+          }
+          html += '</div></div>';
+        });
+        html += '</article>';
+        return html;
+      }
 
-        sections.forEach(s => s.classList.remove('active'));
-        document.getElementById(targetId).classList.add('active');
-      });
+      function renderRequired(required) {
+        var html = '<article class="data-card literary-group-card" data-literary-group="小升初必备"><h3>小升初必备清单</h3>';
+        if (required && required.必读名著考点) {
+          html += '<div class="data-section literary-subgroup" data-literary-group="必读名著"><h3>必读名著考点</h3><div class="data-cluster">';
+          html += required.必读名著考点.map(renderTopicCard).join('');
+          html += '</div></div>';
+        }
+        if (required && required.必知文学典故) {
+          html += '<div class="data-section literary-subgroup" data-literary-group="文学典故"><h3>必知文学典故</h3><div class="data-cluster">';
+          html += required.必知文学典故.map(function(item) {
+            var tagText = [item.典故, item.出处, item.含义].join(' ');
+            return '<div class="data-mini-card literary-entry" data-literary-text="' + escapeHTML(tagText) + '"><strong>' + escapeHTML(item.典故) + '</strong><p><b>出处：</b>' + escapeHTML(item.出处) + '</p><p><b>含义：</b>' + escapeHTML(item.含义) + '</p></div>';
+          }).join('');
+          html += '</div></div>';
+        }
+        if (required && required.必背古诗词) {
+          html += '<div class="data-section literary-subgroup" data-literary-group="古诗词"><h3>必背古诗词</h3><div class="list-pills">';
+          html += required.必背古诗词.slice(0, 15).map(function(item) {
+            return '<span class="literary-entry" data-literary-text="' + escapeHTML(item) + '">' + escapeHTML(item) + '</span>';
+          }).join('');
+          html += '</div></div>';
+        }
+        html += '</article>';
+        return html;
+      }
+
+      function renderLiteraryData(data) {
+        var status = document.getElementById('literary-data-status');
+        var grid = document.getElementById('literary-data-grid');
+        var filterInput = document.getElementById('literaryFilterInput');
+        var panel = document.querySelector('.literary-filter-panel');
+        if (!status || !grid || !data) return;
+
+        var html = '';
+        html += renderRequired(data.小升初必备 || {});
+        html += renderSection('中国古代文学', data.中国古代文学 || {});
+        html += renderSection('中国现代文学', data.中国现代文学 || {});
+        html += renderSection('外国文学', data.外国文学 || {});
+        html += renderSection('文学体裁知识', data.文学体裁知识 || {});
+
+        grid.innerHTML = html;
+        if (panel) panel.dataset.loaded = 'true';
+        var currentQuery = filterInput ? filterInput.value.trim() : '';
+        status.textContent = currentQuery
+          ? '已加载文学常识资料库，已带入筛选词「' + currentQuery + '」。建议先看匹配卡片，再按骨架做复述和小测。'
+          : '已加载文学常识资料库。建议每次只选一个板块，按骨架做复述和小测。';
+        bindLiteraryFilters();
+      }
+
+      function getPageParam(name) {
+        try {
+          return new URLSearchParams(window.location.search).get(name) || '';
+        } catch (e) {
+          return '';
+        }
+      }
+
+      function bindLiteraryFilters() {
+        var panel = document.querySelector('.literary-filter-panel');
+        var input = document.getElementById('literaryFilterInput');
+        var resetBtn = document.getElementById('literaryFilterReset');
+        var chips = document.getElementById('literaryFilterChips');
+        var emptyState = document.getElementById('literaryFilterEmpty');
+        var grid = document.getElementById('literary-data-grid');
+        if (!panel || !input || !resetBtn || !chips || !grid) return;
+
+        function getActiveFilter() {
+          return panel.dataset.activeFilter || 'all';
+        }
+
+        function setActiveFilter(value) {
+          panel.dataset.activeFilter = value || 'all';
+        }
+
+        function syncChipState(value) {
+          chips.querySelectorAll('.literary-filter-chip').forEach(function(item) {
+            item.classList.toggle('active', item.dataset.filter === value);
+          });
+        }
+
+        function getLoadedState() {
+          return panel.dataset.loaded === 'true';
+        }
+
+        if (panel.dataset.bound === 'true') {
+          applyLiteraryFilters();
+          return;
+        }
+        panel.dataset.bound = 'true';
+        setActiveFilter(panel.dataset.activeFilter || 'all');
+        if (!panel.dataset.loaded) {
+          panel.dataset.loaded = 'false';
+        }
+        var initialQuery = getPageParam('q').trim();
+        if (initialQuery) {
+          input.value = initialQuery;
+          panel.dataset.pendingScroll = 'true';
+        }
+
+        function getEntryText(node) {
+          return String(node.getAttribute('data-literary-text') || node.textContent || '').toLowerCase();
+        }
+
+        function getGroupText(node) {
+          return String(node.getAttribute('data-literary-group') || '').toLowerCase();
+        }
+
+        function toggleVisibility(node, show) {
+          if (node) node.style.display = show ? '' : 'none';
+        }
+
+        function toggleMatch(node, matched) {
+          if (node) node.classList.toggle('literary-match', !!matched);
+        }
+
+        function isVisible(node) {
+          return !!node && node.offsetParent !== null && node.style.display !== 'none';
+        }
+
+        function syncListPills(scope) {
+          Array.prototype.slice.call(scope.querySelectorAll('.list-pills')).forEach(function(list) {
+            var hasVisibleItem = Array.prototype.slice.call(list.children).some(function(item) {
+              return item.style.display !== 'none';
+            });
+            toggleVisibility(list, hasVisibleItem);
+          });
+        }
+
+        function scrollToFirstMatch() {
+          if (panel.dataset.pendingScroll !== 'true') return;
+          var targets = Array.prototype.slice.call(grid.querySelectorAll('.literary-match'));
+          var firstVisibleMatch = targets.find(function(node) {
+            return isVisible(node) && node.classList.contains('literary-entry');
+          }) || targets.find(function(node) {
+            return isVisible(node);
+          });
+          if (!firstVisibleMatch) return;
+          panel.dataset.pendingScroll = 'false';
+          requestAnimationFrame(function() {
+            firstVisibleMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+        }
+
+        function applyLiteraryFilters() {
+          var keyword = input.value.trim().toLowerCase();
+          var activeFilter = getActiveFilter().toLowerCase();
+          var cards = Array.prototype.slice.call(grid.querySelectorAll('.data-card'));
+          var visibleCount = 0;
+
+          cards.forEach(function(card) {
+            var cardGroupMatch = activeFilter === 'all' || getGroupText(card).indexOf(activeFilter) >= 0 || card.textContent.toLowerCase().indexOf(activeFilter) >= 0;
+            var subgroups = Array.prototype.slice.call(card.querySelectorAll('.literary-subgroup'));
+            toggleMatch(card, false);
+
+            if (subgroups.length) {
+              var visibleSubgroupCount = 0;
+
+              subgroups.forEach(function(subgroup) {
+                var subgroupGroupMatch = cardGroupMatch || activeFilter === 'all' || getGroupText(subgroup).indexOf(activeFilter) >= 0 || subgroup.textContent.toLowerCase().indexOf(activeFilter) >= 0;
+                var subgroupTitleMatch = keyword ? (getGroupText(card).indexOf(keyword) >= 0 || getGroupText(subgroup).indexOf(keyword) >= 0) : true;
+                var entries = Array.prototype.slice.call(subgroup.querySelectorAll('.literary-entry'));
+                var visibleEntryCount = 0;
+                var matchedEntryCount = 0;
+                toggleMatch(subgroup, keyword && subgroupTitleMatch);
+
+                entries.forEach(function(entry) {
+                  var entryTextMatch = keyword && (getEntryText(entry).indexOf(keyword) >= 0 || getGroupText(entry).indexOf(keyword) >= 0);
+                  var entryKeywordMatch = !keyword || subgroupTitleMatch || entryTextMatch;
+                  var showEntry = subgroupGroupMatch && entryKeywordMatch;
+                  toggleVisibility(entry, showEntry);
+                  toggleMatch(entry, !!entryTextMatch);
+                  if (showEntry) visibleEntryCount++;
+                  if (entryTextMatch) matchedEntryCount++;
+                });
+
+                syncListPills(subgroup);
+
+                var showSubgroup = subgroupGroupMatch && (visibleEntryCount > 0 || (entries.length === 0 && subgroupTitleMatch));
+                toggleMatch(subgroup, keyword && (subgroupTitleMatch || matchedEntryCount > 0));
+                toggleVisibility(subgroup, showSubgroup);
+                if (showSubgroup) visibleSubgroupCount++;
+              });
+
+              var showCard = visibleSubgroupCount > 0;
+              toggleMatch(card, keyword && getGroupText(card).indexOf(keyword) >= 0);
+              toggleVisibility(card, showCard);
+              if (showCard) visibleCount++;
+              return;
+            }
+
+            var directEntries = Array.prototype.slice.call(card.querySelectorAll('.literary-entry'));
+            if (directEntries.length) {
+              var cardTitleMatch = keyword ? (getGroupText(card).indexOf(keyword) >= 0 || getEntryText(card).indexOf(keyword) >= 0) : true;
+              var visibleEntryCount = 0;
+              var matchedEntryCount = 0;
+
+              directEntries.forEach(function(entry) {
+                var entryTextMatch = keyword && (getEntryText(entry).indexOf(keyword) >= 0 || getGroupText(entry).indexOf(keyword) >= 0);
+                var entryKeywordMatch = !keyword || cardTitleMatch || entryTextMatch;
+                var showEntry = cardGroupMatch && entryKeywordMatch;
+                toggleVisibility(entry, showEntry);
+                toggleMatch(entry, !!entryTextMatch);
+                if (showEntry) visibleEntryCount++;
+                if (entryTextMatch) matchedEntryCount++;
+              });
+
+              syncListPills(card);
+
+              var showCard = cardGroupMatch && (visibleEntryCount > 0 || cardTitleMatch);
+              toggleMatch(card, keyword && (cardTitleMatch || matchedEntryCount > 0));
+              toggleVisibility(card, showCard);
+              if (showCard) visibleCount++;
+              return;
+            }
+
+            var show = cardGroupMatch && (!keyword || getGroupText(card).indexOf(keyword) >= 0 || getEntryText(card).indexOf(keyword) >= 0);
+            toggleMatch(card, keyword && show);
+            toggleVisibility(card, show);
+            if (show) visibleCount++;
+          });
+
+          if (emptyState) emptyState.style.display = getLoadedState() && visibleCount === 0 ? 'block' : 'none';
+          scrollToFirstMatch();
+        }
+
+        input.addEventListener('input', function() {
+          if (panel.dataset.pendingScroll === 'true' && initialQuery && input.value.trim() !== initialQuery) {
+            panel.dataset.pendingScroll = 'false';
+          }
+          applyLiteraryFilters();
+        });
+        syncChipState(getActiveFilter());
+        resetBtn.addEventListener('click', function() {
+          input.value = '';
+          panel.dataset.pendingScroll = 'false';
+          setActiveFilter('all');
+          syncChipState('all');
+          applyLiteraryFilters();
+          input.focus();
+        });
+        chips.addEventListener('click', function(e) {
+          var chip = e.target.closest('.literary-filter-chip');
+          if (!chip) return;
+          panel.dataset.pendingScroll = 'false';
+          setActiveFilter(chip.dataset.filter || 'all');
+          syncChipState(getActiveFilter());
+          applyLiteraryFilters();
+        });
+
+        applyLiteraryFilters();
+      }
+
+      function tryLoadData() {
+        var dataLoader = window.DataLibCore || window.DataLib;
+        if (dataLoader && typeof dataLoader.load === 'function') {
+          dataLoader.load('literary-knowledge').then(function(data) {
+            if (data) renderLiteraryData(data);
+          });
+          return;
+        }
+          var status = document.getElementById('literary-data-status');
+          var panel = document.querySelector('.literary-filter-panel');
+          if (panel) panel.dataset.loaded = 'true';
+          if (status) status.textContent = '资料库暂未加载，已显示基础清单。';
+          bindLiteraryFilters();
+      }
+
+      bindLiteraryFilters();
+      tryLoadData();
     });
   </script>
 </body>

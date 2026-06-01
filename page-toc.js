@@ -1,197 +1,163 @@
-/**
- * 浮层页面导航 TOC
- * 自动扫描页面中带 id 的 section，生成快速导航
- * 用法：<script defer src="page-toc.js?v=90"></script>
- */
-(function() {
+(function () {
   'use strict';
 
-  // 要忽略的 id（非内容区导航元素）
-  var SKIP_IDS = ['top', 'taskList', 'quiz-options', 'quiz-container', 'quiz-feedback',
-    'quiz-restart-btn', 'quiz-next-btn', 'hero-search-input', 'hero-search-btn',
-    'searchInput', 'searchBtn', 'hw-filter-bar'];
+  var SKIP_IDS = [
+    'top',
+    'taskList',
+    'quiz-options',
+    'quiz-container',
+    'quiz-feedback',
+    'quiz-restart-btn',
+    'quiz-next-btn',
+    'hero-search-input',
+    'hero-search-btn',
+    'searchInput',
+    'searchBtn',
+    'hw-filter-bar'
+  ];
 
-  // 自定义标签映射：id → 简短标签
   var LABEL_MAP = {
-    'diagnosis': '🧪 诊断测评',
-    'layer-learning': '📊 分层学习',
-    'top-student-zone': '🏆 尖子生通道',
-    'avg-student-zone': '📚 中等生通道',
-    'learning-path-viz': '📈 成长路线',
-    'reward-system': '🎖️ 激励机制',
-    'stage-assessment': '📝 阶段测评',
-    'error-masterclass': '🔍 错因精讲',
-    'dual-track-system': '🔄 双轨训练',
-    'master-peak-training': '⛰️ 拔尖训练',
-    'pack-r1': '📦 R1:概括',
-    'pack-r2': '📦 R2:依据',
-    'pack-r3': '📦 R3:赏析',
-    'pack-r4': '📦 R4:材料',
-    'pack-w1': '📦 W1:写话',
-    'pack-w2': '📦 W2:重点段',
-    'pack-w3': '📦 W3:审题',
-    'pack-c1': '📦 C1:综合',
-    'c-paper-materials': '📄 C卷材料',
-    'thickening-training': '💪 补厚训练',
-    'extended-knowledge': '📖 扩展知识',
-    'peak-track': '🚀 尖子方案',
-    'improve-track': '📈 提分方案',
-    'grammar-db-quick': '📦 语法索引',
-    'hw-collection-grid': '✍️ 作业题库'
+    'diagnosis': '诊断测评',
+    'layer-learning': '分层学习',
+    'top-student-zone': '拔尖通道',
+    'avg-student-zone': '提升通道',
+    'learning-path-viz': '成长路线',
+    'reward-system': '激励机制',
+    'stage-assessment': '阶段测评',
+    'error-masterclass': '错因精讲',
+    'dual-track-system': '双轨训练',
+    'master-peak-training': '拔尖训练',
+    'c-paper-materials': 'C 卷材料',
+    'thickening-training': '补厚训练',
+    'extended-knowledge': '扩展知识',
+    'peak-track': '拔尖方案',
+    'improve-track': '提分方案',
+    'grammar-db-quick': '语法索引',
+    'hw-collection-grid': '作业题库'
   };
 
-  // 收集所有待导航的 section
   function collectSections() {
     var sections = [];
     var seen = {};
 
-    // 优先查找独立的 section[id] 元素
-    document.querySelectorAll('section[id]').forEach(function(el) {
-      if (SKIP_IDS.indexOf(el.id) >= 0) return;
-      if (seen[el.id]) return;
+    document.querySelectorAll('section[id], div[id], article[id]').forEach(function (el) {
+      if (!el.id || SKIP_IDS.indexOf(el.id) !== -1 || seen[el.id]) return;
+      if (!shouldInclude(el)) return;
+
       seen[el.id] = true;
-
-      // 提取标题
-      var title = '';
-      var h = el.querySelector('h1,h2,h3');
-      if (h) {
-        title = h.textContent.trim();
-        // 截断过长的标题
-        if (title.length > 20) title = title.substring(0, 18) + '…';
-      }
-      if (!title && LABEL_MAP[el.id]) title = LABEL_MAP[el.id];
-      if (!title) title = el.id.replace(/-/g, ' ');
-
-      sections.push({ id: el.id, title: title, el: el });
-    });
-
-    // 补充有 id 的 div 容器（如分流训练包、双轨辅导等独立模块）
-    var extraSelectors = [
-      'div[id^="pack-"]',          // 分流训练包
-      'div[id="c-paper-materials"]',
-      'div[id="thickening-training"]',
-      'div[id="extended-knowledge"]',
-      'div[id="peak-track"]',
-      'div[id="improve-track"]',
-      'div[id="grammar-db-quick"]'
-    ];
-    extraSelectors.forEach(function(sel) {
-      try {
-        document.querySelectorAll(sel).forEach(function(el) {
-          if (SKIP_IDS.indexOf(el.id) >= 0) return;
-          if (seen[el.id]) return;
-          seen[el.id] = true;
-          var title = LABEL_MAP[el.id] || el.id.replace(/-/g, ' ');
-          sections.push({ id: el.id, title: title, el: el });
-        });
-      } catch(e) {}
+      sections.push({
+        id: el.id,
+        title: getSectionTitle(el),
+        el: el
+      });
     });
 
     return sections;
   }
 
-  // 构建 TOC DOM
+  function shouldInclude(el) {
+    if (!el || !el.id) return false;
+    if (/^pack-/.test(el.id)) return true;
+    if (LABEL_MAP[el.id]) return true;
+    if (el.tagName === 'SECTION' || el.tagName === 'ARTICLE') return true;
+    return !!el.querySelector('h1, h2, h3');
+  }
+
+  function getSectionTitle(el) {
+    var heading = el.querySelector('h1, h2, h3');
+    var title = heading ? heading.textContent.trim() : '';
+    if (!title) title = LABEL_MAP[el.id] || el.id.replace(/-/g, ' ');
+    title = title.replace(/\s+/g, ' ').trim();
+    if (title.length > 20) title = title.slice(0, 20) + '...';
+    return title;
+  }
+
   function buildTOC(sections) {
-    if (sections.length < 3) return; // 太短的页面不需要 TOC
+    if (sections.length < 3) return null;
 
     var toc = document.createElement('nav');
     toc.className = 'page-toc';
     toc.setAttribute('aria-label', '页面快速导航');
 
-    // 折叠/展开按钮
     var toggle = document.createElement('button');
     toggle.className = 'page-toc-toggle';
-    toggle.textContent = '☰';
+    toggle.type = 'button';
+    toggle.textContent = '目录';
     toggle.setAttribute('aria-label', '展开页面导航');
-    toggle.addEventListener('click', function() {
+    toggle.addEventListener('click', function () {
       var expanded = toc.classList.toggle('expanded');
+      toggle.textContent = expanded ? '收起' : '目录';
       toggle.setAttribute('aria-label', expanded ? '收起页面导航' : '展开页面导航');
-      toggle.textContent = expanded ? '✕' : '☰';
     });
-    toc.appendChild(toggle);
 
-    // 导航项列表
     var list = document.createElement('div');
     list.className = 'page-toc-list';
 
-    sections.forEach(function(s) {
-      var a = document.createElement('a');
-      a.className = 'page-toc-item';
-      a.href = '#' + s.id;
-      a.textContent = s.title;
-      a.title = s.title;
-      // 点击后收起移动端的展开状态
-      a.addEventListener('click', function() {
+    sections.forEach(function (section) {
+      var link = document.createElement('a');
+      link.className = 'page-toc-item';
+      link.href = '#' + section.id;
+      link.textContent = section.title;
+      link.title = section.title;
+      link.setAttribute('data-toc-id', section.id);
+      link.addEventListener('click', function () {
         if (window.innerWidth <= 768) {
           toc.classList.remove('expanded');
-          toggle.textContent = '☰';
+          toggle.textContent = '目录';
           toggle.setAttribute('aria-label', '展开页面导航');
         }
       });
-      a.setAttribute('data-toc-id', s.id);
-      list.appendChild(a);
+      list.appendChild(link);
     });
 
+    toc.appendChild(toggle);
     toc.appendChild(list);
     document.body.appendChild(toc);
     return toc;
   }
 
-  // 滚动时高亮当前 section
   function setupScrollSpy(sections, toc) {
     if (!toc) return;
     var items = toc.querySelectorAll('.page-toc-item');
     var ticking = false;
 
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        requestAnimationFrame(function() {
-          updateActive(sections, items);
-          ticking = false;
-        });
-        ticking = true;
+    function update() {
+      var current = sections[0] ? sections[0].id : '';
+      var threshold = window.innerHeight / 3;
+
+      for (var i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].el.getBoundingClientRect().top <= threshold) {
+          current = sections[i].id;
+          break;
+        }
       }
+
+      items.forEach(function (item) {
+        item.classList.toggle('active', item.getAttribute('data-toc-id') === current);
+      });
+    }
+
+    update();
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        update();
+        ticking = false;
+      });
     }, { passive: true });
   }
 
-  function updateActive(sections, items) {
-    var viewMiddle = window.innerHeight / 3;
-    var current = sections[0] ? sections[0].id : '';
-
-    for (var i = sections.length - 1; i >= 0; i--) {
-      var rect = sections[i].el.getBoundingClientRect();
-      if (rect.top <= viewMiddle) {
-        current = sections[i].id;
-        break;
-      }
-    }
-
-    items.forEach(function(item) {
-      if (item.getAttribute('data-toc-id') === current) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
-    });
-  }
-
-  // 初始化
   function init() {
-    // 不为主页显示 TOC
-    if (document.querySelector('.dashboard-hero') && window.location.pathname.indexOf('practice') < 0) return;
-
+    if (document.querySelector('.dashboard-hero') && location.pathname.indexOf('practice') < 0) return;
     var sections = collectSections();
     var toc = buildTOC(sections);
-    if (toc) {
-      setupScrollSpy(sections, toc);
-    }
+    if (toc) setupScrollSpy(sections, toc);
   }
 
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(init, 100);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(init, 100);
-    });
+    init();
   }
 })();
