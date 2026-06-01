@@ -16,6 +16,7 @@
 
   var DATA_BASE = './data/';
   var cache = {};
+  var pendingLoads = {};
   var DATA_VERSION = (function() {
     var scripts = document.getElementsByTagName('script');
     for (var i = scripts.length - 1; i >= 0; i--) {
@@ -27,52 +28,35 @@
     }
     return 'dev';
   })();
-  var STORAGE_PREFIX = 'datalib_' + DATA_VERSION + '_';
-  var STORAGE_TTL = 24 * 60 * 60 * 1000; // 24小时
 
-  function _storageKey(name) { return STORAGE_PREFIX + name; }
-
-  function _storageGet(name) {
-    try {
-      var raw = localStorage.getItem(_storageKey(name));
-      if (!raw) return null;
-      var entry = JSON.parse(raw);
-      if (Date.now() - entry._t > STORAGE_TTL) { localStorage.removeItem(_storageKey(name)); return null; }
-      return entry._d;
-    } catch(e) { return null; }
-  }
-
-  function _storageSet(name, data) {
-    try { localStorage.setItem(_storageKey(name), JSON.stringify({ _d: data, _t: Date.now() })); } catch(e) {}
+  function buildDataUrl(name) {
+    return DATA_BASE + name + '.json?v=' + encodeURIComponent(DATA_VERSION);
   }
 
   // ============ 核心加载 API ============
 
   function loadData(name) {
     if (cache[name]) return Promise.resolve(cache[name]);
-    
-    // 尝试 localStorage 缓存
-    var stored = _storageGet(name);
-    if (stored) {
-      cache[name] = stored;
-      return Promise.resolve(stored);
-    }
+    if (pendingLoads[name]) return pendingLoads[name];
 
-    var url = DATA_BASE + name + '.json?v=' + encodeURIComponent(DATA_VERSION);
-    return fetch(url)
+    var url = buildDataUrl(name);
+    pendingLoads[name] = fetch(url)
       .then(function(resp) {
-        if (!resp.ok) throw new Error('加载失败: ' + url + ' (' + resp.status + ')');
+        if (!resp.ok) throw new Error('Failed to load: ' + url + ' (' + resp.status + ')');
         return resp.json();
       })
       .then(function(data) {
         cache[name] = data;
-        _storageSet(name, data);
+        delete pendingLoads[name];
         return data;
       })
       .catch(function(err) {
-        console.error('资料库加载失败: ' + name, err);
+        delete pendingLoads[name];
+        console.error('Data library load failed:', name, err);
         return null;
       });
+
+    return pendingLoads[name];
   }
 
   function preloadAll(names) {
@@ -535,19 +519,68 @@
     if (!container) return;
     loadData('literary-knowledge').then(function(data) {
       if (!data) return;
-      var timeline = data['文学史脉络'];
-      if (!timeline || !timeline.朝代) return;
 
+      function escapeHTML(value) {
+        return String(value == null ? '' : value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      var timeline = data['文学史脉络'];
       var html = '<div class="timeline">';
-      timeline.朝代.forEach(function(dynasty) {
-        html += '<div class="timeline-item" style="background:white; border-radius:12px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border-left:4px solid #667eea;">';
-        html += '<h4 style="color:#667eea; margin:0 0 8px;">' + dynasty.朝代 + ' <small style="color:#888;">' + dynasty.时间 + '</small></h4>';
-        html += '<p style="font-size:13px; color:#555; margin:0 0 6px;">' + dynasty.特点 + '</p>';
-        html += '<p style="font-size:12px; color:#888;"><strong>代表作家：</strong>' + dynasty.代表作家.join('、') + '</p>';
-        html += '<p style="font-size:12px; color:#888;"><strong>代表作品：</strong>' + dynasty.代表作品.join('、') + '</p>';
-        html += '</div>';
-      });
+
+      if (timeline && timeline.朝代) {
+        timeline.朝代.forEach(function(dynasty) {
+          html += '<div class="timeline-item" style="background:white; border-radius:12px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border-left:4px solid #667eea;">';
+          html += '<h4 style="color:#667eea; margin:0 0 8px;">' + escapeHTML(dynasty.朝代) + ' <small style="color:#888;">' + escapeHTML(dynasty.时间) + '</small></h4>';
+          html += '<p style="font-size:13px; color:#555; margin:0 0 6px;">' + escapeHTML(dynasty.特点) + '</p>';
+          html += '<p style="font-size:12px; color:#888;"><strong>代表作家：</strong>' + escapeHTML((dynasty.代表作家 || []).join('、')) + '</p>';
+          html += '<p style="font-size:12px; color:#888;"><strong>代表作品：</strong>' + escapeHTML((dynasty.代表作品 || []).join('、')) + '</p>';
+          html += '</div>';
+        });
+      } else {
+        var fallbackRows = [
+          { name: '先秦文学', source: data.中国古代文学 && data.中国古代文学.先秦文学, color: '#667eea' },
+          { name: '唐诗', source: data.中国古代文学 && data.中国古代文学.唐诗, color: '#e65100' },
+          { name: '宋词', source: data.中国古代文学 && data.中国古代文学.宋词, color: '#2e7d32' },
+          { name: '明清小说', source: data.中国古代文学 && data.中国古代文学.明清小说, color: '#8e24aa' },
+          { name: '中国现代文学', source: data.中国现代文学, color: '#1565c0' },
+          { name: '外国文学', source: data.外国文学, color: '#6d4c41' }
+        ];
+
+        fallbackRows.forEach(function(row) {
+          var items = [];
+          if (Array.isArray(row.source)) {
+            items = row.source;
+          } else if (row.source && typeof row.source === 'object') {
+            Object.keys(row.source).forEach(function(key) {
+              items = items.concat(row.source[key] || []);
+            });
+          }
+          if (!items.length) return;
+
+          var topics = items.slice(0, 5).map(function(item) {
+            return item.topic || item.书名 || item.典故 || '';
+          }).filter(Boolean);
+          var points = [];
+          items.slice(0, 3).forEach(function(item) {
+            if (Array.isArray(item.key_points)) points = points.concat(item.key_points.slice(0, 2));
+            if (Array.isArray(item.考点)) points = points.concat(item.考点.slice(0, 2));
+          });
+
+          html += '<div class="timeline-item" style="background:white; border-radius:12px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border-left:4px solid ' + row.color + ';">';
+          html += '<h4 style="color:' + row.color + '; margin:0 0 8px;">' + escapeHTML(row.name) + '</h4>';
+          html += '<p style="font-size:13px; color:#555; margin:0 0 6px;"><strong>代表内容：</strong>' + escapeHTML(topics.join('、')) + '</p>';
+          html += '<p style="font-size:12px; color:#888;"><strong>记忆关键词：</strong>' + escapeHTML(points.slice(0, 8).join('、')) + '</p>';
+          html += '</div>';
+        });
+      }
+
       html += '</div>';
+      html += '<p style="text-align:center; margin:18px 0 0;"><a href="literary.html" style="display:inline-flex; padding:10px 18px; border-radius:999px; background:#fff7ed; color:#92400e; font-weight:700; text-decoration:none; border:1px solid #fed7aa;">进入完整文学常识专题</a></p>';
       container.innerHTML = html;
     });
   }
@@ -753,6 +786,26 @@
     return loadData('grades');
   }
 
+  function loadUnitCoverage() {
+    return loadData('unit-coverage');
+  }
+
+  function getDataLoadHint() {
+    if (window.location && window.location.protocol === 'file:') {
+      return '当前页面像是通过 file:// 直接打开的。请改用本地静态服务器访问，例如先运行 npx serve .，再打开 http://127.0.0.1:3000/grade1.html。';
+    }
+    return '请刷新页面重试；如果仍未显示，请检查浏览器控制台里的 JSON 加载错误。';
+  }
+
+  function renderLoadFailure(container, title) {
+    if (!container) return;
+    container.innerHTML =
+      '<div class="table-card">' +
+        '<h2>' + title + '</h2>' +
+        '<p style="color:#666;margin:0;">' + getDataLoadHint() + '</p>' +
+      '</div>';
+  }
+
   /**
    * 渲染年级英雄区（page-head）
    * @param {string|number} gradeId - '1'~'6'
@@ -762,17 +815,26 @@
   function renderGradeHero(gradeId, container, overrides) {
     if (!container) return;
     loadGrades().then(function(data) {
-      if (!data || !data[gradeId]) return;
+      if (!data || !data[gradeId]) {
+        container.className = 'page-head';
+        container.innerHTML =
+          '<p class="eyebrow">数据未加载</p>' +
+          '<h1>年级页数据暂未显示</h1>' +
+          '<p>' + getDataLoadHint() + '</p>';
+        return;
+      }
       var g = data[gradeId];
       var cls = 'grade-' + (gradeId === '1' ? 'one' : gradeId === '2' ? 'two' : gradeId === '3' ? 'three' : gradeId === '4' ? 'four' : gradeId === '5' ? 'five' : 'six');
       var eyebrow = (overrides && overrides.eyebrow) || g.eyebrow || '';
       var title = (overrides && overrides.heroTitle) || g.heroTitle || '';
       var desc = (overrides && overrides.heroDesc) || g.heroDesc || '';
+      var fallbackTitle = '小学语文' + g.label + '学习指导';
+      var fallbackDesc = '先解决当前年级最关键的能力，再进入专题和练习。';
       container.className = 'page-head ' + cls;
       container.innerHTML =
         '<p class="eyebrow">' + eyebrow + '</p>' +
-        '<h1>' + title + '</h1>' +
-        (desc ? '<p>' + desc + '</p>' : '');
+        '<h1>' + (title || fallbackTitle) + '</h1>' +
+        '<p>' + (desc || fallbackDesc) + '</p>';
     });
   }
 
@@ -782,7 +844,10 @@
   function renderGradeCurriculum(gradeId, container) {
     if (!container) return;
     loadGrades().then(function(data) {
-      if (!data || !data[gradeId] || !data[gradeId].curriculum) return;
+      if (!data || !data[gradeId] || !data[gradeId].curriculum) {
+        renderLoadFailure(container, '课标能力对照暂未加载');
+        return;
+      }
       var cur = data[gradeId].curriculum;
       var html = '<div class="table-card"><h2>课标能力对照表</h2><div class="responsive-table"><table>';
       html += '<thead><tr>';
@@ -803,19 +868,65 @@
    */
   function renderGradeUnitMatrix(gradeId, container) {
     if (!container) return;
-    loadGrades().then(function(data) {
-      if (!data || !data[gradeId] || !data[gradeId].unitCoverage) return;
-      var matrix = data[gradeId].unitCoverage;
-      var rows = matrix.rows || [];
-      if (!rows.length) return;
+    Promise.all([loadGrades(), loadUnitCoverage()]).then(function(results) {
+      var gradesData = results[0];
+      var coverageData = results[1];
+      if (!gradesData || !gradesData[gradeId] || !gradesData[gradeId].unitCoverage) {
+        renderLoadFailure(container, '教材单元映射暂未加载');
+        return;
+      }
 
-      var html = '<div class="table-card"><h2>' + (matrix.title || '教材单元映射') + '</h2>';
+      var matrix = gradesData[gradeId].unitCoverage;
+      var headers = matrix.headers || ['\u518c\u6b21', '\u5355\u5143 / \u4e3b\u9898', '\u8bfe\u6587\u91cd\u70b9 / \u57fa\u7840\u79ef\u7d2f', '\u9605\u8bfb\u8bad\u7ec3', '\u8868\u8fbe / \u4e60\u4f5c'];
+      var rows = [];
+
+      function toRow(bookName, unit) {
+        var words = Array.isArray(unit['\u751f\u5b57\u8bcd']) && unit['\u751f\u5b57\u8bcd'].length
+          ? ' \u751f\u5b57\u8bcd\uff1a' + unit['\u751f\u5b57\u8bcd'].join('\u3001')
+          : '';
+        return {
+          semester: bookName,
+          unit: unit['\u5355\u5143'],
+          theme: unit['\u4e3b\u9898'],
+          focus: (unit['\u8bfe\u6587\u91cd\u70b9'] || '') + words,
+          questionTypes: unit['\u9605\u8bfb\u8bad\u7ec3'] || '',
+          commonMistakes: unit['\u4e60\u4f5c\u8981\u6c42'] || ''
+        };
+      }
+
+      if (coverageData && matrix.books && matrix.books.length) {
+        matrix.books.forEach(function(bookName) {
+          var units = coverageData[bookName];
+          if (Array.isArray(units)) {
+            units.forEach(function(unit) {
+              rows.push(toRow(bookName, unit));
+            });
+          }
+        });
+      }
+
+      if (!rows.length) {
+        rows = matrix.rows || [];
+      }
+      if (!rows.length) {
+        renderLoadFailure(container, '教材单元映射暂未加载');
+        return;
+      }
+
+      function td(label, value) {
+        return '<td data-label="' + label + '">' + value + '</td>';
+      }
+
+      var html = '<div class="table-card"><h2>' + (matrix.title || '\u6559\u6750\u5355\u5143\u6620\u5c04') + '</h2>';
       if (matrix.textbookVersion) {
-        html += '<p style="color:#333;font-weight:600;margin-top:-4px;margin-bottom:6px;">教材版本：' + matrix.textbookVersion + '</p>';
+        html += '<p style="color:#333;font-weight:600;margin-top:-4px;margin-bottom:6px;">\u6559\u6750\u7248\u672c\uff1a' + matrix.textbookVersion + '</p>';
       }
       if (matrix.note) html += '<p style="color:#666;margin-top:0;">' + matrix.note + '</p>';
+      if (matrix.books && matrix.books.length) {
+        html += '<p style="color:#666;margin-top:0;margin-bottom:12px;">\u5df2\u8986\u76d6\u518c\u6b21\uff1a' + matrix.books.join('\u3001') + '</p>';
+      }
       html += '<div class="responsive-table"><table><thead><tr>';
-      (matrix.headers || ['学期', '单元 / 代表课文', '核心能力', '典型题型', '常见错因']).forEach(function(h) {
+      headers.forEach(function(h) {
         html += '<th>' + h + '</th>';
       });
       html += '</tr></thead><tbody>';
@@ -823,14 +934,14 @@
         var lessonText = row.lesson ? '<div style="font-size:12px;color:#666;margin-top:4px;">' + row.lesson + '</div>' : '';
         var unitCell = row.unit || row.direction || '';
         if (row.theme) {
-          unitCell += '<div style="font-size:12px;color:#666;margin-top:4px;">主题：' + row.theme + '</div>';
+          unitCell += '<div style="font-size:12px;color:#666;margin-top:4px;">\u4e3b\u9898\uff1a' + row.theme + '</div>';
         }
         html += '<tr>' +
-          '<td>' + (row.semester || row.term || '') + '</td>' +
-          '<td>' + unitCell + lessonText + '</td>' +
-          '<td>' + (row.focus || row.words || '') + '</td>' +
-          '<td>' + (row.questionTypes || row.reading || '') + '</td>' +
-          '<td>' + (row.commonMistakes || row.writing || row.practice || '') + '</td>' +
+          td(headers[0], row.semester || row.term || '') +
+          td(headers[1], unitCell + lessonText) +
+          td(headers[2], row.focus || row.words || '') +
+          td(headers[3], row.questionTypes || row.reading || '') +
+          td(headers[4], row.commonMistakes || row.writing || row.practice || '') +
         '</tr>';
       });
       html += '</tbody></table></div></div>';
@@ -844,7 +955,10 @@
   function renderGradeMistakes(gradeId, container) {
     if (!container) return;
     loadGrades().then(function(data) {
-      if (!data || !data[gradeId]) return;
+      if (!data || !data[gradeId]) {
+        renderLoadFailure(container, '易错点与补救入口暂未加载');
+        return;
+      }
       var g = data[gradeId];
       var html = '<div class="content-grid">';
 
@@ -873,7 +987,10 @@
   function renderGradeLoop(gradeId, container) {
     if (!container) return;
     loadGrades().then(function(data) {
-      if (!data || !data[gradeId]) return;
+      if (!data || !data[gradeId]) {
+        renderLoadFailure(container, '训练闭环暂未加载');
+        return;
+      }
       var g = data[gradeId];
       var html = '<div class="loop-grid">';
 

@@ -1,0 +1,767 @@
+[
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "lower",
+    "variant": "syn-1",
+    "question": "下列词语中，与“安静”意思最相近的是：",
+    "options": [
+      "吵闹",
+      "宁静",
+      "热闹",
+      "活泼"
+    ],
+    "answer": 1,
+    "explanation": "“宁静”和“安静”意思相近。",
+    "mistakeReason": "近义词辨析不稳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "lower",
+    "variant": "ctx-1",
+    "question": "选择合适的词语：小鸟在树上______地唱歌。",
+    "options": [
+      "欢快",
+      "寒冷",
+      "坚硬",
+      "笔直"
+    ],
+    "answer": 0,
+    "explanation": "“欢快地唱歌”搭配合适。",
+    "mistakeReason": "词语搭配和语境判断不稳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "lower",
+    "variant": "idiom-1",
+    "question": "“自言自语”的意思是：",
+    "options": [
+      "自己跟自己说话",
+      "大声唱歌",
+      "认真写字",
+      "别人一起说"
+    ],
+    "answer": 0,
+    "explanation": "“自言自语”就是自己对自己说话。",
+    "mistakeReason": "成语整体理解不稳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "lower",
+    "variant": "class-1",
+    "question": "下列哪个词与其他三个不是同一类？",
+    "options": [
+      "铅笔",
+      "橡皮",
+      "尺子",
+      "苹果"
+    ],
+    "answer": 3,
+    "explanation": "前三个是学习用品，“苹果”是水果。",
+    "mistakeReason": "没有按类别归纳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "lower",
+    "variant": "rhet-1",
+    "question": "下列哪句话用了拟人？",
+    "options": [
+      "花儿张开了笑脸。",
+      "花是红色的。",
+      "我喜欢花。",
+      "花开在路边。"
+    ],
+    "answer": 0,
+    "explanation": "“张开了笑脸”把花当作人来写。",
+    "mistakeReason": "修辞判断不稳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "middle",
+    "variant": "syn-2",
+    "question": "下列词语中，与“赞赏”意思最相近的是：",
+    "options": [
+      "批评",
+      "欣赏",
+      "躲藏",
+      "等待"
+    ],
+    "answer": 1,
+    "explanation": "“欣赏”接近“赞赏”的意思。",
+    "mistakeReason": "没有分清褒义词和普通动作词。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "middle",
+    "variant": "ctx-2",
+    "question": "选择合适的词语：面对难题，他没有退缩，而是______地思考。",
+    "options": [
+      "专心致志",
+      "垂头丧气",
+      "手忙脚乱",
+      "东张西望"
+    ],
+    "answer": 0,
+    "explanation": "“专心致志”符合认真思考的语境。",
+    "mistakeReason": "没有抓住人物状态。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "middle",
+    "variant": "idiom-2",
+    "question": "“胸有成竹”常用来形容：",
+    "options": [
+      "做事前已有把握",
+      "胸口有竹子",
+      "非常害怕",
+      "随便决定"
+    ],
+    "answer": 0,
+    "explanation": "“胸有成竹”表示事前已有充分准备和把握。",
+    "mistakeReason": "成语不能按字面理解。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "middle",
+    "variant": "class-2",
+    "question": "下列哪个词与其他三个不是同一类？",
+    "options": [
+      "拟人",
+      "比喻",
+      "排比",
+      "记叙"
+    ],
+    "answer": 3,
+    "explanation": "前三个是修辞手法，“记叙”是表达方式。",
+    "mistakeReason": "语文概念分类不清。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "middle",
+    "variant": "rhet-2",
+    "question": "“这难道不是最好的礼物吗？”属于：",
+    "options": [
+      "反问",
+      "比喻",
+      "拟人",
+      "夸张"
+    ],
+    "answer": 0,
+    "explanation": "用疑问形式表达肯定语气，是反问。",
+    "mistakeReason": "句式语气判断不稳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "upper",
+    "variant": "syn-3",
+    "question": "下列词语中，与“斟酌”意思最接近的是：",
+    "options": [
+      "反复考虑",
+      "随意选择",
+      "马上拒绝",
+      "大声朗读"
+    ],
+    "answer": 0,
+    "explanation": "“斟酌”表示仔细考虑、权衡。",
+    "mistakeReason": "书面词语积累不足。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "upper",
+    "variant": "ctx-3",
+    "question": "选择合适的词语：这组数据______地说明了问题的严重性。",
+    "options": [
+      "直观",
+      "芬芳",
+      "清脆",
+      "漫长"
+    ],
+    "answer": 0,
+    "explanation": "数据能“直观地说明”问题。",
+    "mistakeReason": "说明文常用词语积累不足。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "upper",
+    "variant": "idiom-3",
+    "question": "“意味深长”常用来形容：",
+    "options": [
+      "话语含义深刻",
+      "路很漫长",
+      "声音很尖",
+      "颜色很浅"
+    ],
+    "answer": 0,
+    "explanation": "“意味深长”表示含义深刻，值得回味。",
+    "mistakeReason": "抽象成语语义不稳。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "upper",
+    "variant": "class-3",
+    "question": "下列哪个概念与其他三个不是同一类？",
+    "options": [
+      "列数字",
+      "作比较",
+      "打比方",
+      "心理描写"
+    ],
+    "answer": 3,
+    "explanation": "前三个是说明方法，“心理描写”是人物描写。",
+    "mistakeReason": "说明文和记叙文方法混淆。"
+  },
+  {
+    "type": "字词基础",
+    "errorCategory": "b1",
+    "errorCode": "B1",
+    "band": "upper",
+    "variant": "rhet-3",
+    "question": "“时间像细沙，从指缝间悄悄溜走”主要用了：",
+    "options": [
+      "比喻和拟人",
+      "设问和反问",
+      "排比和对偶",
+      "夸张和引用"
+    ],
+    "answer": 0,
+    "explanation": "把时间比作细沙，“溜走”又带有拟人意味。",
+    "mistakeReason": "综合修辞判断不足。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r1",
+    "errorCode": "R1",
+    "band": "lower",
+    "variant": "main-1",
+    "question": "“小兔种下萝卜，每天浇水。秋天，萝卜长得又大又甜。”这段话主要写了：",
+    "options": [
+      "小兔爱吃萝卜",
+      "小兔种萝卜并收获了",
+      "秋天很美",
+      "萝卜很甜"
+    ],
+    "answer": 1,
+    "explanation": "主要人物是小兔，事情是种萝卜并收获。",
+    "mistakeReason": "概括时漏了人物和事件。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r2",
+    "errorCode": "R2",
+    "band": "lower",
+    "variant": "evi-1",
+    "question": "“小猫躲在椅子下面，一声也不叫。”从哪里能看出小猫害怕？",
+    "options": [
+      "躲在椅子下面",
+      "椅子很大",
+      "小猫很漂亮",
+      "房间很亮"
+    ],
+    "answer": 0,
+    "explanation": "“躲在椅子下面”是原文依据。",
+    "mistakeReason": "回答人物特点时缺少原文依据。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r3",
+    "errorCode": "R3",
+    "band": "lower",
+    "variant": "lang-1",
+    "question": "“小河唱着歌向前跑。”这句话写出了小河的什么特点？",
+    "options": [
+      "活泼欢快",
+      "又脏又臭",
+      "一动不动",
+      "很害怕"
+    ],
+    "answer": 0,
+    "explanation": "“唱着歌”“跑”写出小河活泼。",
+    "mistakeReason": "不会联系修辞和表达效果。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r4",
+    "errorCode": "R4",
+    "band": "lower",
+    "variant": "data-1",
+    "question": "表格显示：周一借书20本，周二借书35本。哪天借书更多？",
+    "options": [
+      "周二",
+      "周一",
+      "一样多",
+      "无法判断"
+    ],
+    "answer": 0,
+    "explanation": "35本比20本多。",
+    "mistakeReason": "没有读取表格数据。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r2",
+    "errorCode": "R2",
+    "band": "lower",
+    "variant": "word-1",
+    "question": "“小明急得直跺脚。”说明小明：",
+    "options": [
+      "很着急",
+      "很开心",
+      "很安静",
+      "很困"
+    ],
+    "answer": 0,
+    "explanation": "“直跺脚”表现着急。",
+    "mistakeReason": "不会从动作理解心情。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r1",
+    "errorCode": "R1",
+    "band": "middle",
+    "variant": "main-2",
+    "question": "“小雨第一次上台很紧张，但她深吸一口气，终于完整地讲完了故事。”这段话主要写了：",
+    "options": [
+      "小雨克服紧张完成讲故事",
+      "小雨喜欢故事",
+      "台上很高",
+      "大家很安静"
+    ],
+    "answer": 0,
+    "explanation": "抓住人物、困难和结果。",
+    "mistakeReason": "概括时漏了变化过程。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r2",
+    "errorCode": "R2",
+    "band": "middle",
+    "variant": "evi-2",
+    "question": "“父亲站在雨里，把伞一直偏向我这边。”最能表现父亲关爱的依据是：",
+    "options": [
+      "把伞偏向我",
+      "雨下得大",
+      "父亲站着",
+      "我在路上"
+    ],
+    "answer": 0,
+    "explanation": "伞偏向“我”是关爱的动作依据。",
+    "mistakeReason": "没有把动作和品质联系起来。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r3",
+    "errorCode": "R3",
+    "band": "middle",
+    "variant": "lang-2",
+    "question": "“雨点像断了线的珠子落下来”写出了雨的什么特点？",
+    "options": [
+      "又密又急",
+      "很轻很小",
+      "完全没下",
+      "颜色很多"
+    ],
+    "answer": 0,
+    "explanation": "“断了线的珠子”表现雨密集、下得急。",
+    "mistakeReason": "赏析没有扣住关键词。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r4",
+    "errorCode": "R4",
+    "band": "middle",
+    "variant": "data-2",
+    "question": "材料显示：乘公交上学占45%，步行占30%，骑车占25%。最多的是：",
+    "options": [
+      "乘公交",
+      "步行",
+      "骑车",
+      "一样多"
+    ],
+    "answer": 0,
+    "explanation": "45%最大。",
+    "mistakeReason": "非连续文本数据读取不准。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r2",
+    "errorCode": "R2",
+    "band": "middle",
+    "variant": "word-2",
+    "question": "“他迟疑了一下，还是举起了手。”这里“迟疑”说明他：",
+    "options": [
+      "有点犹豫",
+      "十分坚定",
+      "非常生气",
+      "马上睡着"
+    ],
+    "answer": 0,
+    "explanation": "“迟疑”表示犹豫不决。",
+    "mistakeReason": "没有抓住心理变化。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r1",
+    "errorCode": "R1",
+    "band": "upper",
+    "variant": "main-3",
+    "question": "“材料介绍了塑料袋使用量大、降解慢，并提出减少使用和循环利用的建议。”主要内容是：",
+    "options": [
+      "塑料袋问题及解决建议",
+      "塑料袋很轻",
+      "人们喜欢购物",
+      "循环利用很麻烦"
+    ],
+    "answer": 0,
+    "explanation": "说明文概括要抓问题和建议。",
+    "mistakeReason": "非连续/说明材料概括不完整。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r2",
+    "errorCode": "R2",
+    "band": "upper",
+    "variant": "evi-3",
+    "question": "判断父亲“默默付出”，最有力的一组依据是：",
+    "options": [
+      "冒雪送站、买热包子、目送离开",
+      "车站很远、雪很大、包子很热",
+      "孩子很感动、天气很冷、路灯很暗",
+      "父亲说话少、文章很长、结尾点题"
+    ],
+    "answer": 0,
+    "explanation": "人物评价要用多个行动细节支撑。",
+    "mistakeReason": "依据没有和人物特点对应。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r3",
+    "errorCode": "R3",
+    "band": "upper",
+    "variant": "lang-3",
+    "question": "“父亲的背影被雪光拉得很长。”这句话的作用最恰当的是：",
+    "options": [
+      "烘托父亲默默付出的形象和离别氛围",
+      "说明父亲个子很高",
+      "交代雪很白",
+      "突出车站很大"
+    ],
+    "answer": 0,
+    "explanation": "环境和背影描写能烘托人物与情感。",
+    "mistakeReason": "句子作用分析不够深入。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r4",
+    "errorCode": "R4",
+    "band": "upper",
+    "variant": "data-3",
+    "question": "材料显示：树荫区温度32℃，水泥空地温度39℃。最合理的建议是：",
+    "options": [
+      "增加树荫和遮阳设施",
+      "减少树木",
+      "中午多跑步",
+      "取消户外活动"
+    ],
+    "answer": 0,
+    "explanation": "树荫区温度更低，能改善户外环境。",
+    "mistakeReason": "不能用数据推出建议。"
+  },
+  {
+    "type": "阅读理解",
+    "errorCategory": "r2",
+    "errorCode": "R2",
+    "band": "upper",
+    "variant": "word-3",
+    "question": "“这份沉默不是冷淡，而是父亲深藏的牵挂。”这里“沉默”表现的是：",
+    "options": [
+      "含蓄的关爱",
+      "不愿理人",
+      "完全没有感情",
+      "忘记说话"
+    ],
+    "answer": 0,
+    "explanation": "结合后文“牵挂”可知沉默表现含蓄的爱。",
+    "mistakeReason": "没有联系上下文理解词义。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w1",
+    "errorCode": "W1",
+    "band": "lower",
+    "variant": "order-1",
+    "question": "看图写话时，第一步通常先写：",
+    "options": [
+      "图上有谁在哪里",
+      "结尾感受",
+      "引用名言",
+      "写一大段心理"
+    ],
+    "answer": 0,
+    "explanation": "低年级写话先交代人物和地点。",
+    "mistakeReason": "写话顺序不清。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w2",
+    "errorCode": "W2",
+    "band": "lower",
+    "variant": "detail-1",
+    "question": "哪句话写得更具体？",
+    "options": [
+      "小狗跑。",
+      "小狗摇着尾巴跑过来。",
+      "小狗。",
+      "跑。"
+    ],
+    "answer": 1,
+    "explanation": "加入动作“摇着尾巴”更具体。",
+    "mistakeReason": "表达太短，缺少细节。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w3",
+    "errorCode": "W3",
+    "band": "lower",
+    "variant": "topic-1",
+    "question": "作文题目“一件开心的事”，内容最合适的是：",
+    "options": [
+      "写一次快乐的经历",
+      "介绍一种水果",
+      "说明铅笔用法",
+      "抄一首古诗"
+    ],
+    "answer": 0,
+    "explanation": "题眼是“开心的事”。",
+    "mistakeReason": "审题扣题不稳。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w2",
+    "errorCode": "W2",
+    "band": "lower",
+    "variant": "vivid-1",
+    "question": "下列哪句话写得最生动？",
+    "options": [
+      "花开了。",
+      "花开了，真好看。",
+      "花儿张开了笑脸。",
+      "有很多花开了。"
+    ],
+    "answer": 2,
+    "explanation": "拟人让句子更生动。",
+    "mistakeReason": "不会用修辞让表达生动。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w3",
+    "errorCode": "W3",
+    "band": "lower",
+    "variant": "end-1",
+    "question": "写完“一次快乐的游戏”，结尾最合适的是：",
+    "options": [
+      "这次游戏让我非常快乐。",
+      "铅笔很长。",
+      "我买了苹果。",
+      "月亮升起来了。"
+    ],
+    "answer": 0,
+    "explanation": "结尾要回扣快乐的游戏。",
+    "mistakeReason": "结尾没有扣题。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w1",
+    "errorCode": "W1",
+    "band": "middle",
+    "variant": "order-2",
+    "question": "写一件事，最重要的是写清楚：",
+    "options": [
+      "起因、经过、结果",
+      "只写天气",
+      "只写人物外貌",
+      "只写题目"
+    ],
+    "answer": 0,
+    "explanation": "写事要有完整过程。",
+    "mistakeReason": "记事结构不清。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w2",
+    "errorCode": "W2",
+    "band": "middle",
+    "variant": "detail-2",
+    "question": "把“妈妈很累”写具体，最好补充：",
+    "options": [
+      "动作和神态细节",
+      "妈妈的身高",
+      "天气预报",
+      "书包颜色"
+    ],
+    "answer": 0,
+    "explanation": "动作和神态能表现辛苦。",
+    "mistakeReason": "重点段缺少细节展开。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w3",
+    "errorCode": "W3",
+    "band": "middle",
+    "variant": "topic-2",
+    "question": "作文题“那次，我真勇敢”，最重要的题眼是：",
+    "options": [
+      "勇敢",
+      "那次",
+      "我",
+      "真"
+    ],
+    "answer": 0,
+    "explanation": "中心应围绕“勇敢”。",
+    "mistakeReason": "没有抓住中心词。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w2",
+    "errorCode": "W2",
+    "band": "middle",
+    "variant": "vivid-2",
+    "question": "把“他跑得很快”写生动，最合适的是：",
+    "options": [
+      "他像离弦的箭一样冲了出去。",
+      "他跑。",
+      "他很快很快。",
+      "他不慢。"
+    ],
+    "answer": 0,
+    "explanation": "比喻能写出速度快。",
+    "mistakeReason": "表达升级方法不足。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w3",
+    "errorCode": "W3",
+    "band": "middle",
+    "variant": "end-2",
+    "question": "写“我学会了坚持”，结尾最合适的是：",
+    "options": [
+      "这件事让我明白，坚持会带来改变。",
+      "我回家了。",
+      "操场上有人。",
+      "这支笔很好。"
+    ],
+    "answer": 0,
+    "explanation": "结尾要点明坚持的意义。",
+    "mistakeReason": "点题意识不足。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w1",
+    "errorCode": "W1",
+    "band": "upper",
+    "variant": "order-3",
+    "question": "写成长类作文，最应该突出的是：",
+    "options": [
+      "事情带来的变化和认识",
+      "只写事情发生了",
+      "只写人物名字",
+      "只写景色"
+    ],
+    "answer": 0,
+    "explanation": "成长类作文要写出变化和认识。",
+    "mistakeReason": "中心立意不清。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w2",
+    "errorCode": "W2",
+    "band": "upper",
+    "variant": "detail-3",
+    "question": "作文重点段要从普通变拔尖，最需要补：",
+    "options": [
+      "动作、语言、心理和认识变化",
+      "更多形容词堆叠",
+      "只写结果",
+      "只换题目"
+    ],
+    "answer": 0,
+    "explanation": "多层细节和认识变化能提升重点段。",
+    "mistakeReason": "重点段只有情节，没有层次。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w3",
+    "errorCode": "W3",
+    "band": "upper",
+    "variant": "topic-3",
+    "question": "作文题“藏在细节里的爱”，最适合的写法是：",
+    "options": [
+      "用具体细节表现爱",
+      "直接喊口号说爱",
+      "只写风景",
+      "介绍学习用品"
+    ],
+    "answer": 0,
+    "explanation": "题眼是“细节”和“爱”。",
+    "mistakeReason": "审题层次不够。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w2",
+    "errorCode": "W2",
+    "band": "upper",
+    "variant": "vivid-3",
+    "question": "哪句话更像高分作文表达？",
+    "options": [
+      "失败像一盆冷水，但也让我第一次认真看见自己的不足。",
+      "我失败了。",
+      "失败不好。",
+      "我很难过。"
+    ],
+    "answer": 0,
+    "explanation": "比喻和认识变化让表达更有层次。",
+    "mistakeReason": "表达缺少思考深度。"
+  },
+  {
+    "type": "写作表达",
+    "errorCategory": "w3",
+    "errorCode": "W3",
+    "band": "upper",
+    "variant": "end-3",
+    "question": "写“我终于战胜了自己”，结尾最合适的是：",
+    "options": [
+      "原来战胜自己，就是敢迈出害怕的那一步。",
+      "我很高兴。",
+      "事情结束了。",
+      "大家都走了。"
+    ],
+    "answer": 0,
+    "explanation": "结尾要写出对题目的理解。",
+    "mistakeReason": "题意升华不够。"
+  }
+]

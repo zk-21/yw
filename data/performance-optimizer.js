@@ -58,9 +58,15 @@ window.PerformanceOptimizer = (function() {
         });
       } else {
         // 降级方案
-        setTimeout(() => {
-          loadScript(url, callback);
-        }, 1000);
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(() => {
+            loadScript(url, callback);
+          });
+        } else {
+          setTimeout(() => {
+            loadScript(url, callback);
+          }, 0);
+        }
       }
     }
   }
