@@ -340,7 +340,7 @@
     container.innerHTML = [
       `<div class="grade-stage-panel-head">`,
       `<div>`,
-      `<p class="grade-stage-kicker">${paper === 'a' ? '系统自动判码' : '系统自动复测'}</p>`,
+      `<p class="grade-stage-kicker">${paper === 'a' ? '系统自动分析' : '系统自动复测'}</p>`,
       `<h3>${escapeHtml(config.label)}${meta.label}</h3>`,
       `<p>只需要勾选未达标题，系统会自动生成错因码、训练路径，并写回训练单。</p>`,
       `</div>`,
@@ -399,7 +399,7 @@
     const statusText = wrongQuestions.length
       ? `系统已判定 ${wrongQuestions.length} 个未达标题，并写回错题本、错因码和训练链路。`
       : (paper === 'a'
-        ? '本次 A 卷没有勾选错题，可以直接进入 B 卷做同类变式复测。'
+        ? '本次 A 卷没有勾选错题，可以直接进入 B 卷换题复测。'
         : '本次 B 卷复测通过，可以进入 practice 页继续做 C 卷迁移。');
     const routeRows = wrongQuestions.length
       ? wrongQuestions.map(function(question) {
@@ -456,6 +456,12 @@
     }) || null;
   }
 
+  function findCardByTitles(section, keywords) {
+    return keywords.reduce(function(found, keyword) {
+      return found || findCardByTitle(section, keyword);
+    }, null);
+  }
+
   function highlightRows(section, paper, wrongQuestions, wrongCodes) {
     clearHighlights(section);
 
@@ -463,7 +469,9 @@
       return String(question.no);
     }));
 
-    const scoreCard = findCardByTitle(section, paper === 'a' ? 'A卷：题目、答案和评分' : 'B卷：同类变式迁移');
+    const scoreCard = paper === 'a'
+      ? findCardByTitles(section, ['A卷：题目、答案和评分'])
+      : findCardByTitles(section, ['B卷：换题再练，检查是否真会', 'B卷：同类变式迁移']);
     if (scoreCard) {
       scoreCard.querySelectorAll('tbody tr').forEach(function(row, index) {
         if (activeNos.has(String(index + 1))) {
@@ -472,7 +480,7 @@
       });
     }
 
-    const codeCard = findCardByTitle(section, 'A卷判码表');
+    const codeCard = findCardByTitles(section, ['A卷问题分析与对应训练', 'A卷判码表']);
     if (paper === 'a' && codeCard) {
       codeCard.querySelectorAll('tbody tr').forEach(function(row) {
         const firstCell = row.querySelector('td');
@@ -482,7 +490,7 @@
       });
     }
 
-    const routeCard = findCardByTitle(section, '测后分流路径');
+    const routeCard = findCardByTitles(section, ['做完后下一步怎么练', '测后分流路径']);
     if (routeCard) {
       routeCard.querySelectorAll('tbody tr').forEach(function(row) {
         const codeLink = row.querySelector('[data-error-code]');
@@ -499,7 +507,7 @@
     panel.innerHTML = [
       `<div class="grade-stage-toolbar">`,
       `<div class="grade-stage-switches">`,
-      `<button type="button" class="grade-stage-switch active" data-stage-paper="a">A卷自动判码</button>`,
+      `<button type="button" class="grade-stage-switch active" data-stage-paper="a">A卷自动分析</button>`,
       `<button type="button" class="grade-stage-switch" data-stage-paper="b">B卷自动复测</button>`,
       `</div>`,
       `<div class="grade-stage-toolbar-actions">`,

@@ -7,23 +7,44 @@
 
   var DATA_BASE = './data/';
   var cache = {};
+  var pendingLoads = {};
+  var DATA_VERSION = (function() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = scripts.length - 1; i >= 0; i--) {
+      var src = scripts[i].getAttribute('src') || '';
+      if (src.indexOf('data-loader-core.js') !== -1) {
+        var match = src.match(/[?&]v=([^&]+)/);
+        if (match) return match[1];
+      }
+    }
+    return 'dev';
+  })();
+
+  function buildDataUrl(name) {
+    return DATA_BASE + name + '.json?v=' + encodeURIComponent(DATA_VERSION);
+  }
 
   function loadData(name) {
     if (cache[name]) return Promise.resolve(cache[name]);
-    
-    return fetch(DATA_BASE + name + '.json')
+    if (pendingLoads[name]) return pendingLoads[name];
+
+    pendingLoads[name] = fetch(buildDataUrl(name))
       .then(function(response) {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
       })
       .then(function(data) {
         cache[name] = data;
+        delete pendingLoads[name];
         return data;
       })
       .catch(function(err) {
+        delete pendingLoads[name];
         console.warn('Failed to load data:', name, err);
         return null;
       });
+
+    return pendingLoads[name];
   }
 
   // 安全读取localStorage
