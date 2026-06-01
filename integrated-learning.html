@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0f766e">
+  <title>小学语文综合性学习专题 | 材料整合、图表表达、采访整理、活动方案、宣传语</title>
+  <meta name="description" content="小学语文综合性学习专题页：系统梳理材料整合、图表表达、采访整理、活动方案、宣传语和提建议，提供表达骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文综合性学习,材料整合,图表表达,采访整理,活动方案,宣传语,提建议">
+  <meta property="og:title" content="小学语文综合性学习专题 | 材料整合、图表表达、采访整理、活动方案、宣传语">
+  <meta property="og:description" content="先分材料，再下结论，最后把建议或方案写落地。把小学高频综合性学习任务练成稳定得分点。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --integrated-ink: #173a39;
+      --integrated-muted: #58706f;
+      --integrated-border: #d3e6e3;
+      --integrated-teal: #0f766e;
+      --integrated-sky: #0ea5a4;
+      --integrated-gold: #b7791f;
+      --integrated-shadow: 0 18px 40px rgba(23, 58, 57, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(14, 165, 164, 0.1), transparent 22%),
+        linear-gradient(180deg, #f5fcfb 0%, #ffffff 42%, #fbfdfd 100%);
+    }
+    .integrated-head {
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(14, 165, 164, 0.12)),
+        #f3fcfa;
+      border-bottom: 1px solid rgba(15, 118, 110, 0.12);
+    }
+    .integrated-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .integrated-note {
+      background: linear-gradient(135deg, #ecfbf8, #effafb);
+      border: 1px solid #cae7e2;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--integrated-shadow);
+      color: var(--integrated-ink);
+    }
+    .integrated-note strong {
+      color: var(--integrated-teal);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--integrated-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--integrated-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(14, 165, 164, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--integrated-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--integrated-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .integrated-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 88px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e6fffb;
+      color: var(--integrated-teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .integrated-chips,
+    .integrated-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .integrated-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #effaf7;
+      color: var(--integrated-sky);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .integrated-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .integrated-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #ecfeff;
+      color: var(--integrated-teal);
+      border: 1px solid #bce5e3;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .integrated-links a:hover {
+      transform: translateY(-1px);
+      background: #dbfbfb;
+      box-shadow: 0 12px 20px rgba(15, 118, 110, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--integrated-teal), var(--integrated-sky));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fcfc;
+      border: 1px dashed #b9d7d5;
+      color: #334155;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--integrated-gold);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #ecfeff;
+      color: #0f766e;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--integrated-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--integrated-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f4fbfb 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--integrated-teal), #0ea5a4);
+      color: white;
+      box-shadow: 0 14px 26px rgba(15, 118, 110, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--integrated-teal);
+      border: 1px solid #bce5e3;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">点</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head integrated-head">
+      <p class="eyebrow">综合性学习专题</p>
+      <h1>先分材料，再下结论，最后把建议或方案写落地</h1>
+      <p>综合性学习最怕“材料都看了，却不会整合；图表看懂了，却写不出依据；方案想了很多，却落不到步骤”。这页把小学高频的材料整合、图表表达、采访整理、活动方案、宣传语和提建议拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="integrated-shell">
+      <section class="section">
+        <div class="integrated-note">
+          <strong>这页怎么用：</strong>先判断题目要你做的是材料整合、图表结论、采访整理、活动方案、宣传语还是建议表达，再去用对应模板。每次只练 1 种任务，先划材料关键信息，再写结论或做法，最后回到 <a href="practice.html#diagnosis" style="color:#0f766e; font-weight:700;">练习计划</a> 或 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文综合性学习题：先判断是材料整合、图表表达、采访整理、活动方案、宣传语还是提建议，再给家长可直接照着问的话术、材料提炼检查表和孩子复述标准。" style="color:#0f766e; font-weight:700;">AI 辅导</a> 做复盘。<br>
+          如果题目本质上是在写留言条、请假条、通知、建议书或倡议书，那是格式题，直接去 <a href="application-writing.html" style="color:#0b6bcb; font-weight:700;">应用文专题</a>。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="integrated-badge">01 材料整合</span>
+            <h3>材料整合</h3>
+            <p>适合两三则材料一起出现的题。核心不是逐条抄写，而是先说每则材料讲了什么，再提共同点或结论。</p>
+            <div class="integrated-chips">
+              <span>四年级起步</span>
+              <span>先分材料再合并</span>
+            </div>
+            <div class="integrated-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade4.html#section-expression">看四年级升级</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="integrated-badge">02 图表表达</span>
+            <h3>图表表达</h3>
+            <p>图表题最怕只写感受，不写数据依据。先看标题、单位、最大最小值和变化趋势，再得出结论。</p>
+            <div class="integrated-chips">
+              <span>五至六年级</span>
+              <span>结论必须带依据</span>
+            </div>
+            <div class="integrated-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-expression">看六年级实战</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="integrated-badge">03 采访整理</span>
+            <h3>采访整理</h3>
+            <p>难点不在提问题，而在采访后会不会归类、概括、写发现。不能把零散回答原样堆上去。</p>
+            <div class="integrated-chips">
+              <span>四至五年级</span>
+              <span>先归类再概括</span>
+            </div>
+            <div class="integrated-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-expression">看五年级延伸</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="integrated-badge">04 活动方案</span>
+            <h3>活动方案</h3>
+            <p>方案题最怕只有主题，没有过程。真正得分的答案会写主题、目的、步骤、分工和展示方式。</p>
+            <div class="integrated-chips">
+              <span>五至六年级</span>
+              <span>步骤要能执行</span>
+            </div>
+            <div class="integrated-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-expression">看六年级冲刺</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="integrated-badge">05 宣传语</span>
+            <h3>宣传语 / 标语</h3>
+            <p>一句话要有对象、有主题、有行动感。不能只喊“加油”“重视”，要让人一眼知道在宣传什么。</p>
+            <div class="integrated-chips">
+              <span>六年级高频</span>
+              <span>短、顺、点题</span>
+            </div>
+            <div class="integrated-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="integrated-badge">06 提建议</span>
+            <h3>基于材料提建议</h3>
+            <p>综合题里的建议，不是空喊“要重视”，而是根据材料里的问题和数据，提出一条对着问题来的做法。</p>
+            <div class="integrated-chips">
+              <span>四至六年级</span>
+              <span>建议要对着材料来</span>
+            </div>
+            <div class="integrated-links">
+              <a href="#family-check">看家长检查</a>
+              <a href="#training-loop">看训练闭环</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">表达骨架</p>
+          <h2>六类任务，六套拿到材料就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">综合性学习先把材料理顺，再把结论说清，最后才是表达顺不顺。顺序对了，答案才不会空。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>材料整合</h3>
+            <p>适合“根据两则材料，说出共同现象或得出结论”这类题。先分材料，再合并信息。</p>
+            <div class="template-box">
+              <b>骨架：</b>“材料一说明……，材料二补充……，共同说明……。”<br>
+              <b>先抓：</b>每则材料的关键信息、共同点、结论。<br>
+              <b>关键动作：</b>不要逐句照抄，要提炼共同信息。
+            </div>
+            <div class="template-note">自查：我是不是把两则材料都交代到了？结论是不是从材料里长出来的？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>图表表达</h3>
+            <p>适合“从图表中看出什么”这类题。先看标题和单位，再抓数据变化。</p>
+            <div class="template-box">
+              <b>骨架：</b>“从图表可以看出……从……变为……，说明……，因此建议……”<br>
+              <b>先抓：</b>标题、单位、最大最小值、变化趋势。<br>
+              <b>关键动作：</b>答案里最好带数字或比例。
+            </div>
+            <div class="template-note">自查：我是不是只写了“越来越多 / 越来越少”，却没把关键数据写进去？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>采访整理</h3>
+            <p>适合采访后“写发现”或“做整理”。先列问题，再把回答归类，最后写出共性。</p>
+            <div class="template-box">
+              <b>骨架：</b>“通过采访，我发现……，主要体现在……和……。”<br>
+              <b>先抓：</b>采访主题、2 到 3 个共同点、能支撑发现的例子。<br>
+              <b>关键动作：</b>整理的是共性，不是逐条抄回答。
+            </div>
+            <div class="template-note">自查：我写的是“大家分别说了什么”，还是“大家共同表现出什么”？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>活动方案</h3>
+            <p>适合“围绕某主题设计活动”这类题。方案不是作文，要一眼看出怎么做。</p>
+            <div class="template-box">
+              <b>骨架：</b>主题 + 目的 + 步骤 + 分工 + 展示方式<br>
+              <b>先抓：</b>谁参加、做什么、怎么分步、谁负责、最后怎么展示。<br>
+              <b>关键动作：</b>步骤要能执行，不能只写“开展活动”。
+            </div>
+            <div class="template-note">自查：如果按我的方案去做，大家能不能直接开始分工？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>宣传语 / 标语</h3>
+            <p>适合“写一句宣传语”这类题。不是越长越好，而是越短越有力。</p>
+            <div class="template-box">
+              <b>骨架：</b>对象 + 主题 + 行动<br>
+              <b>先抓：</b>宣传给谁、宣传什么、希望对方做什么。<br>
+              <b>关键动作：</b>点题、顺口、有行动感。
+            </div>
+            <div class="template-note">自查：别人看这句话，能不能马上知道主题？读出来是不是顺口？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>基于材料提建议</h3>
+            <p>适合“根据材料提一条建议”这类题。建议必须对着材料中的问题来。</p>
+            <div class="template-box">
+              <b>骨架：</b>“材料显示……，因此建议……，这样可以……”<br>
+              <b>先抓：</b>问题现象、数据依据、具体做法、预期效果。<br>
+              <b>关键动作：</b>不能只写“要重视”“要加强”。
+            </div>
+            <div class="template-note">自查：我的建议是不是具体可做？是不是能从材料里找到依据？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“材料都看了”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>材料整合</td><td>看两则“同学每日阅读时间”的材料，说出共同现象。</td><td>大家阅读不够。</td><td>材料一说明班里每天阅读 20 分钟以下的同学最多，材料二也反映出能坚持每天阅读的同学比例偏低。两则材料共同说明同学们的日常阅读时间整体不足。</td><td>先说每则材料讲了什么，再提共同结论。</td></tr>
+                <tr><td>图表表达</td><td>根据表格提出一条建议。</td><td>大家要多运动。</td><td>表格显示，每天运动 60 分钟的学生体质良好比例更高。因此建议学生每天坚持户外运动，尽量保证 60 分钟左右。</td><td>结论和建议都要带数据依据。</td></tr>
+                <tr><td>采访整理</td><td>采访同学最喜欢的课外阅读方式后，写出你的发现。</td><td>有的人喜欢看书，有的人喜欢听书。</td><td>通过采访我发现，大多数同学更喜欢图文丰富、阅读时间灵活的方式。比如不少同学会在睡前读纸质书，也有一部分同学选择上下学路上听书，说明方便坚持和内容有趣是大家选择阅读方式的重要原因。</td><td>要写“共性发现”，不能只堆零散回答。</td></tr>
+                <tr><td>活动方案</td><td>班级要开展“走近传统节日”活动，请写出活动方案要点。</td><td>我们可以办活动了解节日。</td><td>活动主题为“走近传统节日”。先分组搜集春节、端午和中秋的资料，再制作手抄报和节日介绍卡，最后举行班级分享会展示成果。每组确定资料员、整理员和讲解员各一名。</td><td>要写出主题、步骤、分工和成果展示。</td></tr>
+                <tr><td>宣传语</td><td>为“每天阅读 20 分钟”活动写一句宣传语。</td><td>大家要多读书。</td><td>每天阅读 20 分钟，让好书陪你一起长大。</td><td>短、顺、点题，还要有行动感。</td></tr>
+                <tr><td>提建议</td><td>根据材料，给班级阅读活动提一条建议。</td><td>要重视阅读。</td><td>材料显示不少同学阅读时间零散、坚持性不够，因此建议班级设立每日固定阅读打卡时间，并每周做一次分享，这样更容易帮助大家把阅读坚持下来。</td><td>建议要对着问题来，不能空喊口号。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>四到六年级，综合性学习分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>四年级</td><td>通知分流、采访提纲、简单材料整合</td><td>能把零散材料分成 2 类，再说出一个共同发现。</td><td><a href="grade4.html#section-expression">四年级综合表达</a></td></tr>
+                <tr><td>五年级</td><td>采访整理、材料整合、活动整理</td><td>能提炼 2 到 3 个共同点，不逐条照抄材料。</td><td><a href="grade5.html#section-expression">五年级实用表达</a></td></tr>
+                <tr><td>六年级</td><td>图表结论、宣传语、活动方案、综合建议</td><td>能做到材料有依据、表达简明得体、方案完整可执行。</td><td><a href="grade6.html#section-expression">六年级综合运用</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子下笔前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你现在做的是哪类任务？</h3>
+            <p>先说清这是材料整合、图表题、采访整理、活动方案、宣传语，还是根据材料提建议。任务分不清，答案顺序一定会乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别改答案，先让他重新判断任务类型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>第一步该先抓什么？</h3>
+            <p>材料整合先分材料，图表题先看标题和数据，方案题先列步骤和分工。第一步说不出来，说明方法还没真正形成。</p>
+            <ul>
+              <li>先把“起手动作”固定下来，孩子更容易形成稳定方法。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你的结论有没有依据？</h3>
+            <p>是只写了“要重视”“很重要”，还是把数据、现象、共同点和做法真正连起来了？知道最容易空在哪里，下次才好补准。</p>
+            <ul>
+              <li>每次只抓一个最主要空点，不要一口气把整段都改成标准答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮综合性学习训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这类题最怕一看材料就发散。真正有效的是“先判任务 + 划关键信息 + 只改一个空点 + 换材料迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判任务</h3>
+            <p>先说这是材料整合、图表表达还是活动方案，再说第一步是什么。</p>
+            <ul>
+              <li>例：这是图表题，我先看标题、单位和最大最小值，再说趋势。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：划要点</h3>
+            <p>先把材料中的关键词、数据、现象和共同点圈出来，不急着立刻写结论。</p>
+            <ul>
+              <li>例：材料题先写“材料一说什么，材料二补什么，共同说明什么”。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气全改。只改“没有依据”或“方案没步骤”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重写一遍，让孩子看到怎样从空话变具体。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换题迁移</h3>
+            <p>换一道相似任务，比如图表题换成多材料题，活动方案换成宣传语，看看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才算真正掌握，不是只会一道原题。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你拆材料</h3>
+            <p>适合家长想一句一句地带孩子分材料、圈数据、补依据，或者想把“结论空、方案虚、建议没针对性”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文综合性学习题：先判断题型，再给家长可直接照着问的话术、材料提炼检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文综合性学习题为什么会结论空泛、没有依据、方案不落地或建议没针对性，并给出一步一步的复练。" class="secondary">综合题错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做诊断、安排训练，或者发现这题其实是格式类应用文。</p>
+            <div class="cta-actions">
+              <a href="practice.html#diagnosis">做 15 分钟诊断</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="application-writing.html" class="secondary">去应用文专题</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

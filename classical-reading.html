@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2f6f5e">
+  <title>小学语文古诗文阅读专题 | 古诗画面、情感、炼字、文言释词、译句、启示</title>
+  <meta name="description" content="小学语文古诗文阅读专题页：系统梳理古诗画面描绘、情感判断、炼字赏析、文言释词、句子翻译和道理启示，提供答题骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文古诗文,古诗赏析,文言文阅读,古诗情感,炼字题,释词题,译句题">
+  <meta property="og:title" content="小学语文古诗文阅读专题 | 古诗画面、情感、炼字、文言释词、译句、启示">
+  <meta property="og:description" content="先把诗句和句子读懂，再回到画面、情感、手法和道理。把古诗文练成能稳定得分的阅读模块。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --classic-ink: #2f2a26;
+      --classic-muted: #64584f;
+      --classic-border: #e7dccf;
+      --classic-jade: #2f6f5e;
+      --classic-gold: #b7791f;
+      --classic-sky: #2563eb;
+      --classic-shadow: 0 18px 40px rgba(47, 42, 38, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(47, 111, 94, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(183, 121, 31, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8fcfa 0%, #ffffff 42%, #fcfaf7 100%);
+    }
+    .classic-head {
+      background:
+        linear-gradient(135deg, rgba(47, 111, 94, 0.16), rgba(37, 99, 235, 0.08)),
+        #f7fcf9;
+      border-bottom: 1px solid rgba(47, 111, 94, 0.12);
+    }
+    .classic-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .classic-note {
+      background: linear-gradient(135deg, #eefaf4, #fff9ef);
+      border: 1px solid #d8e9df;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--classic-shadow);
+      color: var(--classic-ink);
+    }
+    .classic-note strong {
+      color: var(--classic-jade);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--classic-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--classic-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(47, 111, 94, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(183, 121, 31, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--classic-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--classic-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .classic-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 88px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e9f7f2;
+      color: var(--classic-jade);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .classic-chips,
+    .classic-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .classic-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff6e8;
+      color: var(--classic-gold);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .classic-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .classic-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #f4fbf8;
+      color: var(--classic-jade);
+      border: 1px solid #d7ebe2;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .classic-links a:hover {
+      transform: translateY(-1px);
+      background: #e8f6f0;
+      box-shadow: 0 12px 20px rgba(47, 111, 94, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--classic-jade), var(--classic-gold));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fffdfb;
+      border: 1px dashed #d8c9bc;
+      color: #4b5563;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--classic-jade);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff8ef;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--classic-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--classic-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--classic-jade), #3f8b76);
+      color: white;
+      box-shadow: 0 14px 26px rgba(47, 111, 94, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--classic-sky);
+      border: 1px solid #c9daf8;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head classic-head">
+      <p class="eyebrow">古诗文专题</p>
+      <h1>先把诗句和句子读懂，再回到画面、情感、手法和道理</h1>
+      <p>古诗文最怕“会背会翻一点，却不知道题到底要怎么答”。这页把小学高频的古诗画面题、情感题、炼字题和文言释词、译句、启示题拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="classic-shell">
+      <section class="section">
+        <div class="classic-note">
+          <strong>这页怎么用：</strong>先判断题目在问古诗画面、情感、炼字，还是文言释词、译句、启示，再套对应模板。每次只练 1 种题型，先圈意象和关键词，或先看注释和人物动作，再组织答案。练完后回到 <a href="practice.html#poemPractice" style="color:#2f6f5e; font-weight:700;">古诗练习</a> 或 <a href="practice.html#reading-answer-bank" style="color:#2f6f5e; font-weight:700;">阅读答案对照</a> 做复盘。<br>
+          如果题目重点是现代诗或儿童诗，那更接近 <a href="modern-poetry.html" style="color:#c05621; font-weight:700;">现代诗 / 儿童诗专题</a>。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="classic-badge">01 画面题</span>
+            <h3>古诗画面描绘</h3>
+            <p>最常见的古诗起步题。不是把诗句翻成白话，而是把景物、颜色、动作和氛围说成一幅能看见的画面。</p>
+            <div class="classic-chips">
+              <span>四年级起步</span>
+              <span>先景物后感受</span>
+            </div>
+            <div class="classic-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade4.html#section-poetry">看四年级起步</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="classic-badge">02 情感题</span>
+            <h3>古诗情感判断</h3>
+            <p>不要只写“想家”“开心”。要从月、柳、孤帆、梅花这些意象和诗中的动作词、语气词里，把具体情感说出来。</p>
+            <div class="classic-chips">
+              <span>四至六年级</span>
+              <span>意象带情感</span>
+            </div>
+            <div class="classic-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="classic-badge">03 炼字题</span>
+            <h3>炼字与手法赏析</h3>
+            <p>“这个字好在哪里”不能只说“很生动”。要说字义、画面、氛围和情感，手法题也是同一条路。</p>
+            <div class="classic-chips">
+              <span>五至六年级</span>
+              <span>字义 + 画面 + 情感</span>
+            </div>
+            <div class="classic-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-classical">看六年级升级</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="classic-badge">04 释词题</span>
+            <h3>文言字词解释</h3>
+            <p>文言释词最怕脱离语境死记词典义。先看注释，再把词放回句子里，判断它在这里到底是什么意思。</p>
+            <div class="classic-chips">
+              <span>四至六年级</span>
+              <span>注释 + 句意</span>
+            </div>
+            <div class="classic-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-classical">看五年级文言起步</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="classic-badge">05 译句题</span>
+            <h3>文言句子翻译</h3>
+            <p>逐字直译常常不通顺。真正稳的做法是先解释关键词，再补省略内容，最后按现代汉语顺一遍句子。</p>
+            <div class="classic-chips">
+              <span>五至六年级</span>
+              <span>逐词 + 调序 + 补意</span>
+            </div>
+            <div class="classic-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-classical">看六年级译句</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="classic-badge">06 启示题</span>
+            <h3>文言内容与道理启示</h3>
+            <p>不是只答“不要等兔子”。要先说人物做了什么、结果怎样，再说这个故事告诉我们什么，最好能落回生活。</p>
+            <div class="classic-chips">
+              <span>五至六年级</span>
+              <span>人物 + 结果 + 道理</span>
+            </div>
+            <div class="classic-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#family-check">看家长检查</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">表达骨架</p>
+          <h2>六类任务，六套拿到古诗文就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">古诗先从景物和意思往情感走，文言先从注释和句意往人物与道理走。顺序对了，答案才不会只剩空翻译。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>古诗画面描绘</h3>
+            <p>适合“这句诗描绘了怎样的画面”这类题。先把诗里写了什么看清，再说这幅画面给人的感觉。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我仿佛看到……，……，感受到……”<br>
+              <b>先抓：</b>景物、颜色、动作、声音。<br>
+              <b>关键动作：</b>写画面，不只写“很美”。
+            </div>
+            <div class="template-note">自查：我是不是只把诗句换成白话了？有没有真正把画面说出来？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>古诗情感判断</h3>
+            <p>适合“表达了诗人怎样的感情”这类题。情感要从意象和动作词里长出来。</p>
+            <div class="template-box">
+              <b>骨架：</b>“诗人借……，描绘了……的画面，表达了……的情感。”<br>
+              <b>先抓：</b>月、柳、雁、梅、舟等意象和“望、送、思、忆”等动作。<br>
+              <b>关键动作：</b>情感要具体，不只写“开心/难过”。
+            </div>
+            <div class="template-note">自查：我有没有说明“借什么来表达这种感情”？是不是只给了一个情绪标签？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>炼字与手法赏析</h3>
+            <p>适合“某个字好在哪里”“这样写有什么好处”这类题。手法和炼字都要落到画面和情感上。</p>
+            <div class="template-box">
+              <b>骨架：</b>“‘……’字写出了……的特点，描绘出……的画面，表现了诗人……的情感。”<br>
+              <b>先抓：</b>字义、画面变化、氛围、情感。<br>
+              <b>关键动作：</b>别只说“生动”，要说具体写活了什么。
+            </div>
+            <div class="template-note">自查：我是不是只解释了字面意思？有没有把这个字和整首诗的情感连起来？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>文言字词解释</h3>
+            <p>适合“某个字词是什么意思”这类题。词义一定要放回原句里判断。</p>
+            <div class="template-box">
+              <b>骨架：</b>“‘……’在这里是……的意思，放在句中是说……。”<br>
+              <b>先抓：</b>注释、搭配对象、上下文。<br>
+              <b>关键动作：</b>不要脱离句子背词义。
+            </div>
+            <div class="template-note">自查：我说的是这个词在这句话里的意思，还是只背了一个最常见的现代义？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>文言句子翻译</h3>
+            <p>适合“翻译画线句”这类题。先逐词拆，再整理成今天的话。</p>
+            <div class="template-box">
+              <b>骨架：</b>“句中‘……’是……，‘……’是……，整句可以译为……”<br>
+              <b>先抓：</b>关键词、人物、动作、结果。<br>
+              <b>关键动作：</b>人名地名保留，语序调顺，省略内容补出来。
+            </div>
+            <div class="template-note">自查：我翻出来的话通不通顺？有没有漏掉关键动作或人物关系？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>文言内容与启示</h3>
+            <p>适合“这个故事告诉我们什么”这类题。先说故事，再上升道理。</p>
+            <div class="template-box">
+              <b>骨架：</b>“故事写了……，……的做法说明……，告诉我们……。”<br>
+              <b>先抓：</b>人物、做法、结果、道理。<br>
+              <b>关键动作：</b>启示要扣故事，不空喊口号。
+            </div>
+            <div class="template-note">自查：我是不是直接讲大道理了？有没有先把人物做了什么、结果怎样说清楚？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“只会翻诗意和句意”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>画面题</td><td>“碧玉妆成一树高”让你看到怎样的画面？</td><td>柳树很美。</td><td>我仿佛看到一棵高高的柳树，像用碧玉装扮成的一样，枝条柔嫩翠绿，在春风里轻轻摆动，整幅画面充满春天的生机。</td><td>要有景物、颜色、动作和感受，不是只说“很美”。</td></tr>
+                <tr><td>情感题</td><td>《静夜思》表达了诗人怎样的感情？</td><td>诗人很想家。</td><td>诗人看到床前明亮的月光，低头想起远方的故乡和亲人，表达了漂泊在外时浓浓的思乡之情。</td><td>情感要具体，还要带意象和动作依据。</td></tr>
+                <tr><td>炼字题</td><td>“春风又绿江南岸”中的“绿”字好在哪里？</td><td>写出了绿色。</td><td>“绿”字写出了春风吹过后江南两岸草木变绿的变化，画面鲜明又充满生机，也表达了诗人看到春景时的喜悦。</td><td>字义、画面变化和情感都要带上。</td></tr>
+                <tr><td>释词题</td><td>“伯牙鼓琴”中的“鼓”是什么意思？</td><td>打鼓。</td><td>“鼓”在这里是弹奏的意思，“伯牙鼓琴”就是说伯牙在弹琴。</td><td>词义要放回句子里判断，不能按现代常见义乱猜。</td></tr>
+                <tr><td>译句题</td><td>翻译“学而时习之，不亦说乎？”</td><td>学习很高兴。</td><td>“时”是按时，“习”是复习，“说”同“悦”，高兴。整句可译为：学习了知识以后按时温习它，不也是很快乐的吗？</td><td>先解释关键词，再译整句，还要保留原句语气。</td></tr>
+                <tr><td>启示题</td><td>《守株待兔》告诉我们什么？</td><td>不要等兔子。</td><td>故事里农夫偶然捡到撞死的兔子后，就不再耕地，只想继续等兔子。这个故事告诉我们不能心存侥幸、不劳而获，做事要靠自己的努力。</td><td>先扣人物做法和结果，再上升到道理。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>四到六年级，古诗文分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>四年级</td><td>读准停顿、重点词、基础画面和基础情感</td><td>能说出诗句写了什么画面，表达了什么基本感情，不只会背诗句。</td><td><a href="grade4.html#section-poetry">四年级古诗鉴赏</a></td></tr>
+                <tr><td>五年级</td><td>借助注释理解文言，掌握古诗情感类型和表达路径</td><td>能做到文言句子基本译顺，古诗情感不空泛，会说借景抒情和托物言志。</td><td><a href="grade5.html#section-classical">五年级文言文与古诗</a></td></tr>
+                <tr><td>六年级</td><td>意象、画面、手法、情感四层赏析，文言释词、译句、启示分层作答</td><td>不只写“表达了什么”，还能写“怎样表达”，文言题也能从句意走到道理。</td><td><a href="grade6.html#section-classical">六年级古诗文升级</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子答古诗文前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>这是一道古诗题还是文言题？</h3>
+            <p>先说清这是画面题、情感题、炼字题，还是释词、译句、启示题。题型分不清，后面顺序就容易乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别急着改答案，先让他重判题型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你的第一步抓对了吗？</h3>
+            <p>古诗题先抓意象和关键词，文言题先抓注释和人物动作。第一步说不出来，说明方法还没站稳。</p>
+            <ul>
+              <li>情感题先找景物和动作词，译句题先拆关键词，再连成整句。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你现在写的是“意思”，还是“意思 + 情感 / 道理”？</h3>
+            <p>古诗只写画面、文言只写字面，都还不够。要再往前走一步，说清情感、手法或道理。</p>
+            <ul>
+              <li>每次只抓一个主要空点，不要一口气把整段答案全改重写。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮古诗文训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">古诗文最怕一讲就散、一下子讲太多。真正有效的是“先判题型 + 圈意象或注释 + 只改一个空点 + 换诗换句迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是画面题、情感题、炼字题，还是释词、译句、启示题，再说第一步是什么。</p>
+            <ul>
+              <li>例：这是译句题，我先解释关键词，再把整句顺成现代汉语。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：圈意象和注释</h3>
+            <p>古诗先圈景物和动作词，文言先圈注释和人物动作，再按骨架说一遍。</p>
+            <ul>
+              <li>例：先圈“明月、低头、故乡”，或先圈“众皆弃去、持石击瓮”。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气全改。只改“只有意思没有情感”或“译句不通顺”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重说一遍，让孩子知道怎样从“会背会翻”变成“会答题”。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换诗换句迁移</h3>
+            <p>换一首同类型古诗，或换一句相近的文言句，再按同一步骤答一次，看看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才说明不是只记住了一个现成答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你拆古诗文</h3>
+            <p>适合家长想一句一句带孩子圈意象、看注释、补画面和译句，或者想把“只会翻诗意、炼字只说好、启示太空”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文古诗文题：先判断是古诗画面题、情感题、炼字题，还是文言释词、译句、启示题，再给家长可直接照着问的话术、关键词检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文古诗文题为什么会只翻诗意、炼字只说“好”、文言译句不通顺或启示空泛，并给出一步一步的复练。" class="secondary">古诗文错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做古诗练习、核对答案，或者回知识总控继续看实战示范。</p>
+            <div class="cta-actions">
+              <a href="practice.html#poemPractice">去古诗练习</a>
+              <a href="practice.html#reading-answer-bank" class="secondary">看答案对照</a>
+              <a href="knowledge-map.html#classic-practice" class="secondary">看知识总控实战</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

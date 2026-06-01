@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2f855a">
+  <title>小学语文整本书阅读专题 | 人物、情节、变化、主题、读书交流</title>
+  <meta name="description" content="小学语文整本书阅读专题页：系统梳理片段复述、人物评价、人物变化、关键情节、主题理解和读书交流，提供表达骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文整本书阅读,读书交流,人物评价,主题理解,人物变化,关键情节">
+  <meta property="og:title" content="小学语文整本书阅读专题 | 人物、情节、变化、主题、读书交流">
+  <meta property="og:description" content="先讲人物和事情，再往人物变化和主题理解上走。把整本书阅读练成稳定表达能力。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --book-ink: #203a2c;
+      --book-muted: #57695f;
+      --book-border: #d6e6dc;
+      --book-green: #2f855a;
+      --book-teal: #2c7a7b;
+      --book-gold: #b7791f;
+      --book-shadow: 0 18px 40px rgba(32, 58, 44, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(47, 133, 90, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(44, 122, 123, 0.1), transparent 24%),
+        linear-gradient(180deg, #f7fcf8 0%, #ffffff 42%, #fcfdf9 100%);
+    }
+    .book-head {
+      background:
+        linear-gradient(135deg, rgba(47, 133, 90, 0.16), rgba(44, 122, 123, 0.12)),
+        #f4fcf7;
+      border-bottom: 1px solid rgba(47, 133, 90, 0.12);
+    }
+    .book-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .book-note {
+      background: linear-gradient(135deg, #eefbf3, #f3fbfb);
+      border: 1px solid #cde7d7;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--book-shadow);
+      color: var(--book-ink);
+    }
+    .book-note strong {
+      color: var(--book-green);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--book-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--book-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(47, 133, 90, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(44, 122, 123, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--book-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--book-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .book-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 84px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfdf3;
+      color: var(--book-green);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .book-chips,
+    .book-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .book-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: var(--book-teal);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .book-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .book-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #f0fdf4;
+      color: var(--book-green);
+      border: 1px solid #c6ead3;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .book-links a:hover {
+      transform: translateY(-1px);
+      background: #dcfce7;
+      box-shadow: 0 12px 20px rgba(47, 133, 90, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--book-green), var(--book-teal));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f9fbfa;
+      border: 1px dashed #cbd5d1;
+      color: #334155;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--book-gold);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fefce8;
+      color: #854d0e;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--book-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--book-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f7fcf8 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--book-green), #38a169);
+      color: white;
+      box-shadow: 0 14px 26px rgba(47, 133, 90, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--book-teal);
+      border: 1px solid #bee3db;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head book-head">
+      <p class="eyebrow">整本书阅读专题</p>
+      <h1>先讲人物和事情，再往人物变化和主题理解上走</h1>
+      <p>整本书阅读最怕“明明读过一本书，却只能报书名，或者只会讲几句大概情节”。这页把小学高频的片段复述、人物评价、人物变化、关键情节、主题理解和读书交流拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="book-shell">
+      <section class="section">
+        <div class="book-note">
+          <strong>这页怎么用：</strong>先判断题目要你答的是人物、情节、变化、主题还是交流发言，再去用对应模板。每次只练 1 种任务，先说清人物和事情，再补变化和理解，最后回到 <a href="practice.html#diagnosis" style="color:#2f855a; font-weight:700;">练习计划</a> 或 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文整本书阅读题：先判断是片段复述、人物评价、人物变化、关键情节、主题理解还是读书交流，再给家长可直接照着问的话术和孩子复述标准。" style="color:#2f855a; font-weight:700;">AI 辅导</a> 做复盘。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="book-badge">01 片段复述</span>
+            <h3>片段复述</h3>
+            <p>三年级起步最常见。不是东一句西一句地回忆，而是按“谁 + 做了什么 + 结果怎样”把一个重要片段说完整。</p>
+            <div class="book-chips">
+              <span>三年级起步</span>
+              <span>先人物后事情</span>
+            </div>
+            <div class="book-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade3.html#section-literature">看三年级起步</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="book-badge">02 人物评价</span>
+            <h3>人物评价</h3>
+            <p>不是给人物贴“勇敢、善良”标签就结束了，而是要用一件具体事情证明这个判断。</p>
+            <div class="book-chips">
+              <span>三至四年级</span>
+              <span>特点要有依据</span>
+            </div>
+            <div class="book-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="book-badge">03 人物变化</span>
+            <h3>人物变化</h3>
+            <p>四到六年级高频。关键不是只说“后来更好了”，而是写清前后不同、转折事件和变化原因。</p>
+            <div class="book-chips">
+              <span>四至六年级</span>
+              <span>前后变化要分开写</span>
+            </div>
+            <div class="book-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade4.html#section-literature">看四年级升级</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="book-badge">04 关键情节</span>
+            <h3>关键情节</h3>
+            <p>适合“哪一幕最打动你”“哪件事最能说明人物特点”这类题。要回到书里的具体片段，不空讲感受。</p>
+            <div class="book-chips">
+              <span>四至五年级</span>
+              <span>情节要带细节</span>
+            </div>
+            <div class="book-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-literature">看五年级深化</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="book-badge">05 主题理解</span>
+            <h3>主题理解</h3>
+            <p>五六年级最容易答空的地方。不是只说“很感人、很有意义”，而是从人物经历里提炼作品想表达什么。</p>
+            <div class="book-chips">
+              <span>五至六年级</span>
+              <span>先事件后主题</span>
+            </div>
+            <div class="book-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-literature">看主题理解</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="book-badge">06 读书交流</span>
+            <h3>读书交流</h3>
+            <p>适合发言和推荐类任务。真正得分的交流不是只讲故事，而是把人物、关键情节、感受和现实联系串起来。</p>
+            <div class="book-chips">
+              <span>五至六年级</span>
+              <span>内容 + 感受 + 联系</span>
+            </div>
+            <div class="book-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-literature">看六年级冲刺</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">表达骨架</p>
+          <h2>六类任务，六套拿起一本书就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">整本书阅读先把人物和事情讲明白，再往变化、主题和现实联系上走。顺序对了，答案才不会空。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>片段复述</h3>
+            <p>适合“说说书中一个重要片段”这类题。先抓人物和事情，再补结果。</p>
+            <div class="template-box">
+              <b>骨架：</b>“这本书里有一个片段写了……，当时……，最后……”<br>
+              <b>先抓：</b>谁、在什么情况下、做了什么、结果怎样。<br>
+              <b>关键动作：</b>只讲一个片段，不东拉西扯。
+            </div>
+            <div class="template-note">自查：我是不是只说了一串零散情节？有没有把片段讲成一个完整事件？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>人物评价</h3>
+            <p>适合“你最喜欢谁”“某个人物是怎样的人”这类题。判断必须带证据。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我觉得……是一个……的人，因为……。”<br>
+              <b>先抓：</b>人物特点、支持这点的一件事、你的判断。<br>
+              <b>关键动作：</b>先说特点，再举情节。
+            </div>
+            <div class="template-note">自查：我是不是只贴了一个标签？有没有回到书里的具体情节说明？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>人物变化</h3>
+            <p>适合“人物前后有什么变化”这类题。前后状态一定要分开写。</p>
+            <div class="template-box">
+              <b>骨架：</b>“开始……，后来……，因为……这件事让他……”<br>
+              <b>先抓：</b>前后状态、关键事件、变化原因。<br>
+              <b>关键动作：</b>不要只写“变好了”。
+            </div>
+            <div class="template-note">自查：我有没有写清“之前怎样、后来怎样”？变化是不是和某件关键事情连上了？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>关键情节</h3>
+            <p>适合“哪一幕最打动你”“哪件事最能说明人物特点”这类题。要把片段和理由真正连起来。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我印象最深的是……，因为这里写出了……，让我看到……”<br>
+              <b>先抓：</b>具体片段、打动人的细节、人物特点或情感。<br>
+              <b>关键动作：</b>理由不能空，最好回到动作、语言或选择。
+            </div>
+            <div class="template-note">自查：我是不是只说“这段很感人”？有没有说清到底哪一处最能说明问题？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>主题理解</h3>
+            <p>适合“这本书表达了什么”“你从中懂得了什么”这类题。主题要从人物和事件里长出来。</p>
+            <div class="template-box">
+              <b>骨架：</b>“这本书通过……的经历，表达了……，让我想到……”<br>
+              <b>先抓：</b>主要事件、人物变化、作品想表达什么。<br>
+              <b>关键动作：</b>先说内容，再上升主题。
+            </div>
+            <div class="template-note">自查：我的主题是不是还停在“很有意义”？有没有说清到底表达了什么？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>读书交流</h3>
+            <p>适合推荐一本书、介绍读书收获、做交流发言。要把书名、情节、感受和现实联系串起来。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我推荐……，最打动我的是……，因为……，它让我想到……”<br>
+              <b>先抓：</b>书名、关键片段、个人感受、现实联系。<br>
+              <b>关键动作：</b>不是只讲故事，要讲“我为什么被打动”。
+            </div>
+            <div class="template-note">自查：我是不是只讲了剧情？有没有说出自己的理解和联系生活的想法？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“只会报书名”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>片段复述</td><td>说说书中一个你印象深刻的片段。</td><td>有一段很好看，后来他很厉害。</td><td>我印象最深的是主人公第一次独自面对困难的那一段。当时他非常紧张，但还是咬牙坚持，最后成功完成了任务，这一幕让我看到他的成长。</td><td>要把谁、做了什么、结果怎样说完整。</td></tr>
+                <tr><td>人物评价</td><td>你最喜欢书中的哪个人物？为什么？</td><td>我喜欢他，因为他很好。</td><td>我最喜欢主人公，因为他遇到困难时没有退缩。比如在那次比赛失败后，他没有放弃，而是继续练习，这让我觉得他很勇敢也很坚持。</td><td>特点后面必须跟情节依据。</td></tr>
+                <tr><td>人物变化</td><td>这个人物前后发生了什么变化？</td><td>他后来变勇敢了。</td><td>刚开始他胆子很小，遇到事情总想躲开。后来经历了那次独自解决问题的事情后，他开始敢于承担责任，也更有主见了。</td><td>前后状态和转折事件都要写清。</td></tr>
+                <tr><td>关键情节</td><td>哪一件事最能说明这个人物的特点？</td><td>就是那次事情吧。</td><td>最能说明他善良的一件事，是他主动把自己的机会让给同伴。这个细节说明他不只想着自己，也会为别人着想。</td><td>不能只指一件事，要说这件事说明了什么。</td></tr>
+                <tr><td>主题理解</td><td>这本书主要表达了什么？</td><td>这本书很感人。</td><td>这本书通过主人公不断克服困难、学会承担责任的经历，表达了成长需要勇气和坚持，也告诉我们遇到问题不能轻易放弃。</td><td>主题要从人物经历里提炼出来。</td></tr>
+                <tr><td>读书交流</td><td>向同学推荐一本你最近读过的书。</td><td>我推荐这本书，因为很好看。</td><td>我推荐《……》。这本书最打动我的是主人公从害怕到勇敢的变化，尤其是他面对失败后重新站起来的那一幕，让我明白成长不是一下子变强，而是一次次不放弃。</td><td>书名、片段、感受和收获要连起来。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>三到六年级，整本书阅读分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>三年级</td><td>片段复述、喜欢的人物、基本读书分享</td><td>能说清主要人物、一个重要片段和自己喜欢的理由，不只报书名。</td><td><a href="grade3.html#section-literature">三年级整本书起步</a></td></tr>
+                <tr><td>四年级</td><td>人物变化、关键片段、简单读书判断</td><td>能结合一件具体事情说人物变化，不只讲“读过了什么”。</td><td><a href="grade4.html#section-literature">四年级整本书升级</a></td></tr>
+                <tr><td>五年级</td><td>人物依据分析、主题理解、读书交流</td><td>能做到特点有两处依据，主题不空泛，交流时能说出自己的理解。</td><td><a href="grade5.html#section-literature">五年级主题理解</a></td></tr>
+                <tr><td>六年级</td><td>人物成长、主题概括、综合表达</td><td>能把内容、变化、主题和现实联系分层说清，还能做较完整的读书分享。</td><td><a href="grade6.html#section-literature">六年级综合表达</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子开口前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你现在做的是哪类任务？</h3>
+            <p>先说清这是片段复述、人物评价、人物变化、关键情节、主题理解，还是读书交流。任务分不清，后面方法就会乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别急着改答案，先让他重判题型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>第一步应该先抓什么？</h3>
+            <p>低年级先抓人物和事情，高年级先抓人物变化和关键事件，再往主题上走。第一步说不出来，说明方法还没形成。</p>
+            <ul>
+              <li>人物题先定特点，主题题先概括事件，交流题先挑最打动人的片段。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你最容易空在哪里？</h3>
+            <p>是只讲故事没讲人物特点，还是只说“很感人”没说主题？知道最容易错什么，下次才更容易补准。</p>
+            <ul>
+              <li>每次只抓一个主要空点，不要一口气把整段都改成标准答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮整本书阅读训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">整本书阅读最怕一聊就散。真正有效的是“先判任务 + 列人物事件 + 只改一个空点 + 换片段迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判任务</h3>
+            <p>先说这是人物题、主题题还是读书交流，再说第一步是什么。</p>
+            <ul>
+              <li>例：这是人物变化题，我先写人物开始怎样，后来怎样。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：列人物和事件</h3>
+            <p>先把主要人物、关键事件和结果列出来，不急着讲大道理。</p>
+            <ul>
+              <li>例：先写“谁、做了什么、为什么重要”，再补自己的判断。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气全改。只改“只有情节没有人物特点”或“只有感受没有主题”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重说一遍，让孩子知道怎样从“会讲故事”变成“会表达理解”。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换片段迁移</h3>
+            <p>换一个同一本书里的片段，或者换一本相近题材的书，再按同一步骤答一次，看看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才说明不是只背住了一个现成回答。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你聊书</h3>
+            <p>适合家长想一句一句带孩子讲人物、理情节、补主题，或者想把“只会报书名、只讲故事、主题太空”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文整本书阅读题：先判断题型，再给家长可直接照着问的话术、人物事件检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文整本书阅读题为什么会只报书名、只讲故事或主题空泛，并给出一步一步的复练。" class="secondary">整本书错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做诊断、安排训练，或者回到易漏专题继续选模块。</p>
+            <div class="cta-actions">
+              <a href="practice.html#diagnosis">做 15 分钟诊断</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="grade5.html#section-literature" class="secondary">看五年级主题理解</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

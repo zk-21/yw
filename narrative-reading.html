@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#9c4221">
+  <title>小学语文记叙文阅读专题 | 人物形象、中心思想、句段作用、环境描写</title>
+  <meta name="description" content="小学语文记叙文阅读专题页：系统梳理人物形象、中心思想、句段作用、环境描写、标题作用、词句含义与情感变化，提供答题骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文记叙文阅读,人物形象,中心思想,句段作用,环境描写,标题作用,词句含义">
+  <meta property="og:title" content="小学语文记叙文阅读专题 | 人物形象、中心思想、句段作用、环境描写">
+  <meta property="og:description" content="先看写了什么事，再找人物依据，最后回到情感和中心。把记叙文阅读练成能稳定得分的阅读模块。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --narr-ink: #3b2a24;
+      --narr-muted: #6f5b53;
+      --narr-border: #eadccf;
+      --narr-rust: #9c4221;
+      --narr-gold: #c0841a;
+      --narr-sky: #2563eb;
+      --narr-shadow: 0 18px 40px rgba(59, 42, 36, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(156, 66, 33, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(192, 132, 26, 0.12), transparent 24%),
+        linear-gradient(180deg, #fff9f5 0%, #ffffff 42%, #fdfaf7 100%);
+    }
+    .narr-head {
+      background:
+        linear-gradient(135deg, rgba(156, 66, 33, 0.16), rgba(37, 99, 235, 0.1)),
+        #fff8f2;
+      border-bottom: 1px solid rgba(156, 66, 33, 0.12);
+    }
+    .narr-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .narr-note {
+      background: linear-gradient(135deg, #fff4eb, #f8fbff);
+      border: 1px solid #eed4c2;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--narr-shadow);
+      color: var(--narr-ink);
+    }
+    .narr-note strong {
+      color: var(--narr-rust);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--narr-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--narr-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(156, 66, 33, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(37, 99, 235, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--narr-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--narr-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .narr-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff1e7;
+      color: var(--narr-rust);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .narr-chips,
+    .narr-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .narr-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: var(--narr-sky);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .narr-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .narr-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: var(--narr-rust);
+      border: 1px solid #f1d1bc;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .narr-links a:hover {
+      transform: translateY(-1px);
+      background: #ffe9d8;
+      box-shadow: 0 12px 20px rgba(156, 66, 33, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--narr-rust), var(--narr-sky));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fffdfb;
+      border: 1px dashed #dcc7ba;
+      color: #4b5563;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--narr-gold);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff7f1;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--narr-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--narr-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fff9f4 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--narr-rust), #c05621);
+      color: white;
+      box-shadow: 0 14px 26px rgba(156, 66, 33, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--narr-sky);
+      border: 1px solid #c8daf9;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head narr-head">
+      <p class="eyebrow">记叙文阅读专题</p>
+      <h1>先看写了什么事，再找人物依据，最后回到情感和中心</h1>
+      <p>记叙文最怕“知道故事讲了什么，却不知道题到底在考什么”。这页把小学高频的人物形象、中心思想、句段作用、环境描写、标题作用、词句含义拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="narr-shell">
+      <section class="section">
+        <div class="narr-note">
+          <strong>这页怎么用：</strong>先判断题目在问人物形象、中心思想、句段作用、环境描写、标题作用还是词句含义，再套对应模板。每次只练 1 种题型，先圈人物、事件、关键细节和情感词，再组织答案。练完后回到 <a href="practice.html#pack-r2" style="color:#9c4221; font-weight:700;">R2 人物依据训练包</a> 或 <a href="practice.html#pack-c1" style="color:#9c4221; font-weight:700;">C1 综合题型训练包</a> 做复盘。<br>
+          如果题目重点是说明对象、说明方法和限定词，那更接近 <a href="expository-reading.html" style="color:#2f855a; font-weight:700;">说明文专题</a>；如果重点是图表和多材料，那直接去 <a href="non-continuous-text.html" style="color:#2563eb; font-weight:700;">非连续性文本专题</a>。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="narr-badge">01 人物形象</span>
+            <h3>人物形象</h3>
+            <p>最常见也最容易丢分。不是只写“他很好、很善良”，而是要把“特点 + 原文依据 + 简要分析”写完整。</p>
+            <div class="narr-chips">
+              <span>五至六年级高频</span>
+              <span>先找细节证据</span>
+            </div>
+            <div class="narr-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="narr-badge">02 中心思想</span>
+            <h3>中心思想</h3>
+            <p>很多孩子只会写“文章很感人”。真正得分的答案，要把主要内容、人物情感和文章中心连起来。</p>
+            <div class="narr-chips">
+              <span>五年级提升</span>
+              <span>内容后面补情感</span>
+            </div>
+            <div class="narr-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="grade5.html#section-reading">看五年级阅读</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="narr-badge">03 句段作用</span>
+            <h3>句段作用</h3>
+            <p>高频失误是只写“承上启下”。真正稳的答案，要看位置，再从内容、结构、情感中心三层筛。</p>
+            <div class="narr-chips">
+              <span>六年级重点</span>
+              <span>位置决定角度</span>
+            </div>
+            <div class="narr-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="practice.html#pack-c1">去 C1 训练</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="narr-badge">04 环境描写</span>
+            <h3>环境描写作用</h3>
+            <p>不要只答“写了天气”。顺着三步想：环境是什么、人物在这样的环境里怎样、这样写让情感和中心更突出了什么。</p>
+            <div class="narr-chips">
+              <span>五至六年级</span>
+              <span>环境连到人物</span>
+            </div>
+            <div class="narr-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="#family-check">看家长检查</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="narr-badge">05 标题作用</span>
+            <h3>标题作用</h3>
+            <p>标题题不是一律套“概括内容、点明中心”。要先看它是不是对象、线索、悬念，或者有没有反复呼应全文。</p>
+            <div class="narr-chips">
+              <span>五至六年级</span>
+              <span>先看标题类型</span>
+            </div>
+            <div class="narr-links">
+              <a href="#model-table">看满分示范</a>
+              <a href="grade6.html#section-literature">看六年级综合</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="narr-badge">06 词句含义</span>
+            <h3>词句含义 / 情感变化</h3>
+            <p>这类题最怕只解释字面。要从表层意思走到文中意思，再回到人物心情、情节变化或文章中心。</p>
+            <div class="narr-chips">
+              <span>四至六年级</span>
+              <span>字面后面补深层</span>
+            </div>
+            <div class="narr-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="knowledge-map.html#reading-templates">看总控模板</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">答题骨架</p>
+          <h2>六类任务，六套拿到记叙文就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">记叙文先抓人物和事件，再往作用、情感和中心上走。顺序对了，答案才不会只剩空标签。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>人物形象</h3>
+            <p>适合“他是一个怎样的人”这类题。先选最准确的特点，再补细节依据和分析。</p>
+            <div class="template-box">
+              <b>骨架：</b>“他是一个……的人。从‘……’可以看出，因为……表现了他……”<br>
+              <b>先抓：</b>动作、语言、神态、心理、关键事件。<br>
+              <b>关键动作：</b>特点后面一定要跟原文依据。
+            </div>
+            <div class="template-note">自查：我是不是只贴了品质词？有没有写出哪一句、哪个细节支持这个特点？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>中心思想</h3>
+            <p>适合“表达了什么”“告诉我们什么”这类题。先概括内容，再说情感或道理。</p>
+            <div class="template-box">
+              <b>骨架：</b>“文章通过写……，表达了……，告诉我们……”<br>
+              <b>先抓：</b>主要事件、人物变化、情感走向。<br>
+              <b>关键动作：</b>不要只写“很感人”“要努力”这种空话。
+            </div>
+            <div class="template-note">自查：我是不是只写了内容，没有说作者想表达的情感或道理？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>句段作用</h3>
+            <p>适合“开头/中间/结尾有什么作用”这类题。先看位置，再筛内容、结构、情感中心。</p>
+            <div class="template-box">
+              <b>骨架：</b>“内容上写了……；结构上起到……作用；情感/中心上表现了……”<br>
+              <b>先抓：</b>句段位置、这段写了什么、与上下文关系。<br>
+              <b>关键动作：</b>开头、中间、结尾的侧重点不同，不要机械三层全抄。
+            </div>
+            <div class="template-note">自查：我是不是只写了“承上启下”？有没有说清承了什么、启了什么？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>环境描写作用</h3>
+            <p>适合“这处景物描写有什么作用”这类题。环境题的真正落点，常常在人和情节上。</p>
+            <div class="template-box">
+              <b>骨架：</b>“这里写出了……的环境，烘托了……的心情，为下文……作铺垫/突出……”<br>
+              <b>先抓：</b>环境特点、人物处境、情节走向、中心。<br>
+              <b>关键动作：</b>环境不是单独存在的，要连到人物和故事。
+            </div>
+            <div class="template-note">自查：我是不是只写了“天气很冷”“景色很美”？有没有补人物心情和后文作用？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>标题作用</h3>
+            <p>适合“标题有什么妙处”这类题。先看它在全文里扮演什么角色，再写作用。</p>
+            <div class="template-box">
+              <b>骨架：</b>“题目‘……’概括了……，也是……的线索，点明/暗示了……”<br>
+              <b>先抓：</b>对象、线索、悬念、中心、呼应。<br>
+              <b>关键动作：</b>不是每个标题都有三种作用，要结合文章内容取舍。
+            </div>
+            <div class="template-note">自查：我是不是把所有标题都套成一样？有没有先看它在这篇文章里到底做了什么？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>词句含义 / 情感变化</h3>
+            <p>适合“这个词在文中指什么”“人物心情怎么变化”这类题。先说表层，再回到人物和中心。</p>
+            <div class="template-box">
+              <b>骨架：</b>“表面上指……，实际上写出了……，表现了人物……/表达了……”<br>
+              <b>先抓：</b>字面意思、上下文、人物前后变化、中心。<br>
+              <b>关键动作：</b>不要把词语孤立解释。
+            </div>
+            <div class="template-note">自查：我是不是只查了词典意思？有没有联系前后文和人物变化？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“会复述故事”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>人物形象</td><td>文中的父亲是一个怎样的人？请结合原文分析。</td><td>父亲很好，很爱我。</td><td>父亲是一个关爱孩子、默默付出的人。从他冒雪送“我”去车站、帮“我”安顿座位、买热包子可以看出，他把孩子放在心上，自己辛苦却不说出来。</td><td>特点 + 细节依据 + 分析三层要完整。</td></tr>
+                <tr><td>中心思想</td><td>文章表达了怎样的中心思想？</td><td>文章很感人。</td><td>文章通过写父亲冒雪送“我”去车站的事，表现了父亲对子女深沉而含蓄的爱。</td><td>内容后面要跟情感或道理。</td></tr>
+                <tr><td>句段作用</td><td>结尾再次写掌声有什么作用？</td><td>照应前文。</td><td>内容上再次写掌声，表现了“我”成功后的激动；结构上照应开头；情感和中心上点明了勇敢尝试会带来成长。</td><td>别只写结构词，要补内容和中心。</td></tr>
+                <tr><td>环境描写</td><td>开头写暴雨中的小路泥泞难行，有什么作用？</td><td>写了天气不好。</td><td>这里写出了暴雨、泥泞的恶劣环境，烘托出主人公送药时的艰难，也为下文坚持送药作铺垫，突出他负责、善良的品质。</td><td>环境要连到人物和情节。</td></tr>
+                <tr><td>标题作用</td><td>标题“那盏灯”有什么妙处？</td><td>很好，吸引人。</td><td>“那盏灯”既点明了全文写作对象，又贯穿全文，还是文章的线索，同时暗示了妈妈默默陪伴的爱。</td><td>先看是不是对象、线索或中心暗示。</td></tr>
+                <tr><td>词句含义</td><td>“暖流”在文中是什么意思？</td><td>温暖的水流。</td><td>“暖流”表面上指温暖的水流，文中指老师的话让我感到安慰和鼓励，写出了老师关怀带来的力量。</td><td>本义后面要补文中义和表达效果。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>四到六年级，记叙文阅读分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>四年级</td><td>概括主要内容、找人物依据、初步环境作用</td><td>能说清“谁做了什么”，开始知道人物特点要找原文事例支持。</td><td><a href="grade4.html#section-reading">四年级阅读概括</a></td></tr>
+                <tr><td>五年级</td><td>人物形象、中心思想、环境描写、标题作用</td><td>能把“结论 + 依据 + 分析”写完整，不只贴标签。</td><td><a href="grade5.html#section-reading">五年级阅读分析</a></td></tr>
+                <tr><td>六年级</td><td>句段作用分层作答、综合卷题型判断</td><td>能先判断题型，再按位置和分值组织答案，不被换问法带跑。</td><td><a href="grade6.html#section-literature">六年级记叙文阅读</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子答记叙文前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你先判题型了吗？</h3>
+            <p>人物题、作用题、中心题、词句题，起手动作完全不同。题型没判清，后面越写越容易偏。</p>
+            <ul>
+              <li>如果孩子一上来就写答案，先让他把题型说出来，再动笔。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你的答案里有原文依据吗？</h3>
+            <p>记叙文最常见失分，不是观点错，而是没有证据。人物、情感、中心、作用题都要回到原文细节。</p>
+            <ul>
+              <li>每次只追问一句：“你这句话是从文中哪儿看出来的？”</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你写的是结论，还是“结论 + 依据 + 分析”？</h3>
+            <p>很多孩子会写第一层，但停不住往下走。真正稳的答案，至少还要补依据和一句分析。</p>
+            <ul>
+              <li>每次只改一个空点，比如“有特点没依据”或“有依据没分析”。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮记叙文训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">记叙文最怕一讲就讲故事，方法却没练稳。真正有效的是“先判题型 + 圈人物细节和情感词 + 只改一个空点 + 换问法迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是人物题、作用题、中心题还是词句题，再说第一步要抓什么。</p>
+            <ul>
+              <li>例：这是人物形象题，我先找动作、语言和事件依据，再概括特点。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：圈人物细节和情感词</h3>
+            <p>先圈出最能说明人物、推动情节和表现情感的词句，再开始组织答案。</p>
+            <ul>
+              <li>重点圈动作、语言、神态、心理和反复出现的景物词。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气把整段答案改成范文。只改“没有依据”或“只有结构没有内容”这种一个最主要问题。</p>
+            <ul>
+              <li>改完立刻重说一遍，让孩子知道答案怎样从空标签变成完整表达。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换问法迁移</h3>
+            <p>把同一段材料换成另一种问法，再按新题型答一次，看看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才说明不是只记住了原题答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你拆记叙文</h3>
+            <p>适合家长想一句一句带孩子找人物依据、分层讲句段作用，或者想把“只会贴标签、不会补证据”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文记叙文阅读题：先判断题型，再给家长可直接照着问的话术、关键词检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文记叙文阅读题为什么会只贴人物标签、中心空泛、句段作用只写承上启下，并给出一步一步的复练。" class="secondary">记叙文错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做人物依据训练、综合题型训练，或者回知识总控继续查阅读模板。</p>
+            <div class="cta-actions">
+              <a href="practice.html#pack-r2">去 R2 人物训练</a>
+              <a href="practice.html#pack-c1" class="secondary">去 C1 综合训练</a>
+              <a href="knowledge-map.html#reading-templates" class="secondary">看知识总控模板</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2563eb">
+  <title>小学语文非连续性文本专题 | 图表、表格、多材料、判断正误、提建议</title>
+  <meta name="description" content="小学语文非连续性文本专题页：系统梳理图表、表格、多材料比较、判断正误和基于材料提建议，提供答题骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文非连续性文本,图表题,表格阅读,多材料比较,判断正误,提建议">
+  <meta property="og:title" content="小学语文非连续性文本专题 | 图表、表格、多材料、判断正误、提建议">
+  <meta property="og:description" content="先看题目问什么，再找数据和比较，最后用材料说话。把非连续性文本练成稳定得分点。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --nct-ink: #173153;
+      --nct-muted: #5a6d85;
+      --nct-border: #d7e3f2;
+      --nct-blue: #2563eb;
+      --nct-cyan: #0891b2;
+      --nct-gold: #ca8a04;
+      --nct-shadow: 0 18px 40px rgba(23, 49, 83, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(8, 145, 178, 0.1), transparent 24%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #fbfdff 100%);
+    }
+    .nct-head {
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(8, 145, 178, 0.12)),
+        #f4f9ff;
+      border-bottom: 1px solid rgba(37, 99, 235, 0.12);
+    }
+    .nct-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .nct-note {
+      background: linear-gradient(135deg, #eef5ff, #f1fbff);
+      border: 1px solid #cfdef3;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--nct-shadow);
+      color: var(--nct-ink);
+    }
+    .nct-note strong {
+      color: var(--nct-blue);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--nct-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--nct-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(8, 145, 178, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--nct-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--nct-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .nct-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eaf2ff;
+      color: var(--nct-blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .nct-chips,
+    .nct-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .nct-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ecfeff;
+      color: var(--nct-cyan);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .nct-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .nct-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: var(--nct-blue);
+      border: 1px solid #c9dbf4;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .nct-links a:hover {
+      transform: translateY(-1px);
+      background: #dcecff;
+      box-shadow: 0 12px 20px rgba(37, 99, 235, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--nct-blue), var(--nct-cyan));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fbff;
+      border: 1px dashed #c7d5e8;
+      color: #334155;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--nct-gold);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--nct-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--nct-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--nct-blue), #2563eb);
+      color: white;
+      box-shadow: 0 14px 26px rgba(37, 99, 235, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--nct-cyan);
+      border: 1px solid #bfe5ef;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">点</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head nct-head">
+      <p class="eyebrow">非连续性文本专题</p>
+      <h1>先看题目问什么，再找数据和比较，最后用材料说话</h1>
+      <p>非连续性文本最怕“看懂了图表，却还是凭常识答题”。这页把小学高频的图表提取、表格比较、多材料整合、判断正误和基于材料提建议拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="nct-shell">
+      <section class="section">
+        <div class="nct-note">
+          <strong>这页怎么用：</strong>先判断题目要你做的是读图表、比数据、整合几则材料、判断正误，还是根据材料提建议，再去套对应模板。每次只练 1 种题型，先标题目问法，再圈数据和条件，最后组织答案。练完后回到 <a href="practice.html#pack-r4" style="color:#2563eb; font-weight:700;">R4 训练包</a> 或 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文非连续性文本题：先判断是图表提取、多材料比较、判断正误还是根据材料提建议，再给家长可直接照着问的话术、数据检查表和孩子复述标准。" style="color:#2563eb; font-weight:700;">AI 辅导</a> 做复盘。<br>
+          如果题目不是让你读材料和图表，而是要你写活动方案、宣传语或整理采访结果，那更接近 <a href="integrated-learning.html" style="color:#0f766e; font-weight:700;">综合性学习专题</a>。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="nct-badge">01 图表提取</span>
+            <h3>图表提取信息</h3>
+            <p>适合柱状图、折线图、饼图、统计表。先看标题和单位，再看最高、最低和变化趋势，不能只抄数字。</p>
+            <div class="nct-chips">
+              <span>五至六年级</span>
+              <span>先标题后数据</span>
+            </div>
+            <div class="nct-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="grade6.html#section-expression">看六年级实战</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="nct-badge">02 数据比较</span>
+            <h3>比较数据关系</h3>
+            <p>难点不在读出数字，而在看出“更高 / 更低 / 增加 / 减少 / 差多少”。答案要把比较关系写出来。</p>
+            <div class="nct-chips">
+              <span>五至六年级</span>
+              <span>数字要放在一起看</span>
+            </div>
+            <div class="nct-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="nct-badge">03 多材料</span>
+            <h3>多材料综合比较</h3>
+            <p>适合材料一、材料二、材料三一起出现的题。核心不是逐条复述，而是找共同规律或明显差异。</p>
+            <div class="nct-chips">
+              <span>四至六年级</span>
+              <span>先分材料再整合</span>
+            </div>
+            <div class="nct-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="practice.html#pack-r4">做 R4 训练</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="nct-badge">04 判断正误</span>
+            <h3>判断信息正误</h3>
+            <p>最怕凭常识选。正确做法是回原文或图表锁定关键词，逐项比对对象、时间、数量、条件和范围。</p>
+            <div class="nct-chips">
+              <span>五至六年级</span>
+              <span>原文比常识更重要</span>
+            </div>
+            <div class="nct-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="grade6.html#section-expression">看六年级精讲</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="nct-badge">05 提建议</span>
+            <h3>根据材料提建议</h3>
+            <p>建议题不是空喊“要重视”“要加强”，而是根据材料里的问题、趋势和差距，提一条对着问题来的做法。</p>
+            <div class="nct-chips">
+              <span>四至六年级</span>
+              <span>建议必须带依据</span>
+            </div>
+            <div class="nct-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="practice.html#pack-r4">看训练示例</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="nct-badge">06 条件筛查</span>
+            <h3>看单位和限制条件</h3>
+            <p>很多丢分不是不会，而是漏看了“以上 / 以下”“平均 / 总数”“百分比 / 人数”“某年 / 某月”这些小条件。</p>
+            <div class="nct-chips">
+              <span>四至六年级</span>
+              <span>先看单位和范围</span>
+            </div>
+            <div class="nct-links">
+              <a href="#family-check">看家长检查</a>
+              <a href="#training-loop">看训练闭环</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">答题骨架</p>
+          <h2>六类任务，六套拿到图表和材料就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">非连续性文本先读懂材料结构，再读数据关系，最后才是写结论和建议。顺序对了，答案才不会空。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>图表提取信息</h3>
+            <p>适合“从图表中可以看出什么”这类题。先看标题和单位，再说数据变化。</p>
+            <div class="template-box">
+              <b>骨架：</b>“从图表可以看出……从……变为……，说明……”<br>
+              <b>先抓：</b>标题、单位、对象、最大最小值、变化趋势。<br>
+              <b>关键动作：</b>数字后面要跟含义，不能只报数。
+            </div>
+            <div class="template-note">自查：我是不是写了数字，却没说这些数字说明了什么？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>比较数据关系</h3>
+            <p>适合“哪组更多 / 哪组变化更明显 / 差距多大”这类题。先排出大小，再写比较关系。</p>
+            <div class="template-box">
+              <b>骨架：</b>“A 为……，B 为……，A 比 B……，说明……”<br>
+              <b>先抓：</b>两组或三组对象、具体数值、差距、增减方向。<br>
+              <b>关键动作：</b>把“更高 / 更低 / 差多少”写出来。
+            </div>
+            <div class="template-note">自查：我是不是只把数据抄下来，没有真正做比较？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>多材料综合比较</h3>
+            <p>适合“综合三则材料，可以得出什么结论”这类题。先分别交代，再找共同点。</p>
+            <div class="template-box">
+              <b>骨架：</b>“材料一说明……，材料二补充……，材料三进一步表明……，共同说明……”<br>
+              <b>先抓：</b>每则材料的核心信息、共同规律、明显差异。<br>
+              <b>关键动作：</b>用一句统摄性表述把材料串起来。
+            </div>
+            <div class="template-note">自查：我是不是把三则材料各说各的，没有汇成一个总发现？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>判断信息正误</h3>
+            <p>适合选项判断类题。必须回原文核对，不能凭感觉。</p>
+            <div class="template-box">
+              <b>骨架：</b>“原文提到……，而选项说……，两者一致 / 不一致，所以……”<br>
+              <b>先抓：</b>对象、时间、数量、条件、范围、语气。<br>
+              <b>关键动作：</b>逐个关键词对照。
+            </div>
+            <div class="template-note">自查：我判断对错的依据，是材料本身，还是我平时的常识？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>根据材料提建议</h3>
+            <p>适合“请根据材料提一条建议”这类题。先发现问题，再给出具体做法。</p>
+            <div class="template-box">
+              <b>骨架：</b>“材料显示……，因此建议……，这样可以……”<br>
+              <b>先抓：</b>问题现象、数据依据、具体做法、预期效果。<br>
+              <b>关键动作：</b>建议要跟材料里的问题直接对应。
+            </div>
+            <div class="template-note">自查：我的建议是不是具体可做？是不是能从材料里找到支撑？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>条件和单位筛查</h3>
+            <p>适合所有非连续性文本题的起手检查。很多低分都出在这一步。</p>
+            <div class="template-box">
+              <b>先看：</b>标题、图例、单位、时间、对象、是否有“以上 / 以下 / 平均 / 总数”等限定。<br>
+              <b>再判：</b>题目问的是“读出信息”“比较关系”“判断对错”还是“提出建议”。<br>
+              <b>最后写：</b>先依据，后结论。
+            </div>
+            <div class="template-note">自查：我是不是把百分比看成人数，把平均看成总数，或者漏了“某年某月”这种时间条件？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“看到了数据”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>图表提取</td><td>根据图表数据：每天阅读30分钟以上的学生，作文按时完成比例85%；不足10分钟的仅32%。这说明了什么？</td><td>阅读多比较好。</td><td>数据显示，每天阅读30分钟以上的学生作文按时完成比例为85%，而不足10分钟的仅为32%，两者差距明显。这说明阅读时间越充足，作文完成情况越好。</td><td>先比较两组数据，再概括趋势，不能只写感受。</td></tr>
+                <tr><td>提建议</td><td>根据上题材料，请提一条建议。</td><td>要多读书。</td><td>建议学生每天固定阅读30分钟以上，并记录好词好句，因为材料显示高频阅读组作文按时完成比例明显更高。</td><td>建议要对着材料里的差距来，不能空喊口号。</td></tr>
+                <tr><td>多材料比较</td><td>A校每天安排30分钟阅读，词汇量2800；B校每周1次，2100；C校无固定时间，1800。综合三则材料，可以得出什么结论？</td><td>A校最好。</td><td>三则材料共同说明：课外阅读时间越规律、频率越高，学生平均词汇量越大。A校到C校的数据从2800递减到1800，规律性阅读对词汇积累有明显促进作用。</td><td>要从“哪组更高”上升到“共同规律”。</td></tr>
+                <tr><td>判断正误</td><td>选项说“所有学生每天都阅读30分钟以上”，请判断正误。</td><td>错。</td><td>错误。材料只说明“每天阅读30分钟以上的学生作文按时完成比例为85%”，并没有说“所有学生都每天阅读30分钟以上”。</td><td>判断题必须回材料核对对象和范围。</td></tr>
+                <tr><td>条件筛查</td><td>某表格中的“60%”表示什么？</td><td>60个人。</td><td>表格中的“60%”表示优秀率，也就是优秀人数占这一组总人数的比例，不是60个人。</td><td>先看单位和含义，防止把百分比看成人数。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>四到六年级，非连续性文本分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>四年级</td><td>读表格、看清标题和单位、找关键信息</td><td>能读出“哪一组、多少、表示什么”，不把数字读错位。</td><td><a href="grade4.html#section-reading">四年级阅读概括</a></td></tr>
+                <tr><td>五年级</td><td>比较两三组数据、写一句材料结论</td><td>能做到“数据 + 比较 + 结论”三步完整，不只抄材料。</td><td><a href="grade5.html#section-reading">五年级阅读分析</a></td></tr>
+                <tr><td>六年级</td><td>多材料比较、判断正误、根据材料提建议</td><td>能把依据、分析、结论和建议真正连起来，避免凭常识作答。</td><td><a href="grade6.html#section-expression">六年级综合阅读与表达</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子下笔前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>题目现在要你做什么？</h3>
+            <p>先说清这是读图表、比数据、整合多材料、判断正误，还是根据材料提建议。题型分不清，后面顺序就会乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别改答案，先让他重判题型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你先看了标题、单位和条件吗？</h3>
+            <p>有没有“以上 / 以下”“百分比 / 人数”“平均 / 总数”“某年 / 某月”这些条件？第一步看漏了，后面再会写也容易跑偏。</p>
+            <ul>
+              <li>非连续性文本最稳的起手动作，不是写答案，而是先圈条件。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你的结论有没有用上材料？</h3>
+            <p>是只写了“要重视”“很好”，还是把数据、对比和结论真正连起来了？知道最容易空在哪里，下次才好补准。</p>
+            <ul>
+              <li>每次只抓一个最主要空点，不要一口气把整段都改成标准答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮非连续性文本训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这类题最怕一看材料就急着写。真正有效的是“先判题型 + 圈条件数据 + 只改一个空点 + 换材料迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是图表提取、多材料比较、判断正误还是提建议，再说第一步要看什么。</p>
+            <ul>
+              <li>例：这是判断正误题，我先回材料找对象、时间和范围。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：圈条件和数据</h3>
+            <p>先圈标题、单位、时间、对象和关键数字，不急着马上写结论。</p>
+            <ul>
+              <li>例：先标“85% 对 32%”“每天 30 分钟以上”和“不足 10 分钟”这些对比点。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气全改。只改“没有比较关系”或“建议没依据”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重写一遍，让孩子看到怎样从报数字变成会分析。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换材料迁移</h3>
+            <p>换一道相似任务，比如图表题换成多材料题，再按同一步骤答一遍，看看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才算真正掌握，不是只会一道原题。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你读图表</h3>
+            <p>适合家长想一句一句地带孩子圈条件、读数字、补比较，或者想把“只抄数据、凭常识答、建议太空”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文非连续性文本题：先判断题型，再给家长可直接照着问的话术、数据检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文非连续性文本题为什么会只抄数据、不会比较、判断失准或建议没有依据，并给出一步一步的复练。" class="secondary">非连续文本错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做 R4 训练，或者发现这题其实更接近综合性学习表达题。</p>
+            <div class="cta-actions">
+              <a href="practice.html#pack-r4">做 R4 训练包</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="integrated-learning.html" class="secondary">去综合性学习专题</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

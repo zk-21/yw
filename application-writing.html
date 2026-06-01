@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0b6bcb">
+  <title>小学语文应用文专题 | 留言条、请假条、通知、建议书、倡议书</title>
+  <meta name="description" content="小学语文应用文专题页：系统梳理留言条、请假条、通知、建议书、倡议书，提供格式骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文应用文,留言条,请假条,通知,建议书,倡议书,格式训练">
+  <meta property="og:title" content="小学语文应用文专题 | 留言条、请假条、通知、建议书、倡议书">
+  <meta property="og:description" content="先把格式站稳，再把事情写清楚。把小学高频应用文练成稳定得分点。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --practical-ink: #183446;
+      --practical-muted: #576775;
+      --practical-border: #d8e3ea;
+      --practical-blue: #0b6bcb;
+      --practical-teal: #0f766e;
+      --practical-gold: #ca8a04;
+      --practical-shadow: 0 18px 40px rgba(24, 52, 70, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(11, 107, 203, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.1), transparent 22%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #fbfdf8 100%);
+    }
+    .practical-head {
+      background:
+        linear-gradient(135deg, rgba(11, 107, 203, 0.16), rgba(15, 118, 110, 0.12)),
+        #f5fbff;
+      border-bottom: 1px solid rgba(11, 107, 203, 0.12);
+    }
+    .practical-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .practical-note {
+      background: linear-gradient(135deg, #eef7ff, #f2fbf7);
+      border: 1px solid #cfe0f0;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--practical-shadow);
+      color: var(--practical-ink);
+    }
+    .practical-note strong {
+      color: var(--practical-blue);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--practical-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--practical-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(11, 107, 203, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(15, 118, 110, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--practical-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--practical-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .practical-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 84px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e8f3ff;
+      color: var(--practical-blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .practical-chips,
+    .practical-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .practical-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: var(--practical-teal);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .practical-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .practical-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: var(--practical-blue);
+      border: 1px solid #c9dbf4;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .practical-links a:hover {
+      transform: translateY(-1px);
+      background: #dcecff;
+      box-shadow: 0 12px 20px rgba(11, 107, 203, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--practical-blue), var(--practical-teal));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      color: #334155;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--practical-gold);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--practical-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--practical-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--practical-blue), #2563eb);
+      color: white;
+      box-shadow: 0 14px 26px rgba(11, 107, 203, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--practical-teal);
+      border: 1px solid #bfe5df;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">点</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head practical-head">
+      <p class="eyebrow">应用文专题</p>
+      <h1>先把格式站稳，再把事情写清楚</h1>
+      <p>应用文最怕“知道大概要写什么，却总漏称呼、署名、时间地点或对象”。这页把小学高频的留言条、请假条、通知、建议书、倡议书和格式迁移训练拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="practical-shell">
+      <section class="section">
+        <div class="practical-note">
+          <strong>这页怎么用：</strong>先判断题目要你写的是留言条、请假条、通知、建议书还是倡议书，再去套对应骨架。每次只练 1 种格式，先列必写项，再写答案，最后回到 <a href="practice.html#diagnosis" style="color:#0b6bcb; font-weight:700;">练习计划</a> 或 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文应用文题：先判断是留言条、请假条、通知、建议书还是倡议书，再给家长可直接照着问的话术、必写要素检查表和孩子复述标准。" style="color:#0b6bcb; font-weight:700;">AI 辅导</a> 做复盘。<br>
+          如果题目要整合几则材料、看图表、做活动方案或写宣传语，那不是这页，直接去 <a href="integrated-learning.html" style="color:#0f766e; font-weight:700;">综合性学习专题</a>。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="practical-badge">01 留言条</span>
+            <h3>留言条</h3>
+            <p>三年级起步最常见。关键不是把话写很多，而是把称呼、事情、留言人、日期写完整，正文只交代一件事。</p>
+            <div class="practical-chips">
+              <span>三年级起步</span>
+              <span>先保格式</span>
+            </div>
+            <div class="practical-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade3.html#section-expression">看三年级起步</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="practical-badge">02 请假条</span>
+            <h3>请假条</h3>
+            <p>和留言条长得像，但更重“原因 + 时长 + 请求批准”。原因要真实简明，请假时间要具体，语气要正式。</p>
+            <div class="practical-chips">
+              <span>三至四年级</span>
+              <span>原因和时长要写清</span>
+            </div>
+            <div class="practical-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="practical-badge">03 通知</span>
+            <h3>通知</h3>
+            <p>时间、地点、对象、事情、要求五项不齐，就算知道要做什么也容易丢分。通知不是聊天，要简洁正式。</p>
+            <div class="practical-chips">
+              <span>四年级升级</span>
+              <span>先数五要素</span>
+            </div>
+            <div class="practical-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade4.html#section-expression">看四年级升级</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="practical-badge">04 建议书</span>
+            <h3>建议书</h3>
+            <p>核心不是批评谁做得不好，而是先指出问题，再给出能执行的建议和理由。语气要诚恳，不能命令式。</p>
+            <div class="practical-chips">
+              <span>五年级高频</span>
+              <span>问题 + 建议 + 理由</span>
+            </div>
+            <div class="practical-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-expression">看五年级延伸</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="practical-badge">05 倡议书</span>
+            <h3>倡议书</h3>
+            <p>最怕只喊口号，不给做法。真正得分的答案会把对象、原因、行动项和号召写完整，让人一看就知道怎么做。</p>
+            <div class="practical-chips">
+              <span>五至六年级</span>
+              <span>每条做法都要能执行</span>
+            </div>
+            <div class="practical-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-expression">看五年级延伸</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="practical-badge">06 迁移检查</span>
+            <h3>格式迁移</h3>
+            <p>真正会了，不是只会一道原题，而是同一件事能在留言条、请假条、通知之间换写，还不漏项、不乱语气。</p>
+            <div class="practical-chips">
+              <span>三至六年级</span>
+              <span>换场景也不漏项</span>
+            </div>
+            <div class="practical-links">
+              <a href="#family-check">看家长检查</a>
+              <a href="#training-loop">看训练闭环</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">表达骨架</p>
+          <h2>六类任务，六套今天就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">应用文先把格式站稳，再去追求表达顺不顺。顺序对了，孩子才不会边写边乱。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>留言条</h3>
+            <p>适合三年级起步和日常高频书面表达。先把格式写齐，再补一句最关键的事情。</p>
+            <div class="template-box">
+              <b>骨架：</b>称呼 -> 正文 -> 留言人 -> 日期<br>
+              <b>正文：</b>“我去…… / 因为……，所以……，请您……。”<br>
+              <b>先抓：</b>给谁、什么事、什么时候、谁写的。
+            </div>
+            <div class="template-note">自查：称呼是不是顶格？正文有没有只写一件事？留言人和日期是不是都写了？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>请假条</h3>
+            <p>适合“因为什么原因，需要请假多久”这类题。和留言条类似，但更强调请假原因和具体时长。</p>
+            <div class="template-box">
+              <b>骨架：</b>称呼 -> 正文 -> 请假人 -> 日期<br>
+              <b>正文：</b>“我因……，需要请假……，特向您请假，请批准。”<br>
+              <b>先抓：</b>向谁请假、原因、请多久、请求批准。
+            </div>
+            <div class="template-note">自查：原因是不是简明真实？请假时间是不是具体到“半天 / 一天 / 某日上午”？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>通知</h3>
+            <p>适合班级活动、排练、集合、比赛提醒。重点不在修辞，而在信息完整。</p>
+            <div class="template-box">
+              <b>骨架：</b>“通知：请……于……到……参加……，请带好……。”<br>
+              <b>先抓：</b>时间、地点、对象、事情、要求。<br>
+              <b>关键动作：</b>语言简洁正式，不拖沓。
+            </div>
+            <div class="template-note">自查：我是不是只写了“什么时候做什么”，却漏了地点、对象或具体要求？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>建议书</h3>
+            <p>适合校园文明、节约资源、阅读习惯等主题。先指出问题，再给能执行的做法。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我发现……，建议……，这样可以……。”<br>
+              <b>先抓：</b>对象、问题、建议、理由、期待。<br>
+              <b>关键动作：</b>先说问题，再提建议，语气要诚恳。
+            </div>
+            <div class="template-note">自查：我的建议是不是具体到“可以怎么做”？有没有只写态度，没有写做法？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>倡议书</h3>
+            <p>适合环保、阅读、文明校园等集体主题。倡议书不是“喊一声”，而是“带大家做”。</p>
+            <div class="template-box">
+              <b>骨架：</b>“为了……，我倡议大家：一……；二……；三……。让我们一起……。”<br>
+              <b>先抓：</b>对象、原因、行动项、号召。<br>
+              <b>关键动作：</b>每一条做法都要能落地。
+            </div>
+            <div class="template-note">自查：我是不是只有口号，没有具体行动？每一条是不是都能一看就做？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>格式迁移检查</h3>
+            <p>适合同一件事换题型时快速查漏。比如“去医院复查”可以写成请假条，“放学后去排练”可以写成留言条或通知。</p>
+            <div class="template-box">
+              <b>先问：</b>这题是写给一个人，还是通知一群人？<br>
+              <b>再列：</b>对象、事情、时间、地点、原因、署名、日期。<br>
+              <b>最后定：</b>语气是提醒、请假、建议，还是号召。
+            </div>
+            <div class="template-note">自查：我是不是内容写对了，但格式写错了？是不是把“一个人看的”和“大家看的”写混了？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“知道大概意思”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>留言条</td><td>放学后去参加合唱排练，请给来接你的奶奶留一张留言条。</td><td>奶奶我去排练了。</td><td><strong>奶奶：</strong>我放学后要去音乐教室参加合唱排练，不能按时和您一起回家。您先回家，不用等我。<strong>张可</strong><br><strong>5 月 29 日</strong></td><td>称呼、事情、留言人、日期都要齐，正文只交代一件事。</td></tr>
+                <tr><td>请假条</td><td>因发烧需要去医院，请给班主任写一张请假条，请假一天。</td><td>老师我发烧了请假。</td><td><strong>王老师：</strong>我因发烧需要去医院看病，明天不能到校上课，特向您请假一天，请批准。<strong>张可</strong><br><strong>5 月 29 日</strong></td><td>原因要真实简明，请假时间要具体，语气要正式。</td></tr>
+                <tr><td>通知</td><td>周五下午三点在音乐教室排练节目，请写一则通知。</td><td>周五排练节目，大家参加。</td><td><strong>通知：</strong>请参加节目排练的同学于周五下午三点到音乐教室集合，请带好节目道具，准时参加。</td><td>时间、地点、对象、事情、要求缺一不可。</td></tr>
+                <tr><td>建议书</td><td>针对校园里浪费水的现象，向同学提出一条建议。</td><td>大家不要浪费水了。</td><td>我发现有些同学洗手后没有及时关紧水龙头，造成了浪费。建议大家洗完手后检查水龙头是否关好，并请值日生课间进行提醒，这样可以节约用水，也能养成良好习惯。</td><td>先指出问题，再给具体做法，不能只批评不支招。</td></tr>
+                <tr><td>倡议书</td><td>围绕“每天坚持阅读”写一则倡议书。</td><td>大家都要多读书。</td><td>为了让班级形成良好的阅读氛围，我倡议大家：一、每天固定 20 分钟安静阅读；二、把喜欢的句子记在读书卡上；三、每周和同学分享一本书。让我们一起把阅读坚持下去。</td><td>有对象、有原因、有行动项，不能只有口号。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>三到六年级，应用文分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>三年级</td><td>留言条、请假条</td><td>能把称呼、事情、署名、日期写完整，不只会写正文。</td><td><a href="grade3.html#section-expression">三年级口语与应用</a></td></tr>
+                <tr><td>四年级</td><td>通知、格式迁移</td><td>能写全五要素，知道“通知给大家看”和“留言给一个人看”的区别。</td><td><a href="grade4.html#section-expression">四年级综合表达</a></td></tr>
+                <tr><td>五年级</td><td>建议书、倡议书</td><td>能做到对象明确、做法具体、理由成链，不只喊口号。</td><td><a href="grade5.html#section-expression">五年级实用表达</a></td></tr>
+                <tr><td>六年级</td><td>复杂场景应用文</td><td>能根据任务对象切换语气和格式，换场景也不漏项。</td><td><a href="grade6.html#section-expression">六年级综合运用</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子下笔前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你现在做的是哪类应用文？</h3>
+            <p>先说清这是留言条、请假条、通知、建议书还是倡议书。题型分不清，方法一定会乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别改内容，先让他重新判断题型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>必写项是不是已经列出来了？</h3>
+            <p>留言条先列“称呼、正文、留言人、日期”，通知先列“五要素”，建议书先列“问题、建议、理由”。第一步说不出来，说明方法还没形成。</p>
+            <ul>
+              <li>先列必写项，再写句子，能明显减少“内容对了但格式丢分”。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你最容易漏哪一项？</h3>
+            <p>是漏署名日期，漏时间地点对象，还是建议不具体、倡议没有行动项？知道最容易错什么，下次才更容易避免。</p>
+            <ul>
+              <li>每次只抓一个最主要错点，不要一口气把所有问题全收。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮应用文训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这类题最怕一写就拖很久。真正有效的是“先判题型 + 立刻列要素 + 只改一个错点 + 换场景迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是留言条、请假条、通知、建议书还是倡议书，再说第一步是什么。</p>
+            <ul>
+              <li>例：这是通知题，我先查时间、地点、对象、事情、要求五项。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：列要素</h3>
+            <p>写作前先把必写项列出来，不追求句子漂亮，先追求信息完整。</p>
+            <ul>
+              <li>例：请假条先写“原因 + 时长 + 请求批准”，建议书先写“问题 + 做法 + 理由”。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个失分点</h3>
+            <p>不要一口气全改。只改“漏署名日期”或“建议太空”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重写一遍，让孩子看到修改前后的差别。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换场景迁移</h3>
+            <p>换一道相似任务，比如留言条换成请假条，建议书换成倡议书，看看骨架能不能迁移。</p>
+            <ul>
+              <li>会迁移，才算真正掌握，不是只会一道原题。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你拆格式</h3>
+            <p>适合家长想一句一句地带孩子列要素、补格式，或者想把“漏称呼、漏署名、语气不对”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文应用文题：先判断题型，再给家长可直接照着问的话术、必写要素检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文应用文题为什么会漏格式、漏要素或语气不当，并给出一步一步的复练。" class="secondary">应用文错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做诊断、安排训练，或者发现这题其实不是格式题，而是材料整合题。</p>
+            <div class="cta-actions">
+              <a href="practice.html#diagnosis">做 15 分钟诊断</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="integrated-learning.html" class="secondary">去综合性学习专题</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

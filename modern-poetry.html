@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#c05621">
+  <title>小学语文现代诗与儿童诗专题 | 画面、意象、节奏、情感、仿写</title>
+  <meta name="description" content="小学语文现代诗与儿童诗专题页：系统梳理画面描绘、关键词理解、情感体会、修辞赏析、仿写小诗和比较阅读，提供答题骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文现代诗,儿童诗,诗歌赏析,诗歌仿写,意象,画面感,情感体会">
+  <meta property="og:title" content="小学语文现代诗与儿童诗专题 | 画面、意象、节奏、情感、仿写">
+  <meta property="og:description" content="先看诗里写了什么，再说为什么这样写。把现代诗和儿童诗练成能稳定答题的表达模块。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --poetry-ink: #3d2a21;
+      --poetry-muted: #6d5b53;
+      --poetry-border: #eadfd6;
+      --poetry-rust: #c05621;
+      --poetry-rose: #be5b75;
+      --poetry-sky: #2c7da0;
+      --poetry-shadow: 0 18px 40px rgba(61, 42, 33, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(192, 86, 33, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(190, 91, 117, 0.12), transparent 24%),
+        linear-gradient(180deg, #fff9f5 0%, #ffffff 42%, #fdfaf7 100%);
+    }
+    .poetry-head {
+      background:
+        linear-gradient(135deg, rgba(192, 86, 33, 0.16), rgba(44, 125, 160, 0.12)),
+        #fff8f1;
+      border-bottom: 1px solid rgba(192, 86, 33, 0.12);
+    }
+    .poetry-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .poetry-note {
+      background: linear-gradient(135deg, #fff4e8, #f6fbff);
+      border: 1px solid #f0d8c4;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--poetry-shadow);
+      color: var(--poetry-ink);
+    }
+    .poetry-note strong {
+      color: var(--poetry-rust);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--poetry-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--poetry-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(192, 86, 33, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(44, 125, 160, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--poetry-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--poetry-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .poetry-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 82px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff1e6;
+      color: var(--poetry-rust);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .poetry-chips,
+    .poetry-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .poetry-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fdf2f8;
+      color: var(--poetry-rose);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .poetry-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .poetry-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: var(--poetry-rust);
+      border: 1px solid #f5d0b5;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .poetry-links a:hover {
+      transform: translateY(-1px);
+      background: #ffe8d2;
+      box-shadow: 0 12px 20px rgba(192, 86, 33, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--poetry-rust), var(--poetry-sky));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fffdfb;
+      border: 1px dashed #d8c5b8;
+      color: #4b5563;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--poetry-rust);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fef2f2;
+      color: #9f1239;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--poetry-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--poetry-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fff9f3 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--poetry-rust), #dd6b20);
+      color: white;
+      box-shadow: 0 14px 26px rgba(192, 86, 33, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--poetry-sky);
+      border: 1px solid #bfdbf0;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head poetry-head">
+      <p class="eyebrow">现代诗 / 儿童诗专题</p>
+      <h1>先看诗里写了什么，再说为什么这样写</h1>
+      <p>现代诗和儿童诗最怕“把诗句翻译一遍，就当答完了”。这页把小学高频的画面题、关键词理解、情感题、修辞赏析、仿写小诗和比较阅读拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="poetry-shell">
+      <section class="section">
+        <div class="poetry-note">
+          <strong>这页怎么用：</strong>先判断题目要你答的是画面、词句、情感、手法还是仿写，再去用对应模板。每次只练 1 种题型，先圈意象和关键词，再说画面和感受，最后回到 <a href="practice.html#diagnosis" style="color:#c05621; font-weight:700;">练习计划</a> 或 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文现代诗或儿童诗题：先判断是画面题、词句理解、情感题、修辞赏析、仿写还是比较阅读，再给家长可直接照着问的话术和孩子复述标准。" style="color:#c05621; font-weight:700;">AI 辅导</a> 做复盘。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="poetry-badge">01 画面题</span>
+            <h3>描绘诗句画面</h3>
+            <p>最常见也最容易答空。不是把诗句换成白话，而是把景物、颜色、动作和声音说成一幅能看见的画面。</p>
+            <div class="poetry-chips">
+              <span>三至四年级起步</span>
+              <span>先找景物和动作</span>
+            </div>
+            <div class="poetry-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="poetry-badge">02 词句题</span>
+            <h3>理解关键词句</h3>
+            <p>儿童诗和现代诗常把普通词语写出新感觉。关键不是查字典，而是把词语放回诗里的意象和语气里去理解。</p>
+            <div class="poetry-chips">
+              <span>三至五年级</span>
+              <span>本义 + 诗中义</span>
+            </div>
+            <div class="poetry-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade4.html#section-literature">看四年级升级</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="poetry-badge">03 情感题</span>
+            <h3>体会诗人情感</h3>
+            <p>不要只写“很开心”“很伤心”。要回到景物、反复出现的词语和语气变化，说出喜爱、赞美、思念、向往等更具体的情感。</p>
+            <div class="poetry-chips">
+              <span>四至六年级</span>
+              <span>景物带情感</span>
+            </div>
+            <div class="poetry-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#family-check">看家长检查</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="poetry-badge">04 手法题</span>
+            <h3>赏析修辞与表达效果</h3>
+            <p>比喻、拟人、反复、排比这些手法不能只报名字。要说它把什么写活了，写出了什么特点，又怎样服务情感。</p>
+            <div class="poetry-chips">
+              <span>四至六年级</span>
+              <span>手法 + 特点 + 情感</span>
+            </div>
+            <div class="poetry-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-literature">看五年级深化</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="poetry-badge">05 仿写题</span>
+            <h3>仿写小诗</h3>
+            <p>仿写不是只换几个词，而是保留句式、节奏和语气，再换成同类事物。低年级先稳句式，高年级再补意境。</p>
+            <div class="poetry-chips">
+              <span>三至五年级</span>
+              <span>先保句式</span>
+            </div>
+            <div class="poetry-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade3.html#section-literature">看三年级起步</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="poetry-badge">06 比较题</span>
+            <h3>比较阅读</h3>
+            <p>六年级常见压轴思路。比较两首诗时不要混着写，要先定角度，再分别说共同点和不同点。</p>
+            <div class="poetry-chips">
+              <span>六年级高频</span>
+              <span>按角度比较</span>
+            </div>
+            <div class="poetry-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-literature">看六年级冲刺</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">表达骨架</p>
+          <h2>六类任务，六套先读诗就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现代诗和儿童诗先抓看得见的内容，再往情感和手法上走。顺序对了，答案才不会只剩空感想。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>描绘诗句画面</h3>
+            <p>适合“这句诗描绘了怎样的画面”这类题。先把诗里有什么看清，再说感受到什么。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我仿佛看到……，听到……，感受到……。”<br>
+              <b>先抓：</b>景物、颜色、动作、声音。<br>
+              <b>关键动作：</b>写画面，不只写结论。
+            </div>
+            <div class="template-note">自查：我是不是只写了“很美、很热闹”？有没有把画面真正说出来？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>理解关键词句</h3>
+            <p>适合“某个词有什么含义”“某句诗表达了什么”这类题。先说本义，再回到诗里。</p>
+            <div class="template-box">
+              <b>骨架：</b>“‘……’本来指……，诗中写出了……，表现了……。”<br>
+              <b>先抓：</b>本义、诗中对象、带来的感受。<br>
+              <b>关键动作：</b>不要把词语孤立解释。
+            </div>
+            <div class="template-note">自查：我的解释是不是还停在字面？有没有结合诗里的景物、动作和语气？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>体会诗人情感</h3>
+            <p>适合“表达了怎样的情感”这类题。情感要从景物和词语里长出来。</p>
+            <div class="template-box">
+              <b>骨架：</b>“诗人借……，表达了……的感情。”<br>
+              <b>先抓：</b>反复出现的景物、关键词、语气变化。<br>
+              <b>关键动作：</b>情感要具体，不只写“大概开心”。
+            </div>
+            <div class="template-note">自查：我有没有说出“为什么会有这种情感”？有没有只给情绪标签，没有给依据？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>赏析修辞与效果</h3>
+            <p>适合“这样写有什么好处”这类题。手法不是终点，表达效果才是得分点。</p>
+            <div class="template-box">
+              <b>骨架：</b>“这句运用了……，把……写得……，表达了……。”<br>
+              <b>先抓：</b>手法、写活了什么、情感或节奏效果。<br>
+              <b>关键动作：</b>说清“写得怎样”，不要只报手法名称。
+            </div>
+            <div class="template-note">自查：我是不是只写了“很生动”？有没有说出具体写活了什么、强化了什么感受？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>仿写小诗</h3>
+            <p>适合儿童诗仿写和句式迁移。先保留句式和语气，再换同类内容。</p>
+            <div class="template-box">
+              <b>骨架：</b>“原句写……，我换成……，仿写为……”<br>
+              <b>先抓：</b>句式、节奏、语气、同类事物。<br>
+              <b>关键动作：</b>仿的是结构，不是只改几个字。
+            </div>
+            <div class="template-note">自查：我的仿写和原句是不是一个节奏？换进去的事物和原来是不是同一类？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>比较阅读</h3>
+            <p>适合两首诗的共同点与不同点。高频失误是把内容混着讲，丢了比较角度。</p>
+            <div class="template-box">
+              <b>骨架：</b>“两首诗都写了……，都表达了……；不同的是，第一首……，第二首……”<br>
+              <b>先抓：</b>比较角度、共同点、不同点、依据。<br>
+              <b>关键动作：</b>按一个角度写完再换下一个角度。
+            </div>
+            <div class="template-note">自查：我是不是一会儿讲这首、一会儿讲那首？有没有先定角度再分别比较？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“只会翻译诗句”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>画面题</td><td>“小草从泥土里探出头来”描绘了怎样的画面？</td><td>写了小草长出来。</td><td>我仿佛看到嫩绿的小草从松软的泥土里一点点钻出来，像在悄悄张望春天，画面充满了生机。</td><td>要有景物、动作和感受，不是只改写字面。</td></tr>
+                <tr><td>词句理解</td><td>诗中的“唱着歌”是什么意思？</td><td>就是在唱歌。</td><td>“唱着歌”本来是人的动作，这里把小溪当成人来写，写出了溪水流动时轻快活泼的样子。</td><td>先说本义，再回到拟人和画面。</td></tr>
+                <tr><td>情感题</td><td>这首诗表达了作者怎样的感情？</td><td>表达了开心。</td><td>诗人借明亮的阳光、开放的花朵和轻快的风，表达了对春天的喜爱与赞美。</td><td>情感要具体，还要带景物依据。</td></tr>
+                <tr><td>手法赏析</td><td>“月亮是摇篮”用了什么手法？有什么好处？</td><td>用了比喻，很生动。</td><td>这句运用了比喻，把月亮比作摇篮，写出了月光柔和、安静、轻轻摇动的感觉，也让整首诗更温柔。</td><td>不能只报手法，要说写活了什么。</td></tr>
+                <tr><td>仿写</td><td>仿照“春风是邮差，送来花香”，写一句小诗。</td><td>春风是风，吹来了花。</td><td>春风是邮差，轻轻一转身，就把杏花的香味送到了窗前。</td><td>保留句式和语气，还要有诗意。</td></tr>
+                <tr><td>比较阅读</td><td>比较两首写春天的诗在情感表达上的异同。</td><td>都写春天，都很好。</td><td>两首诗都写了春天的生机，也都表达了喜爱之情。不同的是，第一首更侧重轻快明亮的快乐感，第二首则多了一份安静细腻的观察与欣赏。</td><td>先写共同点，再写不同点，还要按角度比较。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>三到六年级，现代诗与儿童诗分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>三年级</td><td>圈景物词、说画面、仿写一句小诗</td><td>能说出诗里写了什么景物，看到了什么画面，不只翻译句子。</td><td><a href="grade3.html#section-literature">三年级整本书与儿童诗</a></td></tr>
+                <tr><td>四年级</td><td>情感题、诗句赏析起步</td><td>能答出“景物 + 情感”两层，会用“写出了……，表达了……”说完整。</td><td><a href="grade4.html#section-literature">四年级整本书与现代诗</a></td></tr>
+                <tr><td>五年级</td><td>意象、手法、情感三层赏析</td><td>不只复述内容，能说为什么这样写，并把作品和生活感受联系起来。</td><td><a href="grade5.html#section-literature">五年级整本书与现代诗</a></td></tr>
+                <tr><td>六年级</td><td>综合赏析、比较阅读、主题表达</td><td>能做到意象、手法、情感、主题四层完整，还能按角度比较两首诗。</td><td><a href="grade6.html#section-literature">六年级整本书与现代诗</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子答诗歌题前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你现在做的是哪类题？</h3>
+            <p>先说清这是画面题、词句理解、情感题、手法赏析、仿写还是比较阅读。题型分不清，答案顺序就会乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别急着讲答案，先让他重判题型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>第一步应该先抓什么？</h3>
+            <p>画面题先找景物和动作，情感题先找反复出现的意象，仿写题先看句式和语气。第一步说不出来，说明方法还没站稳。</p>
+            <ul>
+              <li>每类题先抓一个固定起手动作，孩子会更容易形成稳定方法。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你最容易空在哪里？</h3>
+            <p>是只写“很美”，还是只报手法名称，或者情感没有依据？知道最容易错什么，下次才更容易避开。</p>
+            <ul>
+              <li>每次只抓一个最主要失分点，不要一口气改成一大段标准答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮现代诗 / 儿童诗训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">诗歌题最怕讲太久、孩子开口太少。真正有效的是“先判题型 + 圈关键词 + 只改一个空点 + 换诗迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是画面题、情感题还是手法题，再说第一步是什么。</p>
+            <ul>
+              <li>例：这是情感题，我先找诗里反复出现的景物和关键词。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：圈意象和关键词</h3>
+            <p>先把能看见、能听见、能感受到的内容圈出来，再套骨架说一遍。</p>
+            <ul>
+              <li>例：先圈“小草、春风、花朵”，再说这些景物带来的感觉。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气全改。只改“没有画面”或“只有情感没有依据”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重说一遍，让孩子知道怎样从空话变具体。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换诗迁移</h3>
+            <p>换一首相似主题的小诗，再按同一步骤答一次，看看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才说明不是只记住了一道原题的说法。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你读诗</h3>
+            <p>适合家长想一句一句带孩子圈意象、补画面，或者想把“只会翻译、情感空、手法没效果”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文现代诗或儿童诗题：先判断题型，再给家长可直接照着问的话术、关键词检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文现代诗或儿童诗题为什么会只翻译诗句、情感空泛或只报手法名称，并给出一步一步的复练。" class="secondary">诗歌错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做诊断、安排训练，或者回到知识总控继续查模板。</p>
+            <div class="cta-actions">
+              <a href="practice.html#diagnosis">做 15 分钟诊断</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="knowledge-map.html#modern-poetry-system" class="secondary">看知识总控模板</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

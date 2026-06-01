@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2f855a">
+  <title>小学语文说明文阅读专题 | 说明对象、说明方法、语言准确性、说明顺序</title>
+  <meta name="description" content="小学语文说明文阅读专题页：系统梳理说明对象与特点、说明方法作用、语言准确性、说明顺序、信息提取与概括、段落作用与结构安排，提供答题骨架、满分示范、年级路线、家长检查和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文说明文阅读,说明对象,说明方法,语言准确性,能否删去,说明顺序,科普文阅读">
+  <meta property="og:title" content="小学语文说明文阅读专题 | 说明对象、说明方法、语言准确性、说明顺序">
+  <meta property="og:description" content="先找说明对象，再看方法和顺序，最后检查语言准不准。把说明文阅读练成能稳定得分的阅读模块。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --expo-ink: #22352a;
+      --expo-muted: #5c6f63;
+      --expo-border: #d6e6dc;
+      --expo-green: #2f855a;
+      --expo-teal: #0f766e;
+      --expo-amber: #b7791f;
+      --expo-shadow: 0 18px 40px rgba(34, 53, 42, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(47, 133, 90, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.1), transparent 24%),
+        linear-gradient(180deg, #f7fcf8 0%, #ffffff 42%, #fbfdfb 100%);
+    }
+    .expo-head {
+      background:
+        linear-gradient(135deg, rgba(47, 133, 90, 0.16), rgba(15, 118, 110, 0.12)),
+        #f4fbf6;
+      border-bottom: 1px solid rgba(47, 133, 90, 0.12);
+    }
+    .expo-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .expo-note {
+      background: linear-gradient(135deg, #eefaf1, #f1fbfa);
+      border: 1px solid #cfe3d5;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--expo-shadow);
+      color: var(--expo-ink);
+    }
+    .expo-note strong {
+      color: var(--expo-green);
+    }
+    .router-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .router-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .router-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--expo-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--expo-shadow);
+    }
+    .router-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .router-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(47, 133, 90, 0.08);
+    }
+    .router-card:nth-child(2n)::after {
+      background: rgba(15, 118, 110, 0.08);
+    }
+    .router-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--expo-ink);
+      line-height: 1.35;
+    }
+    .router-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--expo-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .expo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 96px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e9f7ee;
+      color: var(--expo-green);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .expo-chips,
+    .expo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .expo-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ecfeff;
+      color: var(--expo-teal);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .expo-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .expo-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #edf9f1;
+      color: var(--expo-green);
+      border: 1px solid #c9dfd0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .expo-links a:hover {
+      transform: translateY(-1px);
+      background: #def3e5;
+      box-shadow: 0 12px 20px rgba(47, 133, 90, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--expo-green), var(--expo-teal));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fcf9;
+      border: 1px dashed #c9d9cf;
+      color: #3f4c46;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--expo-amber);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f5fbf7;
+      color: #166534;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--expo-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--expo-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f7fcf8 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--expo-green), #2f855a);
+      color: white;
+      box-shadow: 0 14px 26px rgba(47, 133, 90, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: var(--expo-teal);
+      border: 1px solid #bfe5db;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .router-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head expo-head">
+      <p class="eyebrow">说明文阅读专题</p>
+      <h1>先找说明对象，再看方法和顺序，最后检查语言准不准</h1>
+      <p>说明文最怕“知道在介绍什么，却答不清它是怎么介绍的”。这页把小学高频的说明对象与特点、说明方法作用、语言准确性、说明顺序、信息提取与概括、段落作用拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="expo-shell">
+      <section class="section">
+        <div class="expo-note">
+          <strong>这页怎么用：</strong>先判断题目在问对象特点、说明方法、词语能否删去、说明顺序、信息概括还是段落作用，再套对应模板。每次只练 1 种题型，先圈说明对象、特点、数据和限定词，再组织答案。练完后回到 <a href="practice.html#pack-r3" style="color:#2f855a; font-weight:700;">R3 赏析和说明文训练包</a> 或 <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文说明文阅读题：先判断是说明对象与特点、说明方法作用、词语能否删去、说明顺序、信息提取还是段落作用，再给家长可直接照着问的话术、关键词检查表和孩子复述标准。" style="color:#2f855a; font-weight:700;">AI 辅导</a> 做复盘。<br>
+          如果题目重点是读图表、比数据、整合多材料，那不是这页，直接去 <a href="non-continuous-text.html" style="color:#2563eb; font-weight:700;">非连续性文本专题</a>。
+        </div>
+
+        <div class="router-grid" id="task-router">
+          <article class="router-card">
+            <span class="expo-badge">01 对象特点</span>
+            <h3>说明对象与特点</h3>
+            <p>最基础也最容易答空。不是只说“这篇文章写了某种动物”，而是要答出文章主要从哪几方面介绍它的什么特点。</p>
+            <div class="expo-chips">
+              <span>四至六年级</span>
+              <span>先对象后特点</span>
+            </div>
+            <div class="expo-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="expo-badge">02 说明方法</span>
+            <h3>说明方法作用</h3>
+            <p>很多孩子能认出“列数字、举例子、作比较、打比方”，却说不清这样写到底说明了什么特点。这一题的关键永远是“方法后面要跟对象特点”。</p>
+            <div class="expo-chips">
+              <span>五年级高频</span>
+              <span>方法后面补特点</span>
+            </div>
+            <div class="expo-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="grade5.html#expository-reading">看五年级实战</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="expo-badge">03 语言准确</span>
+            <h3>语言准确性 / 能否删去</h3>
+            <p>“大约、通常、可能、左右、绝大多数”这些词不是废话。说明文语言题的核心，是比较删词前后意思有没有变绝对。</p>
+            <div class="expo-chips">
+              <span>五至六年级</span>
+              <span>删词前后都要比</span>
+            </div>
+            <div class="expo-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="practice.html#pack-r3">去 R3 训练</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="expo-badge">04 说明顺序</span>
+            <h3>说明顺序</h3>
+            <p>时间顺序、空间顺序和逻辑顺序最常见。不要只写“有顺序”，要说清文章是按什么顺序介绍，这样安排有什么好处。</p>
+            <div class="expo-chips">
+              <span>五至六年级</span>
+              <span>顺序要说出名称</span>
+            </div>
+            <div class="expo-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="grade6.html#section-literature">看六年级提醒</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="expo-badge">05 信息提取</span>
+            <h3>信息提取与概括</h3>
+            <p>科普文常考“第几段主要介绍了什么”“全文主要从哪几方面介绍对象”。难点不在找句子，而在去掉枝叶，留下要点。</p>
+            <div class="expo-chips">
+              <span>五至六年级</span>
+              <span>段落先标标签</span>
+            </div>
+            <div class="expo-links">
+              <a href="#model-table">看满分示范</a>
+              <a href="grade6.html#section-literature">看六年级综合</a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <span class="expo-badge">06 段落作用</span>
+            <h3>段落作用 / 结构安排</h3>
+            <p>开头常见“引出对象、纠正常识、激发兴趣”，中间常见“承接补充、分层说明”，结尾常见“总结强调、呼应开头”。</p>
+            <div class="expo-chips">
+              <span>六年级提升</span>
+              <span>内容和结构都要答</span>
+            </div>
+            <div class="expo-links">
+              <a href="#quick-templates">看答题骨架</a>
+              <a href="knowledge-map.html#expository-system">看知识总控速查</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">答题骨架</p>
+          <h2>六类任务，六套拿到说明文就能直接用的模板</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">说明文先抓对象和特点，再判断方法、顺序和语言，最后才是补结构作用。顺序对了，答案才不会只剩空术语。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>说明对象与特点</h3>
+            <p>适合“本文主要介绍了什么”“介绍了对象哪些特点”这类题。先锁定对象，再按方面概括。</p>
+            <div class="template-box">
+              <b>骨架：</b>“本文主要说明了……，从……、……、……等方面介绍了它的……特点。”<br>
+              <b>先抓：</b>对象名称、每段核心信息、反复出现的特点词。<br>
+              <b>关键动作：</b>答案里要有“哪几方面”，不要只给一个评价词。
+            </div>
+            <div class="template-note">自查：我是不是只写了“它很厉害、很特别”？有没有答出具体特点和介绍角度？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>说明方法作用</h3>
+            <p>适合“这句话用了什么说明方法？有什么作用？”这类题。方法只是第一步，真正得分点是“说明了什么特点”。</p>
+            <div class="template-box">
+              <b>骨架：</b>“这句话运用了……的说明方法，具体/准确/形象地说明了……的……特点，使说明更……”<br>
+              <b>先抓：</b>方法名称、对象、特点、效果词。<br>
+              <b>关键动作：</b>列数字答“具体准确”，打比方答“生动形象”，作比较答“突出特点”。
+            </div>
+            <div class="template-note">自查：我是不是只写了“用了列数字，很生动”？有没有补上对象和特点？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>语言准确性 / 能否删去</h3>
+            <p>适合“‘大约/通常/可能’能删去吗？为什么？”这类题。答案结构最稳定，也最值得练熟。</p>
+            <div class="template-box">
+              <b>骨架：</b>“不能删。‘……’表示……，删去后变成……，与事实/原意不符，体现了说明文语言的准确性和严谨性。”<br>
+              <b>先抓：</b>词义、删后变化、是否变绝对。<br>
+              <b>关键动作：</b>把“原句”和“删词后句子”都在心里读一遍。
+            </div>
+            <div class="template-note">自查：我是不是只写了“不能删，不准确”？有没有写清为什么不准确？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>说明顺序</h3>
+            <p>适合“文章按什么顺序说明”“这几段能不能调换”这类题。顺序题要说清顺序名称和安排理由。</p>
+            <div class="template-box">
+              <b>骨架：</b>“文章先写……，再写……，最后写……，这是按照……顺序来说明的，这样写条理更清楚/更符合认识事物的过程。”<br>
+              <b>先抓：</b>段落先后内容、顺序类型、读者理解路径。<br>
+              <b>关键动作：</b>常见顺序有时间、空间、逻辑三类。
+            </div>
+            <div class="template-note">自查：我是不是只写了“按顺序写的”？有没有说出到底是什么顺序？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>信息提取与概括</h3>
+            <p>适合“第几段主要介绍了什么”“全文主要从哪几方面介绍对象”这类题。先分段标注，再压缩成要点。</p>
+            <div class="template-box">
+              <b>骨架：</b>“第……段主要介绍了……；全文主要从……、……、……几方面介绍……”<br>
+              <b>先抓：</b>每段中心句、关键词、并列信息。<br>
+              <b>关键动作：</b>去掉例子和细节，保留对象 + 特点 + 方面。
+            </div>
+            <div class="template-note">自查：我是不是抄了整句原文？有没有把零散信息整理成几个清楚的点？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>段落作用 / 结构安排</h3>
+            <p>适合“开头/中间/结尾段有什么作用”这类题。说明文作用题也要兼顾内容和结构。</p>
+            <div class="template-box">
+              <b>骨架：</b>“内容上写了……；结构上起到……作用；对全文说明起到……”<br>
+              <b>先抓：</b>这段写了什么、所在位置、与上下文关系。<br>
+              <b>关键动作：</b>开头常引出对象，中间常承接补充，结尾常总结强调。
+            </div>
+            <div class="template-note">自查：我是不是只写了“引起下文”或“总结全文”？有没有结合这段具体内容？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“知道是说明文”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>对象特点</td><td>本文主要介绍了海豚哪些特点？</td><td>海豚很厉害。</td><td>文章主要介绍了海豚用肺呼吸、需要定时浮出水面换气，以及在不同情况下换气频率会变化等特点。</td><td>答案要写“哪几方面”，不要只用一个笼统评价词。</td></tr>
+                <tr><td>说明方法</td><td>“松鼠一胎通常生三四个幼崽”用了什么说明方法？有什么作用？</td><td>用了列数字。</td><td>这句话运用了列数字的说明方法，用“三四个”准确说明松鼠一胎幼崽的数量，使说明更具体、更准确。</td><td>方法后面必须跟对象和特点。</td></tr>
+                <tr><td>语言准确性</td><td>句中的“通常”能删去吗？为什么？</td><td>不能删，不准确。</td><td>不能删。“通常”表示一般情况，不排除特殊情况；删去后就变成所有情况都如此，说法过于绝对，与事实不符，体现了说明文语言的准确性和严谨性。</td><td>词义 + 删后变化 + 准确性三点缺一不可。</td></tr>
+                <tr><td>说明顺序</td><td>第 2 到 4 段能否调换顺序？为什么？</td><td>不能，按顺序写的。</td><td>不能。第 2 段先写外形，第 3 段再写生活习性，第 4 段最后写保护自己的方式，文章按逻辑顺序由外到内、由易观察到难观察来介绍，这样更有条理。</td><td>顺序题要说出顺序名称和安排依据。</td></tr>
+                <tr><td>信息概括</td><td>第 3 段主要介绍了什么？</td><td>介绍了海豚。</td><td>第 3 段主要介绍了海豚在学习新动作时换气次数会更频繁，说明不同情境下它的换气频率会发生变化。</td><td>概括时要去掉枝叶，留下“对象 + 具体内容”。</td></tr>
+                <tr><td>段落作用</td><td>文章开头先写“鲸鱼不是鱼”有什么作用？</td><td>吸引读者。</td><td>开头先指出“鲸鱼不是鱼”，能够纠正常见误解，引起读者注意，并自然引出下文对鲸鱼呼吸方式和生活习性的说明，使说明对象更明确。</td><td>说明文作用题也要答“内容 + 结构”。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>四到六年级，说明文阅读分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>四年级</td><td>认识说明对象和特点，开始留意限定词</td><td>能看出文章主要在介绍什么，不把说明文当记叙文整段复述。</td><td><a href="grade4.html#section-reading">四年级阅读概括</a></td></tr>
+                <tr><td>五年级</td><td>说明方法作用、语言准确性、基本说明顺序</td><td>能答出“方法 + 对象特点 + 作用”，能完整回答“词语能否删去”。</td><td><a href="grade5.html#expository-reading">五年级说明文阅读</a></td></tr>
+                <tr><td>六年级</td><td>段落作用、信息提取概括、科普文综合阅读</td><td>能分清说明文和非连续性文本，能按分值写完整答案，不只停在术语层。</td><td><a href="grade6.html#section-literature">六年级综合阅读</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子答说明文前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你先圈出说明对象和特点了吗？</h3>
+            <p>说明文题最怕一上来就写术语。先说清对象是谁、主要特点是什么，后面的说明方法和顺序才不会答飘。</p>
+            <ul>
+              <li>如果对象和特点说不清，先别急着讲模板，先让孩子把每段“介绍了什么”标出来。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你写的是“方法名”，还是“方法 + 特点 + 作用”？</h3>
+            <p>只写“用了列数字”通常不够。真正得分的是：用了什么方法，说明了对象什么特点，带来什么表达效果。</p>
+            <ul>
+              <li>每次看到说明方法题，都追问一句：“说明了对象的什么特点？”</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你比较过删词前后了吗？</h3>
+            <p>语言准确性题不是背“不能删，不准确”，而是要真的读一遍删前和删后，听出哪一句变绝对了。</p>
+            <ul>
+              <li>每次只抓一个限定词做对比，语感慢慢就会稳下来。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮说明文训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">说明文最怕一边读一边乱记术语。真正有效的是“先判题型 + 圈对象特点和限定词 + 只改一个空点 + 换句迁移”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是对象题、方法题、语言题、顺序题、概括题还是作用题，再说第一步要抓什么。</p>
+            <ul>
+              <li>例：这是语言准确性题，我先看限定词“通常”删掉后意思会不会变绝对。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：圈对象、特点和限定词</h3>
+            <p>先圈说明对象、每段特点、数据和“大约/通常/可能”这类词，再组织答案。</p>
+            <ul>
+              <li>题干没问顺序，也先标一遍段落在介绍什么，后面概括和作用题都更好答。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个空点</h3>
+            <p>不要一口气把整段答案改成作文。只改“没有对象特点”或“没有删后变化”这种一个最主要问题。</p>
+            <ul>
+              <li>改完立刻重说一遍，让孩子知道答案是怎样从空术语变成完整表达的。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换句迁移</h3>
+            <p>换一个限定词或换一句说明方法句，再按同一骨架答一次，看方法能不能迁移。</p>
+            <ul>
+              <li>会迁移，才说明不是只记住了这一道题的标准答案。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你拆说明文</h3>
+            <p>适合家长想一句一句带孩子圈说明对象、限定词和说明方法，或者想把“只会报术语、不会写完整答案”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=讲清知识点&amp;level=家长陪练&amp;question=请按家长陪练轨，辅导一道小学语文说明文阅读题：先判断题型，再给家长可直接照着问的话术、关键词检查表和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&amp;subject=语文&amp;task=错因诊断&amp;level=中等生提分&amp;question=请帮我诊断这道小学语文说明文阅读题为什么会只报说明方法、词语能否删去只写不能删，或者概括不准，并给出一步一步的复练。" class="secondary">说明文错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做短时训练、回知识总控查模板，或者把说明文和非连续性文本区分开来练。</p>
+            <div class="cta-actions">
+              <a href="practice.html#pack-r3">去 R3 训练包</a>
+              <a href="knowledge-map.html#expository-system" class="secondary">看知识总控模板</a>
+              <a href="non-continuous-text.html" class="secondary">分清图表材料题</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>

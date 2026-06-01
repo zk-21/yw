@@ -313,18 +313,22 @@
 
 ## 四、教材册次覆盖判断
 
-`data/unit-coverage.json` 目前还不能支撑“全册次完整覆盖”的结论。
+`data/unit-coverage.json` 现在已经可以支撑“1-6 年级上下册均已建册次映射”的结论，但“单元主题 -> 能力点 -> 对应训练入口”还可以继续做实。
 
 已见到的顶层册次：
 
 - 一年级上册
 - 一年级下册
 - 二年级上册
+- 二年级下册
 - 三年级上册
+- 三年级下册
 - 四年级上册
 - 四年级下册
 - 五年级上册
+- 五年级下册
 - 六年级上册
+- 六年级下册
 
 证据：
 
@@ -336,18 +340,15 @@
 - [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:577)
 - [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:691)
 - [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:805)
+- [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:919)
+- [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:1033)
+- [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:1147)
+- [data/unit-coverage.json](/D:/work/张可/点点/create-a-notion-doc-summarizing-my/data/unit-coverage.json:1261)
 
-明显缺口：
+当前判断：
 
-- 二年级下册
-- 三年级下册
-- 五年级下册
-- 六年级下册
-
-这意味着：
-
-- 现在可以说“有单元能力地图意识”。
-- 还不能说“教材册次和单元覆盖已经完整”。
+- 现在可以说“教材册次已补齐，且与年级页映射一致”。
+- 下一步重点不再是补册次，而是把每个单元和对应训练入口连得更紧。
 
 ## 五、优先补齐建议
 
@@ -368,10 +369,10 @@
 
 ### 第二优先级
 
-补教材册次与单元映射完整性：
+做实教材单元映射质量：
 
-- 补完缺失册次的数据块。
 - 把“单元主题 -> 能力点 -> 对应训练入口”做实。
+- 补强每个册次里“该单元先学什么、去哪里练、怎么复盘”的落地说明。
 
 ### 第三优先级
 
@@ -392,6 +393,6 @@
 - 综合性学习
 - 整本书阅读
 - 现代诗 / 儿童诗
-- 教材册次完整性
+- 教材单元到训练入口的映射深度
 
 后续补内容时，建议优先从这几块动手，而不是继续加深已经很强的作文和常规阅读模块。

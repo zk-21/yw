@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="语文成长地图">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0f766e">
+  <title>小学语文口语交际专题 | 转述、劝说、推荐、采访、讨论发言</title>
+  <meta name="description" content="小学语文口语交际专题页：系统梳理转述、劝说、推荐、采访、通知和讨论发言六大高频任务，提供表达骨架、满分示范、家长检查清单和 AI 辅导入口。">
+  <meta name="keywords" content="小学语文口语交际,转述,劝说,推荐,采访,通知,讨论发言">
+  <meta property="og:title" content="小学语文口语交际专题 | 转述、劝说、推荐、采访、讨论发言">
+  <meta property="og:description" content="先判断任务，再套表达骨架，最后开口复述一遍。把最常见的口语交际任务练成稳定得分点。">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=115">
+  <style>
+    :root {
+      --oral-ink: #17313a;
+      --oral-muted: #52616b;
+      --oral-border: #d8e2e7;
+      --oral-teal: #0f766e;
+      --oral-gold: #d97706;
+      --oral-wash: #f2fbfa;
+      --oral-wash-2: #fff8ef;
+      --oral-shadow: 0 18px 40px rgba(23, 49, 58, 0.08);
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(217, 119, 6, 0.1), transparent 22%),
+        linear-gradient(180deg, #f8fcfc 0%, #ffffff 42%, #fffdf8 100%);
+    }
+    .oral-head {
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(217, 119, 6, 0.12)),
+        #f4fffd;
+      border-bottom: 1px solid rgba(15, 118, 110, 0.12);
+    }
+    .oral-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 5vw 60px;
+    }
+    .oral-note {
+      background: linear-gradient(135deg, #effcf9, #fff8ef);
+      border: 1px solid #c9ebe5;
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--oral-shadow);
+      color: var(--oral-ink);
+    }
+    .oral-note strong {
+      color: var(--oral-teal);
+    }
+    .oral-grid,
+    .template-grid,
+    .check-grid,
+    .loop-grid,
+    .cta-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .oral-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .loop-grid,
+    .cta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .oral-card,
+    .template-card,
+    .check-card,
+    .loop-card,
+    .cta-card {
+      background: white;
+      border: 1px solid var(--oral-border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--oral-shadow);
+    }
+    .oral-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .oral-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -24px -26px auto;
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.08);
+    }
+    .oral-card:nth-child(2n)::after {
+      background: rgba(217, 119, 6, 0.08);
+    }
+    .oral-card h3,
+    .template-card h3,
+    .check-card h3,
+    .loop-card h3,
+    .cta-card h3 {
+      margin: 14px 0 10px;
+      color: var(--oral-ink);
+      line-height: 1.35;
+    }
+    .oral-card p,
+    .template-card p,
+    .check-card p,
+    .loop-card p,
+    .cta-card p {
+      margin: 0;
+      color: var(--oral-muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .oral-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 64px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e7faf7;
+      color: var(--oral-teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .oral-chips,
+    .oral-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .oral-chips span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .oral-links a,
+    .cta-card a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .oral-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #f0fdfa;
+      color: var(--oral-teal);
+      border: 1px solid #bfe7df;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .oral-links a:hover {
+      transform: translateY(-1px);
+      background: #dff8f2;
+      box-shadow: 0 12px 20px rgba(15, 118, 110, 0.12);
+    }
+    .template-card {
+      position: relative;
+      padding-top: 18px;
+    }
+    .template-card::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--oral-teal), var(--oral-gold));
+    }
+    .template-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      color: #334155;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .template-box b {
+      color: var(--oral-gold);
+    }
+    .template-note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .table-card .responsive-table table td strong {
+      color: var(--oral-ink);
+    }
+    .check-card ul,
+    .loop-card ul {
+      margin: 14px 0 0 18px;
+      color: var(--oral-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .cta-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f9fefd 100%);
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--oral-teal), #14b8a6);
+      color: white;
+      box-shadow: 0 14px 26px rgba(15, 118, 110, 0.16);
+    }
+    .cta-actions a.secondary {
+      background: white;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      box-shadow: none;
+    }
+    @media (max-width: 980px) {
+      .oral-grid,
+      .template-grid,
+      .check-grid,
+      .loop-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">文</span><span>语文成长地图</span></a><button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+    <nav class="nav" aria-label="主导航">
+      <a href="index.html">总览</a>
+      <a href="agent.html">AI Agent</a>
+      <a href="knowledge-map.html">知识总控</a>
+      <a href="extra-topics.html">易漏专题</a>
+      <a href="practice.html">练习计划</a>
+      <a href="grade3.html">三年级</a>
+      <a href="grade4.html">四年级</a>
+      <a href="grade5.html">五年级</a>
+      <a href="grade6.html">六年级</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head oral-head">
+      <p class="eyebrow">口语交际专题</p>
+      <h1>先判断任务，再套表达骨架，最后开口复述一遍</h1>
+      <p>口语交际最怕“脑子里好像知道，嘴上却说不完整”。这页把小学最常见的转述、劝说、推荐、采访、通知和讨论发言拆成可直接操作的骨架、示范和检查清单。</p>
+    </section>
+
+    <div class="oral-shell">
+      <section class="section">
+        <div class="oral-note">
+          <strong>这页怎么用：</strong>先认清你做的是哪一类口语任务，再去用对应模板。每次只练 1 种题型，先口头说顺，再写成文字，最后回到 <a href="practice.html#diagnosis" style="color:#0f766e; font-weight:700;">练习计划</a> 或 <a href="agent.html?stage=小学主站&subject=语文&task=讲清知识点&level=家长陪练&question=请按家长陪练轨，辅导一道小学语文口语交际题：先判断题型，再给家长可直接照着问的话术和孩子复述标准。"
+          style="color:#0f766e; font-weight:700;">AI 辅导</a> 做复盘。
+        </div>
+
+        <div class="oral-grid" id="task-router">
+          <article class="oral-card">
+            <span class="oral-badge">01 转述</span>
+            <h3>转述</h3>
+            <p>把别人的话准确转给第三个人。关键不是背原句，而是把人物、时间、地点和事情说完整，同时把“我、你、他”换准确。</p>
+            <div class="oral-chips">
+              <span>三年级起步</span>
+              <span>先抓四要素</span>
+            </div>
+            <div class="oral-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#model-table">看满分示范</a>
+            </div>
+          </article>
+
+          <article class="oral-card">
+            <span class="oral-badge">02 劝说</span>
+            <h3>劝说</h3>
+            <p>态度礼貌，理由具体，让对方愿意接受。重点不是“批评”，而是先理解对方，再给出可以执行的建议。</p>
+            <div class="oral-chips">
+              <span>四年级常考</span>
+              <span>先称呼再建议</span>
+            </div>
+            <div class="oral-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="#family-check">看家长检查</a>
+            </div>
+          </article>
+
+          <article class="oral-card">
+            <span class="oral-badge">03 推荐</span>
+            <h3>推荐</h3>
+            <p>推荐一本书、一个地方、一项活动或一位同学。最常见问题是只说“很好、很有趣”，却说不出具体理由。</p>
+            <div class="oral-chips">
+              <span>三至五年级高频</span>
+              <span>至少两条理由</span>
+            </div>
+            <div class="oral-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade5.html#section-expression">看高年级延伸</a>
+            </div>
+          </article>
+
+          <article class="oral-card">
+            <span class="oral-badge">04 采访</span>
+            <h3>采访</h3>
+            <p>围绕主题设计有顺序的问题，能问出真实信息。最怕问题太空太大，对方无法具体回答。</p>
+            <div class="oral-chips">
+              <span>四至五年级</span>
+              <span>问题要递进</span>
+            </div>
+            <div class="oral-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade4.html#section-expression">看年级示范</a>
+            </div>
+          </article>
+
+          <article class="oral-card">
+            <span class="oral-badge">05 通知</span>
+            <h3>通知</h3>
+            <p>虽然有书面形式，但本质上也是表达任务。时间、地点、对象、事情、要求五项不全，就很容易丢分。</p>
+            <div class="oral-chips">
+              <span>三至四年级</span>
+              <span>先查五要素</span>
+            </div>
+            <div class="oral-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="knowledge-map.html#application-writing-system">看应用文模板</a>
+            </div>
+          </article>
+
+          <article class="oral-card">
+            <span class="oral-badge">06 发言</span>
+            <h3>讨论发言</h3>
+            <p>先亮观点，再给理由，还要能接住别人观点。很多丢分都在“我有态度，但理由太空、例子太弱”。</p>
+            <div class="oral-chips">
+              <span>五至六年级</span>
+              <span>观点 + 理由 + 例子</span>
+            </div>
+            <div class="oral-links">
+              <a href="#quick-templates">看表达骨架</a>
+              <a href="grade6.html#section-expression">看冲刺表达</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="quick-templates">
+        <div class="section-title">
+          <p class="eyebrow">表达骨架</p>
+          <h2>六类任务，六套先开口就能用的骨架</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">先把顺序说对，再追求说得漂亮。越低年级越要把骨架练熟，越高年级越要在骨架里补具体理由和例子。</p>
+        </div>
+        <div class="template-grid">
+          <article class="template-card">
+            <h3>转述</h3>
+            <p>适合把老师、家长、同学的话转告给另一个人。</p>
+            <div class="template-box">
+              <b>骨架：</b>“……让我转告你，……时候，请你在……地点……。”<br>
+              <b>先抓：</b>谁说的、告诉谁、什么时候、做什么。<br>
+              <b>关键动作：</b>人称先改准，再补时间地点。
+            </div>
+            <div class="template-note">自查：我有没有把“我、你、他”说乱？有没有只剩一个“大概意思”，把关键条件漏掉？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>劝说</h3>
+            <p>适合图书馆喧哗、乱丢垃圾、沉迷游戏等情境。</p>
+            <div class="template-box">
+              <b>骨架：</b>“……，我知道你……，但是……会……。我们可以……，好吗？”<br>
+              <b>先抓：</b>称呼、理解对方、说明影响、提出建议。<br>
+              <b>关键动作：</b>语气要商量式，不命令。
+            </div>
+            <div class="template-note">自查：我是不是只说“这样不好”？有没有说明为什么不好、可以怎么改？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>推荐</h3>
+            <p>适合推荐一本书、一个地方、一项活动。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我推荐……，因为第一……，第二……，最打动我的是……。”<br>
+              <b>先抓：</b>推荐对象、2 到 3 条具体理由、个人感受。<br>
+              <b>关键动作：</b>理由不能空，最好带人物、情节、景物或活动细节。
+            </div>
+            <div class="template-note">自查：我是不是只说“很好看、很有趣”？有没有至少 2 条能落到细节上的理由？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>采访</h3>
+            <p>适合节日活动、校园劳动、读书习惯等主题。</p>
+            <div class="template-box">
+              <b>骨架：</b>“您好，我想了解……。请问……？还想请教……？最后一个问题是……”<br>
+              <b>先抓：</b>主题、3 个递进问题、结尾感谢。<br>
+              <b>关键动作：</b>先问基本信息，再问原因，再问感受或建议。
+            </div>
+            <div class="template-note">自查：我的问题是不是太空，比如“你怎么看”？能不能换成更具体、可回答的问题？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>通知</h3>
+            <p>适合班级活动、排练、集合、比赛提醒。</p>
+            <div class="template-box">
+              <b>骨架：</b>“请……于……到……参加……，请带好……。”<br>
+              <b>先抓：</b>时间、地点、对象、事情、要求。<br>
+              <b>关键动作：</b>按五要素数一遍，不够就补。
+            </div>
+            <div class="template-note">自查：五项里我漏了哪一项？语气是不是简明、正式，而不是口头聊天式？</div>
+          </article>
+
+          <article class="template-card">
+            <h3>讨论发言</h3>
+            <p>适合“是否赞成……”“你怎么看……”这类表达观点的题。</p>
+            <div class="template-box">
+              <b>骨架：</b>“我同意 / 不同意……，因为……。第一……，第二……。比如……，所以我建议……”<br>
+              <b>先抓：</b>观点、2 个理由、1 个例子或依据。<br>
+              <b>关键动作：</b>观点说得短，理由说得实，例子说得贴题。
+            </div>
+            <div class="template-note">自查：我是不是只有态度没有理由？我的例子和题目有没有真正连上？</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model-table">
+        <div class="section-title">
+          <p class="eyebrow">示范对照</p>
+          <h2>从“只会说一句”到“能稳定拿分”的差别</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>题型</th><th>真实题目</th><th>低分表达</th><th>满分示范</th><th>提分关键</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>转述</td><td>老师说：“明天八点带跳绳到操场集合。”请转告请假的同学。</td><td>老师说明天去操场。</td><td><strong>老师让我转告你：</strong>明天上午八点，请带上跳绳到操场集合。</td><td>把人物、时间、事情说完整，人称转换准确。</td></tr>
+                <tr><td>劝说</td><td>同学在图书馆大声说话，你会怎样劝他？</td><td>你别吵了！</td><td><strong>小明，</strong>这里是图书馆，大家都在安静看书。你如果有话想说，可以小声一点，或者我们出去再聊，好吗？</td><td>有称呼、有理由、有建议，语气礼貌。</td></tr>
+                <tr><td>推荐</td><td>向同学推荐一本你喜欢的书。</td><td>我推荐《西游记》，很好看。</td><td>我推荐《西游记》。这本书情节很有趣，人物也很鲜明，孙悟空勇敢机智，遇到困难不退缩。读这本书，不但能感受丰富的想象，还能学到坚持和勇气。</td><td>理由至少两层，不能只给结论。</td></tr>
+                <tr><td>采访</td><td>采访值日班长，了解怎样才能把值日做得更好。</td><td>你怎么值日？</td><td>您好，我想了解一下，您平时怎样安排值日顺序？遇到同学不配合时，您会怎么提醒？您觉得把值日做好最重要的一点是什么？</td><td>问题具体，而且有先后顺序。</td></tr>
+                <tr><td>通知</td><td>周五下午三点在音乐教室排练节目，请写通知。</td><td>周五排练节目，大家参加。</td><td><strong>通知：</strong>请参加节目排练的同学于周五下午三点到音乐教室集合，请带好节目道具，不要迟到。</td><td>时间、地点、对象、事情、要求都要齐。</td></tr>
+                <tr><td>讨论发言</td><td>你是否赞成小学生每天做家务？</td><td>我赞成，因为做家务好。</td><td>我赞成小学生每天做力所能及的家务。因为做家务不仅能减轻父母负担，还能培养责任感。比如我每天整理书桌，学习也变得更有条理，所以我觉得应该坚持。</td><td>观点后要跟 2 个理由，最好补 1 个例子。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="grade-roadmap">
+        <div class="section-title">
+          <p class="eyebrow">年级路线</p>
+          <h2>三到六年级，口语交际分别应该练什么</h2>
+        </div>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>年级</th><th>重点任务</th><th>先练到什么程度</th><th>对应入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>三年级</td><td>转述、推荐、留言条、小调查</td><td>能把人物、时间、事情说清楚；推荐时有两条理由。</td><td><a href="grade3.html#section-expression">三年级口语与应用</a></td></tr>
+                <tr><td>四年级</td><td>通知、采访、讨论发言、活动整理</td><td>能按对象、理由、顺序来表达，不只“想到什么说什么”。</td><td><a href="grade4.html#section-expression">四年级综合表达</a></td></tr>
+                <tr><td>五年级</td><td>读书交流、建议、倡议、采访整理</td><td>能把观点和材料、人物和感受、建议和理由真正连起来。</td><td><a href="grade5.html#section-expression">五年级实用表达</a></td></tr>
+                <tr><td>六年级</td><td>讨论发言、提建议、宣传语、活动方案</td><td>能做到观点明确、理由具体、语气得体，还能引用材料或数据。</td><td><a href="grade6.html#section-expression">六年级综合运用</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="family-check">
+        <div class="section-title">
+          <p class="eyebrow">检查清单</p>
+          <h2>孩子开口前 30 秒，家长只问这三件事</h2>
+        </div>
+        <div class="check-grid">
+          <article class="check-card">
+            <h3>你在做哪类任务？</h3>
+            <p>先说清这是转述、劝说、推荐、采访、通知还是讨论发言。题型分不清，方法一定会乱。</p>
+            <ul>
+              <li>如果孩子答不上来，先别改答案，先让他重新判断任务类型。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>第一步应该先做什么？</h3>
+            <p>转述先抓四要素，劝说先定称呼和理由，通知先数五要素，讨论发言先亮观点。</p>
+            <ul>
+              <li>第一步说不出来，说明还没形成稳定方法。</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3>你最容易漏掉哪一步？</h3>
+            <p>是人称说乱、理由太空、格式不全，还是只有态度没有例子？知道最容易错什么，下次才更容易避免。</p>
+            <ul>
+              <li>每次只抓一个最主要错点，不要一口气纠正五六条。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt-bg" id="training-loop">
+        <div class="section-title">
+          <p class="eyebrow">15 分钟闭环</p>
+          <h2>一轮口语训练，不要超过 15 分钟</h2>
+          <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">口语交际最怕讲太久、开口太少。真正有效的是“短讲 + 立刻说 + 当场改 + 再复述”。</p>
+        </div>
+        <div class="loop-grid">
+          <article class="loop-card">
+            <h3>前 3 分钟：判题型</h3>
+            <p>先说这是哪类任务，再说第一步是什么。</p>
+            <ul>
+              <li>例：这是劝说题，我先要确定称呼和理由。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>接着 4 分钟：套骨架</h3>
+            <p>照骨架先说一遍，不追求完美，只追求完整。</p>
+            <ul>
+              <li>例：称呼 + 理由 + 建议，先把三块说出来。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>再用 4 分钟：只改一个错点</h3>
+            <p>不要一口气全改。只改“理由太空”或“时间地点漏掉”这种一个核心问题。</p>
+            <ul>
+              <li>改完立刻重新说一遍，形成对比记忆。</li>
+            </ul>
+          </article>
+          <article class="loop-card">
+            <h3>最后 4 分钟：换题复述</h3>
+            <p>换一个相似情境，让孩子再说一次，看看骨架能不能迁移。</p>
+            <ul>
+              <li>会迁移，才算不是背会了一道题。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section teacher-note" id="ai-and-practice">
+        <div class="section-title">
+          <p class="eyebrow">继续练</p>
+          <h2>看完方法，下一步直接去哪</h2>
+        </div>
+        <div class="cta-grid">
+          <article class="cta-card">
+            <h3>让 AI 带着你讲</h3>
+            <p>适合家长想要一句一句地带孩子开口，或者想把“空理由、乱人称、没例子”这种错因讲透。</p>
+            <div class="cta-actions">
+              <a href="agent.html?stage=小学主站&subject=语文&task=讲清知识点&level=家长陪练&question=请按家长陪练轨，辅导一道小学语文口语交际题：先判断题型，再给家长可直接照着问的话术和孩子复述标准。">家长陪练话术</a>
+              <a href="agent.html?stage=小学主站&subject=语文&task=错因诊断&level=中等生提分&question=请帮我诊断这道口语交际题为什么说得空、理由不具体，并给出一步一步的复练。" class="secondary">口语错因诊断</a>
+            </div>
+          </article>
+          <article class="cta-card">
+            <h3>回到训练系统做闭环</h3>
+            <p>适合已经知道方法，下一步想做诊断、安排训练或接入年级页的表达模块。</p>
+            <div class="cta-actions">
+              <a href="practice.html#diagnosis">做 15 分钟诊断</a>
+              <a href="extra-topics.html" class="secondary">回易漏专题入口</a>
+              <a href="knowledge-map.html#oral-practice" class="secondary">看知识总控实战题</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script defer src="nav.js?v=115"></script>
+</body>
+</html>
