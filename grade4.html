@@ -6,141 +6,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文四年级 · 知识提优体系</title>
-  <meta name="description" content="小学语文四年级知识提优体系，深度阅读、写作提升、语法进阶、综合训练。">
-  <meta name="keywords" content="小学语文,四年级,阅读,写作,知识提优">
-  <meta property="og:title" content="小学语文四年级 · 知识提优体系">
-  <meta property="og:description" content="小学语文四年级知识提优体系，深度阅读、写作提升、语法进阶、综合训练。">
-  <meta property="og:type" content="website">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>四年级语文知识提优体系</title>
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=115">
-  <style>
-    .answer-table,
-    .knowledge-table {
-      border-collapse: collapse;
-      width: 100%;
-      font-size: 14px;
-    }
-    .answer-table thead th {
-      background: #f0f7f4;
-      color: #2e7d32;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 12px 10px;
-      text-align: center;
-      border-bottom: 2px solid #a5d6a7;
-      white-space: nowrap;
-    }
-    .answer-table tbody td,
-    .knowledge-table tbody td {
-      padding: 11px 10px;
-      vertical-align: top;
-      line-height: 1.7;
-    }
-    .answer-table tbody td {
-      border-bottom: 1px solid #e8f5e9;
-    }
-    .answer-table tbody tr:hover {
-      background: #f9fef9;
-    }
-    .answer-table tbody tr td:first-child {
-      font-weight: 700;
-      color: #1b5e20;
-      white-space: nowrap;
-      text-align: center;
-      background: #f9fdf9;
-      border-right: 1px solid #e0f2e1;
-    }
-    .answer-table tbody tr td:nth-child(2) {
-      color: #333;
-      background: #fcfff5;
-    }
-    .answer-table .err-cell {
-      color: #c62828;
-      background: #fff5f5;
-      font-size: 13px;
-      border-left: 3px solid #ef9a9a;
-    }
-    .col-label,
-    .kl-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 13px;
-    }
-    .knowledge-table thead th {
-      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-      color: #0d47a1;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 14px 12px;
-      text-align: center;
-      border-bottom: 2px solid #64b5f6;
-      white-space: nowrap;
-    }
-    .knowledge-table thead th:first-child {
-      border-radius: 8px 0 0 0;
-    }
-    .knowledge-table thead th:last-child {
-      border-radius: 0 8px 0 0;
-    }
-    .knowledge-table tbody td {
-      border-bottom: 1px solid #e3f2fd;
-    }
-    .knowledge-table tbody tr:hover td {
-      background: #f5f9ff;
-    }
-    .knowledge-table tbody td:first-child {
-      text-align: center;
-      vertical-align: middle;
-      width: 100px;
-      border-right: 2px solid #e3f2fd;
-    }
-    .knowledge-table tbody td:nth-child(2) {
-      font-weight: 500;
-      color: #1a237e;
-      min-width: 200px;
-    }
-    .knowledge-table tbody td:nth-child(3) {
-      color: #2e7d32;
-      background: #fcfff5;
-    }
-    .knowledge-table .tip-cell {
-      color: #6a1b9a;
-      font-size: 13px;
-      background: #faf5ff;
-      border-left: 3px solid #ce93d8;
-    }
-    .krow-summary td:first-child {
-      background: #e8f5e9 !important;
-    }
-    .krow-rhetoric td:first-child {
-      background: #fff3e0 !important;
-    }
-    .krow-writing td:first-child {
-      background: #e3f2fd !important;
-    }
-    .k-tag {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      letter-spacing: .5px;
-    }
-    .tag-summary {
-      background: #c8e6c9;
-      color: #1b5e20;
-    }
-    .tag-rhetoric {
-      background: #ffe0b2;
-      color: #e65100;
-    }
-    .tag-writing {
-      background: #bbdefb;
-      color: #0d47a1;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css?v=76">
 </head>
 <body>
   <header class="topbar">
@@ -149,219 +18,96 @@
       <a href="index.html">总览</a>
       <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a class="active" href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
       <a href="grade6.html">六年级</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <div class="nav-dropdown">
-        <a href="#" class="dropdown-toggle">其他</a>
-        <div class="dropdown-content">
-          <a href="advanced.html">尖子生拓展</a>
-          <a href="knowledge-map.html">知识总控</a>
-          <a href="search.html">搜索</a>
-        </div>
-      </div>
     </nav>
   </header>
 
   <main>
-    <aside class="toc-sidebar" id="toc-sidebar">
-      <div class="toc-header">
-        <span class="toc-icon">📚</span>
-        <span class="toc-title">目录导航</span>
-        <button class="toc-toggle" id="toc-toggle">☰</button>
-      </div>
-      <nav class="toc-nav" id="toc-nav">
-        <ul>
-          <li><a href="#learning-goals" class="toc-link">学习目标</a></li>
-          <li><a href="#section-overview" class="toc-link">页面定位</a></li>
-          <li><a href="#section-expression" class="toc-link">综合表达</a></li>
-          <li><a href="#section-literature" class="toc-link">整本书与现代诗</a></li>
-          <li><a href="#section-reading" class="toc-link">阅读概括</a></li>
-          <li><a href="#section-rhetoric" class="toc-link">修辞手法</a></li>
-          <li><a href="#section-writing" class="toc-link">人物描写</a></li>
-          <li><a href="#section-poetry" class="toc-link">古诗鉴赏</a></li>
-          <li><a href="#grade4-stage-assessment" class="toc-link">阶段测评</a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <section class="page-head" id="grade4-hero">
+    <section class="page-head grade-four">
       <p class="eyebrow">四年级核心阶段</p>
       <h1>从“读懂内容”提升到“概括清楚、依据充分、表达有层次”</h1>
-      <p>四年级要把“我觉得”升级成“我从文中看出来”，阅读和作文都开始重证据、重层次。</p>
+      <p>四年级语文的分水岭不在背了多少知识点，而在孩子能不能把答案说完整：先概括，再找依据，最后说明作用。阅读和作文要同步训练，才能真正提优。</p>
     </section>
 
-    <section class="learning-goals" id="learning-goals">
-      <div class="goals-header">
-        <div class="goals-title">
-          <span class="goals-icon">🎯</span>
-          <h2>今日学习目标</h2>
-        </div>
-        <div class="goals-progress">
-          <span class="progress-text">学习进度：</span>
-          <div class="progress-ring">
-            <svg class="progress-ring-svg" viewBox="0 0 100 100">
-              <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
-              <circle class="progress-ring-fill" cx="50" cy="50" r="45" id="progress-ring"></circle>
-            </svg>
-            <span class="progress-percent" id="progress-percent">0%</span>
-          </div>
-        </div>
-      </div>
-      <div class="goals-content">
-        <div class="goal-card required">
-          <span class="goal-tag required-tag">⭐ 必学</span>
-          <h3>阅读概括</h3>
-          <p>能概括短文主要内容，理解文章结构</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="1"> 能概括文章主要内容</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="2"> 能理解文章结构</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="3"> 能找出中心句</label>
-          </div>
-        </div>
-        <div class="goal-card required">
-          <span class="goal-tag required-tag">⭐ 必学</span>
-          <h3>修辞手法</h3>
-          <p>掌握比喻、拟人等修辞手法</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="4"> 能识别比喻句</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="5"> 能识别拟人句</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="6"> 能运用修辞手法</label>
-          </div>
-        </div>
-        <div class="goal-card optional">
-          <span class="goal-tag optional-tag">📖 选学</span>
-          <h3>人物描写</h3>
-          <p>学会描写人物的外貌、动作和心理</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="7"> 能描写人物外貌</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="8"> 能描写人物动作</label>
-          </div>
-        </div>
-        <div class="goal-card advanced">
-          <span class="goal-tag advanced-tag">🚀 拓展</span>
-          <h3>古诗鉴赏</h3>
-          <p>理解古诗意境，体会诗人情感</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="9"> 能理解古诗意境</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="10"> 能体会诗人情感</label>
-          </div>
-        </div>
-      </div>
-      <div class="goals-summary">
-        <div class="summary-item">
-          <span class="summary-icon">📝</span>
-          <span class="summary-label">完成目标：</span>
-          <span class="summary-value" id="completed-count">0</span>
-          <span class="summary-total">/ 10</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-icon">⏱️</span>
-          <span class="summary-label">建议时长：</span>
-          <span class="summary-value">约 45 分钟</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-icon">📊</span>
-          <span class="summary-label">学习路径：</span>
-          <span class="summary-value">概括 → 修辞 → 描写 → 古诗</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-overview">
+    <section class="section">
       <div class="section-title">
-        <p class="eyebrow">⭐ 必学 · 页面定位</p>
-        <h2>四年级页先解决"怎么答得有依据"</h2>
+        <p class="eyebrow">页面定位</p>
+        <h2>四年级页先解决“怎么答得有依据”</h2>
         <p style="color: #666;">这里保留概括、修辞、人物描写、古诗和作文的年级用法；完整诗词体系、作文体系和阅读模板，放到专题页继续查。</p>
       </div>
       <div class="route-grid">
         <article class="route-card"><h3>本页看什么</h3><p>看四年级目标、依据意识、详略训练、升五衔接和拔尖答题顺序。</p></article>
         <article class="route-card"><h3>阅读模板</h3><p>本页讲四年级怎么用模板，完整题型速查去总控台。</p><div class="route-links"><a href="knowledge-map.html#reading-templates">题型模板</a></div></article>
-        <article class="route-card"><h3>综合表达</h3><p>补通知、采访、讨论发言和活动整理，让表达开始有对象、有理由、有顺序。</p><div class="route-links"><a href="#section-expression">本页模块</a><a href="knowledge-map.html#oral-communication">口语模板</a><a href="knowledge-map.html#application-writing-system">应用文模板</a></div></article>
         <article class="route-card"><h3>作文详略</h3><p>本页保留年级训练重点，完整三轮批改和拔尖追问去作文页。</p><div class="route-links"><a href="composition.html#three-round-revision">三轮批改</a><a href="composition.html#peak-writing">拔尖追问</a><a href="practice.html#peak-promotion">晋级标准</a><a href="practice.html#print-training">打印训练单</a></div></article>
         <article class="route-card"><h3>专项巩固</h3><p>修辞、病句、词语等基础不稳时，回到专项页补规则。</p><div class="route-links"><a href="grammar.html">语法知识</a><a href="vocabulary.html">词语学习</a></div></article>
         <article class="route-card"><h3>一对一闭环</h3><p>阶段卷判出 R1/R2/R3/W2 后，去错因精讲和 C 卷混合迁移。</p><div class="route-links"><a href="#grade4-stage-assessment">阶段卷</a><a href="practice.html#error-masterclass">错因精讲</a><a href="practice.html#flow-training">C卷评分器</a><a href="practice.html#reading-answer-bank">低分答案库</a></div></article>
       </div>
     </section>
 
-    <section class="section"><div id="grade4-mistakes"></div></section>
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>本年级最容易掉分的 3 件事</h2>
+          <ul class="level-list">
+            <li><strong>概括段意：</strong>答案太散，只抄原句，不会合并成一句完整意思。</li>
+            <li><strong>古诗理解：</strong>只背诗句和诗人资料，答题时说不出画面和情感。</li>
+            <li><strong>人物/景物描写：</strong>作文写得完整，但重点场景缺动作、神态和细节。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>补救入口</h2>
+          <ul class="level-list">
+            <li><strong>阅读：</strong>每道题都补一句“我是从文中哪里看出来的”。</li>
+            <li><strong>古诗：</strong>先说画面，再说情感，资料只作辅助。</li>
+            <li><strong>作文：</strong>每周练一个重点场景，把人、事、景写具体。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
     
 
 
 
-    <section class="section grade-closed-loop">
-      <div class="section-title">
-        <p class="eyebrow">课标对照 · 训练闭环</p>
-        <h2>四年级从"答对"升级到"有依据"</h2>
-        <p style="color:#666;">四年级仍在第二学段，真正拉开差距的是概括、证据、赏析和习作详略。页面用自测与量表帮助孩子知道自己卡在哪一层。</p>
-      </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>常见问题：</strong>四年级阅读和写作常卡在三处：证据缺失、赏析太浅、描写空洞。孩子能说出“他很勇敢”，但不能指出从哪句话看出来；能写“很生动”，却说不出具体好在哪里。</p>
-        <p><strong>怎么做：</strong>用三步渐进：教师先示范“读题→回文找证据→组织答案”，再给“品质词、原文句子、解释”三张提示卡扶着练，最后撤掉提示独立完成。</p>
-      </div>
-      <div id="grade4-curriculum"></div>
-      <div id="grade4-unit-matrix" style="margin-top:18px;"></div>
-      <div id="grade4-loop"></div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>本周分层训练题</h2>
-        <div class="responsive-table">
-          <table>
-            <thead><tr><th>层级</th><th>孩子要做</th><th>答案标准</th><th>家长追问</th></tr></thead>
-            <tbody>
-              <tr><td>基础</td><td>概括一篇短文：谁做了什么，结果怎样</td><td>主要人物、主要事件、结果完整</td><td>有没有写进无关细节</td></tr>
-              <tr><td>提升</td><td>回答"他是怎样的人"，必须引用文中一句话</td><td>品质词 + 原文依据 + 简要分析</td><td>这句话为什么能证明这个品质</td></tr>
-              <tr><td>拔尖</td><td>赏析一句比喻或拟人句，按"方法 + 特点 + 效果"回答</td><td>不能只写"生动"，要说清写出了什么</td><td>换成普通说法，表达效果差在哪里</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
     <section class="section pre-diagnostic">
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>常见问题：</strong>诊断中四类典型的错误模式：（1）概括碎了——只写人名或事件片段，不会合并成完整意思，核心是不会区分"核心信息"和"修饰信息"；（2）赏析空了——只会写"生动""具体"，说不出用了什么方法、写出了什么特点，核心是知道赏析要有格式但不会描述效果；（3）描写概念化——用"我很紧张"代替"攥着衣角、手心全是汗"，核心是不会把心里的感觉翻译成看得见的动作和神态；（4）环境作用误判——把环境描写当成独立的一段来答，不会把它和人物行为、情感联系起来分析。</p>
-<p><strong>怎么做：</strong>诊断后按"错因→对号入座→补训练包→复测"循环推进。概括不过关→R1训练包（三要素：人物+事件+结果）；证据题空白→R2训练包（每题补"从哪句话看出"）；赏析只会写"生动"→R3训练包（方法+特点+效果三步模板）；作文没有细节→W2训练包（基础能力）。一次只补一个薄弱点，不要四面出击。</p>
- </div>
- <div class="section-title">
- <p class="eyebrow" style="color:#1565c0;">课前诊断卷 · 15分钟</p>
- <h2>四年级先测：依据、赏析、重点场景</h2>
- <p style="color:#666;">四年级一对一辅导先看孩子能不能把"我觉得"换成"我从文中看出来"。</p>
- </div>
- <div class="content-grid" style="margin-bottom:18px;">
- <article class="study-block">
- <h2>诊断材料</h2>
- <p>清晨，操场上还飘着细雨。小明为了参加运动会，每天早早来到学校练跑步。雨水打湿了他的头发，他还是一圈一圈地跑。运动会那天，小明终于冲过终点，取得了好成绩。</p>
- </article>
- <article class="study-block accent">
- <h2>老师先看什么</h2>
- <div class="routine">
- <p><strong>概括：</strong>能不能说出人物、事件、结果。</p>
- <p><strong>依据：</strong>能不能指出原文句子。</p>
- <p><strong>赏析：</strong>能不能说清方法、特点、效果。</p>
- </div>
- </article>
- </div>
- <div class="table-card">
- <h2>题目、答案和评分</h2>
- <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
- <tr><td>1. 概括短文主要内容</td><td>短文写小明在雨天坚持练跑，最后在运动会上取得好成绩。</td><td>人物、事件、结果共 4 分</td><td>只写"小明跑步"。</td></tr>
- <tr><td>2. 小明为什么值得学习？</td><td>因为他下雨也不放弃练跑，坚持到底。</td><td>特点、依据共 3 分</td><td>只写"他很好"，没有证据。</td></tr>
- <tr><td>3. 赏析"落叶像蝴蝶一样飞舞"</td><td>用了比喻，把落叶比作蝴蝶，写出落叶轻盈、好看的样子。</td><td>方法、特点、效果共 4 分</td><td>只写"很生动"。</td></tr>
- <tr><td>4. 下雨的环境有什么作用？</td><td>交代环境，也衬托小明坚持训练的不容易。</td><td>环境 + 人物共 3 分</td><td>只写"天气不好"。</td></tr>
- <tr><td>5. 写一段"紧张"，不能出现"紧张"二字</td><td>我攥着衣角，眼睛盯着讲台，手心里全是汗，心像小鼓一样咚咚直响。</td><td>动作、神态、心理共 5 分</td><td>只写心情词，没有细节。</td></tr>
- </tbody></table></div>
- </div>
+      <div class="section-title">
+        <p class="eyebrow" style="color:#1565c0;">课前诊断卷 · 15分钟</p>
+        <h2>四年级先测：依据、赏析、重点场景</h2>
+        <p style="color:#666;">四年级一对一辅导先看孩子能不能把“我觉得”换成“我从文中看出来”。</p>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block">
+          <h2>诊断材料</h2>
+          <p>清晨，操场上还飘着细雨。小明为了参加运动会，每天早早来到学校练跑步。雨水打湿了他的头发，他还是一圈一圈地跑。运动会那天，小明终于冲过终点，取得了好成绩。</p>
+        </article>
+        <article class="study-block accent">
+          <h2>老师先看什么</h2>
+          <div class="routine">
+            <p><strong>概括：</strong>能不能说出人物、事件、结果。</p>
+            <p><strong>依据：</strong>能不能指出原文句子。</p>
+            <p><strong>赏析：</strong>能不能说清方法、特点、效果。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card">
+        <h2>题目、答案和评分</h2>
+        <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
+          <tr><td>1. 概括短文主要内容</td><td>短文写小明在雨天坚持练跑，最后在运动会上取得好成绩。</td><td>人物、事件、结果共 4 分</td><td>只写“小明跑步”。</td></tr>
+          <tr><td>2. 小明为什么值得学习？</td><td>因为他下雨也不放弃练跑，坚持到底。</td><td>特点、依据共 3 分</td><td>只写“他很好”，没有证据。</td></tr>
+          <tr><td>3. 赏析“落叶像蝴蝶一样飞舞”</td><td>用了比喻，把落叶比作蝴蝶，写出落叶轻盈、好看的样子。</td><td>方法、特点、效果共 4 分</td><td>只写“很生动”。</td></tr>
+          <tr><td>4. 下雨的环境有什么作用？</td><td>交代环境，也衬托小明坚持训练的不容易。</td><td>环境 + 人物共 3 分</td><td>只写“天气不好”。</td></tr>
+          <tr><td>5. 写一段“紧张”，不能出现“紧张”二字</td><td>我攥着衣角，眼睛盯着讲台，手心里全是汗，心像小鼓一样咚咚直响。</td><td>动作、神态、心理共 5 分</td><td>只写心情词，没有细节。</td></tr>
+        </tbody></table></div>
+      </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>起点建议</h2>
         <div class="responsive-table"><table><thead><tr><th>分数</th><th>孩子状态</th><th>先补什么</th></tr></thead><tbody>
@@ -372,123 +118,206 @@
       </div>
     </section>
 
-    <section class="section lesson-pack">
+    <section class="section grade-closed-loop">
       <div class="section-title">
-        <p class="eyebrow">孩子直接学</p>
-        <h2>四年级精讲课：阅读答案必须有依据</h2>
-        <p style="color:#666;">四年级从"我觉得"升级到"我从文中看出来"。本节按目标、诊断、示范、自改、复练、家长话术固定展开。</p>
+        <p class="eyebrow">课标对照 · 训练闭环</p>
+        <h2>四年级从“答对”升级到“有依据”</h2>
+        <p style="color:#666;">四年级仍在第二学段，真正拉开差距的是概括、证据、赏析和习作详略。页面新增自测与量表，帮助孩子知道自己卡在哪一层。</p>
       </div>
-
-      <div class="content-grid">
-        <article class="study-block">
-          <h2>目标</h2>
-          <ul class="level-list">
-            <li><strong>阅读：</strong>人物品质题能写出"品质词 + 原文依据 + 简要解释"。</li>
-            <li><strong>赏析：</strong>修辞题能写出"方法 + 特点 + 表达效果"。</li>
-            <li><strong>作文：</strong>能判断哪一段该详写，并用动作、语言、神态、心理放大重点场景。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>诊断</h2>
-          <div class="routine">
-            <p><strong>低效答案：</strong>小林很勇敢。</p>
-            <p><strong>问题：</strong>只有结论，没有证据，也没有说明为什么能看出勇敢。</p>
-            <p><strong>修正方向：</strong>先回原文圈动作或语言，再把证据和品质连起来。</p>
-          </div>
-        </article>
-      </div>
-
-      <div class="study-block accent" style="margin-top:18px;">
-        <h2>特级教师示范</h2>
-        <p>轮到小林演讲时，他的手心全是汗。可是他深吸一口气，还是走上讲台，声音有些发抖地讲完了自己的故事。台下响起掌声，小林的脸慢慢红了，眼睛却亮了起来。</p>
-        <div class="routine">
-          <p><strong>问题：</strong>小林是个怎样的孩子？</p>
-          <p><strong>满分答法：</strong>小林是一个勇敢、敢于挑战自己的孩子。从"手心全是汗"可以看出他很紧张，但他仍然走上讲台并讲完故事，说明他能克服害怕，坚持完成任务。</p>
-          <p><strong>教师点拨：</strong>不是把原文抄一遍，而是用原文证明自己的判断。</p>
-        </div>
-      </div>
-
-      <div class="table-card" style="margin-top:18px;">
-        <h2>自改清单</h2>
+      <div class="table-card">
+        <h2>课标能力对照表</h2>
         <div class="responsive-table">
           <table>
-            <thead><tr><th>检查项</th><th>不到位表现</th><th>马上修改</th><th>通过标准</th></tr></thead>
+            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
             <tbody>
-              <tr><td>人物品质</td><td>只写"他很好""很勇敢"</td><td>补一句原文依据</td><td>品质词准确，依据能证明品质</td></tr>
-              <tr><td>修辞赏析</td><td>只写"用了比喻，很生动"</td><td>补"把什么比作什么，写出什么特点"</td><td>有方法、有特点、有表达效果</td></tr>
-              <tr><td>概括内容</td><td>细节很多，结果漏掉</td><td>按"谁 + 做了什么 + 结果怎样"重写</td><td>主要事件完整，没有无关细节</td></tr>
-              <tr><td>作文重点段</td><td>从头到尾平均用力</td><td>圈出一个最关键瞬间详写</td><td>重点段有动作、语言、神态、心理</td></tr>
+              <tr><td>语言积累与梳理</td><td>词语辨析、病句、句式、修辞</td><td>能在语境中改准确、写具体</td><td>能说明关键词和修辞带来的表达效果</td></tr>
+              <tr><td>阅读与鉴赏</td><td>概括、依据、人物品质、古诗情感</td><td>答案包含结论和原文依据</td><td>能补充简要分析，说明依据为什么成立</td></tr>
+              <tr><td>表达与交流</td><td>写事作文、细节描写、详略安排</td><td>能把重点经过写具体，起因结果略写</td><td>能用动作、语言、神态、心理表现人物变化</td></tr>
+              <tr><td>整本书与实践</td><td>批注阅读、人物卡、资料整理</td><td>能记录人物、事件、感受和疑问</td><td>能围绕一个主题做读书分享或小研究</td></tr>
             </tbody>
           </table>
         </div>
       </div>
+      <div class="loop-grid">
+        <article class="loop-card">
+          <h3>5分钟入门自测</h3>
+          <ul>
+            <li>概括文章时，是否包含人物、事件、结果。</li>
+            <li>人物题能否找到原文动作或语言作证据。</li>
+            <li>赏析题是否只写“很生动”。</li>
+            <li>作文重点段是否有细节描写。</li>
+            <li>读书笔记是否有摘抄、问题和感受。</li>
+          </ul>
+        </article>
+        <article class="loop-card">
+          <h3>三层训练安排</h3>
+          <ul>
+            <li><strong>基础：</strong>每天 1 道概括题，按“谁做什么结果怎样”。</li>
+            <li><strong>提升：</strong>每周 2 道依据题，答案补“从哪里看出”。</li>
+            <li><strong>拔尖：</strong>每周写 1 个重点场景，突出人物变化。</li>
+          </ul>
+        </article>
+        <article class="loop-card">
+          <h3>评价复盘量表</h3>
+          <div class="score-line">
+            <p><strong>3分：</strong>答案有结论、有依据、有分析，作文详略清楚。</p>
+            <p><strong>2分：</strong>能找依据，但分析浅或表达不够完整。</p>
+            <p><strong>1分：</strong>凭感觉答题，下次只练“回原文圈证据”。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>本周分层训练题</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>层级</th><th>孩子要做</th><th>答案标准</th><th>家长追问</th></tr></thead>
+            <tbody>
+              <tr><td>基础</td><td>概括一篇短文：谁做了什么，结果怎样</td><td>主要人物、主要事件、结果完整</td><td>有没有写进无关细节</td></tr>
+              <tr><td>提升</td><td>回答“他是怎样的人”，必须引用文中一句话</td><td>品质词 + 原文依据 + 简要分析</td><td>这句话为什么能证明这个品质</td></tr>
+              <tr><td>拔尖</td><td>赏析一句比喻或拟人句，按“方法 + 特点 + 效果”回答</td><td>不能只写“生动”，要说清写出了什么</td><td>换成普通说法，表达效果差在哪里</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-      <div class="content-grid" style="margin-top:18px;">
+    <section class="section lesson-pack">
+      <div class="section-title">
+        <p class="eyebrow">孩子直接学</p>
+        <h2>四年级精讲课：阅读答案必须有依据</h2>
+        <p style="color:#666;">四年级从“我觉得”升级到“我从文中看出来”。下面示范人物品质题和修辞赏析题怎么答完整。</p>
+      </div>
+      <div class="content-grid">
         <article class="study-block">
-          <h2>修辞赏析复练</h2>
+          <h2>知识点讲解</h2>
+          <ul class="level-list">
+            <li><strong>人物品质题：</strong>先写品质词，再找原文动作、语言或事情，最后解释为什么能看出这个品质。</li>
+            <li><strong>修辞赏析题：</strong>不能只写“用了比喻，很生动”，要写“把什么比作什么，写出了什么特点”。</li>
+            <li><strong>概括题：</strong>先删掉细节，再保留人物、事件和结果。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>课堂短文</h2>
+          <p>轮到小林演讲时，他的手心全是汗。可是他深吸一口气，还是走上讲台，声音有些发抖地讲完了自己的故事。台下响起掌声，小林的脸慢慢红了，眼睛却亮了起来。</p>
+          <div class="routine">
+            <p><strong>问题：</strong>小林是个怎样的孩子？</p>
+            <p><strong>满分答法：</strong>小林是一个勇敢、敢于挑战自己的孩子。从他虽然紧张得手心全是汗，却仍然走上讲台讲完故事可以看出，他能克服害怕，坚持完成任务。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>例题、解析和变式</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>题目</th><th>标准答案</th><th>为什么这样答</th><th>变式练习</th></tr></thead>
+            <tbody>
+              <tr><td>人物品质题</td><td>品质词 + 原文依据 + 解释</td><td>有证据，答案才不是凭感觉。</td><td>用“他扶起摔倒的同学”分析人物品质。</td></tr>
+              <tr><td>赏析“眼睛亮了起来”</td><td>写出了小林从紧张到自信的变化。</td><td>抓关键词“亮”，联系人物心情变化。</td><td>赏析“他攥紧了衣角”。</td></tr>
+              <tr><td>概括短文</td><td>小林克服紧张，完成了演讲。</td><td>保留主要事件和结果，删去手心出汗等细节。</td><td>概括一次比赛或表演经历。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section lesson-pack" style="background:#f7f8fb;">
+      <div class="section-title">
+        <p class="eyebrow">课堂精讲 2</p>
+        <h2>四年级修辞课：从“用了比喻”到“好在哪里”</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>课堂材料</h2>
           <p>雨点落在窗户上，像一串串小鼓点，轻轻地敲着清晨的门。小草从泥土里探出头，好奇地望着这个湿漉漉的世界。</p>
           <ul class="level-list">
             <li><strong>比喻：</strong>雨点像小鼓点。</li>
             <li><strong>拟人：</strong>小草探出头、望着世界。</li>
-            <li><strong>公式：</strong>修辞方法 + 写出特点 + 表达效果。</li>
+            <li><strong>赏析公式：</strong>修辞方法 + 写出特点 + 表达效果。</li>
           </ul>
         </article>
         <article class="study-block accent">
           <h2>满分答法</h2>
           <div class="routine">
-            <p><strong>题目：</strong>"雨点像一串串小鼓点"好在哪里？</p>
+            <p><strong>题目：</strong>“雨点像一串串小鼓点”好在哪里？</p>
             <p><strong>标准答案：</strong>这句话用了比喻，把雨点落在窗户上的声音比作小鼓点，写出了雨声清脆、有节奏的特点，让清晨的画面更生动。</p>
-            <p><strong>家长追问：</strong>如果改成"雨点落在窗户上"，少了什么感觉？</p>
+            <p><strong>错因：</strong>只写“用了比喻，很生动”，没有说出什么特点。</p>
           </div>
         </article>
       </div>
-
       <div class="table-card" style="margin-top:18px;">
-        <h2>作文重点段升格</h2>
-        <div class="responsive-table">
-          <table class="answer-table">
-            <thead><tr><th><span class="col-label">任务</span></th><th><span class="col-label">升格示范</span></th><th><span class="col-label">解析</span></th><th><span class="col-label">常见错因</span></th><th><span class="col-label">变式</span></th></tr></thead>
-            <tbody>
-              <tr><td><strong>写紧张</strong></td><td>我紧紧攥着衣角，眼睛盯着试卷，手心里全是汗。</td><td>不用"我很紧张"，用动作和神态表现。</td><td class="err-cell">只写心情词，没有画面。</td><td>用动作写"开心"。</td></tr>
-              <tr><td><strong>写比赛经过</strong></td><td>发令枪一响，我蹬地向前冲，耳边只剩下同学们的加油声。</td><td>抓最关键的一瞬间详写。</td><td class="err-cell">从早上写到晚上，流水账。</td><td>详写一次跳绳或演讲。</td></tr>
-              <tr><td><strong>写结尾感受</strong></td><td>这一次，我明白了：只要敢迈出第一步，就已经战胜了害怕。</td><td>结尾点出成长，文章更有中心。</td><td class="err-cell">只写"今天真开心"。</td><td>给"第一次上台"写结尾。</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="table-card" style="margin-top:18px;">
-        <h2>递进题组</h2>
+        <h2>题目、答案和变式</h2>
         <div class="responsive-table">
           <table>
-            <thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead>
+            <thead><tr><th>题目</th><th>标准答案</th><th>解析</th><th>变式练习</th></tr></thead>
             <tbody>
-              <tr><td>基础</td><td>概括：小林紧张上台，最后完成演讲。</td><td>小林克服紧张，完成了演讲。</td><td>概括要删细节，保留主要事件和结果。</td></tr>
-              <tr><td>提升</td><td>小林是怎样的人？</td><td>小林是勇敢的人。从他虽然手心出汗，却仍然走上讲台可以看出。</td><td>人物题必须有原文依据。</td></tr>
-              <tr><td>拔尖</td><td>赏析"手心里全是汗"。</td><td>这处细节写出小林上台前非常紧张，为后文他鼓起勇气形成对比。</td><td>赏析关键词要联系人物心理和情节。</td></tr>
-              <tr><td>迁移</td><td>写一段"紧张"，不能出现"紧张"二字。</td><td>我攥着衣角，眼睛盯着门口，心里像揣着一面小鼓，咚咚直响。</td><td>用动作、神态、心理表现心情。</td></tr>
+              <tr><td>赏析“小草探出头”</td><td>用了拟人，写出小草刚发芽时可爱、有生命力的样子。</td><td>把小草当作人来写，要说出特点。</td><td>赏析“花儿露出了笑脸”。</td></tr>
+              <tr><td>仿写一句比喻句</td><td>树叶像一只只小船，在水面上漂着。</td><td>本体和喻体要有相似点。</td><td>用“雪花”写比喻句。</td></tr>
             </tbody>
           </table>
         </div>
       </div>
+    </section>
 
+    <section class="section lesson-pack">
+      <div class="section-title">
+        <p class="eyebrow">课堂精讲 3</p>
+        <h2>四年级作文课：重点场景要详写</h2>
+      </div>
+      <div class="table-card">
+        <h2>题目、答案、解析、错因</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>任务</th><th>标准答案</th><th>解析</th><th>常见错因</th><th>变式</th></tr></thead>
+            <tbody>
+              <tr><td>写紧张</td><td>我紧紧攥着衣角，眼睛盯着试卷，手心里全是汗。</td><td>不用“我很紧张”，用动作和神态表现。</td><td>只写心情词，没有画面。</td><td>用动作写“开心”。</td></tr>
+              <tr><td>写比赛经过</td><td>发令枪一响，我蹬地向前冲，耳边只剩下同学们的加油声。</td><td>抓最关键的一瞬间详写。</td><td>从早上写到晚上，流水账。</td><td>详写一次跳绳或演讲。</td></tr>
+              <tr><td>写结尾感受</td><td>这一次，我明白了：只要敢迈出第一步，就已经战胜了害怕。</td><td>结尾点出成长，文章更有中心。</td><td>只写“今天真开心”。</td><td>给“第一次上台”写结尾。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖题库 · 批改样例</p>
+        <h2>四年级高质量题组：依据、赏析、详写</h2>
+        <p style="color:#666;">四年级拔尖要从“答对”到“答得有证据、有层次”。</p>
+      </div>
+      <div class="table-card">
+        <h2>递进题组</h2>
+        <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead><tbody>
+          <tr><td>基础</td><td>概括：小林紧张上台，最后完成演讲。</td><td>小林克服紧张，完成了演讲。</td><td>概括要删细节，保留主要事件和结果。</td></tr>
+          <tr><td>提升</td><td>小林是怎样的人？</td><td>小林是勇敢的人。从他虽然手心出汗，却仍然走上讲台可以看出。</td><td>人物题必须有原文依据。</td></tr>
+          <tr><td>拔尖</td><td>赏析“手心里全是汗”</td><td>这处细节写出小林上台前非常紧张，为后文他鼓起勇气形成对比。</td><td>赏析关键词要联系人物心理和情节。</td></tr>
+          <tr><td>迁移</td><td>写一段“紧张”，不能出现“紧张”二字</td><td>我攥着衣角，眼睛盯着门口，心里像揣着一面小鼓，咚咚直响。</td><td>用动作、神态、心理表现心情。</td></tr>
+        </tbody></table></div>
+      </div>
       <div class="content-grid" style="margin-top:18px;">
         <article class="study-block">
-          <h2>家长话术</h2>
-          <ul class="level-list">
-            <li>你这个判断从文中哪句话看出来？</li>
-            <li>这个词能不能换得更准确一点？</li>
-            <li>如果不写这处细节，读者还能感受到人物心情吗？</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>测评进阶对照</h2>
+          <h2>作文批改样例</h2>
           <div class="routine">
-            <p><strong>达标：</strong>能概括主要内容，作文事情完整。</p>
-            <p><strong>提升：</strong>阅读能找依据，作文能详写重点段。</p>
-            <p><strong>拔尖：</strong>能解释依据为什么成立，能写出人物变化和中心。</p>
+            <p><strong>孩子原文：</strong>我参加了比赛。我很紧张。后来我成功了，我很开心。</p>
+            <p><strong>批改意见：</strong>事情完整，但重点场景太薄。“紧张”和“成功”都需要用动作、声音、心理写出来。</p>
+            <p><strong>升格片段：</strong>轮到我上场时，我的手紧紧抓着号码牌，耳边的加油声忽远忽近。发令枪一响，我咬紧牙关冲了出去，风从耳边掠过。冲过终点那一刻，我听见同学们喊我的名字，心里像开了一朵花。</p>
           </div>
         </article>
+        <article class="study-block accent">
+          <h2>错因分类</h2>
+          <div class="routine">
+            <p><strong>无依据：</strong>只写“他很勇敢”，没有原文句子。</p>
+            <p><strong>赏析浅：</strong>只写“很生动”，没说出特点和作用。</p>
+            <p><strong>作文薄：</strong>起因经过结果都有，但重点段没有细节。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>阶段测评</h2>
+        <div class="responsive-table"><table><thead><tr><th>测评项</th><th>达标</th><th>提升</th><th>拔尖</th></tr></thead><tbody>
+          <tr><td>阅读</td><td>能概括主要内容</td><td>能找原文依据</td><td>能结合依据分析人物或中心</td></tr>
+          <tr><td>赏析</td><td>能判断修辞</td><td>能说特点</td><td>能说表达效果和情感</td></tr>
+          <tr><td>作文</td><td>事情完整</td><td>重点段具体</td><td>有细节、有变化、有感受</td></tr>
+        </tbody></table></div>
       </div>
     </section>
 
@@ -498,39 +327,55 @@
         <h2>四年级按知识点闯关：概括依据、修辞赏析、重点详写</h2>
         <p style="color:#666;">四年级拔尖的标准是答题有证据、赏析有作用、作文有重点场景。</p>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        
-        <p><strong>常见问题：</strong>第一轮学完后最让人头疼的现象是"退回去"——刚学会概括不用照抄了，过一周换一篇文章又开始抄原文；刚学会赏析写三句话了，换一道题又只写"很生动"。这不是孩子忘了，而是新方法还没用熟——旧习惯（照抄、只写标签词）省力，新方法（删细节、三句话说完整）需要动脑。当题目变了、文章不熟悉了，大脑一累就自动退回省力的老路。</p>
-        <p><strong>怎么做：</strong>二轮训练的关键是"变着花样练，不要一口气练完"：（1）每个知识点4道题，从最简单的开始逐道加难度——前两道巩固，后两道挑战；（2）三个知识点交错着做——做完两道概括换一道赏析、做完一道赏析换一道详写，不要一口气做完一个知识点的全部题目；（3）每道题做完让孩子自己对照解析找原因——"我卡在哪一步？判断题型？找证据？组织答案？"让孩子学会自己诊断自己。</p>
-      </div>
       <div class="table-card">
         <h2>知识点递进题组</h2>
-        <div class="responsive-table"><table class="knowledge-table">
-          <thead><tr><th><span class="kl-label">📚 知识点</span></th><th><span class="kl-label">📝 递进题</span></th><th><span class="kl-label">✅ 标准答案/要点</span></th><th><span class="kl-label">💡 解析与错因</span></th></tr></thead>
-          <tbody>
-            <tr class="krow-summary"><td rowspan="4"><strong class="k-tag tag-summary">概括与依据</strong></td><td>1. 用"人物 + 事件 + 结果"概括演讲短文</td><td>小林克服紧张，顺利完成演讲。</td><td class="tip-cell">概括要删去天气、衣服等次要信息。</td></tr>
-            <tr class="krow-summary"><td>2. 说明小林为什么紧张</td><td>从"手心全是汗、声音发抖"可以看出他紧张。</td><td class="tip-cell">必须回原文找证据，不能只写"我觉得"。</td></tr>
-            <tr class="krow-summary"><td>3. 判断小林是怎样的人</td><td>小林勇敢，因为他虽然紧张，仍走上讲台完成演讲。</td><td class="tip-cell">特点题要写"特点 + 依据 + 简析"。</td></tr>
-            <tr class="krow-summary"><td>4. 给答案加一句分析</td><td>这说明他能面对困难，不轻易退缩。</td><td class="tip-cell">拔尖答案要从事例推到品质。</td></tr>
-            <tr class="krow-rhetoric"><td rowspan="4"><strong class="k-tag tag-rhetoric">修辞赏析</strong></td><td>1. 判断"树叶像小船"用了什么修辞</td><td>比喻</td><td class="tip-cell">先判断修辞，再看写出了什么特点。</td></tr>
-            <tr class="krow-rhetoric"><td>2. 说出比喻写出了树叶什么特点</td><td>写出树叶轻轻漂浮、形状像小船。</td><td class="tip-cell">不能只写"生动形象"。</td></tr>
-            <tr class="krow-rhetoric"><td>3. 赏析"风儿轻轻抚摸着柳枝"</td><td>用了拟人，写出春风轻柔，画面亲切。</td><td class="tip-cell">要答出对象特点和读者感受。</td></tr>
-            <tr class="krow-rhetoric"><td>4. 仿写一句拟人句表现"雨小"</td><td>小雨点踮着脚，轻轻落在窗台上。</td><td class="tip-cell">迁移题看能不能把方法用到表达里。</td></tr>
-            <tr class="krow-writing"><td rowspan="4"><strong class="k-tag tag-writing">重点详写</strong></td><td>1. 写"紧张"不能出现紧张二字</td><td>我攥着衣角，手心里全是汗。</td><td class="tip-cell">用动作、神态表现心情。</td></tr>
-            <tr class="krow-writing"><td>2. 写比赛最关键的一瞬间</td><td>发令枪一响，我蹬地冲出去，耳边只剩加油声。</td><td class="tip-cell">重点段要抓最能表现中心的一幕。</td></tr>
-            <tr class="krow-writing"><td>3. 给成功后补心理活动</td><td>我忽然明白，只要敢迈出第一步，就已经赢了自己。</td><td class="tip-cell">结尾要有成长，不只写开心。</td></tr>
-            <tr class="krow-writing"><td>4. 安排《第一次上台》的详略</td><td>略写准备，详写上台前和开口后的变化。</td><td class="tip-cell">详略必须服务"战胜害怕"的中心。</td></tr>
-          </tbody>
-        </table></div>
+        <div class="responsive-table"><table><thead><tr><th>知识点</th><th>递进题</th><th>标准答案/要点</th><th>解析与错因</th></tr></thead><tbody>
+          <tr><td>概括与依据</td><td>1. 用“人物 + 事件 + 结果”概括演讲短文</td><td>小林克服紧张，顺利完成演讲。</td><td>概括要删去天气、衣服等次要信息。</td></tr>
+          <tr><td>概括与依据</td><td>2. 说明小林为什么紧张</td><td>从“手心全是汗、声音发抖”可以看出他紧张。</td><td>必须回原文找证据，不能只写“我觉得”。</td></tr>
+          <tr><td>概括与依据</td><td>3. 判断小林是怎样的人</td><td>小林勇敢，因为他虽然紧张，仍走上讲台完成演讲。</td><td>特点题要写“特点 + 依据 + 简析”。</td></tr>
+          <tr><td>概括与依据</td><td>4. 给答案加一句分析</td><td>这说明他能面对困难，不轻易退缩。</td><td>拔尖答案要从事例推到品质。</td></tr>
+          <tr><td>修辞赏析</td><td>1. 判断“树叶像小船”用了什么修辞</td><td>比喻</td><td>先判断修辞，再看写出了什么特点。</td></tr>
+          <tr><td>修辞赏析</td><td>2. 说出比喻写出了树叶什么特点</td><td>写出树叶轻轻漂浮、形状像小船。</td><td>不能只写“生动形象”。</td></tr>
+          <tr><td>修辞赏析</td><td>3. 赏析“风儿轻轻抚摸着柳枝”</td><td>用了拟人，写出春风轻柔，画面亲切。</td><td>要答出对象特点和读者感受。</td></tr>
+          <tr><td>修辞赏析</td><td>4. 仿写一句拟人句表现“雨小”</td><td>小雨点踮着脚，轻轻落在窗台上。</td><td>迁移题看能不能把方法用到表达里。</td></tr>
+          <tr><td>重点详写</td><td>1. 写“紧张”不能出现紧张二字</td><td>我攥着衣角，手心里全是汗。</td><td>用动作、神态表现心情。</td></tr>
+          <tr><td>重点详写</td><td>2. 写比赛最关键的一瞬间</td><td>发令枪一响，我蹬地冲出去，耳边只剩加油声。</td><td>重点段要抓最能表现中心的一幕。</td></tr>
+          <tr><td>重点详写</td><td>3. 给成功后补心理活动</td><td>我忽然明白，只要敢迈出第一步，就已经赢了自己。</td><td>结尾要有成长，不只写开心。</td></tr>
+          <tr><td>重点详写</td><td>4. 安排《第一次上台》的详略</td><td>略写准备，详写上台前和开口后的变化。</td><td>详略必须服务“战胜害怕”的中心。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>作文批改样例</h2>
+          <div class="routine">
+            <p><strong>孩子原文：</strong>我上台演讲，很害怕。后来我讲完了，大家鼓掌，我很开心。</p>
+            <p><strong>问题诊断：</strong>过程完整，但缺少“害怕到勇敢”的变化，重点场景没有细节。</p>
+            <p><strong>教师升格：</strong>轮到我时，我的脚像粘在地上一样，手里的稿纸微微发抖。听见老师轻声说“开始吧”，我深吸一口气，抬头看向同学们。第一句话说出口后，我发现自己没有想象中那么害怕。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>阅读答题批改</h2>
+          <div class="routine">
+            <p><strong>题目：</strong>赏析“手心里全是汗”。</p>
+            <p><strong>孩子答案：</strong>写得很生动。</p>
+            <p><strong>批改：</strong>“生动”太空。应答“这处细节写出小林上台前非常紧张，也为后文他鼓起勇气完成演讲作铺垫”。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>作文批改加厚</h2>
+        <div class="responsive-table"><table><thead><tr><th>孩子原文</th><th>老师圈批</th><th>升格稿</th><th>二次练习</th></tr></thead><tbody>
+          <tr><td>我参加了比赛。我很紧张。后来我成功了，我很开心。</td><td>事情有了，但重点场景太薄，紧张和成功都要写出来。</td><td>轮到我上场时，我的手紧紧抓着号码牌，耳边的加油声忽远忽近。发令枪一响，我咬紧牙关冲了出去。冲过终点那一刻，我听见同学们喊我的名字，心里像开了一朵花。</td><td>把“第一次上台演讲”写成 4 句话。</td></tr>
+          <tr><td>我很害怕，但是我上去了。</td><td>太短，没有动作和心理变化。</td><td>我站在讲台前，脚像粘住了一样，手心全是汗。深吸一口气后，我终于把第一句话说了出来。</td><td>写一段“我不想举手回答问题”。</td></tr>
+        </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>阅读错因分类与阶段测评</h2>
-        <div class="responsive-table"><table><thead><tr><th>类型</th><th>孩子卡在哪</th><th>怎么帮ta过</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>证据缺失</td><td>凭直觉知道答案但说不出从文中哪里看出来的——没有"答案必须有出处"的意识，把答题当成写感想</td><td>每个品质词后面必补一句原文句子→逐句回文标注关键词</td><td>人物题能写出 2 个细节支撑</td></tr>
-          <tr><td>赏析悬浮</td><td>修辞能认出来但赏析只会写"生动形象"四个字——不知道赏析要写"方法+特点+效果"三句话</td><td>补"写出什么特点/情感/作用"→把原句去掉修辞对比读</td><td>修辞题能按"修辞 + 特点 + 效果"答完整</td></tr>
-          <tr><td>概括冗余</td><td>不会区分重要信息和次要信息——概括时把一大堆细节全写进去，等于没概括</td><td>先划掉所有形容词和举例→只留谁+做了什么+结果→用一句话串起来</td><td>150 字短文能用 30 字内概括</td></tr>
-          <tr><td>描写扁平</td><td>叙事结构完整但关键场景没有细节——只会写"我很紧张"不会写"攥着衣角，手心冒汗"</td><td>圈出最能表现中心的一幕→从动作、神态、心理三个角度各写一句</td><td>重点段有动作、语言、心理至少 3 类细节</td></tr>
+        <div class="responsive-table"><table><thead><tr><th>类型</th><th>典型表现</th><th>立刻补救</th><th>测评标准</th></tr></thead><tbody>
+          <tr><td>无依据</td><td>答案只有“勇敢、善良”</td><td>每个特点后补一句原文依据</td><td>人物题能写出 2 个细节支撑</td></tr>
+          <tr><td>赏析空</td><td>反复写“生动形象”</td><td>补“写出什么特点/情感/作用”</td><td>修辞题能按“修辞 + 特点 + 效果”答</td></tr>
+          <tr><td>概括啰嗦</td><td>把经过全抄下来</td><td>删次要信息，保留主事件</td><td>150 字短文能用 30 字内概括</td></tr>
+          <tr><td>作文平均用力</td><td>起因经过结果字数差不多</td><td>圈出最能表现中心的一幕详写</td><td>重点段有动作、语言、心理至少 3 类细节</td></tr>
         </tbody></table></div>
       </div>
     </section>
@@ -539,7 +384,7 @@
       <div class="section-title">
         <p class="eyebrow" style="color:#1565c0;">阶段测评卷 · 30分钟</p>
         <h2>四年级小测：概括、依据、赏析、重点场景</h2>
-        <p style="color:#666;">这套测评专门检查孩子能不能"答得有依据"，不是只写感觉。</p>
+        <p style="color:#666;">这套测评专门检查孩子能不能“答得有依据”，不是只写感觉。</p>
       </div>
       <div class="content-grid" style="margin-bottom:18px;">
         <article class="study-block">
@@ -558,116 +403,46 @@
       <div class="table-card">
         <h2>A卷：题目、答案和评分</h2>
         <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
-          <tr><td>1. 概括短文主要内容</td><td>短文写小林克服紧张，代表小组完整讲完故事，赢得掌声。</td><td>人物、事件、结果共 4 分</td><td>只写"小林讲故事"，结果不完整。</td></tr>
-          <tr><td>2. 小林上台前是什么心情？从哪里看出？</td><td>紧张。从"手心里全是汗""声音有些发抖"可以看出。</td><td>心情 1 分，依据 2 分</td><td>只写紧张，没有依据。</td></tr>
-          <tr><td>3. 小林是怎样的人？</td><td>小林是勇敢、敢于挑战自己的人。从他虽然紧张，却仍走上讲台讲完故事可以看出。</td><td>特点、依据、分析共 4 分</td><td>只写"小林很好"。</td></tr>
-          <tr><td>4. 赏析"雨点落在窗户上，像一串串小鼓点"</td><td>用了比喻，把雨点声比作小鼓点，写出雨声清脆、有节奏，让清晨画面更生动。</td><td>修辞、特点、效果共 4 分</td><td>只写"很生动"。</td></tr>
-          <tr><td>5. 写一段"紧张"，不能出现"紧张"二字</td><td>我攥着衣角，眼睛盯着讲台，手心里全是汗，心像小鼓一样咚咚直响。</td><td>动作、神态、心理共 5 分</td><td>只写心情词，没有细节。</td></tr>
+          <tr><td>1. 概括短文主要内容</td><td>短文写小林克服紧张，代表小组完整讲完故事，赢得掌声。</td><td>人物、事件、结果共 4 分</td><td>只写“小林讲故事”，结果不完整。</td></tr>
+          <tr><td>2. 小林上台前是什么心情？从哪里看出？</td><td>紧张。从“手心里全是汗”“声音有些发抖”可以看出。</td><td>心情 1 分，依据 2 分</td><td>只写紧张，没有依据。</td></tr>
+          <tr><td>3. 小林是怎样的人？</td><td>小林是勇敢、敢于挑战自己的人。从他虽然紧张，却仍走上讲台讲完故事可以看出。</td><td>特点、依据、分析共 4 分</td><td>只写“小林很好”。</td></tr>
+          <tr><td>4. 赏析“雨点落在窗户上，像一串串小鼓点”</td><td>用了比喻，把雨点声比作小鼓点，写出雨声清脆、有节奏，让清晨画面更生动。</td><td>修辞、特点、效果共 4 分</td><td>只写“很生动”。</td></tr>
+          <tr><td>5. 写一段“紧张”，不能出现“紧张”二字</td><td>我攥着衣角，眼睛盯着讲台，手心里全是汗，心像小鼓一样咚咚直响。</td><td>动作、神态、心理共 5 分</td><td>只写心情词，没有细节。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>A卷问题分析与对应训练</h2>
+        <h2>A卷判码表</h2>
         <div class="responsive-table"><table><thead><tr><th>A卷题号</th><th>扣分表现</th><th>判定错因码</th><th>马上去练</th></tr></thead><tbody>
-          <tr><td>1</td><td>概括漏结果或太啰嗦</td><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>概括训练包</td></tr>
-          <tr><td>2</td><td>心情题没有原文依据</td><td><a href="practice.html#pack-r2" class="error-code-link" data-error-code="R2" onclick="JumpManager.jumpToPractice('R2'); return false;">R2</a></td><td>原文依据训练包</td></tr>
-          <tr><td>3</td><td>人物特点只有一个词</td><td><a href="practice.html#pack-r2" class="error-code-link" data-error-code="R2" onclick="JumpManager.jumpToPractice('R2'); return false;">R2</a></td><td>原文依据训练包</td></tr>
-          <tr><td>4</td><td>赏析只写"生动"</td><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>赏析和说明文训练包</td></tr>
-          <tr><td>5</td><td>重点场景没有细节</td><td><a href="practice.html#pack-w2" class="error-code-link" data-error-code="W2" onclick="JumpManager.jumpToPractice('W2'); return false;">W2</a></td><td>重点段升格训练包</td></tr>
+          <tr><td>1</td><td>概括漏结果或太啰嗦</td><td><a href="practice.html#pack-r1">R1</a></td><td>概括训练包</td></tr>
+          <tr><td>2</td><td>心情题没有原文依据</td><td><a href="practice.html#pack-r2">R2</a></td><td>原文依据训练包</td></tr>
+          <tr><td>3</td><td>人物特点只有一个词</td><td><a href="practice.html#pack-r2">R2</a></td><td>原文依据训练包</td></tr>
+          <tr><td>4</td><td>赏析只写“生动”</td><td><a href="practice.html#pack-r3">R3</a></td><td>赏析和说明文训练包</td></tr>
+          <tr><td>5</td><td>重点场景没有细节</td><td><a href="practice.html#pack-w2">W2</a></td><td>重点段升格训练包</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" id="grade4-b-test" style="margin-top:18px;">
-        <h2>B卷：换题再练，检查是否真会</h2>
+        <h2>B卷：同类变式迁移</h2>
         <div class="responsive-table"><table><thead><tr><th>变式题</th><th>标准答案/要点</th><th>错因编码</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>1. 概括"晓雨第一次主持班会"的短文</td><td>晓雨克服害怕，顺利主持班会，得到同学认可。</td><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>人物、事件、结果完整。</td></tr>
-          <tr><td>2. 晓雨为什么害怕？从哪里看出？</td><td>她害怕。从"手指紧紧捏着主持稿""说话前深吸气"可以看出。</td><td><a href="practice.html#pack-r2" class="error-code-link" data-error-code="R2" onclick="JumpManager.jumpToPractice('R2'); return false;">R2</a></td><td>观点后必须有原文依据。</td></tr>
-          <tr><td>3. 赏析"掌声像春风一样涌过来"</td><td>用了比喻，把掌声比作春风，写出掌声温暖、有鼓励力量。</td><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>方法、特点、效果都写到。</td></tr>
-          <tr><td>4. 写一段"不安"，不能出现"不安"二字</td><td>我低头看着鞋尖，手指不停搓着衣角，心里像有一只鼓在乱敲。</td><td><a href="practice.html#pack-w2" class="error-code-link" data-error-code="W2" onclick="JumpManager.jumpToPractice('W2'); return false;">W2</a></td><td>有动作、神态、心理细节。</td></tr>
+          <tr><td>1. 概括“晓雨第一次主持班会”的短文</td><td>晓雨克服害怕，顺利主持班会，得到同学认可。</td><td><a href="practice.html#pack-r1">R1</a></td><td>人物、事件、结果完整。</td></tr>
+          <tr><td>2. 晓雨为什么害怕？从哪里看出？</td><td>她害怕。从“手指紧紧捏着主持稿”“说话前深吸气”可以看出。</td><td><a href="practice.html#pack-r2">R2</a></td><td>观点后必须有原文依据。</td></tr>
+          <tr><td>3. 赏析“掌声像春风一样涌过来”</td><td>用了比喻，把掌声比作春风，写出掌声温暖、有鼓励力量。</td><td><a href="practice.html#pack-r3">R3</a></td><td>方法、特点、效果都写到。</td></tr>
+          <tr><td>4. 写一段“不安”，不能出现“不安”二字</td><td>我低头看着鞋尖，手指不停搓着衣角，心里像有一只鼓在乱敲。</td><td><a href="practice.html#pack-w2">W2</a></td><td>有动作、神态、心理细节。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>错因归类</h2>
         <div class="responsive-table"><table><thead><tr><th>错因</th><th>表现</th><th>补救</th></tr></thead><tbody>
           <tr><td>无依据</td><td>人物题只写品质词</td><td>每个品质后必须补一句原文细节。</td></tr>
-          <tr><td>赏析空</td><td>只写"生动形象"</td><td>补"把什么比作什么，写出什么特点"。</td></tr>
+          <tr><td>赏析空</td><td>只写“生动形象”</td><td>补“把什么比作什么，写出什么特点”。</td></tr>
           <tr><td>作文薄</td><td>重点场景没有动作心理</td><td>一段至少写动作、神态、心理三类细节。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>做完后下一步怎么练</h2>
+        <h2>测后分流路径</h2>
         <div class="responsive-table"><table><thead><tr><th>错因编码</th><th>错在哪</th><th>先补哪里</th><th>下一步练什么</th></tr></thead><tbody>
-          <tr><td><a href="practice.html#pack-r2" class="error-code-link" data-error-code="R2" onclick="JumpManager.jumpToPractice('R2'); return false;">R2</a></td><td>看不出依据</td><td>本页"阅读答案必须有依据" + R2训练包</td><td>每题都补"我是从哪句话看出来的"。</td></tr>
-          <tr><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>赏析只会说生动</td><td>修辞答题模板页 + R3训练包</td><td>按"方法 + 特点 + 效果"说完整。</td></tr>
-          <tr><td><a href="practice.html#pack-w2" class="error-code-link" data-error-code="W2" onclick="JumpManager.jumpToPractice('W2'); return false;">W2</a></td><td>作文没有重点</td><td>作文详略页 + W2训练包</td><td>圈出最重要的一幕，展开写动作和心情。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-expression">
-      <div class="section-title">
-        <p class="eyebrow">补齐模块 · 综合表达</p>
-        <h2>四年级综合表达：通知、采访、讨论发言和活动整理</h2>
-        <p style="color:#666;">四年级开始，表达不能只求“说出来”，还要讲对象、讲理由、讲次序。口语交际、应用文和综合性学习要和阅读里的“依据意识”一起练。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h2>四年级补什么最值钱</h2>
-          <ul class="level-list">
-            <li><strong>讨论发言：</strong>先表态，再说理由，最后给建议。</li>
-            <li><strong>通知和采访：</strong>学会把时间、地点、对象和问题问清楚。</li>
-            <li><strong>活动整理：</strong>能把查到的资料按类别分开，不堆在一起。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>和阅读训练怎么打通</h2>
-          <div class="routine">
-            <p><strong>口语题：</strong>理由也要有依据，不能只有态度。</p>
-            <p><strong>应用文：</strong>格式像题目框架，漏一项就会丢分。</p>
-            <p><strong>综合学习：</strong>先整理资料，再输出观点，比直接开写更稳。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>四年级表达任务对照表</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>作答框架</th><th>达标要求</th><th>失分提醒</th></tr></thead><tbody>
-          <tr><td>讨论发言</td><td>我同意/不同意……，因为……，所以我建议……。</td><td>观点明确，理由至少两层。</td><td>只表态，不说明为什么。</td></tr>
-          <tr><td>通知</td><td>请……于……到……参加……，请带好……。</td><td>时间、地点、人物、事情、要求完整。</td><td>语言拖沓，或者漏掉具体要求。</td></tr>
-          <tr><td>采访提纲</td><td>围绕主题设计3个递进问题。</td><td>问题具体，顺序合理，能问出信息。</td><td>问题太大太空，对方不好回答。</td></tr>
-          <tr><td>活动整理</td><td>先分类资料，再写“我们发现了什么”。</td><td>能把资料分成2-3类，再说共同点。</td><td>只抄资料，没做整理和概括。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-literature">
-      <div class="section-title">
-        <p class="eyebrow">补齐模块 · 整本书与现代诗</p>
-        <h2>四年级整本书阅读与现代诗：从“读过”走向“能讲人物和情感”</h2>
-        <p style="color:#666;">四年级开始，整本书阅读不能只报书名，现代诗也不能只说“很美”。孩子要慢慢学会抓人物变化、关键情节和诗里的情感线索。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h2>整本书阅读升级点</h2>
-          <ul class="level-list">
-            <li><strong>人物变化：</strong>说出人物前后哪里不一样。</li>
-            <li><strong>关键片段：</strong>能选出最能说明人物特点的一幕。</li>
-            <li><strong>读书交流：</strong>不只复述，还能说出自己的判断。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>现代诗阅读升级点</h2>
-          <div class="routine">
-            <p><strong>景物：</strong>圈出反复出现的景物和动作。</p>
-            <p><strong>情感：</strong>想想诗人借这些景物想表达什么感觉。</p>
-            <p><strong>表达：</strong>学会用“写出了……，表达了……”说完整。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>四年级阅读与诗歌任务对照表</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>做法</th><th>达标标准</th><th>专题跳转</th></tr></thead><tbody>
-          <tr><td>人物变化梳理</td><td>先写开始怎样，再写后来怎样。</td><td>能结合一件具体事情说变化。</td><td><a href="knowledge-map.html#reading-genres">阅读分类</a></td></tr>
-          <tr><td>关键片段分享</td><td>选一幕最打动人的片段，说理由。</td><td>理由不空，能回到情节细节。</td><td><a href="knowledge-map.html#oral-communication">表达模板</a></td></tr>
-          <tr><td>现代诗情感题</td><td>先说画面，再说感受。</td><td>能答出“景物 + 情感”两层。</td><td><a href="knowledge-map.html#modern-poetry-system">现代诗专题</a></td></tr>
-          <tr><td>诗句赏析起步</td><td>按“方法 + 特点 + 感受”回答。</td><td>不只说“生动”，能说具体。</td><td><a href="knowledge-map.html#modern-poetry-system">赏析模板</a></td></tr>
+          <tr><td><a href="practice.html#pack-r2">R2</a></td><td>看不出依据</td><td>本页“阅读答案必须有依据” + R2训练包</td><td>每题都补“我是从哪句话看出来的”。</td></tr>
+          <tr><td><a href="practice.html#pack-r3">R3</a></td><td>赏析只会说生动</td><td>修辞答题模板页 + R3训练包</td><td>按“方法 + 特点 + 效果”说完整。</td></tr>
+          <tr><td><a href="practice.html#pack-w2">W2</a></td><td>作文没有重点</td><td>作文详略页 + W2训练包</td><td>圈出最重要的一幕，展开写动作和心情。</td></tr>
         </tbody></table></div>
       </div>
     </section>
@@ -676,7 +451,7 @@
       <article class="study-block">
         <h2>四年级必须形成的 5 个能力</h2>
         <ul class="check-list">
-          <li>概括能力：能用"人物 + 事件 + 结果"说清一篇文章主要内容。</li>
+          <li>概括能力：能用“人物 + 事件 + 结果”说清一篇文章主要内容。</li>
           <li>依据意识：阅读题不凭感觉，能回到原文找关键词和关键句。</li>
           <li>赏析能力：能说清修辞、描写、关键词好在哪里。</li>
           <li>表达能力：作文能把经过写具体，加入动作、语言、神态、心理。</li>
@@ -684,18 +459,18 @@
         </ul>
       </article>
       <article class="study-block accent">
-        <h2>提优策略框架</h2>
+        <h2>提优总口诀</h2>
         <div class="routine">
-          <p><strong>概括能力：</strong>三步走——删细节（划掉形容词和举例）→找共同点（把所有具体事物归一个大类）→说完整（用"谁+做了什么+结果怎样"一句话说出来）。</p>
-          <p><strong>证据意识：</strong>每题必问"从文中哪句话看出来的"——先把原文关键句圈出来，再写进答案里。养成这个习惯后再加"解释为什么"这一步。</p>
-          <p><strong>赏析能力：</strong>一个公式——"用了什么方法+写出了什么特点+有什么效果"。先练第一步和第二步（方法+特点），练熟后再加第三步（效果）。</p>
-          <p><strong>写作表达：</strong>不要告诉读者"他很紧张"，要让读者看到"他攥着衣角，手心全是汗"。每次写完自己检查：有没有用动作/神态/心理来代替心情词？</p>
-          <p><strong>复盘习惯：</strong>每次做错题，先别急着看答案——自己判断是"没看懂题""没找到证据""不会组织答案"还是"粗心"，再对照解析验证自己的判断。</p>
+          <p><strong>概括：</strong>谁做了什么，结果怎样。</p>
+          <p><strong>依据：</strong>从“原文句子”可以看出。</p>
+          <p><strong>赏析：</strong>方法 + 特点 + 效果。</p>
+          <p><strong>作文：</strong>动作 + 语言 + 神态 + 心理。</p>
+          <p><strong>复盘：</strong>错因 + 正确方法 + 同类再练。</p>
         </div>
       </article>
     </section>
 
-    <section class="section" id="section-reading">
+    <section class="section">
       <div class="table-card">
         <h2>四年级知识点使用总表</h2>
         <div class="responsive-table">
@@ -707,7 +482,7 @@
               <tr><td>字词</td><td>多音字、形近字、近反义词、词语搭配</td><td>选读音、选字填空、语境辨析</td><td>能结合句意判断，不机械记忆</td></tr>
               <tr><td>句子</td><td>扩句、缩句、句式转换、修改病句、关联词</td><td>改写句子、病句修改、补关联词</td><td>意思不变，表达更准确</td></tr>
               <tr><td>阅读</td><td>概括内容、理解词语、找依据、人物形象</td><td>段意、主旨、句子作用、赏析题</td><td>答案有依据，有层次</td></tr>
-              <tr><td>修辞</td><td>比喻、拟人、排比、夸张、反问</td><td>判断修辞、分析作用、仿写</td><td>从"是什么"升级到"好在哪里"</td></tr>
+              <tr><td>修辞</td><td>比喻、拟人、排比、夸张、反问</td><td>判断修辞、分析作用、仿写</td><td>从“是什么”升级到“好在哪里”</td></tr>
               <tr><td>作文</td><td>写人、写事、写景、观察作文</td><td>片段扩写、详略安排、细节描写</td><td>写清经过，写出画面和感受</td></tr>
               <tr><td>古诗文</td><td>背诵默写、重点词、诗句意思</td><td>诗意理解、情感体会、画面描述</td><td>能说出诗句画面和诗人情感</td></tr>
             </tbody>
@@ -716,10 +491,10 @@
       </div>
     </section>
 
-    <section class="section" id="section-rhetoric">
+    <section class="section">
       <div class="section-title">
         <p class="eyebrow">字词基础</p>
-        <h2>从"会认会写"到"会在语境中运用"</h2>
+        <h2>从“会认会写”到“会在语境中运用”</h2>
       </div>
       <div class="content-grid">
         <article class="study-block">
@@ -755,7 +530,7 @@
             <tbody>
               <tr><td>近义词</td><td>逐渐/渐渐，居然/竟然，观赏/欣赏</td><td>说清细微差别，不能随便替换</td></tr>
               <tr><td>反义词</td><td>宽阔/狭窄，热闹/冷清，清晰/模糊</td><td>结合语境判断意思相反</td></tr>
-              <tr><td>形容词搭配</td><td>灿烂的阳光，宽阔的马路，清新的空气</td><td>避免"提高错误、养成态度"这类搭配不当</td></tr>
+              <tr><td>形容词搭配</td><td>灿烂的阳光，宽阔的马路，清新的空气</td><td>避免“提高错误、养成态度”这类搭配不当</td></tr>
               <tr><td>动词搭配</td><td>改正错误，提高成绩，保护环境，珍惜时间</td><td>积累作文中常用的准确表达</td></tr>
             </tbody>
           </table>
@@ -763,7 +538,7 @@
       </div>
     </section>
 
-    <section class="section" id="section-writing">
+    <section class="section">
       <div class="section-title">
         <p class="eyebrow">句子专项</p>
         <h2>把句子改准确、写具体、表达清楚</h2>
@@ -776,7 +551,7 @@
         </article>
         <article class="mini-card">
           <h3>缩句</h3>
-          <p><strong>方法：</strong>去掉修饰语，保留"谁做什么"或"什么怎么样"。</p>
+          <p><strong>方法：</strong>去掉修饰语，保留“谁做什么”或“什么怎么样”。</p>
           <p><strong>例：</strong>漂亮的小鸟在树枝上唱歌。缩成：小鸟唱歌。</p>
         </article>
         <article class="mini-card">
@@ -804,7 +579,7 @@
       </div>
     </section>
 
-    <section class="section" id="section-poetry">
+    <section class="section">
       <div class="section-title">
         <p class="eyebrow">阅读理解提优</p>
         <h2>四年级真正拉开差距的核心模块</h2>
@@ -819,10 +594,10 @@
             <tbody>
               <tr><td>概括主要内容</td><td>人物 + 事件 + 结果</td><td>文章主要写了……做……，结果……。</td><td>复述太长，只写开头。</td></tr>
               <tr><td>概括段意</td><td>中心句/关键词 + 自己概括</td><td>这一段主要写了……，表现出……。</td><td>整句抄原文，不会提炼。</td></tr>
-              <tr><td>理解词语</td><td>文中意思 + 上下文依据</td><td>这个词在文中指……，从前后文"……"可以看出。</td><td>只写字典意思。</td></tr>
-              <tr><td>找依据</td><td>结论 + 原文词句</td><td>从"……"可以看出……，因为……。</td><td>没有引用原文。</td></tr>
-              <tr><td>人物形象</td><td>品质 + 具体事例 + 分析</td><td>从"……"看出他是一个……的人，这件事表现了他……。</td><td>只写品质，不写事例。</td></tr>
-              <tr><td>句子赏析</td><td>方法 + 关键词 + 特点 + 效果</td><td>这句话用了……，抓住"……"写出了……，让……更……。</td><td>只写"很生动"。</td></tr>
+              <tr><td>理解词语</td><td>文中意思 + 上下文依据</td><td>这个词在文中指……，从前后文“……”可以看出。</td><td>只写字典意思。</td></tr>
+              <tr><td>找依据</td><td>结论 + 原文词句</td><td>从“……”可以看出……，因为……。</td><td>没有引用原文。</td></tr>
+              <tr><td>人物形象</td><td>品质 + 具体事例 + 分析</td><td>从“……”看出他是一个……的人，这件事表现了他……。</td><td>只写品质，不写事例。</td></tr>
+              <tr><td>句子赏析</td><td>方法 + 关键词 + 特点 + 效果</td><td>这句话用了……，抓住“……”写出了……，让……更……。</td><td>只写“很生动”。</td></tr>
               <tr><td>句子作用</td><td>位置 + 内容 + 结构/情感</td><td>这句话在……位置，写出了……，起到……的作用。</td><td>套模板不结合文章。</td></tr>
             </tbody>
           </table>
@@ -837,7 +612,7 @@
         <div class="routine">
           <p><strong>基础题：</strong>这篇短文主要写了什么？</p>
           <p><strong>提优题：</strong>从哪里可以看出蚂蚁搬家很有秩序？</p>
-          <p><strong>拔高题：</strong>结尾"小小的蚂蚁真聪明"有什么作用？</p>
+          <p><strong>拔高题：</strong>结尾“小小的蚂蚁真聪明”有什么作用？</p>
           <p><strong>满分答法：</strong>结尾总结全文，点明中心，表达了作者对蚂蚁能预知天气变化的惊奇和赞叹。</p>
         </div>
       </article>
@@ -847,7 +622,7 @@
         <div class="routine">
           <p><strong>基础题：</strong>这一段主要写了小雨的什么特点？</p>
           <p><strong>提优题：</strong>请结合文中事例分析小雨的人物形象。</p>
-          <p><strong>拔高题：</strong>"毫不犹豫"体现了小雨什么品质？</p>
+          <p><strong>拔高题：</strong>“毫不犹豫”体现了小雨什么品质？</p>
           <p><strong>满分答法：</strong>小雨是一个乐于助人的人。从她借铅笔、耐心讲题可以看出她关心同学、愿意帮助别人。</p>
         </div>
       </article>
@@ -856,7 +631,7 @@
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">修辞赏析</p>
-        <h2>从"判断修辞"升级到"分析表达效果"</h2>
+        <h2>从“判断修辞”升级到“分析表达效果”</h2>
       </div>
       <div class="content-grid">
         <article class="study-block">
@@ -880,7 +655,7 @@
               <tr><th>修辞</th><th>判断方法</th><th>作用表达</th></tr>
             </thead>
             <tbody>
-              <tr><td>比喻</td><td>有"像、好像、仿佛"，把 A 比作 B</td><td>写出了事物的形状、颜色、声音或特点，使表达生动形象</td></tr>
+              <tr><td>比喻</td><td>有“像、好像、仿佛”，把 A 比作 B</td><td>写出了事物的形状、颜色、声音或特点，使表达生动形象</td></tr>
               <tr><td>拟人</td><td>把事物写成人，有人的动作或情感</td><td>写出了事物的生命力，让画面更有趣</td></tr>
               <tr><td>排比</td><td>三个或三个以上结构相似的句子</td><td>增强语气，使表达更有气势</td></tr>
               <tr><td>夸张</td><td>故意放大或缩小特点</td><td>突出事物特点，增强表达效果</td></tr>
@@ -905,7 +680,7 @@
         <article class="mini-card">
           <h3>语言描写</h3>
           <p>人物说的话要符合身份和当时情境。</p>
-          <p>例："别怕，我陪你一起去。"小明轻声说。</p>
+          <p>例：“别怕，我陪你一起去。”小明轻声说。</p>
         </article>
         <article class="mini-card">
           <h3>神态描写</h3>
@@ -914,7 +689,7 @@
         </article>
         <article class="mini-card">
           <h3>心理描写</h3>
-          <p>写心里的想法，不只写"我很紧张"。</p>
+          <p>写心里的想法，不只写“我很紧张”。</p>
           <p>例：我的心像揣着一只小鼓，咚咚直响。</p>
         </article>
       </div>
@@ -1005,7 +780,7 @@
           <div class="routine">
             <p><strong>问画面：</strong>这句诗描写了……的画面。</p>
             <p><strong>问情感：</strong>通过描写……，表达了诗人……的感情。</p>
-            <p><strong>问字词：</strong>"……"的意思是……，写出了……的特点。</p>
+            <p><strong>问字词：</strong>“……”的意思是……，写出了……的特点。</p>
           </div>
         </article>
         <article class="study-block accent">
@@ -1025,15 +800,15 @@
               <tr><td>借景抒情</td><td>诗人不直接说心情，而是写景物</td><td>明月、春风、孤帆、落日</td><td>诗人借……的景象，表达了……的感情。</td></tr>
               <tr><td>寓情于景</td><td>景物里藏着心情</td><td>孤帆远影、长河落日、寒雨连江</td><td>表面写……，实际烘托出诗人……的心情。</td></tr>
               <tr><td>借物抒情</td><td>借某种事物表达态度</td><td>梅花、竹子、松树、荷花</td><td>诗人借……表现自己……的品质或志向。</td></tr>
-              <tr><td>动作传情</td><td>看诗人"望、送、忆、思"等动作</td><td>举头望明月、低头思故乡</td><td>这些动作写出了诗人……的情感。</td></tr>
-              <tr><td>关键词点情</td><td>抓情感词</td><td>思、愁、怜、惜、喜、爱</td><td>"……"字直接写出了诗人……的心情。</td></tr>
+              <tr><td>动作传情</td><td>看诗人“望、送、忆、思”等动作</td><td>举头望明月、低头思故乡</td><td>这些动作写出了诗人……的情感。</td></tr>
+              <tr><td>关键词点情</td><td>抓情感词</td><td>思、愁、怜、惜、喜、爱</td><td>“……”字直接写出了诗人……的心情。</td></tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="table-card">
         <h2>四年级古诗知识怎么用：诗人情感速查</h2>
-        <p style="color:#666;">四年级先掌握情感类型、意象和答题句式；更完整的古诗文答题闭环建议到 <a href="classical-reading.html" style="color:var(--deep-blue);font-weight:800;">古诗文阅读专题页</a> 查。</p>
+        <p style="color:#666;">四年级先掌握情感类型、意象和答题句式；更完整的诗人体系建议到 <a href="knowledge-map.html#classic-system" style="color:var(--deep-blue);font-weight:800;">知识总控台古诗文体系</a> 查。</p>
         <div class="responsive-table">
           <table>
             <thead>
@@ -1045,21 +820,21 @@
                 <td>明月、故乡、秋风、家书、归雁、客船</td>
                 <td>借景抒情、动作传情</td>
                 <td>诗人借……表达了对家乡和亲人的思念。</td>
-                <td>不能只写"想家"，要说清借什么景物写思乡。</td>
+                <td>不能只写“想家”，要说清借什么景物写思乡。</td>
               </tr>
               <tr>
                 <td>送别惜别</td>
                 <td>柳、酒、长亭、孤帆、远影、古道</td>
                 <td>寓情于景、以景衬情</td>
                 <td>诗人通过描写……的送别场景，表达了依依不舍之情。</td>
-                <td>看到"孤帆、远影、送、别"要想到离别情。</td>
+                <td>看到“孤帆、远影、送、别”要想到离别情。</td>
               </tr>
               <tr>
                 <td>热爱自然</td>
                 <td>春风、花、鸟、山、水、田园、荷花</td>
                 <td>借景抒情、动静结合</td>
                 <td>诗人描写……的美丽景象，表达了对自然的喜爱和赞美。</td>
-                <td>不要只写"景色很美"，要写出景物特点。</td>
+                <td>不要只写“景色很美”，要写出景物特点。</td>
               </tr>
               <tr>
                 <td>赞美品质</td>
@@ -1073,21 +848,21 @@
                 <td>高山、大海、登高、远望、长风</td>
                 <td>借景言志、直抒胸臆</td>
                 <td>诗人借……表现了远大的志向和开阔的胸怀。</td>
-                <td>看到"登高、远望"不要只理解成看风景。</td>
+                <td>看到“登高、远望”不要只理解成看风景。</td>
               </tr>
               <tr>
                 <td>忧国忧民</td>
                 <td>战争、边塞、百姓、寒夜、破屋</td>
                 <td>叙事抒情、借景抒情</td>
                 <td>诗人通过描写……，表达了对国家和百姓的关心。</td>
-                <td>这类情感比"难过"更深，要联系国家、百姓、时代。</td>
+                <td>这类情感比“难过”更深，要联系国家、百姓、时代。</td>
               </tr>
               <tr>
                 <td>珍惜粮食与劳动</td>
                 <td>农人、汗水、禾苗、田地、米饭</td>
                 <td>叙事明理、对比</td>
                 <td>诗人写……，表达了对劳动人民的同情和对粮食的珍惜。</td>
-                <td>不能只写"农民很辛苦"，还要写出珍惜劳动成果。</td>
+                <td>不能只写“农民很辛苦”，还要写出珍惜劳动成果。</td>
               </tr>
               <tr>
                 <td>人生哲理</td>
@@ -1215,9 +990,9 @@
           <div class="routine">
             <p><strong>画面清楚：</strong>说出诗句写了哪些景物，组成什么画面。</p>
             <p><strong>意象准确：</strong>能抓住月、柳、风、雨、梅等关键词。</p>
-            <p><strong>情感具体：</strong>不要只写"开心/难过"，要写思乡、惜别、赞美、向往等。</p>
+            <p><strong>情感具体：</strong>不要只写“开心/难过”，要写思乡、惜别、赞美、向往等。</p>
             <p><strong>满分模板：</strong>诗人通过描写……的画面，借……这一意象，表达了……的感情。</p>
-            <p><strong>炼字模板：</strong>"……"字写出了……的特点，使画面更加……，也表现了诗人……的心情。</p>
+            <p><strong>炼字模板：</strong>“……”字写出了……的特点，使画面更加……，也表现了诗人……的心情。</p>
           </div>
         </article>
       </div>
@@ -1266,7 +1041,7 @@
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">家长陪学</p>
-        <h2>四年级不要只问"答案是什么"</h2>
+        <h2>四年级不要只问“答案是什么”</h2>
       </div>
       <div class="cards-row">
         <article class="mini-card">
@@ -1286,24 +1061,24 @@
     <section class="section teacher-note">
       <div class="section-title">
         <p class="eyebrow">特级教师拔尖提优</p>
-        <h2>四年级从"答对"提升到"答得有依据"</h2>
-        <p style="color: #666;">四年级拔尖的核心是概括能力、依据意识和结构表达。孩子要学会说明"我为什么这样答"。</p>
+        <h2>四年级从“答对”提升到“答得有依据”</h2>
+        <p style="color: #666;">四年级拔尖的核心是概括能力、依据意识和结构表达。孩子要学会说明“我为什么这样答”。</p>
       </div>
       <div class="teacher-grid">
         <article class="teacher-card">
           <h3>1. 阅读答案回到原文</h3>
           <p>不能只写感觉，要能指出原文依据。人物品质、情感变化、句子作用都要从文本里找证据。</p>
-          <p>拔尖训练：每道阅读题后补一句"我是从……看出来的"。</p>
+          <p>拔尖训练：每道阅读题后补一句“我是从……看出来的”。</p>
         </article>
         <article class="teacher-card">
           <h3>2. 作文要有结构感</h3>
           <p>四年级作文开始要求详略。不是每件事都写一样多，要抓最重要的场景重点写。</p>
-          <p>拔尖训练：写作前先列"开头、经过重点、结尾感受"三行提纲。</p>
+          <p>拔尖训练：写作前先列“开头、经过重点、结尾感受”三行提纲。</p>
         </article>
         <article class="teacher-card">
           <h3>3. 修辞要会赏析</h3>
-          <p>会判断比喻、拟人还不够，要能说出"写出了什么特点，表达了什么效果"。</p>
-          <p>拔尖训练：按"方法 + 特点 + 效果"赏析一个句子。</p>
+          <p>会判断比喻、拟人还不够，要能说出“写出了什么特点，表达了什么效果”。</p>
+          <p>拔尖训练：按“方法 + 特点 + 效果”赏析一个句子。</p>
         </article>
       </div>
     </section>
@@ -1329,9 +1104,9 @@
             </thead>
             <tbody>
               <tr><td>概括主要内容</td><td>人物、事件、经过、结果</td><td>文章主要写了……，表现了……</td><td>不要复述太长，也不要只写一个大概词</td></tr>
-              <tr><td>人物品质分析</td><td>品质词 + 原文依据</td><td>他是一个……的人，从"……"可以看出</td><td>不要只写"好、勇敢"，要有具体依据</td></tr>
-              <tr><td>修辞赏析</td><td>方法、特点、效果</td><td>这句话用了……，把……写得……，表达了……</td><td>不要停在"用了比喻/拟人"</td></tr>
-              <tr><td>句段作用</td><td>位置 + 内容 + 结构作用</td><td>这段写了……，在结构上起到承上启下/引出下文的作用</td><td>不要所有题都套"点明中心"</td></tr>
+              <tr><td>人物品质分析</td><td>品质词 + 原文依据</td><td>他是一个……的人，从“……”可以看出</td><td>不要只写“好、勇敢”，要有具体依据</td></tr>
+              <tr><td>修辞赏析</td><td>方法、特点、效果</td><td>这句话用了……，把……写得……，表达了……</td><td>不要停在“用了比喻/拟人”</td></tr>
+              <tr><td>句段作用</td><td>位置 + 内容 + 结构作用</td><td>这段写了……，在结构上起到承上启下/引出下文的作用</td><td>不要所有题都套“点明中心”</td></tr>
               <tr><td>作文详略</td><td>最能表现中心的地方详写</td><td>重点写动作、语言、神态和心理，略写起因和结果</td><td>不要平均用力，流水账很难拿满分</td></tr>
             </tbody>
           </table>
@@ -1351,9 +1126,9 @@
             </thead>
             <tbody>
               <tr><td>主要内容</td><td>人物 + 事件 + 结果 + 中心</td><td>文章主要写了……，结果……，表现了……。</td><td>不能复述太长，也不能只写大概词。</td></tr>
-              <tr><td>人物品质</td><td>品质词 + 原文依据 + 分析</td><td>他是一个……的人。从文中"……"可以看出，因为……。</td><td>品质词要准确，依据要具体。</td></tr>
-              <tr><td>体会心情</td><td>心情词 + 关键词 + 变化</td><td>从"……"这个词/句可以看出人物……的心情，后来又变得……。</td><td>心情变化题要按顺序答。</td></tr>
-              <tr><td>修辞赏析</td><td>方法 + 关键词 + 特点 + 情感</td><td>这句话用了……，抓住"……"写出了……，表达了……。</td><td>不能只写"用了比喻，很生动"。</td></tr>
+              <tr><td>人物品质</td><td>品质词 + 原文依据 + 分析</td><td>他是一个……的人。从文中“……”可以看出，因为……。</td><td>品质词要准确，依据要具体。</td></tr>
+              <tr><td>体会心情</td><td>心情词 + 关键词 + 变化</td><td>从“……”这个词/句可以看出人物……的心情，后来又变得……。</td><td>心情变化题要按顺序答。</td></tr>
+              <tr><td>修辞赏析</td><td>方法 + 关键词 + 特点 + 情感</td><td>这句话用了……，抓住“……”写出了……，表达了……。</td><td>不能只写“用了比喻，很生动”。</td></tr>
               <tr><td>句段作用</td><td>内容作用 + 结构作用 + 中心作用</td><td>这段内容上写了……，结构上……，还突出了……。</td><td>结构作用看位置：开头、过渡、结尾不同。</td></tr>
             </tbody>
           </table>
@@ -1386,7 +1161,7 @@
               <tr><th>题目</th><th>普通答案</th><th>满分答案</th><th>满分标准</th></tr>
             </thead>
             <tbody>
-              <tr><td>"落叶像黄蝴蝶一样飞舞"这句话好在哪里？</td><td>用了比喻，很生动。</td><td>这句话用了比喻，把落叶比作黄蝴蝶，写出了落叶飘落时轻盈、优美的样子，画面感很强。</td><td>修辞 + 特点 + 效果</td></tr>
+              <tr><td>“落叶像黄蝴蝶一样飞舞”这句话好在哪里？</td><td>用了比喻，很生动。</td><td>这句话用了比喻，把落叶比作黄蝴蝶，写出了落叶飘落时轻盈、优美的样子，画面感很强。</td><td>修辞 + 特点 + 效果</td></tr>
               <tr><td>你觉得小明是一个怎样的人？</td><td>小明很坚持。</td><td>小明是一个坚持不懈的人。从他每天早起练跑步，即使下雨也不放弃可以看出来。</td><td>品质 + 原文依据</td></tr>
               <tr><td>文章主要写了什么？</td><td>写小明跑步。</td><td>文章主要写了小明为了参加运动会，坚持练习跑步，最后取得好成绩的事，表现了坚持的重要。</td><td>人物 + 事件 + 结果 + 主题</td></tr>
               <tr><td>开头写下雨有什么作用？</td><td>写天气不好。</td><td>开头写下雨，交代了故事发生的环境，也衬托出小明坚持训练的不容易，为后文表现他的毅力作铺垫。</td><td>环境 + 人物 + 下文</td></tr>
@@ -1418,7 +1193,7 @@
             <p><strong>题型判断准：</strong>先分清是概括、赏析、作用、人物还是心情题。</p>
             <p><strong>答案有依据：</strong>必须引用原文关键词、句子或具体情节。</p>
             <p><strong>分析不空泛：</strong>要说明依据写出了什么特点、心情或作用。</p>
-            <p><strong>表达有层次：</strong>作用题用"内容上、结构上、中心上"，人物题用"特点+依据+分析"。</p>
+            <p><strong>表达有层次：</strong>作用题用“内容上、结构上、中心上”，人物题用“特点+依据+分析”。</p>
             <p><strong>满分样式：</strong>这句话用了比喻，把月亮比作白玉盘，写出了月亮又圆又亮的特点，表达了诗人对月亮的喜爱。</p>
           </div>
         </article>
@@ -1444,197 +1219,8 @@
         </article>
       </div>
     </section>
-    <!-- 资料库速查 -->
-    <section class="section" id="grade4-cheatsheet" style="background:#f0f4ff; padding:30px 5vw;">
-      <div class="section-title">
-        <p class="eyebrow" style="color:#667eea;">📖 资料库速查</p>
-        <h2>四年级语法要点 & 易错提醒</h2>
-      </div>
-      <div id="grade4-grammar-ref"></div>
-      <div id="grade4-mistakes-ref" style="margin-top:20px;"></div>
-    </section>
   </main>
-  <nav class="mobile-bottom-nav" aria-label="手机底部导航">
-    <div class="mobile-bottom-nav-inner">
-      <a href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></svg>
-        首页
-      </a>
-      <a href="practice.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l2 2 4-5"/><path d="M5 4h14v16H5z"/></svg>
-        练习
-      </a>
-      <a href="agent.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v18"/><path d="M5 10h14"/><path d="M6 17h12"/></svg>
-        AI
-      </a>
-      <a href="knowledge-map.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3h8v8"/><path d="M21 3l-7 7"/><path d="M12 21H4v-8"/><path d="M3 21l7-7"/></svg>
-        知识
-      </a>
-    </div>
-  </nav>
-
-  <script defer src="nav.js?v=115"></script>
-  <script defer src="table-responsive.js?v=115"></script>
-  <script defer src="data/data-loader-core.js?v=115"></script>
-  <script defer src="data/grade-page-renderer.js?v=115"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 学习目标进度追踪
-      const checkboxes = document.querySelectorAll('.goal-checkbox');
-      const progressRing = document.getElementById('progress-ring');
-      const progressPercent = document.getElementById('progress-percent');
-      const completedCount = document.getElementById('completed-count');
-      const totalGoals = checkboxes.length;
-      
-      if (checkboxes.length === 0) return;
-      
-      function loadProgress() {
-        const saved = localStorage.getItem('grade4-progress');
-        if (saved) {
-          const progress = JSON.parse(saved);
-          checkboxes.forEach(checkbox => {
-            const goalId = checkbox.getAttribute('data-goal');
-            if (progress[goalId]) {
-              checkbox.checked = true;
-            }
-          });
-        }
-        updateProgress();
-      }
-      
-      function saveProgress() {
-        const progress = {};
-        checkboxes.forEach(checkbox => {
-          const goalId = checkbox.getAttribute('data-goal');
-          progress[goalId] = checkbox.checked;
-        });
-        localStorage.setItem('grade4-progress', JSON.stringify(progress));
-      }
-      
-      function updateProgress() {
-        const checkedCount = document.querySelectorAll('.goal-checkbox:checked').length;
-        const percent = Math.round((checkedCount / totalGoals) * 100);
-        
-        const circumference = 2 * Math.PI * 45;
-        const offset = circumference - (percent / 100) * circumference;
-        progressRing.style.strokeDashoffset = offset;
-        
-        progressPercent.textContent = percent + '%';
-        completedCount.textContent = checkedCount;
-        
-        if (percent === 100) {
-          showCompletionAnimation();
-        }
-      }
-      
-      function showCompletionAnimation() {
-        const celebration = document.createElement('div');
-        celebration.innerHTML = '🎉';
-        celebration.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:1000;animation:celebrate 1s ease-out forwards;';
-        document.body.appendChild(celebration);
-        setTimeout(() => celebration.remove(), 1000);
-      }
-      
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          saveProgress();
-          updateProgress();
-        });
-      });
-      
-      loadProgress();
-      
-      const hasProgress = localStorage.getItem('grade4-progress');
-      if (!hasProgress) {
-        const defaultGoals = ['1', '2', '4'];
-        defaultGoals.forEach(goalId => {
-          const checkbox = document.querySelector(`[data-goal="${goalId}"]`);
-          if (checkbox) {
-            checkbox.checked = true;
-          }
-        });
-        saveProgress();
-        updateProgress();
-      }
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.DataLib) {
-                    // 数据驱动渲染：年级元数据模块
-          DataLib.renderGradeHero('4', document.getElementById('grade4-hero'));
-          DataLib.renderGradeMistakes('4', document.getElementById('grade4-mistakes'));
-          DataLib.renderGradeCurriculum('4', document.getElementById('grade4-curriculum'));
-          DataLib.renderGradeUnitMatrix('4', document.getElementById('grade4-unit-matrix'));
-          DataLib.renderGradeLoop('4', document.getElementById('grade4-loop'));
-          DataLib.renderGrammarByGrade('grade4', document.getElementById('grade4-grammar-ref'));
-          DataLib.renderCommonMistakes(document.getElementById('grade4-mistakes-ref'), '4');
-        }
-    });
-    
-    // 目录导航功能
-    document.addEventListener('DOMContentLoaded', function() {
-      const tocLinks = document.querySelectorAll('.toc-link');
-      const tocToggle = document.getElementById('toc-toggle');
-      const tocSidebar = document.getElementById('toc-sidebar');
-      
-      // 创建浮动按钮
-      const floatBtn = document.createElement('button');
-      floatBtn.className = 'toc-float-btn';
-      floatBtn.textContent = '目录';
-      floatBtn.onclick = function() {
-        tocSidebar.classList.toggle('visible');
-      };
-      document.body.appendChild(floatBtn);
-      
-      // 点击目录链接平滑滚动
-      tocLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 100;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
-            
-            // 移动端点击后隐藏侧边栏
-            tocSidebar.classList.remove('visible');
-          }
-        });
-      });
-      
-      // 点击收起按钮
-      tocToggle.addEventListener('click', function() {
-        tocSidebar.classList.remove('visible');
-      });
-      
-      // 滚动时高亮当前目录项
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            tocLinks.forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + id) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '-100px 0px -60% 0px' });
-      
-      document.querySelectorAll('section[id]').forEach(section => {
-        observer.observe(section);
-      });
-    });
-  </script>
-<script defer src="data/grade-stage-assessment.js?v=115"></script>
-<script defer src="data/jump-manager.js"></script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

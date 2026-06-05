@@ -1,20 +1,1107 @@
-// ══════ 安全 localStorage 读取工具 ══════
-function safeParse(key, fallback) {
-  try {
-    var raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch (e) {
-    console.warn('[Data] localStorage 数据损坏，已重置:', key, e.message);
-    try { localStorage.removeItem(key); } catch (_) {}
-    return fallback;
-  }
-}
-function safeSet(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
-}
-
 // 练习数据
+const transformData = [
+  // 被字句转换
+  {
+    type: '被字句',
+    sentence: '小明打死了蚊子。',
+    options: ['蚊子被小明打死了。', '蚊子打了小明。', '小明被蚊子打死了。', '蚊子是小明打死的。'],
+    answer: 0,
+    level: 'easy',
+    explanation: '把字句改被字句的方法是：将动作的承受者（蚊子）放到前面，加上"被"字，再加上动作的发出者（小明）。',
+    mistakeReason: '容易把施动者和受动者弄反。被字句的结构是"受动者+被+施动者+动作"。'
+  },
+  {
+    type: '被字句',
+    sentence: '小红写完了作业。',
+    options: ['作业被小红写完了。', '小红被作业写完了。', '作业写完了小红。', '写完了小红的作业。'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    type: '被字句',
+    sentence: '爸爸修好了自行车。',
+    options: ['自行车被爸爸修好了。', '爸爸被自行车修好了。', '修好了爸爸的自行车。', '自行车修好了爸爸。'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    type: '被字句',
+    sentence: '老师表扬了小明。',
+    options: ['小明被老师表扬了。', '老师被小明表扬了。', '表扬了老师的小明。', '小明表扬了老师。'],
+    answer: 0,
+    level: 'easy'
+  },
+  // 把字句转换
+  {
+    type: '把字句',
+    sentence: '妈妈洗好了衣服。',
+    options: ['衣服被妈妈洗好了。', '妈妈把衣服洗好了。', '衣服洗好了妈妈。', '洗好了妈妈的衣服。'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    type: '把字句',
+    sentence: '弟弟吃完了蛋糕。',
+    options: ['蛋糕被弟弟吃完了。', '弟弟把蛋糕吃完了。', '蛋糕吃完了弟弟。', '吃完了弟弟的蛋糕。'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    type: '把字句',
+    sentence: '妹妹画好了图画。',
+    options: ['图画被妹妹画好了。', '妹妹把图画画好了。', '图画画好了妹妹。', '画好了妹妹的图画。'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    type: '把字句',
+    sentence: '哥哥整理好了书包。',
+    options: ['书包被哥哥整理好了。', '哥哥把书包整理好了。', '书包整理好了哥哥。', '整理好了哥哥的书包。'],
+    answer: 1,
+    level: 'easy'
+  },
+  // 反问句转换
+  {
+    type: '反问句',
+    sentence: '我们不应该珍惜时间。',
+    options: ['我们怎么不珍惜时间呢？', '我们难道应该浪费时间吗？', '我们难道不应该珍惜时间吗？', '我们珍惜时间。'],
+    answer: 2,
+    level: 'medium'
+  },
+  {
+    type: '反问句',
+    sentence: '这是一本好书。',
+    options: ['这不是一本好书吗？', '这难道是一本好书吗？', '这难道不是一本好书吗？', '这真是一本好书。'],
+    answer: 2,
+    level: 'medium'
+  },
+  {
+    type: '反问句',
+    sentence: '他是一个勇敢的人。',
+    options: ['他不是一个勇敢的人吗？', '他难道是一个勇敢的人吗？', '他难道不是一个勇敢的人吗？', '他真是勇敢。'],
+    answer: 2,
+    level: 'medium'
+  },
+  {
+    type: '反问句',
+    sentence: '我们应该帮助同学。',
+    options: ['我们怎么不帮助同学呢？', '我们难道应该帮助同学吗？', '我们难道不应该帮助同学吗？', '我们要帮助同学。'],
+    answer: 2,
+    level: 'medium'
+  },
+  // 陈述句转换
+  {
+    type: '陈述句',
+    sentence: '这个问题难道很难吗？',
+    options: ['这个问题不难。', '这个问题很难。', '这个问题很简单。', '这个问题不是很难。'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    type: '陈述句',
+    sentence: '你难道不开心吗？',
+    options: ['你很开心。', '你不开心。', '你难道开心吗？', '你是不是开心？'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    type: '陈述句',
+    sentence: '他难道不是好学生吗？',
+    options: ['他是好学生。', '他不是好学生。', '他难道是好学生吗？', '他是个学生。'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    type: '陈述句',
+    sentence: '这难道不是美丽的风景吗？',
+    options: ['这是美丽的风景。', '这不是美丽的风景。', '这难道是美丽的风景吗？', '这风景很美。'],
+    answer: 0,
+    level: 'medium'
+  },
+  // 扩句练习
+  {
+    type: '扩句',
+    sentence: '小鸟飞。',
+    options: ['小鸟在天上飞。', '可爱的小鸟在天上飞。', '可爱的小鸟在蓝天上自由地飞。', '小鸟飞得很高。'],
+    answer: 2,
+    level: 'hard'
+  },
+  {
+    type: '扩句',
+    sentence: '小猫吃鱼。',
+    options: ['小猫在吃鱼。', '可爱的小猫在吃鱼。', '可爱的小猫在桌子旁津津有味地吃鱼。', '小猫吃得很香。'],
+    answer: 2,
+    level: 'hard'
+  },
+  {
+    type: '扩句',
+    sentence: '太阳升起。',
+    options: ['太阳从东方升起。', '红红的太阳从东方升起。', '红红的太阳从东方慢慢升起。', '太阳升得很高。'],
+    answer: 2,
+    level: 'hard'
+  },
+  {
+    type: '扩句',
+    sentence: '花儿开放。',
+    options: ['花儿在春天开放。', '美丽的花儿在春天开放。', '美丽的花儿在春天竞相开放。', '花儿开得很美。'],
+    answer: 2,
+    level: 'hard'
+  },
+  // 缩句练习
+  {
+    type: '缩句',
+    sentence: '可爱的小鸟在蓝天上自由地飞。',
+    options: ['小鸟飞。', '可爱的小鸟飞。', '小鸟在天上飞。', '小鸟自由地飞。'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    type: '缩句',
+    sentence: '妈妈在厨房里认真地做饭。',
+    options: ['妈妈做饭。', '妈妈在做饭。', '妈妈认真地做饭。', '妈妈在厨房做饭。'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    type: '缩句',
+    sentence: '小明在教室里认真地写作业。',
+    options: ['小明写作业。', '小明在写作业。', '小明认真地写作业。', '小明在教室写作业。'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    type: '缩句',
+    sentence: '红红的太阳从东方慢慢升起。',
+    options: ['太阳升起。', '太阳从东方升起。', '红红的太阳升起。', '太阳慢慢升起。'],
+    answer: 0,
+    level: 'hard'
+  },
+  // 更多被字句
+  {
+    type: '被字句',
+    sentence: '大风刮倒了大树。',
+    options: ['大树被大风刮倒了。', '大风被大树刮倒了。', '刮倒了大风的大树。', '大树刮倒了大风。'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    type: '被字句',
+    sentence: '雨水打湿了衣服。',
+    options: ['衣服被雨水打湿了。', '雨水被衣服打湿了。', '打湿了雨水的衣服。', '衣服打湿了雨水。'],
+    answer: 0,
+    level: 'easy'
+  },
+  // 更多把字句
+  {
+    type: '把字句',
+    sentence: '小明收拾好了房间。',
+    options: ['房间被小明收拾好了。', '小明把房间收拾好了。', '房间收拾好了小明。', '收拾好了小明的房间。'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    type: '把字句',
+    sentence: '妹妹打扫干净了院子。',
+    options: ['院子被妹妹打扫干净了。', '妹妹把院子打扫干净了。', '院子打扫干净了妹妹。', '打扫干净了妹妹的院子。'],
+    answer: 1,
+    level: 'easy'
+  },
+  // 更多反问句
+  {
+    type: '反问句',
+    sentence: '我们应该好好学习。',
+    options: ['我们怎么不好好学习呢？', '我们难道应该好好学习吗？', '我们难道不应该好好学习吗？', '我们要好好学习。'],
+    answer: 2,
+    level: 'medium'
+  },
+  {
+    type: '反问句',
+    sentence: '这是正确的答案。',
+    options: ['这不是正确的答案吗？', '这难道是正确的答案吗？', '这难道不是正确的答案吗？', '这答案是正确的。'],
+    answer: 2,
+    level: 'medium'
+  },
+  // 更多陈述句
+  {
+    type: '陈述句',
+    sentence: '他难道不喜欢读书吗？',
+    options: ['他喜欢读书。', '他不喜欢读书。', '他难道喜欢读书吗？', '他是不是喜欢读书？'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    type: '陈述句',
+    sentence: '这难道不是有趣的故事吗？',
+    options: ['这是有趣的故事。', '这不是有趣的故事。', '这难道是有趣的故事吗？', '这故事很有趣。'],
+    answer: 0,
+    level: 'medium'
+  }
+];
 
+const rhetoricData = [
+  // 基础题：判断修辞 - 比喻
+  {
+    type: 'identify',
+    sentence: '弯弯的月亮像小船。',
+    answer: '比喻',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把月亮比作小船，用了"像"这个比喻词'
+  },
+  {
+    type: 'identify',
+    sentence: '太阳像一个大火球。',
+    answer: '比喻',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把太阳比作大火球，形象地写出了太阳的炎热'
+  },
+  {
+    type: 'identify',
+    sentence: '大象的耳朵像扇子。',
+    answer: '比喻',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把大象的耳朵比作扇子，突出了耳朵大的特点'
+  },
+  {
+    type: 'identify',
+    sentence: '平静的湖面像一面镜子。',
+    answer: '比喻',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把湖面比作镜子，写出了湖水的平静'
+  },
+  // 基础题：判断修辞 - 拟人
+  {
+    type: 'identify',
+    sentence: '花儿笑弯了腰。',
+    answer: '拟人',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把花儿当作人来写，赋予它"笑"的动作'
+  },
+  {
+    type: 'identify',
+    sentence: '小鸟在树上唱歌。',
+    answer: '拟人',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把小鸟当作人来写，让小鸟有了唱歌的能力'
+  },
+  {
+    type: 'identify',
+    sentence: '风儿轻轻地抚摸着我的脸。',
+    answer: '拟人',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把风当作人来写，赋予它"抚摸"的动作'
+  },
+  {
+    type: 'identify',
+    sentence: '小草从土里探出头来。',
+    answer: '拟人',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '把小草当作人来写，"探出头"是人的动作'
+  },
+  // 基础题：判断修辞 - 排比
+  {
+    type: 'identify',
+    sentence: '书是钥匙，书是明灯，书是朋友。',
+    answer: '排比',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '用了三个结构相似的句子，增强了表达效果'
+  },
+  {
+    type: 'identify',
+    sentence: '下课了，同学们有的跳绳，有的打球，有的看书。',
+    answer: '排比',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '用了"有的...有的...有的..."的排比句式'
+  },
+  {
+    type: 'identify',
+    sentence: '春天来了，草绿了，花开了，小鸟歌唱了。',
+    answer: '排比',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '用了三个结构相似的短句，描绘春天的景象'
+  },
+  {
+    type: 'identify',
+    sentence: '我们要爱学习，爱劳动，爱祖国。',
+    answer: '排比',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '用了三个"爱..."的排比句式'
+  },
+  // 基础题：判断修辞 - 夸张
+  {
+    type: 'identify',
+    sentence: '他高得能摸到天。',
+    answer: '夸张',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '故意夸大了他的身高，突出他很高'
+  },
+  {
+    type: 'identify',
+    sentence: '教室里静得连根针掉下来都能听见。',
+    answer: '夸张',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '故意夸大了安静的程度，突出教室很静'
+  },
+  {
+    type: 'identify',
+    sentence: '他饿得能吃下一头牛。',
+    answer: '夸张',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '故意夸大了饥饿的程度，突出他很饿'
+  },
+  {
+    type: 'identify',
+    sentence: '飞流直下三千尺。',
+    answer: '夸张',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'easy',
+    tip: '用夸张手法写出了瀑布很高'
+  },
+  // 提优题：说明好处
+  {
+    type: 'explain',
+    sentence: '小鸟在树上唱歌。',
+    answer: '拟人',
+    options: ['让句子更生动有趣', '让句子更长', '让句子更难', '没有好处'],
+    level: 'medium',
+    tip: '把小鸟当作人来写，让读者感觉小鸟像人一样有感情'
+  },
+  {
+    type: 'explain',
+    sentence: '教室里静得连根针掉下来都能听见。',
+    answer: '夸张',
+    options: ['突出教室很安静', '说明教室很小', '说明针很响', '没有好处'],
+    level: 'medium',
+    tip: '用夸张的手法，让读者更能感受到教室的安静'
+  },
+  {
+    type: 'explain',
+    sentence: '弯弯的月亮像小船。',
+    answer: '比喻',
+    options: ['让月亮的形状更形象', '让句子更难理解', '没有好处', '让句子变短'],
+    level: 'medium',
+    tip: '用比喻让抽象的月亮形状变得具体可感'
+  },
+  {
+    type: 'explain',
+    sentence: '书是钥匙，书是明灯，书是朋友。',
+    answer: '排比',
+    options: ['增强表达气势', '让句子更短', '让句子更简单', '没有好处'],
+    level: 'medium',
+    tip: '排比句式能增强语势，表达更有力量'
+  },
+  // 拔高题：仿写和改写
+  {
+    type: 'rewrite',
+    sentence: '太阳升起来了。',
+    answer: '拟人',
+    options: ['太阳公公慢慢爬上了天空', '太阳很大', '太阳是圆的', '太阳很热'],
+    level: 'hard',
+    tip: '把太阳当作人来写，让句子更生动'
+  },
+  {
+    type: 'rewrite',
+    sentence: '树叶落下来。',
+    answer: '比喻',
+    options: ['树叶像蝴蝶一样飘落下来', '树叶很多', '树叶是绿色的', '树叶从树上掉下来'],
+    level: 'hard',
+    tip: '把树叶比作蝴蝶，让画面感更强'
+  },
+  {
+    type: 'rewrite',
+    sentence: '小草生长。',
+    answer: '拟人',
+    options: ['小草从土里探出头来', '小草是绿色的', '小草很多', '小草长高了'],
+    level: 'hard',
+    tip: '把小草当作人来写，用"探出头"更生动'
+  },
+  {
+    type: 'rewrite',
+    sentence: '雨下得很大。',
+    answer: '夸张',
+    options: ['雨下得像瓢泼一样', '雨是水做的', '雨从天上落下来', '下雨了'],
+    level: 'hard',
+    tip: '用夸张手法突出雨大的特点'
+  },
+  {
+    type: 'rewrite',
+    sentence: '同学们很开心。',
+    answer: '排比',
+    options: ['同学们有的笑，有的跳，有的拍手', '同学们很高兴', '同学们在玩耍', '同学们很多'],
+    level: 'hard',
+    tip: '用排比句式能更生动地表现开心的样子'
+  },
+  // 更多拔高题
+  {
+    type: 'identify',
+    sentence: '小溪唱着歌向前流去。',
+    answer: '拟人',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'medium',
+    tip: '把小溪当作人来写，赋予它"唱歌"的能力'
+  },
+  {
+    type: 'identify',
+    sentence: '圆圆的苹果像红灯笼。',
+    answer: '比喻',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'medium',
+    tip: '把苹果比作红灯笼，写出了苹果又圆又红的特点'
+  },
+  {
+    type: 'identify',
+    sentence: '他跑得像飞一样快。',
+    answer: '夸张',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'medium',
+    tip: '用夸张手法突出他跑得快'
+  },
+  {
+    type: 'identify',
+    sentence: '我爱妈妈，我爱爸爸，我爱我的家。',
+    answer: '排比',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    level: 'medium',
+    tip: '用排比句式表达对家人的爱'
+  },
+  {
+    type: 'rewrite',
+    sentence: '雪花飘落。',
+    answer: '比喻',
+    options: ['雪花像棉花糖一样飘落', '雪花是白色的', '雪花从天上落下', '下雪了'],
+    level: 'hard',
+    tip: '把雪花比作棉花糖，突出雪花的轻盈洁白'
+  },
+  {
+    type: 'rewrite',
+    sentence: '星星很亮。',
+    answer: '比喻',
+    options: ['星星像钻石一样闪亮', '星星很多', '星星在天上', '星星会发光'],
+    level: 'hard',
+    tip: '把星星比作钻石，突出星星的闪亮'
+  }
+];
+
+const poemData = [
+  {
+    title: '静夜思',
+    author: '李白',
+    text: '床前明月光，疑是地上霜。举头望明月，_____。',
+    answers: ['低头思故乡'],
+    tips: '提示：这首诗描写了诗人思念故乡的情感'
+  },
+  {
+    title: '春晓',
+    author: '孟浩然',
+    text: '春眠不觉晓，处处闻啼鸟。夜来风雨声，_____。',
+    answers: ['花落知多少'],
+    tips: '提示：诗中写到了春天早晨醒来听到鸟叫声'
+  },
+  {
+    title: '登鹳雀楼',
+    author: '王之涣',
+    text: '白日依山尽，黄河入海流。欲穷千里目，_____。',
+    answers: ['更上一层楼'],
+    tips: '提示：这句诗告诉我们要有更高的追求'
+  }
+];
+
+const vocabData = [
+  // 简单难度 - 基础词语
+  {
+    sentence: '春天来了，小草______从土里钻出来。',
+    options: ['慢慢', '快快', '轻轻', '悄悄'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '他______学习，成绩进步很大。',
+    options: ['认真地', '开心地', '慢慢地', '轻轻地'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '妈妈______把书包递给我。',
+    options: ['开心地', '轻轻地', '慢慢地', '认真地'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    sentence: '小鸟______在树上唱歌。',
+    options: ['开心地', '慢慢地', '轻轻地', '认真地'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '爸爸______走进房间。',
+    options: ['慢慢', '快快', '轻轻', '悄悄'],
+    answer: 2,
+    level: 'easy'
+  },
+  {
+    sentence: '雨______下着。',
+    options: ['慢慢', '哗哗', '轻轻', '悄悄'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    sentence: '弟弟______跑过来。',
+    options: ['慢慢', '快快', '轻轻', '悄悄'],
+    answer: 1,
+    level: 'easy'
+  },
+  {
+    sentence: '妹妹______笑了。',
+    options: ['开心地', '慢慢地', '轻轻地', '认真地'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '花儿______开放。',
+    options: ['慢慢', '快快', '轻轻', '悄悄'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '风______吹着。',
+    options: ['慢慢', '呼呼', '轻轻', '悄悄'],
+    answer: 1,
+    level: 'easy'
+  },
+  // 中等难度 - 词语搭配
+  {
+    sentence: '太阳______升起，照亮了整个大地。',
+    options: ['慢慢地', '高高地', '缓缓地', '快速地'],
+    answer: 1,
+    level: 'medium'
+  },
+  {
+    sentence: '秋天到了，树叶______飘落下来。',
+    options: ['慢慢地', '轻轻地', '纷纷地', '快快地'],
+    answer: 2,
+    level: 'medium'
+  },
+  {
+    sentence: '同学们______听老师讲课。',
+    options: ['认真地', '开心地', '慢慢地', '轻轻地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '小明______完成了作业。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '妈妈______做晚饭。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '爷爷______看报纸。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 2,
+    level: 'medium'
+  },
+  {
+    sentence: '妹妹______画画。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 1,
+    level: 'medium'
+  },
+  {
+    sentence: '小猫______吃鱼。',
+    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '小鸟______飞翔。',
+    options: ['自由地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '小溪______流淌。',
+    options: ['慢慢', '哗哗', '欢快地', '悄悄'],
+    answer: 2,
+    level: 'medium'
+  },
+  // 较难难度 - 词语辨析
+  {
+    sentence: '听到这个好消息，大家______欢呼起来。',
+    options: ['开心地', '高兴地', '兴奋地', '激动地'],
+    answer: 3,
+    level: 'hard'
+  },
+  {
+    sentence: '他______完成了作业，然后出去玩了。',
+    options: ['认真地', '快速地', '仔细地', '顺利地'],
+    answer: 3,
+    level: 'hard'
+  },
+  {
+    sentence: '运动员______冲向终点。',
+    options: ['快速地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '老师______批改作业。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 3,
+    level: 'hard'
+  },
+  {
+    sentence: '孩子们______玩耍。',
+    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '雪花______飘落。',
+    options: ['慢慢', '轻轻', '纷纷地', '欢快地'],
+    answer: 1,
+    level: 'hard'
+  },
+  {
+    sentence: '同学们______讨论问题。',
+    options: ['热烈地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '妈妈______收拾房间。',
+    options: ['认真地', '开心地', '快速地', '仔细地'],
+    answer: 2,
+    level: 'hard'
+  },
+  {
+    sentence: '太阳______照耀着大地。',
+    options: ['温暖地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '河水______流过村庄。',
+    options: ['缓缓地', '快速地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  // 更多练习
+  {
+    sentence: '弟弟______吃苹果。',
+    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '姐姐______看书。',
+    options: ['认真地', '开心地', '慢慢地', '轻轻地'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '小狗______摇尾巴。',
+    options: ['开心地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '小鸡______吃米。',
+    options: ['慢慢', '快快', '轻轻', '悄悄'],
+    answer: 0,
+    level: 'easy'
+  },
+  {
+    sentence: '蜜蜂______采蜜。',
+    options: ['忙碌地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '蝴蝶______飞舞。',
+    options: ['美丽地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '树叶______摇动。',
+    options: ['轻轻', '慢慢', '哗哗', '悄悄'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '海浪______拍打着沙滩。',
+    options: ['猛烈地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '火车______驶过大桥。',
+    options: ['快速地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '飞机______飞向蓝天。',
+    options: ['高高地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '同学们______打扫教室。',
+    options: ['认真地', '开心地', '快速地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '农民______收割庄稼。',
+    options: ['忙碌地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '画家______画风景。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 3,
+    level: 'hard'
+  },
+  {
+    sentence: '音乐家______演奏乐曲。',
+    options: ['深情地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '厨师______做美食。',
+    options: ['精心地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '医生______看病。',
+    options: ['认真地', '开心地', '慢慢地', '仔细地'],
+    answer: 3,
+    level: 'hard'
+  },
+  {
+    sentence: '警察______巡逻。',
+    options: ['认真地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '消防员______灭火。',
+    options: ['勇敢地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'hard'
+  },
+  {
+    sentence: '孩子们______读书。',
+    options: ['认真地', '开心地', '慢慢地', '大声地'],
+    answer: 3,
+    level: 'medium'
+  },
+  {
+    sentence: '鸟儿______歌唱。',
+    options: ['欢快地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '星星______闪烁。',
+    options: ['明亮地', '慢慢地', '轻轻地', '仔细地'],
+    answer: 0,
+    level: 'medium'
+  },
+  {
+    sentence: '月亮______升起。',
+    options: ['慢慢地', '高高地', '缓缓地', '快速地'],
+    answer: 2,
+    level: 'medium'
+  }
+];
+
+const readingData = [
+  // 三年级短文（简单）
+  {
+    text: '春天的公园真美啊！柳树发出了嫩绿的新芽，桃花绽开了粉红的笑脸。小河解冻了，哗哗地唱着歌。草地上，小朋友们在放风筝、做游戏，开心极了！',
+    question: '这段话主要写了什么？',
+    options: ['春天公园的美丽景色和小朋友玩耍', '小朋友们在公园里放风筝', '柳树发芽了', '小河解冻了'],
+    answer: 0,
+    level: 'easy',
+    grade: 3
+  },
+  {
+    text: '小猫花花特别喜欢吃鱼。每天早上，它都会蹲在鱼缸旁边，盯着里面的金鱼看。有时候，它还会伸出爪子去抓，逗得我们哈哈大笑。',
+    question: '小猫花花喜欢做什么？',
+    options: ['喜欢吃鱼', '喜欢睡觉', '喜欢抓老鼠', '喜欢晒太阳'],
+    answer: 0,
+    level: 'easy',
+    grade: 3
+  },
+  {
+    text: '今天是星期天，天气晴朗。我和妈妈一起去超市买东西。超市里的东西真多呀！有水果、蔬菜、玩具，还有我最喜欢的巧克力。',
+    question: '"我"和谁一起去超市？',
+    options: ['爸爸', '妈妈', '爷爷', '奶奶'],
+    answer: 1,
+    level: 'easy',
+    grade: 3
+  },
+  {
+    text: '秋天到了，树上的叶子变黄了，一片片飘落下来，像一只只黄色的蝴蝶。小朋友们在树下捡树叶，做书签，开心极了。',
+    question: '树叶像什么？',
+    options: ['蝴蝶', '小船', '扇子', '羽毛'],
+    answer: 0,
+    level: 'easy',
+    grade: 3
+  },
+  {
+    text: '下课了，同学们来到操场上活动。有的跳绳，有的踢毽子，有的跑步，还有的打乒乓球。校园里到处都是欢声笑语。',
+    question: '这段话主要写了什么？',
+    options: ['同学们在操场上活动', '同学们在上课', '同学们在画画', '同学们在看书'],
+    answer: 0,
+    level: 'easy',
+    grade: 3
+  },
+  // 四年级短文（中等）
+  {
+    text: '小明每天早上都坚持跑步。他说跑步不仅能锻炼身体，还能让他一天都精力充沛。现在他的身体越来越强壮了，体育成绩也提高了很多。',
+    question: '小明坚持跑步有什么收获？',
+    options: ['身体变强壮，成绩提高', '认识了新朋友', '学会了游泳', '变得更聪明'],
+    answer: 0,
+    level: 'medium',
+    grade: 4
+  },
+  {
+    text: '读书是一件很快乐的事。通过读书，我们可以学到很多知识，了解很多有趣的事情。书就像一位好朋友，陪伴我们成长，教会我们道理。',
+    question: '作者为什么说读书是快乐的事？',
+    options: ['能学到知识，了解有趣的事', '书很便宜', '读书可以打发时间', '书很好看'],
+    answer: 0,
+    level: 'medium',
+    grade: 4
+  },
+  {
+    text: '夏天的夜晚，萤火虫在草丛中飞来飞去，像一盏盏小灯笼。青蛙在池塘边呱呱地叫着，好像在开演唱会。星星在天上眨着眼睛，美丽极了。',
+    question: '文中把萤火虫比作什么？',
+    options: ['小灯笼', '星星', '灯笼', '灯泡'],
+    answer: 0,
+    level: 'medium',
+    grade: 4
+  },
+  {
+    text: '小红是个乐于助人的好孩子。有一次，同学忘记带雨伞，她主动把自己的伞借给同学。还有一次，她帮老师整理作业本，受到了老师的表扬。',
+    question: '从哪里可以看出小红乐于助人？',
+    options: ['借伞给同学，帮老师整理作业', '学习成绩好', '喜欢读书', '长得漂亮'],
+    answer: 0,
+    level: 'medium',
+    grade: 4
+  },
+  {
+    text: '蚂蚁是一种非常勤劳的小动物。它们每天都忙着寻找食物，然后搬回洞里储存起来。即使遇到困难，它们也从不放弃，总是团结在一起克服困难。',
+    question: '蚂蚁有什么特点？',
+    options: ['勤劳、团结', '懒惰、自私', '聪明、狡猾', '胆小、怕事'],
+    answer: 0,
+    level: 'medium',
+    grade: 4
+  },
+  // 五年级短文（较难）
+  {
+    text: '在一个寒冷的冬天，一只小鸟不小心从树上掉下来，冻得瑟瑟发抖。一位小朋友看见了，赶紧把小鸟捧在手里，用自己的体温温暖它。最后，小鸟恢复了体力，飞向了蓝天。',
+    question: '小朋友是怎样帮助小鸟的？',
+    options: ['用体温温暖小鸟', '给小鸟喂食', '把小鸟带回家', '给小鸟唱歌'],
+    answer: 0,
+    level: 'hard',
+    grade: 5
+  },
+  {
+    text: '时间就像流水一样，一去不复返。我们应该珍惜每一分每一秒，努力学习，做有意义的事情。只有这样，当我们回首往事时，才不会感到后悔。',
+    question: '这段话告诉我们什么道理？',
+    options: ['要珍惜时间', '时间过得很慢', '时间可以倒流', '时间不重要'],
+    answer: 0,
+    level: 'hard',
+    grade: 5
+  },
+  {
+    text: '母爱是世界上最伟大的爱。妈妈每天为我们做饭、洗衣服、辅导功课，从不抱怨。她们用无私的爱呵护着我们成长，是我们最应该感谢的人。',
+    question: '为什么说母爱是伟大的？',
+    options: ['妈妈无私地照顾我们', '妈妈很漂亮', '妈妈很有钱', '妈妈很年轻'],
+    answer: 0,
+    level: 'hard',
+    grade: 5
+  },
+  {
+    text: '学习就像爬山，只有坚持不懈，才能到达山顶。在学习的过程中，我们会遇到很多困难，但只要不放弃，一步一步往上爬，就一定能取得成功。',
+    question: '这段话用了什么修辞手法？',
+    options: ['比喻', '拟人', '排比', '夸张'],
+    answer: 0,
+    level: 'hard',
+    grade: 5
+  },
+  {
+    text: '在一次运动会上，小明参加了跑步比赛。虽然他一开始跑得很慢，但他没有放弃，而是咬紧牙关，奋力追赶。最后，他超过了所有对手，获得了第一名。',
+    question: '小明为什么能获得第一名？',
+    options: ['坚持不懈，奋力追赶', '跑得很快', '运气好', '对手太弱'],
+    answer: 0,
+    level: 'hard',
+    grade: 5
+  }
+];
+
+const thinkingData = [
+  // ===== 升格训练 =====
+  {
+    type: 'upgrade',
+    badge: '升格训练',
+    title: '升格训练：把句子写生动',
+    original: '我很开心。',
+    improved: '我的心里像吃了蜜一样甜，嘴角忍不住向上翘起。',
+    question: '以上两个句子，哪个写得更好？为什么？',
+    options: [
+      { text: 'A句（润色后）更好，因为用了比喻让"开心"更具体形象', correct: true },
+      { text: 'B句（原句）更好，因为句子更短更简单', correct: false },
+      { text: '两句话写得一样好，没有区别', correct: false },
+      { text: '原句更好，因为看起来更真实', correct: false }
+    ],
+    explanation: '满分句运用了比喻修辞（"像吃了蜜一样甜"）和动作描写（"嘴角向上翘起"），把抽象的"开心"变成了可以看见的画面。这就是"用具体代替抽象"的写作技巧——不直接告诉读者你的感受，而是通过描写让读者自己感受到。'
+  },
+  {
+    type: 'upgrade',
+    badge: '升格训练',
+    title: '升格训练：把动作写具体',
+    original: '他跑得很快。',
+    improved: '他像一阵风似的冲了出去，双腿飞快地交替着，身后扬起一片尘土。',
+    question: '两个句子表达"跑得快"的意思，哪个更好？为什么？',
+    options: [
+      { text: '润色句更好，因为它用比喻和细节描写让画面更生动', correct: true },
+      { text: '原句更好，因为简单直接，一看就懂', correct: false },
+      { text: '两句话没有区别，意思一样', correct: false },
+      { text: '润色句太夸张了，不够真实', correct: false }
+    ],
+    explanation: '满分句用了三个技巧：①比喻（"像一阵风"）让速度变得可感；②动作分解（"双腿飞快地交替"）让画面更具体；③环境烘托（"扬起一片尘土"）侧面描写速度。这就是"把笼统变具体"的写作方法——不要只告诉读者"很快"，要让他们看到"有多快"。'
+  },
+  {
+    type: 'upgrade',
+    badge: '升格训练',
+    title: '升格训练：把环境写安静',
+    original: '教室里很安静。',
+    improved: '教室里静得出奇，连窗外树叶沙沙的声音都听得一清二楚，同学们连大气都不敢喘。',
+    question: '写"安静"的两个句子，哪个更打动人？为什么？',
+    options: [
+      { text: '润色句更好，因为用细节和侧面描写让人感受到安静', correct: true },
+      { text: '原句更好，因为简洁明了不啰嗦', correct: false },
+      { text: '两个句子写得一样好', correct: false },
+      { text: '润色句写得不够准确，没有直接说安静', correct: false }
+    ],
+    explanation: '满分句用的是"侧面烘托"手法：不直接说"安静"，而是通过"树叶沙沙声都听得见""大气都不敢喘"来让读者自己感受到安静的程度。好的写作不是告诉读者结论，而是让读者自己得出结论。'
+  },
+  // ===== 对比分析 =====
+  {
+    type: 'compare',
+    badge: '对比分析',
+    title: '对比分析：阅读题回答',
+    compareLow: '小明很勇敢。',
+    compareHigh: '从"小明毫不犹豫地冲进火海救小猫"这句话可以看出，小明是一个勇敢的人。因为"毫不犹豫"说明他没想危险，"冲进火海"说明他在最危险时刻选择救人。',
+    question: '同一道题的两个答案，哪个得分更高？为什么？',
+    options: [
+      { text: '满分答案更好，因为它有原文依据和详细分析', correct: true },
+      { text: '低分答案更好，因为简洁直接不啰嗦', correct: false },
+      { text: '两个答案得分应该一样', correct: false },
+      { text: '满分答案太长，考试写不完', correct: false }
+    ],
+    explanation: '低分答案只给了结论，没有证明过程，阅卷老师无法判断你是否读懂了文章。满分答案做到了三点：①引用原文关键词当证据；②解释关键词含义（"毫不犹豫"说明…）；③分析行为背后的品质。这就是阅读题的"观点+证据+分析"答题法——结论只是起点，依据和分析才是得分的关键。'
+  },
+  {
+    type: 'compare',
+    badge: '对比分析',
+    title: '对比分析：概括段落大意',
+    compareLow: '这段写了公园。',
+    compareHigh: '这段话描写了春天公园的美丽景色：柳树发芽、桃花盛开、小河解冻，以及小朋友们在草地上开心玩耍的场景。',
+    question: '概括段落大意的两个答案，哪个更符合要求？为什么？',
+    options: [
+      { text: '满分答案更好，因为它具体写出了段落中的要素', correct: true },
+      { text: '低分答案更好，因为概括本身就是简单说重点', correct: false },
+      { text: '两个答案都可以，得分一样', correct: false },
+      { text: '低分答案更简洁，所以更好', correct: false }
+    ],
+    explanation: '概括内容不是"越短越好"，而是"准确全面"。低分答案只说"写了公园"，太笼统，没有体现段落的核心内容。满分答案做到了：①点明主题（春天公园景色）；②列举具体内容（柳树、桃花、小河、小朋友）；③用"：列举"的结构让条理清晰。好的概括能让没读过原文的人也能知道段落写了什么。'
+  },
+  {
+    type: 'compare',
+    badge: '对比分析',
+    title: '对比分析：理解词语含义',
+    compareLow: '"骄傲"的意思是自以为了不起。',
+    compareHigh: '在这个句子中，"骄傲"的意思是"自豪"——妈妈看到孩子取得了好成绩，心里感到光荣和高兴，而不是"自大"的意思。',
+    question: '解释"骄傲"这个词的两个答案，哪个更准确？为什么？',
+    options: [
+      { text: '满分答案更好，因为它结合语境解释了词语的准确含义', correct: true },
+      { text: '低分答案更好，因为词典释义就是那个意思', correct: false },
+      { text: '两个答案都对，得分一样', correct: false },
+      { text: '满分答案写得太啰嗦了', correct: false }
+    ],
+    explanation: '理解词语题的关键是"结合语境"！很多词语在不同句子中有不同含义。低分答案只给了通用解释，没有联系句子内容。满分答案做到了：①点明在句中的具体含义；②结合上下文解释为什么是这个意思；③和常见含义做区分。这就是"词不离句"的阅读方法。'
+  },
+  // ===== 效果赏析 =====
+  {
+    type: 'analyze',
+    badge: '效果赏析',
+    title: '效果赏析：比喻的作用',
+    sentence: '弯弯的月亮像小船，挂在深蓝色的夜空中。',
+    question: '这句话中"弯弯的月亮像小船"这个比喻起到了什么作用？',
+    options: [
+      { text: '把月亮的形状写得形象生动，让读者能想象出月亮弯弯的样子', correct: true },
+      { text: '说明月亮真的变成了一艘小船', correct: false },
+      { text: '只是为了让句子变得更长更好看', correct: false },
+      { text: '没有特别的作用，怎么写都可以', correct: false }
+    ],
+    explanation: '比喻的核心作用是"化抽象为具体"和"化陌生为熟悉"。月亮的形状是抽象的，但"小船"是读者熟悉的事物。作者把月亮比作小船，读者就能在脑海中想象出月亮弯弯的、静静挂在夜空中的画面。修辞不是装饰，而是帮助读者"看见"的工具。'
+  },
+  {
+    type: 'analyze',
+    badge: '效果赏析',
+    title: '效果赏析：拟人的作用',
+    sentence: '小鸟在树枝上欢快地唱歌。',
+    question: '作者为什么用"唱歌"来形容小鸟的叫声？如果改成"小鸟在树枝上叫"，效果有什么不同？',
+    options: [
+      { text: '"唱歌"让小鸟有了人的情感，画面更温暖美好', correct: true },
+      { text: '用"唱歌"只是换一种说法，意思完全一样', correct: false },
+      { text: '用"唱歌"让句子更长，显得更有文采', correct: false },
+      { text: '用"叫"更准确，因为小鸟本来就是在叫', correct: false }
+    ],
+    explanation: '拟人的作用是把事物"人格化"，让读者产生情感共鸣。用"唱歌"代替"叫"，小鸟就不再是普通动物，而像一个快乐的歌唱家，传递了"欢快""美好"的感受。如果改成"叫"，就只是客观描述，缺少了情感色彩。拟人是让描写"有温度"的修辞。'
+  },
+  {
+    type: 'analyze',
+    badge: '效果赏析',
+    title: '效果赏析：排比的作用',
+    sentence: '书是钥匙，能打开知识的大门；书是明灯，能照亮前进的道路；书是朋友，能陪伴我们成长。',
+    question: '作者为什么连续用三个"书是…"的句式？如果只写第一句，效果有什么不同？',
+    options: [
+      { text: '排比句式层层递进，增强了表达的气势和感染力', correct: true },
+      { text: '写三句比写一句显得字数更多，看上去更认真', correct: false },
+      { text: '三句话是重复表达同一个意思，没有区别', correct: false },
+      { text: '写一句更好，因为更简洁不啰嗦', correct: false }
+    ],
+    explanation: '排比的作用是"层层递进，增强语势"。三个"书是…"从"钥匙"（认知工具）到"明灯"（方向引导）到"朋友"（情感陪伴），一层比一层深入，让读者对书的价值有更丰富的认识。如果只写第一句，道理虽然没错，但缺少了情感的积累和递进的力量。排比不是简单重复，而是"螺旋上升"地强化观点。'
+  }
+];
 
 // 当前状态
 let currentTransform = 0;
@@ -25,497 +1112,12 @@ let currentVocab = 0;
 let currentLevel = 'easy';
 let correctCount = 0;
 let currentThinking = 0;
-let rhetoricData = null;
-let poemData = null;
-let transformData = null;
-let readingData = null;
-let vocabData = null;
-let thinkingData = null;
-let dynamicDiagnosisBank = null;
-let rhetoricDataPromise = null;
-let poemDataPromise = null;
-let transformDataPromise = null;
-let readingDataPromise = null;
-let vocabDataPromise = null;
-let thinkingDataPromise = null;
-let dynamicDiagnosisBankPromise = null;
-let practiceDataVersion = null;
-let hasInitializedInteractivePractice = false;
-
-function getPracticeDataVersion() {
-  if (practiceDataVersion !== null) {
-    return practiceDataVersion;
-  }
-
-  const scripts = document.getElementsByTagName('script');
-  for (let i = scripts.length - 1; i >= 0; i--) {
-    const src = scripts[i].getAttribute('src') || '';
-    if (src.includes('practice.js') || src.includes('data-loader-global.js') || src.includes('data-loader-core.js')) {
-      const match = src.match(/[?&]v=([^&]+)/);
-      if (match) {
-        practiceDataVersion = match[1];
-        return practiceDataVersion;
-      }
-    }
-  }
-
-  practiceDataVersion = 'dev';
-  return practiceDataVersion;
-}
-
-function loadPracticeDataset(name) {
-  const dataLib = window.DataLib || window.DataLibCore;
-  if (dataLib && typeof dataLib.load === 'function') {
-    return dataLib.load(name);
-  }
-
-  const url = `data/${name}.json?v=${encodeURIComponent(getPracticeDataVersion())}`;
-  return fetch(url).then(response => {
-    if (!response.ok) {
-      throw new Error(`Failed to load: ${url} (${response.status})`);
-    }
-    return response.json();
-  });
-}
-
-function getExercisesCollection(data) {
-  if (!data || typeof data !== 'object') {
-    return null;
-  }
-  if (Array.isArray(data.items)) {
-    return data.items;
-  }
-
-  const firstArray = Object.keys(data)
-    .map(key => data[key])
-    .find(Array.isArray);
-
-  return firstArray || null;
-}
-
-function cacheExercisesDataset(data) {
-  const items = getExercisesCollection(data);
-  if (!items) {
-    return null;
-  }
-  window.exercisesData = data;
-  window.exercisesDataItems = items;
-  return data;
-}
-
-function loadExercisesDataset() {
-  if (window.exercisesDataItems && Array.isArray(window.exercisesDataItems)) {
-    return Promise.resolve(window.exercisesData);
-  }
-  if (window.exercisesData && getExercisesCollection(window.exercisesData)) {
-    window.exercisesDataItems = getExercisesCollection(window.exercisesData);
-    return Promise.resolve(window.exercisesData);
-  }
-  if (window.__exercisesDataPromise) {
-    return window.__exercisesDataPromise;
-  }
-
-  const dataLib = window.DataLib || window.DataLibCore;
-  const request = dataLib && typeof dataLib.load === 'function'
-    ? dataLib.load('exercises')
-    : fetch(`data/exercises.json?v=${encodeURIComponent(getPracticeDataVersion())}`).then(response => {
-        if (!response.ok) {
-          throw new Error(`Failed to load exercises.json (${response.status})`);
-        }
-        return response.json();
-      });
-
-  window.__exercisesDataPromise = request
-    .then(data => cacheExercisesDataset(data))
-    .catch(err => {
-      window.__exercisesDataPromise = null;
-      throw err;
-    });
-
-  return window.__exercisesDataPromise;
-}
-
-window.loadExercisesDataset = loadExercisesDataset;
-
-function ensureTransformData() {
-  if (Array.isArray(transformData)) {
-    return Promise.resolve(transformData);
-  }
-  if (transformDataPromise) {
-    return transformDataPromise;
-  }
-
-  transformDataPromise = loadPracticeDataset('practice-transform')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid transform practice data');
-      }
-      transformData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load transform practice data:', err);
-      return null;
-    })
-    .finally(() => {
-      transformDataPromise = null;
-    });
-
-  return transformDataPromise;
-}
-
-function ensureReadingData() {
-  if (Array.isArray(readingData)) {
-    return Promise.resolve(readingData);
-  }
-  if (readingDataPromise) {
-    return readingDataPromise;
-  }
-
-  readingDataPromise = loadPracticeDataset('practice-reading')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid reading practice data');
-      }
-      readingData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load reading practice data:', err);
-      return null;
-    })
-    .finally(() => {
-      readingDataPromise = null;
-    });
-
-  return readingDataPromise;
-}
-
-function ensureRhetoricData() {
-  if (Array.isArray(rhetoricData)) {
-    return Promise.resolve(rhetoricData);
-  }
-  if (rhetoricDataPromise) {
-    return rhetoricDataPromise;
-  }
-
-  rhetoricDataPromise = loadPracticeDataset('practice-rhetoric')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid rhetoric practice data');
-      }
-      rhetoricData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load rhetoric practice data:', err);
-      return null;
-    })
-    .finally(() => {
-      rhetoricDataPromise = null;
-    });
-
-  return rhetoricDataPromise;
-}
-
-function ensurePoemData() {
-  if (Array.isArray(poemData)) {
-    return Promise.resolve(poemData);
-  }
-  if (poemDataPromise) {
-    return poemDataPromise;
-  }
-
-  poemDataPromise = loadPracticeDataset('practice-poem')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid poem practice data');
-      }
-      poemData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load poem practice data:', err);
-      return null;
-    })
-    .finally(() => {
-      poemDataPromise = null;
-    });
-
-  return poemDataPromise;
-}
-
-function ensureVocabData() {
-  if (Array.isArray(vocabData)) {
-    return Promise.resolve(vocabData);
-  }
-  if (vocabDataPromise) {
-    return vocabDataPromise;
-  }
-
-  vocabDataPromise = loadPracticeDataset('practice-vocab')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid vocab practice data');
-      }
-      vocabData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load vocab practice data:', err);
-      return null;
-    })
-    .finally(() => {
-      vocabDataPromise = null;
-    });
-
-  return vocabDataPromise;
-}
-
-function ensureThinkingData() {
-  if (Array.isArray(thinkingData)) {
-    return Promise.resolve(thinkingData);
-  }
-  if (thinkingDataPromise) {
-    return thinkingDataPromise;
-  }
-
-  thinkingDataPromise = loadPracticeDataset('practice-thinking')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid thinking practice data');
-      }
-      thinkingData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load thinking practice data:', err);
-      return null;
-    })
-    .finally(() => {
-      thinkingDataPromise = null;
-    });
-
-  return thinkingDataPromise;
-}
-
-function ensureDynamicDiagnosisBank() {
-  if (Array.isArray(dynamicDiagnosisBank)) {
-    return Promise.resolve(dynamicDiagnosisBank);
-  }
-  if (dynamicDiagnosisBankPromise) {
-    return dynamicDiagnosisBankPromise;
-  }
-
-  dynamicDiagnosisBankPromise = loadPracticeDataset('practice-dynamic-diagnosis')
-    .then(data => {
-      if (!Array.isArray(data)) {
-        throw new Error('Invalid dynamic diagnosis bank');
-      }
-      dynamicDiagnosisBank = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load dynamic diagnosis bank:', err);
-      return null;
-    })
-    .finally(() => {
-      dynamicDiagnosisBankPromise = null;
-    });
-
-  return dynamicDiagnosisBankPromise;
-}
-
-function renderPracticeOptionsMessage(container, message) {
-  if (!container) {
-    return;
-  }
-
-  container.innerHTML = '';
-  if (!message) {
-    return;
-  }
-
-  const notice = document.createElement('p');
-  notice.style.margin = '0';
-  notice.style.padding = '14px 16px';
-  notice.style.background = '#f8fafc';
-  notice.style.border = '1px dashed #cbd5e1';
-  notice.style.borderRadius = '12px';
-  notice.style.color = '#64748b';
-  notice.textContent = message;
-  container.appendChild(notice);
-}
-
-function renderTransformState(questionText, sentenceText, optionsMessage) {
-  const question = document.getElementById('transformQuestion');
-  const sentence = document.getElementById('transformSentence');
-  const options = document.getElementById('transformOptions');
-
-  if (question) {
-    question.textContent = questionText || '';
-  }
-  if (sentence) {
-    sentence.textContent = sentenceText || '';
-  }
-  renderPracticeOptionsMessage(options, optionsMessage);
-}
-
-function renderReadingState(textValue, questionValue, optionsMessage) {
-  const text = document.getElementById('readingText');
-  const question = document.getElementById('readingQuestion');
-  const options = document.getElementById('readingOptions');
-
-  if (text) {
-    text.textContent = textValue || '';
-  }
-  if (question) {
-    question.textContent = questionValue || '';
-  }
-  renderPracticeOptionsMessage(options, optionsMessage);
-}
-
-function renderRhetoricState(sentenceText, optionsMessage) {
-  const sentence = document.getElementById('rhetoricSentence');
-  const options = document.getElementById('rhetoricOptions');
-
-  if (sentence) {
-    sentence.textContent = sentenceText || '';
-  }
-  renderPracticeOptionsMessage(options, optionsMessage);
-}
-
-function renderPoemState(titleText, bodyHtml) {
-  const title = document.getElementById('poemTitle');
-  const text = document.getElementById('poemText');
-
-  if (title) {
-    title.textContent = titleText || '';
-  }
-  if (text) {
-    text.innerHTML = bodyHtml || '';
-  }
-}
-
-function renderVocabState(sentenceText, optionsMessage) {
-  const sentence = document.getElementById('vocabSentence');
-  const options = document.getElementById('vocabOptions');
-
-  if (sentence) {
-    sentence.textContent = sentenceText || '';
-  }
-  renderPracticeOptionsMessage(options, optionsMessage);
-}
-
-function renderThinkingState(badgeText, contentHtml) {
-  const badge = document.getElementById('thinkingBadge');
-  const content = document.getElementById('thinkingContent');
-  const explanation = document.getElementById('thinkingExplanation');
-  const nextBtn = document.getElementById('thinkingNextBtn');
-
-  if (badge) {
-    badge.textContent = badgeText || '';
-    badge.className = 'thinking-badge upgrade';
-  }
-  if (content) {
-    content.innerHTML = contentHtml || '';
-  }
-  if (explanation) {
-    explanation.style.display = 'none';
-  }
-  if (nextBtn) {
-    nextBtn.style.display = 'none';
-  }
-}
-
-function getReadingItemsForCurrentLevel() {
-  if (!Array.isArray(readingData)) {
-    return [];
-  }
-  return readingData.filter(item => item.level === currentLevel);
-}
-
-function getVocabItemsForCurrentLevel() {
-  if (!Array.isArray(vocabData)) {
-    return [];
-  }
-  return vocabData.filter(item => item.level === currentLevel);
-}
-
-function getActivePracticeMode() {
-  const activeButton = document.querySelector('.mode-btn[data-mode].active');
-  return activeButton ? activeButton.dataset.mode : 'transform';
-}
-
-function syncPracticeLevelButtons() {
-  document.querySelectorAll('.mode-btn[data-level]').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.level === currentLevel);
-  });
-}
-
-function initPracticeMode(mode) {
-  switch (mode) {
-    case 'transform':
-      initTransform();
-      break;
-    case 'rhetoric':
-      initRhetoric();
-      break;
-    case 'poem':
-      initPoem();
-      break;
-    case 'reading':
-      initReading();
-      break;
-    case 'vocabulary':
-      initVocab();
-      break;
-    case 'thinking':
-      initThinking();
-      break;
-    default:
-      initTransform();
-      break;
-  }
-}
-
-function initInteractivePractice() {
-  if (hasInitializedInteractivePractice) {
-    return;
-  }
-
-  hasInitializedInteractivePractice = true;
-  initPracticeMode(getActivePracticeMode());
-}
-
-function observeInteractivePractice() {
-  const section = document.querySelector('.interactive-practice');
-  if (!section) {
-    initInteractivePractice();
-    return;
-  }
-
-  if (!('IntersectionObserver' in window)) {
-    initInteractivePractice();
-    return;
-  }
-
-  const observer = new IntersectionObserver(entries => {
-    if (entries.some(entry => entry.isIntersecting)) {
-      observer.disconnect();
-      initInteractivePractice();
-    }
-  }, {
-    rootMargin: '300px 0px'
-  });
-
-  observer.observe(section);
-}
 
 // 从localStorage加载进度
 function loadProgress() {
-  var data = safeParse('chinesePractice', null);
-  if (data) {
+  const saved = localStorage.getItem('chinesePractice');
+  if (saved) {
+    const data = JSON.parse(saved);
     currentLevel = data.level || 'easy';
     correctCount = data.correctCount || 0;
   }
@@ -523,29 +1125,23 @@ function loadProgress() {
 
 // 保存进度到localStorage
 function saveProgress() {
-  safeSet('chinesePractice', {
+  localStorage.setItem('chinesePractice', JSON.stringify({
     level: currentLevel,
     correctCount: correctCount,
     lastDate: new Date().toISOString().split('T')[0]
-  });
+  }));
 }
 
 // 错题本功能
-function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip, questionId) {
-  var wrongList = safeParse('wrongAnswers', []);
-  const now = new Date().toISOString();
+function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip) {
+  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
   const wrongItem = {
     type: type,
     question: question,
     userAnswer: userAnswer,
     correctAnswer: correctAnswer,
     tip: tip,
-    questionId: questionId,    // 关联题库ID，用于获取解析分级
-    timestamp: now,
-    mastery: 'new',           // new | learning | reviewing | mastered
-    reviewCount: 0,
-    lastReviewed: null,
-    nextReview: addDays(now, 3)  // 3 天后首次复习
+    timestamp: new Date().toISOString()
   };
   
   wrongList.push(wrongItem);
@@ -553,389 +1149,18 @@ function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip, questio
     wrongList.shift();
   }
   
-  safeSet('wrongAnswers', wrongList);
-  renderAutoRoutingPanel();
-}
-
-// ── 帮助函数 ──
-function addDays(isoDate, days) {
-  var d = new Date(isoDate);
-  d.setDate(d.getDate() + days);
-  return d.toISOString();
-}
-function daysBetween(d1, d2) {
-  return Math.floor((new Date(d2) - new Date(d1)) / 86400000);
-}
-
-// ── 间隔复习算法（间隔重复） ──
-function calculateNextReview(reviewCount) {
-  // 1→2→4→7→14→30 天间隔
-  var intervals = [1, 2, 4, 7, 14, 30];
-  var days = intervals[Math.min(reviewCount, intervals.length - 1)];
-  return addDays(new Date().toISOString(), days);
-}
-
-// ── 标记错题已复习 ──
-function markWrongItemReviewed(index, mastered) {
-  var wrongList = getWrongAnswers();
-  if (index >= 0 && index < wrongList.length) {
-    var item = wrongList[index];
-    item.reviewCount = (item.reviewCount || 0) + 1;
-    item.lastReviewed = new Date().toISOString();
-    item.nextReview = calculateNextReview(item.reviewCount);
-    if (mastered) {
-      item.mastery = 'mastered';
-    } else {
-      item.mastery = item.reviewCount >= 3 ? 'reviewing' : 'learning';
-    }
-    safeSet('wrongAnswers', wrongList);
-    renderWrongList();
-    renderAutoRoutingPanel();
-    return item;
-  }
-  return null;
-}
-
-// ── 掌握状态标签 ──
-function getMasteryLabel(mastery) {
-  var labels = { new: '🆕 新收录', learning: '📖 学习中', reviewing: '🔄 复习中', mastered: '✅ 已掌握' };
-  var colors = { new: '#f59e0b', learning: '#3b82f6', reviewing: '#8b5cf6', mastered: '#10b981' };
-  return { label: labels[mastery] || '🆕 新收录', color: colors[mastery] || '#f59e0b' };
-}
-
-// ── 导出打印错题本 ──
-function exportWrongBook(skipAnalysisLoad) {
-  var wrongList = getWrongAnswers();
-  if (wrongList.length === 0) { alert('暂无错题可导出'); return; }
-  if (!skipAnalysisLoad && !window.exercisesData) {
-    loadExercisesDataForWrongBook().finally(function() {
-      exportWrongBook(true);
-    });
-    return;
-  }
-  
-  var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
-  html += '<title>错题复习单 - 语文成长地图</title>';
-  html += '<style>body{font-family: -apple-system, "Microsoft YaHei", sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333;}';
-  html += 'h1{text-align:center; color: #4f46e5; border-bottom: 3px solid #667eea; padding-bottom: 10px;}';
-  html += '.meta{text-align:center; color: #999; font-size: 13px; margin-bottom: 24px;}';
-  html += '.wrong-item{background: #f8f9fb; border-radius: 12px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #667eea;}';
-  html += '.wrong-q{font-weight: 600; margin-bottom: 8px;}';
-  html += '.wrong-a{font-size: 14px; margin: 4px 0;} .wrong-a span{display:inline-block; min-width: 60px; color: #888; font-size: 12px;}';
-  html += '.wrong-correct{color: #10b981;} .wrong-user{color: #ef4444;}';
-  html += '.wrong-tip{background: #fff7ed; padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-size: 13px; color: #92400e;}';
-  html += '.mastery-badge{display:inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; margin-left: 8px;}';
-  html += '@media print{body{padding: 0;}.wrong-item{break-inside: avoid;}}</style></head><body>';
-  
-  html += '<h1>📝 错题复习单</h1>';
-  html += '<p class="meta">生成时间：' + new Date().toLocaleDateString('zh-CN') + ' ｜ 共 ' + wrongList.length + ' 题</p>';
-  
-  wrongList.forEach(function(item, i) {
-    var m = getMasteryLabel(item.mastery || 'new');
-    var nextRev = item.nextReview ? '下次复习：' + new Date(item.nextReview).toLocaleDateString('zh-CN') : '';
-    var analysisSource = getAnalysisSourceForWrongItem(item);
-    var analysis = analysisSource && analysisSource.解析分级;
-    html += '<div class="wrong-item">';
-    html += '<div class="wrong-q">' + (i + 1) + '. ' + escapeHTML(item.question || '') + '</div>';
-    html += '<div class="wrong-a wrong-user"><span>你的答案：</span>' + escapeHTML(item.userAnswer || '') + '</div>';
-    html += '<div class="wrong-a wrong-correct"><span>正确答案：</span>' + escapeHTML(item.correctAnswer || '') + '</div>';
-    if (item.tip) html += '<div class="wrong-tip">💡 ' + escapeHTML(item.tip) + '</div>';
-    if (analysis) {
-      html += '<div class="wrong-tip"><strong>易错点：</strong>' + escapeHTML((analysis.易错点 || []).join('；')) + '</div>';
-      if (analysis.低分示例) html += '<div class="wrong-a wrong-user"><span>低分答案：</span>' + escapeHTML(analysis.低分示例) + '</div>';
-      if (analysis.错因点评) html += '<div class="wrong-tip"><strong>错因点评：</strong>' + escapeHTML(analysis.错因点评) + '</div>';
-      if (analysis.满分表达) html += '<div class="wrong-a wrong-correct"><span>满分表达：</span>' + escapeHTML(analysis.满分表达) + '</div>';
-      if (analysis.家长讲解话术) html += '<div class="wrong-tip"><strong>家长讲解：</strong>' + escapeHTML(analysis.家长讲解话术) + '</div>';
-      if (analysis.复练任务) html += '<div class="wrong-tip"><strong>复练任务：</strong>' + escapeHTML(analysis.复练任务) + '</div>';
-    }
-    var similarExercises = getSimilarExercisesForWrongItem(item, analysisSource);
-    if (similarExercises.length) {
-      html += '<div class="wrong-tip"><strong>同类复练：</strong><ol style="margin:6px 0 0 18px;padding:0;">';
-      similarExercises.forEach(function(question) {
-        html += '<li>' + escapeHTML(question.年级) + '年级 · ' + escapeHTML(question.类型) + ' · ' + escapeHTML(question.错因码 || '') + '：' + escapeHTML(question.题目 || '') + '</li>';
-      });
-      html += '</ol></div>';
-    }
-    html += '<div style="margin-top: 6px; font-size: 12px; color: #888;">';
-    html += '<span class="mastery-badge" style="background:' + m.color + '20; color:' + m.color + ';">' + m.label + '</span>';
-    html += nextRev ? ' <span style="margin-left:8px;">' + nextRev + '</span>' : '';
-    html += '</div></div>';
-  });
-  
-  html += '</body></html>';
-  
-  var w = window.open('', '_blank', 'width=900,height=700');
-  w.document.write(html);
-  w.document.close();
-  setTimeout(function() { w.print(); }, 500);
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
 }
 
 function getWrongAnswers() {
-  return safeParse('wrongAnswers', []);
+  return JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
 }
 
 function clearWrongAnswers() {
   if (confirm('确定要清空所有错题吗？')) {
     localStorage.removeItem('wrongAnswers');
     renderWrongList();
-    renderAutoRoutingPanel();
   }
-}
-
-let exercisesDataPromise = null;
-let wrongBookAnalysisRefreshPending = false;
-
-// 加载结构化题库，供错题本匹配解析分级。
-function loadExercisesDataForWrongBook() {
-  if (window.exercisesDataItems && Array.isArray(window.exercisesDataItems)) {
-    return Promise.resolve(window.exercisesData);
-  }
-  if (window.exercisesData && Array.isArray(window.exercisesData.题库)) {
-    window.exercisesDataItems = window.exercisesData.题库;
-    return Promise.resolve(window.exercisesData);
-  }
-  if (exercisesDataPromise) return exercisesDataPromise;
-
-  exercisesDataPromise = loadExercisesDataset().catch(() => null);
-  return exercisesDataPromise;
-}
-
-function requestWrongBookAnalysisRefresh() {
-  if (window.exercisesData || wrongBookAnalysisRefreshPending) return;
-  wrongBookAnalysisRefreshPending = true;
-  loadExercisesDataForWrongBook().then(data => {
-    if (data) renderWrongList();
-  }).finally(() => {
-    wrongBookAnalysisRefreshPending = false;
-  });
-}
-
-function getExerciseBank() {
-  return window.exercisesDataItems && Array.isArray(window.exercisesDataItems)
-    ? window.exercisesDataItems
-    : window.exercisesData && Array.isArray(window.exercisesData.题库)
-    ? window.exercisesData.题库
-    : [];
-}
-
-function normalizeQuestionText(value) {
-  return String(value || '')
-    .replace(/<[^>]*>/g, '')
-    .replace(/第\d+题[:：]?/g, '')
-    .replace(/[“”"‘’'《》（）()，,。.!！?？、:：;；\s]/g, '')
-    .toLowerCase();
-}
-
-function findExerciseByQuestionId(questionId) {
-  if (!questionId) return null;
-  return getExerciseBank().find(q => q.id === questionId) || null;
-}
-
-function findExerciseByQuestionText(questionText) {
-  const normalized = normalizeQuestionText(questionText);
-  if (!normalized) return null;
-  return getExerciseBank().find(q => {
-    const target = normalizeQuestionText(q.题目);
-    if (!target) return false;
-    const shorter = target.length <= normalized.length ? target : normalized;
-    const longer = target.length > normalized.length ? target : normalized;
-    return shorter.length >= 12
-      ? longer.includes(shorter)
-      : target === normalized;
-  }) || null;
-}
-
-function getAnalysisSourceForWrongItem(item) {
-  return findExerciseByQuestionId(item.questionId) || findExerciseByQuestionText(item.question);
-}
-
-function getWrongItemErrorCode(item, source) {
-  const categoryAlias = {
-    b1: 'B1',
-    r1: 'R1',
-    r2: 'R2',
-    r3: 'R3',
-    r4: 'R4',
-    w1: 'W1',
-    w2: 'W2',
-    w3: 'W3',
-    c1: 'C1',
-    shenti: 'W3',
-    xinxi: 'R2',
-    gaikuo: 'R1',
-    biaoda: 'C1',
-    moban: 'R3'
-  };
-  const category = normalizeErrorCategoryId(item?.errorCategory || '');
-  return String(source?.错因码 || item?.errorCode || categoryAlias[category] || '').toUpperCase();
-}
-
-function getSimilarExercisesForWrongItem(item, source) {
-  const bank = getExerciseBank();
-  if (!bank.length) return [];
-
-  const currentId = source?.id || item?.questionId || '';
-  const errorCode = getWrongItemErrorCode(item, source);
-  const sourceSkills = new Set(source?.能力点 || []);
-  const sourceGrade = source?.年级 || Number(item?.diagnosisGrade) || null;
-  const sourceType = source?.类型 || '';
-
-  return bank
-    .filter(question => question && question.id !== currentId)
-    .map(question => {
-      let score = 0;
-      if (errorCode && question.错因码 === errorCode) score += 12;
-      if (sourceGrade && Number(question.年级) === Number(sourceGrade)) score += 2;
-      if (sourceType && question.类型 === sourceType) score += 2;
-      (question.能力点 || []).forEach(skill => {
-        if (sourceSkills.has(skill)) score += 3;
-      });
-      if (question.可打印) score += 1;
-      return score > 0 ? { question, score } : null;
-    })
-    .filter(Boolean)
-    .sort((a, b) => b.score - a.score || String(a.question.id).localeCompare(String(b.question.id)))
-    .slice(0, 3)
-    .map(item => item.question);
-}
-
-function renderSimilarExerciseRecommendations(item, source) {
-  const recommendations = getSimilarExercisesForWrongItem(item, source);
-  if (!recommendations.length) return '';
-
-  const errorCode = getWrongItemErrorCode(item, source);
-  return `
-    <div class="same-error-recommendations">
-      <div class="same-error-title">同类复练路径${errorCode ? ` · ${escapeHTML(errorCode)}` : ''}</div>
-      <div class="same-error-list">
-        ${recommendations.map((question, index) => {
-          const analysis = question.解析分级 || {};
-          const task = analysis.复练任务 || question.解析 || '完成后对照满分表达复盘。';
-          return `
-            <div class="same-error-card">
-              <div class="same-error-meta">${index + 1}. ${escapeHTML(question.年级)}年级 · ${escapeHTML(question.类型)} · ${escapeHTML(question.错因码 || '')}</div>
-              <div class="same-error-question">${escapeHTML(question.题目)}</div>
-              <div class="same-error-task">复练：${escapeHTML(task)}</div>
-            </div>`;
-        }).join('')}
-      </div>
-    </div>`;
-}
-
-// 获取题目解析分级（从题库中）
-function getAnalysisByQuestionId(questionId) {
-  const question = findExerciseByQuestionId(questionId);
-  return question?.解析分级 || null;
-}
-
-// 获取题目解析分级（按题目内容匹配）
-function getAnalysisByQuestionText(questionText) {
-  const question = findExerciseByQuestionText(questionText);
-  return question?.解析分级 || null;
-}
-
-function renderAnalysisField(title, content, className) {
-  if (Array.isArray(content)) {
-    if (!content.length) return '';
-    return `
-      <div class="analysis-card ${className || ''}">
-        <div class="analysis-header">${title}</div>
-        <ul class="analysis-list">${content.map(item => `<li>${escapeHTML(item)}</li>`).join('')}</ul>
-      </div>`;
-  }
-  if (!content) return '';
-  return `
-    <div class="analysis-card ${className || ''}">
-      <div class="analysis-header">${title}</div>
-      <div class="analysis-content">${escapeHTML(content)}</div>
-    </div>`;
-}
-
-function getAnswerGapTags(analysis, source) {
-  const text = [
-    analysis?.解题思路,
-    analysis?.低分示例,
-    analysis?.满分表达,
-    source?.类型,
-    source?.错因码,
-    ...(source?.能力点 || [])
-  ].join(' ');
-  const tags = [];
-
-  function add(label, desc) {
-    if (!tags.some(tag => tag.label === label)) tags.push({ label, desc });
-  }
-
-  if (/依据|原文|证据|find_evidence|R2/.test(text)) {
-    add('缺了依据', '需要回到原文或材料，写出能证明结论的关键词句。');
-  }
-  if (/分析|说明|表现|体现|作用|赏析|appreciate|R3|C1/.test(text)) {
-    add('缺了分析', '不能只给结论，要说明依据为什么能推出这个答案。');
-  }
-  if (/空泛|具体|生动|细节|太短|W1|W2|表达/.test(text)) {
-    add('语言太空', '要补动作、特点、效果或具体场景，少用“很好”“很美”这类空话。');
-  }
-  if (/题眼|中心|点题|回扣|审题|W3|organize|idea/.test(text)) {
-    add('没有回扣题目', '答案或作文要回到题眼、中心和题目要求，避免写偏。');
-  }
-  if (/概括|主干|summarize|R1/.test(text)) {
-    add('概括不完整', '概括要保留对象、事情、结果或特点，不能只摘一个细节。');
-  }
-  if (/数据|图表|材料|非连续|R4/.test(text)) {
-    add('缺少材料数据', '非连续文本要引用数字、比例或材料关键词再下结论。');
-  }
-
-  if (!tags.length) {
-    add('少了得分层', '对照满分表达，找出结论、依据、分析、回扣中缺了哪一层。');
-  }
-
-  return tags.slice(0, 4);
-}
-
-function renderLowToFullComparison(analysis, source) {
-  if (!analysis || !analysis.低分示例 || !analysis.满分表达) return '';
-  const tags = getAnswerGapTags(analysis, source);
-  return `
-    <div class="answer-compare">
-      <div class="answer-compare-title">低分答案 + 错因点评 + 满分答案</div>
-      <div class="answer-compare-grid">
-        <div class="answer-compare-panel low">
-          <strong>低分答案</strong>
-          <p>${escapeHTML(analysis.低分示例)}</p>
-        </div>
-        <div class="answer-compare-panel critique">
-          <strong>错因点评</strong>
-          <p>${escapeHTML(analysis.错因点评 || '这份答案方向碰到了边，但关键依据或完整表达没有写出来。')}</p>
-        </div>
-        <div class="answer-compare-panel high">
-          <strong>满分答案</strong>
-          <p>${escapeHTML(analysis.满分表达)}</p>
-        </div>
-      </div>
-      <div class="answer-gap-tags">
-        ${tags.map(tag => `
-          <span title="${escapeHTML(tag.desc)}">
-            <b>${escapeHTML(tag.label)}</b>
-            <em>${escapeHTML(tag.desc)}</em>
-          </span>
-        `).join('')}
-      </div>
-    </div>`;
-}
-
-function renderWrongBookAnalysis(analysis, source) {
-  if (!analysis) return '';
-  return `
-    <div class="analysis-cards">
-      <div class="analysis-title">答案解析质量分级${source ? ` · ${escapeHTML(source.id || '')}` : ''}</div>
-      ${renderLowToFullComparison(analysis, source)}
-      ${renderAnalysisField('📌 标准答案', analysis.标准答案 || source?.答案, 'standard-card')}
-      ${renderAnalysisField('🧭 解题思路', analysis.解题思路 || source?.解析, '')}
-      ${renderAnalysisField('⚠️ 易错点', analysis.易错点 || [], 'mistake-card')}
-      ${renderAnalysisField('🩺 错因点评', analysis.错因点评, 'low-score-card')}
-      ${renderAnalysisField('👪 家长讲解话术', analysis.家长讲解话术, 'parent-card')}
-      ${renderAnalysisField('📝 复练任务', analysis.复练任务, 'task-card')}
-    </div>`;
 }
 
 // ==================== 错因分类系统 ====================
@@ -957,49 +1182,6 @@ const ERROR_CATEGORIES = {
   BIAO_DA: { id: 'biaoda', label: '表达错', icon: '✏️', desc: '答案不完整、不分点' },
   MO_BAN: { id: 'moban', label: '模板错', icon: '📋', desc: '套话多，没结合文本' }
 };
-
-// 错因码到训练包的映射数据（从 error-mapping.json 加载）
-let errorMappingData = null;
-
-// 加载错因映射数据
-function loadErrorMapping() {
-  return fetch('data/error-mapping.json')
-    .then(response => response.json())
-    .then(data => {
-      errorMappingData = data;
-      return data;
-    })
-    .catch(err => {
-      console.warn('Failed to load error mapping:', err);
-      return null;
-    });
-}
-
-// 根据错因码获取训练建议
-function getTrainingRecommendation(errorCode) {
-  if (!errorMappingData || !errorMappingData.errorCodes) {
-    return null;
-  }
-  // 尝试多种格式匹配
-  const code = String(errorCode || '').toUpperCase().trim();
-  return errorMappingData.errorCodes[code] || 
-         errorMappingData.errorCodes[code.replace('-', '_')] || 
-         errorMappingData.errorCodes[code.toLowerCase()] || null;
-}
-
-// 根据能力点获取推荐练习
-function getExercisesBySkill(skillName) {
-  if (!errorMappingData || !errorMappingData.skillRecommendations) {
-    return [];
-  }
-  return errorMappingData.skillRecommendations[skillName] || [];
-}
-
-// 根据错因码获取推荐练习列表
-function getRecommendedExercises(errorCode) {
-  const recommendation = getTrainingRecommendation(errorCode);
-  return recommendation ? recommendation.recommendedExercises || [] : [];
-}
 
 function normalizeErrorCategoryId(categoryId) {
   const id = String(categoryId || '').trim().toLowerCase();
@@ -1038,7 +1220,7 @@ function saveErrorCategory(wrongIndex, categoryId) {
   const wrongList = getWrongAnswers();
   if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
     wrongList[wrongIndex].errorCategory = normalizeErrorCategoryId(categoryId);
-    safeSet('wrongAnswers', wrongList);
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
     renderWrongList();
   }
 }
@@ -1051,7 +1233,7 @@ function saveReviewField(wrongIndex, field, value) {
       ...(wrongList[wrongIndex].review || {}),
       [field]: value
     };
-    safeSet('wrongAnswers', wrongList);
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
   }
 }
 
@@ -1060,7 +1242,7 @@ function saveRetryAnswer(wrongIndex, value) {
   const wrongList = getWrongAnswers();
   if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
     wrongList[wrongIndex].retryAnswer = value;
-    safeSet('wrongAnswers', wrongList);
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
   }
 }
 
@@ -1162,7 +1344,6 @@ function getReviewData() {
 let currentFilter = 'all';
 
 function renderWrongList() {
-  requestWrongBookAnalysisRefresh();
   const wrongList = getWrongAnswers();
   const container = document.getElementById('wrongList');
   const analysisDiv = document.getElementById('wrongAnalysis');
@@ -1173,7 +1354,6 @@ function renderWrongList() {
     analysisDiv.style.display = 'none';
     filterDiv.style.display = 'none';
     renderErrorStats();
-    renderAutoRoutingPanel();
     return;
   }
   
@@ -1217,7 +1397,12 @@ function renderWrongList() {
   const filterButtonsDiv = document.getElementById('filterButtons');
   let filterButtonsHTML = '';
   for (const type of Object.keys(typeStats)) {
-    filterButtonsHTML += '<button class="filter-btn" data-type="' + type + '" style="padding:8px 16px;margin-right:8px;border:1px solid #667eea;background:white;color:#667eea;border-radius:20px;cursor:pointer;">' + type + '</button>';
+    filterButtonsHTML += `
+      <button class="filter-btn" onclick="filterWrong('${type}')" 
+              style="padding: 8px 16px; margin-right: 8px; border: 1px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer;">
+        ${type}
+      </button>
+    `;
   }
   filterButtonsDiv.innerHTML = filterButtonsHTML;
   
@@ -1234,10 +1419,6 @@ function renderWrongList() {
     const advice = generateReviewAdvice(item);
     const review = item.review || {};
     
-    // 获取解析分级数据
-    const analysisSource = getAnalysisSourceForWrongItem(item);
-    const analysis = analysisSource?.解析分级 || null;
-    
     // 错因分类选择器
     const categoryOptions = Object.values(ERROR_CATEGORIES).map(c => 
       `<button class="error-cat-btn ${cat === c.id ? 'active' : ''}" 
@@ -1249,10 +1430,6 @@ function renderWrongList() {
       <div class="wrong-answer">我的答案：${escapeHTML(item.userAnswer)}</div>
       <div class="correct-answer">正确答案：${escapeHTML(item.correctAnswer)}</div>
       ${item.tip ? `<div class="wrong-tip">提示：${escapeHTML(item.tip)}</div>` : ''}`;
-    
-    // 解析分级卡片
-    const analysisHTML = renderWrongBookAnalysis(analysis, analysisSource);
-    const similarHTML = renderSimilarExerciseRecommendations(item, analysisSource);
 
     const retryHTML = item.retryMode ? `
       <div class="retry-panel">
@@ -1270,36 +1447,11 @@ function renderWrongList() {
         </div>` : ''}
       </div>` : '';
     
-    // 掌握状态
-    var mastery = getMasteryLabel(item.mastery || 'new');
-    var reviewInfo = '';
-    if (item.nextReview) {
-      var nextDate = new Date(item.nextReview);
-      var nowDate = new Date();
-      var daysLeft = daysBetween(nowDate.toISOString(), nextDate.toISOString());
-      if (daysLeft <= 0) {
-        reviewInfo = '<span style="color:#ef4444; font-size:11px;">🔔 该复习了！已超期 ' + Math.abs(daysLeft) + ' 天</span>';
-      } else if (daysLeft <= 1) {
-        reviewInfo = '<span style="color:#f59e0b; font-size:11px;">⏰ ' + daysLeft + ' 天后复习</span>';
-      } else {
-        reviewInfo = '<span style="color:#888; font-size:11px;">📅 ' + daysLeft + ' 天后复习</span>';
-      }
-      if (item.reviewCount > 0) {
-        reviewInfo += ' <span style="color:#888;">· 复习 ' + item.reviewCount + ' 次</span>';
-      }
-    }
-
     return `
     <div class="wrong-item">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <span class="mastery-badge" style="display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;background:${mastery.color}20;color:${mastery.color};font-weight:600;">${mastery.label}</span>
-        <span style="font-size:11px;color:#888;">${new Date(item.timestamp).toLocaleDateString('zh-CN')} · ${reviewInfo}</span>
-      </div>
       <div class="wrong-question">${index + 1}. ${escapeHTML(item.question)}</div>
       ${answerHTML}
       ${retryHTML}
-      ${analysisHTML}
-      ${similarHTML}
       <div class="error-category-select">
         <div style="font-size:12px;color:#888;margin-bottom:6px;">分析错因（点击选择）：</div>
         <div class="error-cat-btns">${categoryOptions}</div>
@@ -1318,80 +1470,13 @@ function renderWrongList() {
         </div>
         <p>下次遇到同类题，我先做：${advice}</p>
       </div>` : ''}
-      ${cat ? `
-      <div class="training-recommendation" data-error-code="${cat}">
-        <strong>🎯 针对性训练建议：</strong>
-        <div class="training-content" id="training-${realIndex}">
-          <div style="color:#666;font-size:13px;padding:8px 0;">加载中...</div>
-        </div>
-      </div>` : ''}
-      <div style="margin-top: 10px; display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
+      <div style="margin-top: 10px;">
         ${item.retryMode ? '' : `<button class="retry-btn" onclick="retryWrong(${realIndex})">再练一次</button>`}
-        <button class="retry-btn" onclick="markWrongItemReviewed(${realIndex}, false)" style="background:#8b5cf6;">已复习</button>
-        <button class="retry-btn" onclick="markWrongItemReviewed(${realIndex}, true)" style="background:#10b981;">已掌握</button>
-        <button class="retry-btn" onclick="removeWrong(${realIndex})" style="background:#f44336; margin-left:auto;">移除</button>
+        <button class="retry-btn" onclick="removeWrong(${realIndex})" style="background: #f44336; margin-left: 10px;">移除</button>
       </div>
     </div>`;
   }).join('');
   renderErrorStats();
-  renderAutoRoutingPanel();
-  
-  // 加载错因映射并渲染训练建议
-  loadErrorMapping().then(() => {
-    renderTrainingRecommendations();
-  });
-}
-
-// 渲染训练建议
-function renderTrainingRecommendations() {
-  const wrongList = getWrongAnswers();
-  wrongList.forEach((item, index) => {
-    if (!item.errorCategory) return;
-    
-    const recommendation = getTrainingRecommendation(item.errorCategory);
-    const container = document.getElementById(`training-${index}`);
-    if (!container || !recommendation) return;
-    
-    let html = '<div style="margin-top:8px;">';
-    
-    // 学习路径
-    if (recommendation.learningPath && recommendation.learningPath.length > 0) {
-      html += `
-        <div style="margin-bottom:12px;">
-          <div style="font-size:12px;font-weight:600;color:#667eea;margin-bottom:4px;">📚 学习路径</div>
-          <ol style="margin:0;padding-left:20px;font-size:13px;color:#555;">
-            ${recommendation.learningPath.map(p => `<li>${escapeHTML(p)}</li>`).join('')}
-          </ol>
-        </div>`;
-    }
-    
-    // 教学建议
-    if (recommendation.teachingTips && recommendation.teachingTips.length > 0) {
-      html += `
-        <div style="margin-bottom:12px;">
-          <div style="font-size:12px;font-weight:600;color:#f59e0b;margin-bottom:4px;">💡 家长指导</div>
-          <ul style="margin:0;padding-left:20px;font-size:13px;color:#555;">
-            ${recommendation.teachingTips.map(t => `<li>${escapeHTML(t)}</li>`).join('')}
-          </ul>
-        </div>`;
-    }
-    
-    // 推荐练习
-    if (recommendation.recommendedExercises && recommendation.recommendedExercises.length > 0) {
-      html += `
-        <div>
-          <div style="font-size:12px;font-weight:600;color:#10b981;margin-bottom:4px;">🎯 推荐练习</div>
-          <div style="display:flex;flex-wrap:wrap;gap:4px;">
-            ${recommendation.recommendedExercises.map(id => 
-              `<span style="padding:3px 10px;background:#ecfdf5;color:#059669;border-radius:12px;font-size:11px;">${escapeHTML(id)}</span>`
-            ).join('')}
-          </div>
-        </div>`;
-    }
-    
-    html += '</div>';
-    container.innerHTML = html;
-  });
 }
 
 // 渲染错因统计
@@ -1445,114 +1530,23 @@ function renderErrorStats() {
   container.innerHTML = html;
 }
 
-function formatReviewDate(timestamp, offsetDays) {
-  const base = timestamp ? new Date(timestamp) : new Date();
-  if (Number.isNaN(base.getTime())) return '待生成';
-  base.setDate(base.getDate() + offsetDays);
-  return `${base.getMonth() + 1}月${base.getDate()}日`;
-}
-
-function getAutoRoutingLabel(wrongList) {
-  const total = wrongList.length;
-  const stats = getErrorCategoryStats();
-  const sorted = Object.values(ERROR_CATEGORIES)
-    .map(cat => ({ ...cat, count: stats[cat.id] || 0 }))
-    .sort((a, b) => b.count - a.count);
-  const top = sorted.find(item => item.count > 0);
-
-  if (!total) {
-    return {
-      level: '等待A卷诊断',
-      issue: '暂无错题数据',
-      action: '先完成15分钟诊断，系统会自动生成错因码和下一课路径。'
-    };
-  }
-
-  if (total >= 6) {
-    return {
-      level: '基础达标',
-      issue: top ? `${top.icon} ${top.label}` : '基础薄弱点',
-      action: '先不要混刷题，集中完成最高频错因训练包，再做B卷复测。'
-    };
-  }
-
-  if (total >= 3) {
-    return {
-      level: '提优提升',
-      issue: top ? `${top.icon} ${top.label}` : '答案完整度',
-      action: '重点补“依据 + 分析 + 完整表达”，同类变式通过后进入C卷。'
-    };
-  }
-
-  return {
-    level: '拔尖迁移',
-    issue: top ? `${top.icon} ${top.label}` : '迁移稳定性',
-    action: '错题较少，建议直接做C1/C2混合迁移，看能否换材料稳定使用方法。'
-  };
-}
-
-function renderAutoRoutingPanel() {
-  const routePanel = document.getElementById('autoRoutingSummary');
-  const reviewPanel = document.getElementById('reviewScheduleSummary');
-  if (!routePanel && !reviewPanel) return;
-
-  const wrongList = getWrongAnswers();
-  const route = getAutoRoutingLabel(wrongList);
-
-  if (routePanel) {
-    routePanel.innerHTML = `
-      <p><strong>当前路径：</strong>${route.level}</p>
-      <p><strong>主攻问题：</strong>${route.issue}</p>
-      <p><strong>下一步：</strong>${route.action}</p>
-    `;
-  }
-
-  if (reviewPanel) {
-    if (!wrongList.length) {
-      reviewPanel.innerHTML = `
-        <p><strong>复习提醒：</strong>暂无错题。</p>
-        <p>完成诊断或互动练习后，错题会自动进入这里，并生成3天/7天复习节奏。</p>
-      `;
-      return;
-    }
-
-    const latest = wrongList[wrongList.length - 1];
-    const unfinished = wrongList.filter(item => !item.mastered).length;
-    reviewPanel.innerHTML = `
-      <p><strong>未完全掌握：</strong>${unfinished}题</p>
-      <p><strong>3天后复练：</strong>${formatReviewDate(latest.timestamp, 3)}</p>
-      <p><strong>7天后复测：</strong>${formatReviewDate(latest.timestamp, 7)}</p>
-      <p><strong>考前策略：</strong>优先练未完全掌握题，再做同类变式迁移。</p>
-    `;
-  }
-}
-
 // 筛选错题
-function filterWrong(type, clickedEl) {
+function filterWrong(type) {
   currentFilter = type;
   
   // 更新按钮状态
-  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('active');
     btn.style.background = 'white';
     btn.style.color = '#667eea';
   });
   
-  if (clickedEl) {
-    clickedEl.classList.add('active');
-    clickedEl.style.background = '#667eea';
-    clickedEl.style.color = 'white';
-  }
+  event.target.classList.add('active');
+  event.target.style.background = '#667eea';
+  event.target.style.color = 'white';
   
   renderWrongList();
 }
-
-// 事件委托：错题筛选按钮
-document.getElementById('filterButtons').addEventListener('click', function(e) {
-  var btn = e.target.closest('.filter-btn');
-  if (!btn || !btn.dataset.type) return;
-  filterWrong(btn.dataset.type, btn);
-});
 
 // 移除错题
 function removeWrong(index) {
@@ -1560,7 +1554,6 @@ function removeWrong(index) {
   wrongList.splice(index, 1);
   localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
   renderWrongList();
-  renderAutoRoutingPanel();
 }
 
 function retryWrong(index) {
@@ -1578,7 +1571,7 @@ function revealRetryAnswer(index) {
   const wrongList = getWrongAnswers();
   if (index >= 0 && index < wrongList.length) {
     wrongList[index].retryRevealed = true;
-    safeSet('wrongAnswers', wrongList);
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
     renderWrongList();
   }
 }
@@ -1589,7 +1582,7 @@ function cancelRetry(index) {
     wrongList[index].retryMode = false;
     wrongList[index].retryRevealed = false;
     wrongList[index].retryAnswer = '';
-    safeSet('wrongAnswers', wrongList);
+    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
     renderWrongList();
   }
 }
@@ -1605,46 +1598,27 @@ function initModeSwitch() {
         document.getElementById(btn.dataset.mode + 'Practice').style.display = 'block';
         document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        hasInitializedInteractivePractice = true;
-        initPracticeMode(btn.dataset.mode);
+
+        if (btn.dataset.mode === 'thinking') {
+          initThinking();
+        }
       } else if (btn.dataset.level) {
         currentLevel = btn.dataset.level;
         document.querySelectorAll('[data-level]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         saveProgress();
-        if (hasInitializedInteractivePractice) {
-          const activeMode = getActivePracticeMode();
-          if (activeMode === 'reading' || activeMode === 'vocabulary') {
-            initPracticeMode(activeMode);
-          }
-        }
       }
     });
   });
 }
 
 // 句式转换练习
-async function initTransform() {
+function initTransform() {
   const question = document.getElementById('transformQuestion');
   const sentence = document.getElementById('transformSentence');
   const options = document.getElementById('transformOptions');
   
-  if (!question || !sentence || !options) {
-    return;
-  }
-
-  if (!Array.isArray(transformData)) {
-    renderTransformState('句式转换加载中...', '正在准备题目，请稍候。', '题目加载中，请稍候。');
-  }
-
-  const dataset = await ensureTransformData();
-  if (!Array.isArray(dataset) || dataset.length === 0) {
-    renderTransformState('句式转换暂时不可用', '题目加载失败，请稍后重试。', '暂时无法加载题目。');
-    return;
-  }
-
-  currentTransform = currentTransform % dataset.length;
-  const data = dataset[currentTransform];
+  const data = transformData[currentTransform];
   question.textContent = `把下面的句子改写成"${data.type}"`;
   sentence.textContent = data.sentence;
   
@@ -1667,11 +1641,7 @@ async function initTransform() {
 }
 
 function checkTransform(index) {
-  if (!Array.isArray(transformData) || transformData.length === 0) {
-    return;
-  }
-
-  const data = transformData[currentTransform % transformData.length];
+  const data = transformData[currentTransform];
   const options = document.querySelectorAll('#transformOptions .transform-btn');
   
   options.forEach((opt, i) => {
@@ -1697,36 +1667,16 @@ function checkTransform(index) {
 }
 
 function nextTransform() {
-  if (!Array.isArray(transformData) || transformData.length === 0) {
-    initTransform();
-    return;
-  }
-
   currentTransform = (currentTransform + 1) % transformData.length;
   initTransform();
 }
 
 // 修辞判断练习
-async function initRhetoric() {
+function initRhetoric() {
   const sentence = document.getElementById('rhetoricSentence');
   const options = document.getElementById('rhetoricOptions');
-
-  if (!sentence || !options) {
-    return;
-  }
-
-  if (!Array.isArray(rhetoricData)) {
-    renderRhetoricState('修辞判断加载中...', '题目加载中，请稍候。');
-  }
-
-  const dataset = await ensureRhetoricData();
-  if (!Array.isArray(dataset) || dataset.length === 0) {
-    renderRhetoricState('修辞判断暂时不可用', '暂时无法加载题目。');
-    return;
-  }
-
-  currentRhetoric = currentRhetoric % dataset.length;
-  const data = dataset[currentRhetoric];
+  
+  const data = rhetoricData[currentRhetoric];
   sentence.textContent = data.sentence;
   
   options.innerHTML = '';
@@ -1748,11 +1698,7 @@ async function initRhetoric() {
 }
 
 function checkRhetoric(index) {
-  if (!Array.isArray(rhetoricData) || rhetoricData.length === 0) {
-    return;
-  }
-
-  const data = rhetoricData[currentRhetoric % rhetoricData.length];
+  const data = rhetoricData[currentRhetoric];
   const options = document.querySelectorAll('#rhetoricOptions .rhetoric-btn');
   
   options.forEach((opt, i) => {
@@ -1779,47 +1725,23 @@ function checkRhetoric(index) {
 }
 
 function nextRhetoric() {
-  if (!Array.isArray(rhetoricData) || rhetoricData.length === 0) {
-    initRhetoric();
-    return;
-  }
-
   currentRhetoric = (currentRhetoric + 1) % rhetoricData.length;
   initRhetoric();
 }
 
 // 古诗填空练习
-async function initPoem() {
+function initPoem() {
   const title = document.getElementById('poemTitle');
   const text = document.getElementById('poemText');
-
-  if (!title || !text) {
-    return;
-  }
-
-  if (!Array.isArray(poemData)) {
-    renderPoemState('古诗填空加载中...', '<p style="margin:0;color:#64748b;">正在准备题目，请稍候。</p>');
-  }
-
-  const dataset = await ensurePoemData();
-  if (!Array.isArray(dataset) || dataset.length === 0) {
-    renderPoemState('古诗填空暂时不可用', '<p style="margin:0;color:#64748b;">暂时无法加载题目。</p>');
-    return;
-  }
-
-  currentPoem = currentPoem % dataset.length;
-  const data = dataset[currentPoem];
+  
+  const data = poemData[currentPoem];
   title.textContent = data.title;
   text.innerHTML = data.text;
 }
 
 function checkPoem() {
-  if (!Array.isArray(poemData) || poemData.length === 0) {
-    return;
-  }
-
   const inputs = document.querySelectorAll('#poemText input');
-  const data = poemData[currentPoem % poemData.length];
+  const data = poemData[currentPoem];
   let allCorrect = true;
   
   inputs.forEach((input, i) => {
@@ -1841,38 +1763,18 @@ function checkPoem() {
 }
 
 function nextPoem() {
-  if (!Array.isArray(poemData) || poemData.length === 0) {
-    initPoem();
-    return;
-  }
-
   currentPoem = (currentPoem + 1) % poemData.length;
   initPoem();
 }
 
 // 阅读练习
-async function initReading() {
+function initReading() {
   const text = document.getElementById('readingText');
   const question = document.getElementById('readingQuestion');
   const options = document.getElementById('readingOptions');
   
-  if (!text || !question || !options) {
-    return;
-  }
-
-  if (!Array.isArray(readingData)) {
-    renderReadingState('阅读理解加载中...', '正在准备题目，请稍候。', '题目加载中，请稍候。');
-  }
-
-  const dataset = await ensureReadingData();
-  if (!Array.isArray(dataset) || dataset.length === 0) {
-    renderReadingState('阅读理解暂时不可用', '题目加载失败，请稍后重试。', '暂时无法加载题目。');
-    return;
-  }
-
-  const filteredData = getReadingItemsForCurrentLevel();
+  const filteredData = readingData.filter(d => d.level === currentLevel);
   if (filteredData.length === 0) {
-    renderReadingState('当前难度暂无题目', '请切换难度后再试。', '暂时没有可练习的内容。');
     return;
   }
   const data = filteredData[currentReading % filteredData.length];
@@ -1899,7 +1801,7 @@ async function initReading() {
 }
 
 function checkReading(index) {
-  const filteredData = getReadingItemsForCurrentLevel();
+  const filteredData = readingData.filter(d => d.level === currentLevel);
   if (filteredData.length === 0) {
     return;
   }
@@ -1934,27 +1836,12 @@ function nextReading() {
 }
 
 // 词语选择练习
-async function initVocab() {
+function initVocab() {
   const sentence = document.getElementById('vocabSentence');
   const options = document.getElementById('vocabOptions');
-
-  if (!sentence || !options) {
-    return;
-  }
-
-  if (!Array.isArray(vocabData)) {
-    renderVocabState('词语选择加载中...', '题目加载中，请稍候。');
-  }
-
-  const dataset = await ensureVocabData();
-  if (!Array.isArray(dataset) || dataset.length === 0) {
-    renderVocabState('词语选择暂时不可用', '暂时无法加载题目。');
-    return;
-  }
-
-  const filteredData = getVocabItemsForCurrentLevel();
+  
+  const filteredData = vocabData.filter(d => d.level === currentLevel);
   if (filteredData.length === 0) {
-    renderVocabState('当前难度暂无题目', '请切换难度后再试。');
     return;
   }
   const data = filteredData[currentVocab % filteredData.length];
@@ -1980,7 +1867,7 @@ async function initVocab() {
 }
 
 function checkVocab(index) {
-  const filteredData = getVocabItemsForCurrentLevel();
+  const filteredData = vocabData.filter(d => d.level === currentLevel);
   if (filteredData.length === 0) {
     return;
   }
@@ -2009,41 +1896,20 @@ function checkVocab(index) {
 }
 
 function nextVocab() {
-  if (!Array.isArray(vocabData) || vocabData.length === 0) {
-    initVocab();
-    return;
-  }
-
   currentVocab++;
   initVocab();
 }
 
 // 思维进阶练习
-async function initThinking() {
+function initThinking() {
+  const data = thinkingData[currentThinking % thinkingData.length];
   const badge = document.getElementById('thinkingBadge');
   const content = document.getElementById('thinkingContent');
   const explanation = document.getElementById('thinkingExplanation');
   const nextBtn = document.getElementById('thinkingNextBtn');
 
-  if (!badge || !content || !explanation || !nextBtn) {
-    return;
-  }
-
   explanation.style.display = 'none';
   nextBtn.style.display = 'none';
-
-  if (!Array.isArray(thinkingData)) {
-    renderThinkingState('思维进阶加载中...', '<p style="margin:0;color:#64748b;">正在准备题目，请稍候。</p>');
-  }
-
-  const dataset = await ensureThinkingData();
-  if (!Array.isArray(dataset) || dataset.length === 0) {
-    renderThinkingState('思维进阶暂时不可用', '<p style="margin:0;color:#64748b;">暂时无法加载题目。</p>');
-    return;
-  }
-
-  currentThinking = currentThinking % dataset.length;
-  const data = dataset[currentThinking];
 
   badge.textContent = data.badge;
   badge.className = 'thinking-badge ' + data.type;
@@ -2103,10 +1969,6 @@ async function initThinking() {
 }
 
 function checkThinking(index) {
-  if (!Array.isArray(thinkingData) || thinkingData.length === 0) {
-    return;
-  }
-
   const data = thinkingData[currentThinking % thinkingData.length];
   const options = document.querySelectorAll('#thinkingOptions .thinking-opt');
 
@@ -2137,11 +1999,6 @@ function checkThinking(index) {
 }
 
 function nextThinking() {
-  if (!Array.isArray(thinkingData) || thinkingData.length === 0) {
-    initThinking();
-    return;
-  }
-
   currentThinking++;
   initThinking();
 }
@@ -2167,12 +2024,12 @@ function initCheckin() {
     btn.textContent = '已打卡';
     
     if (today) today.classList.add('checked');
-    safeSet('lastCheckin', todayStr);
+    localStorage.setItem('lastCheckin', todayStr);
     
     // 更新连续打卡天数
     let streak = parseInt(localStorage.getItem('checkinStreak') || '0');
     streak++;
-    safeSet('checkinStreak', streak.toString());
+    localStorage.setItem('checkinStreak', streak.toString());
     
     // 显示奖励
     document.getElementById('rewardText').textContent = streak >= 5 
@@ -2475,7 +2332,7 @@ function getFlowPackStatus() {
 }
 
 function saveFlowPackStatus(status) {
-  safeSet('flowPackStatus', status);
+  localStorage.setItem('flowPackStatus', JSON.stringify(status));
 }
 
 function getFlowStatusText(packId) {
@@ -2675,7 +2532,7 @@ function saveFlowWrongItems(grade, paper, wrongItems) {
     wrongList.shift();
   }
 
-  safeSet('wrongAnswers', wrongList);
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
   renderWrongList();
   renderErrorStats();
 }
@@ -2718,7 +2575,7 @@ function calculateABScore() {
     retest: gradeData.retest,
     createdAt: new Date().toISOString()
   };
-  safeSet('lastABScoreResult', result);
+  localStorage.setItem('lastABScoreResult', JSON.stringify(result));
   saveScoreHistory(result);
   renderABScoreResult(result);
   renderFlowStatusPanel();
@@ -2818,7 +2675,7 @@ function saveScoreHistory(result) {
   while (history.length > 12) {
     history.shift();
   }
-  safeSet('scoreHistory', history);
+  localStorage.setItem('scoreHistory', JSON.stringify(history));
 }
 
 function selectABPaper(grade, paper) {
@@ -3043,161 +2900,6 @@ function buildNextLessonPath() {
   };
 }
 
-function formatPrintDate(value) {
-  if (!value) return '';
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleDateString('zh-CN');
-}
-
-function setPrintText(id, value, fallback = '') {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = value || fallback;
-}
-
-function getLatestDiagnosisWrongItems(lastDiagnosisResult, wrongAnswers) {
-  if (!lastDiagnosisResult || !Array.isArray(wrongAnswers)) return [];
-  const diagnosisDate = new Date(lastDiagnosisResult.date || 0).getTime();
-  const questionIds = new Set(Array.isArray(lastDiagnosisResult.questionIds) ? lastDiagnosisResult.questionIds : []);
-  return wrongAnswers
-    .filter(item => {
-      if (!item) return false;
-      if (questionIds.size && item.questionId && questionIds.has(item.questionId)) return true;
-      if (item.diagnosisGrade && String(item.diagnosisGrade) !== String(lastDiagnosisResult.grade)) return false;
-      if (item.diagnosisPaper && String(item.diagnosisPaper) !== String(lastDiagnosisResult.paper)) return false;
-      const itemTime = new Date(item.timestamp || 0).getTime();
-      if (!diagnosisDate || !itemTime) return false;
-      return Math.abs(itemTime - diagnosisDate) <= 10 * 60 * 1000;
-    })
-    .sort((a, b) => new Date(a.timestamp || 0).getTime() - new Date(b.timestamp || 0).getTime());
-}
-
-function getPrintMainIssue(codes) {
-  if (!codes || !codes.length) return null;
-  return getFlowPack(codes[0]) || null;
-}
-
-function buildPrintTrainingRows(uniqueCodes) {
-  if (!uniqueCodes.length) {
-    return '<tr><td colspan="6">暂无系统分析结果，先完成一次 A/B/C 卷诊断或评分。</td></tr>';
-  }
-  return uniqueCodes.map(code => {
-    const pack = getFlowPack(code);
-    const title = pack ? pack.title : '对应训练包';
-    const problem = pack ? pack.problem : '按系统结果进入对应训练。';
-    return `<tr><td>${escapeHTML(code)}</td><td>${escapeHTML(title)}</td><td>□</td><td>□</td><td>□</td><td>${escapeHTML(problem)}</td></tr>`;
-  }).join('');
-}
-
-function buildPrintDiagnosisRows(items) {
-  if (!items.length) {
-    return [
-      '<tr><td>1</td><td>完成 A 卷后自动生成</td><td>-</td><td>系统将推荐对应训练包</td></tr>',
-      '<tr><td>2</td><td>完成 A 卷后自动生成</td><td>-</td><td>系统将推荐对应训练包</td></tr>',
-      '<tr><td>3</td><td>完成 A 卷后自动生成</td><td>-</td><td>系统将推荐对应训练包</td></tr>'
-    ].join('');
-  }
-  return items.slice(0, 8).map((item, index) => {
-    const code = getWrongItemErrorCode(item, getAnalysisSourceForWrongItem(item)) || '-';
-    const pack = getFlowPack(code);
-    const tip = item.mistakeReason || item.tip || '系统已记录本题薄弱点。';
-    return `<tr><td>${index + 1}</td><td>${escapeHTML(tip)}</td><td>${escapeHTML(code)}</td><td>${escapeHTML(pack ? `${pack.code} ${pack.title}` : '进入对应训练包')}</td></tr>`;
-  }).join('');
-}
-
-function buildPrintReviewRows(uniqueCodes, nextLessonTitle) {
-  if (!uniqueCodes.length) {
-    return '<tr><td>等待系统分析</td><td>日期：________</td><td>日期：________</td><td>日期：________</td><td>先完成 A 卷诊断</td></tr>';
-  }
-  return uniqueCodes.slice(0, 3).map(code => {
-    return `<tr><td>${escapeHTML(code)}</td><td>□ 已重讲方法</td><td>日期：________</td><td>日期：________</td><td>${escapeHTML(nextLessonTitle)}</td></tr>`;
-  }).join('');
-}
-
-function buildPrintAnswerSheet(lastDiagnosisResult, wrongItems) {
-  const list = document.getElementById('printAnswerSheet');
-  if (!list) return;
-  if (!lastDiagnosisResult) {
-    list.innerHTML = [
-      '<li>第1题答案：<span class="blank-line"></span></li>',
-      '<li>第2题答案：<span class="blank-line"></span></li>',
-      '<li>第3题答案：<span class="blank-line"></span></li>',
-      '<li>第4题答案：<span class="blank-line"></span></li>',
-      '<li>第5题答案：<span class="blank-line"></span></li>'
-    ].join('');
-    return;
-  }
-  const paperLabel = lastDiagnosisResult.paperLabel || getPaperLabel(lastDiagnosisResult.paper);
-  const items = new Array(5).fill(null).map((_, index) => {
-    const wrong = wrongItems[index];
-    const answerText = wrong ? (wrong.userAnswer || '已记录到错题本') : '';
-    return `<li>${paperLabel}第${index + 1}题答案：<span class="blank-line">${escapeHTML(answerText)}</span></li>`;
-  });
-  list.innerHTML = items.join('');
-}
-
-function updatePrintTrainingSheet() {
-  const statusEl = document.getElementById('printTrainingStatus');
-  const lastDiagnosisResult = safeParse('lastDiagnosisResult', null);
-  const lastABResult = readLastABScoreResult();
-  const wrongAnswers = getWrongAnswers();
-  const latestDiagnosisWrongItems = getLatestDiagnosisWrongItems(lastDiagnosisResult, wrongAnswers);
-  const profile = buildLearningProfile();
-  const nextLesson = buildNextLessonPath();
-  const codeStats = latestDiagnosisWrongItems.reduce((acc, item) => {
-    const code = getWrongItemErrorCode(item, getAnalysisSourceForWrongItem(item));
-    if (code) acc[code] = (acc[code] || 0) + 1;
-    return acc;
-  }, {});
-  const uniqueCodes = Object.entries(codeStats)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(entry => entry[0]);
-  const mainIssue = getPrintMainIssue(uniqueCodes);
-  const diagnosisTotalPoints = Number(lastDiagnosisResult?.totalPoints || 15);
-  const aScore = lastDiagnosisResult ? `${lastDiagnosisResult.totalScore || 0}/${diagnosisTotalPoints}` : '';
-  const generatedDate = formatPrintDate(lastDiagnosisResult?.date || lastABResult?.createdAt || new Date().toISOString());
-  const gradeLabel = lastDiagnosisResult?.gradeLabel || lastABResult?.gradeLabel || '';
-  const nextLessonTitle = nextLesson?.title ? nextLesson.title.replace(/^下一课：/, '') : '';
-  const reviewMethod = mainIssue ? mainIssue.problem : '先完成系统诊断';
-
-  setPrintText('printStudentGrade', gradeLabel);
-  setPrintText('printGeneratedDate', generatedDate);
-  setPrintText('printAScore', aScore);
-  setPrintText('printBResult', lastABResult?.paper === 'b' ? (lastABResult.wrongCount === 0 ? '通过' : '需再练') : '通过 / 需再练');
-  setPrintText('printCResult', lastABResult && isCPaper(lastABResult.paper) ? (lastABResult.wrongCount === 0 ? '通过' : '需回炉') : '通过 / 需回炉');
-  setPrintText('printMainErrorCode', mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '');
-  setPrintText('printProfileLevel', profile.level || '');
-  setPrintText('printNextLesson', nextLessonTitle);
-  setPrintText('printNextFocus', mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '');
-  setPrintText('printReviewError', mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '');
-  setPrintText('printReviewMethod', reviewMethod);
-  setPrintText('printReviewNext', nextLessonTitle);
-
-  const diagnosisRows = document.getElementById('printDiagnosisRows');
-  if (diagnosisRows) diagnosisRows.innerHTML = buildPrintDiagnosisRows(latestDiagnosisWrongItems);
-
-  const trainingRows = document.getElementById('printTrainingRows');
-  if (trainingRows) trainingRows.innerHTML = buildPrintTrainingRows(uniqueCodes);
-
-  const reviewRows = document.getElementById('printReviewRows');
-  if (reviewRows) reviewRows.innerHTML = buildPrintReviewRows(uniqueCodes, nextLessonTitle || '进入下一课');
-
-  buildPrintAnswerSheet(lastDiagnosisResult, latestDiagnosisWrongItems);
-
-  if (statusEl) {
-    statusEl.textContent = lastDiagnosisResult || lastABResult
-      ? `已回填最近一次系统结果：${gradeLabel || ''}${lastDiagnosisResult?.paperLabel || lastABResult?.paperLabel || ''}，主攻 ${mainIssue ? `${mainIssue.code} ${mainIssue.title}` : '待系统分析'}。`
-      : '暂无系统结果。先完成一次 A/B/C 卷诊断或电子评分，打印单会自动回填错因码和训练路径。';
-  }
-}
-
-function printTrainingSheet() {
-  updatePrintTrainingSheet();
-  document.body.classList.add('printing-training-sheet');
-  window.print();
-}
-
 function renderNextLessonPanel() {
   const panel = document.getElementById('nextLessonPanel');
   if (!panel) return;
@@ -3223,9 +2925,13 @@ function renderNextLessonPanel() {
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
   loadProgress();
-  syncPracticeLevelButtons();
   initModeSwitch();
-  observeInteractivePractice();
+  initTransform();
+  initRhetoric();
+  initPoem();
+  initReading();
+  initVocab();
+  initThinking();
   initCheckin();
   renderWrongList();
   renderErrorStats();
@@ -3234,8 +2940,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initABScorePanel();
   renderLearningProfilePanel();
   renderNextLessonPanel();
-  updatePrintTrainingSheet();
   renderAutoRoutingPanel();
+  updateDiagnosisPaperCopy();
+  document.getElementById('diagnosisGradeSelect')?.addEventListener('change', updateDiagnosisPaperCopy);
+  document.getElementById('diagnosisPaperSelect')?.addEventListener('change', updateDiagnosisPaperCopy);
   
   // 关闭奖励弹窗
   document.getElementById('rewardModal').addEventListener('click', (e) => {
@@ -3251,19 +2959,710 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==================== 诊断测评功能 ====================
 
 // 诊断测评题目数据
+const LEGACY_DIAGNOSIS_QUESTIONS = [
+  // 字词基础（1-5题）
+  {
+    type: '字词基础',
+    question: '下列词语中，与"安静"意思最相近的是：',
+    options: ['吵闹', '宁静', '热闹', '活泼'],
+    answer: 1,
+    explanation: '正确答案：宁静。"安静"和"宁静"都表示没有声音、安稳平静的意思，是近义词。',
+    mistakeReason: '容易混淆"安静"与其他词的含义，"吵闹""热闹"与"安静"是反义词，"活泼"形容的是人的性格。'
+  },
+  {
+    type: '字词基础',
+    question: '下列句子中，哪个词语用得不恰当？',
+    options: [
+      '春天来了，大地一片生机勃勃。',
+      '他说话总是夸夸其谈，很有学问。',
+      '这次考试，我胸有成竹。',
+      '她的歌声悦耳动听。'
+    ],
+    answer: 1,
+    explanation: '正确答案：第二句。"夸夸其谈"是贬义词，形容说话浮夸不切实际，不能用来赞美别人有学问。',
+    mistakeReason: '没有理解"夸夸其谈"的感情色彩，误用了贬义词。'
+  },
+  {
+    type: '字词基础',
+    question: '"情不自禁"的"禁"，意思是：',
+    options: ['禁止', '忍住', '禁止的地方', '忍受'],
+    answer: 1,
+    explanation: '正确答案：忍住。"情不自禁"意思是感情激动得不能控制。',
+    mistakeReason: '不熟悉成语中单个字的意思。'
+  },
+  {
+    type: '字词基础',
+    question: '下列哪个词与其他三个不是同一类？',
+    options: ['菊花', '梅花', '雪花', '桃花'],
+    answer: 2,
+    explanation: '正确答案：雪花。其他都是植物的花，雪花是自然现象。',
+    mistakeReason: '没有正确分类，把自然现象和植物的花混在一起了。'
+  },
+  {
+    type: '字词基础',
+    question: '把句子补充完整：太阳像______一样挂在天空。',
+    options: ['小船', '圆盘', '月牙', '镰刀'],
+    answer: 1,
+    explanation: '正确答案：圆盘。用圆盘最贴切地描述了太阳的形状。',
+    mistakeReason: '比喻不贴切，小船、月牙、镰刀常用来形容月亮。'
+  },
+  // 阅读理解（6-10题）
+  {
+    type: '阅读理解',
+    question: '春天到了，公园里的花都开了。有红的、黄的、白的，五颜六色，美丽极了。这段话主要写了：',
+    options: [
+      '春天来了',
+      '公园里的花很美',
+      '花的颜色很多',
+      '公园很美'
+    ],
+    answer: 1,
+    explanation: '正确答案：公园里的花很美。这段话描述了春天公园里花开的美丽景象。',
+    mistakeReason: '概括不全面，只看到部分内容而没有抓住主要意思。'
+  },
+  {
+    type: '阅读理解',
+    question: '小明每天早上都坚持跑步，从不间断。这句话主要表现了小明的什么品质？',
+    options: ['勤劳', '勇敢', '有毅力', '善良'],
+    answer: 2,
+    explanation: '正确答案：有毅力。"从不间断"体现了他有毅力。',
+    mistakeReason: '没有抓住关键词"从不间断"来理解人物品质。'
+  },
+  {
+    type: '阅读理解',
+    question: '读书可以让我们学到很多知识，可以让我们明白很多道理。这句话的主要意思是：',
+    options: [
+      '读书很有趣',
+      '读书有很多好处',
+      '读书要认真',
+      '读书可以解闷'
+    ],
+    answer: 1,
+    explanation: '正确答案：读书有很多好处。这句话列举了读书的两个好处。',
+    mistakeReason: '没有正确理解句子要表达的主要观点。'
+  },
+  {
+    type: '阅读理解',
+    question: '下列哪句话是比喻句？',
+    options: [
+      '小鸟在树上唱歌。',
+      '他长得像他爸爸。',
+      '弯弯的月亮像小船。',
+      '我好像认识他。'
+    ],
+    answer: 2,
+    explanation: '正确答案：弯弯的月亮像小船。把月亮比作小船，有比喻词"像"。',
+    mistakeReason: '把比较和比喻混淆了，不是所有有"像"的句子都是比喻句。'
+  },
+  {
+    type: '阅读理解',
+    question: '"这件事真让人感动。"这句话中的"感动"可以换成哪个词？',
+    options: ['难过', '激动', '生气', '高兴'],
+    answer: 1,
+    explanation: '正确答案：激动。感动和激动在某些语境下可以互换。',
+    mistakeReason: '不理解词语在具体语境中的意思。'
+  },
+  // 写作表达（11-15题）
+  {
+    type: '写作表达',
+    question: '写人的文章，一般要先写什么？',
+    options: ['人物的外貌', '人物的品质', '具体事例', '人物的爱好'],
+    answer: 0,
+    explanation: '正确答案：人物的外貌。写人通常先介绍外貌，让读者对人物有初步印象。',
+    mistakeReason: '不熟悉写人文章的基本结构。'
+  },
+  {
+    type: '写作表达',
+    question: '下列哪个结尾方式不恰当？',
+    options: [
+      '首尾呼应',
+      '点明中心',
+      '画蛇添足',
+      '总结全文'
+    ],
+    answer: 2,
+    explanation: '正确答案：画蛇添足。画蛇添足是贬义词，指做多余的事，反而不好。',
+    mistakeReason: '不理解成语的意思和写作方法。'
+  },
+  {
+    type: '写作表达',
+    question: '写一件事，最重要的是写清楚：',
+    options: ['时间、地点、人物', '事情的经过', '事情的结果', '以上都是'],
+    answer: 3,
+    explanation: '正确答案：以上都是。写事要写清楚六要素。',
+    mistakeReason: '不知道写事的六要素。'
+  },
+  {
+    type: '写作表达',
+    question: '下列哪句话写得最生动？',
+    options: [
+      '花开了。',
+      '花开了，真好看。',
+      '花儿张开了笑脸。',
+      '有很多花开了。'
+    ],
+    answer: 2,
+    explanation: '正确答案：花儿张开了笑脸。用了拟人的手法，写得很生动。',
+    mistakeReason: '不会运用修辞手法让句子更生动。'
+  },
+  {
+    type: '写作表达',
+    question: '作文题目"一件______的事"，横线处填哪个词最合适？',
+    options: ['难忘', '美丽', '高大', '明亮'],
+    answer: 0,
+    explanation: '正确答案：难忘。只有"难忘"能用来形容事。',
+    mistakeReason: '词语搭配不当，不理解哪些词可以修饰"事"。'
+  }
+];
+
+const DIAGNOSIS_GRADE_PROFILES = {
+  1: { label: '一年级', band: 'lower' },
+  2: { label: '二年级', band: 'lower' },
+  3: { label: '三年级', band: 'middle' },
+  4: { label: '四年级', band: 'middle' },
+  5: { label: '五年级', band: 'upper' },
+  6: { label: '六年级', band: 'upper' }
+};
+
+const DIAGNOSIS_PAPER_PROFILES = {
+  a: { label: 'A卷诊断', desc: '定位薄弱点，自动生成错因码' },
+  b: { label: 'B卷复测', desc: '换同类题，检查是否真正掌握' },
+  c: { label: 'C卷迁移', desc: '混合材料和综合题，检查能否迁移' }
+};
+
+const DIAGNOSIS_TARGETS = {
+  '字词基础': 5,
+  '阅读理解': 5,
+  '写作表达': 5
+};
+
+let diagnosisQuestions = [];
+let currentDiagnosisMeta = {
+  grade: '3',
+  paper: 'a',
+  gradeLabel: '三年级',
+  paperLabel: 'A卷诊断'
+};
+
+function diagnosisChoice(sets, grade, paper) {
+  const profile = DIAGNOSIS_GRADE_PROFILES[grade] || DIAGNOSIS_GRADE_PROFILES[3];
+  const paperIndex = { a: 0, b: 1, c: 2 }[paper] || 0;
+  const byBand = sets[profile.band] || sets.middle || sets.lower || sets.upper;
+  return byBand[paperIndex] || byBand[0];
+}
+
+function makeDiagnosisQuestion(template, grade, paper) {
+  const data = template.build(grade, paper);
+  const gradeProfile = DIAGNOSIS_GRADE_PROFILES[grade] || DIAGNOSIS_GRADE_PROFILES[3];
+  const paperProfile = DIAGNOSIS_PAPER_PROFILES[paper] || DIAGNOSIS_PAPER_PROFILES.a;
+  return {
+    ...data,
+    id: `${template.id}-${grade}-${paper}`,
+    variantId: template.id,
+    type: template.type,
+    errorCategory: template.errorCategory,
+    errorCode: template.errorCode,
+    grade,
+    gradeLabel: gradeProfile.label,
+    paper,
+    paperLabel: paperProfile.label
+  };
+}
+
+const DIAGNOSIS_TEMPLATE_BANK = [
+  {
+    id: 'b1-synonym',
+    type: '字词基础',
+    errorCategory: 'b1',
+    errorCode: 'B1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '下列词语中，与“安静”意思最相近的是：', options: ['吵闹', '宁静', '热闹', '活泼'], answer: 1, explanation: '“宁静”和“安静”意思相近。', mistakeReason: '近义词辨析不稳。' },
+        { question: '下列词语中，与“高兴”意思最相近的是：', options: ['快乐', '难过', '害怕', '着急'], answer: 0, explanation: '“快乐”和“高兴”意思相近。', mistakeReason: '没有结合词义选择近义词。' },
+        { question: '下列词语中，与“认真”意思最相近的是：', options: ['马虎', '仔细', '热闹', '明亮'], answer: 1, explanation: '“仔细”和“认真”意思相近。', mistakeReason: '容易被无关词干扰。' }
+      ],
+      middle: [
+        { question: '下列词语中，与“赞赏”意思最相近的是：', options: ['批评', '欣赏', '躲藏', '等待'], answer: 1, explanation: '“欣赏”接近“赞赏”的意思。', mistakeReason: '没有分清褒义词和普通动作词。' },
+        { question: '下列词语中，与“顿时”意思最相近的是：', options: ['立刻', '经常', '缓慢', '终于'], answer: 0, explanation: '“顿时”表示很短时间内立刻发生。', mistakeReason: '时间词辨析不稳。' },
+        { question: '下列词语中，与“凝视”意思最接近的是：', options: ['随便看', '仔细地看', '快速跑', '小声说'], answer: 1, explanation: '“凝视”是集中注意力仔细看。', mistakeReason: '没有抓住动作的程度。' }
+      ],
+      upper: [
+        { question: '下列词语中，与“肃然起敬”意思最接近的是：', options: ['十分敬佩', '非常害怕', '暗自得意', '忽然明白'], answer: 0, explanation: '“肃然起敬”表示产生敬佩之情。', mistakeReason: '成语整体意思理解不稳。' },
+        { question: '下列词语中，与“斟酌”意思最接近的是：', options: ['反复考虑', '随意选择', '马上拒绝', '大声朗读'], answer: 0, explanation: '“斟酌”表示仔细考虑、权衡。', mistakeReason: '书面词语积累不足。' },
+        { question: '下列词语中，与“络绎不绝”意思最接近的是：', options: ['连续不断', '毫无声音', '整齐划一', '忽然停止'], answer: 0, explanation: '“络绎不绝”形容人或事物接连不断。', mistakeReason: '没有理解成语的语境。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'b1-context',
+    type: '字词基础',
+    errorCategory: 'b1',
+    errorCode: 'B1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '选择合适的词语：小鸟在树上______地唱歌。', options: ['欢快', '寒冷', '坚硬', '笔直'], answer: 0, explanation: '“欢快地唱歌”搭配合适。', mistakeReason: '词语搭配和语境判断不稳。' },
+        { question: '选择合适的词语：妹妹把房间打扫得很______。', options: ['干净', '热闹', '遥远', '勇敢'], answer: 0, explanation: '打扫后的结果应是“干净”。', mistakeReason: '没有看清词语搭配对象。' },
+        { question: '选择合适的词语：春雨______地下着。', options: ['轻轻', '高高', '红红', '圆圆'], answer: 0, explanation: '“轻轻地下着”符合春雨特点。', mistakeReason: '没有结合事物特点选词。' }
+      ],
+      middle: [
+        { question: '选择合适的词语：听到这个消息，同学们______地欢呼起来。', options: ['情不自禁', '无边无际', '一动不动', '争分夺秒'], answer: 0, explanation: '“情不自禁”能表现控制不住地欢呼。', mistakeReason: '成语语境运用不稳。' },
+        { question: '选择合适的词语：面对难题，他没有退缩，而是______地思考。', options: ['专心致志', '垂头丧气', '手忙脚乱', '东张西望'], answer: 0, explanation: '“专心致志”符合认真思考的语境。', mistakeReason: '没有抓住人物状态。' },
+        { question: '选择合适的词语：操场上响起了______的掌声。', options: ['热烈', '安静', '笔直', '清淡'], answer: 0, explanation: '掌声通常用“热烈”修饰。', mistakeReason: '常见搭配积累不足。' }
+      ],
+      upper: [
+        { question: '选择合适的词语：这段描写把人物的心理变化表现得十分______。', options: ['细腻', '辽阔', '陡峭', '清脆'], answer: 0, explanation: '心理描写常用“细腻”评价。', mistakeReason: '抽象词语搭配不稳。' },
+        { question: '选择合适的词语：作者用朴素的语言表达了______的情感。', options: ['真挚', '狭窄', '稀疏', '锋利'], answer: 0, explanation: '情感可以用“真挚”修饰。', mistakeReason: '没有区分描写对象。' },
+        { question: '选择合适的词语：这组数据______地说明了问题的严重性。', options: ['直观', '芬芳', '清脆', '漫长'], answer: 0, explanation: '数据能“直观地说明”问题。', mistakeReason: '说明文常用词语积累不足。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'b1-idiom',
+    type: '字词基础',
+    errorCategory: 'b1',
+    errorCode: 'B1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '“情不自禁”的“禁”，意思是：', options: ['禁止', '忍住', '禁地', '承受'], answer: 1, explanation: '这里的“禁”是“忍住”的意思。', mistakeReason: '不熟悉成语中关键字的意思。' },
+        { question: '“自言自语”的意思是：', options: ['自己跟自己说话', '大声唱歌', '认真写字', '别人一起说'], answer: 0, explanation: '“自言自语”就是自己对自己说话。', mistakeReason: '成语整体理解不稳。' },
+        { question: '“五颜六色”常用来形容：', options: ['颜色多', '声音大', '速度快', '味道甜'], answer: 0, explanation: '“五颜六色”形容颜色很多。', mistakeReason: '没有抓住成语关键词。' }
+      ],
+      middle: [
+        { question: '“胸有成竹”常用来形容：', options: ['做事前已有把握', '胸口有竹子', '非常害怕', '随便决定'], answer: 0, explanation: '“胸有成竹”表示事前已有充分准备和把握。', mistakeReason: '成语不能按字面理解。' },
+        { question: '“垂头丧气”表现的是：', options: ['失望沮丧', '十分高兴', '非常勇敢', '特别认真'], answer: 0, explanation: '这个成语表现低落、沮丧的状态。', mistakeReason: '人物状态词理解不稳。' },
+        { question: '“争先恐后”最适合形容：', options: ['大家抢着向前', '一个人慢慢走', '安静地等待', '悄悄地离开'], answer: 0, explanation: '“争先恐后”表示争着向前，唯恐落后。', mistakeReason: '没有结合动作场景理解。' }
+      ],
+      upper: [
+        { question: '“栩栩如生”常用来评价：', options: ['描写或形象很逼真', '道路很宽阔', '声音很响亮', '速度很快'], answer: 0, explanation: '“栩栩如生”形容艺术形象非常逼真。', mistakeReason: '评价类成语使用对象不清。' },
+        { question: '“意味深长”常用来形容：', options: ['话语含义深刻', '路很漫长', '声音很尖', '颜色很浅'], answer: 0, explanation: '“意味深长”表示含义深刻，值得回味。', mistakeReason: '抽象成语语义不稳。' },
+        { question: '“不言而喻”的意思是：', options: ['不用说就能明白', '不能说话', '越说越清楚', '写得很少'], answer: 0, explanation: '“不言而喻”表示不用说明就能明白。', mistakeReason: '文言色彩成语理解不足。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'b1-classify',
+    type: '字词基础',
+    errorCategory: 'b1',
+    errorCode: 'B1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '下列哪个词与其他三个不是同一类？', options: ['菊花', '梅花', '雪花', '桃花'], answer: 2, explanation: '其他三个是植物的花，“雪花”是自然现象。', mistakeReason: '分类时没有找共同特点。' },
+        { question: '下列哪个词与其他三个不是同一类？', options: ['铅笔', '橡皮', '尺子', '苹果'], answer: 3, explanation: '前三个是学习用品，“苹果”是水果。', mistakeReason: '没有按类别归纳。' },
+        { question: '下列哪个词与其他三个不是同一类？', options: ['小狗', '小猫', '小鸟', '桌子'], answer: 3, explanation: '前三个是动物，“桌子”不是动物。', mistakeReason: '分类标准不清。' }
+      ],
+      middle: [
+        { question: '下列哪个词与其他三个不是同一类？', options: ['端午节', '中秋节', '春节', '星期天'], answer: 3, explanation: '前三个是传统节日，“星期天”是星期。', mistakeReason: '没有区分节日和时间单位。' },
+        { question: '下列哪个词与其他三个不是同一类？', options: ['拟人', '比喻', '排比', '记叙'], answer: 3, explanation: '前三个是修辞手法，“记叙”是表达方式。', mistakeReason: '语文概念分类不清。' },
+        { question: '下列哪个词与其他三个不是同一类？', options: ['神态描写', '动作描写', '语言描写', '说明方法'], answer: 3, explanation: '前三个是人物描写方法，“说明方法”属于说明文。', mistakeReason: '题型概念混淆。' }
+      ],
+      upper: [
+        { question: '下列哪个概念与其他三个不是同一类？', options: ['列数字', '作比较', '打比方', '心理描写'], answer: 3, explanation: '前三个是说明方法，“心理描写”是人物描写。', mistakeReason: '说明文和记叙文方法混淆。' },
+        { question: '下列哪个概念与其他三个不是同一类？', options: ['中心句', '过渡句', '总结句', '错别字'], answer: 3, explanation: '前三个是句子作用，“错别字”不是句子作用。', mistakeReason: '没有按功能分类。' },
+        { question: '下列哪个概念与其他三个不是同一类？', options: ['总分结构', '并列结构', '递进结构', '近义词'], answer: 3, explanation: '前三个是文章或段落结构，“近义词”是词语关系。', mistakeReason: '结构概念辨析不足。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'b1-rhetoric',
+    type: '字词基础',
+    errorCategory: 'b1',
+    errorCode: 'B1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '下列哪句话是比喻句？', options: ['小鸟在树上唱歌。', '弯弯的月亮像小船。', '我好像认识他。', '他像爸爸一样高。'], answer: 1, explanation: '把月亮比作小船，是比喻句。', mistakeReason: '把比较和比喻混淆。' },
+        { question: '下列哪句话用了拟人？', options: ['花儿张开了笑脸。', '花是红色的。', '我喜欢花。', '花开在路边。'], answer: 0, explanation: '“张开了笑脸”把花当作人来写。', mistakeReason: '修辞判断不稳。' },
+        { question: '“树叶在风中跳舞”用了什么修辞？', options: ['拟人', '反问', '夸张', '设问'], answer: 0, explanation: '“跳舞”是人的动作，用来写树叶，是拟人。', mistakeReason: '没有抓住动作词。' }
+      ],
+      middle: [
+        { question: '“书是钥匙，能打开知识的大门”用了什么修辞？', options: ['比喻', '拟人', '反问', '排比'], answer: 0, explanation: '把书比作钥匙，是比喻。', mistakeReason: '修辞和表达效果联系不稳。' },
+        { question: '下列哪句话用了排比？', options: ['风来了，雨来了，雷声也来了。', '小河唱着歌。', '太阳像火球。', '他难道不勇敢吗？'], answer: 0, explanation: '三个相近结构连续出现，是排比。', mistakeReason: '没有看句式结构。' },
+        { question: '“这难道不是最好的礼物吗？”属于：', options: ['反问', '比喻', '拟人', '夸张'], answer: 0, explanation: '用疑问形式表达肯定语气，是反问。', mistakeReason: '句式语气判断不稳。' }
+      ],
+      upper: [
+        { question: '“时间像细沙，从指缝间悄悄溜走”主要用了：', options: ['比喻和拟人', '设问和反问', '排比和对偶', '夸张和引用'], answer: 0, explanation: '把时间比作细沙，“溜走”又带有拟人意味。', mistakeReason: '综合修辞判断不足。' },
+        { question: '“母爱是春风，是细雨，是黑夜里的一盏灯”主要用了：', options: ['排比和比喻', '拟人和反问', '夸张和设问', '引用和对比'], answer: 0, explanation: '连续三个“是”构成排比，也包含比喻。', mistakeReason: '多种修辞不能综合判断。' },
+        { question: '“难道我们不应该珍惜这样的时光吗？”表达的意思是：', options: ['我们应该珍惜', '我们不应该珍惜', '作者不确定', '作者在提问时间'], answer: 0, explanation: '反问句表达肯定语气。', mistakeReason: '反问句意思转换不稳。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'r1-main-idea',
+    type: '阅读理解',
+    errorCategory: 'r1',
+    errorCode: 'R1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '“小兔种下萝卜，每天浇水。秋天，萝卜长得又大又甜。”这段话主要写了：', options: ['小兔爱吃萝卜', '小兔种萝卜并收获了', '秋天很美', '萝卜很甜'], answer: 1, explanation: '主要人物是小兔，事情是种萝卜并收获。', mistakeReason: '概括时漏了人物和事件。' },
+        { question: '“下课了，同学们有的跳绳，有的拍球，还有的跑步。”这句话主要写了：', options: ['同学们在活动', '同学们在上课', '操场很大', '跳绳最好玩'], answer: 0, explanation: '句子概括的是同学们课间活动。', mistakeReason: '只抓住局部内容。' },
+        { question: '“妈妈教我整理书包，我先放课本，再放文具。”这段话主要写了：', options: ['妈妈很忙', '我学习整理书包', '书包很重', '文具很多'], answer: 1, explanation: '主要内容是“我”学习整理书包。', mistakeReason: '没有抓住谁做了什么。' }
+      ],
+      middle: [
+        { question: '“爷爷每天清晨给小树浇水、松土。几年后，小树长成了大树。”这段话主要写了：', options: ['爷爷坚持照顾小树', '清晨空气很好', '小树很高', '爷爷喜欢散步'], answer: 0, explanation: '主要写爷爷长期照顾小树。', mistakeReason: '概括没有抓住持续行为。' },
+        { question: '“小雨第一次上台很紧张，但她深吸一口气，终于完整地讲完了故事。”这段话主要写了：', options: ['小雨克服紧张完成讲故事', '小雨喜欢故事', '台上很高', '大家很安静'], answer: 0, explanation: '抓住人物、困难和结果。', mistakeReason: '概括时漏了变化过程。' },
+        { question: '“为了准备班级展览，同学们查资料、画海报、布置教室。”这段话主要写了：', options: ['同学们为展览做准备', '同学们喜欢画画', '教室很漂亮', '资料很多'], answer: 0, explanation: '一系列动作都是为展览做准备。', mistakeReason: '不会合并多个动作。' }
+      ],
+      upper: [
+        { question: '“文章先写老街清晨的热闹，再写老人们守着老手艺，最后写作者对老街变化的感受。”最准确的概括是：', options: ['文章写老街景色和老手艺，表达作者对老街的怀念与思考', '文章只写老人', '文章写清晨买菜', '文章介绍城市交通'], answer: 0, explanation: '概括要包含内容和情感。', mistakeReason: '高年级概括缺中心。' },
+        { question: '“材料介绍了塑料袋使用量大、降解慢，并提出减少使用和循环利用的建议。”主要内容是：', options: ['塑料袋问题及解决建议', '塑料袋很轻', '人们喜欢购物', '循环利用很麻烦'], answer: 0, explanation: '说明文概括要抓问题和建议。', mistakeReason: '非连续/说明材料概括不完整。' },
+        { question: '“短文通过写父亲雪夜送站、买热包子、目送孩子离开，表现了父爱。”主要内容是：', options: ['父亲用行动表达爱', '孩子买包子', '雪夜很冷', '车站人很多'], answer: 0, explanation: '概括要抓事件背后的中心。', mistakeReason: '只看情节，不提中心。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'r2-evidence',
+    type: '阅读理解',
+    errorCategory: 'r2',
+    errorCode: 'R2',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '“小猫躲在椅子下面，一声也不叫。”从哪里能看出小猫害怕？', options: ['躲在椅子下面', '椅子很大', '小猫很漂亮', '房间很亮'], answer: 0, explanation: '“躲在椅子下面”是原文依据。', mistakeReason: '回答人物特点时缺少原文依据。' },
+        { question: '“小明把摔倒的同学扶起来。”从哪里能看出小明乐于助人？', options: ['把同学扶起来', '小明跑得快', '同学摔倒了', '地上很滑'], answer: 0, explanation: '扶起同学能证明乐于助人。', mistakeReason: '没有找能证明特点的动作。' },
+        { question: '“奶奶把最大的一块西瓜递给我。”从哪里能看出奶奶疼爱我？', options: ['把最大的一块给我', '西瓜很甜', '天气很热', '我喜欢西瓜'], answer: 0, explanation: '给“我”最大的一块是疼爱的依据。', mistakeReason: '证据定位不准。' }
+      ],
+      middle: [
+        { question: '“妈妈下班后顾不上休息，先检查我的作业。”哪处细节最能表现妈妈关心我？', options: ['顾不上休息，先检查作业', '妈妈下班了', '作业很多', '时间很晚'], answer: 0, explanation: '这处行动细节直接表现关心。', mistakeReason: '人物题缺少两层依据意识。' },
+        { question: '“他反复修改作文，直到标点也检查完。”最能表现他认真的依据是：', options: ['反复修改，连标点也检查', '作文很长', '标点很多', '他写完了作文'], answer: 0, explanation: '反复修改和检查标点能体现认真。', mistakeReason: '没有抓关键词“反复”“直到”。' },
+        { question: '“父亲站在雨里，把伞一直偏向我这边。”最能表现父亲关爱的依据是：', options: ['把伞偏向我', '雨下得大', '父亲站着', '我在路上'], answer: 0, explanation: '伞偏向“我”是关爱的动作依据。', mistakeReason: '没有把动作和品质联系起来。' }
+      ],
+      upper: [
+        { question: '判断父亲“默默付出”，最有力的一组依据是：', options: ['冒雪送站、买热包子、目送离开', '车站很远、雪很大、包子很热', '孩子很感动、天气很冷、路灯很暗', '父亲说话少、文章很长、结尾点题'], answer: 0, explanation: '人物评价要用多个行动细节支撑。', mistakeReason: '依据没有和人物特点对应。' },
+        { question: '要证明“老手艺人坚守传统”，最应选择的依据是：', options: ['几十年坚持手工制作并教年轻人', '街上有很多店铺', '游客买了纪念品', '天气晴朗'], answer: 0, explanation: '坚持制作并传授最能证明坚守。', mistakeReason: '不会筛选最有力依据。' },
+        { question: '要证明“作者对家乡变化既欣喜又留恋”，最合适的依据是：', options: ['写新桥方便，也写旧渡口让人怀念', '家乡有河', '桥很宽', '作者回家了'], answer: 0, explanation: '两个细节分别对应欣喜和留恋。', mistakeReason: '复杂情感需要多处依据。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'r3-language',
+    type: '阅读理解',
+    errorCategory: 'r3',
+    errorCode: 'R3',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '“小河唱着歌向前跑。”这句话写出了小河的什么特点？', options: ['活泼欢快', '又脏又臭', '一动不动', '很害怕'], answer: 0, explanation: '“唱着歌”“跑”写出小河活泼。', mistakeReason: '不会联系修辞和表达效果。' },
+        { question: '“花儿张开笑脸。”这样写让花显得：', options: ['可爱、有生气', '很可怕', '很沉重', '很安静'], answer: 0, explanation: '拟人让花显得可爱有生气。', mistakeReason: '只判断修辞，不会说效果。' },
+        { question: '“太阳像火球。”这句话写出了太阳：', options: ['又圆又热', '很冷', '很小', '会滚动'], answer: 0, explanation: '火球能写出太阳圆和热。', mistakeReason: '比喻效果理解不准。' }
+      ],
+      middle: [
+        { question: '“雨点像断了线的珠子落下来”写出了雨的什么特点？', options: ['又密又急', '很轻很小', '完全没下', '颜色很多'], answer: 0, explanation: '“断了线的珠子”表现雨密集、下得急。', mistakeReason: '赏析没有扣住关键词。' },
+        { question: '“教室里静得连针掉在地上都听得见”主要写出：', options: ['非常安静', '针很多', '地上很硬', '教室很大'], answer: 0, explanation: '夸张地写出教室非常安静。', mistakeReason: '不能从夸张中概括特点。' },
+        { question: '“风掀起树叶，像翻动一本绿色的书。”这句话的表达效果是：', options: ['写出树叶翻动的画面感', '说明书很多', '写风很危险', '写树很矮'], answer: 0, explanation: '比喻让树叶翻动更有画面。', mistakeReason: '赏析空泛，没有联系画面。' }
+      ],
+      upper: [
+        { question: '“父亲的背影被雪光拉得很长。”这句话的作用最恰当的是：', options: ['烘托父亲默默付出的形象和离别氛围', '说明父亲个子很高', '交代雪很白', '突出车站很大'], answer: 0, explanation: '环境和背影描写能烘托人物与情感。', mistakeReason: '句子作用分析不够深入。' },
+        { question: '“老街的吆喝声，像从岁月深处传来的回声。”这句话表达了：', options: ['对老街传统生活的怀念', '声音很吵', '街道很宽', '作者听力很好'], answer: 0, explanation: '“岁月深处”暗含怀旧意味。', mistakeReason: '不能抓住含义深的词。' },
+        { question: '“数据不是冰冷的数字，它指向每一棵需要被看见的树。”这句话的表达效果是：', options: ['让说明更有情感和呼吁力量', '说明数据没用', '只是在写树', '语句没有作用'], answer: 0, explanation: '把数据和现实问题联系起来，增强感染力。', mistakeReason: '说明文语言赏析不稳。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'r4-data',
+    type: '阅读理解',
+    errorCategory: 'r4',
+    errorCode: 'R4',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '表格显示：周一借书20本，周二借书35本。哪天借书更多？', options: ['周二', '周一', '一样多', '无法判断'], answer: 0, explanation: '35本比20本多。', mistakeReason: '没有读取表格数据。' },
+        { question: '图表显示：苹果5个，香蕉8根。哪种水果数量更多？', options: ['香蕉', '苹果', '一样多', '都没有'], answer: 0, explanation: '8比5多。', mistakeReason: '数据比较不稳。' },
+        { question: '通知写着“上午9点集合”。集合时间是：', options: ['上午9点', '下午9点', '上午8点', '下午8点'], answer: 0, explanation: '通知里直接给出上午9点。', mistakeReason: '没有抓关键信息。' }
+      ],
+      middle: [
+        { question: '材料显示：乘公交上学占45%，步行占30%，骑车占25%。最多的是：', options: ['乘公交', '步行', '骑车', '一样多'], answer: 0, explanation: '45%最大。', mistakeReason: '非连续文本数据读取不准。' },
+        { question: '海报写着“活动地点：学校图书馆二楼”。活动地点是：', options: ['学校图书馆二楼', '操场', '教室', '校门口'], answer: 0, explanation: '海报直接说明地点。', mistakeReason: '提取信息不够准确。' },
+        { question: '表格显示：A方案费用120元，B方案费用90元。哪种更省钱？', options: ['B方案', 'A方案', '一样', '不能比较'], answer: 0, explanation: '90元比120元少。', mistakeReason: '没有根据数据作判断。' }
+      ],
+      upper: [
+        { question: '材料显示：树荫区温度32℃，水泥空地温度39℃。最合理的建议是：', options: ['增加树荫和遮阳设施', '减少树木', '中午多跑步', '取消户外活动'], answer: 0, explanation: '树荫区温度更低，能改善户外环境。', mistakeReason: '不能用数据推出建议。' },
+        { question: '图表显示：阅读30分钟以上的学生成绩优秀率更高。最合理的结论是：', options: ['坚持阅读与成绩表现有关', '不需要阅读', '只看图表不能学习', '读书越少越好'], answer: 0, explanation: '数据支持阅读习惯与成绩表现有关。', mistakeReason: '材料结论和数据对应不稳。' },
+        { question: '两则材料都提到“垃圾分类能减少资源浪费”。整合后的观点是：', options: ['垃圾分类有助于资源再利用', '垃圾分类没有意义', '材料互相矛盾', '只要扔垃圾就行'], answer: 0, explanation: '两则材料共同指向资源再利用。', mistakeReason: '多材料信息整合不稳。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'r2-word-context',
+    type: '阅读理解',
+    errorCategory: 'r2',
+    errorCode: 'R2',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '“小红跑得飞快。”这里“飞快”的意思是：', options: ['非常快', '会飞', '很慢', '很高'], answer: 0, explanation: '“飞快”表示速度很快。', mistakeReason: '词语语境义理解不准。' },
+        { question: '“小明急得直跺脚。”说明小明：', options: ['很着急', '很开心', '很安静', '很困'], answer: 0, explanation: '“直跺脚”表现着急。', mistakeReason: '不会从动作理解心情。' },
+        { question: '“教室里鸦雀无声。”意思是教室里：', options: ['非常安静', '有很多鸟', '很热闹', '很明亮'], answer: 0, explanation: '“鸦雀无声”形容非常安静。', mistakeReason: '没有结合语境理解词语。' }
+      ],
+      middle: [
+        { question: '“妈妈看到我的进步，脸上露出欣慰的笑容。”这里“欣慰”表示：', options: ['高兴并放心', '生气', '害怕', '难为情'], answer: 0, explanation: '“欣慰”是因满意而高兴放心。', mistakeReason: '情感词语理解不稳。' },
+        { question: '“他迟疑了一下，还是举起了手。”这里“迟疑”说明他：', options: ['有点犹豫', '十分坚定', '非常生气', '马上睡着'], answer: 0, explanation: '“迟疑”表示犹豫不决。', mistakeReason: '没有抓住心理变化。' },
+        { question: '“老师语重心长地说。”这里“语重心长”说明老师的话：', options: ['恳切而有分量', '声音很小', '速度很快', '毫无意义'], answer: 0, explanation: '“语重心长”指话语恳切、有分量。', mistakeReason: '不能准确解释成语语境义。' }
+      ],
+      upper: [
+        { question: '“这份沉默不是冷淡，而是父亲深藏的牵挂。”这里“沉默”表现的是：', options: ['含蓄的关爱', '不愿理人', '完全没有感情', '忘记说话'], answer: 0, explanation: '结合后文“牵挂”可知沉默表现含蓄的爱。', mistakeReason: '没有联系上下文理解词义。' },
+        { question: '“老街在喧闹中保留着一份从容。”这里“从容”最接近：', options: ['不慌不忙的气质', '速度很快', '声音很大', '非常拥挤'], answer: 0, explanation: '“从容”指安定、不慌乱。', mistakeReason: '抽象词语语境义不足。' },
+        { question: '“数据背后，是一座城市的选择。”这里“选择”指：', options: ['治理方向和行动取舍', '选择题答案', '随便挑一个', '商品种类'], answer: 0, explanation: '结合材料可知是城市治理方向。', mistakeReason: '不能理解关键词的深层含义。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'w1-writing-order',
+    type: '写作表达',
+    errorCategory: 'w1',
+    errorCode: 'W1',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '看图写话时，第一步通常先写：', options: ['图上有谁在哪里', '结尾感受', '引用名言', '写一大段心理'], answer: 0, explanation: '低年级写话先交代人物和地点。', mistakeReason: '写话顺序不清。' },
+        { question: '写“小猫玩毛线球”，开头最合适的是：', options: ['一只小猫在地上玩毛线球。', '毛线球很贵。', '我不喜欢小猫。', '天气特别复杂。'], answer: 0, explanation: '开头要先交代谁在做什么。', mistakeReason: '写话没有抓住画面主体。' },
+        { question: '看图写话想写完整，至少要写清：', options: ['谁、在哪里、做什么', '只写颜色', '只写名字', '只写天气'], answer: 0, explanation: '写话要先写清基本画面。', mistakeReason: '表达要素不完整。' }
+      ],
+      middle: [
+        { question: '写一件事，最重要的是写清楚：', options: ['起因、经过、结果', '只写天气', '只写人物外貌', '只写题目'], answer: 0, explanation: '写事要有完整过程。', mistakeReason: '记事结构不清。' },
+        { question: '写“第一次做饭”，重点应详写：', options: ['做饭的经过和遇到的困难', '锅的价格', '厨房墙壁颜色', '饭后几点睡觉'], answer: 0, explanation: '重点部分要写事情经过和困难。', mistakeReason: '详略安排不当。' },
+        { question: '写活动过程，最能让顺序清楚的词是：', options: ['先、接着、最后', '又高又大', '红红的', '非常非常'], answer: 0, explanation: '顺序词能帮助表达过程。', mistakeReason: '缺少过程连接词。' }
+      ],
+      upper: [
+        { question: '写成长类作文，最应该突出的是：', options: ['事情带来的变化和认识', '只写事情发生了', '只写人物名字', '只写景色'], answer: 0, explanation: '成长类作文要写出变化和认识。', mistakeReason: '中心立意不清。' },
+        { question: '写“难忘的一件事”，重点段应包含：', options: ['具体经过、细节、感受变化', '只写时间地点', '只写结尾', '只列提纲不展开'], answer: 0, explanation: '难忘要靠具体细节和情感变化体现。', mistakeReason: '重点段展开不足。' },
+        { question: '写人作文中，事例的作用是：', options: ['证明人物特点', '凑字数', '替代题目', '只写热闹'], answer: 0, explanation: '事例要服务人物特点。', mistakeReason: '事例和中心脱节。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'w2-detail',
+    type: '写作表达',
+    errorCategory: 'w2',
+    errorCode: 'W2',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '哪句话写得更具体？', options: ['小狗跑。', '小狗摇着尾巴跑过来。', '小狗。', '跑。'], answer: 1, explanation: '加入动作“摇着尾巴”更具体。', mistakeReason: '表达太短，缺少细节。' },
+        { question: '“我很开心”可以改得更生动的是：', options: ['我开心。', '我高兴得跳了起来。', '开心开心。', '我不说话。'], answer: 1, explanation: '动作能表现开心。', mistakeReason: '不会用动作写心情。' },
+        { question: '哪句话更有画面？', options: ['花开了。', '粉红的桃花一朵朵开在枝头。', '有花。', '花很好。'], answer: 1, explanation: '颜色、数量和位置让画面更清楚。', mistakeReason: '缺少观察细节。' }
+      ],
+      middle: [
+        { question: '把“妈妈很累”写具体，最好补充：', options: ['动作和神态细节', '妈妈的身高', '天气预报', '书包颜色'], answer: 0, explanation: '动作和神态能表现辛苦。', mistakeReason: '重点段缺少细节展开。' },
+        { question: '哪句话更适合作为重点段细节？', options: ['他弯着腰，一遍遍擦去桌角的灰。', '他很好。', '桌子在那里。', '今天过去了。'], answer: 0, explanation: '具体动作能表现人物。', mistakeReason: '不会用细节证明中心。' },
+        { question: '想写“紧张”，最有效的是加入：', options: ['心跳、手心、动作变化', '天气颜色', '桌子高度', '铅笔品牌'], answer: 0, explanation: '身体反应和动作能表现紧张。', mistakeReason: '心理描写空泛。' }
+      ],
+      upper: [
+        { question: '作文重点段要从普通变拔尖，最需要补：', options: ['动作、语言、心理和认识变化', '更多形容词堆叠', '只写结果', '只换题目'], answer: 0, explanation: '多层细节和认识变化能提升重点段。', mistakeReason: '重点段只有情节，没有层次。' },
+        { question: '“那一刻我明白了坚持的意义”前面最好铺垫：', options: ['遇到困难、想放弃、继续努力的过程', '今天星期几', '铅笔掉了', '窗户很亮'], answer: 0, explanation: '认识需要由具体过程推出。', mistakeReason: '感悟和事件脱节。' },
+        { question: '想让人物形象更立体，应优先写：', options: ['细节中的选择和变化', '只写外貌', '只写年龄', '只写天气'], answer: 0, explanation: '人物选择和变化能体现品质。', mistakeReason: '人物描写停留在表面。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'w3-topic',
+    type: '写作表达',
+    errorCategory: 'w3',
+    errorCode: 'W3',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '作文题目“一件开心的事”，内容最合适的是：', options: ['写一次快乐的经历', '介绍一种水果', '说明铅笔用法', '抄一首古诗'], answer: 0, explanation: '题眼是“开心的事”。', mistakeReason: '审题扣题不稳。' },
+        { question: '题目“我的妈妈”，主要应写：', options: ['妈妈的特点和事例', '一只小猫', '一处风景', '一本书目录'], answer: 0, explanation: '题目对象是妈妈。', mistakeReason: '写作对象跑偏。' },
+        { question: '题目“美丽的校园”，内容最合适的是：', options: ['校园景色和感受', '家里的玩具', '动物园见闻', '购物清单'], answer: 0, explanation: '题目要求写校园。', mistakeReason: '没有抓住题目关键词。' }
+      ],
+      middle: [
+        { question: '作文题“那次，我真勇敢”，最重要的题眼是：', options: ['勇敢', '那次', '我', '真'], answer: 0, explanation: '中心应围绕“勇敢”。', mistakeReason: '没有抓住中心词。' },
+        { question: '题目“这件事让我懂得了坚持”，结尾最好写：', options: ['我从事情中明白坚持的意义', '天气很好', '饭很好吃', '我回家了'], answer: 0, explanation: '结尾要回扣“坚持”。', mistakeReason: '结尾没有点题。' },
+        { question: '题目“特别的礼物”，选材最好是：', options: ['礼物背后的意义或情感', '普通价格介绍', '无关的旅游经历', '只写包装颜色'], answer: 0, explanation: '“特别”要体现在意义或情感。', mistakeReason: '选材不能扣住题眼。' }
+      ],
+      upper: [
+        { question: '作文题“藏在细节里的爱”，最适合的写法是：', options: ['用具体细节表现爱', '直接喊口号说爱', '只写风景', '介绍学习用品'], answer: 0, explanation: '题眼是“细节”和“爱”。', mistakeReason: '审题层次不够。' },
+        { question: '题目“我终于战胜了自己”，中心应突出：', options: ['从退缩到突破的变化', '别人帮助很多', '活动很热闹', '景色很漂亮'], answer: 0, explanation: '“战胜自己”要写心理变化和突破。', mistakeReason: '中心容易写散。' },
+        { question: '题目“那一刻，我长大了”，最关键的是：', options: ['写出那一刻前后的认识变化', '只写年龄增长', '只写外貌变化', '写很多无关事件'], answer: 0, explanation: '“长大”指心理或认识上的成长。', mistakeReason: '题目深层含义理解不准。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'w2-vivid',
+    type: '写作表达',
+    errorCategory: 'w2',
+    errorCode: 'W2',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '下列哪句话写得最生动？', options: ['花开了。', '花开了，真好看。', '花儿张开了笑脸。', '有很多花开了。'], answer: 2, explanation: '拟人让句子更生动。', mistakeReason: '不会用修辞让表达生动。' },
+        { question: '哪句话更能表现“冷”？', options: ['很冷。', '我冻得直搓手。', '天气。', '我走路。'], answer: 1, explanation: '动作“搓手”能表现冷。', mistakeReason: '不会用动作表现感受。' },
+        { question: '哪句话更具体？', options: ['树很高。', '大树高高地站在操场边。', '树。', '操场。'], answer: 1, explanation: '加入位置和样子更具体。', mistakeReason: '句子扩写不足。' }
+      ],
+      middle: [
+        { question: '把“他跑得很快”写生动，最合适的是：', options: ['他像离弦的箭一样冲了出去。', '他跑。', '他很快很快。', '他不慢。'], answer: 0, explanation: '比喻能写出速度快。', mistakeReason: '表达升级方法不足。' },
+        { question: '哪句话更能表现“兴奋”？', options: ['他一蹦三尺高，嘴里不停喊着“太好了！”', '他兴奋。', '他在那里。', '他看见了。'], answer: 0, explanation: '动作和语言共同表现兴奋。', mistakeReason: '情绪描写太空。' },
+        { question: '写雨大，最有画面感的是：', options: ['雨点噼里啪啦地砸在窗户上。', '雨很大。', '下雨了。', '天不好。'], answer: 0, explanation: '声音和动作让画面更清楚。', mistakeReason: '环境描写缺少细节。' }
+      ],
+      upper: [
+        { question: '哪句话更像高分作文表达？', options: ['失败像一盆冷水，但也让我第一次认真看见自己的不足。', '我失败了。', '失败不好。', '我很难过。'], answer: 0, explanation: '比喻和认识变化让表达更有层次。', mistakeReason: '表达缺少思考深度。' },
+        { question: '想把“感动”写高级，最应避免：', options: ['只写“我很感动”', '写动作细节', '写心理变化', '写具体场景'], answer: 0, explanation: '只喊情绪不如用细节表现。', mistakeReason: '情感表达空泛。' },
+        { question: '哪句话更能表现“爱藏在细节里”？', options: ['他把伞悄悄推向我，自己的肩膀却湿了一片。', '他爱我。', '我知道爱。', '伞很好看。'], answer: 0, explanation: '具体动作和对比能表现爱。', mistakeReason: '不会用细节承载中心。' }
+      ]
+    }, grade, paper)
+  },
+  {
+    id: 'w3-ending',
+    type: '写作表达',
+    errorCategory: 'w3',
+    errorCode: 'W3',
+    build: (grade, paper) => diagnosisChoice({
+      lower: [
+        { question: '写完“一次快乐的游戏”，结尾最合适的是：', options: ['这次游戏让我非常快乐。', '铅笔很长。', '我买了苹果。', '月亮升起来了。'], answer: 0, explanation: '结尾要回扣快乐的游戏。', mistakeReason: '结尾没有扣题。' },
+        { question: '写“小动物”，结尾可以写：', options: ['我越来越喜欢这只小动物了。', '今天数学课。', '书包很重。', '天气变冷。'], answer: 0, explanation: '结尾要回到小动物和感受。', mistakeReason: '结尾跑题。' },
+        { question: '写“我的朋友”，结尾最合适的是：', options: ['这就是我的好朋友，我很喜欢和他在一起。', '操场很大。', '饭很好吃。', '我去睡觉了。'], answer: 0, explanation: '结尾点明朋友和情感。', mistakeReason: '缺少首尾呼应。' }
+      ],
+      middle: [
+        { question: '写“难忘的一件事”，结尾最好：', options: ['写出为什么难忘和自己的收获', '突然介绍天气', '重复题目不加感受', '写一个无关人物'], answer: 0, explanation: '难忘类结尾要写原因和收获。', mistakeReason: '结尾不能升华中心。' },
+        { question: '写“我学会了坚持”，结尾最合适的是：', options: ['这件事让我明白，坚持会带来改变。', '我回家了。', '操场上有人。', '这支笔很好。'], answer: 0, explanation: '结尾要点明坚持的意义。', mistakeReason: '点题意识不足。' },
+        { question: '写“特别的礼物”，结尾应突出：', options: ['礼物特别在哪里和带来的感受', '包装颜色越多越好', '价格越贵越好', '与礼物无关的事'], answer: 0, explanation: '结尾要回扣“特别”。', mistakeReason: '中心回扣不稳。' }
+      ],
+      upper: [
+        { question: '成长类作文的结尾最需要：', options: ['由事件自然推出认识变化', '另写一个新故事', '只喊口号', '只写“完了”'], answer: 0, explanation: '高分结尾要自然升华。', mistakeReason: '结尾生硬或空泛。' },
+        { question: '写“藏在细节里的爱”，结尾最好写：', options: ['从细节中懂得爱的含蓄和珍贵', '爱就是爱', '今天很晚', '我喜欢下雨'], answer: 0, explanation: '结尾要把细节和爱联系起来。', mistakeReason: '结尾没有深化主题。' },
+        { question: '写“我终于战胜了自己”，结尾最合适的是：', options: ['原来战胜自己，就是敢迈出害怕的那一步。', '我很高兴。', '事情结束了。', '大家都走了。'], answer: 0, explanation: '结尾要写出对题目的理解。', mistakeReason: '题意升华不够。' }
+      ]
+    }, grade, paper)
+  }
+];
+
+function shuffleDiagnosisItems(items) {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function readRecentDiagnosisVariantIds() {
+  try {
+    return JSON.parse(localStorage.getItem('recentDiagnosisVariantIds') || '[]');
+  } catch (error) {
+    return [];
+  }
+}
+
+function rememberDiagnosisVariantIds(questions) {
+  const existing = readRecentDiagnosisVariantIds();
+  const next = [...questions.map(q => `${q.grade}-${q.paper}-${q.variantId}`), ...existing].slice(0, 60);
+  localStorage.setItem('recentDiagnosisVariantIds', JSON.stringify(next));
+}
+
+function buildDiagnosisPaper(grade, paper) {
+  const normalizedGrade = String(grade || '3');
+  const normalizedPaper = DIAGNOSIS_PAPER_PROFILES[paper] ? paper : 'a';
+  const recent = new Set(readRecentDiagnosisVariantIds());
+  const bank = DIAGNOSIS_TEMPLATE_BANK.map(template => makeDiagnosisQuestion(template, normalizedGrade, normalizedPaper));
+  const selected = [];
+
+  Object.entries(DIAGNOSIS_TARGETS).forEach(([type, count]) => {
+    const candidates = bank.filter(item => item.type === type);
+    const fresh = candidates.filter(item => !recent.has(`${item.grade}-${item.paper}-${item.variantId}`));
+    const pool = fresh.length >= count ? fresh : candidates;
+    selected.push(...shuffleDiagnosisItems(pool).slice(0, count));
+  });
+
+  return shuffleDiagnosisItems(selected).slice(0, 15);
+}
+
+function getDiagnosisSelectValue(id, fallback) {
+  const el = document.getElementById(id);
+  return el ? el.value : fallback;
+}
+
+function updateDiagnosisPaperCopy() {
+  const grade = getDiagnosisSelectValue('diagnosisGradeSelect', '3');
+  const paper = getDiagnosisSelectValue('diagnosisPaperSelect', 'a');
+  const gradeProfile = DIAGNOSIS_GRADE_PROFILES[grade] || DIAGNOSIS_GRADE_PROFILES[3];
+  const paperProfile = DIAGNOSIS_PAPER_PROFILES[paper] || DIAGNOSIS_PAPER_PROFILES.a;
+  const hint = document.getElementById('diagnosisPaperHint');
+  if (hint) {
+    hint.textContent = `${gradeProfile.label}${paperProfile.label}：${paperProfile.desc}。每次会从题库随机抽15题，同一错因会尽量更换同类变式题。`;
+  }
+}
+
+// 诊断测评状态
 let currentDiagnosisQuestion = 0;
 let diagnosisAnswers = [];
 let diagnosisScores = {
-  '瀛楄瘝鍩虹': 0,
-  '闃呰鐞嗚В': 0,
-  '鍐欎綔琛ㄨ揪': 0
+  '字词基础': 0,
+  '阅读理解': 0,
+  '写作表达': 0
 };
 
+// 开始诊断测评
+function startDiagnosis() {
+  const grade = getDiagnosisSelectValue('diagnosisGradeSelect', '3');
+  const paper = getDiagnosisSelectValue('diagnosisPaperSelect', 'a');
+  const gradeProfile = DIAGNOSIS_GRADE_PROFILES[grade] || DIAGNOSIS_GRADE_PROFILES[3];
+  const paperProfile = DIAGNOSIS_PAPER_PROFILES[paper] || DIAGNOSIS_PAPER_PROFILES.a;
+  diagnosisQuestions = buildDiagnosisPaper(grade, paper);
+  currentDiagnosisMeta = {
+    grade,
+    paper,
+    gradeLabel: gradeProfile.label,
+    paperLabel: paperProfile.label
+  };
+  rememberDiagnosisVariantIds(diagnosisQuestions);
+  currentDiagnosisQuestion = 0;
+  diagnosisAnswers = new Array(diagnosisQuestions.length).fill(null);
+  document.getElementById('diagnosisIntro').style.display = 'grid';
+  document.getElementById('diagnosisQuiz').style.display = 'block';
+  document.getElementById('diagnosisResult').style.display = 'none';
+  renderDiagnosisQuestion();
+}
+
+// 渲染诊断测评题目
+function renderDiagnosisQuestion() {
+  const question = diagnosisQuestions[currentDiagnosisQuestion];
+  const questionCard = document.getElementById('questionCard');
+  
+  let optionsHTML = '';
+  question.options.forEach((option, index) => {
+    const isSelected = diagnosisAnswers[currentDiagnosisQuestion] === index;
+    optionsHTML += `
+      <button class="option-btn ${isSelected ? 'selected' : ''}" 
+              onclick="selectDiagnosisOption(${index})">
+        ${option}
+      </button>
+    `;
+  });
+  
+  questionCard.innerHTML = `
+    <div class="question-type">${question.gradeLabel}${question.paperLabel} · ${question.type} · ${question.errorCode}</div>
+    <div class="question-text">${currentDiagnosisQuestion + 1}. ${question.question}</div>
+    <div class="question-options">${optionsHTML}</div>
+  `;
+  
+  // 更新进度
+  const progress = ((currentDiagnosisQuestion + 1) / diagnosisQuestions.length) * 100;
+  document.getElementById('quizProgress').style.width = progress + '%';
+  document.getElementById('currentQ').textContent = currentDiagnosisQuestion + 1;
+  
+  // 更新导航按钮
+  updateDiagnosisNav();
+}
+
+// 选择诊断选项
 function selectDiagnosisOption(index) {
   diagnosisAnswers[currentDiagnosisQuestion] = index;
   renderDiagnosisQuestion();
 }
 
+// 更新诊断导航按钮
+function updateDiagnosisNav() {
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  prevBtn.style.display = currentDiagnosisQuestion > 0 ? 'inline-block' : 'none';
+  
+  if (currentDiagnosisQuestion < diagnosisQuestions.length - 1) {
+    nextBtn.style.display = 'inline-block';
+    submitBtn.style.display = 'none';
+  } else {
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'inline-block';
+  }
+  
+  // 如果当前题已作答则启用按钮
+  nextBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
+  submitBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
+}
+
+// 上一题
 function prevQuestion() {
   if (currentDiagnosisQuestion > 0) {
     currentDiagnosisQuestion--;
@@ -3271,6 +3670,200 @@ function prevQuestion() {
   }
 }
 
+// 下一题
+function nextQuestion() {
+  if (currentDiagnosisQuestion < diagnosisQuestions.length - 1) {
+    currentDiagnosisQuestion++;
+    renderDiagnosisQuestion();
+  }
+}
+
+// 提交诊断测评
+function submitDiagnosis() {
+  // 检查是否所有题都已作答
+  const unanswered = diagnosisAnswers.includes(null);
+  if (unanswered) {
+    alert('请完成所有题目后再提交！');
+    return;
+  }
+  
+  // 计算得分
+  let totalScore = 0;
+  diagnosisScores = {
+    '字词基础': 0,
+    '阅读理解': 0,
+    '写作表达': 0
+  };
+  
+  diagnosisQuestions.forEach((q, index) => {
+    const isCorrect = diagnosisAnswers[index] === q.answer;
+    if (isCorrect) {
+      totalScore++;
+      diagnosisScores[q.type]++;
+    }
+  });
+  
+  // 保存到错题本
+  saveDiagnosisMistakes();
+  
+  // 显示结果
+  showDiagnosisResult(totalScore);
+}
+
+// 保存诊断错题
+function saveDiagnosisMistakes() {
+  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  
+  diagnosisQuestions.forEach((q, index) => {
+    if (diagnosisAnswers[index] !== q.answer) {
+      const wrongItem = {
+        type: `${q.gradeLabel}${q.paperLabel} - ${q.type}`,
+        question: q.question,
+        userAnswer: q.options[diagnosisAnswers[index]],
+        correctAnswer: q.options[q.answer],
+        tip: q.explanation,
+        errorCategory: q.errorCategory,
+        errorCode: q.errorCode,
+        mistakeReason: q.mistakeReason,
+        diagnosisPaper: q.paper,
+        diagnosisGrade: q.grade,
+        variantId: q.variantId,
+        timestamp: new Date().toISOString()
+      };
+      wrongList.push(wrongItem);
+    }
+  });
+  
+  if (wrongList.length > 50) {
+    wrongList.splice(0, wrongList.length - 50);
+  }
+  
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  renderWrongList();
+}
+
+// 显示诊断结果
+function showDiagnosisResult(totalScore) {
+  document.getElementById('diagnosisQuiz').style.display = 'none';
+  document.getElementById('diagnosisResult').style.display = 'block';
+  const resultHeader = document.querySelector('#diagnosisResult .result-header p');
+  if (resultHeader) {
+    resultHeader.textContent = `${currentDiagnosisMeta.gradeLabel}${currentDiagnosisMeta.paperLabel}完成：系统已按错因码生成错题本和下一步训练建议。`;
+  }
+  
+  // 设置总得分
+  document.getElementById('totalScore').textContent = totalScore;
+  
+  // 渲染技能得分
+  const skills = [
+    { name: '字词基础', score: diagnosisScores['字词基础'], max: 5 },
+    { name: '阅读理解', score: diagnosisScores['阅读理解'], max: 5 },
+    { name: '写作表达', score: diagnosisScores['写作表达'], max: 5 }
+  ];
+  
+  const skillScoresDiv = document.getElementById('skillScores');
+  let skillScoresHTML = '';
+  skills.forEach(skill => {
+    const percentage = (skill.score / skill.max) * 100;
+    let levelClass = 'good';
+    if (percentage < 60) levelClass = 'weak';
+    else if (percentage < 80) levelClass = 'medium';
+    
+    skillScoresHTML += `
+      <div class="skill-item">
+        <div class="skill-name">${skill.name}</div>
+        <div class="skill-bar">
+          <div class="skill-fill ${levelClass}" style="width: ${percentage}%"></div>
+        </div>
+        <div class="skill-score">${skill.score}/${skill.max}</div>
+      </div>
+    `;
+  });
+  skillScoresDiv.innerHTML = skillScoresHTML;
+  
+  // 生成学习建议
+  generateSuggestions(skills);
+  
+  // 保存诊断结果
+  localStorage.setItem('lastDiagnosisResult', JSON.stringify({
+    totalScore: totalScore,
+    skills: diagnosisScores,
+    grade: currentDiagnosisMeta.grade,
+    gradeLabel: currentDiagnosisMeta.gradeLabel,
+    paper: currentDiagnosisMeta.paper,
+    paperLabel: currentDiagnosisMeta.paperLabel,
+    questionIds: diagnosisQuestions.map(q => q.id),
+    date: new Date().toISOString()
+  }));
+}
+
+// 生成学习建议
+function generateSuggestions(skills) {
+  const suggestionsDiv = document.getElementById('suggestions');
+  const wrongItems = diagnosisQuestions.filter((q, index) => diagnosisAnswers[index] !== q.answer);
+  const codeStats = wrongItems.reduce((acc, item) => {
+    acc[item.errorCode] = (acc[item.errorCode] || 0) + 1;
+    return acc;
+  }, {});
+  const topCode = Object.entries(codeStats).sort((a, b) => b[1] - a[1])[0];
+  const paperNext = currentDiagnosisMeta.paper === 'a'
+    ? '完成主攻错因训练包后，用B卷复测同类变式。'
+    : currentDiagnosisMeta.paper === 'b'
+      ? 'B卷通过后进入C卷迁移；若仍有错题，回到对应错因包重练。'
+      : 'C卷重点看混合迁移能力，错题进入考前未掌握清单。';
+  let suggestionsHTML = `<h3>个性化学习建议</h3>
+    <div class="suggestion-item">
+      <div class="suggestion-title">${currentDiagnosisMeta.gradeLabel}${currentDiagnosisMeta.paperLabel}测后路径</div>
+      <div class="suggestion-text">主攻错因：${topCode ? `${topCode[0]}（${topCode[1]}题）` : '暂无明显错因'}。${paperNext}</div>
+    </div>`;
+  
+  skills.forEach(skill => {
+    const percentage = (skill.score / skill.max) * 100;
+    
+    if (percentage < 60) {
+      suggestionsHTML += `
+        <div class="suggestion-item">
+          <div class="suggestion-title">⚠️ ${skill.name}需要加强</div>
+          <div class="suggestion-text">
+            建议加强${skill.name}练习，每天花更多时间在这方面。可以先从基础题开始，循序渐进。
+          </div>
+        </div>
+      `;
+    } else if (percentage < 80) {
+      suggestionsHTML += `
+        <div class="suggestion-item">
+          <div class="suggestion-title">📚 ${skill.name}有提升空间</div>
+          <div class="suggestion-text">
+            ${skill.name}基础还不错，可以多做些提高题，巩固知识掌握得更牢固。
+          </div>
+        </div>
+      `;
+    } else {
+      suggestionsHTML += `
+        <div class="suggestion-item">
+          <div class="suggestion-title">🎉 ${skill.name}表现优秀</div>
+          <div class="suggestion-text">
+            ${skill.name}学得很好！可以挑战一些更难的题目，保持优势。
+          </div>
+        </div>
+      `;
+    }
+  });
+  
+  suggestionsDiv.innerHTML = suggestionsHTML;
+}
+
+// 重置诊断测评
+function resetDiagnosis() {
+  document.getElementById('diagnosisIntro').style.display = 'grid';
+  document.getElementById('diagnosisQuiz').style.display = 'none';
+  document.getElementById('diagnosisResult').style.display = 'none';
+  currentDiagnosisQuestion = 0;
+  diagnosisAnswers = [];
+  updateDiagnosisPaperCopy();
+}
+
+// 跳转到练习
 function goToPractice() {
   // 滚动到练习区域
   document.querySelector('.interactive-practice').scrollIntoView({ behavior: 'smooth' });
@@ -3296,1490 +3889,4 @@ function filterWriting(grade) {
   
   // 显示选中年级内容
   document.getElementById('writing-grade-' + grade).style.display = 'block';
-}
-
-// ==================== 动态诊断组卷：年级 + A/B/C + 同类变式 ====================
-const DYNAMIC_DIAGNOSIS_GRADES = {
-  1: { label: '一年级', band: 'lower' },
-  2: { label: '二年级', band: 'lower' },
-  3: { label: '三年级', band: 'middle' },
-  4: { label: '四年级', band: 'middle' },
-  5: { label: '五年级', band: 'upper' },
-  6: { label: '六年级', band: 'upper' }
-};
-
-const DYNAMIC_DIAGNOSIS_PAPERS = {
-  a: { label: 'A卷诊断', desc: '定位薄弱点，自动生成错因码' },
-  b: { label: 'B卷复测', desc: '换同类题，检查是否真正掌握' },
-  c: { label: 'C卷迁移', desc: '混合材料和综合题，检查能否迁移' }
-};
-
-const DYNAMIC_DIAGNOSIS_TARGETS = { '字词基础': 5, '阅读理解': 5, '写作表达': 5 };
-
-let activeDiagnosisQuestions = [];
-let currentDiagnosisMeta = {
-  grade: '3',
-  paper: 'a',
-  gradeLabel: '三年级',
-  paperLabel: 'A卷诊断'
-};
-
-function getDynamicDiagnosisBank() {
-  return Array.isArray(dynamicDiagnosisBank) ? dynamicDiagnosisBank : [];
-}
-
-
-function getDynamicDiagnosisSelectValue(id, fallback) {
-  const el = document.getElementById(id);
-  return el ? el.value : fallback;
-}
-
-function shuffleDynamicDiagnosis(items) {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
-
-function readRecentDiagnosisVariantIds() {
-  try {
-    if (typeof localStorage === 'undefined') return [];
-    return JSON.parse(localStorage.getItem('recentDiagnosisVariantIds') || '[]');
-  } catch (error) {
-    return [];
-  }
-}
-
-function rememberDiagnosisVariantIds(questions) {
-  if (typeof localStorage === 'undefined') return;
-  const existing = readRecentDiagnosisVariantIds();
-  const next = [...questions.map(q => `${q.grade}-${q.paper}-${q.variant}`), ...existing].slice(0, 90);
-  safeSet('recentDiagnosisVariantIds', next);
-}
-
-function buildDynamicDiagnosisPaper(grade, paper) {
-  const gradeProfile = DYNAMIC_DIAGNOSIS_GRADES[grade] || DYNAMIC_DIAGNOSIS_GRADES[3];
-  const paperProfile = DYNAMIC_DIAGNOSIS_PAPERS[paper] || DYNAMIC_DIAGNOSIS_PAPERS.a;
-  const recent = new Set(readRecentDiagnosisVariantIds());
-  const bank = getDynamicDiagnosisBank()
-    .filter(q => q.band === gradeProfile.band)
-    .map(q => ({
-      ...q,
-      id: `${q.variant}-${grade}-${paper}`,
-      grade,
-      gradeLabel: gradeProfile.label,
-      paper,
-      paperLabel: paperProfile.label
-    }));
-
-  const selected = [];
-  Object.entries(DYNAMIC_DIAGNOSIS_TARGETS).forEach(([type, count]) => {
-    const candidates = bank.filter(q => q.type === type);
-    const fresh = candidates.filter(q => !recent.has(`${q.grade}-${q.paper}-${q.variant}`));
-    const pool = fresh.length >= count ? fresh : candidates;
-    selected.push(...shuffleDynamicDiagnosis(pool).slice(0, count));
-  });
-
-  return shuffleDynamicDiagnosis(selected).slice(0, 15);
-}
-
-function getActiveDiagnosisQuestions() {
-  return activeDiagnosisQuestions;
-}
-
-function updateDiagnosisPaperCopy() {
-  const grade = getDynamicDiagnosisSelectValue('diagnosisGradeSelect', '3');
-  const paper = getDynamicDiagnosisSelectValue('diagnosisPaperSelect', 'a');
-  const gradeProfile = DYNAMIC_DIAGNOSIS_GRADES[grade] || DYNAMIC_DIAGNOSIS_GRADES[3];
-  const paperProfile = DYNAMIC_DIAGNOSIS_PAPERS[paper] || DYNAMIC_DIAGNOSIS_PAPERS.a;
-  const hint = document.getElementById('diagnosisPaperHint');
-  if (hint) {
-    hint.textContent = `${gradeProfile.label}${paperProfile.label}：${paperProfile.desc}。每次从题库随机抽15题，同一错因会尽量更换同类变式题。`;
-  }
-}
-
-async function startDiagnosis() {
-  const grade = getDynamicDiagnosisSelectValue('diagnosisGradeSelect', '3');
-  const paper = getDynamicDiagnosisSelectValue('diagnosisPaperSelect', 'a');
-  const gradeProfile = DYNAMIC_DIAGNOSIS_GRADES[grade] || DYNAMIC_DIAGNOSIS_GRADES[3];
-  const paperProfile = DYNAMIC_DIAGNOSIS_PAPERS[paper] || DYNAMIC_DIAGNOSIS_PAPERS.a;
-  const startBtn = document.querySelector('.start-diagnosis-btn');
-  const startBtnLabel = startBtn ? startBtn.textContent : '';
-
-  if (startBtn) {
-    startBtn.disabled = true;
-    startBtn.textContent = '加载题目中...';
-  }
-
-  const bank = await ensureDynamicDiagnosisBank();
-
-  if (startBtn) {
-    startBtn.disabled = false;
-    startBtn.textContent = startBtnLabel || '开始15分钟诊断';
-  }
-
-  if (!Array.isArray(bank) || bank.length === 0) {
-    alert('诊断题目加载失败，请稍后重试。');
-    return;
-  }
-
-  const generatedQuestions = buildDynamicDiagnosisPaper(grade, paper);
-  activeDiagnosisQuestions = generatedQuestions;
-  if (!generatedQuestions.length) {
-    alert('暂时无法生成本套诊断题，请稍后重试。');
-    return;
-  }
-
-  currentDiagnosisMeta = { grade, paper, gradeLabel: gradeProfile.label, paperLabel: paperProfile.label };
-  rememberDiagnosisVariantIds(activeDiagnosisQuestions);
-  currentDiagnosisQuestion = 0;
-  diagnosisAnswers = new Array(activeDiagnosisQuestions.length).fill(null);
-  document.getElementById('diagnosisIntro').style.display = 'grid';
-  document.getElementById('diagnosisQuiz').style.display = 'block';
-  document.getElementById('diagnosisResult').style.display = 'none';
-  renderDiagnosisQuestion();
-}
-
-function renderDiagnosisQuestion() {
-  const questions = getActiveDiagnosisQuestions();
-  const question = questions[currentDiagnosisQuestion];
-  const questionCard = document.getElementById('questionCard');
-  if (!question || !questionCard) return;
-  
-  let optionsHTML = '';
-  question.options.forEach((option, index) => {
-    const isSelected = diagnosisAnswers[currentDiagnosisQuestion] === index;
-    optionsHTML += `
-      <button class="option-btn ${isSelected ? 'selected' : ''}" onclick="selectDiagnosisOption(${index})">
-        ${option}
-      </button>
-    `;
-  });
-  
-  questionCard.innerHTML = `
-    <div class="question-type">${question.gradeLabel || ''}${question.paperLabel || ''} · ${question.type} · ${question.errorCode || '诊断'}</div>
-    <div class="question-text">${currentDiagnosisQuestion + 1}. ${question.question}</div>
-    <div class="question-options">${optionsHTML}</div>
-  `;
-  
-  const progress = ((currentDiagnosisQuestion + 1) / questions.length) * 100;
-  document.getElementById('quizProgress').style.width = progress + '%';
-  document.getElementById('currentQ').textContent = currentDiagnosisQuestion + 1;
-  updateDiagnosisNav();
-}
-
-function updateDiagnosisNav() {
-  const questions = getActiveDiagnosisQuestions();
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const submitBtn = document.getElementById('submitBtn');
-  
-  prevBtn.style.display = currentDiagnosisQuestion > 0 ? 'inline-block' : 'none';
-  if (currentDiagnosisQuestion < questions.length - 1) {
-    nextBtn.style.display = 'inline-block';
-    submitBtn.style.display = 'none';
-  } else {
-    nextBtn.style.display = 'none';
-    submitBtn.style.display = 'inline-block';
-  }
-  nextBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
-  submitBtn.disabled = diagnosisAnswers[currentDiagnosisQuestion] === null;
-}
-
-function nextQuestion() {
-  if (currentDiagnosisQuestion < getActiveDiagnosisQuestions().length - 1) {
-    currentDiagnosisQuestion++;
-    renderDiagnosisQuestion();
-  }
-}
-
-function submitDiagnosis() {
-  const questions = getActiveDiagnosisQuestions();
-  if (diagnosisAnswers.includes(null)) {
-    alert('请完成所有题目后再提交！');
-    return;
-  }
-  let totalScore = 0;
-  diagnosisScores = { '字词基础': 0, '阅读理解': 0, '写作表达': 0 };
-  questions.forEach((q, index) => {
-    if (diagnosisAnswers[index] === q.answer) {
-      totalScore++;
-      diagnosisScores[q.type]++;
-    }
-  });
-  saveDiagnosisMistakes();
-  showDiagnosisResult(totalScore);
-}
-
-function saveDiagnosisMistakes() {
-  const questions = getActiveDiagnosisQuestions();
-  const wrongList = safeParse('wrongAnswers', []);
-  questions.forEach((q, index) => {
-    if (diagnosisAnswers[index] !== q.answer) {
-      wrongList.push({
-        type: `${q.gradeLabel || currentDiagnosisMeta.gradeLabel}${q.paperLabel || currentDiagnosisMeta.paperLabel} - ${q.type}`,
-        question: q.question,
-        userAnswer: q.options[diagnosisAnswers[index]],
-        correctAnswer: q.options[q.answer],
-        tip: q.explanation,
-        questionId: q.id,
-        errorCategory: q.errorCategory,
-        errorCode: q.errorCode,
-        mistakeReason: q.mistakeReason,
-        diagnosisPaper: q.paper || currentDiagnosisMeta.paper,
-        diagnosisGrade: q.grade || currentDiagnosisMeta.grade,
-        variantId: q.variant,
-        timestamp: new Date().toISOString()
-      });
-    }
-  });
-  if (wrongList.length > 50) wrongList.splice(0, wrongList.length - 50);
-  safeSet('wrongAnswers', wrongList);
-  renderWrongList();
-}
-
-function showDiagnosisResult(totalScore) {
-  document.getElementById('diagnosisQuiz').style.display = 'none';
-  document.getElementById('diagnosisResult').style.display = 'block';
-  const resultHeader = document.querySelector('#diagnosisResult .result-header p');
-  if (resultHeader) {
-    resultHeader.textContent = `${currentDiagnosisMeta.gradeLabel}${currentDiagnosisMeta.paperLabel}完成：系统已按错因码生成错题本和下一步训练建议。`;
-  }
-  document.getElementById('totalScore').textContent = totalScore;
-  const skills = Object.entries(DYNAMIC_DIAGNOSIS_TARGETS).map(([name, max]) => ({
-    name,
-    score: diagnosisScores[name] || 0,
-    max
-  }));
-  const skillScoresDiv = document.getElementById('skillScores');
-  skillScoresDiv.innerHTML = skills.map(skill => {
-    const percentage = (skill.score / skill.max) * 100;
-    const levelClass = percentage < 60 ? 'weak' : (percentage < 80 ? 'medium' : 'good');
-    return `
-      <div class="skill-item">
-        <div class="skill-name">${skill.name}</div>
-        <div class="skill-bar"><div class="skill-fill ${levelClass}" style="width: ${percentage}%"></div></div>
-        <div class="skill-score">${skill.score}/${skill.max}</div>
-      </div>
-    `;
-  }).join('');
-  generateSuggestions(skills);
-  safeSet('lastDiagnosisResult', {
-    totalScore,
-    skills: diagnosisScores,
-    grade: currentDiagnosisMeta.grade,
-    gradeLabel: currentDiagnosisMeta.gradeLabel,
-    paper: currentDiagnosisMeta.paper,
-    paperLabel: currentDiagnosisMeta.paperLabel,
-    questionIds: getActiveDiagnosisQuestions().map(q => q.id || q.question),
-    date: new Date().toISOString()
-  });
-}
-
-function generateSuggestions(skills) {
-  const questions = getActiveDiagnosisQuestions();
-  const suggestionsDiv = document.getElementById('suggestions');
-  const wrongItems = questions.filter((q, index) => diagnosisAnswers[index] !== q.answer);
-  const codeStats = wrongItems.reduce((acc, item) => {
-    acc[item.errorCode] = (acc[item.errorCode] || 0) + 1;
-    return acc;
-  }, {});
-  const topCode = Object.entries(codeStats).sort((a, b) => b[1] - a[1])[0];
-  const paperNext = currentDiagnosisMeta.paper === 'a'
-    ? '完成主攻错因训练包后，用B卷复测同类变式。'
-    : currentDiagnosisMeta.paper === 'b'
-      ? 'B卷通过后进入C卷迁移；若仍有错题，回到对应错因包重练。'
-      : 'C卷重点看混合迁移能力，错题进入考前未掌握清单。';
-  let suggestionsHTML = `<h3>个性化学习建议</h3>
-    <div class="suggestion-item">
-      <div class="suggestion-title">${currentDiagnosisMeta.gradeLabel}${currentDiagnosisMeta.paperLabel}测后路径</div>
-      <div class="suggestion-text">主攻错因：${topCode ? `${topCode[0]}（${topCode[1]}题）` : '暂无明显错因'}。${paperNext}</div>
-    </div>`;
-  skills.forEach(skill => {
-    const percentage = (skill.score / skill.max) * 100;
-    const title = percentage < 60 ? `${skill.name}需要加强` : (percentage < 80 ? `${skill.name}有提升空间` : `${skill.name}表现稳定`);
-    const text = percentage < 60
-      ? '建议先做对应错因训练包，再进入同类变式复测。'
-      : (percentage < 80 ? '下一步做B卷同类变式，检查方法是否稳定。' : '可以挑战C卷迁移题，看能否换材料继续做对。');
-    suggestionsHTML += `<div class="suggestion-item"><div class="suggestion-title">${title}</div><div class="suggestion-text">${text}</div></div>`;
-  });
-  suggestionsDiv.innerHTML = suggestionsHTML;
-}
-
-function resetDiagnosis() {
-  document.getElementById('diagnosisIntro').style.display = 'grid';
-  document.getElementById('diagnosisQuiz').style.display = 'none';
-  document.getElementById('diagnosisResult').style.display = 'none';
-  currentDiagnosisQuestion = 0;
-  diagnosisAnswers = [];
-  activeDiagnosisQuestions = [];
-  updateDiagnosisPaperCopy();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateDiagnosisPaperCopy();
-  document.getElementById('diagnosisGradeSelect')?.addEventListener('change', updateDiagnosisPaperCopy);
-  document.getElementById('diagnosisPaperSelect')?.addEventListener('change', updateDiagnosisPaperCopy);
-
-  // 初始化分层学习
-  initLayerLearning();
-});
-
-if (typeof window !== 'undefined') {
-  window.buildDynamicDiagnosisPaper = buildDynamicDiagnosisPaper;
-  window.rememberDiagnosisVariantIds = rememberDiagnosisVariantIds;
-}
-
-// ==================== 分层学习系统 ====================
-
-// 分层学习初始化
-function initLayerLearning() {
-  const savedLayer = localStorage.getItem('studentLayer');
-  if (savedLayer) {
-    switchLayerTab(savedLayer);
-  }
-
-  // 更新学习画像数据
-  updateLearningProfile();
-  initRewardSystem();
-}
-
-// 分层选项卡切换
-function switchLayerTab(tab) {
-  // 切换按钮状态
-  document.querySelectorAll('.layer-tab-btn').forEach(btn => {
-    btn.classList.remove('active', 'top-active', 'avg-active');
-  });
-
-  const tabBtn = document.getElementById('layer' + tab.charAt(0).toUpperCase() + tab.slice(1));
-  if (tabBtn) {
-    if (tab === 'top') {
-      tabBtn.classList.add('top-active');
-    } else if (tab === 'avg') {
-      tabBtn.classList.add('avg-active');
-    } else {
-      tabBtn.classList.add('active');
-    }
-  }
-
-  // 切换内容显示
-  document.querySelectorAll('.layer-content').forEach(content => {
-    content.classList.remove('active');
-  });
-
-  const contentId = 'content' + tab.charAt(0).toUpperCase() + tab.slice(1);
-  const content = document.getElementById(contentId);
-  if (content) {
-    content.classList.add('active');
-  }
-
-  // 保存选择
-  if (tab !== 'all') {
-    safeSet('studentLayer', tab);
-  }
-
-  // 更新学习画像
-  updateLearningProfile();
-}
-
-// 更新学习画像数据
-function updateLearningProfile() {
-  const savedLayer = localStorage.getItem('studentLayer');
-
-  // 获取诊断历史数据
-  const lastResult = safeParse('lastDiagnosisResult', {});
-  const wrongAnswers = safeParse('wrongAnswers', []);
-
-  // 计算各维度正确率
-  const diagnosisTotalPoints = Number(lastResult.totalPoints || 15);
-  const totalQuestions = wrongAnswers.length + (lastResult.totalScore || 0);
-  const correctRate = totalQuestions > 0 ? Math.round((lastResult.totalScore || 0) / diagnosisTotalPoints * 100) : 0;
-
-  if (savedLayer === 'top') {
-    // 尖子生画像更新
-    const topScore = document.getElementById('topScore');
-    const topStability = document.getElementById('topStability');
-    const topTransfer = document.getElementById('topTransfer');
-    const topDepth = document.getElementById('topDepth');
-
-    if (topScore) topScore.textContent = correctRate || 92;
-    if (topStability) topStability.textContent = Math.min(99, Math.max(80, correctRate + 3)) + '%';
-    if (topTransfer) topTransfer.textContent = Math.min(98, Math.max(75, correctRate - 4)) + '%';
-    if (topDepth) topDepth.textContent = Math.min(95, Math.max(70, correctRate + 3)) + '%';
-  } else if (savedLayer === 'avg') {
-    // 中等生画像更新
-    const avgScore = document.getElementById('avgScore');
-    const avgFoundation = document.getElementById('avgFoundation');
-    const avgWeakness = document.getElementById('avgWeakness');
-    const avgProgress = document.getElementById('avgProgress');
-
-    if (avgScore) avgScore.textContent = correctRate || 78;
-    if (avgFoundation) avgFoundation.textContent = Math.min(90, Math.max(60, correctRate - 6)) + '%';
-
-    // 计算待攻弱势数量
-    const errorCodes = {};
-    wrongAnswers.forEach(w => {
-      if (w.errorCode) {
-        errorCodes[w.errorCode] = (errorCodes[w.errorCode] || 0) + 1;
-      }
-    });
-    const weaknessCount = Object.keys(errorCodes).length;
-    if (avgWeakness) avgWeakness.textContent = Math.min(5, Math.max(1, weaknessCount || 3));
-
-    // 计算进步分数（模拟）
-    if (avgProgress) avgProgress.textContent = '+' + Math.min(15, Math.max(0, correctRate - 70 + 3));
-  }
-}
-
-// ==================== 激励机制 ====================
-
-// 初始化激励机制
-function initRewardSystem() {
-  // 从localStorage加载积分和徽章数据
-  const rewardData = safeParse('rewardData', {});
-
-  const points = rewardData.points || 0;
-  const badges = rewardData.badges || [];
-
-  // 更新积分显示
-  const pointsEl = document.getElementById('totalPoints');
-  if (pointsEl) {
-    pointsEl.textContent = points;
-  }
-
-  // 更新徽章状态
-  updateBadgeStatus(badges);
-}
-
-// 更新徽章状态
-function updateBadgeStatus(unlockedBadges) {
-  const badgeGrid = document.getElementById('badgeGrid');
-  if (!badgeGrid) return;
-
-  const badgeNames = ['坚持之星', '诊断达人', '复测高手', '迁移大师', '满分王者', '写作新星'];
-
-  badgeGrid.querySelectorAll('.reward-badge').forEach((badge, index) => {
-    if (unlockedBadges.includes(badgeNames[index])) {
-      badge.classList.remove('locked');
-    }
-  });
-}
-
-// 添加积分
-function addPoints(amount, reason) {
-  const rewardData = safeParse('rewardData', {});
-  rewardData.points = (rewardData.points || 0) + amount;
-
-  // 记录最近成就
-  if (!rewardData.recentAchievements) {
-    rewardData.recentAchievements = [];
-  }
-  rewardData.recentAchievements.unshift({
-    reason: reason,
-    points: amount,
-    date: new Date().toISOString()
-  });
-  rewardData.recentAchievements = rewardData.recentAchievements.slice(0, 5);
-
-  safeSet('rewardData', rewardData);
-
-  // 更新显示
-  const pointsEl = document.getElementById('totalPoints');
-  if (pointsEl) {
-    animatePoints(pointsEl, rewardData.points);
-  }
-}
-
-// 积分动画
-function animatePoints(element, targetValue) {
-  const currentValue = parseInt(element.textContent) || 0;
-  const diff = targetValue - currentValue;
-  const duration = 500;
-  const steps = 20;
-  const increment = diff / steps;
-  let step = 0;
-
-  const animate = () => {
-    step++;
-    element.textContent = Math.round(currentValue + increment * step);
-    if (step < steps) {
-      setTimeout(animate, duration / steps);
-    } else {
-      element.textContent = targetValue;
-    }
-  };
-  animate();
-}
-
-// 解锁徽章
-function unlockBadge(badgeName) {
-  const rewardData = safeParse('rewardData', {});
-  if (!rewardData.badges) {
-    rewardData.badges = [];
-  }
-  if (!rewardData.badges.includes(badgeName)) {
-    rewardData.badges.push(badgeName);
-    safeSet('rewardData', rewardData);
-
-    // 显示奖励弹窗
-    showRewardModal(badgeName);
-
-    // 更新徽章显示
-    updateBadgeStatus(rewardData.badges);
-  }
-}
-
-// 显示奖励弹窗
-function showRewardModal(badgeName) {
-  const modal = document.getElementById('rewardModal');
-  if (modal) {
-    const title = document.getElementById('rewardTitle');
-    const text = document.getElementById('rewardText');
-    if (title) title.textContent = '恭喜解锁新徽章！';
-    if (text) text.textContent = `你已获得 "${badgeName}" 徽章，继续加油！`;
-    modal.classList.add('show');
-  }
-}
-
-// 关闭奖励弹窗
-document.addEventListener('click', (e) => {
-  if (e.target.id === 'closeRewardBtn' || e.target.closest('#closeRewardBtn')) {
-    const modal = document.getElementById('rewardModal');
-    if (modal) modal.classList.remove('show');
-  }
-});
-
-// ==================== 家长话术库 ====================
-
-// 筛选话术
-function filterScripts(type) {
-  // 切换筛选按钮状态
-  document.querySelectorAll('.scripts-filter-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  event.target.classList.add('active');
-
-  // 筛选话术卡片
-  const cards = document.querySelectorAll('.script-card');
-  cards.forEach(card => {
-    if (type === 'all') {
-      card.style.display = 'block';
-    } else {
-      const cardType = card.getAttribute('data-type');
-      card.style.display = cardType === type || cardType === 'avg' ? 'block' : 'none';
-    }
-  });
-}
-
-// ==================== 学习路径可视化 ====================
-
-// 路径类型（详细配置）
-const PATH_TYPES = {
-  top: {
-    name: '尖子生路径',
-    desc: '适合基础扎实，目标满分的学生',
-    steps: [
-      { 
-        id: 'a', 
-        name: 'A卷诊断', 
-        icon: '📋', 
-        desc: '定位薄弱点，生成错因码', 
-        target: '稳定90分+',
-        duration: '30分钟',
-        skills: ['错因分析', '薄弱定位'],
-        method: '使用A卷进行基础诊断，系统自动分析薄弱环节'
-      },
-      { 
-        id: 'b', 
-        name: 'B卷复测', 
-        icon: '🔄', 
-        desc: '同类变式验证，巩固方法', 
-        target: '稳定方法',
-        duration: '40分钟',
-        skills: ['变式练习', '方法巩固'],
-        method: '使用B卷进行同类变式练习，验证掌握程度'
-      },
-      { 
-        id: 'c1', 
-        name: 'C1混合迁移', 
-        icon: '📚', 
-        desc: '混合题组，检查题型判断', 
-        target: '混合判断',
-        duration: '45分钟',
-        skills: ['题型判断', '综合应用'],
-        method: '混合多种题型训练，提高题型识别能力'
-      },
-      { 
-        id: 'c2', 
-        name: 'C2限时综合', 
-        icon: '⏱️', 
-        desc: '限时压力测试，检验稳定性', 
-        target: '限时稳定',
-        duration: '50分钟',
-        skills: ['时间管理', '抗压能力'],
-        method: '在限定时间内完成综合练习'
-      },
-      { 
-        id: 'c3', 
-        name: 'C3压轴拔尖', 
-        icon: '🏆', 
-        desc: '压轴题训练，冲刺满分', 
-        target: '满分冲刺',
-        duration: '60分钟',
-        skills: ['压轴突破', '满分策略'],
-        method: '专项训练压轴题，冲刺满分'
-      }
-    ]
-  },
-  avg: {
-    name: '中等生路径',
-    desc: '适合需要打牢基础，稳步提升的学生',
-    steps: [
-      { 
-        id: 'a', 
-        name: 'A卷诊断', 
-        icon: '📋', 
-        desc: '定位薄弱维度', 
-        target: '明确问题',
-        duration: '30分钟',
-        skills: ['问题定位', '基础评估'],
-        method: '使用A卷诊断，找出主要薄弱点'
-      },
-      { 
-        id: 'b1', 
-        name: 'B1基础强化', 
-        icon: '📖', 
-        desc: '字词基础补强', 
-        target: '基础85%+',
-        duration: '40分钟',
-        skills: ['字词积累', '基础夯实'],
-        method: '针对字词进行专项强化训练'
-      },
-      { 
-        id: 'r1', 
-        name: 'R1概括训练', 
-        icon: '🎯', 
-        desc: '概括能力专项', 
-        target: '概括准确',
-        duration: '35分钟',
-        skills: ['概括技巧', '要点提取'],
-        method: '专项训练概括能力，学会提取要点'
-      },
-      { 
-        id: 'r2', 
-        name: 'R2依据训练', 
-        icon: '🔍', 
-        desc: '依据意识培养', 
-        target: '有据可依',
-        duration: '35分钟',
-        skills: ['依据意识', '原文引用'],
-        method: '培养依据意识，学会引用原文'
-      },
-      { 
-        id: 'b', 
-        name: 'B卷复测', 
-        icon: '✅', 
-        desc: '综合能力验证', 
-        target: '稳步提升',
-        duration: '45分钟',
-        skills: ['综合应用', '能力验证'],
-        method: '使用B卷验证综合能力提升'
-      }
-    ]
-  }
-};
-
-// 里程碑配置
-const MILESTONES = [
-  { percent: 25, name: '初窥门径', icon: '🥉' },
-  { percent: 50, name: '小有所成', icon: '🥈' },
-  { percent: 75, name: '出类拔萃', icon: '🥇' },
-  { percent: 100, name: '满分达人', icon: '🏆' }
-];
-
-// 当前路径类型
-let currentPathType = 'top';
-
-// 获取学习统计数据
-function getLearningStats() {
-  const statsData = safeParse('learningStats', {});
-  const practiceHistory = safeParse('practiceHistory', []);
-  
-  // 计算统计数据
-  let totalTime = statsData.totalStudyTime || 12.5;
-  let practiceCount = practiceHistory.length || 23;
-  let accuracyTrend = statsData.accuracyTrend || [72, 75, 78, 80, 82, 83, 85];
-  
-  return {
-    totalTime,
-    practiceCount,
-    accuracyTrend
-  };
-}
-
-// 获取当前学习进度
-function getLearningProgress() {
-  const lastResult = readLastABScoreResult();
-  const rewardData = JSON.parse(localStorage.getItem('rewardData') || '{}');
-  const checkinData = JSON.parse(localStorage.getItem('checkinData') || '{"days":0}');
-  
-  let currentStep = 'a';
-  let completedSteps = [];
-  
-  if (lastResult) {
-    if (lastResult.paper === 'a' && lastResult.wrongCount === 0) {
-      currentStep = 'b';
-      completedSteps = ['a'];
-    } else if (lastResult.paper === 'b' && lastResult.wrongCount === 0) {
-      if (currentPathType === 'top') {
-        currentStep = 'c1';
-        completedSteps = ['a', 'b'];
-      } else {
-        currentStep = 'b';
-        completedSteps = ['a'];
-      }
-    } else if (lastResult.paper === 'c' && lastResult.wrongCount === 0) {
-      currentStep = 'c2';
-      completedSteps = ['a', 'b', 'c1'];
-    } else if (lastResult.paper === 'c2' && lastResult.wrongCount === 0) {
-      currentStep = 'c3';
-      completedSteps = ['a', 'b', 'c1', 'c2'];
-    } else if (lastResult.paper === 'c3' && lastResult.wrongCount === 0) {
-      completedSteps = ['a', 'b', 'c1', 'c2', 'c3'];
-    } else if (lastResult.wrongCodes?.length > 0) {
-      currentStep = lastResult.paper;
-      completedSteps = ['a'];
-    }
-  }
-  
-  return {
-    currentStep,
-    completedSteps,
-    totalPoints: rewardData.totalPoints || 256,
-    checkinDays: checkinData.days || 3,
-    lastResult
-  };
-}
-
-// 计算进度百分比
-function calculateProgressPercent() {
-  const progress = getLearningProgress();
-  const path = PATH_TYPES[currentPathType];
-  const totalSteps = path.steps.length;
-  const completedSteps = progress.completedSteps.length;
-  return Math.round((completedSteps / totalSteps) * 100);
-}
-
-// 生成SVG路径图
-function renderPathSVG(pathType) {
-  const path = PATH_TYPES[pathType];
-  const progress = getLearningProgress();
-  const steps = path.steps;
-  const nodeCount = steps.length;
-  
-  const svgWidth = 800;
-  const svgHeight = 280;
-  const startX = 60;
-  const endX = svgWidth - 60;
-  const centerY = 100;
-  const spacing = (endX - startX) / (nodeCount - 1);
-  
-  let svg = `<svg class="path-svg" viewBox="0 0 ${svgWidth} ${svgHeight}">`;
-  
-  // 添加渐变定义
-  svg += `
-    <defs>
-      <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#667eea"/>
-        <stop offset="100%" style="stop-color:#764ba2"/>
-      </linearGradient>
-    </defs>
-  `;
-  
-  // 绘制连接线和箭头
-  for (let i = 0; i < nodeCount - 1; i++) {
-    const x1 = startX + i * spacing;
-    const x2 = startX + (i + 1) * spacing;
-    const isCompleted = progress.completedSteps.includes(steps[i].id);
-    const isCurrent = progress.currentStep === steps[i].id;
-    
-    const connectorClass = isCompleted ? 'completed' : (isCurrent ? 'current' : '');
-    
-    const midX = (x1 + x2) / 2;
-    svg += `<path class="path-connector ${connectorClass}" d="M${x1 + 35},${centerY} Q${midX},${centerY - 20} ${x2 - 35},${centerY}" />`;
-    svg += `<polygon class="path-arrow ${connectorClass}" points="${x2 - 40},${centerY - 6} ${x2 - 30},${centerY} ${x2 - 40},${centerY + 6}" />`;
-  }
-  
-  // 绘制节点
-  for (let i = 0; i < nodeCount; i++) {
-    const x = startX + i * spacing;
-    const step = steps[i];
-    
-    const isCompleted = progress.completedSteps.includes(step.id);
-    const isCurrent = progress.currentStep === step.id;
-    
-    let nodeClass = 'pending';
-    if (isCompleted) nodeClass = 'completed';
-    else if (isCurrent) nodeClass = 'current';
-    
-    const circleColor = isCompleted ? '#4caf50' : (isCurrent ? '#667eea' : '#e0e0e0');
-    
-    svg += `
-      <g class="path-node ${nodeClass}" data-step="${step.id}" onclick="showNodeDetail('${step.id}')">
-        <circle class="path-node-circle" cx="${x}" cy="${centerY}" r="28" fill="${circleColor}" />
-        <text class="path-node-text" x="${x}" y="${centerY - 2}">${step.icon}</text>
-        <text class="path-node-label" x="${x}" y="${centerY + 50}">${step.name}</text>
-      </g>
-    `;
-  }
-  
-  // 绘制阶段标签
-  svg += `
-    <text x="40" y="180" font-size="11" fill="#999">基础阶段</text>
-    <text x="250" y="180" font-size="11" fill="#999">提升阶段</text>
-    <text x="500" y="180" font-size="11" fill="#999">迁移阶段</text>
-    <text x="680" y="180" font-size="11" fill="#999">拔尖阶段</text>
-  `;
-  
-  svg += `
-    <line x1="200" y1="170" x2="200" y2="200" stroke="#eee" stroke-width="1" stroke-dasharray="4 2"/>
-    <line x1="450" y1="170" x2="450" y2="200" stroke="#eee" stroke-width="1" stroke-dasharray="4 2"/>
-    <line x1="620" y1="170" x2="620" y2="200" stroke="#eee" stroke-width="1" stroke-dasharray="4 2"/>
-  `;
-  
-  svg += '</svg>';
-  
-  return svg;
-}
-
-// 显示节点详情
-function showNodeDetail(stepId) {
-  const path = PATH_TYPES[currentPathType];
-  const step = path.steps.find(s => s.id === stepId);
-  const progress = getLearningProgress();
-  
-  const isCompleted = progress.completedSteps.includes(stepId);
-  const isCurrent = progress.currentStep === stepId;
-  
-  let statusClass = 'pending';
-  let statusText = '未开始';
-  if (isCompleted) {
-    statusClass = 'completed';
-    statusText = '已完成';
-  } else if (isCurrent) {
-    statusClass = 'current';
-    statusText = '进行中';
-  }
-  
-  const detailHTML = `
-    <div class="path-node-detail active" id="nodeDetail" style="top: 10px; left: 50%; transform: translateX(-50%);">
-      <div class="path-detail-header">
-        <span class="path-detail-icon">${step.icon}</span>
-        <span class="path-detail-title">${step.name}</span>
-      </div>
-      <p class="path-detail-desc">${step.desc}</p>
-      <p class="path-detail-desc"><strong>目标：</strong>${step.target}</p>
-      <p class="path-detail-desc"><strong>时长：</strong>${step.duration}</p>
-      <span class="path-detail-status ${statusClass}">${statusText}</span>
-    </div>
-  `;
-  
-  const oldDetail = document.getElementById('nodeDetail');
-  if (oldDetail) oldDetail.remove();
-  
-  const pathway = document.getElementById('learningPathway');
-  pathway.insertAdjacentHTML('beforeend', detailHTML);
-  
-  setTimeout(() => {
-    const detail = document.getElementById('nodeDetail');
-    if (detail) detail.remove();
-  }, 3000);
-}
-
-// 切换路径类型
-function switchPathType(type) {
-  currentPathType = type;
-  
-  document.getElementById('pathTopBtn').classList.toggle('active', type === 'top');
-  document.getElementById('pathAvgBtn').classList.toggle('active', type === 'avg');
-  
-  renderPathway();
-  
-  safeSet('pathType', type);
-}
-
-// 渲染完整路径
-function renderPathway() {
-  const pathway = document.getElementById('learningPathway');
-  const progress = getLearningProgress();
-  const path = PATH_TYPES[currentPathType];
-  const stats = getLearningStats();
-  
-  // 渲染SVG
-  pathway.innerHTML = renderPathSVG(currentPathType);
-  
-  // 添加图例
-  pathway.innerHTML += `
-    <div class="path-legend">
-      <div class="path-legend-item">
-        <div class="path-legend-dot completed"></div>
-        <span>已完成</span>
-      </div>
-      <div class="path-legend-item">
-        <div class="path-legend-dot current"></div>
-        <span>进行中</span>
-      </div>
-      <div class="path-legend-item">
-        <div class="path-legend-dot pending"></div>
-        <span>未开始</span>
-      </div>
-    </div>
-  `;
-  
-  // 更新概览卡片
-  updatePathOverview(progress, stats);
-  
-  // 更新里程碑
-  updateMilestones(progress, path);
-  
-  // 更新阶段详情
-  updateStepDetails(progress, path);
-  
-  // 更新状态栏
-  const currentStep = path.steps.find(s => s.id === progress.currentStep) || path.steps[0];
-  document.getElementById('currentStepIcon').textContent = currentStep.icon;
-  document.getElementById('currentStepName').textContent = currentStep.name;
-  document.getElementById('pathTotalPoints').textContent = progress.totalPoints;
-  document.getElementById('pathCheckinDays').textContent = progress.checkinDays + '天';
-  
-  // 更新下一步建议
-  updatePathSuggestion();
-  
-  // 绘制趋势图
-  drawTrendChart(stats.accuracyTrend);
-}
-
-// 更新路径概览
-function updatePathOverview(progress, stats) {
-  const percent = calculateProgressPercent();
-  const avgAccuracy = stats.accuracyTrend[stats.accuracyTrend.length - 1];
-  
-  // 更新进度环
-  document.getElementById('pathProgressPercent').textContent = percent + '%';
-  const progressBar = document.getElementById('pathProgressBar');
-  const circumference = 283;
-  const offset = circumference - (percent / 100) * circumference;
-  progressBar.style.strokeDashoffset = offset;
-  
-  // 更新统计
-  document.getElementById('totalStudyTime').textContent = stats.totalTime + 'h';
-  document.getElementById('totalPracticeCount').textContent = stats.practiceCount + '次';
-  document.getElementById('avgAccuracy').textContent = avgAccuracy + '%';
-  
-  // 更新路径推荐
-  const path = PATH_TYPES[currentPathType];
-  document.getElementById('recommendedPath').textContent = path.name;
-  document.getElementById('pathRecommendReason').textContent = path.desc;
-}
-
-// 更新里程碑
-function updateMilestones(progress, path) {
-  const totalSteps = path.steps.length;
-  const completedSteps = progress.completedSteps.length;
-  
-  MILESTONES.forEach(milestone => {
-    const milestoneKey = milestone.percent;
-    const threshold = Math.ceil((milestone.percent / 100) * totalSteps);
-    const isAchieved = completedSteps >= threshold;
-    
-    const statusEl = document.getElementById(`milestone${milestoneKey}Status`);
-    const itemEl = document.getElementById(`milestone-${milestoneKey}`);
-    
-    if (isAchieved) {
-      statusEl.textContent = '已达成';
-      statusEl.className = 'milestone-status achieved';
-      itemEl.classList.add('achieved');
-    } else {
-      statusEl.textContent = '未达成';
-      statusEl.className = 'milestone-status pending';
-      itemEl.classList.remove('achieved');
-    }
-  });
-}
-
-// 更新阶段详情
-function updateStepDetails(progress, path) {
-  const container = document.getElementById('stepDetailsList');
-  container.innerHTML = '';
-  
-  path.steps.forEach((step, index) => {
-    const isCompleted = progress.completedSteps.includes(step.id);
-    const isCurrent = progress.currentStep === step.id;
-    
-    let statusClass = 'pending';
-    let statusText = '未开始';
-    if (isCompleted) {
-      statusClass = 'completed';
-      statusText = '已完成';
-    } else if (isCurrent) {
-      statusClass = 'current';
-      statusText = '进行中';
-    }
-    
-    const cardHTML = `
-      <div class="step-detail-card ${statusClass}" id="stepCard-${step.id}" onclick="toggleStepDetail('${step.id}')">
-        <div class="step-detail-header">
-          <span class="step-detail-icon">${step.icon}</span>
-          <span class="step-detail-title">${step.name}</span>
-          <span class="step-detail-status ${statusClass}">${statusText}</span>
-        </div>
-        <p class="step-detail-desc">${step.desc}</p>
-        <div class="step-detail-expand">
-          <div class="step-expand-item">
-            <strong>目标</strong>
-            <span>${step.target}</span>
-          </div>
-          <div class="step-expand-item">
-            <strong>时长</strong>
-            <span>${step.duration}</span>
-          </div>
-          <div class="step-expand-item">
-            <strong>技能</strong>
-            <span>${step.skills.join('、')}</span>
-          </div>
-          <div class="step-expand-item">
-            <strong>方法</strong>
-            <span>${step.method}</span>
-          </div>
-          <button class="step-detail-action" onclick="event.stopPropagation(); goToStep('${step.id}')">
-            ${isCurrent ? '开始练习' : (isCompleted ? '再次练习' : '查看详情')}
-          </button>
-        </div>
-      </div>
-    `;
-    
-    container.insertAdjacentHTML('beforeend', cardHTML);
-  });
-}
-
-// 展开/收起阶段详情
-function toggleStepDetail(stepId) {
-  const card = document.getElementById(`stepCard-${stepId}`);
-  card.classList.toggle('expanded');
-}
-
-// 前往指定阶段
-function goToStep(stepId) {
-  const step = PATH_TYPES[currentPathType].steps.find(s => s.id === stepId);
-  if (step) {
-    showNodeDetail(stepId);
-    setTimeout(() => {
-      goToNextStep();
-    }, 500);
-  }
-}
-
-// 更新路径建议
-function updatePathSuggestion() {
-  const progress = getLearningProgress();
-  const path = PATH_TYPES[currentPathType];
-  const currentStepIndex = path.steps.findIndex(s => s.id === progress.currentStep);
-  const currentStep = path.steps[currentStepIndex] || path.steps[0];
-  
-  let suggestion = '';
-  let actionText = '';
-  
-  if (progress.completedSteps.length === path.steps.length) {
-    suggestion = '🎉 恭喜！你已完成全部学习路径！继续保持，成功冲刺满分！';
-    actionText = '继续挑战';
-  } else if (progress.completedSteps.includes(currentStep.id)) {
-    const nextStep = path.steps[currentStepIndex + 1];
-    if (nextStep) {
-      suggestion = `已完成 ${currentStep.name}，接下来进入「${nextStep.name}」`;
-      actionText = `进入${nextStep.name}`;
-    }
-  } else {
-    suggestion = `当前阶段：${currentStep.name} - ${currentStep.desc}`;
-    actionText = `开始${currentStep.name}`;
-  }
-  
-  document.getElementById('nextSuggestionText').textContent = suggestion;
-  document.getElementById('pathActionBtn').textContent = actionText;
-  document.getElementById('nextStepTime').textContent = `预计 ${currentStep.duration}`;
-}
-
-// 绘制趋势图
-function drawTrendChart(data) {
-  const canvas = document.getElementById('trendCanvas');
-  if (!canvas) return;
-  
-  const ctx = canvas.getContext('2d');
-  const width = canvas.width;
-  const height = canvas.height;
-  const padding = 30;
-  
-  // 清除画布
-  ctx.clearRect(0, 0, width, height);
-  
-  // 绘制目标线
-  const targetY = padding + (1 - 0.9) * (height - 2 * padding);
-  ctx.beginPath();
-  ctx.setLineDash([5, 5]);
-  ctx.strokeStyle = '#667eea';
-  ctx.lineWidth = 1;
-  ctx.moveTo(padding, targetY);
-  ctx.lineTo(width - padding, targetY);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  
-  // 绘制折线
-  const stepX = (width - 2 * padding) / (data.length - 1);
-  
-  ctx.beginPath();
-  ctx.strokeStyle = '#4caf50';
-  ctx.lineWidth = 3;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  
-  data.forEach((value, i) => {
-    const x = padding + i * stepX;
-    const y = padding + (1 - value / 100) * (height - 2 * padding);
-    
-    if (i === 0) {
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-    }
-  });
-  ctx.stroke();
-  
-  // 绘制数据点
-  data.forEach((value, i) => {
-    const x = padding + i * stepX;
-    const y = padding + (1 - value / 100) * (height - 2 * padding);
-    
-    ctx.beginPath();
-    ctx.fillStyle = '#4caf50';
-    ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fill();
-    
-    ctx.fillStyle = 'white';
-    ctx.beginPath();
-    ctx.arc(x, y, 2, 0, Math.PI * 2);
-    ctx.fill();
-  });
-  
-  // 绘制标签
-  ctx.fillStyle = '#999';
-  ctx.font = '11px Arial';
-  ctx.textAlign = 'center';
-  
-  const labels = ['第1周', '第2周', '第3周', '第4周', '第5周', '第6周', '本周'];
-  data.forEach((_, i) => {
-    const x = padding + i * stepX;
-    ctx.fillText(labels[i], x, height - 8);
-  });
-}
-
-// 查看阶段预览
-function showStepPreview() {
-  const progress = getLearningProgress();
-  const path = PATH_TYPES[currentPathType];
-  const currentStep = path.steps.find(s => s.id === progress.currentStep) || path.steps[0];
-  
-  // 滚动到阶段详情
-  document.getElementById('pathStepDetails').scrollIntoView({ behavior: 'smooth' });
-  
-  // 自动展开当前步骤
-  setTimeout(() => {
-    toggleStepDetail(currentStep.id);
-  }, 500);
-}
-
-// 前往下一步
-function goToNextStep() {
-  const progress = getLearningProgress();
-  const path = PATH_TYPES[currentPathType];
-  const currentStep = path.steps.find(s => s.id === progress.currentStep) || path.steps[0];
-  
-  switch (currentStep.id) {
-    case 'a':
-    case 'b':
-    case 'c1':
-    case 'c2':
-    case 'c3':
-      window.location.href = '#diagnosis';
-      document.getElementById('diagnosis')?.scrollIntoView({ behavior: 'smooth' });
-      break;
-    case 'b1':
-      window.location.href = '#layer-learning';
-      break;
-    case 'r1':
-    case 'r2':
-      window.location.href = '#layer-learning';
-      break;
-    default:
-      window.location.href = '#diagnosis';
-  }
-}
-
-// 初始化学习路径可视化
-function initLearningPathViz() {
-  const savedType = localStorage.getItem('pathType');
-  if (savedType && PATH_TYPES[savedType]) {
-    currentPathType = savedType;
-    document.getElementById('pathTopBtn').classList.toggle('active', savedType === 'top');
-    document.getElementById('pathAvgBtn').classList.toggle('active', savedType === 'avg');
-  }
-  
-  renderPathway();
-}
-
-// 页面加载时初始化
-document.addEventListener('DOMContentLoaded', () => {
-  initLearningPathViz();
-  initThickeningAssessments();
-  initSelfAssessments();
-});
-
-// ==================== 补厚训练评估卡 ====================
-
-const THICKENING_STORAGE_KEY = 'thickeningProgress';
-
-function getThickeningProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(THICKENING_STORAGE_KEY) || '{}');
-  } catch (e) {
-    return {};
-  }
-}
-
-function saveThickeningProgress(progress) {
-  safeSet(THICKENING_STORAGE_KEY, progress);
-}
-
-function initThickeningAssessments() {
-  // 找到所有补厚评估卡 - 在 thickening-training section 内
-  var thickeningSection = document.getElementById('thickening-training');
-  if (!thickeningSection) return;
-
-  // 找到所有包含 "过关" 关键词的 .routine p 元素
-  var allP = thickeningSection.querySelectorAll('.routine p');
-  var found = false;
-
-  allP.forEach(function (p) {
-    var rawText = p.textContent;
-    // 查找所有 □ + 后面跟着"过关"的评估项
-    if (!/过关/.test(rawText)) return;
-    found = true;
-
-    var fullHtml = p.innerHTML;
-    var progress = getThickeningProgress();
-    var itemCounter = 0;
-
-    // 先清理已有的 thicken-checkbox（防止重复初始化）
-    p.querySelectorAll('.thicken-checkbox').forEach(function (el) { el.remove(); });
-
-    // 用正则替换所有 □...过关 的内容块
-    var newHtml = fullHtml.replace(/□\s*([^□]+?)(?=(□|$))/g, function (match, content) {
-      var itemId = 'thicken_' + p.dataset.thickenPid + '_' + itemCounter;
-      if (!p.dataset.thickenPid) {
-        p.dataset.thickenPid = 'p' + Math.random().toString(36).substr(2, 8);
-        itemId = 'thicken_' + p.dataset.thickenPid + '_' + itemCounter;
-      }
-      itemCounter++;
-      var checked = progress[itemId] || false;
-      var symbol = checked ? '☑' : '☐';
-      var cls = checked ? ' checked' : '';
-      return '<span class="thicken-checkbox' + cls + '" data-item-id="' + itemId + '" role="checkbox" aria-checked="' + (checked ? 'true' : 'false') + '" tabindex="0" style="cursor:pointer;font-size:18px;margin-right:5px;user-select:none;transition:transform 0.15s;display:inline-block;">' + symbol + '</span>' + content.trim();
-    });
-
-    p.innerHTML = newHtml;
-
-    // 绑定点击事件
-    p.querySelectorAll('.thicken-checkbox').forEach(function (span) {
-      span.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var progress = getThickeningProgress();
-        var itemId = span.getAttribute('data-item-id');
-        var isChecked = !progress[itemId];
-        progress[itemId] = isChecked;
-        saveThickeningProgress(progress);
-
-        if (isChecked) {
-          span.innerHTML = '☑';
-          span.classList.add('checked');
-          span.setAttribute('aria-checked', 'true');
-          span.style.transform = 'scale(1.3)';
-          setTimeout(function () { span.style.transform = 'scale(1)'; }, 150);
-          addPoints(2, '\u8865\u539a\u8bad\u7ec3\u8fc7\u5173');
-        } else {
-          span.innerHTML = '☐';
-          span.classList.remove('checked');
-          span.setAttribute('aria-checked', 'false');
-        }
-
-        checkThickeningBadges();
-      });
-
-      span.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          span.click();
-        }
-      });
-    });
-  });
-
-  if (found) {
-    checkThickeningBadges();
-  }
-}
-
-// ==================== 学生自我评估量表 ====================
-
-const SELF_ASSESS_STORAGE_KEY = 'selfAssessment';
-
-function getSelfAssessment() {
-  try {
-    return JSON.parse(localStorage.getItem(SELF_ASSESS_STORAGE_KEY) || '{}');
-  } catch (e) {
-    return {};
-  }
-}
-
-function saveSelfAssessment(data) {
-  safeSet(SELF_ASSESS_STORAGE_KEY, data);
-}
-
-function initSelfAssessments() {
-  var selfAssessSection = document.getElementById('parent-coaching-scripts');
-  if (!selfAssessSection) return;
-
-  var checkLists = selfAssessSection.querySelectorAll('.check-list');
-  if (checkLists.length === 0) return;
-
-  var assessmentData = getSelfAssessment();
-  var allItems = [];
-
-  checkLists.forEach(function (list, listIdx) {
-    var items = list.querySelectorAll('li');
-    items.forEach(function (li, itemIdx) {
-      var itemId = 'self_eval_' + listIdx + '_' + itemIdx;
-      var text = li.textContent.replace(/^□\s*/, '').trim();
-      allItems.push({ id: itemId, text: text, li: li, listIdx: listIdx, itemIdx: itemIdx });
-    });
-  });
-
-  allItems.forEach(function (item) {
-    var checked = assessmentData[item.id] || false;
-    var span = document.createElement('span');
-    span.className = 'self-eval-checkbox' + (checked ? ' checked' : '');
-    span.setAttribute('data-item-id', item.id);
-    span.setAttribute('role', 'checkbox');
-    span.setAttribute('aria-checked', checked ? 'true' : 'false');
-    span.setAttribute('tabindex', '0');
-    span.innerHTML = checked ? '☑' : '☐';
-    span.style.cssText = 'cursor:pointer;font-size:18px;margin-right:8px;user-select:none;transition:transform 0.15s;display:inline-block;vertical-align:middle;';
-
-    span.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var data = getSelfAssessment();
-      var isChecked = !data[item.id];
-      data[item.id] = isChecked;
-      data._lastUpdate = new Date().toISOString().split('T')[0];
-      saveSelfAssessment(data);
-
-      if (isChecked) {
-        span.innerHTML = '☑';
-        span.classList.add('checked');
-        span.setAttribute('aria-checked', 'true');
-        span.style.transform = 'scale(1.3)';
-        setTimeout(function () { span.style.transform = 'scale(1)'; }, 150);
-        addPoints(1, '\u81ea\u6211\u8bc4\u4f30\u8fbe\u6807');
-      } else {
-        span.innerHTML = '☐';
-        span.classList.remove('checked');
-        span.setAttribute('aria-checked', 'false');
-      }
-
-      updateSelfAssessmentStats();
-    });
-
-    span.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        span.click();
-      }
-    });
-
-    // 替换 li 中的 □
-    var html = item.li.innerHTML;
-    html = html.replace('□ ', span.outerHTML + ' ');
-    item.li.innerHTML = html;
-  });
-
-  updateSelfAssessmentStats();
-}
-
-function updateSelfAssessmentStats() {
-  var data = getSelfAssessment();
-  var checkedCount = Object.values(data).filter(function (v) { return v === true; }).length;
-  var totalCount = Object.keys(data).filter(function (k) { return k !== '_lastUpdate'; }).length;
-
-  var pointsEl = document.getElementById('selfAssessPoints');
-  if (pointsEl) {
-    if (checkedCount > 0) {
-      pointsEl.textContent = checkedCount + '/' + (totalCount || 10) + ' \u9879\u8fbe\u6807';
-    } else {
-      pointsEl.textContent = '\u5f85\u66f4\u65b0';
-    }
-  }
-
-  // 自评量表进度徽章
-  if (checkedCount >= 5) unlockBadge('\u81ea\u8bc4\u8d77\u6b65');
-  if (checkedCount >= 8) unlockBadge('\u81ea\u8bc4\u8fbe\u4eba');
-  if (checkedCount >= totalCount && totalCount > 0) unlockBadge('\u81ea\u8bc4\u6ee1\u5206');
-}
-
-// ==================== 检查补厚勋章解锁 ====================
-
-function checkThickeningBadges() {
-  var progress = getThickeningProgress();
-  var doneCount = Object.values(progress).filter(function (v) { return v; }).length;
-
-  // 字词补厚勋章：基础+变式+综合=4项全过
-  // 阅读补厚勋章
-  // 写作补厚勋章
-  // 全补厚勋章
-
-  var badgeNames = [];
-  if (doneCount >= 4) badgeNames.push('\u57fa\u7840\u8865\u539a\u52cb\u7ae0');
-  if (doneCount >= 8) badgeNames.push('\u53d8\u5f0f\u8865\u539a\u52cb\u7ae0');
-  if (doneCount >= 12) badgeNames.push('\u7efc\u5408\u8865\u539a\u52cb\u7ae0');
-  if (doneCount >= 16) badgeNames.push('\u5168\u80fd\u8865\u539a\u52cb\u7ae0');
-
-  badgeNames.forEach(function (name) {
-    unlockBadge(name);
-  });
-}
-
-// ==================== 全局函数暴露 ====================
-
-if (typeof window !== 'undefined') {
-  window.switchLayerTab = switchLayerTab;
-  window.filterScripts = filterScripts;
-  window.addPoints = addPoints;
-  window.unlockBadge = unlockBadge;
-  window.switchPathType = switchPathType;
-  window.showNodeDetail = showNodeDetail;
-  window.goToNextStep = goToNextStep;
-  window.toggleStepDetail = toggleStepDetail;
-  window.goToStep = goToStep;
-  window.showStepPreview = showStepPreview;
-  window.initThickeningAssessments = initThickeningAssessments;
-  window.initSelfAssessments = initSelfAssessments;
-  window.checkThickeningBadges = checkThickeningBadges;
 }

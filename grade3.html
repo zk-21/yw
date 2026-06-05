@@ -6,15 +6,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文三年级 · 知识提优体系</title>
-  <meta name="description" content="小学语文三年级知识提优体系，阅读理解、作文起步、病句修改、语文知识拓展。">
-  <meta name="keywords" content="小学语文,三年级,阅读,作文,知识提优">
-  <meta property="og:title" content="小学语文三年级 · 知识提优体系">
-  <meta property="og:description" content="小学语文三年级知识提优体系，阅读理解、作文起步、病句修改、语文知识拓展。">
-  <meta property="og:type" content="website">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>三年级语文知识提优体系</title>
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=115">
+  <link rel="stylesheet" href="styles.css?v=76">
 </head>
 <body>
   <header class="topbar">
@@ -23,149 +18,61 @@
       <a href="index.html">总览</a>
       <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a class="active" href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
       <a href="grade6.html">六年级</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <div class="nav-dropdown">
-        <a href="#" class="dropdown-toggle">其他</a>
-        <div class="dropdown-content">
-          <a href="advanced.html">尖子生拓展</a>
-          <a href="knowledge-map.html">知识总控</a>
-          <a href="search.html">搜索</a>
-        </div>
-      </div>
     </nav>
   </header>
 
   <main>
-    <aside class="toc-sidebar" id="toc-sidebar">
-      <div class="toc-header">
-        <span class="toc-icon">📚</span>
-        <span class="toc-title">目录导航</span>
-        <button class="toc-toggle" id="toc-toggle">☰</button>
-      </div>
-      <nav class="toc-nav" id="toc-nav">
-        <ul>
-          <li><a href="#learning-goals" class="toc-link">学习目标</a></li>
-          <li><a href="#section-overview" class="toc-link">页面定位</a></li>
-          <li><a href="#section-expression" class="toc-link">口语与应用</a></li>
-          <li><a href="#section-literature" class="toc-link">整本书与现代诗</a></li>
-          <li><a href="#section-paragraph" class="toc-link">段落写作</a></li>
-          <li><a href="#section-reading" class="toc-link">阅读理解</a></li>
-          <li><a href="#section-composition" class="toc-link">片段作文</a></li>
-          <li><a href="#section-poetry" class="toc-link">古诗赏析</a></li>
-          <li><a href="#grade3-stage-assessment" class="toc-link">阶段测评</a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <section class="page-head" id="grade3-hero">
+    <section class="page-head grade-three">
       <p class="eyebrow">三年级起步阶段</p>
       <h1>从“写一句完整的话”提升到“围绕一个意思写一段话”</h1>
-      <p>三年级先解决段落意识，学会找中心句、概括段意，并把一句话慢慢扩成有重点的一段话。</p>
+      <p>三年级是语文能力转折点。孩子不再只做字词句练习，而要开始读懂自然段、找中心句、把观察到的内容写成有顺序、有细节的小片段。</p>
     </section>
 
-    <section class="learning-goals" id="learning-goals">
-      <div class="goals-header">
-        <div class="goals-title">
-          <span class="goals-icon">🎯</span>
-          <h2>今日学习目标</h2>
-        </div>
-        <div class="goals-progress">
-          <span class="progress-text">学习进度：</span>
-          <div class="progress-ring">
-            <svg class="progress-ring-svg" viewBox="0 0 100 100">
-              <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
-              <circle class="progress-ring-fill" cx="50" cy="50" r="45" id="progress-ring"></circle>
-            </svg>
-            <span class="progress-percent" id="progress-percent">0%</span>
-          </div>
-        </div>
-      </div>
-      <div class="goals-content">
-        <div class="goal-card required">
-          <span class="goal-tag required-tag">⭐ 必学</span>
-          <h3>段落写作</h3>
-          <p>学会写完整的段落，有中心句和支撑句</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="1"> 能写出中心句</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="2"> 能用支撑句说明中心</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="3"> 能写出完整段落</label>
-          </div>
-        </div>
-        <div class="goal-card required">
-          <span class="goal-tag required-tag">⭐ 必学</span>
-          <h3>阅读理解</h3>
-          <p>能理解短文内容，回答相关问题</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="4"> 能找出短文中心思想</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="5"> 能理解句子含义</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="6"> 能概括段落大意</label>
-          </div>
-        </div>
-        <div class="goal-card optional">
-          <span class="goal-tag optional-tag">📖 选学</span>
-          <h3>片段作文</h3>
-          <p>能写好作文的片段部分</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="7"> 能写好开头片段</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="8"> 能写好结尾片段</label>
-          </div>
-        </div>
-        <div class="goal-card advanced">
-          <span class="goal-tag advanced-tag">🚀 拓展</span>
-          <h3>古诗赏析</h3>
-          <p>理解古诗内容，体会情感</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="9"> 能理解古诗内容</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="10"> 能体会诗人情感</label>
-          </div>
-        </div>
-      </div>
-      <div class="goals-summary">
-        <div class="summary-item">
-          <span class="summary-icon">📝</span>
-          <span class="summary-label">完成目标：</span>
-          <span class="summary-value" id="completed-count">0</span>
-          <span class="summary-total">/ 10</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-icon">⏱️</span>
-          <span class="summary-label">建议时长：</span>
-          <span class="summary-value">约 40 分钟</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-icon">📊</span>
-          <span class="summary-label">学习路径：</span>
-          <span class="summary-value">段落 → 阅读 → 片段 → 古诗</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-overview">
+    <section class="section">
       <div class="section-title">
-        <p class="eyebrow">⭐ 必学 · 页面定位</p>
-        <h2>三年级页先解决"怎么从写话进入作文"</h2>
-        <p style="color: #666;">这一页只抓三年级最关键的几件事：段落意识、概括能力和作文起步。完整模板和大专题去对应专题页继续查。</p>
+        <p class="eyebrow">页面定位</p>
+        <h2>三年级页先解决“怎么从写话进入作文”</h2>
+        <p style="color: #666;">这里保留段落、阅读、片段作文和古诗的年级用法；完整题型模板、作文体系和专项练习，放到专题页继续查。</p>
       </div>
       <div class="route-grid">
-        <article class="route-card"><h3>本页看什么</h3><p>先看三年级目标和快筛，再决定是补段落、补阅读，还是补片段作文。</p></article>
+        <article class="route-card"><h3>本页看什么</h3><p>看三年级目标、段落意识、片段提优、升四衔接和拔尖训练顺序。</p></article>
         <article class="route-card"><h3>作文起步</h3><p>本页讲三年级怎么写段落，完整审题选材去作文页。</p><div class="route-links"><a href="composition.html">作文专题</a></div></article>
         <article class="route-card"><h3>阅读题型</h3><p>本页保留三年级常考答法，系统模板去总控台和练习页。</p><div class="route-links"><a href="knowledge-map.html#reading-templates">题型模板</a><a href="practice.html">练习计划</a></div></article>
-        <article class="route-card"><h3>口语与应用</h3><p>补转述、推荐、留言条和小调查，把“会说”真正接到“会写”。</p><div class="route-links"><a href="#section-expression">本页模块</a><a href="knowledge-map.html#oral-communication">口语模板</a><a href="knowledge-map.html#application-writing-system">应用文模板</a></div></article>
         <article class="route-card"><h3>词句积累</h3><p>本页看怎么迁移到表达，完整词语清单去词语页。</p><div class="route-links"><a href="vocabulary.html">词语学习</a></div></article>
         <article class="route-card"><h3>一对一闭环</h3><p>从阶段卷定位 R1/W1，再进错因精讲、训练包和 C1/C2/C3 迁移。</p><div class="route-links"><a href="#grade3-stage-assessment">阶段卷</a><a href="practice.html#error-masterclass">错因精讲</a><a href="practice.html#flow-training">C卷评分器</a><a href="practice.html#print-training">打印单</a></div></article>
       </div>
     </section>
 
-    <section class="section"><div id="grade3-mistakes"></div></section>
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>本年级最容易掉分的 3 件事</h2>
+          <ul class="level-list">
+            <li><strong>写话到作文：</strong>只写一句感受，没有起因、经过和结果。</li>
+            <li><strong>自然段理解：</strong>能读懂句子，但不会概括这一段主要写什么。</li>
+            <li><strong>中心句：</strong>找到了好词好句，却说不出它围绕哪个意思服务。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>补救入口</h2>
+          <ul class="level-list">
+            <li><strong>作文：</strong>先练“一个意思写一段”，再进入完整作文。</li>
+            <li><strong>阅读：</strong>每篇短文只抓一个中心句或段意。</li>
+            <li><strong>AI：</strong>把孩子写的一段话发给 AI，让它指出“中心、顺序、细节”。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
     
 
@@ -174,12 +81,51 @@
     <section class="section grade-closed-loop">
       <div class="section-title">
         <p class="eyebrow">课标对照 · 训练闭环</p>
-        <h2>三年级从"自然段"进入"习作起步"</h2>
+        <h2>三年级从“自然段”进入“习作起步”</h2>
         <p style="color:#666;">三年级进入第二学段，要把语言积累、段落阅读、片段习作和整本书阅读连接起来，形成真正能迁移的语文能力。</p>
       </div>
-      <div id="grade3-curriculum"></div>
-      <div id="grade3-unit-matrix" style="margin-top:18px;"></div>
-      <div id="grade3-loop"></div>
+      <div class="table-card">
+        <h2>课标能力对照表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
+            <tbody>
+              <tr><td>识字与写字</td><td>多音字、形近字、词语迁移</td><td>能结合语境判断字词，并写出准确句子</td><td>能把课内好词迁移到观察片段里</td></tr>
+              <tr><td>阅读与鉴赏</td><td>中心句、段意、信息提取、古诗画面</td><td>能找中心句，概括一个自然段主要意思</td><td>能引用关键词说明“从哪里看出来”</td></tr>
+              <tr><td>表达与交流</td><td>扩句、观察作文、一段话结构</td><td>能围绕一个意思写 4-6 句话</td><td>能写出动作、样子、声音、心情和感受</td></tr>
+              <tr><td>整本书与探究</td><td>童话、寓言、观察记录、读书分享</td><td>能讲清人物、情节和一个喜欢的地方</td><td>能做人物卡或情节图，并说出故事道理</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="loop-grid">
+        <article class="loop-card">
+          <h3>5分钟入门自测</h3>
+          <ul>
+            <li>读一段话，能不能圈出中心句。</li>
+            <li>没有中心句时，能不能自己概括段意。</li>
+            <li>给一句话加时间、地点、动作和心情。</li>
+            <li>写观察片段时，是否只写“很好看”。</li>
+            <li>读完一个故事，能不能说人物做了什么。</li>
+          </ul>
+        </article>
+        <article class="loop-card">
+          <h3>三层训练安排</h3>
+          <ul>
+            <li><strong>基础：</strong>每天 1 组词语造句，句子要具体。</li>
+            <li><strong>提升：</strong>每周 2 次“中心句 + 3 个细节”片段。</li>
+            <li><strong>拔尖：</strong>每月读 1 本儿童故事书，做人物和情节记录。</li>
+          </ul>
+        </article>
+        <article class="loop-card">
+          <h3>评价复盘量表</h3>
+          <div class="score-line">
+            <p><strong>3分：</strong>段意准确，片段围绕中心，细节有画面。</p>
+            <p><strong>2分：</strong>内容完整，但中心不够集中或细节偏少。</p>
+            <p><strong>1分：</strong>东一句西一句，下次先补中心句。</p>
+          </div>
+        </article>
+      </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
         <div class="responsive-table">
@@ -187,8 +133,8 @@
             <thead><tr><th>层级</th><th>孩子要做</th><th>答案标准</th><th>家长追问</th></tr></thead>
             <tbody>
               <tr><td>基础</td><td>读一段 4 句话的文字，圈出中心句</td><td>能找到统领全段的一句话</td><td>剩下几句话分别在写什么细节</td></tr>
-              <tr><td>提升</td><td>没有中心句时，用"这一段主要写……"概括段意</td><td>对象、事情、特点说完整</td><td>能不能删掉不重要的细节</td></tr>
-              <tr><td>拔尖</td><td>围绕"校园的早晨真热闹"写 5 句话</td><td>每句话都服务中心，有声音、动作或画面</td><td>哪一句最能表现"热闹"</td></tr>
+              <tr><td>提升</td><td>没有中心句时，用“这一段主要写……”概括段意</td><td>对象、事情、特点说完整</td><td>能不能删掉不重要的细节</td></tr>
+              <tr><td>拔尖</td><td>围绕“校园的早晨真热闹”写 5 句话</td><td>每句话都服务中心，有声音、动作或画面</td><td>哪一句最能表现“热闹”</td></tr>
             </tbody>
           </table>
         </div>
@@ -199,7 +145,7 @@
       <div class="section-title">
         <p class="eyebrow">课前诊断卷 · 15分钟</p>
         <h2>三年级先测：中心句、段意、观察片段</h2>
-        <p style="color:#666;">先用这一组题快筛孩子有没有形成段落意识，再决定后面该补哪一类训练。</p>
+        <p style="color:#666;">三年级一对一辅导先判断孩子是否真正进入“段落意识”。</p>
       </div>
       <div class="content-grid" style="margin-bottom:18px;">
         <article class="study-block">
@@ -218,11 +164,11 @@
       <div class="table-card">
         <h2>题目、答案和评分</h2>
         <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
-          <tr><td>1. 找出中心句</td><td>校园的早晨真热闹。</td><td>2 分</td><td>只找地点词"校园"。</td></tr>
+          <tr><td>1. 找出中心句</td><td>校园的早晨真热闹。</td><td>2 分</td><td>只找地点词“校园”。</td></tr>
           <tr><td>2. 概括这段话主要写什么</td><td>主要写校园早晨很热闹，同学们开始学习和活动。</td><td>对象、内容、特点共 3 分</td><td>把所有细节抄下来。</td></tr>
-          <tr><td>3. 哪些细节说明"热闹"？</td><td>跑步、读书、浇花。</td><td>每点 1 分</td><td>漏掉细节或答成自己的想象。</td></tr>
-          <tr><td>4. 围绕"花坛真美"写 3 句话</td><td>花坛真美。红花像火，黄花像小太阳。蝴蝶在花丛中飞来飞去。</td><td>中心句、两个细节共 4 分</td><td>句子好看但不围绕中心。</td></tr>
-          <tr><td>5. 用一句话写观察发现</td><td>我发现早晨的校园既热闹又充满生机。</td><td>发现具体 2 分</td><td>只写"我很开心"。</td></tr>
+          <tr><td>3. 哪些细节说明“热闹”？</td><td>跑步、读书、浇花。</td><td>每点 1 分</td><td>漏掉细节或答成自己的想象。</td></tr>
+          <tr><td>4. 围绕“花坛真美”写 3 句话</td><td>花坛真美。红花像火，黄花像小太阳。蝴蝶在花丛中飞来飞去。</td><td>中心句、两个细节共 4 分</td><td>句子好看但不围绕中心。</td></tr>
+          <tr><td>5. 用一句话写观察发现</td><td>我发现早晨的校园既热闹又充满生机。</td><td>发现具体 2 分</td><td>只写“我很开心”。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
@@ -239,58 +185,45 @@
       <div class="section-title">
         <p class="eyebrow">孩子直接学</p>
         <h2>三年级精讲课：找中心句，围绕一个意思写一段</h2>
-        <p style="color:#666;">三年级作文起步的关键不是背范文，而是学会"一个段落只围绕一个意思写"。</p>
+        <p style="color:#666;">三年级作文起步的关键不是背范文，而是学会“一个段落只围绕一个意思写”。</p>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- <p><strong>常见问题：</strong>三年级学生写一段话最常见的毛病不是句子不通，而是"三句话三个方向"——第一句写操场，第二句跳到教室，第三句又说回家路上，每句单独看都对，合在一起不知道要说什么。这不是孩子不认真，而是ta还沿用一二年级"写句子"的思路，没有意识到"一段话是一个整体"。</p>
- <p><strong>实操指导：</strong>让孩子养成一个习惯：动笔前先把中心句说出来。比如要写"操场上真热闹"，先大声说一遍，再问自己"接下来每句话能不能证明'热闹'这两个字？"不能的就删掉或改掉。这个口头预演的动作虽然简单，但能帮孩子把注意力从"写句子"提升到"管一段"。</p>
- <p><strong>关键策略：</strong>先用范文模仿——给孩子看一段标准的"中心句+三个支撑句"的段落，让ta仿写一个主题不同的段落。模仿到熟练后，再让ta独立写。不要一上来就让孩子凭空写一段话。</p>
- </div>
- <div class="content-grid">
- <article class="study-block">
- <h2>知识点讲解</h2>
- <ul class="level-list">
- <li><strong>中心句：</strong>一段话里最能概括主要意思的句子，常出现在开头或结尾。</li>
- <li><strong>支撑句：</strong>围绕中心句写具体，可以写样子、动作、声音、变化和感受。</li>
- <li><strong>段落检查：</strong>每句话都要问一句"它是不是在证明中心句"。不是，就删掉或改掉。</li>
- </ul>
- </article>
- <article class="study-block accent">
- <h2>课堂短文</h2>
- <p>校园的早晨真热闹。操场上，有的同学在跳绳，有的同学在跑步。教室里，值日生正在擦黑板、摆桌椅。树上的小鸟叽叽喳喳地叫着，好像也来上早读。</p>
- <div class="routine">
- <p><strong>中心句：</strong>校园的早晨真热闹。</p>
- <p><strong>解析：</strong>后面三句话都在写"热闹"：操场热闹、教室热闹、小鸟也热闹。</p>
- </div>
- </article>
- </div>
- <div class="table-card" style="margin-top:18px;">
- <h2>例题、解析和变式</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>题目</th><th>标准答案</th><th>为什么这样答</th><th>变式练习</th></tr></thead>
- <tbody>
- <tr><td>概括上面自然段</td><td>这段主要写校园早晨很热闹。</td><td>先看段首找中心句（多数在开头），再用后面的句子验证——后面写操场、教室、小鸟，全部在说"热闹"，说明中心句找对了。</td><td>把"公园的春天真美"写成一段。</td></tr>
- <tr><td>补支撑句</td><td>花坛里，五颜六色的花迎着阳光开放。</td><td>既然中心句是"春天真美"，支撑句就要把"美"变成看得见的东西——颜色（五颜六色）、姿态（迎着阳光）、动态（开放），一句写一个方面。</td><td>再补一句声音或气味。</td></tr>
- <tr><td>修改跑题句</td><td>"我昨天买了新文具"应删去</td><td>用一句话检验：这句话能证明"校园早晨热闹"吗？不能——"买文具"跟校园热闹没有关系，所以要删掉。每一句都要能回答"它怎么证明中心"。</td><td>找出自己作文中不服务中心的句子。</td></tr>
- </tbody>
- </table>
- </div>
- </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>知识点讲解</h2>
+          <ul class="level-list">
+            <li><strong>中心句：</strong>一段话里最能概括主要意思的句子，常出现在开头或结尾。</li>
+            <li><strong>支撑句：</strong>围绕中心句写具体，可以写样子、动作、声音、变化和感受。</li>
+            <li><strong>段落检查：</strong>每句话都要问一句“它是不是在证明中心句”。不是，就删掉或改掉。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>课堂短文</h2>
+          <p>校园的早晨真热闹。操场上，有的同学在跳绳，有的同学在跑步。教室里，值日生正在擦黑板、摆桌椅。树上的小鸟叽叽喳喳地叫着，好像也来上早读。</p>
+          <div class="routine">
+            <p><strong>中心句：</strong>校园的早晨真热闹。</p>
+            <p><strong>解析：</strong>后面三句话都在写“热闹”：操场热闹、教室热闹、小鸟也热闹。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>例题、解析和变式</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>题目</th><th>标准答案</th><th>为什么这样答</th><th>变式练习</th></tr></thead>
+            <tbody>
+              <tr><td>概括上面自然段</td><td>这段主要写校园早晨很热闹。</td><td>抓住中心句，不被具体细节带跑。</td><td>把“公园的春天真美”写成一段。</td></tr>
+              <tr><td>补支撑句</td><td>花坛里，五颜六色的花迎着阳光开放。</td><td>围绕“春天真美”写具体画面。</td><td>再补一句声音或气味。</td></tr>
+              <tr><td>修改跑题句</td><td>“我昨天买了新文具”应删去</td><td>它不能证明“校园早晨热闹”。</td><td>找出自己作文中不服务中心的句子。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <section class="section lesson-pack" style="background:#f7f8fb;">
       <div class="section-title">
         <p class="eyebrow">课堂精讲 2</p>
         <h2>三年级阅读课：概括段意不能照抄</h2>
-        <p style="color:#666;">三年级阅读从“读懂一句话”进入“抓住一段话的主要意思”。核心动作是删细节、留主干、用自己的话合成一句。</p>
-      </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>常见问题：</strong>孩子要么把整段抄下来，要么只写“这段写秋天”。前者不会删，后者太空，根本原因都是没有掌握“对象 + 内容 + 特点”的概括路径。</p>
-        <p><strong>实操指导：</strong>每次概括都问三句：这段说的是谁或什么？它在做什么或怎么样？这一段给人的整体感觉是什么？把三句答案合成一句完整话。</p>
-        <p><strong>关键策略：</strong>先口头概括，再落到书面。刚开始可以让孩子说，你帮他记；熟练后再要求自己写。</p>
       </div>
       <div class="content-grid">
         <article class="study-block">
@@ -307,7 +240,7 @@
           <div class="routine">
             <p><strong>题目：</strong>这段话主要写了什么？</p>
             <p><strong>标准答案：</strong>这段话主要写秋天果园里水果成熟，农民伯伯忙着采摘，表现出丰收的热闹景象。</p>
-            <p><strong>错因提醒：</strong>不能把苹果、梨子、葡萄一个个罗列完就结束，要把它们归成“水果成熟”。</p>
+            <p><strong>错因：</strong>只抄“苹果、梨子、葡萄”，没有概括成一个完整意思。</p>
           </div>
         </article>
       </div>
@@ -328,14 +261,7 @@
     <section class="section lesson-pack">
       <div class="section-title">
         <p class="eyebrow">课堂精讲 3</p>
-        <h2>三年级观察作文：按顺序写出变化</h2>
-        <p style="color:#666;">观察作文不是罗列“有什么”，而是写清“什么样、怎么变、我发现了什么”。</p>
-      </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>常见问题：</strong>只写名字不写样子，只写结果不写过程，只写客观不写感受。比如“绿豆发芽了，我很开心”，中间裂皮、冒芽、变化全没了。</p>
-        <p><strong>实操指导：</strong>给孩子一张“四维记录表”：看颜色形状，听声音动静，想像什么，写感受和发现。填完表再连成一段。</p>
-        <p><strong>关键策略：</strong>变化过程用“第一天、第二天、第三天”固定顺序，每天写一两句，不追求长，先追求清楚。</p>
+        <h2>三年级作文课：观察片段写出顺序</h2>
       </div>
       <div class="table-card">
         <h2>题目、答案、解析、错因</h2>
@@ -352,31 +278,38 @@
       </div>
     </section>
 
-    <section class="section advanced-bank" style="background:#f7f8fb;">
+    <section class="section">
       <div class="section-title">
-        <p class="eyebrow">拔尖递进</p>
-        <h2>三年级拔尖训练：每道题都追问一个为什么</h2>
-        <p style="color:#666;">拔尖不是多刷题，而是从“会做”升级到“会判断、会迁移、会解释”。</p>
-      </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>常见问题：</strong>基础题能做对，换一种问法就不会。孩子记住的是操作模板，还没有形成判断能力。</p>
-        <p><strong>实操指导：</strong>每题追问三句：你怎么判断的？原文哪里支持？如果换材料还能不能用同一方法？</p>
-        <p><strong>关键策略：</strong>四阶递进：基础巩固方法，提升改变条件，拔尖要求分析评价，迁移放到新场景。</p>
+        <p class="eyebrow">拔尖题库 · 批改样例</p>
+        <h2>三年级高质量题组：段落中心和片段升格</h2>
+        <p style="color:#666;">三年级拔尖的核心是“段落有中心，细节能服务中心”。</p>
       </div>
       <div class="table-card">
         <h2>递进题组</h2>
-        <div class="responsive-table">
-          <table>
-            <thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead>
-            <tbody>
-              <tr><td>基础</td><td>找中心句：校园的早晨真热闹。操场上有人跑步，教室里有人早读。</td><td>校园的早晨真热闹。</td><td>中心句能统领后面细节。</td></tr>
-              <tr><td>提升</td><td>概括段意：秋天果园里苹果红了，葡萄熟了，农民忙着采摘。</td><td>这段主要写秋天果园丰收的景象。</td><td>不能罗列水果，要概括成完整意思。</td></tr>
-              <tr><td>拔尖</td><td>围绕“操场上真热闹”写 5 句话。</td><td>操场上真热闹。同学们有的跳绳，有的跑步，有的踢球。加油声、笑声连成一片。跑道旁的同学挥着手为伙伴鼓劲。整个操场像沸腾了一样。</td><td>每句话都服务“热闹”。</td></tr>
-              <tr><td>迁移</td><td>把“花很美”扩成一段观察片段。</td><td>花坛里的花真美。红的像火，粉的像霞，黄的像小太阳。微风吹来，花朵轻轻摇动，像在向我点头。</td><td>用颜色、样子、动态写具体。</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead><tbody>
+          <tr><td>基础</td><td>找中心句：校园的早晨真热闹。操场上有人跑步，教室里有人早读。</td><td>校园的早晨真热闹。</td><td>中心句能统领后面细节。</td></tr>
+          <tr><td>提升</td><td>概括段意：秋天果园里苹果红了，葡萄熟了，农民忙着采摘。</td><td>这段主要写秋天果园丰收的景象。</td><td>不能罗列水果，要概括成完整意思。</td></tr>
+          <tr><td>拔尖</td><td>围绕“操场上真热闹”写 5 句话</td><td>操场上真热闹。同学们有的跳绳，有的跑步，有的踢球。加油声、笑声连成一片。跑道旁的同学挥着手为伙伴鼓劲。整个操场像沸腾了一样。</td><td>每句话都服务“热闹”。</td></tr>
+          <tr><td>迁移</td><td>把“花很美”扩成一段观察片段</td><td>花坛里的花真美。红的像火，粉的像霞，黄的像小太阳。微风吹来，花朵轻轻摇动，像在向我点头。</td><td>用颜色、样子、动态写具体。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>作文批改样例</h2>
+          <div class="routine">
+            <p><strong>孩子原文：</strong>公园很美。有花，有树，还有小鸟。我很开心。</p>
+            <p><strong>批改意见：</strong>中心有了，但细节太概括。要把花、树、小鸟分别写出样子或动作。</p>
+            <p><strong>升格片段：</strong>春天的公园真美。花坛里的花一朵挨着一朵，红的像火，粉的像霞。柳树垂下细长的枝条，风一吹，轻轻摆动。小鸟在枝头唱歌，我的心情也跟着明亮起来。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>阅读错因分类</h2>
+          <div class="routine">
+            <p><strong>照抄型：</strong>把整段抄下来，没有概括。</p>
+            <p><strong>漏中心型：</strong>只写细节，不写这段主要意思。</p>
+            <p><strong>跑题型：</strong>作文每句话都好看，但不围绕一个中心。</p>
+          </div>
+        </article>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>阶段测评</h2>
@@ -392,42 +325,57 @@
       <div class="section-title">
         <p class="eyebrow">二轮加厚题库</p>
         <h2>三年级按知识点闯关：中心句、证据答题、观察片段</h2>
-        <p style="color:#666;">每组题都配答案、解析和常见错因，避免孩子只记住一道题的答案。</p>
-      </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-        <h2>特级教师精讲</h2>
-        <p><strong>常见问题：</strong>学完当天会，过一周换材料就错，说明孩子依赖题面线索，没有真正掌握判断逻辑。</p>
-        <p><strong>实操指导：</strong>同一个能力换材料、换问法、换中心句位置反复练，逼孩子用方法而不是背答案。</p>
-        <p><strong>关键策略：</strong>中心句、证据答题、观察片段交错训练，让孩子练会切换题型。</p>
+        <p style="color:#666;">三年级开始要从“能写”转向“围绕中心写”，每组题都配答案、解析和常见错因。</p>
       </div>
       <div class="table-card">
         <h2>知识点递进题组</h2>
-        <div class="responsive-table">
-          <table>
-            <thead><tr><th>知识点</th><th>递进题</th><th>标准答案/要点</th><th>解析与错因</th></tr></thead>
-            <tbody>
-              <tr><td>中心句与段意</td><td>找中心句：校园的早晨真热闹。操场上有人跑步，教室里传来读书声。</td><td>校园的早晨真热闹。</td><td>中心句能统领后面的细节，常在段首。</td></tr>
-              <tr><td>中心句与段意</td><td>删掉不服务中心的一句。</td><td>删掉和“热闹”无关的景物闲笔。</td><td>段落不是好句堆砌，每句都要服务中心。</td></tr>
-              <tr><td>证据答题</td><td>判断“小明很有毅力”从哪里看出。</td><td>从他摔倒后继续练习，直到学会可以看出。</td><td>特点题要有“特点 + 依据”。</td></tr>
-              <tr><td>观察片段</td><td>写绿豆第二天的变化。</td><td>绿豆胀大了，外皮裂开一道小缝。</td><td>变化题要按时间写，不跳来跳去。</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="responsive-table"><table><thead><tr><th>知识点</th><th>递进题</th><th>标准答案/要点</th><th>解析与错因</th></tr></thead><tbody>
+          <tr><td>中心句与段意</td><td>1. 找中心句：校园的早晨真热闹。操场上有人跑步，教室里传来读书声。</td><td>校园的早晨真热闹。</td><td>中心句能统领后面的细节，常在段首。</td></tr>
+          <tr><td>中心句与段意</td><td>2. 删掉不服务中心的一句</td><td>删掉和“热闹”无关的景物闲笔</td><td>段落不是好句堆砌，每句都要服务中心。</td></tr>
+          <tr><td>中心句与段意</td><td>3. 概括段意：果园里苹果红了，葡萄紫了，农民忙着采摘。</td><td>秋天果园里一派丰收景象。</td><td>不能罗列水果，要概括共同意思。</td></tr>
+          <tr><td>中心句与段意</td><td>4. 围绕“操场上真热闹”补 4 个细节</td><td>跳绳、跑步、踢球、加油声等</td><td>细节要从不同角度证明“热闹”。</td></tr>
+          <tr><td>证据答题</td><td>1. 回原文圈“谁、做什么、结果”</td><td>圈出人物、动作、结果关键词</td><td>阅读题先找证据，再组织答案。</td></tr>
+          <tr><td>证据答题</td><td>2. 回答“小明为什么高兴？”</td><td>因为他坚持练习，终于学会了跳绳。</td><td>原因题不能答“他很开心”，要写原因。</td></tr>
+          <tr><td>证据答题</td><td>3. 判断“小明很有毅力”从哪里看出</td><td>从他摔倒后继续练习，直到学会可以看出。</td><td>特点题要有“特点 + 依据”。</td></tr>
+          <tr><td>证据答题</td><td>4. 用一句完整话回答人物品质题</td><td>小明是有毅力的孩子，因为他遇到困难没有放弃。</td><td>拔尖答案要把人物特点和依据连起来。</td></tr>
+          <tr><td>观察片段</td><td>1. 写绿豆第一天的样子</td><td>绿豆圆圆的，外皮硬硬的，像一颗颗小石子。</td><td>观察要写样子，不只写“很好玩”。</td></tr>
+          <tr><td>观察片段</td><td>2. 写第二天的变化</td><td>绿豆胀大了，外皮裂开一道小缝。</td><td>变化题要按时间写，不跳来跳去。</td></tr>
+          <tr><td>观察片段</td><td>3. 加入动作和感受</td><td>我轻轻掀开纸巾，惊喜地发现小芽探出了头。</td><td>动作和心情让观察片段更有现场感。</td></tr>
+          <tr><td>观察片段</td><td>4. 写一句发现或道理</td><td>原来小小的种子也有努力生长的力量。</td><td>结尾有发现，片段就不只是流水账。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>作文批改样例</h2>
+          <div class="routine">
+            <p><strong>孩子原文：</strong>绿豆发芽了。它长出来了。我很高兴。</p>
+            <p><strong>问题诊断：</strong>缺少观察顺序和具体变化，“长出来了”没有画面。</p>
+            <p><strong>教师升格：</strong>第三天早上，我发现绿豆的外皮裂开了，一根白白的小芽从缝里钻出来，像在偷偷探头。看着它一点点长大，我心里充满了惊喜。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>阅读答题批改</h2>
+          <div class="routine">
+            <p><strong>题目：</strong>这段话围绕哪句话写？</p>
+            <p><strong>孩子答案：</strong>操场。</p>
+            <p><strong>批改：</strong>“操场”只是地点，不是中心。应答“操场上真热闹”，因为后面跳绳、跑步、踢球都在写热闹。</p>
+          </div>
+        </article>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>作文批改加厚</h2>
         <div class="responsive-table"><table><thead><tr><th>孩子原文</th><th>老师圈批</th><th>升格稿</th><th>二次练习</th></tr></thead><tbody>
-          <tr><td>花很美。有红的，有黄的。我很喜欢。</td><td>中心句有了，但后面只列了颜色。"红的黄的"是什么样子、像什么、怎么动的？都没写。需要每种花加一句具体描写。</td><td>花坛里的花真美。红花像火，黄花像小太阳，微风一吹，它们轻轻摇动，好像在向我点头。</td><td>围绕"教室真安静"写 4 句话。</td></tr>
-          <tr><td>绿豆发芽了。我很高兴。</td><td>跳过了变化过程——直接从小绿豆跳到"发芽了"，中间裂皮、冒芽的过程全没写。观察作文必须写出"怎么变的"。</td><td>第三天早上，绿豆的外皮裂开一道小缝，白白的小芽从里面探出来。我惊喜地把这个变化记在本子上。</td><td>写"花苞开放"的变化过程。</td></tr>
+          <tr><td>花很美。有红的，有黄的。我很喜欢。</td><td>中心有了，但颜色只是罗列，没有样子和动态。</td><td>花坛里的花真美。红花像火，黄花像小太阳，微风一吹，它们轻轻摇动，好像在向我点头。</td><td>围绕“教室真安静”写 4 句话。</td></tr>
+          <tr><td>绿豆发芽了。我很高兴。</td><td>缺少时间顺序和变化过程。</td><td>第三天早上，绿豆的外皮裂开一道小缝，白白的小芽从里面探出来。我惊喜地把这个变化记在本子上。</td><td>写“花苞开放”的变化过程。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>阅读错因分类与阶段测评</h2>
-        <div class="responsive-table"><table><thead><tr><th>类型</th><th>孩子卡在哪</th><th>怎么帮ta过</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>照抄型</td><td>能读能找，但不会分辨"核心信息"和"修饰信息"——看到什么抄什么</td><td>先删形容词和举例→提取谁+做什么→用自己的话连成一句</td><td>能用 15 字左右概括段意</td></tr>
-          <tr><td>证据缺失型</td><td>凭直觉知道答案，但说不出"从文中哪里看出来的"——没有回原文找证据的意识</td><td>答案后必补"从哪句话看出"→标注原文关键词</td><td>3 道人物题都能写依据</td></tr>
-          <tr><td>中心离散型</td><td>句子单独看都对，放一起不围绕一个意思——写作时缺少整体规划</td><td>先写中心句→每写完一句就问"证明了中心吗"→无关的删掉</td><td>5 句话中至少 4 句服务中心</td></tr>
-          <tr><td>观察标签型</td><td>能说出有什么，但说不出"什么样""怎么变""我感觉如何"——观察只到"叫什么名字"就停了，没深入下去</td><td>带着孩子一个一个补：颜色→形状→动作→变化→感受</td><td>观察片段能写到至少 3 个方面</td></tr>
+        <div class="responsive-table"><table><thead><tr><th>类型</th><th>典型表现</th><th>立刻补救</th><th>测评标准</th></tr></thead><tbody>
+          <tr><td>照抄型</td><td>把整段抄下来</td><td>先删细节，再说主干</td><td>能用 15 字左右概括段意</td></tr>
+          <tr><td>漏依据型</td><td>只写人物特点</td><td>答案补“从哪里看出”</td><td>3 道人物题都能写依据</td></tr>
+          <tr><td>中心散型</td><td>片段每句都好，但不围绕一个意思</td><td>先写中心句，再补细节</td><td>5 句话中至少 4 句服务中心</td></tr>
+          <tr><td>观察空型</td><td>只写“有趣、好看”</td><td>补颜色、形状、动作、变化</td><td>观察片段有顺序、有变化、有感受</td></tr>
         </tbody></table></div>
       </div>
     </section>
@@ -455,116 +403,46 @@
       <div class="table-card">
         <h2>A卷：题目、答案和评分</h2>
         <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
-          <tr><td>1. 找中心句</td><td>放学后，操场上真热闹。</td><td>1 分</td><td>只找"操场上"这类地点词。</td></tr>
-          <tr><td>2. 概括"操场热闹"这段</td><td>放学后，操场上同学们跳绳、跑步、踢球，到处都是欢笑声。</td><td>人物、活动、特点共 3 分</td><td>把句子全部抄下来。</td></tr>
-          <tr><td>3. 绿豆第一天是什么样子？</td><td>硬硬的、小小的。</td><td>2 分</td><td>只答"绿豆"，没有样子。</td></tr>
-          <tr><td>4. 第三天发生了什么变化？</td><td>绿豆裂开了一道缝，白白的小芽探出了头。</td><td>变化 + 样子共 3 分</td><td>只写"发芽了"，太空。</td></tr>
+          <tr><td>1. 找中心句</td><td>放学后，操场上真热闹。</td><td>1 分</td><td>只找“操场上”这类地点词。</td></tr>
+          <tr><td>2. 概括“操场热闹”这段</td><td>放学后，操场上同学们跳绳、跑步、踢球，到处都是欢笑声。</td><td>人物、活动、特点共 3 分</td><td>把句子全部抄下来。</td></tr>
+          <tr><td>3. 绿豆第一天是什么样子？</td><td>硬硬的、小小的。</td><td>2 分</td><td>只答“绿豆”，没有样子。</td></tr>
+          <tr><td>4. 第三天发生了什么变化？</td><td>绿豆裂开了一道缝，白白的小芽探出了头。</td><td>变化 + 样子共 3 分</td><td>只写“发芽了”，太空。</td></tr>
           <tr><td>5. 写一段观察片段</td><td>星期一，我把绿豆放进湿纸巾里。第三天，绿豆裂开了一道缝，白白的小芽探出了头。我高兴地把这个变化记了下来。</td><td>顺序、变化、感受共 6 分</td><td>没有时间顺序，只有结果。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>A卷问题分析与对应训练</h2>
+        <h2>A卷判码表</h2>
         <div class="responsive-table"><table><thead><tr><th>A卷题号</th><th>扣分表现</th><th>判定错因码</th><th>马上去练</th></tr></thead><tbody>
-          <tr><td>1</td><td>把地点词当中心句</td><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>概括训练包</td></tr>
-          <tr><td>2</td><td>概括时照抄原句</td><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>概括训练包</td></tr>
-          <tr><td>3</td><td>只写对象，不写样子</td><td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td><td>写话和观察训练包</td></tr>
-          <tr><td>4</td><td>只写发芽，没有变化细节</td><td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td><td>写话和观察训练包</td></tr>
-          <tr><td>5</td><td>观察片段没有顺序和感受</td><td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td><td>写话和观察训练包</td></tr>
+          <tr><td>1</td><td>把地点词当中心句</td><td><a href="practice.html#pack-r1">R1</a></td><td>概括训练包</td></tr>
+          <tr><td>2</td><td>概括时照抄原句</td><td><a href="practice.html#pack-r1">R1</a></td><td>概括训练包</td></tr>
+          <tr><td>3</td><td>只写对象，不写样子</td><td><a href="practice.html#pack-w1">W1</a></td><td>写话和观察训练包</td></tr>
+          <tr><td>4</td><td>只写发芽，没有变化细节</td><td><a href="practice.html#pack-w1">W1</a></td><td>写话和观察训练包</td></tr>
+          <tr><td>5</td><td>观察片段没有顺序和感受</td><td><a href="practice.html#pack-w1">W1</a></td><td>写话和观察训练包</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" id="grade3-b-test" style="margin-top:18px;">
-        <h2>B卷：换题再练，检查是否真会</h2>
+        <h2>B卷：同类变式迁移</h2>
         <div class="responsive-table"><table><thead><tr><th>变式题</th><th>标准答案/要点</th><th>错因编码</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>1. 找中心句：图书角真安静。有人轻轻翻书，有人低头做摘记。</td><td>图书角真安静。</td><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>能找到统领全段的句子。</td></tr>
-          <tr><td>2. 概括"图书角安静"这段</td><td>图书角里同学们安静地看书、做摘记。</td><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>不照抄，能删细节留主干。</td></tr>
-          <tr><td>3. 写绿豆第五天的变化</td><td>小芽长高了，顶端露出两片嫩嫩的小叶子。</td><td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td><td>写出样子和变化，不只写"长大了"。</td></tr>
-          <tr><td>4. 围绕"花坛真美"写 4 句话</td><td>花坛真美。红花像火，黄花像小太阳。微风吹来，花朵轻轻摇动。我忍不住多看了几眼。</td><td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td><td>每句话都围绕一个中心。</td></tr>
+          <tr><td>1. 找中心句：图书角真安静。有人轻轻翻书，有人低头做摘记。</td><td>图书角真安静。</td><td><a href="practice.html#pack-r1">R1</a></td><td>能找到统领全段的句子。</td></tr>
+          <tr><td>2. 概括“图书角安静”这段</td><td>图书角里同学们安静地看书、做摘记。</td><td><a href="practice.html#pack-r1">R1</a></td><td>不照抄，能删细节留主干。</td></tr>
+          <tr><td>3. 写绿豆第五天的变化</td><td>小芽长高了，顶端露出两片嫩嫩的小叶子。</td><td><a href="practice.html#pack-w1">W1</a></td><td>写出样子和变化，不只写“长大了”。</td></tr>
+          <tr><td>4. 围绕“花坛真美”写 4 句话</td><td>花坛真美。红花像火，黄花像小太阳。微风吹来，花朵轻轻摇动。我忍不住多看了几眼。</td><td><a href="practice.html#pack-w1">W1</a></td><td>每句话都围绕一个中心。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>测后复盘</h2>
         <div class="responsive-table"><table><thead><tr><th>得分</th><th>判断</th><th>补救练习</th></tr></thead><tbody>
-          <tr><td>13-16分</td><td>段落概括和观察已较稳</td><td>继续练"中心句 + 两个细节"</td></tr>
+          <tr><td>13-16分</td><td>段落概括和观察已较稳</td><td>继续练“中心句 + 两个细节”</td></tr>
           <tr><td>9-12分</td><td>会做，但容易照抄</td><td>每次先用自己的话概括，再对照原文。</td></tr>
           <tr><td>8分以下</td><td>概括和观察都偏弱</td><td>先练找中心句，再练按时间写变化。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>做完后下一步怎么练</h2>
+        <h2>测后分流路径</h2>
         <div class="responsive-table"><table><thead><tr><th>错因编码</th><th>错在哪</th><th>先补哪里</th><th>下一步练什么</th></tr></thead><tbody>
-          <tr><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>找不到中心句</td><td>本页"找中心句"精讲课 + R1训练包</td><td>每天找 2 段话的中心句。</td></tr>
-          <tr><td><a href="practice.html#pack-r1" class="error-code-link" data-error-code="R1" onclick="JumpManager.jumpToPractice('R1'); return false;">R1</a></td><td>概括照抄</td><td>阅读模板页 + R1训练包</td><td>练"删细节，留主干"。</td></tr>
-          <tr><td><a href="practice.html#pack-w1" class="error-code-link" data-error-code="W1" onclick="JumpManager.jumpToPractice('W1'); return false;">W1</a></td><td>观察片段空</td><td>作文专题页 + W1训练包</td><td>按时间写变化，最后补发现。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-expression">
-      <div class="section-title">
-        <p class="eyebrow">补齐模块 · 口语与应用</p>
-        <h2>三年级口语交际与应用文起步：会转述，会推荐，会写留言条</h2>
-        <p style="color:#666;">三年级进入第二学段后，表达不能只停在“说几句”。孩子要开始学会按任务说、按格式写，把口语交际、应用文和简单综合性学习真正接起来。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h2>三个起步点</h2>
-          <ul class="level-list">
-            <li><strong>转述：</strong>先听清信息，再把人物、时间、事情说完整。</li>
-            <li><strong>推荐：</strong>推荐一本书或一个地方时，理由至少说两点。</li>
-            <li><strong>应用文：</strong>先把留言条、请假条这类高频格式写熟。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>综合性学习怎么落地</h2>
-          <div class="routine">
-            <p><strong>先定主题：</strong>比如“我的植物观察”或“我最喜欢的一本书”。</p>
-            <p><strong>再收信息：</strong>记下时间、发现和自己的想法。</p>
-            <p><strong>最后展示：</strong>能口头说，也能写成3-5句整理结果。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>三年级表达任务对照表</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>做题步骤</th><th>达标标准</th><th>常见问题</th></tr></thead><tbody>
-          <tr><td>转述通知</td><td>先记“谁说的、给谁听、什么时候做什么”。</td><td>人称正确，时间地点事情完整。</td><td>把“我、你、他”说乱，或者漏掉时间。</td></tr>
-          <tr><td>图书推荐</td><td>先说书名，再说内容和喜欢它的理由。</td><td>能说出“我推荐……，因为……”两层内容。</td><td>只说“很好看”，理由太空。</td></tr>
-          <tr><td>留言条 / 请假条</td><td>先写称呼，再写事情，最后写署名和日期。</td><td>格式基本完整，事情写得清楚。</td><td>正文会写，署名日期常漏。</td></tr>
-          <tr><td>小调查整理</td><td>调查2-3位同学，再把相同信息合并。</td><td>能说“几个人中有几个人选择了什么”。</td><td>只会逐个复述，不能整理共同点。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-literature">
-      <div class="section-title">
-        <p class="eyebrow">补齐模块 · 整本书与现代诗</p>
-        <h2>三年级整本书阅读与儿童诗起步：先读明白，再说喜欢哪里</h2>
-        <p style="color:#666;">三年级不需要一上来讲很深的主题分析，先把整本书和儿童诗读顺、读明白、说具体。重点是人物、事情、喜欢的片段和诗里的画面感。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h2>整本书先练什么</h2>
-          <ul class="level-list">
-            <li><strong>记人物：</strong>知道主要人物是谁，人物之间是什么关系。</li>
-            <li><strong>说情节：</strong>能用2-3句话说清一个重要片段。</li>
-            <li><strong>谈喜欢：</strong>不只说“好看”，要说喜欢哪一幕、为什么。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>儿童诗先练什么</h2>
-          <div class="routine">
-            <p><strong>先找画面：</strong>诗里写了什么景物、颜色、动作。</p>
-            <p><strong>再找感觉：</strong>读完是快乐、安静、想念还是惊喜。</p>
-            <p><strong>最后仿说：</strong>用“我仿佛看见了……”说一句画面。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>三年级阅读与诗歌任务对照表</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>做法</th><th>达标标准</th><th>专题跳转</th></tr></thead><tbody>
-          <tr><td>整本书片段复述</td><td>说“谁 + 做了什么 + 结果怎样”。</td><td>人物和事情清楚，不东一句西一句。</td><td><a href="knowledge-map.html#oral-communication">口头表达</a></td></tr>
-          <tr><td>最喜欢的人物</td><td>先说人物，再举一件事说明。</td><td>能写出“我喜欢……，因为……”</td><td><a href="knowledge-map.html#reading-genres">阅读分类</a></td></tr>
-          <tr><td>儿童诗画面感</td><td>圈景物词，再说看到的画面。</td><td>不只翻译句子，能说出画面。</td><td><a href="knowledge-map.html#modern-poetry-system">现代诗专题</a></td></tr>
-          <tr><td>仿写一句小诗</td><td>保留句式，换成身边事物。</td><td>句式基本稳，语气自然。</td><td><a href="knowledge-map.html#modern-poetry-system">儿童诗模板</a></td></tr>
+          <tr><td><a href="practice.html#pack-r1">R1</a></td><td>找不到中心句</td><td>本页“找中心句”精讲课 + R1训练包</td><td>每天找 2 段话的中心句。</td></tr>
+          <tr><td><a href="practice.html#pack-r1">R1</a></td><td>概括照抄</td><td>阅读模板页 + R1训练包</td><td>练“删细节，留主干”。</td></tr>
+          <tr><td><a href="practice.html#pack-w1">W1</a></td><td>观察片段空</td><td>作文专题页 + W1训练包</td><td>按时间写变化，最后补发现。</td></tr>
         </tbody></table></div>
       </div>
     </section>
@@ -581,17 +459,17 @@
         </ul>
       </article>
       <article class="study-block accent">
-        <h2>提优策略框架</h2>
+        <h2>提优总口诀</h2>
         <div class="routine">
-          <p><strong>句子训练：</strong>从"主干句"开始，每次加一个维度——先加时间、再加地点、再加动作样子、最后加心情感受。一步一步扩，不要一次要求太多。</p>
-          <p><strong>段落建构：</strong>先口头说中心句→再列3个要写的支撑点→每写一个支撑点检查一遍是否证明中心。口头规划在前，书面写作在后。</p>
-          <p><strong>阅读策略：</strong>读题→回文定位→圈关键词→用自己的话组织答案。每一步做完再做下一步，不要跳。</p>
-          <p><strong>写作表达：</strong>写完后让孩子自己读一遍，问：这段话有一个清楚的中心吗？每个句子都在证明这个中心吗？有没有办法把一个句子写得更具体？</p>
+          <p><strong>句子：</strong>谁在什么时候、什么地方、怎样地做什么。</p>
+          <p><strong>段落：</strong>先写中心句，再写具体内容。</p>
+          <p><strong>阅读：</strong>先看题，再回文，圈关键词。</p>
+          <p><strong>作文：</strong>看、听、想、做、感受都要写。</p>
         </div>
       </article>
     </section>
 
-    <section class="section" id="section-paragraph">
+    <section class="section">
       <div class="table-card">
         <h2>三年级知识点使用总表</h2>
         <div class="responsive-table">
@@ -615,7 +493,7 @@
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">字词基础</p>
-        <h2>从"会读会写"到"会理解会运用"</h2>
+        <h2>从“会读会写”到“会理解会运用”</h2>
       </div>
       <div class="content-grid">
         <article class="study-block">
@@ -662,7 +540,7 @@
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">句子专项</p>
-        <h2>三年级提优先从"把句子写具体"开始</h2>
+        <h2>三年级提优先从“把句子写具体”开始</h2>
       </div>
       <div class="cards-row">
         <article class="mini-card">
@@ -678,7 +556,7 @@
         <article class="mini-card">
           <h3>标点</h3>
           <p><strong>重点：</strong>句号、问号、感叹号、冒号、引号。</p>
-          <p><strong>例：</strong>妈妈说："今天我们去公园。"</p>
+          <p><strong>例：</strong>妈妈说：“今天我们去公园。”</p>
         </article>
       </div>
       <div class="table-card">
@@ -699,7 +577,7 @@
       </div>
     </section>
 
-    <section class="section" id="section-reading">
+    <section class="section">
       <div class="section-title">
         <p class="eyebrow">阅读理解</p>
         <h2>三年级阅读重点：找得到、说得清、答完整</h2>
@@ -716,7 +594,7 @@
               <tr><td>信息提取</td><td>回原文圈出答案</td><td>凭记忆回答</td><td>答案和原文一致</td></tr>
               <tr><td>中心句</td><td>找能概括整段意思的句子</td><td>找成细节句</td><td>判断其他句子是否围绕它写</td></tr>
               <tr><td>关键词</td><td>圈人物、动作、地点、特点</td><td>圈太多，不会筛选</td><td>抓最重要的词</td></tr>
-              <tr><td>修辞作用</td><td>用了什么 + 写出什么样子</td><td>只写"很生动"</td><td>说清楚生动在哪里</td></tr>
+              <tr><td>修辞作用</td><td>用了什么 + 写出什么样子</td><td>只写“很生动”</td><td>说清楚生动在哪里</td></tr>
             </tbody>
           </table>
         </div>
@@ -730,7 +608,7 @@
         <div class="routine">
           <p><strong>基础题：</strong>这段话主要写了什么？</p>
           <p><strong>提优题：</strong>文中写了哪几种风筝？</p>
-          <p><strong>拔高题：</strong>"小草从土里探出头来"好在哪里？</p>
+          <p><strong>拔高题：</strong>“小草从土里探出头来”好在哪里？</p>
           <p><strong>满分答法：</strong>用了拟人，把小草当作人来写，写出了小草刚发芽时可爱、有生命力的样子。</p>
         </div>
       </article>
@@ -739,14 +617,14 @@
         <p>我家有一只可爱的小狗，它叫豆豆。豆豆有一双圆圆的眼睛，像两颗黑宝石。每次我放学回家，它都会摇着尾巴跑到门口迎接我。有一次我生病了，豆豆一直趴在我的床边，用头蹭我的手，好像在安慰我。豆豆真是我的好朋友。</p>
         <div class="routine">
           <p><strong>基础题：</strong>小狗叫什么名字？</p>
-          <p><strong>提优题：</strong>从哪里可以看出豆豆是"我"的好朋友？</p>
-          <p><strong>拔高题：</strong>"像两颗黑宝石"写出了眼睛什么特点？</p>
+          <p><strong>提优题：</strong>从哪里可以看出豆豆是“我”的好朋友？</p>
+          <p><strong>拔高题：</strong>“像两颗黑宝石”写出了眼睛什么特点？</p>
           <p><strong>满分答法：</strong>写出了豆豆眼睛又黑又亮的特点，让小狗的样子更可爱。</p>
         </div>
       </article>
     </section>
 
-    <section class="section" id="section-composition">
+    <section class="section">
       <div class="section-title">
         <p class="eyebrow">作文表达</p>
         <h2>从一句话到一段话，再到一篇短作文</h2>
@@ -789,7 +667,7 @@
       </div>
     </section>
 
-    <section class="section" id="section-poetry">
+    <section class="section">
       <div class="section-title">
         <p class="eyebrow">古诗文入门</p>
         <h2>三年级古诗重点：读懂画面，体会简单情感</h2>
@@ -824,7 +702,7 @@
             <tbody>
               <tr><td>这句诗写了什么画面？</td><td>景物 + 样子</td><td>写了月光洒在床前，好像地上结了一层霜的画面。</td></tr>
               <tr><td>表达了什么情感？</td><td>画面 + 情感</td><td>诗人看到明月，想起家乡，表达了思念家乡的感情。</td></tr>
-              <tr><td>你喜欢哪句？为什么？</td><td>喜欢的句子 + 画面 + 感受</td><td>我喜欢"小荷才露尖尖角"，因为它写出了荷叶刚长出来时可爱的样子。</td></tr>
+              <tr><td>你喜欢哪句？为什么？</td><td>喜欢的句子 + 画面 + 感受</td><td>我喜欢“小荷才露尖尖角”，因为它写出了荷叶刚长出来时可爱的样子。</td></tr>
             </tbody>
           </table>
         </div>
@@ -874,14 +752,14 @@
     <section class="section teacher-note">
       <div class="section-title">
         <p class="eyebrow">特级教师拔尖提优</p>
-        <h2>三年级从"会写句子"提升到"会写段落"</h2>
-        <p style="color: #666;">三年级是作文和段落阅读的起点，拔尖不靠提前背大作文，而是把"围绕一个意思写清楚"练扎实。</p>
+        <h2>三年级从“会写句子”提升到“会写段落”</h2>
+        <p style="color: #666;">三年级是作文和段落阅读的起点，拔尖不靠提前背大作文，而是把“围绕一个意思写清楚”练扎实。</p>
       </div>
       <div class="teacher-grid">
         <article class="teacher-card">
           <h3>1. 阅读抓段落中心</h3>
           <p>每读一段先问：这段围绕哪一句写？如果没有中心句，就用自己的话概括。</p>
-          <p>拔尖训练：用"这段主要写……"概括，再圈出 2-3 个支撑词。</p>
+          <p>拔尖训练：用“这段主要写……”概括，再圈出 2-3 个支撑词。</p>
         </article>
         <article class="teacher-card">
           <h3>2. 作文从片段提优</h3>
@@ -916,9 +794,9 @@
               <tr><th>题型</th><th>解题抓手</th><th>满分表达</th><th>易错提醒</th></tr>
             </thead>
             <tbody>
-              <tr><td>找中心句</td><td>看段首、段尾，找能概括全段的句子</td><td>这段围绕"……"来写，后面几句分别写了……</td><td>不要把某个细节句当中心句</td></tr>
-              <tr><td>理解词语</td><td>联系上下文，换近义词，再放回句子检验</td><td>"……"在文中指……，写出了……的特点</td><td>不要只写字典意思，要结合文章</td></tr>
-              <tr><td>赏析句子</td><td>先判断写法，再说写出了什么</td><td>这句话用了比喻/拟人的写法，写出了……，让句子更生动</td><td>不要只答"很生动"，要说哪里生动</td></tr>
+              <tr><td>找中心句</td><td>看段首、段尾，找能概括全段的句子</td><td>这段围绕“……”来写，后面几句分别写了……</td><td>不要把某个细节句当中心句</td></tr>
+              <tr><td>理解词语</td><td>联系上下文，换近义词，再放回句子检验</td><td>“……”在文中指……，写出了……的特点</td><td>不要只写字典意思，要结合文章</td></tr>
+              <tr><td>赏析句子</td><td>先判断写法，再说写出了什么</td><td>这句话用了比喻/拟人的写法，写出了……，让句子更生动</td><td>不要只答“很生动”，要说哪里生动</td></tr>
               <tr><td>片段写作</td><td>围绕一个意思写，加入动作、样子、心情</td><td>先总说，再写两三个细节，最后写感受</td><td>不要一段里写太多无关内容</td></tr>
             </tbody>
           </table>
@@ -937,10 +815,10 @@
               <tr><th>题型</th><th>满分得分点</th><th>满分模板</th><th>避坑提醒</th></tr>
             </thead>
             <tbody>
-              <tr><td>概括自然段</td><td>对象 + 内容 + 特点</td><td>这一段主要写了……，表现出……的特点。</td><td>不能只写"春天""小兔子"这类词。</td></tr>
-              <tr><td>找中心句</td><td>中心句 + 说明理由</td><td>中心句是"……"，因为后面的内容都围绕……来写。</td><td>要说明为什么它能概括全段。</td></tr>
-              <tr><td>词语理解</td><td>语境意思 + 原文依据</td><td>"……"在文中指……，从"……"可以看出。</td><td>不能只写近义词，要放回句子里理解。</td></tr>
-              <tr><td>句子赏析</td><td>写法 + 关键词 + 特点</td><td>这句话用了……的写法，抓住"……"写出了……的特点。</td><td>不能只答"很生动"。</td></tr>
+              <tr><td>概括自然段</td><td>对象 + 内容 + 特点</td><td>这一段主要写了……，表现出……的特点。</td><td>不能只写“春天”“小兔子”这类词。</td></tr>
+              <tr><td>找中心句</td><td>中心句 + 说明理由</td><td>中心句是“……”，因为后面的内容都围绕……来写。</td><td>要说明为什么它能概括全段。</td></tr>
+              <tr><td>词语理解</td><td>语境意思 + 原文依据</td><td>“……”在文中指……，从“……”可以看出。</td><td>不能只写近义词，要放回句子里理解。</td></tr>
+              <tr><td>句子赏析</td><td>写法 + 关键词 + 特点</td><td>这句话用了……的写法，抓住“……”写出了……的特点。</td><td>不能只答“很生动”。</td></tr>
               <tr><td>片段表达</td><td>中心句 + 两个细节 + 感受</td><td>先写总起句，再写动作/样子/心情，最后写感受。</td><td>围绕一个意思写，不跑题。</td></tr>
             </tbody>
           </table>
@@ -962,7 +840,7 @@
           <div class="routine">
             <p><strong>赏析句：</strong>小草偷偷地从土里钻出来。</p>
             <p><strong>段落中心：</strong>春天来了，到处充满生机。</p>
-            <p><strong>具体表达：</strong>用多个动作证明"热闹"。</p>
+            <p><strong>具体表达：</strong>用多个动作证明“热闹”。</p>
           </div>
         </article>
       </div>
@@ -973,9 +851,9 @@
               <tr><th>题目</th><th>普通答案</th><th>满分答案</th><th>满分标准</th></tr>
             </thead>
             <tbody>
-              <tr><td>"小草偷偷地从土里钻出来"好在哪里？</td><td>写得很好，很生动。</td><td>这句话把小草当成人来写，用"偷偷地""钻"写出了小草刚长出来时可爱、有生命力的样子。</td><td>写法 + 关键词 + 特点</td></tr>
+              <tr><td>“小草偷偷地从土里钻出来”好在哪里？</td><td>写得很好，很生动。</td><td>这句话把小草当成人来写，用“偷偷地”“钻”写出了小草刚长出来时可爱、有生命力的样子。</td><td>写法 + 关键词 + 特点</td></tr>
               <tr><td>这段话主要写了什么？</td><td>写春天。</td><td>这段话主要写春天来了，花开了，小鸟叫了，到处充满生机。</td><td>对象 + 内容 + 特点</td></tr>
-              <tr><td>用"热闹"写一句具体的话。</td><td>操场很热闹。</td><td>下课了，操场上有的跳绳，有的踢球，还有的追逐游戏，到处都是欢笑声，真热闹。</td><td>场景 + 多个细节</td></tr>
+              <tr><td>用“热闹”写一句具体的话。</td><td>操场很热闹。</td><td>下课了，操场上有的跳绳，有的踢球，还有的追逐游戏，到处都是欢笑声，真热闹。</td><td>场景 + 多个细节</td></tr>
             </tbody>
           </table>
         </div>
@@ -1004,8 +882,8 @@
             <p><strong>结论清楚：</strong>第一句直接回答题目。</p>
             <p><strong>依据准确：</strong>至少找出一个原文关键词或句子。</p>
             <p><strong>分析具体：</strong>说清这个词句写出了什么特点。</p>
-            <p><strong>表达完整：</strong>句子通顺，能用"因为、所以、从……可以看出"连接。</p>
-            <p><strong>满分样式：</strong>这段话写了小兔子的外形，从"毛茸茸的""红红的眼睛"可以看出，小兔子很可爱，表达了作者对小兔子的喜爱。</p>
+            <p><strong>表达完整：</strong>句子通顺，能用“因为、所以、从……可以看出”连接。</p>
+            <p><strong>满分样式：</strong>这段话写了小兔子的外形，从“毛茸茸的”“红红的眼睛”可以看出，小兔子很可爱，表达了作者对小兔子的喜爱。</p>
           </div>
         </article>
       </div>
@@ -1030,198 +908,8 @@
         </article>
       </div>
     </section>
-    <!-- 资料库速查 -->
-    <section class="section" id="grade3-cheatsheet" style="background:#fff8f0; padding:30px 5vw;">
-      <div class="section-title">
-        <p class="eyebrow" style="color:#e65100;">📖 资料库速查</p>
-        <h2>三年级语法要点 & 易错提醒</h2>
-      </div>
-      <div id="grade3-grammar-ref"></div>
-      <div id="grade3-mistakes-ref" style="margin-top:20px;"></div>
-    </section>
   </main>
-  <nav class="mobile-bottom-nav" aria-label="手机底部导航">
-    <div class="mobile-bottom-nav-inner">
-      <a href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></svg>
-        首页
-      </a>
-      <a href="practice.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l2 2 4-5"/><path d="M5 4h14v16H5z"/></svg>
-        练习
-      </a>
-      <a href="agent.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v18"/><path d="M5 10h14"/><path d="M6 17h12"/></svg>
-        AI
-      </a>
-      <a href="knowledge-map.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3h8v8"/><path d="M21 3l-7 7"/><path d="M12 21H4v-8"/><path d="M3 21l7-7"/></svg>
-        知识
-      </a>
-    </div>
-  </nav>
-
-  <script defer src="nav.js?v=115"></script>
-  <script defer src="table-responsive.js?v=115"></script>
-  <script defer src="data/data-loader-core.js?v=115"></script>
-  <script defer src="data/grade-page-renderer.js?v=115"></script>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 学习目标进度追踪
-      const checkboxes = document.querySelectorAll('.goal-checkbox');
-      const progressRing = document.getElementById('progress-ring');
-      const progressPercent = document.getElementById('progress-percent');
-      const completedCount = document.getElementById('completed-count');
-      const totalGoals = checkboxes.length;
-      
-      if (checkboxes.length === 0) return;
-      
-      function loadProgress() {
-        const saved = localStorage.getItem('grade3-progress');
-        if (saved) {
-          const progress = JSON.parse(saved);
-          checkboxes.forEach(checkbox => {
-            const goalId = checkbox.getAttribute('data-goal');
-            if (progress[goalId]) {
-              checkbox.checked = true;
-            }
-          });
-        }
-        updateProgress();
-      }
-      
-      function saveProgress() {
-        const progress = {};
-        checkboxes.forEach(checkbox => {
-          const goalId = checkbox.getAttribute('data-goal');
-          progress[goalId] = checkbox.checked;
-        });
-        localStorage.setItem('grade3-progress', JSON.stringify(progress));
-      }
-      
-      function updateProgress() {
-        const checkedCount = document.querySelectorAll('.goal-checkbox:checked').length;
-        const percent = Math.round((checkedCount / totalGoals) * 100);
-        
-        const circumference = 2 * Math.PI * 45;
-        const offset = circumference - (percent / 100) * circumference;
-        progressRing.style.strokeDashoffset = offset;
-        
-        progressPercent.textContent = percent + '%';
-        completedCount.textContent = checkedCount;
-        
-        if (percent === 100) {
-          showCompletionAnimation();
-        }
-      }
-      
-      function showCompletionAnimation() {
-        const celebration = document.createElement('div');
-        celebration.innerHTML = '🎉';
-        celebration.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:1000;animation:celebrate 1s ease-out forwards;';
-        document.body.appendChild(celebration);
-        setTimeout(() => celebration.remove(), 1000);
-      }
-      
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          saveProgress();
-          updateProgress();
-        });
-      });
-      
-      loadProgress();
-      
-      const hasProgress = localStorage.getItem('grade3-progress');
-      if (!hasProgress) {
-        const defaultGoals = ['1', '2', '4'];
-        defaultGoals.forEach(goalId => {
-          const checkbox = document.querySelector(`[data-goal="${goalId}"]`);
-          if (checkbox) {
-            checkbox.checked = true;
-          }
-        });
-        saveProgress();
-        updateProgress();
-      }
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.DataLib) {
-                    // 数据驱动渲染：年级元数据模块
-          DataLib.renderGradeHero('3', document.getElementById('grade3-hero'));
-          DataLib.renderGradeMistakes('3', document.getElementById('grade3-mistakes'));
-          DataLib.renderGradeCurriculum('3', document.getElementById('grade3-curriculum'));
-          DataLib.renderGradeUnitMatrix('3', document.getElementById('grade3-unit-matrix'));
-          DataLib.renderGradeLoop('3', document.getElementById('grade3-loop'));
-          // 共享资料库渲染
-          DataLib.renderGrammarByGrade('grade3', document.getElementById('grade3-grammar-ref'));
-          DataLib.renderCommonMistakes(document.getElementById('grade3-mistakes-ref'), '3');
-        }
-    });
-    
-    // 目录导航功能
-    document.addEventListener('DOMContentLoaded', function() {
-      const tocLinks = document.querySelectorAll('.toc-link');
-      const tocToggle = document.getElementById('toc-toggle');
-      const tocSidebar = document.getElementById('toc-sidebar');
-      
-      // 创建浮动按钮
-      const floatBtn = document.createElement('button');
-      floatBtn.className = 'toc-float-btn';
-      floatBtn.textContent = '目录';
-      floatBtn.onclick = function() {
-        tocSidebar.classList.toggle('visible');
-      };
-      document.body.appendChild(floatBtn);
-      
-      // 点击目录链接平滑滚动
-      tocLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 100;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
-            
-            // 移动端点击后隐藏侧边栏
-            tocSidebar.classList.remove('visible');
-          }
-        });
-      });
-      
-      // 点击收起按钮
-      tocToggle.addEventListener('click', function() {
-        tocSidebar.classList.remove('visible');
-      });
-      
-      // 滚动时高亮当前目录项
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            tocLinks.forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + id) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '-100px 0px -60% 0px' });
-      
-      document.querySelectorAll('section[id]').forEach(section => {
-        observer.observe(section);
-      });
-    });
-  </script>
-<script defer src="data/grade-stage-assessment.js?v=115"></script>
-<script defer src="data/jump-manager.js"></script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>

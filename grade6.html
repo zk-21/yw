@@ -6,15 +6,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>小学语文六年级 · 知识提优体系</title>
-  <meta name="description" content="小学语文六年级知识提优体系，小升初衔接、综合复习、文学素养、考试技巧。">
-  <meta name="keywords" content="小学语文,六年级,小升初,文学素养,考试">
-  <meta property="og:title" content="小学语文六年级 · 知识提优体系">
-  <meta property="og:description" content="小学语文六年级知识提优体系，小升初衔接、综合复习、文学素养、考试技巧。">
-  <meta property="og:type" content="website">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>六年级语文知识提优体系</title>
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=115">
+  <link rel="stylesheet" href="styles.css?v=76">
 </head>
 <body>
   <header class="topbar">
@@ -23,165 +18,155 @@
       <a href="index.html">总览</a>
       <a href="agent.html">AI Agent</a>
       <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
       <a href="grade1.html">一年级</a>
       <a href="grade2.html">二年级</a>
       <a href="grade3.html">三年级</a>
       <a href="grade4.html">四年级</a>
       <a href="grade5.html">五年级</a>
       <a class="active" href="grade6.html">六年级</a>
+      <a href="grammar.html">语法知识</a>
+      <a href="composition.html">作文专题</a>
       <a href="practice.html">练习计划</a>
       <a href="vocabulary.html">词语学习</a>
-      <div class="nav-dropdown">
-        <a href="#" class="dropdown-toggle">其他</a>
-        <div class="dropdown-content">
-          <a href="advanced.html">尖子生拓展</a>
-          <a href="knowledge-map.html">知识总控</a>
-          <a href="search.html">搜索</a>
-        </div>
-      </div>
     </nav>
   </header>
 
   <main>
-    <aside class="toc-sidebar" id="toc-sidebar">
-      <div class="toc-header">
-        <span class="toc-icon">📚</span>
-        <span class="toc-title">目录导航</span>
-        <button class="toc-toggle" id="toc-toggle">☰</button>
-      </div>
-      <nav class="toc-nav" id="toc-nav">
-        <ul>
-          <li><a href="#section-overview" class="toc-link">页面定位</a></li>
-          <li><a href="#section-path" class="toc-link">升级路径</a></li>
-          <li><a href="#section-expression" class="toc-link">综合运用</a></li>
-          <li><a href="#section-literature" class="toc-link">整本书与现代诗</a></li>
-          <li><a href="#section-classical" class="toc-link">古诗文升级</a></li>
-          <li><a href="#section-lecture" class="toc-link">课前先测</a></li>
-          <li><a href="#section-diagnosis" class="toc-link">作文联动</a></li>
-          <li><a href="#section-mistakes" class="toc-link">错因分析</a></li>
-          <li><a href="#section-assessment" class="toc-link">阶段测评</a></li>
-          <li><a href="#section-capabilities" class="toc-link">能力培养</a></li>
-          <li><a href="#section-templates" class="toc-link">答题模板</a></li>
-          <li><a href="#section-grammar" class="toc-link">语法要点</a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <section class="page-head" id="grade6-hero">
-      <p class="eyebrow">六年级 / 小升初冲刺阶段</p>
-      <h1>从“能力达标”冲刺到“衔接中学、综合运用”</h1>
-      <p>六年级先把题型判断、材料依据和限时作文练成稳定习惯，再把方法带到综合卷里。</p>
+    <section class="page-head grade-six">
+      <p class="eyebrow">六年级/小升初冲刺阶段</p>
+      <h1>从"能力达标"冲刺到"衔接中学、综合运用"</h1>
     </section>
 
-    <section class="learning-goals" id="learning-goals">
-      <div class="goals-header">
-        <div class="goals-title">
-          <span class="goals-icon">🎯</span>
-          <h2>今日学习目标</h2>
-        </div>
-        <div class="goals-progress">
-          <span class="progress-text">学习进度：</span>
-          <div class="progress-ring">
-            <svg class="progress-ring-svg" viewBox="0 0 100 100">
-              <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
-              <circle class="progress-ring-fill" cx="50" cy="50" r="45" id="progress-ring"></circle>
-            </svg>
-            <span class="progress-percent" id="progress-percent">0%</span>
-          </div>
-        </div>
-      </div>
-      <div class="goals-content">
-        <div class="goal-card required">
-          <span class="goal-tag required-tag">⭐ 必学</span>
-          <h3>综合阅读答题</h3>
-          <p>学会判断题型、按分值分层作答、引用原文依据</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="1"> 能判断概括题、赏析题、作用题</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="2"> 能按分值组织答案层次</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="3"> 能引用原文关键词句作答</label>
-          </div>
-        </div>
-        <div class="goal-card required">
-          <span class="goal-tag required-tag">⭐ 必学</span>
-          <h3>非连续文本</h3>
-          <p>学会从图表中提取信息、比较数据、得出结论</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="4"> 能看懂表格和图表数据</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="5"> 能比较不同数据得出结论</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="6"> 能根据材料提建议</label>
-          </div>
-        </div>
-        <div class="goal-card optional">
-          <span class="goal-tag optional-tag">📖 选学</span>
-          <h3>作文审题立意</h3>
-          <p>学会抓住题眼、确定中心、选择材料</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="7"> 能圈出题目中的题眼</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="8"> 能确定写作中心和重点</label>
-          </div>
-        </div>
-        <div class="goal-card advanced">
-          <span class="goal-tag advanced-tag">🚀 拓展</span>
-          <h3>满分答案训练</h3>
-          <p>学习满分答案的答题结构和表达方式</p>
-          <div class="goal-checklist">
-            <label><input type="checkbox" class="goal-checkbox" data-goal="9"> 能分析满分答案的结构</label>
-            <label><input type="checkbox" class="goal-checkbox" data-goal="10"> 能在练习中模仿满分表达</label>
-          </div>
-        </div>
-      </div>
-      <div class="goals-summary">
-        <div class="summary-item">
-          <span class="summary-icon">📝</span>
-          <span class="summary-label">完成目标：</span>
-          <span class="summary-value" id="completed-count">0</span>
-          <span class="summary-total">/ 10</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-icon">⏱️</span>
-          <span class="summary-label">建议时长：</span>
-          <span class="summary-value">约 45 分钟</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-icon">📊</span>
-          <span class="summary-label">学习路径：</span>
-          <span class="summary-value">诊断 → 精讲 → 练习 → 复盘</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-overview">
+    <section class="section">
       <div class="section-title">
-        <p class="eyebrow">⭐ 必学 · 页面定位</p>
-        <h2>六年级页先解决"怎么把综合能力练成可迁移"</h2>
-        <p style="color:#666;">这里保留综合阅读、非连续文本、古诗文、作文审题和限时表达的年级用法；完整作文体系、专项规则和打印训练，放到专题页继续查。</p>
+        <p class="eyebrow">高年级联动</p>
+        <h2>作文三轮批改与打印训练单一起用</h2>
+        <p style="color:#666;">六年级作文不能只看结果，要像特级教师那样分轮修改：先改中心，再改重点段，再改结尾，最后打印记录复练。</p>
       </div>
       <div class="route-grid">
-        <article class="route-card"><h3>本页看什么</h3><p>看六年级目标、综合题拆解、材料作答、审题立意和小升初衔接路径。</p></article>
-        <article class="route-card"><h3>综合阅读</h3><p>重点看怎么先判断题型，再按分值分层作答，不把会做的题写成低分答案。</p><div class="route-links"><a href="#section-templates">答题模板</a></div></article>
-        <article class="route-card"><h3>非连续文本</h3><p>本页保留六年级最常见的图表、数据和建议题用法，完整变式训练去练习页。</p><div class="route-links"><a href="practice.html#flow-training">C卷迁移</a><a href="practice.html#error-masterclass">错因精讲</a></div></article>
-        <article class="route-card"><h3>综合运用</h3><p>补宣传语、提建议、发言和活动方案，让口语交际和综合性学习真正变成得分点。</p><div class="route-links"><a href="#section-expression">本页模块</a><a href="knowledge-map.html#oral-communication">口语模板</a><a href="knowledge-map.html#application-writing-system">应用文模板</a></div></article>
-        <article class="route-card"><h3>作文审题</h3><p>本页保留年级突破点，完整三轮批改、拔尖追问和打印训练单放到作文页和练习页。</p><div class="route-links"><a href="composition.html#three-round-revision">三轮批改</a><a href="practice.html#print-training">打印训练单</a></div></article>
-        <article class="route-card"><h3>一对一闭环</h3><p>先用阶段卷判出薄弱点，再进训练包、复测卷和小升初迁移训练。</p><div class="route-links"><a href="#section-assessment">阶段卷</a><a href="practice.html#peak-promotion">晋级标准</a></div></article>
+        <article class="route-card"><h3>阶段诊断</h3><p>先用六年级阶段卷定位题型判断、材料整合和限时作文问题。</p><div class="route-links"><a href="#grade6-stage-assessment">阶段卷</a><a href="practice.html#error-masterclass">错因精讲</a><a href="practice.html#flow-training">C1/C2/C3</a></div></article>
+        <article class="route-card"><h3>三轮批改</h3><p>按“原稿 → 改中心 → 改重点段 → 改结尾 → 满分稿”完整走一遍。</p><div class="route-links"><a href="composition.html#three-round-revision">去作文页</a><a href="composition.html#peak-writing">拔尖追问</a></div></article>
+        <article class="route-card"><h3>打印训练单</h3><p>把 A 卷、判码、训练包、B 卷和家长签字装成一张线下训练单。</p><div class="route-links"><a href="practice.html#print-training">去打印单</a><a href="practice.html#master-peak-training">拔尖训练层</a><a href="practice.html#peak-promotion">晋级标准</a></div></article>
       </div>
     </section>
 
-    <section class="section grade-closed-loop" id="section-path">
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
-<p><strong>怎么做：</strong>六年级提分最怕“哪里都练一点，哪里都没练透”。更有效的做法是每次练完只抓最薄弱的一类题去补，比如这周只补句段作用，下周只补非连续性文本。作文也不用一口气写很多篇，盯住一篇反复改更值钱：先改中心，再改重点段，再改结尾，孩子更容易真正学会。</p>
-</div>
- <div class="section-title">
- <p class="eyebrow">课标对照 · 训练闭环</p>
- <h2>六年级从"综合会做"到"小升初可迁移"</h2>
- <p style="color:#666;">六年级的提优重点是综合阅读、非连续性文本、古诗文、作文审题和限时表达。新增闭环让孩子练完能判断是否真正达标。</p>
- </div>
- <div id="grade6-curriculum"></div>
-      <div id="grade6-unit-matrix" style="margin-top:18px;"></div>
-      <div id="grade6-loop"></div>
+    
+
+
+
+    <section class="section">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>本年级最容易掉分的 3 件事</h2>
+          <ul class="level-list">
+            <li><strong>综合阅读：</strong>会单题答法，但一篇文章里多题型混合就漏层次。</li>
+            <li><strong>小升初限时：</strong>平时会做，限时后审题不清、答案不完整。</li>
+            <li><strong>作文审题立意：</strong>能写完整故事，但扣题、点题和认识提升不够。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>补救入口</h2>
+          <ul class="level-list">
+            <li><strong>阅读：</strong>按“结论 + 依据 + 分析 + 中心”检查答案。</li>
+            <li><strong>训练：</strong>每周至少一次限时综合题，做完立刻复盘错因。</li>
+            <li><strong>作文：</strong>先审题圈关键词，再写开头扣题和结尾升格。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    
+
+
+
+    <section class="section pre-diagnostic">
+      <div class="section-title">
+        <p class="eyebrow" style="color:#0d47a1;">课前诊断卷 · 15分钟</p>
+        <h2>六年级先测：综合阅读、非连续文本、审题立意</h2>
+        <p style="color:#666;">六年级一对一辅导先看孩子是否会判断题型、引用材料，并把作文写出扣题和认识提升。</p>
+      </div>
+      <div class="content-grid" style="margin-bottom:18px;">
+        <article class="study-block">
+          <h2>诊断材料</h2>
+          <p>材料一：操场边的银杏叶落了一地。值日时，小然把扫帚递给同学，自己蹲下来捡起夹在水沟里的纸团。老师没有表扬他，他也只是笑了笑，继续往前走。材料二：某班复习调查显示，每天阅读 30 分钟以上的学生中，作文能按时完成的占 78%；每周只阅读 1 次的学生中，作文能按时完成的占 46%。</p>
+        </article>
+        <article class="study-block accent">
+          <h2>老师先看什么</h2>
+          <div class="routine">
+            <p><strong>综合阅读：</strong>能不能先判断题型，再分层作答。</p>
+            <p><strong>材料题：</strong>能不能引用数据或关键词，不凭常识空说。</p>
+            <p><strong>作文：</strong>能不能圈题眼，写出一次具体经历和成长认识。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card">
+        <h2>题目、答案和评分</h2>
+        <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
+          <tr><td>1. 小然是怎样的人？</td><td>小然是认真负责、默默做事的人。从他主动捡起水沟里的纸团，没被表扬也继续值日可以看出。</td><td>特点、两处依据、分析共 5 分</td><td>只写“小然很好”。</td></tr>
+          <tr><td>2. “老师没有表扬他，他也只是笑了笑”表现了什么？</td><td>表现小然做事不是为了被表扬，而是有责任感，能突出人物品质。</td><td>内容、人物品质、作用共 4 分</td><td>只写“他很开心”。</td></tr>
+          <tr><td>3. 根据材料二给同学提一条建议</td><td>建议同学每天坚持阅读 30 分钟以上，因为材料显示这类学生作文按时完成比例更高。</td><td>建议、数据依据共 4 分</td><td>只凭常识说“多读书”。</td></tr>
+          <tr><td>4. 材料二能说明什么？</td><td>阅读频率和作文完成情况有关，阅读时间越稳定，作文按时完成比例越高。</td><td>比较对象、数据、结论共 4 分</td><td>只抄一个数字，不比较。</td></tr>
+          <tr><td>5. 给《这一次，我做对了》列审题提纲</td><td>题眼：这一次、做对了。中心：从犹豫到主动承担。详写：关键选择和心理变化。</td><td>题眼、中心、详写共 5 分</td><td>只写事情，没有“做对”的认识。</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>起点建议</h2>
+        <div class="responsive-table"><table><thead><tr><th>分数</th><th>孩子状态</th><th>先补什么</th></tr></thead><tbody>
+          <tr><td>18-22分</td><td>具备小升初综合题基础</td><td>直接进入限时卷和满分答案复盘。</td></tr>
+          <tr><td>13-17分</td><td>能做题，但分层和依据不足</td><td>补句段作用、非连续文本和作文审题。</td></tr>
+          <tr><td>12分以下</td><td>题型判断、材料引用不稳</td><td>先练题干拆解，再做短文概括和材料定位。</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section grade-closed-loop">
+      <div class="section-title">
+        <p class="eyebrow">课标对照 · 训练闭环</p>
+        <h2>六年级从“综合会做”到“小升初可迁移”</h2>
+        <p style="color:#666;">六年级的提优重点是综合阅读、非连续性文本、古诗文、作文审题和限时表达。新增闭环让孩子练完能判断是否真正达标。</p>
+      </div>
+      <div class="table-card">
+        <h2>课标能力对照表</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>课标维度</th><th>本页对应内容</th><th>达标证据</th><th>拔尖表现</th></tr></thead>
+            <tbody>
+              <tr><td>综合阅读与鉴赏</td><td>记叙文、说明文、古诗文、句段作用</td><td>能按分值分点，写出结论、依据和分析</td><td>能把内容、结构、人物情感和中心关联起来</td></tr>
+              <tr><td>实用性阅读与交流</td><td>非连续性文本、图表、材料比较、建议表达</td><td>能引用材料编号、数据或关键词作答</td><td>能比较多则材料，写出合理结论和建议</td></tr>
+              <tr><td>表达与交流</td><td>限时作文、审题立意、点题、结尾升格</td><td>能在限定时间内完成结构完整的作文</td><td>能写出变化、认识和中心升华，不空喊口号</td></tr>
+              <tr><td>整本书与跨学科</td><td>读书项目、资料筛选、综合性学习</td><td>能整理资料并用简明语言展示观点</td><td>能把阅读积累迁移到演讲、建议、短评和作文中</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="loop-grid">
+        <article class="loop-card">
+          <h3>5分钟入门自测</h3>
+          <ul>
+            <li>综合题是否先判断考点再下笔。</li>
+            <li>非连续文本是否引用材料和数据。</li>
+            <li>文言文是否能借助注释翻译句子。</li>
+            <li>作文开头和结尾是否回扣题目。</li>
+            <li>限时训练后是否留下错因记录。</li>
+          </ul>
+        </article>
+        <article class="loop-card">
+          <h3>三层训练安排</h3>
+          <ul>
+            <li><strong>基础：</strong>每天 1 道综合题，按题干圈关键词。</li>
+            <li><strong>提升：</strong>每周 1 次限时阅读，错题改成满分答案。</li>
+            <li><strong>拔尖：</strong>每两周 1 次小升初模拟，复盘审题、速度和表达。</li>
+          </ul>
+        </article>
+        <article class="loop-card">
+          <h3>评价复盘量表</h3>
+          <div class="score-line">
+            <p><strong>3分：</strong>答题分层、材料有据、作文扣题且有认识提升。</p>
+            <p><strong>2分：</strong>会答主要内容，但漏分析、漏中心或速度不稳。</p>
+            <p><strong>1分：</strong>审题不清、凭感觉写，下次先练题干拆解。</p>
+          </div>
+        </article>
+      </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>本周分层训练题</h2>
         <div class="responsive-table">
@@ -197,265 +182,27 @@
       </div>
     </section>
 
-    <section class="section pre-diagnostic" id="section-lecture">
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>⭐ 必学 · 特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>六年级最容易拉开差距的，不是“会不会这道题”，而是做题习惯稳不稳。常见卡点有四个：一是看到题就急着答，没有先判断题型；二是材料题会抄数字，却不会用数字说明问题；三是作文只看见“大概意思”，没抓住题目里限制你写什么的关键词；四是写完就交，不会回头检查有没有漏层次、漏依据。</p>
- <p><strong>怎么做：</strong>先把诊断做成具体动作。题型判断弱，就每天练 5 题“先说这题考什么”；材料题依据弱，就按“找数据→做比较→写结论”单独练；审题不稳，就固定做“圈题眼、定范围、想中心”三步；答案总写不全，就给孩子一张简短检查单，交卷前按分值自己过一遍。</p>
- </div>
- <div class="section-title">
- <p class="eyebrow" style="color:#0d47a1;">⭐ 必学 · 课前诊断卷 · 15分钟</p>
- <h2>六年级先测：综合阅读、非连续文本、审题立意</h2>
- <p style="color:#666;">六年级一对一辅导先看孩子是否会判断题型、引用材料，并把作文写出扣题和认识提升。</p>
- </div>
- <div class="content-grid" style="margin-bottom:18px;">
- <article class="study-block">
- <h2>诊断材料</h2>
- <p>材料一：操场边的银杏叶落了一地。值日时，小然把扫帚递给同学，自己蹲下来捡起夹在水沟里的纸团。老师没有表扬他，他也只是笑了笑，继续往前走。材料二：某班复习调查显示，每天阅读 30 分钟以上的学生中，作文能按时完成的占 78%；每周只阅读 1 次的学生中，作文能按时完成的占 46%。</p>
- </article>
- <article class="study-block accent">
- <h2>老师先看什么</h2>
- <div class="routine">
- <p><strong>综合阅读：</strong>能不能先判断题型，再分层作答。</p>
- <p><strong>材料题：</strong>能不能引用数据或关键词，不凭常识空说。</p>
- <p><strong>作文：</strong>能不能圈题眼，写出一次具体经历和成长认识。</p>
- </div>
- </article>
- </div>
- <div class="quiz-container">
- <h2>📝 课前小测（诊断题）</h2>
- <div class="quiz-progress">
- <span class="progress-label">完成进度</span>
- <div class="progress-bar">
- <div class="progress-fill" id="quiz-progress"></div>
- </div>
- <span class="progress-count" id="quiz-count">0/5</span>
- </div>
- 
- <div class="quiz-score" id="quiz-score">
- <span class="score-icon">🏆</span>
- <span class="score-text">得分：</span>
- <span class="score-value">0</span>
- </div>
-
- <div class="quiz-question" id="quiz-1">
- <div class="question-header">
- <span class="question-number">第 1 题</span>
- <span class="question-score">（5分）</span>
- </div>
- <p class="question-text">小然是怎样的人？</p>
- <textarea class="answer-input" id="answer-1" placeholder="请输入你的答案..."></textarea>
- <button class="submit-btn" onclick="checkAnswer(1)">提交答案</button>
- <div class="feedback" id="feedback-1"></div>
- </div>
-
- <div class="quiz-question" id="quiz-2" style="display:none;">
- <div class="question-header">
- <span class="question-number">第 2 题</span>
- <span class="question-score">（4分）</span>
- </div>
- <p class="question-text">"老师没有表扬他，他也只是笑了笑"表现了什么？</p>
- <textarea class="answer-input" id="answer-2" placeholder="请输入你的答案..."></textarea>
- <button class="submit-btn" onclick="checkAnswer(2)">提交答案</button>
- <div class="feedback" id="feedback-2"></div>
- </div>
-
- <div class="quiz-question" id="quiz-3" style="display:none;">
- <div class="question-header">
- <span class="question-number">第 3 题</span>
- <span class="question-score">（4分）</span>
- </div>
- <p class="question-text">根据材料二给同学提一条建议</p>
- <textarea class="answer-input" id="answer-3" placeholder="请输入你的答案..."></textarea>
- <button class="submit-btn" onclick="checkAnswer(3)">提交答案</button>
- <div class="feedback" id="feedback-3"></div>
- </div>
-
- <div class="quiz-question" id="quiz-4" style="display:none;">
- <div class="question-header">
- <span class="question-number">第 4 题</span>
- <span class="question-score">（4分）</span>
- </div>
- <p class="question-text">材料二能说明什么？</p>
- <textarea class="answer-input" id="answer-4" placeholder="请输入你的答案..."></textarea>
- <button class="submit-btn" onclick="checkAnswer(4)">提交答案</button>
- <div class="feedback" id="feedback-4"></div>
- </div>
-
- <div class="quiz-question" id="quiz-5" style="display:none;">
- <div class="question-header">
- <span class="question-number">第 5 题</span>
- <span class="question-score">（5分）</span>
- </div>
- <p class="question-text">给《这一次，我做对了》列审题提纲</p>
- <textarea class="answer-input" id="answer-5" placeholder="请输入你的答案..."></textarea>
- <button class="submit-btn" onclick="checkAnswer(5)">提交答案</button>
- <div class="feedback" id="feedback-5"></div>
- </div>
-
- <div class="quiz-result" id="quiz-result" style="display:none;">
- <h3>🎉 测试完成！</h3>
- <div class="result-score">
- <span class="result-value" id="final-score">0</span>
- <span class="result-total">/ 22分</span>
- </div>
- <p class="result-comment" id="result-comment"></p>
- <button class="restart-btn" onclick="restartQuiz()">重新答题</button>
- </div>
- </div>
-      <div class="table-card" style="margin-top:18px;">
-        <h2>起点建议</h2>
-        <div class="responsive-table"><table><thead><tr><th>分数</th><th>孩子状态</th><th>先补什么</th></tr></thead><tbody>
-          <tr><td>18-22分</td><td>具备小升初综合题基础</td><td>直接进入限时卷和满分答案复盘。</td></tr>
-          <tr><td>13-17分</td><td>能做题，但分层和依据不足</td><td>补句段作用、非连续文本和作文审题。</td></tr>
-          <tr><td>12分以下</td><td>题型判断、材料引用不稳</td><td>先练题干拆解，再做短文概括和材料定位。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-diagnosis">
-      <div class="section-title">
-        <p class="eyebrow">⭐ 必学 · 高年级联动</p>
-        <h2>作文三轮批改与打印训练单一起用</h2>
-        <p style="color:#666;">六年级作文不能只看结果，要像特级教师那样分轮修改：先改中心，再改重点段，再改结尾，最后打印记录复练。</p>
-      </div>
-      <div class="route-grid">
-        <article class="route-card"><h3>阶段诊断</h3><p>先用六年级阶段卷定位题型判断、材料整合和限时作文问题。</p><div class="route-links"><a href="#section-assessment">阶段卷</a><a href="practice.html#error-masterclass">错因精讲</a><a href="practice.html#flow-training">C1/C2/C3</a></div></article>
-        <article class="route-card"><h3>三轮批改</h3><p>按"原稿 → 改中心 → 改重点段 → 改结尾 → 满分稿"完整走一遍。</p><div class="route-links"><a href="composition.html#three-round-revision">去作文页</a><a href="composition.html#peak-writing">拔尖追问</a></div></article>
-        <article class="route-card"><h3>打印训练单</h3><p>把 A 卷结果分析、训练包、B 卷和家长签字装成一张线下训练单。</p><div class="route-links"><a href="practice.html#print-training">去打印单</a><a href="practice.html#master-peak-training">拔尖训练层</a><a href="practice.html#peak-promotion">晋级标准</a></div></article>
-      </div>
-    </section>
-
-    <section class="section" id="section-mistakes"><div id="grade6-mistakes"></div></section>
-
-    <section class="section" id="section-expression">
-      <div class="section-title">
-        <p class="eyebrow">补齐模块 · 综合运用</p>
-        <h2>六年级综合运用实战：宣传语、提建议、发言和活动方案</h2>
-        <p style="color:#666;">六年级很多丢分不在“不会”，而在“说不准、写不全、提得空”。综合运用要把口语交际、应用文和综合性学习压缩成能直接拿分的表达动作。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h2>六年级要练成什么</h2>
-          <ul class="level-list">
-            <li><strong>宣传表达：</strong>一句宣传语要有对象、有主题、有感染力。</li>
-            <li><strong>建议表达：</strong>建议必须回到材料，不凭生活经验空喊口号。</li>
-            <li><strong>方案整理：</strong>活动方案要写主题、步骤、分工和成果展示。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>答题顺序别乱</h2>
-          <div class="routine">
-            <p><strong>先看任务：</strong>是拟标题、写宣传语，还是提建议、做发言。</p>
-            <p><strong>再找材料：</strong>凡是给了图表、数据、关键词，都要用进答案。</p>
-            <p><strong>最后检查：</strong>对象对不对，语气得不得体，做法能不能执行。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>六年级综合运用任务对照表</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>作答框架</th><th>达标标准</th><th>失分提醒</th></tr></thead><tbody>
-          <tr><td>宣传语 / 标语</td><td>围绕主题，语言简洁，有号召力。</td><td>一句话点出主题，读起来顺口。</td><td>只喊“要加油”，看不出具体主题。</td></tr>
-          <tr><td>提建议</td><td>对象 + 问题 + 材料依据 + 建议 + 理由。</td><td>建议和材料能一一对应，不空泛。</td><td>只写常识，不引用数据或材料。</td></tr>
-          <tr><td>讨论发言</td><td>我认为……，依据是……，所以建议……。</td><td>观点明确，理由具体，语气得体。</td><td>观点有了，但理由站不住。</td></tr>
-          <tr><td>活动方案</td><td>主题、步骤、分工、展示方式四项完整。</td><td>方案能执行，看得出谁做什么。</td><td>只有主题，没有过程安排。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-literature">
-      <div class="section-title">
-        <p class="eyebrow">补齐模块 · 整本书与现代诗</p>
-        <h2>六年级整本书阅读与现代诗：读出主题、结构和表达效果</h2>
-        <p style="color:#666;">六年级这两块要往综合题思路靠：整本书阅读不只说人物和情节，还要概括主题和人物成长；现代诗不只说画面，还要分析意象、手法和情感如何一起服务中心。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h2>整本书阅读冲刺点</h2>
-          <ul class="level-list">
-            <li><strong>主题概括：</strong>从人物经历中提炼作品的核心表达。</li>
-            <li><strong>人物成长：</strong>抓住前后变化，写出成长原因。</li>
-            <li><strong>综合表达：</strong>能把书中内容和现实问题联系起来说。</li>
-          </ul>
-        </article>
-        <article class="study-block accent">
-          <h2>现代诗阅读冲刺点</h2>
-          <div class="routine">
-            <p><strong>先看意象：</strong>哪些景物最关键，是否反复出现。</p>
-            <p><strong>再看手法：</strong>比喻、象征、反复、拟人如何服务情感。</p>
-            <p><strong>最后看中心：</strong>这些意象和手法共同表达了什么主题。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>六年级阅读与诗歌任务对照表</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>做法</th><th>达标标准</th><th>专题跳转</th></tr></thead><tbody>
-          <tr><td>主题概括</td><td>内容概括 + 人物变化 + 主题表达。</td><td>能把“写了什么”和“想表达什么”分开写清。</td><td><a href="knowledge-map.html#reading-genres">阅读分类</a></td></tr>
-          <tr><td>人物成长分析</td><td>前后变化 + 关键事件 + 成长认识。</td><td>答案有层次，不只贴“勇敢、善良”等标签。</td><td><a href="knowledge-map.html#oral-communication">读书分享</a></td></tr>
-          <tr><td>现代诗综合赏析</td><td>意象 + 手法 + 情感 + 主题。</td><td>四层基本完整，能从词句回到中心。</td><td><a href="knowledge-map.html#modern-poetry-system">现代诗专题</a></td></tr>
-          <tr><td>比较阅读</td><td>比较两首诗或两段内容的共同点和不同点。</td><td>能按角度比较，不混着写。</td><td><a href="knowledge-map.html#modern-poetry-system">比较思路</a></td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
-    <section class="section" id="section-classical">
-      <div class="section-title">
-        <p class="eyebrow">古诗文升级</p>
-        <h2>六年级古诗文要从“读懂”走到“能分层赏析和概括道理”</h2>
-        <p style="color:#666;">本页保留六年级古诗文的年级目标和满分标准；如果要把古诗画面、情感、炼字、文言释词、译句和启示练成完整闭环，直接去 <a href="classical-reading.html" style="color:#0f766e; font-weight:800;">古诗文阅读专题页</a>。</p>
-      </div>
-      <div class="content-grid" style="margin-bottom:18px;">
-        <article class="study-block">
-          <h3>六年级古诗冲刺点</h3>
-          <div class="routine">
-            <p><strong>先看意象：</strong>月、柳、雁、梅、舟这些词往往决定情感方向。</p>
-            <p><strong>再补手法：</strong>借景抒情、托物言志、动静结合、对比、炼字都要落到画面和情感。</p>
-            <p><strong>最后回中心：</strong>不能只说“写了什么”，还要说“怎样表达”。</p>
-          </div>
-        </article>
-        <article class="study-block accent">
-          <h3>六年级文言冲刺点</h3>
-          <div class="routine">
-            <p><strong>释词：</strong>词义一定放回句子里判断，不凭现代常见义乱猜。</p>
-            <p><strong>译句：</strong>先拆关键词，再调顺语序，最后补省略内容。</p>
-            <p><strong>启示：</strong>先扣故事人物做法和结果，再上升到道理。</p>
-          </div>
-        </article>
-      </div>
-      <div class="table-card">
-        <h2>六年级古诗文下一步直接去哪</h2>
-        <div class="responsive-table"><table><thead><tr><th>任务</th><th>先看哪里</th><th>到什么程度算过关</th></tr></thead><tbody>
-          <tr><td>古诗画面 / 情感 / 炼字</td><td><a href="classical-reading.html">古诗文专题</a></td><td>能做到“意象 + 画面 + 手法/字义 + 情感”四层完整。</td></tr>
-          <tr><td>文言释词 / 译句 / 启示</td><td><a href="classical-reading.html">古诗文专题</a></td><td>能做到“释词准确、译句通顺、启示扣故事”。</td></tr>
-          <tr><td>做完后复盘</td><td><a href="practice.html#reading-answer-bank">答案对照</a> / <a href="practice.html#poemPractice">古诗练习</a></td><td>能说清自己是卡在题型判断、关键词、情感还是表达层次。</td></tr>
-        </tbody></table></div>
-      </div>
-    </section>
-
     <section class="section lesson-pack">
       <div class="section-title">
         <p class="eyebrow">孩子直接学</p>
         <h2>六年级精讲课：综合阅读和非连续性文本</h2>
         <p style="color:#666;">六年级要学会把材料、依据、分析和中心连起来。下面用综合阅读和图表材料做一遍完整示范。</p>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-<h2>特级教师精讲</h2>
-
-<p><strong>常见问题：</strong>很多孩子平时单项题做得还行，一到综合卷就乱，根子往往不是不会，而是“换个问法就认不出来”。比如本来该按句段作用答，却套成人物题；本来该根据材料提建议，却开始凭感觉发挥。说白了，就是题型没先看清，步骤没先想明白。</p>
-<p><strong>怎么做：</strong>每次做题前先停 5 秒，先写一句：“这是什么题？要答几层？”把这一步练熟，比盲目多刷题更有用。六年级往中学过渡，真正要练的是孩子能不能自己先判断、自己选方法、自己检查，而不是永远等别人提醒。</p>
-<details class="teacher-details">
-  <summary>教师版说明</summary>
-  <p>这一段原本强调的是：孩子在单题型里学会的方法，未必能自动带到综合卷里，所以需要把“先辨题型、再选步骤”练成稳定习惯。面向家长时，用“换个问法就乱”“先停 5 秒判断题型”更容易理解，也更方便落到陪学动作上。</p>
-</details>
-</div>
-      <article class="study-block accent">
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>知识点讲解</h2>
+          <ul class="level-list">
+            <li><strong>综合阅读：</strong>先判断题型，再按分值分层。高分题通常要写“结论、依据、分析、中心”。</li>
+            <li><strong>非连续文本：</strong>不能凭常识答，必须引用材料中的数字、标题、条件或关键词。</li>
+            <li><strong>作文审题：</strong>先圈题眼，再确定中心，最后选择最能表现中心的材料详写。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
           <h2>课堂材料</h2>
           <p>材料一：六年级三个班每天阅读 30 分钟以上的人数分别是 18 人、24 人、16 人。材料二：坚持阅读的学生在习作中更容易写出具体事例和真实感受。</p>
           <div class="routine">
             <p><strong>问题：</strong>根据材料，给六年级学生提一条阅读建议。</p>
-            <p><strong>专业解析：</strong>建议六年级学生每天坚持阅读 30 分钟以上。材料一显示三个班都有学生能做到持续阅读，材料二说明坚持阅读有助于习作写出具体事例和真实感受，因此每天固定阅读时间能提升阅读和写作能力。</p>
-            <p style="color:#888;font-size:0.92rem;margin-top:6px;"><strong>老师提醒：</strong>这类题先把材料里的关键信息找出来，再看看几则材料共同在说明什么，最后再提建议。建议不是凭自己觉得对，而是要让材料能支持得住。</p>
+            <p><strong>满分答法：</strong>建议六年级学生每天坚持阅读 30 分钟以上。材料一显示三个班都有学生能做到持续阅读，材料二说明坚持阅读有助于习作写出具体事例和真实感受，因此每天固定阅读时间能提升阅读和写作能力。</p>
           </div>
         </article>
       </div>
@@ -466,8 +213,8 @@
             <thead><tr><th>题目</th><th>标准答案</th><th>为什么这样答</th><th>变式练习</th></tr></thead>
             <tbody>
               <tr><td>非连续文本建议题</td><td>建议 + 材料依据 + 理由</td><td>答案不是空喊口号，而是用材料支撑建议。</td><td>根据运动数据，给同学提健康建议。</td></tr>
-              <tr><td>句段作用题</td><td>内容作用 + 结构作用 + 中心作用</td><td>六年级作用题要分层，不能只写承上启下。</td><td>分析文章结尾"我终于明白了"的作用。</td></tr>
-              <tr><td>作文审题</td><td>题眼 + 中心 + 重点材料</td><td>先确定写什么变化，再决定哪里详写。</td><td>以"这一次，我懂了"为题列提纲。</td></tr>
+              <tr><td>句段作用题</td><td>内容作用 + 结构作用 + 中心作用</td><td>六年级作用题要分层，不能只写承上启下。</td><td>分析文章结尾“我终于明白了”的作用。</td></tr>
+              <tr><td>作文审题</td><td>题眼 + 中心 + 重点材料</td><td>先确定写什么变化，再决定哪里详写。</td><td>以“这一次，我懂了”为题列提纲。</td></tr>
             </tbody>
           </table>
         </div>
@@ -479,85 +226,89 @@
         <p class="eyebrow">课堂精讲 2</p>
         <h2>六年级综合阅读课：句段作用分三层答</h2>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>孩子最容易犯的错，是只写“承上启下”“总结全文”这类术语，不把后面的内容补出来。这样看上去像答了，其实还没真正回答“承接了什么、引出了什么、和中心有什么关系”。</p>
-<p><strong>怎么做：</strong>草稿纸上先分三格来答：内容层写“这句话写了什么”，结构层写“它和前后文什么关系”，中心层写“它帮全文表达了什么”。三格都写完，再连成一句完整答案，作用题就不容易只剩套话了。</p>
-</div>
- <div class="content-grid">
- <article class="study-block">
- <h2>课堂短文</h2>
- <p>我站在讲台前，手里的稿纸微微发抖。台下那么多双眼睛望着我，我差点想转身逃走。可想到这几周一遍遍练习的夜晚，我深吸一口气，终于开口说出了第一句话。</p>
- <ul class="level-list">
- <li><strong>内容层：</strong>写"我"演讲前紧张但鼓起勇气。</li>
- <li><strong>结构层：</strong>承接前面的练习，引出后面正式演讲。</li>
- <li><strong>中心层：</strong>表现成长来自一次次坚持和尝试。</li>
- </ul>
- </article>
-<article class="study-block accent">
-<h2>带练解析</h2>
-<div class="routine">
-<p><strong>题目：</strong>这段话在文中有什么作用？</p>
-<p><strong>标准答案：</strong>内容上写出"我"上台前紧张却努力鼓起勇气；结构上承接前文的反复练习，引出下文正式演讲；中心上表现了"我"在坚持和尝试中获得成长。</p>
-<p><strong>老师判断：</strong>如果孩子只写“承上启下”，说明他知道术语，但还不会展开分析。六年级这类题必须把术语后面的内容补出来：承接了什么、引出了什么、和中心有什么关系。</p>
- </div>
- </article>
- </div>
- <div class="table-card" style="margin-top:18px;">
- <h2>题目、答案和变式</h2>
- <div class="responsive-table">
- <table>
- <thead><tr><th>题目</th><th>标准答案</th><th>解析</th><th>变式练习</th></tr></thead>
- <tbody>
- <tr><td>"稿纸微微发抖"写出了什么？</td><td>写出"我"演讲前非常紧张。</td><td>抓动作细节，推断人物心理。</td><td>分析"他低着头不说话"。</td></tr>
- <tr><td>概括人物变化</td><td>"我"从紧张想逃走，到鼓起勇气开口演讲。</td><td>变化题要写前后状态。</td><td>概括一次考试前后的心理变化。</td></tr>
- </tbody>
- </table>
- </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
-<h2>特级教师精讲</h2>
+      <div class="content-grid">
+        <article class="study-block">
+          <h2>课堂短文</h2>
+          <p>我站在讲台前，手里的稿纸微微发抖。台下那么多双眼睛望着我，我差点想转身逃走。可想到这几周一遍遍练习的夜晚，我深吸一口气，终于开口说出了第一句话。</p>
+          <ul class="level-list">
+            <li><strong>内容层：</strong>写“我”演讲前紧张但鼓起勇气。</li>
+            <li><strong>结构层：</strong>承接前面的练习，引出后面正式演讲。</li>
+            <li><strong>中心层：</strong>表现成长来自一次次坚持和尝试。</li>
+          </ul>
+        </article>
+        <article class="study-block accent">
+          <h2>满分答法</h2>
+          <div class="routine">
+            <p><strong>题目：</strong>这段话在文中有什么作用？</p>
+            <p><strong>标准答案：</strong>内容上写出“我”上台前紧张却努力鼓起勇气；结构上承接前文的反复练习，引出下文正式演讲；中心上表现了“我”在坚持和尝试中获得成长。</p>
+            <p><strong>错因：</strong>只写“承上启下”，没有结合具体内容和中心。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>题目、答案和变式</h2>
+        <div class="responsive-table">
+          <table>
+            <thead><tr><th>题目</th><th>标准答案</th><th>解析</th><th>变式练习</th></tr></thead>
+            <tbody>
+              <tr><td>“稿纸微微发抖”写出了什么？</td><td>写出“我”演讲前非常紧张。</td><td>抓动作细节，推断人物心理。</td><td>分析“他低着头不说话”。</td></tr>
+              <tr><td>概括人物变化</td><td>“我”从紧张想逃走，到鼓起勇气开口演讲。</td><td>变化题要写前后状态。</td><td>概括一次考试前后的心理变化。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-<p><strong>常见问题：</strong>作文最常见的丢分点，不是“不会写”，而是审题时抓错重点。孩子一看到“长大了”“懂了”这种熟词，就很容易顺手往熟路上写，却漏掉“这一次”这种真正限制内容的词。结果就是写了很多，还是偏题。还有一种情况是结尾只写“我很开心”“我很感动”，有感受，但没有再往前走一步，说清自己到底明白了什么。</p>
-<p><strong>怎么做：</strong>审题先做三步：先圈限制词，再圈题眼，最后问自己“如果少了这个词，题目意思会不会变”。写结尾时，也别只停在情绪上，往前再走半步，把“我感到……”改成“我明白了……”。这样中心会更稳，作文也更像六年级该有的水平。</p>
-<details class="teacher-details">
-  <summary>教师版说明</summary>
-  <p>原文这里想说明的是：孩子常把注意力放在熟悉词上，忽略真正限制内容的关键词，所以会“看起来没跑题，其实没扣准”。改写后把它落成“圈限制词、圈题眼、反问少哪个词意思会变”，更方便家长直接拿去陪孩子审题。</p>
-</details>
-</div>
+    <section class="section lesson-pack">
+      <div class="section-title">
+        <p class="eyebrow">课堂精讲 3</p>
+        <h2>六年级作文课：审题、立意、点题</h2>
+      </div>
       <div class="table-card">
         <h2>题目、答案、解析、错因</h2>
         <div class="responsive-table">
- <table>
- <thead><tr><th>任务</th><th>标准答案</th><th>解析</th><th>常见错因</th><th>变式</th></tr></thead>
- <tbody>
- <tr><td>题目《这一次，我长大了》圈题眼</td><td>题眼是"这一次"和"长大了"。</td><td>必须写一次具体经历，还要写出认识上的成长。</td><td>只写年龄长大，或者写很多次事情。</td><td>圈《那一刻，我懂了》的题眼。</td></tr>
- <tr><td>确定中心</td><td>通过独自照顾生病的妈妈，写出我懂得了承担责任。</td><td>中心要有成长或认识提升。</td><td>只写事情感人，没写自己变化。</td><td>给"第一次独自回家"定中心。</td></tr>
- <tr><td>结尾点题</td><td>那一刻我明白，长大不是说自己多能干，而是愿意为家人承担一点责任。</td><td>回扣题目，并写出新的认识。</td><td>结尾只写"我真开心"。</td><td>写一个扣"懂了"的结尾。</td></tr>
- </tbody>
- </table>
- </div>
-</div>
+          <table>
+            <thead><tr><th>任务</th><th>标准答案</th><th>解析</th><th>常见错因</th><th>变式</th></tr></thead>
+            <tbody>
+              <tr><td>题目《这一次，我长大了》圈题眼</td><td>题眼是“这一次”和“长大了”。</td><td>必须写一次具体经历，还要写出认识上的成长。</td><td>只写年龄长大，或者写很多次事情。</td><td>圈《那一刻，我懂了》的题眼。</td></tr>
+              <tr><td>确定中心</td><td>通过独自照顾生病的妈妈，写出我懂得了承担责任。</td><td>中心要有成长或认识提升。</td><td>只写事情感人，没写自己变化。</td><td>给“第一次独自回家”定中心。</td></tr>
+              <tr><td>结尾点题</td><td>那一刻我明白，长大不是说自己多能干，而是愿意为家人承担一点责任。</td><td>回扣题目，并写出新的认识。</td><td>结尾只写“我真开心”。</td><td>写一个扣“懂了”的结尾。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">拔尖题库 · 批改样例</p>
+        <h2>六年级高质量题组：综合题、非连续文本、限时作文</h2>
+        <p style="color:#666;">六年级拔尖要看三件事：审题速度、答案层次、作文中心。</p>
+      </div>
       <div class="table-card">
         <h2>递进题组</h2>
         <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>标准答案</th><th>解析与错因</th></tr></thead><tbody>
-          <tr><td>基础</td><td>判断题型："这段话在文中有什么作用？"</td><td>句段作用题。</td><td>先判断考点，再决定答题层次。</td></tr>
-          <tr><td>提升</td><td>运用分层作答卡完成句段作用题</td><td>内容上写出了……结构上承上启下……中心上突出了……</td><td>三层逐一检查，不遗漏任何分析维度。</td></tr>
-          <tr><td>拔尖</td><td>自主完成综合题型的策略选择和答案组织</td><td>先判断题型（概括/作用/人物/中心），再选择对应的答题框架。</td><td>避免题型混淆——不同题型对应不同的答题层次。</td></tr>
+          <tr><td>基础</td><td>判断题型：“这段话在文中有什么作用？”</td><td>句段作用题。</td><td>先判断考点，再决定答题层次。</td></tr>
+          <tr><td>提升</td><td>句段作用怎么答？</td><td>内容上写紧张和鼓起勇气；结构上承接练习、引出演讲；中心上表现成长。</td><td>不能只写“承上启下”。</td></tr>
+          <tr><td>拔尖</td><td>根据阅读数据提建议</td><td>建议每天阅读 30 分钟以上。材料显示坚持阅读有助于习作写具体事例和真实感受。</td><td>非连续文本必须引用材料。</td></tr>
+          <tr><td>迁移</td><td>《这一次，我长大了》列提纲</td><td>题眼：这一次、长大；中心：承担责任；详写：照顾妈妈时从慌乱到主动。</td><td>限时作文先定中心和重点段。</td></tr>
         </tbody></table></div>
       </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>作文批改样例</h2>
           <div class="routine">
             <p><strong>孩子原文：</strong>妈妈生病了，我给她倒水，还帮她拿药。我觉得我长大了。</p>
-            <p><strong>老师判断：</strong>这段原稿像在列任务清单：倒水、拿药、盖被子都写了，但“我为什么慌、怎么稳下来、最后明白了什么”还没写出来。六年级作文最重要的就是把动作写成体验，把体验写成认识。</p>
-            <p><strong>升格片段：</strong>看到妈妈靠在沙发上皱着眉，我一开始手忙脚乱，连水杯都差点拿掉。可当她轻声说"没事"时，我忽然觉得自己不能只站在旁边。我倒好温水，按说明找出药，又把被子轻轻盖在她身上。那一刻我明白，长大不是说自己多能干，而是愿意为家人承担一点责任。</p>
+            <p><strong>批改意见：</strong>事情对题，但太像流水账。要写出“我”的变化：一开始慌乱，后来主动承担。</p>
+            <p><strong>升格片段：</strong>看到妈妈靠在沙发上皱着眉，我一开始手忙脚乱，连水杯都差点拿掉。可当她轻声说“没事”时，我忽然觉得自己不能只站在旁边。我倒好温水，按说明找出药，又把被子轻轻盖在她身上。那一刻我明白，长大不是说自己多能干，而是愿意为家人承担一点责任。</p>
           </div>
         </article>
         <article class="study-block accent">
-          <h2>常见错法归类</h2>
+          <h2>错因分类</h2>
           <div class="routine">
-            <p><strong>综合题常见失分：</strong>题干里的限制词没看全，只抓到熟悉的那一半，结果整题答偏了。</p>
-            <p><strong>非连续文本常见失分：</strong>提建议只凭生活经验，没有回到材料里的数据和信息，所以答案看着顺，却站不住。</p>
-            <p><strong>作文常见失分：</strong>事情写得完整，但结尾停在“我很难忘”“我很感动”，还没真正写出“我明白了什么”。</p>
+            <p><strong>综合题错：</strong>没看题干关键词，答非所问。</p>
+            <p><strong>非连续错：</strong>凭常识提建议，没有引用材料数据。</p>
+            <p><strong>作文错：</strong>只写做了什么，没有写认识和成长。</p>
           </div>
         </article>
       </div>
@@ -575,19 +326,17 @@
       <div class="section-title">
         <p class="eyebrow">二轮加厚题库</p>
         <h2>六年级按知识点闯关：句段作用、非连续文本、限时作文</h2>
-        <p style="color:#666;">六年级拔尖要训练"快速判断题型、分层组织答案、限时完成高质量表达"。</p>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>综合题一多，孩子很容易把上一题的答法直接套到下一题。刚做完作用题，下一题人物题也按“承上启下”那套想；刚做完材料题，作文又写成列提纲。不是不会，是换不过来。</p>
- <p><strong>怎么做：</strong>每做一道新题，先在题边写两个字：题型。再写一句“这题我要答哪几步”。用这个小动作提醒自己换挡；错题本也按题型分开记，复习时更容易分清不同题到底怎么答。</p>
- </div>
+        <p style="color:#666;">六年级拔尖要训练“快速判断题型、分层组织答案、限时完成高质量表达”。</p>
       </div>
       <div class="table-card">
         <h2>知识点递进题组</h2>
         <div class="responsive-table"><table><thead><tr><th>知识点</th><th>递进题</th><th>标准答案/要点</th><th>解析与错因</th></tr></thead><tbody>
-          <tr><td>句段作用</td><td>1. 判断"这段话在文中有什么作用"属于什么题型</td><td>句段作用题。</td><td>先判断题型，才能决定答题层次。</td></tr>
-          <tr><td>句段作用</td><td>2. 分析句段作用——按三层作答</td><td>内容上写出了……结构上起到了……的作用，中心上突出了……</td><td>比较题不要只说"谁比谁好"，要写出具体差异。</td></tr>
+          <tr><td>句段作用</td><td>1. 判断“这段话在文中有什么作用”属于什么题型</td><td>句段作用题。</td><td>先判断题型，才能决定答题层次。</td></tr>
+          <tr><td>句段作用</td><td>2. 分析开头环境描写的作用</td><td>写出气氛紧张，引出人物的害怕。</td><td>开头常从内容、氛围、铺垫入手。</td></tr>
+          <tr><td>句段作用</td><td>3. 分析中间过渡句</td><td>承接前文练习过程，引出后文正式比赛。</td><td>不能只写“承上启下”，要说明承接和引出什么。</td></tr>
+          <tr><td>句段作用</td><td>4. 分析结尾句和中心的关系</td><td>点明成长主题，表现“我”懂得承担责任。</td><td>拔尖答案要把内容、结构、中心连起来。</td></tr>
+          <tr><td>非连续文本</td><td>1. 从表格中找最高数据</td><td>写出项目和具体数值。</td><td>看清标题、单位和条件。</td></tr>
+          <tr><td>非连续文本</td><td>2. 比较两组数据变化</td><td>A 项上升，B 项下降，并写出幅度。</td><td>比较题必须说“谁和谁比”。</td></tr>
           <tr><td>非连续文本</td><td>3. 根据材料给阅读建议</td><td>建议每天阅读 30 分钟以上，并坚持做摘记。</td><td>建议要引用材料依据，不能只凭常识。</td></tr>
           <tr><td>非连续文本</td><td>4. 整合两则材料写结论</td><td>阅读时长和阅读记录都会影响习作质量。</td><td>多材料题要找共同指向。</td></tr>
           <tr><td>限时作文</td><td>1. 圈《这一次，我长大了》的题眼</td><td>这一次、长大了。</td><td>题眼决定必须写一次具体经历和成长变化。</td></tr>
@@ -598,44 +347,44 @@
       </div>
       <div class="content-grid" style="margin-top:18px;">
         <article class="study-block">
-          <h2>作文批改样例（怎么把任务清单改成成长作文）</h2>
+          <h2>作文批改样例</h2>
           <div class="routine">
             <p><strong>孩子原文：</strong>我帮妈妈倒水、拿药、盖被子。我觉得自己长大了。</p>
-            <p><strong>老师判断：</strong>这段作文像记任务清单：倒水、拿药、盖被子都写了，但读者还没看到“我从慌乱到承担”的变化。真正要补的不是再加动作数量，而是补那个心里一转的瞬间：我先怎么慌，后来为什么决定撑起来。</p>
+            <p><strong>问题诊断：</strong>材料符合题意，但缺少“这一次”的过程变化，像任务清单。</p>
             <p><strong>教师升格：</strong>看见妈妈靠在沙发上闭着眼，我先是慌得站在原地，连该拿什么药都不知道。可想到平时她照顾我的样子，我强迫自己冷静下来，倒好温水，又按说明找到药。把被子盖到她身上时，我忽然懂了，长大不是被照顾得更多，而是愿意照顾别人。</p>
           </div>
         </article>
         <article class="study-block accent">
-          <h2>阅读失分诊断</h2>
+          <h2>阅读答题批改</h2>
           <div class="routine">
             <p><strong>题目：</strong>文章结尾有什么作用？</p>
             <p><strong>孩子答案：</strong>总结全文。</p>
-            <p><strong>老师判断：</strong>“总结全文”只是一个标签，还不是答案。真正要补的是：结尾总结了什么、让读者进一步明白了什么、怎样把文章中心收住。</p>
+            <p><strong>批改：</strong>太笼统。应答“内容上写出‘我’懂得承担责任，结构上照应题目‘长大了’，中心上点明成长不是年龄变化，而是责任意识增强”。</p>
           </div>
         </article>
       </div>
       <div class="table-card" style="margin-top:18px;">
         <h2>作文批改加厚</h2>
         <div class="responsive-table"><table><thead><tr><th>孩子原文</th><th>老师圈批</th><th>升格稿</th><th>二次练习</th></tr></thead><tbody>
-          <tr><td>我帮妈妈倒水、拿药、盖被子。我觉得自己长大了。</td><td>像任务清单，缺少从慌乱到主动承担的变化。</td><td>看见妈妈靠在沙发上闭着眼，我先是慌得站在原地。想到平时她照顾我的样子，我强迫自己冷静下来，倒水、找药、盖被子。那一刻我明白，长大是愿意照顾别人。</td><td>把"独自买菜"写出从犹豫到承担。</td></tr>
-          <tr><td>这一次比赛我输了，但我很难忘。</td><td>扣题不够，缺少"为什么难忘"和认识提升。</td><td>比分停在最后一秒时，我低下头不敢看队友。可队长拍了拍我的肩，说"下次一起练"。我忽然明白，失败不是丢脸，愿意重新开始才是真正的成长。</td><td>以"这一次，我没有逃避"为题写重点段。</td></tr>
+          <tr><td>我帮妈妈倒水、拿药、盖被子。我觉得自己长大了。</td><td>像任务清单，缺少从慌乱到主动承担的变化。</td><td>看见妈妈靠在沙发上闭着眼，我先是慌得站在原地。想到平时她照顾我的样子，我强迫自己冷静下来，倒水、找药、盖被子。那一刻我明白，长大是愿意照顾别人。</td><td>把“独自买菜”写出从犹豫到承担。</td></tr>
+          <tr><td>这一次比赛我输了，但我很难忘。</td><td>扣题不够，缺少“为什么难忘”和认识提升。</td><td>比分停在最后一秒时，我低下头不敢看队友。可队长拍了拍我的肩，说“下次一起练”。我忽然明白，失败不是丢脸，愿意重新开始才是真正的成长。</td><td>以“这一次，我没有逃避”为题写重点段。</td></tr>
           <tr><td>我建议同学们多运动，因为运动很好。</td><td>建议太空，没有材料依据和具体做法。</td><td>材料显示，每天运动 1 小时的学生体质良好比例更高。建议同学们每天安排固定的户外运动时间，课间少久坐，周末选择一项能坚持的运动。</td><td>根据阅读材料写一条阅读倡议。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>测后复盘与阶段测评</h2>
-        <div class="responsive-table"><table><thead><tr><th>常见问题</th><th>现在卡在哪</th><th>补救策略</th><th>测评标准</th></tr></thead><tbody>
-          <tr><td>套话式应答</td><td>孩子只写术语，不展开内容分析。</td><td>强制填写"承接了什么内容、引出了什么内容、点明了什么中心"</td><td>作用题能分内容、结构、中心三层答</td></tr>
-          <tr><td>证据意识缺失</td><td>提建议时只凭感觉，没有回到材料里的数据和信息。</td><td>每条建议后补"材料依据"，用材料编号和数据支撑</td><td>能整合 2 则材料写结论和建议</td></tr>
-          <tr><td>审题跑偏</td><td>只看见“长大了”，忽略“这一次”，结果材料写散了。</td><td>圈出所有限定词，只选一次经历，突出其独特性</td><td>限时 8 分钟能列出题眼、中心、详写段</td></tr>
-          <tr><td>有情绪没认识</td><td>结尾只写情绪，没有再往前走一步写出认识。</td><td>追问"我懂得了什么"，用"+认识"结构扩充结尾</td><td>结尾能点题并写出认识提升</td></tr>
+        <h2>阅读错因分类与阶段测评</h2>
+        <div class="responsive-table"><table><thead><tr><th>类型</th><th>典型表现</th><th>立刻补救</th><th>测评标准</th></tr></thead><tbody>
+          <tr><td>套话型</td><td>句段作用只写“承上启下、总结全文”</td><td>补承接什么、引出什么、点明什么中心</td><td>作用题能分内容、结构、中心三层答</td></tr>
+          <tr><td>材料脱节</td><td>非连续文本建议不引用数据</td><td>每条建议后补“材料依据”</td><td>能整合 2 则材料写结论和建议</td></tr>
+          <tr><td>作文偏题</td><td>写很多事，没突出“这一次”</td><td>只选一次最能体现变化的经历</td><td>限时 8 分钟能列出题眼、中心、详写段</td></tr>
+          <tr><td>立意浅</td><td>结尾只写开心、难忘</td><td>追问“我懂得了什么”</td><td>结尾能点题并写出认识提升</td></tr>
         </tbody></table></div>
       </div>
     </section>
 
-    <section class="section stage-assessment" id="section-assessment">
+    <section class="section stage-assessment" id="grade6-stage-assessment">
       <div class="section-title">
-        <p class="eyebrow" style="color:#0d47a1;">⭐ 必学 · 阶段测评卷 · 30分钟</p>
+        <p class="eyebrow" style="color:#0d47a1;">阶段测评卷 · 30分钟</p>
         <h2>六年级小测：综合阅读、非连续文本、限时作文</h2>
         <p style="color:#666;">这套卷直接对接小升初，重点测判断题型、找材料、分层作答。</p>
       </div>
@@ -652,30 +401,30 @@
       <div class="table-card">
         <h2>A卷：题目、答案和评分</h2>
         <div class="responsive-table"><table><thead><tr><th>题目</th><th>标准答案</th><th>评分点</th><th>常见错因</th></tr></thead><tbody>
-          <tr><td>1. 判断"这段话在文中有什么作用？"属于什么题型</td><td>句段作用题。</td><td>1 分</td><td>题型判断不准，直接开始乱答。</td></tr>
-          <tr><td>2. "通常"能删去吗？为什么？</td><td>不能删。"通常"表示一般情况，不排除特殊情况；删去后变成所有海豚都按同一种情况呼吸，与材料不符，体现语言准确严谨。</td><td>词义、删后变化、文体特点共 4 分</td><td>只写"不能，不准确"。</td></tr>
-          <tr><td>3. 根据材料 B 给学生提一条运动建议</td><td>建议学生每天坚持 1 小时左右的户外运动。</td><td>材料依据 + 建议共 4 分</td><td>只凭常识说"多运动"，没有引用材料。</td></tr>
-          <tr><td>4. 根据材料 B，说明运动有什么好处</td><td>每天运动 1 小时的学生体质良好比例更高，说明适量运动有助于增强体质，也能缓解用眼疲劳。</td><td>数据、结论、建议共 4 分</td><td>不会比较数据，只写"运动好"。</td></tr>
+          <tr><td>1. 判断“这段话在文中有什么作用？”属于什么题型</td><td>句段作用题。</td><td>1 分</td><td>题型判断不准，直接开始乱答。</td></tr>
+          <tr><td>2. “通常”能删去吗？为什么？</td><td>不能删。“通常”表示一般情况，不排除特殊情况；删去后变成所有海豚都按同一种情况呼吸，与材料不符，体现语言准确严谨。</td><td>词义、删后变化、文体特点共 4 分</td><td>只写“不能，不准确”。</td></tr>
+          <tr><td>3. 根据材料 B 给学生提一条运动建议</td><td>建议学生每天坚持 1 小时左右的户外运动。</td><td>材料依据 + 建议共 4 分</td><td>只凭常识说“多运动”，没有引用材料。</td></tr>
+          <tr><td>4. 根据材料 B，说明运动有什么好处</td><td>每天运动 1 小时的学生体质良好比例更高，说明适量运动有助于增强体质，也能缓解用眼疲劳。</td><td>数据、结论、建议共 4 分</td><td>不会比较数据，只写“运动好”。</td></tr>
           <tr><td>5. 《这一次，我长大了》列提纲</td><td>题眼：这一次、长大；中心：承担责任；详写：照顾妈妈时从慌乱到主动。</td><td>题眼、中心、详写共 5 分</td><td>只写事情，不写成长变化。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>A卷问题分析与对应训练</h2>
+        <h2>A卷判码表</h2>
         <div class="responsive-table"><table><thead><tr><th>A卷题号</th><th>扣分表现</th><th>判定错因码</th><th>马上去练</th></tr></thead><tbody>
-          <tr><td>1</td><td>题型判断不准</td><td><a href="practice.html#pack-c1" class="error-code-link" data-error-code="C1" onclick="JumpManager.jumpToPractice('C1'); return false;">C1</a></td><td>综合题型训练包</td></tr>
-          <tr><td>2</td><td>语言准确性题漏删后变化</td><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>赏析和说明文训练包</td></tr>
-          <tr><td>3</td><td>建议题没有引用材料</td><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>非连续文本训练包</td></tr>
-          <tr><td>4</td><td>数据题不会比较</td><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>非连续文本训练包</td></tr>
-          <tr><td>5</td><td>作文提纲没扣题眼</td><td><a href="practice.html#pack-w3" class="error-code-link" data-error-code="W3" onclick="JumpManager.jumpToPractice('W3'); return false;">W3</a></td><td>审题扣题训练包</td></tr>
+          <tr><td>1</td><td>题型判断不准</td><td><a href="practice.html#pack-c1">C1</a></td><td>综合题型训练包</td></tr>
+          <tr><td>2</td><td>语言准确性题漏删后变化</td><td><a href="practice.html#pack-r3">R3</a></td><td>赏析和说明文训练包</td></tr>
+          <tr><td>3</td><td>建议题没有引用材料</td><td><a href="practice.html#pack-r4">R4</a></td><td>非连续文本训练包</td></tr>
+          <tr><td>4</td><td>数据题不会比较</td><td><a href="practice.html#pack-r4">R4</a></td><td>非连续文本训练包</td></tr>
+          <tr><td>5</td><td>作文提纲没扣题眼</td><td><a href="practice.html#pack-w3">W3</a></td><td>审题扣题训练包</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" id="grade6-b-test" style="margin-top:18px;">
-        <h2>B卷：换题再练，检查是否真会</h2>
+        <h2>B卷：同类变式迁移</h2>
         <div class="responsive-table"><table><thead><tr><th>变式题</th><th>标准答案/要点</th><th>错因编码</th><th>通过标准</th></tr></thead><tbody>
-          <tr><td>1. 判断"结尾一句在全文中的作用"属于什么题型</td><td>句段作用题，重点从内容、结构、中心三层思考。</td><td><a href="practice.html#pack-c1" class="error-code-link" data-error-code="C1" onclick="JumpManager.jumpToPractice('C1'); return false;">C1</a></td><td>先判断题型，再决定答题层次。</td></tr>
-          <tr><td>2. "一般情况下"能删去吗？</td><td>不能。它限制范围，表示不是所有情况都如此，删去后说法绝对，体现语言严谨。</td><td><a href="practice.html#pack-r3" class="error-code-link" data-error-code="R3" onclick="JumpManager.jumpToPractice('R3'); return false;">R3</a></td><td>能写出词义、删后变化和严谨性。</td></tr>
-          <tr><td>3. 根据材料：阅读 30 分钟以上的学生作文按时完成率为 78%，每周只读 1 次为 46%，提建议</td><td>建议每天坚持阅读 30 分钟以上，因为材料显示阅读稳定的学生作文按时完成率更高。</td><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>建议有数据依据，不凭常识空说。</td></tr>
-          <tr><td>4. 给《这一次，我做对了》列提纲</td><td>题眼：这一次、做对了；中心：从犹豫到主动承担；详写：关键选择和心理变化。</td><td><a href="practice.html#pack-w3" class="error-code-link" data-error-code="W3" onclick="JumpManager.jumpToPractice('W3'); return false;">W3</a></td><td>题眼、中心、详写和点题都明确。</td></tr>
+          <tr><td>1. 判断“结尾一句在全文中的作用”属于什么题型</td><td>句段作用题，重点从内容、结构、中心三层思考。</td><td><a href="practice.html#pack-c1">C1</a></td><td>先判断题型，再决定答题层次。</td></tr>
+          <tr><td>2. “一般情况下”能删去吗？</td><td>不能。它限制范围，表示不是所有情况都如此，删去后说法绝对，体现语言严谨。</td><td><a href="practice.html#pack-r3">R3</a></td><td>能写出词义、删后变化和严谨性。</td></tr>
+          <tr><td>3. 根据材料：阅读 30 分钟以上的学生作文按时完成率为 78%，每周只读 1 次为 46%，提建议</td><td>建议每天坚持阅读 30 分钟以上，因为材料显示阅读稳定的学生作文按时完成率更高。</td><td><a href="practice.html#pack-r4">R4</a></td><td>建议有数据依据，不凭常识空说。</td></tr>
+          <tr><td>4. 给《这一次，我做对了》列提纲</td><td>题眼：这一次、做对了；中心：从犹豫到主动承担；详写：关键选择和心理变化。</td><td><a href="practice.html#pack-w3">W3</a></td><td>题眼、中心、详写和点题都明确。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
@@ -683,39 +432,39 @@
         <div class="responsive-table"><table><thead><tr><th>错因</th><th>表现</th><th>补救</th></tr></thead><tbody>
           <tr><td>题型误判</td><td>句段作用题按人物题答</td><td>先判断是概括、作用、比较还是建议题。</td></tr>
           <tr><td>材料脱节</td><td>建议不引用材料</td><td>答案里必须出现数字、关键词或原文信息。</td></tr>
-          <tr><td>作文偏题</td><td>只写"我帮妈妈"</td><td>一定补"我为什么变了、明白了什么"。</td></tr>
+          <tr><td>作文偏题</td><td>只写“我帮妈妈”</td><td>一定补“我为什么变了、明白了什么”。</td></tr>
         </tbody></table></div>
       </div>
       <div class="table-card" style="margin-top:18px;">
-        <h2>做完后下一步怎么练</h2>
+        <h2>测后分流路径</h2>
         <div class="responsive-table"><table><thead><tr><th>错因编码</th><th>错在哪</th><th>先补哪里</th><th>下一步练什么</th></tr></thead><tbody>
-          <tr><td><a href="practice.html#pack-c1" class="error-code-link" data-error-code="C1" onclick="JumpManager.jumpToPractice('C1'); return false;">C1</a></td><td>题型误判</td><td>本页"综合阅读和非连续性文本"精讲 + C1训练包</td><td>每题先写考点：概括、作用、比较、建议或中心。</td></tr>
-          <tr><td><a href="practice.html#pack-r4" class="error-code-link" data-error-code="R4" onclick="JumpManager.jumpToPractice('R4'); return false;">R4</a></td><td>材料题不引用数据</td><td>非连续文本题组 + R4训练包</td><td>答案中必须出现材料编号、数字或关键词。</td></tr>
-          <tr><td><a href="practice.html#pack-w3" class="error-code-link" data-error-code="W3" onclick="JumpManager.jumpToPractice('W3'); return false;">W3</a></td><td>作文扣题不稳</td><td>作文批改加厚 + W3训练包</td><td>重写题眼、中心、重点段和点题结尾。</td></tr>
+          <tr><td><a href="practice.html#pack-c1">C1</a></td><td>题型误判</td><td>本页“综合阅读和非连续性文本”精讲 + C1训练包</td><td>每题先写考点：概括、作用、比较、建议或中心。</td></tr>
+          <tr><td><a href="practice.html#pack-r4">R4</a></td><td>材料题不引用数据</td><td>非连续文本题组 + R4训练包</td><td>答案中必须出现材料编号、数字或关键词。</td></tr>
+          <tr><td><a href="practice.html#pack-w3">W3</a></td><td>作文扣题不稳</td><td>作文批改加厚 + W3训练包</td><td>重写题眼、中心、重点段和点题结尾。</td></tr>
         </tbody></table></div>
       </div>
     </section>
 
-    <section class="section content-grid" id="section-capabilities">
+    <section class="section content-grid">
       <article class="study-block">
-        <h2>⭐ 必学 · 六年级必须形成的 6 个能力</h2>
+        <h2>六年级必须形成的 6 个能力</h2>
         <ul class="check-list">
           <li>综合阅读：能应对记叙文、说明文、非连续性文本、古诗文综合题型。先判断题型，再按分值分点作答。</li>
           <li>非连续性文本：能从图表、表格、多材料中提取和比较信息。先看标题、单位和条件，再找数据依据。</li>
           <li>文言文阅读：能借助注释读懂短篇文言文，概括故事、理解道理。逐词看注释，整句再调成通顺现代汉语。</li>
           <li>古诗赏析：能分析意象、手法，结合背景理解诗人情感。先圈景物和情感词，再说画面和感情。</li>
           <li>作文升格：能审题立意，选材有详略，语言有细节，结尾有中心。写前先定题眼、中心和重点段。</li>
-          <li>综合运用：拟标题、写宣传语、口语交际、提建议。表达按"对象 + 目的 + 具体做法"组织。</li>
+          <li>综合运用：拟标题、写宣传语、口语交际、提建议。表达按“对象 + 目的 + 具体做法”组织。</li>
         </ul>
       </article>
       <article class="study-block accent">
-        <h2>自主学习策略框架</h2>
+        <h2>提优总口诀</h2>
         <div class="routine">
-          <p><strong>阅读：</strong>结论 + 原文依据 + 具体分析 + 情感/中心。重点是答题前先判断“这是什么题”，答完后再看自己有没有漏层次。</p>
-          <p><strong>非连：</strong>提取信息 + 比较异同 + 得出结论。重点是养成“材料里有什么，我就根据什么说”的习惯。</p>
-          <p><strong>古诗：</strong>意象 + 画面 + 手法 + 情感。重点是别只会翻译字面意思，还要能说出画面和感情。</p>
-          <p><strong>文言：</strong>注释 + 连句 + 概括 + 道理。重点是先看注释，再把句子顺通，不要急着凭感觉猜。</p>
-          <p><strong>作文：</strong>审题 + 选材 + 详略 + 细节 + 点题。重点是写每一段时都知道这段和中心有什么关系。</p>
+          <p><strong>阅读：</strong>结论 + 原文依据 + 具体分析 + 情感/中心。</p>
+          <p><strong>非连：</strong>提取信息 + 比较异同 + 得出结论。</p>
+          <p><strong>古诗：</strong>意象 + 画面 + 手法 + 情感。</p>
+          <p><strong>文言：</strong>注释 + 连句 + 概括 + 道理。</p>
+          <p><strong>作文：</strong>审题 + 选材 + 详略 + 细节 + 点题。</p>
         </div>
       </article>
     </section>
@@ -735,9 +484,9 @@
               <tr><td>说明文阅读</td><td>说明方法及作用、语言准确性、信息提取与概括</td><td>方法判断、词语能否删去、段落作用</td><td>说清准确性和科学性</td><td>圈说明对象、特点、数据和限定词，再组织答案。</td></tr>
               <tr><td>非连续性文本</td><td>图表提取、多材料比较、判断正误、提建议</td><td>信息提取、比较分析、结论建议</td><td>快速定位、准确比较、合理表达</td><td>先看标题和单位，再用材料编号写依据，避免凭常识答。</td></tr>
               <tr><td>文言文</td><td>停顿断句、实词解释、句子翻译、内容概括</td><td>释词、译句、概括故事、道理启示</td><td>联系注释，准确理解</td><td>逐词解释，补省略内容，最后用自己的话说故事和道理。</td></tr>
-              <tr><td>古诗词</td><td>意象分析、画面描述、手法判断、情感理解</td><td>赏析题、情感题、炼字题</td><td>意象+手法+情感完整表达</td><td>先抓景物和关键词，再答"画面 + 手法 + 情感"。</td></tr>
+              <tr><td>古诗词</td><td>意象分析、画面描述、手法判断、情感理解</td><td>赏析题、情感题、炼字题</td><td>意象+手法+情感完整表达</td><td>先抓景物和关键词，再答“画面 + 手法 + 情感”。</td></tr>
               <tr><td>作文</td><td>审题立意、选材组材、详略安排、语言升格</td><td>命题作文、半命题、话题作文、想象作文</td><td>审题准、立意高、结构清、语言美</td><td>限时写作先用 5 分钟列题眼、中心、材料、重点段。</td></tr>
-              <tr><td>综合性学习</td><td>拟标题、提建议、写宣传语、口语交际</td><td>拟标题、图表结论、建议表达</td><td>语言简明、得体、有针对性</td><td>表达按"对象 + 问题 + 建议 + 理由"写，语气要得体。</td></tr>
+              <tr><td>综合性学习</td><td>拟标题、提建议、写宣传语、口语交际</td><td>拟标题、图表结论、建议表达</td><td>语言简明、得体、有针对性</td><td>表达按“对象 + 问题 + 建议 + 理由”写，语气要得体。</td></tr>
             </tbody>
           </table>
         </div>
@@ -749,12 +498,6 @@
         <p class="eyebrow">审题与证据</p>
         <h2>题目一来，先判断考什么</h2>
         <p style="color:#666;">六年级提优的关键不是背更多模板，而是能从题干里判断考点，再回到文本找最有力的依据。</p>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>学生最常见的审题失败表现为"关键词误读"——将"有什么作用"误判为"写了什么内容"（概括题），或将"结合材料说明"按"自由发挥"处理。这种错误源于"题干信息部分提取"——大脑在快速阅读中倾向于提取最熟悉的词汇（如"什么"）而忽略限定性词汇（如"作用""材料"），导致题型定位偏离。此外，学生常将"多次出现的常规用词"归类为无关信息而跳过，而这些词往往是题型判定的最关键线索。</p>
- <p><strong>怎么做：</strong>实施"关键词高亮法"——在审题训练中要求学生用不同颜色标注不同类型的题干关键词：红色标注题型指示词（概括/作用/为什么/能否删去），蓝色标注范围指示词（第几段/全文/材料一），绿色标注题型限制词（结合原文/至少两点）。这种视觉编码将隐性的审题过程外显化，不仅提高了审题准确性，更重要的是培养了学生对题干语言的分析习惯——这正是自主学习者在面对新题型时的核心能力。</p>
- </div>
       </div>
       <div class="table-card">
         <h2>六年级题干关键词怎么用</h2>
@@ -764,9 +507,12 @@
               <tr><th>题干关键词</th><th>实际考点</th><th>第一步动作</th><th>答案要点</th></tr>
             </thead>
             <tbody>
-              <tr><td>有什么作用</td><td>句段作用题（内容+结构+中心）</td><td>判断题型：先确认是否为作用题</td><td>内容上+结构上+中心上，三层逐一分析</td></tr>
-              <tr><td>结合材料</td><td>非连续性文本（材料证据+推理）</td><td>回原文提取信息</td><td>材料信息 + 比较分析 + 结论</td></tr>
-              <tr><td>为什么</td><td>原因分析题</td><td>定位原文原因句</td><td>原因+依据+分析</td></tr>
+              <tr><td>概括、主要写了什么</td><td>内容概括</td><td>找人物、事件、结果</td><td>谁 + 做了什么 + 结果/感受</td></tr>
+              <tr><td>好在哪里、表达效果</td><td>句子赏析</td><td>找手法和关键词</td><td>手法 + 内容特点 + 情感/作用</td></tr>
+              <tr><td>为什么、原因是什么</td><td>原因分析</td><td>回到前后文找线索</td><td>原因1 + 原因2，必要时分点</td></tr>
+              <tr><td>有什么作用</td><td>句段作用</td><td>看位置和上下文</td><td>内容 + 结构 + 情感/中心</td></tr>
+              <tr><td>能否删去、是否矛盾</td><td>说明文语言</td><td>解释关键词含义</td><td>词义 + 删后变化 + 准确性</td></tr>
+              <tr><td>结合材料、从图表看</td><td>非连续性文本</td><td>定位材料和数据</td><td>材料信息 + 比较分析 + 结论</td></tr>
             </tbody>
           </table>
         </div>
@@ -797,16 +543,6 @@
         <p class="eyebrow">非连续性文本阅读</p>
         <h2>六年级新增重点题型</h2>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>非连续性文本最容易错在“凭常识答题”。题目让提建议，孩子一张嘴就是“要多读书”“要多运动”，但没用上材料里的数据和信息。还有些孩子会抄到数字，却不比较、不分析，答案看着有依据，其实还是没说到点上。</p>
- <p><strong>怎么做：</strong>这类题固定按一个顺序写最稳：先写“根据材料几”，再写具体数据或信息，然后补一句比较或发现，最后再写结论或建议。让孩子形成“先看材料再开口”的习惯，比单纯背模板更重要。</p>
- <details class="teacher-details">
-  <summary>教师版说明</summary>
-  <p>这段保留的理论核心是“证据先于观点”。孩子不是真的不会提建议，而是太容易直接调用生活经验。家长版改写后，把重点放在“材料几 + 数据 + 比较 + 结论”这条明线，更利于训练落地。</p>
- </details>
- </div>
       <div class="content-grid">
         <article class="study-block">
           <h3>什么是非连续性文本</h3>
@@ -814,30 +550,49 @@
           <div class="routine">
             <p><strong>常见题型：</strong>根据图表提取信息、比较两三则材料的异同、判断信息正误、根据信息提建议或写结论。</p>
           </div>
- <article class="study-block accent">
- <h3>答题三步法</h3>
- <div class="routine">
- <p><strong>「看题看图表」</strong>—— 先看题目问什么，再找数据、对比和结论。</p>
- <p><strong>「圈关键」</strong>—— 圈题目中"从材料一看""下列说法正确/错误的是""结合材料"等限定词。</p>
- <p><strong>「组答案」</strong>—— 必须用原文信息作答，不能凭空猜测。</p>
- </div>
- </article>
- <div class="table-card">
- <h2>六年级非连续性文本模板怎么用</h2>
- <div class="responsive-table">
- <table>
- <thead>
- <tr><th>题型</th><th>方法</th><th>模板</th></tr>
- </thead>
- <tbody>
- <tr><td>图表提取信息</td><td>先看标题和来源，再看数据变化趋势</td><td>根据图表可知，……的比例从……增加到……，说明……</td></tr>
- <tr><td>多材料比较</td><td>找各材料共同点和不同点，注意时间变化、对象差异</td><td>材料一说明……，材料二补充说明……，两则材料共同说明了……</td></tr>
- <tr><td>判断信息正误</td><td>回原文锁定关键词，不能用常识代替原文</td><td>原文提到……，与选项中……不一致，所以是错误的</td></tr>
- <tr><td>提建议写结论</td><td>基于数据或事实给出合理建议，不空谈</td><td>据此可知……，因此我建议……。①……②……</td></tr>
- </tbody>
- </table>
- </div>
- </div>  <p style="color:#888;font-size:0.92rem;margin-top:6px;"><strong>老师提醒：</strong>表格题不是把数字抄出来就行，而是要会比一比、看一看差别，再得出结论。比如 72% 和 48% 放在一起看，信息才真正有用。</p>
+        </article>
+        <article class="study-block accent">
+          <h3>答题三步法</h3>
+          <div class="routine">
+            <p><strong>「看题看图表」</strong>—— 先看题目问什么，再找数据、对比和结论。</p>
+            <p><strong>「圈关键」</strong>—— 圈题目中"从材料一看""下列说法正确/错误的是""结合材料"等限定词。</p>
+            <p><strong>「组答案」</strong>—— 必须用原文信息作答，不能凭空猜测。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card">
+        <h2>六年级非连续性文本模板怎么用</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题型</th><th>方法</th><th>模板</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>图表提取信息</td><td>先看标题和来源，再看数据变化趋势</td><td>根据图表可知，……的比例从……增加到……，说明……</td></tr>
+              <tr><td>多材料比较</td><td>找各材料共同点和不同点，注意时间变化、对象差异</td><td>材料一说明……，材料二补充说明……，两则材料共同说明了……</td></tr>
+              <tr><td>判断信息正误</td><td>回原文锁定关键词，不能用常识代替原文</td><td>原文提到……，与选项中……不一致，所以是错误的</td></tr>
+              <tr><td>提建议写结论</td><td>基于数据或事实给出合理建议，不空谈</td><td>据此可知……，因此我建议……。①……②……</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>非连续性文本实战样例</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>每天运动时间</th><th>体质良好比例</th><th>近视率</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>30 分钟以内</td><td>48%</td><td>42%</td></tr>
+              <tr><td>60 分钟左右</td><td>72%</td><td>29%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="routine" style="margin-top:14px;">
+          <p><strong>题目：</strong>根据表格，你能得出什么结论？请写出一条建议。</p>
+          <p><strong>满分答法：</strong>根据表格可知，每天运动 60 分钟左右的学生体质良好比例为 72%，高于每天运动 30 分钟以内的 48%；近视率为 29%，低于 30 分钟以内的 42%。这说明适量增加运动时间，有助于增强体质、保护视力。因此建议学生每天坚持运动，尽量保证 60 分钟左右的户外活动时间。</p>
+          <p><strong>得分点：</strong>数据依据 + 对比分析 + 合理建议。</p>
         </div>
       </div>
       <article class="study-block" style="margin-top:18px;background:var(--soft-yellow);">
@@ -850,16 +605,6 @@
         <p class="eyebrow">记叙文阅读</p>
         <h2>记叙文阅读题型与提优要求</h2>
       </div>
-      <div class="study-block accent" style="margin-bottom:18px;">
- <h2>特级教师精讲</h2>
- 
- <p><strong>常见问题：</strong>六年级记叙文阅读里很常见的一种情况是：分开练时做得不错，一到综合卷就容易乱。孩子不是完全不会，而是太依赖“刚练过的那一类题”，题目稍微换个壳，就不知道该用哪种答法了。</p>
- <p><strong>怎么做：</strong>除了平时的分类练习，还要加一点“不给提示”的综合训练。也就是不提前告诉孩子这题属于哪一类，让他自己先判断、自己选方法、自己组织答案。做完后再复盘：你刚才把它当成什么题？这样判断对不对？下次如果再错，应该换哪种答法？这一步特别能帮助孩子把方法真正用活。</p>
- <details class="teacher-details">
-  <summary>教师版说明</summary>
-  <p>原文强调的是：孩子容易把方法和某个熟悉练习场景绑在一起，换卷面就调不出来。家长版改成“换个壳就不会用”“加一点不给提示的综合训练”，既保留了训练方向，也更容易被家长接受。</p>
- </details>
- </div>
       <div class="table-card">
         <h2>六年级记叙文模板怎么用</h2>
         <div class="responsive-table">
@@ -868,493 +613,221 @@
               <tr><th>题型</th><th>满分得分点</th><th>满分模板</th><th>避坑提醒</th></tr>
             </thead>
             <tbody>
-              <tr><td>中心思想</td><td>主要内容 + 人物情感 + 文章中心</td><td>文章通过写……这件事，表现了……，表达了作者……的情感/告诉我们……的道理。</td><td>不能只写"很感人"，要说清为什么感人。</td></tr>
-              <tr><td>人物形象</td><td>特点词 + 原文细节 + 行为分析</td><td>他是一个……的人。从文中"……"可以看出，……这一细节表现了他……的特点。</td><td>不要堆多个品质词，选最准确的一个并配证据。</td></tr>
+              <tr><td>中心思想</td><td>主要内容 + 人物情感 + 文章中心</td><td>文章通过写……这件事，表现了……，表达了作者……的情感/告诉我们……的道理。</td><td>不能只写“很感人”，要说清为什么感人。</td></tr>
+              <tr><td>人物形象</td><td>特点词 + 原文细节 + 行为分析</td><td>他是一个……的人。从文中“……”可以看出，……这一细节表现了他……的特点。</td><td>不要堆多个品质词，选最准确的一个并配证据。</td></tr>
               <tr><td>句段作用</td><td>内容作用 + 结构作用 + 中心作用</td><td>内容上写出了……；结构上起到……的作用；情感/中心上突出了……。</td><td>开头常见引出下文、设置悬念；中间常见承上启下；结尾常见总结全文、点明中心。</td></tr>
-              <tr><td>环境描写</td><td>环境特点 + 人物心情/处境 + 情节/中心</td><td>这里写出了……的环境，烘托了人物……的心情，为下文……作铺垫，突出……。</td><td>不能只答"写出了景色美/天气冷"。</td></tr>
-              <tr><td>标题作用</td><td>内容 + 线索 + 悬念/中心</td><td>题目"……"概括了……，也是全文线索，同时暗示/点明了……的中心。</td><td>不是每个标题都有三种作用，要结合文章内容取舍。</td></tr>
+              <tr><td>环境描写</td><td>环境特点 + 人物心情/处境 + 情节/中心</td><td>这里写出了……的环境，烘托了人物……的心情，为下文……作铺垫，突出……。</td><td>不能只答“写出了景色美/天气冷”。</td></tr>
+              <tr><td>标题作用</td><td>内容 + 线索 + 悬念/中心</td><td>题目“……”概括了……，也是全文线索，同时暗示/点明了……的中心。</td><td>不是每个标题都有三种作用，要结合文章内容取舍。</td></tr>
               <tr><td>词句含义</td><td>表层意思 + 深层含义 + 中心关联</td><td>表面上指……，实际上写出了……，表现了人物……/表达了作者……。</td><td>不能只解释字面意思，要联系人物、情节和中心。</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="content-grid">
- <article class="study-block">
- <h3>说明文重要提醒</h3>
- <p>六年级说明文常结合非连续性文本出现。重点掌握：说明方法判断、语言准确性分析、段落作用。</p>
- <div class="routine">
- <p><strong>答题公式：</strong>「说明方法 + 说明对象特点 + 表达效果」和「词义 + 删去后变化 + 准确性体现」。</p>
- </div>
- </article>
- <article class="study-block accent">
- <h3>文言文综合训练</h3>
- <p>会借助注释读懂全文，能回答：词语解释、句子翻译、内容概括、道理启示。</p>
- <div class="routine">
- <p><strong>常见实词：</strong>之、其、而、于、以、为、乃、则、何、且。</p>
- </div>
- </article>
- </div>
- <div class="content-grid" style="margin-top:18px;">
- <article class="study-block">
- <h3>古诗赏析综合训练</h3>
- <p>六年级古诗赏析要求更高，不再是"写了什么情感"，而是"用了什么手法表现这种情感"。</p>
- <div class="routine">
- <p><strong>步骤：</strong>抓意象→想画面→辨手法→悟情感</p>
- </div>
- </article>
- <article class="study-block accent">
- <h3>古诗满分判定标准</h3>
- <div class="routine">
- <p><strong>意象准确：</strong>抓住月、柳、雁、梅、雨、舟等关键词，不能脱离诗句乱猜。</p>
- <p><strong>画面具体：</strong>写清景物、状态、氛围，而不是只翻译诗句。</p>
- <p><strong>手法明确：</strong>判断借景抒情、托物言志、动静结合、对比、用典等。</p>
- <p><strong>情感落准：</strong>结合意象和背景，答出思乡、惜别、忧国、赞美、言志等具体情感。</p>
- <p><strong>满分模板：</strong>诗人通过……等意象，描绘了……的画面，运用……的手法，表达了……的情感。</p>
- <p><strong>炼字模板：</strong>"……"字写出了……的特点，营造了……的氛围，也表现了诗人……的心境。</p>
- </div>
- </article>
- </div>
- <div class="table-card" style="margin-top:18px;">
- <h2>六年级专项满分模板怎么用</h2>
- <div class="responsive-table">
- <table>
- <thead>
- <tr><th>专项</th><th>常考题</th><th>满分模板</th><th>满分关键</th></tr>
- </thead>
- <tbody>
- <tr><td>说明方法</td><td>这句话用了什么说明方法？有什么作用？</td><td>用了……的说明方法，具体/准确/形象地说明了……的特点，使说明更……。</td><td>必须写清说明对象和特点，不能只写"更生动"。</td></tr>
- <tr><td>说明文语言</td><td>"大约/可能/通常"能否删去？</td><td>不能删。"……"表示……，删去后变成……，说法过于绝对，与事实不符，体现了说明文语言的准确性。</td><td>词义、删后变化、准确性三点缺一不可。</td></tr>
- <tr><td>文言翻译</td><td>翻译画线句</td><td>先解释关键词"……"是……，再把句子连起来译为……。</td><td>人名、地名不乱译，省略内容要补出来。</td></tr>
- <tr><td>文言启示</td><td>这个故事告诉我们什么道理？</td><td>故事中……的做法说明……，告诉我们……。在生活中，我们也应该……。</td><td>先扣故事，再谈启示，不要空喊口号。</td></tr>
- <tr><td>古诗炼字</td><td>"……"字好在哪里？</td><td>"……"字写出了……的特点，描绘出……的画面，表现了诗人……的情感。</td><td>字义、画面、情感都要有。</td></tr>
- <tr><td>古诗情感</td><td>表达了诗人怎样的情感？</td><td>诗人借……等意象，描绘了……的画面，表达了……的情感。</td><td>不要只写"开心/伤心"，要结合意象。</td></tr>
- </tbody>
- </table>
- </div>
- </div>
     </section>
 
-
-
- <section class="section">
- <div class="section-title">
- <p class="eyebrow">🚀 拓展 · 低分到满分</p>
- <h2>六年级拔尖要训练满分答案</h2>
- </div>
- <div class="content-grid">
- <article class="study-block">
- <h3>满分答案五要素</h3>
- <div class="routine">
- <p><strong>① 审题准：</strong>先判断题型，不答偏、不漏问。</p>
- <p><strong>② 结论明：</strong>第一句话直接回答问题。</p>
- <p><strong>③ 依据实：</strong>引用原文关键词、情节、数据或材料信息。</p>
- <p><strong>④ 分析透：</strong>解释依据如何证明结论。</p>
- <p><strong>⑤ 表达清：</strong>必要时分点，句子完整，术语准确。</p>
- </div>
- </article>
- <article class="study-block accent">
- <h3>答题自检策略（基础能力）</h3>
- <div class="routine">
- <p><strong>有没有直接回答？</strong>第一句话必须先亮明结论，别绕圈子，这样阅卷老师一眼就能看到你答到了重点。</p>
- <p><strong>有没有原文依据？</strong>引用原文关键词或情节，避免凭感受答题——这是"证据意识"的自查节点。</p>
- <p><strong>有没有解释依据？</strong>说明"为什么这个依据能证明结论"，避免只摘抄——这是"推理完整性"的自查节点。</p>
- <p><strong>有没有扣住中心？</strong>确认答案指向了全文主旨，而非停留在局部——这是"思维层次性"的自查节点。</p>
- <p style="color:#888;font-size:0.92rem;margin-top:6px;">这四项自检构成一个完整的基础能力循环，是中学阶段独立学习时最核心的答题自评工具。六年级学生应在每次完成练习后使用此检查清单自我评估。</p>
- </div>
- </article>
- </div>
- <div class="content-grid" style="margin-top:18px;">
- <article class="study-block">
- <h2>共用阅读材料：《雪地里的背影》</h2>
- <p>那年冬天，父亲送我去车站。雪下得很大，风吹在脸上像小刀一样。父亲一手提着行李，一手替我挡着风，鞋子踩进雪里，发出咯吱咯吱的声音。到了车站，他先把我安顿到座位上，又转身去买了两个热包子，塞到我手里，只说："路上吃，别饿着。"车开动时，我看见父亲站在雪地里向我挥手，雪花落满他的肩头，他却一直望着车窗的方向。那一刻，我忽然觉得父亲的爱不是挂在嘴边的话，而是藏在一次次沉默的行动里。</p>
- </article>
- <article class="study-block accent">
- <h2>答题前先圈证据</h2>
- <div class="routine">
- <p><strong>人物行动：</strong>提行李、挡风、安顿座位、买热包子。</p>
- <p><strong>环境描写：</strong>雪大、风冷、雪花落满肩头。</p>
- <p><strong>中心句：</strong>父亲的爱不是挂在嘴边的话，而是藏在一次次沉默的行动里。</p>
- </div>
- </article>
- </div>
- <div class="content-grid" style="margin-top:18px;">
- <article class="study-block">
- <h2>共用说明材料</h2>
- <p>海豚通常用肺呼吸，需要定时浮出水面换气。遇到受伤、幼小或特殊训练的海豚时，它们浮出水面的频率会有所不同。</p>
- <div class="routine">
- <p><strong>关键词：</strong>通常。</p>
- <p><strong>作用：</strong>表示一般情况，不排除特殊情况。</p>
- </div>
- </article>
- <article class="study-block accent">
- <h2>共用非连续性材料</h2>
- <div class="routine">
- <p><strong>材料一：</strong>每天运动 1 小时的学生体质良好比例为 72%，每天运动 30 分钟以内的学生体质良好比例为 48%。</p>
- <p><strong>材料二：</strong>坚持户外运动有助于增强体质，也能缓解长时间用眼带来的疲劳。</p>
- </div>
- </article>
- </div>
- <div class="table-card" style="margin-top:18px;">
- <h2>低分答案 → 满分答案对比</h2>
- <div class="responsive-table">
- <table>
- <thead>
- <tr><th>题目</th><th>低分答案</th><th>满分答案</th><th>拔尖技巧</th></tr>
- </thead>
- <tbody>
- <tr><td>概括中心思想</td><td>文章很感人</td><td>文章通过写父亲冒雪送"我"去车站，并给"我"买热包子的事，表现了父亲对孩子深沉、含蓄的爱。</td><td>内容 + 人物情感 + 中心</td></tr>
- <tr><td>人物形象</td><td>父亲很好</td><td>父亲是一个关爱孩子、默默付出的人。从他冒雪送"我"、给"我"买热包子这些细节可以看出，他把对孩子的爱藏在行动里。</td><td>特点 + 细节依据 + 分析</td></tr>
- <tr><td>环境描写作用</td><td>写了下雪</td><td>这里写雪大、风冷，交代了寒冷恶劣的环境，烘托出父亲送行的辛苦，也进一步突出父爱的深沉。</td><td>环境特点 + 人物处境 + 中心</td></tr>
- <tr><td>句中"通常"能否删去</td><td>不能，不准确</td><td>不能删。"通常"表示一般情况，不排除特殊情况；删去后变成所有海豚都按同一种情况呼吸，与材料中"频率会有所不同"不符，体现了说明文语言的准确、严谨。</td><td>词义 + 删后变化 + 文体特点</td></tr>
-<tr><td>根据材料给运动建议</td><td>多运动好</td><td>根据材料一，每天运动 1 小时的学生体质良好比例为 72%，高于每天运动 30 分钟以内的 48%；材料二也说明户外运动有助于增强体质。因此，建议学生每天坚持 1 小时左右的户外运动。</td><td>材料依据 + 结论 + 建议</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-    </section>
-    <!-- 资料库速查 -->
-    <section class="section" id="section-grammar" style="background:#f5f0ff; padding:30px 5vw;">
+    <section class="section">
       <div class="section-title">
-        <p class="eyebrow" style="color:#7b1fa2;">📖 选学 · 资料库速查</p>
-        <h2>六年级语法要点 & 易错提醒</h2>
+        <p class="eyebrow">说明文 + 文言文 + 古诗</p>
+        <h2>三大专项综合训练</h2>
       </div>
-      <div id="grade6-grammar-ref"></div>
-      <div id="grade6-mistakes-ref" style="margin-top:20px;"></div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>说明文重要提醒</h3>
+          <p>六年级说明文常结合非连续性文本出现。重点掌握：说明方法判断、语言准确性分析、段落作用。</p>
+          <div class="routine">
+            <p><strong>答题公式：</strong>「说明方法 + 说明对象特点 + 表达效果」和「词义 + 删去后变化 + 准确性体现」。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>文言文综合训练</h3>
+          <p>会借助注释读懂全文，能回答：词语解释、句子翻译、内容概括、道理启示。</p>
+          <div class="routine">
+            <p><strong>常见实词：</strong>之、其、而、于、以、为、乃、则、何、且。</p>
+          </div>
+        </article>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h3>古诗赏析综合训练</h3>
+          <p>六年级古诗赏析要求更高，不再是"写了什么情感"，而是"用了什么手法表现这种情感"。</p>
+          <div class="routine">
+            <p><strong>步骤：</strong>抓意象→想画面→辨手法→悟情感</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>古诗满分判定标准</h3>
+          <div class="routine">
+            <p><strong>意象准确：</strong>抓住月、柳、雁、梅、雨、舟等关键词，不能脱离诗句乱猜。</p>
+            <p><strong>画面具体：</strong>写清景物、状态、氛围，而不是只翻译诗句。</p>
+            <p><strong>手法明确：</strong>判断借景抒情、托物言志、动静结合、对比、用典等。</p>
+            <p><strong>情感落准：</strong>结合意象和背景，答出思乡、惜别、忧国、赞美、言志等具体情感。</p>
+            <p><strong>满分模板：</strong>诗人通过……等意象，描绘了……的画面，运用……的手法，表达了……的情感。</p>
+            <p><strong>炼字模板：</strong>“……”字写出了……的特点，营造了……的氛围，也表现了诗人……的心境。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>六年级专项满分模板怎么用</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>专项</th><th>常考题</th><th>满分模板</th><th>满分关键</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>说明方法</td><td>这句话用了什么说明方法？有什么作用？</td><td>用了……的说明方法，具体/准确/形象地说明了……的特点，使说明更……。</td><td>必须写清说明对象和特点，不能只写“更生动”。</td></tr>
+              <tr><td>说明文语言</td><td>“大约/可能/通常”能否删去？</td><td>不能删。“……”表示……，删去后变成……，说法过于绝对，与事实不符，体现了说明文语言的准确性。</td><td>词义、删后变化、准确性三点缺一不可。</td></tr>
+              <tr><td>文言翻译</td><td>翻译画线句</td><td>先解释关键词“……”是……，再把句子连起来译为……。</td><td>人名、地名不乱译，省略内容要补出来。</td></tr>
+              <tr><td>文言启示</td><td>这个故事告诉我们什么道理？</td><td>故事中……的做法说明……，告诉我们……。在生活中，我们也应该……。</td><td>先扣故事，再谈启示，不要空喊口号。</td></tr>
+              <tr><td>古诗炼字</td><td>“……”字好在哪里？</td><td>“……”字写出了……的特点，描绘出……的画面，表现了诗人……的情感。</td><td>字义、画面、情感都要有。</td></tr>
+              <tr><td>古诗情感</td><td>表达了诗人怎样的情感？</td><td>诗人借……等意象，描绘了……的画面，表达了……的情感。</td><td>不要只写“开心/伤心”，要结合意象。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">作文提优</p>
+        <h2>六年级作文要从"写清楚"到"写精彩"</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>审题三问 + 选材三不写 + 升格公式</h3>
+          <div class="routine">
+            <p><strong>审题三问：</strong>①写谁/写什么？②重点写哪一件事？③通过这件事表达什么中心？</p>
+            <p><strong>选材三不写：</strong>①太普通的不写（要写出心理变化）；②只有过程的不写（必须有感受和发现）；③没有细节的不写（重点要有动作、语言、神态、心理）。</p>
+            <p><strong>升格公式：</strong>事情经过 + 细节描写 + 心理变化 + 中心点题</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>结尾模板</h3>
+          <div class="routine">
+            <p><strong>模板：</strong>「这件事让我明白了____。原来____并不只是____，更是____。」</p>
+            <p><strong>示例：</strong>「这件事让我明白了坚持的力量。原来胜利并不只是拿到第一名，更是在快要放弃时多坚持一下。」</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <p class="eyebrow">低分到满分</p>
+        <h2>六年级拔尖要训练满分答案</h2>
+      </div>
+      <div class="content-grid">
+        <article class="study-block">
+          <h3>满分答案五要素</h3>
+          <div class="routine">
+            <p><strong>① 审题准：</strong>先判断题型，不答偏、不漏问。</p>
+            <p><strong>② 结论明：</strong>第一句话直接回答问题。</p>
+            <p><strong>③ 依据实：</strong>引用原文关键词、情节、数据或材料信息。</p>
+            <p><strong>④ 分析透：</strong>解释依据如何证明结论。</p>
+            <p><strong>⑤ 表达清：</strong>必要时分点，句子完整，术语准确。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h3>满分检查口诀</h3>
+          <div class="routine">
+            <p><strong>有没有直接回答？</strong>避免绕圈子。</p>
+            <p><strong>有没有原文依据？</strong>避免凭感觉。</p>
+            <p><strong>有没有解释依据？</strong>避免只摘抄。</p>
+            <p><strong>有没有扣住中心？</strong>避免空泛套话。</p>
+          </div>
+        </article>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>共用阅读材料：《雪地里的背影》</h2>
+          <p>那年冬天，父亲送我去车站。雪下得很大，风吹在脸上像小刀一样。父亲一手提着行李，一手替我挡着风，鞋子踩进雪里，发出咯吱咯吱的声音。到了车站，他先把我安顿到座位上，又转身去买了两个热包子，塞到我手里，只说：“路上吃，别饿着。”车开动时，我看见父亲站在雪地里向我挥手，雪花落满他的肩头，他却一直望着车窗的方向。那一刻，我忽然觉得父亲的爱不是挂在嘴边的话，而是藏在一次次沉默的行动里。</p>
+        </article>
+        <article class="study-block accent">
+          <h2>答题前先圈证据</h2>
+          <div class="routine">
+            <p><strong>人物行动：</strong>提行李、挡风、安顿座位、买热包子。</p>
+            <p><strong>环境描写：</strong>雪大、风冷、雪花落满肩头。</p>
+            <p><strong>中心句：</strong>父亲的爱不是挂在嘴边的话，而是藏在一次次沉默的行动里。</p>
+          </div>
+        </article>
+      </div>
+      <div class="content-grid" style="margin-top:18px;">
+        <article class="study-block">
+          <h2>共用说明材料</h2>
+          <p>海豚通常用肺呼吸，需要定时浮出水面换气。遇到受伤、幼小或特殊训练的海豚时，它们浮出水面的频率会有所不同。</p>
+          <div class="routine">
+            <p><strong>关键词：</strong>通常。</p>
+            <p><strong>作用：</strong>表示一般情况，不排除特殊情况。</p>
+          </div>
+        </article>
+        <article class="study-block accent">
+          <h2>共用非连续性材料</h2>
+          <div class="routine">
+            <p><strong>材料一：</strong>每天运动 1 小时的学生体质良好比例为 72%，每天运动 30 分钟以内的学生体质良好比例为 48%。</p>
+            <p><strong>材料二：</strong>坚持户外运动有助于增强体质，也能缓解长时间用眼带来的疲劳。</p>
+          </div>
+        </article>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <h2>低分答案 → 满分答案对比</h2>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr><th>题目</th><th>低分答案</th><th>满分答案</th><th>拔尖技巧</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概括中心思想</td><td>文章很感人</td><td>文章通过写父亲冒雪送“我”去车站，并给“我”买热包子的事，表现了父亲对孩子深沉、含蓄的爱。</td><td>内容 + 人物情感 + 中心</td></tr>
+              <tr><td>人物形象</td><td>父亲很好</td><td>父亲是一个关爱孩子、默默付出的人。从他冒雪送“我”、给“我”买热包子这些细节可以看出，他把对孩子的爱藏在行动里。</td><td>特点 + 细节依据 + 分析</td></tr>
+              <tr><td>环境描写作用</td><td>写了下雪</td><td>这里写雪大、风冷，交代了寒冷恶劣的环境，烘托出父亲送行的辛苦，也进一步突出父爱的深沉。</td><td>环境特点 + 人物处境 + 中心</td></tr>
+              <tr><td>句中“通常”能否删去</td><td>不能，不准确</td><td>不能删。“通常”表示一般情况，不排除特殊情况；删去后变成所有海豚都按同一种情况呼吸，与材料中“频率会有所不同”不符，体现了说明文语言的准确、严谨。</td><td>词义 + 删后变化 + 文体特点</td></tr>
+              <tr><td>根据材料给运动建议</td><td>多运动好</td><td>根据材料一，每天运动 1 小时的学生体质良好比例为 72%，高于每天运动 30 分钟以内的 48%；材料二也说明户外运动有助于增强体质。因此，建议学生每天坚持 1 小时左右的户外运动。</td><td>材料依据 + 结论 + 建议</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    <section class="section teacher-note">
+      <div class="section-title">
+        <p class="eyebrow">特级教师拔尖提优</p>
+        <h2>六年级从"能力达标"冲刺到"衔接中学、综合运用"</h2>
+        <p style="color: #666;">六年级拔尖要训练四层表达、非连续性文本和作文升格能力，为小升初和中学语文做好衔接。</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-card">
+          <h3>1. 阅读要答出"四层法"</h3>
+          <p>六年级阅读不能只写"从文中可以看出"，要形成「结论→原文依据→具体分析→情感/中心」的四层表达。</p>
+          <p>拔尖训练：每道分析题至少写三层。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>2. 非连续性文本是拿分关键</h3>
+          <p>小升初常考图表题，很多孩子因为"不习惯这种阅读方式"而丢分。</p>
+          <p>拔尖训练：每周做2道非连续性文本题，限时完成。</p>
+        </article>
+        <article class="teacher-card">
+          <h3>3. 作文要从"写清楚"到"写精彩"</h3>
+          <p>六年级作文不能只有六要素完整，还要有细节描写和心理变化。</p>
+          <p>拔尖训练：同一题目写两个结尾，一个普通版、一个升格版。</p>
+        </article>
+      </div>
+    </section>
+
+    
+
+
   </main>
-  <nav class="mobile-bottom-nav" aria-label="手机底部导航">
-    <div class="mobile-bottom-nav-inner">
-      <a href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></svg>
-        首页
-      </a>
-      <a href="practice.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l2 2 4-5"/><path d="M5 4h14v16H5z"/></svg>
-        练习
-      </a>
-      <a href="agent.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v18"/><path d="M5 10h14"/><path d="M6 17h12"/></svg>
-        AI
-      </a>
-      <a href="knowledge-map.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3h8v8"/><path d="M21 3l-7 7"/><path d="M12 21H4v-8"/><path d="M3 21l7-7"/></svg>
-        知识
-      </a>
-    </div>
-  </nav>
-
-
-  <script defer src="nav.js?v=115"></script>
-  <script defer src="table-responsive.js?v=115"></script>
-  <script defer src="data/data-loader-core.js?v=115"></script>
-  <script defer src="data/grade-page-renderer.js?v=115"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.DataLib) {
-                    // 数据驱动渲染：年级元数据模块
-          DataLib.renderGradeHero('6', document.getElementById('grade6-hero'));
-          DataLib.renderGradeMistakes('6', document.getElementById('grade6-mistakes'));
-          DataLib.renderGradeCurriculum('6', document.getElementById('grade6-curriculum'));
-          DataLib.renderGradeUnitMatrix('6', document.getElementById('grade6-unit-matrix'));
-          DataLib.renderGradeLoop('6', document.getElementById('grade6-loop'));
-          DataLib.renderGrammarByGrade('grade6', document.getElementById('grade6-grammar-ref'));
-          DataLib.renderCommonMistakes(document.getElementById('grade6-mistakes-ref'), '6');
-        }
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 学习目标进度追踪
-      const checkboxes = document.querySelectorAll('.goal-checkbox');
-      const progressRing = document.getElementById('progress-ring');
-      const progressPercent = document.getElementById('progress-percent');
-      const completedCount = document.getElementById('completed-count');
-      const totalGoals = checkboxes.length;
-      
-      // 从 localStorage 读取保存的进度
-      function loadProgress() {
-        const saved = localStorage.getItem('grade6-progress');
-        if (saved) {
-          const progress = JSON.parse(saved);
-          checkboxes.forEach(checkbox => {
-            const goalId = checkbox.getAttribute('data-goal');
-            if (progress[goalId]) {
-              checkbox.checked = true;
-            }
-          });
-        }
-        updateProgress();
-      }
-      
-      // 保存进度到 localStorage
-      function saveProgress() {
-        const progress = {};
-        checkboxes.forEach(checkbox => {
-          const goalId = checkbox.getAttribute('data-goal');
-          progress[goalId] = checkbox.checked;
-        });
-        localStorage.setItem('grade6-progress', JSON.stringify(progress));
-      }
-      
-      // 更新进度显示
-      function updateProgress() {
-        const checkedCount = document.querySelectorAll('.goal-checkbox:checked').length;
-        const percent = Math.round((checkedCount / totalGoals) * 100);
-        
-        // 更新圆环进度
-        const circumference = 2 * Math.PI * 45;
-        const offset = circumference - (percent / 100) * circumference;
-        progressRing.style.strokeDashoffset = offset;
-        
-        // 更新文字
-        progressPercent.textContent = percent + '%';
-        completedCount.textContent = checkedCount;
-        
-        // 完成时显示庆祝效果
-        if (percent === 100) {
-          showCompletionAnimation();
-        }
-      }
-      
-      // 显示完成动画
-      function showCompletionAnimation() {
-        const celebration = document.createElement('div');
-        celebration.innerHTML = '🎉';
-        celebration.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:1000;animation:celebrate 1s ease-out forwards;';
-        document.body.appendChild(celebration);
-        setTimeout(() => celebration.remove(), 1000);
-      }
-      
-      // 绑定事件
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          saveProgress();
-          updateProgress();
-        });
-      });
-      
-      // 初始化
-      loadProgress();
-      
-      // 如果没有保存的进度，随机选中必学目标作为默认
-      const hasProgress = localStorage.getItem('grade6-progress');
-      if (!hasProgress) {
-        // 默认选中前两个必学目标作为起点
-        const defaultGoals = ['1', '2', '4'];
-        defaultGoals.forEach(goalId => {
-          const checkbox = document.querySelector(`[data-goal="${goalId}"]`);
-          if (checkbox) {
-            checkbox.checked = true;
-          }
-        });
-        saveProgress();
-        updateProgress();
-      }
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const tocLinks = document.querySelectorAll('.toc-link');
-      const tocToggle = document.getElementById('toc-toggle');
-      const tocSidebar = document.getElementById('toc-sidebar');
-      
-      // 创建浮动按钮
-      const floatBtn = document.createElement('button');
-      floatBtn.className = 'toc-float-btn';
-      floatBtn.textContent = '目录';
-      floatBtn.onclick = function() {
-        tocSidebar.classList.toggle('visible');
-      };
-      document.body.appendChild(floatBtn);
-      
-      // 点击目录链接平滑滚动
-      tocLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 100;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
-            
-            // 移动端点击后隐藏侧边栏
-            tocSidebar.classList.remove('visible');
-          }
-        });
-      });
-      
-      // 点击收起按钮
-      tocToggle.addEventListener('click', function() {
-        tocSidebar.classList.remove('visible');
-      });
-      
-      // 滚动时高亮当前目录项
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            tocLinks.forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + id) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      }, {
-        rootMargin: '-100px 0px -50% 0px',
-        threshold: 0.1
-      });
-      
-      // 观察所有section
-      const sections = document.querySelectorAll('section[id^="section-"]');
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-    });
-  </script>
-  <script>
-    let quizScore = 0;
-    let currentQuestion = 1;
-    const totalQuestions = 5;
-    
-    const answers = {
-      1: {
-        score: 5,
-        keywords: ['认真负责', '默默做事', '主动捡起', '值日', '不图表扬'],
-        feedback: '回答得很好！小然确实是一个认真负责、默默做事的人。',
-        correctAnswer: '小然是认真负责、默默做事的人。从他主动捡起水沟里的纸团，没被表扬也继续值日可以看出。',
-        tips: '答题技巧：要结合文章中的具体事例来分析人物特点，不能只说"他很好"。'
-      },
-      2: {
-        score: 4,
-        keywords: ['责任感', '不是为了表扬', '品质', '不图名利'],
-        feedback: '太棒了！这句话确实体现了小然的责任感。',
-        correctAnswer: '表现小然做事不是为了被表扬，而是有责任感，能突出人物品质。',
-        tips: '答题技巧：分析句子作用时，要联系上下文和人物性格。'
-      },
-      3: {
-        score: 4,
-        keywords: ['阅读', '30分钟', '坚持', '每天', '数据'],
-        feedback: '正确！你的建议很有依据。',
-        correctAnswer: '建议同学每天坚持阅读30分钟以上，因为材料显示这类学生作文按时完成比例更高。',
-        tips: '答题技巧：提建议时要结合材料中的数据，不能只凭常识空说。'
-      },
-      4: {
-        score: 4,
-        keywords: ['阅读频率', '作文', '有关', '比例', '稳定'],
-        feedback: '分析得很准确！',
-        correctAnswer: '阅读频率和作文完成情况有关，阅读时间越稳定，作文按时完成比例越高。',
-        tips: '答题技巧：要对数据进行比较分析，不能只抄一个数字。'
-      },
-      5: {
-        score: 5,
-        keywords: ['题眼', '中心', '详写', '做对了', '心理'],
-        feedback: '审题很到位！',
-        correctAnswer: '题眼：这一次、做对了。中心：从犹豫到主动承担。详写：关键选择和心理变化。',
-        tips: '答题技巧：审题要抓住题眼，明确中心和详写内容。'
-      }
-    };
-    
-    function checkAnswer(questionNum) {
-      const userAnswer = document.getElementById('answer-' + questionNum).value.trim();
-      const feedbackDiv = document.getElementById('feedback-' + questionNum);
-      const answerData = answers[questionNum];
-      
-      if (!userAnswer) {
-        feedbackDiv.innerHTML = '<h4>⚠️ 请先输入答案</h4><p>请在答题框中输入你的答案后再提交。</p>';
-        feedbackDiv.className = 'feedback feedback-info';
-        return;
-      }
-      
-      let isCorrect = false;
-      let matchedKeywords = [];
-      
-      for (const keyword of answerData.keywords) {
-        if (userAnswer.includes(keyword)) {
-          matchedKeywords.push(keyword);
-        }
-      }
-      
-      if (matchedKeywords.length >= 2) {
-        isCorrect = true;
-        quizScore += answerData.score;
-      }
-      
-      updateScore();
-      updateProgress();
-      
-      if (isCorrect) {
-        feedbackDiv.innerHTML = '<h4>✅ 回答正确！+' + answerData.score + '分</h4>' +
-                               '<p>' + answerData.feedback + '</p>' +
-                               '<div class="tips">💡 ' + answerData.tips + '</div>';
-        feedbackDiv.className = 'feedback correct';
-      } else {
-        feedbackDiv.innerHTML = '<h4>❌ 还需努力</h4>' +
-                               '<p>你的答案：' + userAnswer + '</p>' +
-                               '<div class="correct-answer"><strong>参考答案：</strong>' + answerData.correctAnswer + '</div>' +
-                               '<div class="tips">💡 ' + answerData.tips + '</div>';
-        feedbackDiv.className = 'feedback incorrect';
-      }
-      
-      setTimeout(() => {
-        if (questionNum < totalQuestions) {
-          document.getElementById('quiz-' + questionNum).style.display = 'none';
-          document.getElementById('quiz-' + (questionNum + 1)).style.display = 'block';
-          currentQuestion = questionNum + 1;
-        } else {
-          showResult();
-        }
-      }, 2000);
-    }
-    
-    function updateScore() {
-      document.getElementById('quiz-score').querySelector('.score-value').textContent = quizScore;
-    }
-    
-    function updateProgress() {
-      const progress = (currentQuestion / totalQuestions) * 100;
-      document.getElementById('quiz-progress').style.width = progress + '%';
-      document.getElementById('quiz-count').textContent = currentQuestion + '/' + totalQuestions;
-    }
-    
-    function showResult() {
-      document.getElementById('quiz-5').style.display = 'none';
-      document.getElementById('quiz-result').style.display = 'block';
-      document.getElementById('final-score').textContent = quizScore;
-      
-      let comment = '';
-      if (quizScore >= 18) {
-        comment = '🌟 太棒了！你已经具备小升初综合题基础，可以直接进入限时卷和满分答案复盘。';
-      } else if (quizScore >= 13) {
-        comment = '👍 不错！你能做题，但分层和依据不足，建议补句段作用、非连续文本和作文审题。';
-      } else {
-        comment = '💪 加油！你的题型判断、材料引用还不稳，建议先练题干拆解，再做短文概括和材料定位。';
-      }
-      document.getElementById('result-comment').textContent = comment;
-    }
-    
-    function restartQuiz() {
-      quizScore = 0;
-      currentQuestion = 1;
-      updateScore();
-      updateProgress();
-      
-      for (let i = 1; i <= totalQuestions; i++) {
-        document.getElementById('quiz-' + i).style.display = 'none';
-        document.getElementById('answer-' + i).value = '';
-        document.getElementById('feedback-' + i).className = 'feedback';
-      }
-      
-      document.getElementById('quiz-result').style.display = 'none';
-      document.getElementById('quiz-1').style.display = 'block';
-    }
-  </script>
-<script defer src="data/grade-stage-assessment.js?v=115"></script>
-<script defer src="data/jump-manager.js"></script>
+  <script src="nav.js"></script>
+  <script src="table-responsive.js"></script>
 </body>
 </html>
