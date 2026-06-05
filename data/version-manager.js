@@ -80,7 +80,7 @@
           return;
         }
 
-        navigator.serviceWorker.register('/service-worker.js').then((reg) => {
+        navigator.serviceWorker.register('service-worker.js').then((reg) => {
           if (reg.waiting) {
             resolve(true);
             return;

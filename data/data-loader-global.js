@@ -122,6 +122,21 @@
     var opts = options || {};
     var filterType = opts.type || null;
     var filterGrade = opts.grade || null;
+
+    if (
+      typeof window !== 'undefined' &&
+      window.SearchEngine &&
+      typeof window.SearchEngine.searchIndexData === 'function'
+    ) {
+      return loadData('search-index').then(function(index) {
+        if (!index || !index.items) return [];
+        return window.SearchEngine.searchIndexData(index.items, keyword, {
+          type: filterType,
+          grade: filterGrade
+        });
+      });
+    }
+
     var typeKeywords = {
       grammar: '语法 知识',
       vocabulary: '词汇 词语',
