@@ -1,4 +1,55 @@
 var VIEW_MODE_STORAGE = 'diandianViewMode';
+var GRADE_LINKS = [
+  { href: 'grade1.html', label: '一年级' },
+  { href: 'grade2.html', label: '二年级' },
+  { href: 'grade3.html', label: '三年级' },
+  { href: 'grade4.html', label: '四年级' },
+  { href: 'grade5.html', label: '五年级' },
+  { href: 'grade6.html', label: '六年级' }
+];
+var BASIC_TOPIC_LINKS = [
+  { href: 'knowledge-map.html', label: '知识地图' },
+  { href: 'composition.html', label: '作文专题' },
+  { href: 'pinyin.html', label: '拼音学习' },
+  { href: 'grammar.html', label: '语法知识' },
+  { href: 'vocabulary.html', label: '词语学习' },
+  { href: 'extra-topics.html', label: '易漏专题' }
+];
+var READING_TOPIC_LINKS = [
+  { href: 'literary.html', label: '文学常识' },
+  { href: 'modern-poetry.html', label: '现代诗' },
+  { href: 'classical-reading.html', label: '古诗文阅读' },
+  { href: 'narrative-reading.html', label: '记叙文阅读' },
+  { href: 'expository-reading.html', label: '说明文阅读' },
+  { href: 'non-continuous-text.html', label: '非连续性文本' },
+  { href: 'book-reading.html', label: '整本书阅读' }
+];
+var EXPRESSION_TOPIC_LINKS = [
+  { href: 'oral-communication.html', label: '口语交际' },
+  { href: 'application-writing.html', label: '应用文' },
+  { href: 'integrated-learning.html', label: '综合性学习' }
+];
+var TOOL_LINKS = [
+  { href: 'practice.html', label: '练习计划' },
+  { href: 'search.html', label: '资料搜索' },
+  { href: 'report.html', label: '学习周报' },
+  { href: 'advanced.html', label: '尖子生拓展' }
+];
+var EXTRA_LINKS = [
+  { href: 'mobile-agent-preview.html', label: 'Agent 预览' },
+  { href: 'admin.html', label: '内容后台' }
+];
+var GRADE_PAGES = getPageHrefs(GRADE_LINKS);
+var BASIC_TOPIC_PAGES = getPageHrefs(BASIC_TOPIC_LINKS);
+var READING_TOPIC_PAGES = getPageHrefs(READING_TOPIC_LINKS);
+var EXPRESSION_TOPIC_PAGES = getPageHrefs(EXPRESSION_TOPIC_LINKS);
+var TOOL_PAGES = getPageHrefs(TOOL_LINKS);
+var EXTRA_PAGES = getPageHrefs(EXTRA_LINKS);
+var TOPIC_PAGES = GRADE_PAGES
+  .concat(BASIC_TOPIC_PAGES)
+  .concat(READING_TOPIC_PAGES)
+  .concat(EXPRESSION_TOPIC_PAGES)
+  .concat(['advanced.html']);
 
 document.addEventListener('DOMContentLoaded', function () {
   var topbar = document.querySelector('.topbar');
@@ -117,6 +168,22 @@ function getViewMode() {
   return localStorage.getItem(VIEW_MODE_STORAGE) || 'auto';
 }
 
+function getPageHrefs(links) {
+  return links.map(function (link) {
+    return link.href;
+  });
+}
+
+function isCurrentPageIn(list, currentPage) {
+  return list.indexOf(currentPage) !== -1;
+}
+
+function buildNavLinks(links, currentPage) {
+  return links.map(function (link) {
+    return navLink(link.href, link.label, currentPage === link.href);
+  });
+}
+
 function applyViewMode(mode) {
   var nextMode = ['auto', 'mobile', 'desktop'].indexOf(mode) === -1 ? 'auto' : mode;
   document.documentElement.classList.remove('view-auto', 'view-mobile', 'view-desktop');
@@ -144,28 +211,22 @@ function enhanceTopNavigation(topbar) {
   topbar.dataset.enhanced = 'true';
 
   var currentPage = getCurrentPage();
-  var topicsActive = ['composition.html', 'knowledge-map.html', 'pinyin.html', 'grammar.html', 'vocabulary.html'].indexOf(currentPage) !== -1;
-  var gradesActive = ['grade1.html', 'grade2.html', 'grade3.html', 'grade4.html', 'grade5.html', 'grade6.html'].indexOf(currentPage) !== -1;
+  var gradesActive = isCurrentPageIn(GRADE_PAGES, currentPage);
+  var basicTopicsActive = isCurrentPageIn(BASIC_TOPIC_PAGES, currentPage);
+  var readingTopicsActive = isCurrentPageIn(READING_TOPIC_PAGES, currentPage);
+  var expressionTopicsActive = isCurrentPageIn(EXPRESSION_TOPIC_PAGES, currentPage);
+  var toolsActive = isCurrentPageIn(TOOL_PAGES, currentPage);
+  var extrasActive = isCurrentPageIn(EXTRA_PAGES, currentPage);
 
   nav.innerHTML = [
     navLink('index.html', '总览', currentPage === 'index.html'),
-    navGroup('年级切换', gradesActive, [
-      navLink('grade1.html', '一年级', currentPage === 'grade1.html'),
-      navLink('grade2.html', '二年级', currentPage === 'grade2.html'),
-      navLink('grade3.html', '三年级', currentPage === 'grade3.html'),
-      navLink('grade4.html', '四年级', currentPage === 'grade4.html'),
-      navLink('grade5.html', '五年级', currentPage === 'grade5.html'),
-      navLink('grade6.html', '六年级', currentPage === 'grade6.html')
-    ]),
-    navGroup('专题切换', topicsActive, [
-      navLink('composition.html', '作文专题', currentPage === 'composition.html'),
-      navLink('knowledge-map.html', '知识总控', currentPage === 'knowledge-map.html'),
-      navLink('pinyin.html', '拼音学习', currentPage === 'pinyin.html'),
-      navLink('grammar.html', '语法知识', currentPage === 'grammar.html'),
-      navLink('vocabulary.html', '词语学习', currentPage === 'vocabulary.html')
-    ]),
+    navGroup('年级学习', gradesActive, buildNavLinks(GRADE_LINKS, currentPage)),
+    navGroup('基础专题', basicTopicsActive, buildNavLinks(BASIC_TOPIC_LINKS, currentPage)),
+    navGroup('阅读专题', readingTopicsActive, buildNavLinks(READING_TOPIC_LINKS, currentPage)),
+    navGroup('表达综合', expressionTopicsActive, buildNavLinks(EXPRESSION_TOPIC_LINKS, currentPage)),
+    navGroup('学习工具', toolsActive, buildNavLinks(TOOL_LINKS, currentPage)),
+    navGroup('更多页面', extrasActive, buildNavLinks(EXTRA_LINKS, currentPage)),
     navLink('agent.html', 'AI Agent', currentPage === 'agent.html'),
-    navLink('practice.html', '练习计划', currentPage === 'practice.html'),
   ].join('');
 }
 
@@ -276,18 +337,7 @@ function addMobileBottomNav() {
   }
 
   var currentPage = getCurrentPage();
-  var topicPages = [
-    'knowledge-map.html',
-    'pinyin.html',
-    'grammar.html',
-    'vocabulary.html',
-    'grade1.html',
-    'grade2.html',
-    'grade3.html',
-    'grade4.html',
-    'grade5.html',
-    'grade6.html'
-  ];
+  var practicePages = ['practice.html', 'report.html', 'search.html'];
 
   var items = [
     {
@@ -305,13 +355,13 @@ function addMobileBottomNav() {
     {
       href: 'knowledge-map.html',
       label: '专题',
-      active: topicPages.indexOf(currentPage) !== -1 || currentPage === 'composition.html',
+      active: isCurrentPageIn(TOPIC_PAGES, currentPage),
       icon: '<path d="M4 19.5V5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 1-2-1.5z"/>'
     },
     {
       href: 'practice.html',
       label: '练习',
-      active: currentPage === 'practice.html',
+      active: isCurrentPageIn(practicePages, currentPage),
       icon: '<path d="M9 11l2 2 4-5"/><path d="M5 4h14v16H5z"/>'
     }
   ];

@@ -1215,6 +1215,19 @@ function escapeHTML(value) {
   }[ch]));
 }
 
+function hideElement(element) {
+  element?.classList.add('is-hidden');
+}
+
+function showElement(element) {
+  element?.classList.remove('is-hidden');
+}
+
+function toggleElement(element, visible) {
+  if (!element) return;
+  element.classList.toggle('is-hidden', !visible);
+}
+
 // 保存错因
 function saveErrorCategory(wrongIndex, categoryId) {
   const wrongList = getWrongAnswers();
@@ -1350,16 +1363,15 @@ function renderWrongList() {
   const filterDiv = document.getElementById('wrongFilter');
   
   if (wrongList.length === 0) {
-    container.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">暂无错题，继续加油！</p>';
-    analysisDiv.style.display = 'none';
-    filterDiv.style.display = 'none';
+    container.innerHTML = '<p class="empty-state-note">暂无错题，继续加油！</p>';
+    hideElement(analysisDiv);
+    hideElement(filterDiv);
     renderErrorStats();
     return;
   }
   
-  // 显示分析和筛选
-  analysisDiv.style.display = 'block';
-  filterDiv.style.display = 'block';
+  showElement(analysisDiv);
+  showElement(filterDiv);
   
   // 按类型统计错题
   const typeStats = {};
@@ -1373,9 +1385,9 @@ function renderWrongList() {
   let statsHTML = '';
   for (const [type, count] of Object.entries(typeStats)) {
     statsHTML += `
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-        <div style="font-size: 24px; font-weight: bold; color: #667eea;">${count}</div>
-        <div style="font-size: 14px; color: #666;">${type}</div>
+      <div class="wrong-stats-card">
+        <div class="wrong-stats-count">${count}</div>
+        <div class="wrong-stats-name">${type}</div>
       </div>
     `;
   }
@@ -1383,7 +1395,7 @@ function renderWrongList() {
   
   // 生成复习建议
   const suggestionsDiv = document.getElementById('wrongSuggestions');
-  let suggestionsHTML = '<strong>💡 复习建议：</strong><ul style="margin: 10px 0 0 20px;">';
+  let suggestionsHTML = '<strong>💡 复习建议：</strong><ul class="wrong-suggestions-list">';
   for (const [type, count] of Object.entries(typeStats)) {
     if (count >= 3) {
       suggestionsHTML += `<li>你在${type}方面错题较多，建议重点复习这部分内容。</li>`;
@@ -1398,8 +1410,7 @@ function renderWrongList() {
   let filterButtonsHTML = '';
   for (const type of Object.keys(typeStats)) {
     filterButtonsHTML += `
-      <button class="filter-btn" onclick="filterWrong('${type}')" 
-              style="padding: 8px 16px; margin-right: 8px; border: 1px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer;">
+      <button class="filter-btn ${currentFilter === type ? 'active' : ''}" data-filter-type="${escapeHTML(type)}" onclick="filterWrong(this.dataset.filterType, this)">
         ${type}
       </button>
     `;
@@ -1453,7 +1464,7 @@ function renderWrongList() {
       ${answerHTML}
       ${retryHTML}
       <div class="error-category-select">
-        <div style="font-size:12px;color:#888;margin-bottom:6px;">分析错因（点击选择）：</div>
+        <div class="error-category-label">分析错因（点击选择）：</div>
         <div class="error-cat-btns">${categoryOptions}</div>
       </div>
       ${cat ? `
@@ -1470,9 +1481,9 @@ function renderWrongList() {
         </div>
         <p>下次遇到同类题，我先做：${advice}</p>
       </div>` : ''}
-      <div style="margin-top: 10px;">
+      <div class="wrong-item-actions">
         ${item.retryMode ? '' : `<button class="retry-btn" onclick="retryWrong(${realIndex})">再练一次</button>`}
-        <button class="retry-btn" onclick="removeWrong(${realIndex})" style="background: #f44336; margin-left: 10px;">移除</button>
+        <button class="retry-btn remove-btn" onclick="removeWrong(${realIndex})">移除</button>
       </div>
     </div>`;
   }).join('');
@@ -1488,7 +1499,7 @@ function renderErrorStats() {
   if (!container) return;
   
   if (total === 0) {
-    container.innerHTML = '<p style="color:#888;text-align:center;">暂无错因数据，标记错题后会自动生成分析。</p>';
+    container.innerHTML = '<p class="empty-state-subtle">暂无错因数据，标记错题后会自动生成分析。</p>';
     return;
   }
   
@@ -1519,7 +1530,7 @@ function renderErrorStats() {
   if (sorted[0].count > 0) {
     html += `<div class="error-top-advice">
       <strong>🎯 当前最需要改善：</strong> ${sorted[0].icon} ${sorted[0].label}（${sorted[0].count}次）<br>
-      <span style="color:#666;font-size:13px;">${sorted[0].desc}。${sorted[0].id === 'shenti' ? '每次做题先用笔圈出关键词。' : 
+      <span class="error-top-advice-note">${sorted[0].desc}。${sorted[0].id === 'shenti' ? '每次做题先用笔圈出关键词。' : 
         sorted[0].id === 'xinxi' ? '答案必须回原文找依据，找到后划线标记。' :
         sorted[0].id === 'gaikuo' ? '写完后检查：谁+做什么+结果都写了吗？' :
         sorted[0].id === 'biaoda' ? '用①②③分点，每点先写结论。' :
@@ -1531,19 +1542,14 @@ function renderErrorStats() {
 }
 
 // 筛选错题
-function filterWrong(type) {
+function filterWrong(type, trigger) {
   currentFilter = type;
   
-  // 更新按钮状态
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('active');
-    btn.style.background = 'white';
-    btn.style.color = '#667eea';
   });
   
-  event.target.classList.add('active');
-  event.target.style.background = '#667eea';
-  event.target.style.color = 'white';
+  (trigger || event?.target)?.classList?.add('active');
   
   renderWrongList();
 }
@@ -1593,9 +1599,9 @@ function initModeSwitch() {
     btn.addEventListener('click', () => {
       if (btn.dataset.mode) {
         document.querySelectorAll('.sentence-transform, .rhetoric-card, .poem-card, .thinking-card').forEach(el => {
-          el.style.display = 'none';
+          hideElement(el);
         });
-        document.getElementById(btn.dataset.mode + 'Practice').style.display = 'block';
+        showElement(document.getElementById(btn.dataset.mode + 'Practice'));
         document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
@@ -3870,23 +3876,19 @@ function goToPractice() {
 }
 
 // 作文筛选功能
-function filterWriting(grade) {
-  // 更新按钮状态
-  document.querySelectorAll('.grade-filter-btn').forEach(btn => {
-    btn.classList.remove('active');
-    btn.style.background = 'white';
-    btn.style.color = '#667eea';
+function filterWriting(grade, trigger) {
+  const normalizedGrade = Number(grade);
+  window.PracticePageContent?.setActiveWritingGrade?.(normalizedGrade);
+
+  document.querySelectorAll('.grade-filter-btn').forEach((btn) => {
+    btn.classList.toggle('active', Number(btn.dataset.grade) === normalizedGrade);
   });
-  
-  event.target.classList.add('active');
-  event.target.style.background = '#667eea';
-  event.target.style.color = 'white';
-  
-  // 隐藏所有年级内容
-  document.querySelectorAll('.writing-content').forEach(content => {
-    content.style.display = 'none';
+
+  if (trigger && trigger.classList) {
+    trigger.classList.add('active');
+  }
+
+  document.querySelectorAll('.writing-content').forEach((content) => {
+    content.classList.toggle('is-hidden', content.id !== `writing-grade-${normalizedGrade}`);
   });
-  
-  // 显示选中年级内容
-  document.getElementById('writing-grade-' + grade).style.display = 'block';
 }

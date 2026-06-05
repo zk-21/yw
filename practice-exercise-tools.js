@@ -2,8 +2,15 @@
     
 (function(){
       var exerciseAllItems = [];
+      var exerciseFilteredItems = [];
+      var exerciseRenderLimit = 0;
+      var exerciseDetailItemsMap = Object.create(null);
       var exercisesIndexPromise = null;
+      var exerciseSearchRenderTimer = null;
       var selectedExerciseIds = new Set();
+      var EXERCISE_INITIAL_RENDER_COUNT = 24;
+      var EXERCISE_RENDER_STEP = 24;
+      var EXERCISE_SEARCH_DEBOUNCE_MS = 160;
       var exerciseFilters = {
         keyword: '',
         grade: 'all',
@@ -36,12 +43,42 @@
         }
         return 'dev';
       }
+      function isExerciseRecord(item) {
+        return !!item && typeof item === 'object' && !Array.isArray(item) && (
+          item.id !== undefined ||
+          item.题目 ||
+          item.类型 ||
+          item.错因码 ||
+          item.年级
+        );
+      }
+      function getItemsFromArray(value) {
+        if (!Array.isArray(value)) return null;
+        return value.every(isExerciseRecord) ? value : null;
+      }
+      function getItemsFromObjectMap(value) {
+        if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+        var items = Object.keys(value).map(function(key) {
+          return value[key];
+        });
+        return items.every(isExerciseRecord) ? items : null;
+      }
       function getExerciseItems(data) {
         if (!data || typeof data !== 'object') return null;
-        if (Array.isArray(data.items)) return data.items;
+        var directItems = getItemsFromArray(data.items);
+        if (directItems) return directItems;
+        directItems = getItemsFromArray(data.题库);
+        if (directItems) return directItems;
+        directItems = getItemsFromObjectMap(data.题库);
+        if (directItems) return directItems;
         var keys = Object.keys(data);
         for (var i = 0; i < keys.length; i++) {
-          if (Array.isArray(data[keys[i]])) return data[keys[i]];
+          var arrayItems = getItemsFromArray(data[keys[i]]);
+          if (arrayItems) return arrayItems;
+        }
+        for (var j = 0; j < keys.length; j++) {
+          var mappedItems = getItemsFromObjectMap(data[keys[j]]);
+          if (mappedItems) return mappedItems;
         }
         return null;
       }
@@ -54,9 +91,14 @@
         }
         if (typeof window.loadExercisesDataset === 'function') {
           return window.loadExercisesDataset().then(function(data) {
+            var items = window.exercisesDataItems || getExerciseItems(data);
+            if (items) {
+              window.exercisesData = data;
+              window.exercisesDataItems = items;
+            }
             return {
               data: data,
-              items: window.exercisesDataItems || getExerciseItems(data)
+              items: items
             };
           });
         }
@@ -139,24 +181,107 @@
         ].join('');
       }
       function getQualityLevel(item) {
+        if (item && item.__exerciseQualityLevel) return item.__exerciseQualityLevel;
         var analysis = item.解析分级;
-        if (!analysis) return { label: '基础解析', className: 'basic', desc: '只有基础答案或简要解析' };
+        var level;
+        if (!analysis) level = { label: '基础解析', className: 'basic', desc: '只有基础答案或简要解析' };
         var fields = ['标准答案', '解题思路', '低分示例', '满分表达', '家长讲解话术', '复练任务'];
-        var complete = fields.every(function(field) {
-          return String(analysis[field] || '').trim().length > 0;
-        }) && Array.isArray(analysis.易错点) && analysis.易错点.length > 0;
-        if (!complete) return { label: '完整解析', className: 'complete', desc: '核心解析字段已覆盖' };
-        if (item.可打印 && analysis.家长讲解话术 && analysis.复练任务) {
-          return { label: '可打印解析', className: 'printable', desc: '可直接生成线下训练单' };
+        if (!level) {
+          var complete = fields.every(function(field) {
+            return String(analysis[field] || '').trim().length > 0;
+          }) && Array.isArray(analysis.易错点) && analysis.易错点.length > 0;
+          if (!complete) level = { label: '完整解析', className: 'complete', desc: '核心解析字段已覆盖' };
+          else if (item.可打印 && analysis.家长讲解话术 && analysis.复练任务) {
+            level = { label: '可打印解析', className: 'printable', desc: '可直接生成线下训练单' };
+          } else {
+            level = { label: '可教学解析', className: 'teachable', desc: '包含低分对比、满分表达和家长话术' };
+          }
         }
-        return { label: '可教学解析', className: 'teachable', desc: '包含低分对比、满分表达和家长话术' };
+        if (item && typeof item === 'object') {
+          item.__exerciseQualityLevel = level;
+          item.__exerciseQualityKey = level.className;
+        }
+        return level;
       }
       function renderQualityBadge(item) {
         var level = getQualityLevel(item);
         return '<span class="analysis-quality-badge ' + level.className + '" title="' + escapeHTML(level.desc) + '">' + escapeHTML(level.label) + '</span>';
       }
       function getQualityKey(item) {
+        if (item && item.__exerciseQualityKey) return item.__exerciseQualityKey;
         return getQualityLevel(item).className;
+      }
+      function buildExerciseSearchText(item) {
+        var analysis = item.解析分级 || {};
+        return [
+          item.id,
+          item.题目,
+          item.答案,
+          item.解析,
+          item.类型,
+          item.错因码,
+          item.难度,
+          item.年级,
+          item.学期,
+          item.来源,
+          item.预计时间,
+          (item.能力点 || []).join(' '),
+          analysis.标准答案,
+          analysis.解题思路,
+          analysis.低分示例,
+          analysis.错因点评,
+          analysis.满分表达,
+          analysis.家长讲解话术,
+          analysis.复练任务
+        ].join(' ').toLowerCase();
+      }
+      function getExerciseSearchText(item) {
+        if (item && item.__exerciseSearchText) return item.__exerciseSearchText;
+        var text = buildExerciseSearchText(item);
+        if (item && typeof item === 'object') item.__exerciseSearchText = text;
+        return text;
+      }
+      function getExerciseGapTags(item) {
+        if (item && item.__exerciseGapTags) return item.__exerciseGapTags;
+        var tags = getGapTags(item, item.解析分级 || {});
+        if (item && typeof item === 'object') item.__exerciseGapTags = tags;
+        return tags;
+      }
+      function prepareExerciseItem(item) {
+        if (!item || typeof item !== 'object') return item;
+        if (item.__exercisePrepared) return item;
+        item.__exercisePrepared = true;
+        item.__exerciseSearchText = buildExerciseSearchText(item);
+        item.__exerciseNormalizedQuestion = normalizeExerciseQuestion(item.题目);
+        item.__exerciseGapTags = getGapTags(item, item.解析分级 || {});
+        item.__exerciseQualityLevel = getQualityLevel(item);
+        item.__exerciseQualityKey = item.__exerciseQualityLevel.className;
+        return item;
+      }
+      function prepareExerciseItems(items) {
+        return items.map(function(item) {
+          return prepareExerciseItem(item);
+        });
+      }
+      function buildExerciseDetailMap(items) {
+        return items.reduce(function(acc, item) {
+          if (item && item.id !== undefined && item.id !== null) {
+            acc[item.id] = item;
+          }
+          return acc;
+        }, Object.create(null));
+      }
+      function cancelScheduledExerciseRender() {
+        if (!exerciseSearchRenderTimer) return;
+        clearTimeout(exerciseSearchRenderTimer);
+        exerciseSearchRenderTimer = null;
+      }
+      function scheduleExerciseCardsRender() {
+        cancelScheduledExerciseRender();
+        exerciseSearchRenderTimer = setTimeout(function() {
+          exerciseSearchRenderTimer = null;
+          renderExerciseCards();
+        }, EXERCISE_SEARCH_DEBOUNCE_MS);
       }
       function uniqueSorted(items, mapper) {
         return Array.from(new Set(items.map(mapper).filter(function(value) {
@@ -183,20 +308,7 @@
       }
       function matchesFilters(item) {
         var keyword = exerciseFilters.keyword.trim().toLowerCase();
-        var searchable = [
-          item.id,
-          item.题目,
-          item.答案,
-          item.解析,
-          item.类型,
-          item.错因码,
-          item.难度,
-          item.年级,
-          (item.能力点 || []).join(' '),
-          item.解析分级 && item.解析分级.满分表达,
-          item.解析分级 && item.解析分级.家长讲解话术
-        ].join(' ').toLowerCase();
-        if (keyword && searchable.indexOf(keyword) === -1) return false;
+        if (keyword && getExerciseSearchText(item).indexOf(keyword) === -1) return false;
         if (exerciseFilters.grade !== 'all' && String(item.年级) !== exerciseFilters.grade) return false;
         if (exerciseFilters.type !== 'all' && item.类型 !== exerciseFilters.type) return false;
         if (exerciseFilters.error !== 'all' && item.错因码 !== exerciseFilters.error) return false;
@@ -229,7 +341,7 @@
       }
       function getSelectedExerciseItems() {
         return Array.from(selectedExerciseIds).map(function(id) {
-          return window.exerciseDetailItems && window.exerciseDetailItems[id];
+          return exerciseDetailItemsMap[id];
         }).filter(Boolean);
       }
       function setAutoPlanHint(message) {
@@ -267,13 +379,13 @@
       function findExerciseForWrongAnswer(item) {
         if (!item) return null;
         if (item.questionId) {
-          var byId = exerciseAllItems.filter(function(exercise) { return exercise.id === item.questionId; })[0];
+          var byId = exerciseDetailItemsMap[item.questionId];
           if (byId) return byId;
         }
         var normalized = normalizeExerciseQuestion(item.question);
         if (!normalized) return null;
         return exerciseAllItems.filter(function(exercise) {
-          var target = normalizeExerciseQuestion(exercise.题目);
+          var target = exercise.__exerciseNormalizedQuestion || normalizeExerciseQuestion(exercise.题目);
           if (!target) return false;
           var shorter = target.length <= normalized.length ? target : normalized;
           var longer = target.length > normalized.length ? target : normalized;
@@ -493,7 +605,7 @@
           })[0];
           var gapLabels = [];
           representativeItems.forEach(function(item) {
-            getGapTags(item, item.解析分级 || {}).forEach(function(tag) {
+            getExerciseGapTags(item).forEach(function(tag) {
               if (gapLabels.indexOf(tag.label) === -1) gapLabels.push(tag.label);
             });
           });
@@ -535,7 +647,11 @@
             container.innerHTML = '<p style="color:#c62828;text-align:center;padding:20px;grid-column:1/-1;">题库加载失败，请刷新重试。</p>';
             return;
           }
-          exerciseAllItems = items;
+          exerciseAllItems = prepareExerciseItems(items);
+          exerciseDetailItemsMap = buildExerciseDetailMap(exerciseAllItems);
+          window.exerciseDetailItems = exerciseDetailItemsMap;
+          exerciseFilteredItems = [];
+          exerciseRenderLimit = 0;
           setupFilterOptions(exerciseAllItems);
           renderErrorPacks(exerciseAllItems);
           renderExerciseCards();
@@ -543,45 +659,66 @@
           container.innerHTML = '<p style="color:#c62828;text-align:center;padding:20px;grid-column:1/-1;">题库加载失败，请刷新重试。</p>';
         });
       }
-      function renderExerciseCards() {
+      function buildExerciseCardsSummary(totalCount, matchedCount, visibleCount) {
+        var summary = '<div class="quality-summary exercise-results-summary">'
+          + '<strong>训练包题库</strong>'
+          + '<span>当前渲染 ' + visibleCount + ' / ' + matchedCount + ' 题</span>';
+        if (matchedCount !== totalCount) {
+          summary += '<span>筛选命中 ' + matchedCount + ' / ' + totalCount + ' 题</span>';
+        } else {
+          summary += '<span>题库共 ' + totalCount + ' 题</span>';
+        }
+        summary += '<span>勾选后可加入训练包，并批量打印训练单</span></div>';
+        return summary;
+      }
+      function renderExerciseCard(item) {
+        var gapTags = getExerciseGapTags(item);
+        var checked = selectedExerciseIds.has(item.id) ? ' checked' : '';
+        return [
+          '<article class="quality-exercise-card">',
+            '<label class="exercise-select-line"><input type="checkbox" data-select-exercise="' + escapeHTML(item.id) + '"' + checked + '> 加入训练包</label>',
+            '<div class="quality-card-head">',
+              '<span>' + escapeHTML(item.年级) + '年级 · ' + escapeHTML(item.类型) + '</span>',
+              '<span>' + escapeHTML(item.错因码) + ' · ' + escapeHTML(item.难度) + '</span>',
+            '</div>',
+            '<h3>' + escapeHTML(item.题目) + '</h3>',
+            '<div class="analysis-quality-row">' + renderQualityBadge(item) + '</div>',
+            '<div class="quality-tags">',
+              (item.能力点 || []).map(function(tag) { return '<span>' + escapeHTML(tag) + '</span>'; }).join(''),
+            '</div>',
+            '<div class="quality-gap-preview">' + gapTags.map(function(tag) { return '<span>' + escapeHTML(tag.label) + '</span>'; }).join('') + '</div>',
+            '<div class="quality-card-actions">',
+              '<button type="button" class="exercise-detail-btn primary" data-open-exercise="' + escapeHTML(item.id) + '">查看详情</button>',
+              '<button type="button" class="exercise-detail-btn" data-print-exercise="' + escapeHTML(item.id) + '">打印训练单</button>',
+            '</div>',
+          '</article>'
+        ].join('');
+      }
+      function renderExerciseCards(options) {
+        options = options || {};
         var container = document.getElementById('exercises-index-container');
         if (!container) return;
-        var items = exerciseAllItems;
-        window.exerciseDetailItems = items.reduce(function(acc, item) {
-          acc[item.id] = item;
-          return acc;
-        }, {});
-        var filteredItems = items.filter(matchesFilters);
-        var summary = '<div class="quality-summary">'
-          + '<strong>解析质量分级</strong>'
-          + '<span>当前显示 ' + filteredItems.length + ' / ' + items.length + ' 题</span>'
-          + '<span>已选题目可批量打印为“今日训练单”</span>'
-          + '</div>';
-        var html = summary;
-        filteredItems.forEach(function(item) {
-          var gapTags = getGapTags(item, item.解析分级 || {});
-          var checked = selectedExerciseIds.has(item.id) ? ' checked' : '';
-          html += [
-            '<article class="quality-exercise-card">',
-              '<label class="exercise-select-line"><input type="checkbox" data-select-exercise="' + escapeHTML(item.id) + '"' + checked + '> 加入今日训练</label>',
-              '<div class="quality-card-head">',
-                '<span>' + escapeHTML(item.年级) + '年级 · ' + escapeHTML(item.类型) + '</span>',
-                '<span>' + escapeHTML(item.错因码) + ' · ' + escapeHTML(item.难度) + '</span>',
-              '</div>',
-              '<h3>' + escapeHTML(item.题目) + '</h3>',
-              '<div class="analysis-quality-row">' + renderQualityBadge(item) + '</div>',
-              '<div class="quality-tags">',
-                (item.能力点 || []).map(function(tag) { return '<span>' + escapeHTML(tag) + '</span>'; }).join(''),
-              '</div>',
-              '<div class="quality-gap-preview">' + gapTags.map(function(tag) { return '<span>' + escapeHTML(tag.label) + '</span>'; }).join('') + '</div>',
-              '<div class="quality-card-actions">',
-                '<button type="button" class="exercise-detail-btn primary" data-open-exercise="' + escapeHTML(item.id) + '">查看详情</button>',
-                '<button type="button" class="exercise-detail-btn" data-print-exercise="' + escapeHTML(item.id) + '">打印训练单</button>',
-              '</div>',
-            '</article>'
-          ].join('');
-        });
-        container.innerHTML = html + (filteredItems.length ? '' : '<p style="color:#999;text-align:center;grid-column:1/-1;">没有匹配的题目</p>');
+        if (options.preserveFiltered) {
+          if (typeof options.incrementCount === 'number') {
+            exerciseRenderLimit += options.incrementCount;
+          }
+        } else {
+          exerciseFilteredItems = exerciseAllItems.filter(matchesFilters);
+          exerciseRenderLimit = EXERCISE_INITIAL_RENDER_COUNT;
+        }
+        var filteredItems = exerciseFilteredItems;
+        var visibleCount = Math.min(filteredItems.length, exerciseRenderLimit);
+        var remainingCount = Math.max(filteredItems.length - visibleCount, 0);
+        var html = buildExerciseCardsSummary(exerciseAllItems.length, filteredItems.length, visibleCount);
+        if (!filteredItems.length) {
+          html += '<p class="exercise-results-empty">没有匹配的题目</p>';
+        } else {
+          html += filteredItems.slice(0, visibleCount).map(renderExerciseCard).join('');
+          if (remainingCount > 0) {
+            html += '<div class="exercise-results-footer"><button type="button" class="exercise-detail-btn primary exercise-load-more-btn" data-load-more-exercises>加载更多（剩余 ' + remainingCount + ' 题）</button></div>';
+          }
+        }
+        container.innerHTML = html;
         updateSelectedCount();
       }
 
@@ -589,9 +726,12 @@
         var openBtn = event.target.closest('[data-open-exercise]');
         var printBtn = event.target.closest('[data-print-exercise]');
         var printSelectedBtn = event.target.closest('#exercisePrintSelected');
+        var printStudentBtn = event.target.closest('#exercisePrintStudent');
+        var autoPlanBtn = event.target.closest('#exerciseBuildAutoPlan');
         var resetBtn = event.target.closest('#exerciseResetFilters');
         var packFilterBtn = event.target.closest('[data-pack-filter]');
         var printPackBtn = event.target.closest('[data-print-pack]');
+        var loadMoreBtn = event.target.closest('[data-load-more-exercises]');
         var closeBtn = event.target.closest('[data-close-detail], #exerciseDetailClose');
         var modal = document.getElementById('exerciseDetailModal');
         if (openBtn && window.exerciseDetailItems) {
@@ -599,12 +739,19 @@
         } else if (printBtn && window.exerciseDetailItems) {
           printExerciseSheet(window.exerciseDetailItems[printBtn.getAttribute('data-print-exercise')]);
         } else if (printSelectedBtn) {
-          printExerciseBatch(Array.from(selectedExerciseIds).map(function(id) { return window.exerciseDetailItems[id]; }).filter(Boolean), '今日训练单');
+          printExerciseBatch(Array.from(selectedExerciseIds).map(function(id) { return window.exerciseDetailItems[id]; }).filter(Boolean), '已选训练包');
+        } else if (printStudentBtn) {
+          printExerciseBatch(Array.from(selectedExerciseIds).map(function(id) { return window.exerciseDetailItems[id]; }).filter(Boolean), '已选训练包', 'student');
+        } else if (autoPlanBtn) {
+          cancelScheduledExerciseRender();
+          buildAutoTrainingPlan();
         } else if (resetBtn) {
+          cancelScheduledExerciseRender();
           exerciseFilters = { keyword: '', grade: 'all', type: 'all', error: 'all', quality: 'all', printable: 'all' };
           syncFilterControls();
           renderExerciseCards();
         } else if (packFilterBtn) {
+          cancelScheduledExerciseRender();
           var code = packFilterBtn.getAttribute('data-pack-filter');
           exerciseFilters = { keyword: '', grade: 'all', type: 'all', error: code, quality: 'all', printable: 'all' };
           syncFilterControls();
@@ -616,6 +763,9 @@
           var packItems = exerciseAllItems.filter(function(item) { return item.错因码 === packCode; });
           var packTitle = errorPackMeta[packCode] ? errorPackMeta[packCode].title : packCode;
           printExerciseBatch(packItems, packTitle + ' 专题训练包');
+        } else if (loadMoreBtn) {
+          cancelScheduledExerciseRender();
+          renderExerciseCards({ preserveFiltered: true, incrementCount: EXERCISE_RENDER_STEP });
         } else if (closeBtn || (modal && event.target === modal)) {
           closeExerciseDetail();
         }
@@ -636,12 +786,13 @@
         else if (id === 'exerciseQualityFilter') exerciseFilters.quality = event.target.value;
         else if (id === 'exercisePrintableFilter') exerciseFilters.printable = event.target.value;
         else return;
+        cancelScheduledExerciseRender();
         renderExerciseCards();
       });
       document.addEventListener('input', function(event) {
         if (event.target.id !== 'exerciseSearchInput') return;
         exerciseFilters.keyword = event.target.value;
-        renderExerciseCards();
+        scheduleExerciseCardsRender();
       });
       document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') closeExerciseDetail();

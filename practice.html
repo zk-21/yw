@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -9,1041 +9,8 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">  <title>语文练习计划 - 互动学习版</title>
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=76">
-  <style>
-    /* 互动练习区域样式 */
-    .interactive-practice {
-      padding: 40px 5vw;
-      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-      color: white;
-    }
-    .interactive-practice h2 {
-      color: white;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .practice-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* 句子改写 */
-    .sentence-transform {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .sentence-question {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 20px;
-      padding: 15px;
-      background: #f0f9ff;
-      border-radius: 10px;
-    }
-    .sentence-question strong {
-      color: #11998e;
-    }
-    .transform-options {
-      display: grid;
-      gap: 12px;
-    }
-    .transform-btn {
-      padding: 15px 20px;
-      background: white;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 16px;
-    }
-    .transform-btn:hover {
-      border-color: #11998e;
-      background: #f0fff4;
-    }
-    .transform-btn.selected {
-      border-color: #11998e;
-      background: #11998e;
-      color: white;
-    }
-    .transform-btn.correct {
-      border-color: #4caf50;
-      background: #4caf50;
-      color: white;
-    }
-    .transform-btn.wrong {
-      border-color: #f44336;
-      background: #f44336;
-      color: white;
-    }
-    
-    /* 修辞判断 */
-    .rhetoric-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .rhetoric-sentence {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 25px;
-      line-height: 1.8;
-      padding: 20px;
-      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-      border-radius: 15px;
-      border-left: 5px solid #11998e;
-    }
-    .rhetoric-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-    .rhetoric-btn {
-      padding: 12px 25px;
-      border: 2px solid #e0e0e0;
-      border-radius: 25px;
-      background: white;
-      cursor: pointer;
-      font-size: 16px;
-      transition: all 0.3s;
-    }
-    .rhetoric-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .rhetoric-btn.correct {
-      border-color: #4caf50;
-      background: #4caf50;
-      color: white;
-    }
-    
-    /* 古诗填空 */
-    .poem-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .poem-title {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-    .poem-text {
-      font-size: 20px;
-      color: #555;
-      line-height: 2;
-      margin-bottom: 25px;
-    }
-    .poem-text input {
-      padding: 8px 15px;
-      border: 2px solid #11998e;
-      border-radius: 8px;
-      font-size: 18px;
-      text-align: center;
-      min-width: 120px;
-    }
-    .poem-text input:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.3);
-    }
-    
-    /* 进度追踪 */
-    .progress-tracker {
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .progress-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .progress-row:last-child {
-      border-bottom: none;
-    }
-    .progress-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    .progress-icon.completed {
-      background: linear-gradient(135deg, #11998e, #38ef7d);
-      color: white;
-    }
-    .progress-icon.current {
-      background: linear-gradient(135deg, #f093fb, #f5576c);
-      color: white;
-      animation: pulse 2s infinite;
-    }
-    .progress-icon.pending {
-      background: #e0e0e0;
-      color: #999;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-    .progress-info h4 {
-      margin: 0 0 5px 0;
-      color: #333;
-    }
-    .progress-info p {
-      margin: 0;
-      color: #666;
-      font-size: 14px;
-    }
-    .progress-check {
-      margin-left: auto;
-      font-size: 24px;
-    }
-    
-    /* 错题本样式 */
-    .wrong-notebook {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .wrong-notebook h3 {
-      color: #333;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .wrong-item {
-      background: #fff5f5;
-      border-left: 4px solid #f44336;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 0 10px 10px 0;
-    }
-    .wrong-item:last-child {
-      margin-bottom: 0;
-    }
-    .wrong-question {
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .wrong-answer {
-      color: #f44336;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-    .correct-answer {
-      color: #4caf50;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-    .wrong-tip {
-      color: #666;
-      font-size: 13px;
-      font-style: italic;
-    }
-    .retry-btn {
-      background: #667eea;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    .retry-btn:hover {
-      background: #5a6fd6;
-    }
-    .clear-wrong-btn {
-      background: #f44336;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      float: right;
-      font-size: 14px;
-    }
-    .clear-wrong-btn:hover {
-      background: #d32f2f;
-    }
-
-    /* 错因分类UI */
-    .error-category-select {
-      margin-top: 12px;
-      padding: 12px;
-      background: #f8f9fa;
-      border-radius: 8px;
-    }
-    .error-cat-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .error-cat-btn {
-      padding: 4px 10px;
-      border: 1px solid #ddd;
-      border-radius: 14px;
-      background: white;
-      cursor: pointer;
-      font-size: 12px;
-      transition: all 0.2s;
-    }
-    .error-cat-btn:hover {
-      border-color: #667eea;
-      background: #f0f0ff;
-    }
-    .error-cat-btn.active {
-      background: #667eea;
-      color: white;
-      border-color: #667eea;
-    }
-    .review-box {
-      margin-top: 12px;
-      padding: 14px;
-      background: #fff8e1;
-      border-radius: 10px;
-      border-left: 4px solid #ffa000;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-    .review-box p {
-      margin: 4px 0;
-      color: #555;
-    }
-    .review-box strong {
-      color: #333;
-    }
-    .review-field {
-      margin: 10px 0;
-    }
-    .review-field label {
-      display: block;
-      margin-bottom: 5px;
-      color: #555;
-      font-weight: 600;
-    }
-    .review-input {
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 9px 10px;
-      font: inherit;
-      font-size: 13px;
-      color: #333;
-      resize: vertical;
-      background: white;
-    }
-    .review-input:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
-    }
-    .retry-panel {
-      margin: 12px 0;
-      padding: 14px;
-      background: #f6f8ff;
-      border: 1px solid #dce3ff;
-      border-radius: 10px;
-    }
-    .retry-title {
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .retry-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .retry-btn.secondary {
-      background: #6c757d;
-    }
-    .retry-btn.secondary:hover {
-      background: #5a6268;
-    }
-    .answer-reveal {
-      margin-top: 10px;
-      padding: 10px;
-      background: #fff;
-      border-radius: 8px;
-      border-left: 3px solid #4caf50;
-      color: #555;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    /* 错因统计可视化 */
-    .error-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-      margin: 15px 0;
-    }
-    .error-stat-card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      border: 1px solid #eee;
-    }
-    .error-stat-icon {
-      font-size: 28px;
-      margin-bottom: 6px;
-    }
-    .error-stat-count {
-      font-size: 28px;
-      font-weight: bold;
-      color: #333;
-    }
-    .error-stat-label {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 8px;
-    }
-    .error-stat-bar {
-      height: 6px;
-      background: #eee;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-bottom: 4px;
-    }
-    .error-stat-fill {
-      height: 100%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 3px;
-      transition: width 0.5s;
-    }
-    .error-stat-pct {
-      font-size: 14px;
-      font-weight: bold;
-      color: #667eea;
-    }
-    .error-stat-desc {
-      font-size: 11px;
-      color: #999;
-      margin-top: 4px;
-    }
-    .error-top-advice {
-      margin-top: 15px;
-      padding: 16px;
-      background: #e8f5e9;
-      border-radius: 10px;
-      border-left: 4px solid #43a047;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-    
-    /* 每日打卡 */
-    .checkin-section {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .checkin-title {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .checkin-days {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-    .checkin-day {
-      width: 50px;
-      height: 70px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #f5f5f5;
-      transition: all 0.3s;
-    }
-    .checkin-day.checked {
-      background: linear-gradient(135deg, #11998e, #38ef7d);
-      color: white;
-    }
-    .checkin-day.today {
-      border: 3px solid #f5576c;
-    }
-    .checkin-day .day-name {
-      font-size: 12px;
-      color: #999;
-    }
-    .checkin-day.checked .day-name {
-      color: rgba(255,255,255,0.8);
-    }
-    .checkin-day .day-num {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .checkin-btn {
-      padding: 15px 40px;
-      background: linear-gradient(135deg, #11998e, #38ef7d);
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .checkin-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
-    }
-    .checkin-btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* 学习模式切换 */
-    .mode-switch {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-    .mode-btn {
-      padding: 12px 24px;
-      border: 2px solid white;
-      background: transparent;
-      color: white;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: all 0.3s;
-    }
-    .mode-btn:hover, .mode-btn.active {
-      background: white;
-      color: #11998e;
-    }
-
-    /* 反馈动画 */
-    .feedback {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 30px 50px;
-      border-radius: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      animation: feedbackPop 1s forwards;
-      z-index: 1000;
-    }
-    .feedback.correct {
-      background: #4caf50;
-      color: white;
-    }
-    .feedback.wrong {
-      background: #f44336;
-      color: white;
-    }
-    @keyframes feedbackPop {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
-    }
-
-    /* 奖励弹窗 */
-    .reward-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s;
-    }
-    .reward-modal.show {
-      opacity: 1;
-      visibility: visible;
-    }
-    .reward-content {
-      background: white;
-      padding: 40px;
-      border-radius: 25px;
-      text-align: center;
-      max-width: 400px;
-      transform: scale(0.8);
-      transition: transform 0.3s;
-    }
-    .reward-modal.show .reward-content {
-      transform: scale(1);
-    }
-    .reward-icon {
-      font-size: 80px;
-      margin-bottom: 20px;
-    }
-    .reward-title {
-      font-size: 28px;
-      color: #333;
-      margin-bottom: 15px;
-    }
-    .reward-text {
-      color: #666;
-      margin-bottom: 25px;
-    }
-
-    /* 思维进阶 - 分析对比 */
-    .thinking-card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .thinking-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .thinking-badge.upgrade { background: #fff3e0; color: #e65100; }
-    .thinking-badge.compare { background: #e3f2fd; color: #1565c0; }
-    .thinking-badge.analyze { background: #f3e5f5; color: #7b1fa2; }
-    .compare-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 16px 0;
-    }
-    .compare-box {
-      padding: 16px;
-      border-radius: 12px;
-      min-height: 80px;
-    }
-    .compare-box.low {
-      background: #fff5f5;
-      border: 2px solid #ffcdd2;
-    }
-    .compare-box.high {
-      background: #f1f8e9;
-      border: 2px solid #c8e6c9;
-    }
-    .compare-label {
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .compare-label.low { color: #e53935; }
-    .compare-label.high { color: #43a047; }
-    .compare-content {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #333;
-    }
-    .thinking-question {
-      font-size: 17px;
-      font-weight: bold;
-      color: #333;
-      margin: 16px 0;
-      padding: 14px;
-      background: #f7f8fb;
-      border-radius: 10px;
-      border-left: 4px solid #667eea;
-    }
-    .thinking-options {
-      display: grid;
-      gap: 12px;
-    }
-    .thinking-opt {
-      padding: 16px 20px;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 15px;
-      line-height: 1.6;
-      text-align: left;
-    }
-    .thinking-opt:hover {
-      border-color: #667eea;
-      background: #f0f0ff;
-    }
-    .thinking-opt.correct {
-      border-color: #4caf50;
-      background: #4caf50;
-      color: white;
-    }
-    .thinking-opt.wrong {
-      border-color: #f44336;
-      background: #f44336;
-      color: white;
-    }
-    .thinking-explanation {
-      margin-top: 16px;
-      padding: 16px;
-      background: #fff8e1;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #555;
-    }
-    .thinking-explanation strong {
-      color: #333;
-    }
-
-    /* 诊断测评区域样式 */
-    .diagnosis-area {
-      padding: 50px 5vw;
-      background: #f7f8fb;
-    }
-    .diagnosis-container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .diagnosis-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .diagnosis-header h2 {
-      font-size: 32px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .diagnosis-header p {
-      font-size: 16px;
-      color: #666;
-    }
-    .diagnosis-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .intro-card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-    .intro-card h3 {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 15px;
-    }
-    .intro-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .intro-card li {
-      padding: 8px 0;
-      color: #555;
-      font-size: 14px;
-    }
-    .start-diagnosis-btn {
-      grid-column: 1 / -1;
-      padding: 15px 40px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 10px;
-    }
-    .start-diagnosis-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-    }
-    
-    /* 测评题目样式 */
-    .quiz-progress {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .progress-bar {
-      flex: 1;
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transition: width 0.3s ease;
-    }
-    .progress-text {
-      font-size: 14px;
-      color: #666;
-      white-space: nowrap;
-    }
-    .question-card {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      margin-bottom: 25px;
-    }
-    .question-type {
-      display: inline-block;
-      padding: 4px 12px;
-      background: #e3f2fd;
-      color: #667eea;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-    .question-text {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-    .question-options {
-      display: grid;
-      gap: 12px;
-    }
-    .option-btn {
-      padding: 15px 20px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.3s;
-      font-size: 15px;
-      color: #333;
-    }
-    .option-btn:hover {
-      border-color: #667eea;
-      background: #f0f0ff;
-    }
-    .option-btn.selected {
-      border-color: #667eea;
-      background: #667eea;
-      color: white;
-    }
-    .quiz-nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-    }
-    .quiz-btn {
-      padding: 12px 30px;
-      border: 2px solid #667eea;
-      background: white;
-      color: #667eea;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .quiz-btn:hover {
-      background: #f0f0ff;
-    }
-    .quiz-btn.primary {
-      background: #667eea;
-      color: white;
-    }
-    .quiz-btn.primary:hover {
-      background: #5a6fd6;
-    }
-    .quiz-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
-    /* 测评结果样式 */
-    .result-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .result-header h2 {
-      font-size: 28px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .result-summary {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-    .score-card {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-    .score-number {
-      font-size: 48px;
-      font-weight: bold;
-      color: #667eea;
-      margin-bottom: 10px;
-    }
-    .score-label {
-      font-size: 14px;
-      color: #666;
-    }
-    .skill-scores {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-    .skill-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .skill-item:last-child {
-      border-bottom: none;
-    }
-    .skill-name {
-      font-size: 15px;
-      color: #333;
-      font-weight: 500;
-    }
-    .skill-bar {
-      width: 60%;
-      height: 10px;
-      background: #e0e0e0;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .skill-fill {
-      height: 100%;
-      border-radius: 5px;
-      transition: width 0.5s ease;
-    }
-    .skill-fill.good {
-      background: #4caf50;
-    }
-    .skill-fill.medium {
-      background: #ff9800;
-    }
-    .skill-fill.weak {
-      background: #f44336;
-    }
-    .skill-score {
-      font-size: 14px;
-      color: #666;
-      width: 60px;
-      text-align: right;
-    }
-    .suggestions {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-    }
-    .suggestions h3 {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .suggestion-item {
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      border-left: 4px solid #667eea;
-    }
-    .suggestion-item:last-child {
-      margin-bottom: 0;
-    }
-    .suggestion-title {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .suggestion-text {
-      color: #666;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    .result-actions {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-    
-    @media (max-width: 768px) {
-      .diagnosis-intro {
-        grid-template-columns: 1fr;
-      }
-      .result-summary {
-        grid-template-columns: 1fr;
-      }
-      .skill-bar {
-        width: 50%;
-      }
-      .rhetoric-buttons {
-        flex-direction: column;
-      }
-      .rhetoric-btn {
-        width: 100%;
-      }
-      .checkin-days {
-        flex-wrap: wrap;
-      }
-      .compare-row {
-        grid-template-columns: 1fr;
-      }
-      .mode-switch {
-        justify-content: flex-start;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-bottom: 8px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-      }
-      .mode-btn {
-        flex: 0 0 auto;
-        white-space: nowrap;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css?v=77">
+  <link rel="stylesheet" href="practice-page.css?v=78">
 </head>
 <body>
   <header class="topbar">
@@ -1093,7 +60,7 @@
       </div>
       
       <!-- 诊断测评题目 -->
-      <div class="diagnosis-quiz" id="diagnosisQuiz" style="display: none;">
+      <div class="diagnosis-quiz is-hidden" id="diagnosisQuiz">
         <div class="quiz-progress">
           <div class="progress-bar">
             <div class="progress-fill" id="quizProgress" style="width: 0%"></div>
@@ -1104,14 +71,14 @@
         <div class="question-card" id="questionCard"></div>
         
         <div class="quiz-nav">
-          <button class="quiz-btn" id="prevBtn" onclick="prevQuestion()" style="display: none;">上一题</button>
+          <button class="quiz-btn is-hidden" id="prevBtn" onclick="prevQuestion()">上一题</button>
           <button class="quiz-btn primary" id="nextBtn" onclick="nextQuestion()">下一题</button>
-          <button class="quiz-btn primary" id="submitBtn" onclick="submitDiagnosis()" style="display: none;">提交测评</button>
+          <button class="quiz-btn primary is-hidden" id="submitBtn" onclick="submitDiagnosis()">提交测评</button>
         </div>
       </div>
       
       <!-- 诊断结果 -->
-      <div class="diagnosis-result" id="diagnosisResult" style="display: none;">
+      <div class="diagnosis-result is-hidden" id="diagnosisResult">
         <div class="result-header">
           <h2>📊 测评结果分析</h2>
           <p>根据您的答题情况，为您生成以下学习建议</p>
@@ -1137,7 +104,7 @@
 
   <!-- 互动练习区域 -->
   <section class="interactive-practice">
-    <p class="eyebrow" style="color: rgba(255,255,255,0.8); text-align: center;">互动练习</p>
+    <p class="eyebrow interactive-eyebrow">互动练习</p>
     <h2>趣味练习，提升语文能力</h2>
     
     <div class="mode-switch">
@@ -1150,11 +117,11 @@
     </div>
     
     <!-- 难度选择 -->
-    <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px;">
-      <span style="color: rgba(255,255,255,0.8); font-size: 15px;">难度：</span>
-      <button class="mode-btn active" data-level="easy" style="padding: 8px 16px; font-size: 13px;">简单</button>
-      <button class="mode-btn" data-level="medium" style="padding: 8px 16px; font-size: 13px;">中等</button>
-      <button class="mode-btn" data-level="hard" style="padding: 8px 16px; font-size: 13px;">困难</button>
+    <div class="level-toolbar">
+      <span class="level-toolbar-label">难度：</span>
+      <button class="mode-btn level-btn active" data-level="easy">简单</button>
+      <button class="mode-btn level-btn" data-level="medium">中等</button>
+      <button class="mode-btn level-btn" data-level="hard">困难</button>
     </div>
     
     <div class="practice-container" id="practiceArea">
@@ -1167,11 +134,11 @@
         <div class="transform-options" id="transformOptions">
           <!-- 选项由JS生成 -->
         </div>
-        <button class="next-btn" style="margin-top: 20px; width: 100%;" onclick="nextTransform()">下一题</button>
+        <button class="next-btn block-action-btn" onclick="nextTransform()">下一题</button>
       </div>
 
       <!-- 修辞判断 -->
-      <div class="rhetoric-card" id="rhetoricPractice" style="display: none;">
+      <div class="rhetoric-card is-hidden" id="rhetoricPractice">
         <p class="rhetoric-sentence" id="rhetoricSentence">弯弯的月亮像小船。</p>
         <div class="rhetoric-buttons" id="rhetoricOptions">
           <!-- 选项由JS生成 -->
@@ -1179,24 +146,24 @@
       </div>
 
       <!-- 古诗填空 -->
-      <div class="poem-card" id="poemPractice" style="display: none;">
+      <div class="poem-card is-hidden" id="poemPractice">
         <div class="poem-title" id="poemTitle">静夜思</div>
         <div class="poem-text" id="poemText">
           <!-- 古诗由JS生成 -->
         </div>
-        <button class="next-btn" style="margin-top: 20px;" onclick="checkPoem()">检查答案</button>
+        <button class="next-btn inline-action-btn" onclick="checkPoem()">检查答案</button>
       </div>
 
       <!-- 阅读练习 -->
-      <div class="rhetoric-card" id="readingPractice" style="display: none;">
+      <div class="rhetoric-card is-hidden" id="readingPractice">
         <div class="poem-title">短文阅读练习</div>
-        <div class="rhetoric-sentence" style="border-left: none; background: #fff; padding: 10px 20px;">
-          <p style="margin: 0; font-size: 16px; line-height: 1.8;" id="readingText">
+        <div class="rhetoric-sentence reading-passage">
+          <p class="reading-text" id="readingText">
             春天的公园真美啊！柳树发出了嫩绿的新芽，桃花绽开了粉红的笑脸。小河解冻了，哗哗地唱着歌。草地上，小朋友们在放风筝、做游戏，开心极了！
           </p>
         </div>
-        <div style="margin-top: 20px;">
-          <p style="font-size: 18px; color: #333; margin-bottom: 15px;"><strong>问题：</strong><span id="readingQuestion">这段话主要写了什么？</span></p>
+        <div class="reading-question-block">
+          <p class="reading-question"><strong>问题：</strong><span id="readingQuestion">这段话主要写了什么？</span></p>
           <div id="readingOptions" class="transform-options">
             <!-- 选项由JS生成 -->
           </div>
@@ -1204,7 +171,7 @@
       </div>
 
       <!-- 词语选择练习 -->
-      <div class="sentence-transform" id="vocabularyPractice" style="display: none;">
+      <div class="sentence-transform is-hidden" id="vocabularyPractice">
         <div class="sentence-question">
           <strong>题目：</strong><span id="vocabQuestion">选择合适的词语填空</span>
         </div>
@@ -1212,61 +179,61 @@
         <div class="transform-options" id="vocabOptions">
           <!-- 选项由JS生成 -->
         </div>
-        <button class="next-btn" style="margin-top: 20px; width: 100%;" onclick="nextVocab()">下一题</button>
+        <button class="next-btn block-action-btn" onclick="nextVocab()">下一题</button>
       </div>
 
       <!-- 思维进阶练习 -->
-      <div class="thinking-card" id="thinkingPractice" style="display: none;">
-        <div style="margin-bottom: 15px;">
+      <div class="thinking-card is-hidden" id="thinkingPractice">
+        <div class="thinking-badge-row">
           <span class="thinking-badge upgrade" id="thinkingBadge">升格训练</span>
         </div>
         <div id="thinkingContent">
           <!-- 由JS生成 -->
         </div>
-        <div id="thinkingExplanation" class="thinking-explanation" style="display: none;">
+        <div id="thinkingExplanation" class="thinking-explanation is-hidden">
           <!-- 解析内容 -->
         </div>
-        <button class="next-btn" style="margin-top: 20px; width: 100%;" id="thinkingNextBtn" onclick="nextThinking()">下一题</button>
+        <button class="next-btn block-action-btn" id="thinkingNextBtn" onclick="nextThinking()">下一题</button>
       </div>
     </div>
   </section>
 
   <!-- 错题本 -->
-  <section class="section" style="background: #f7f8fb;">
-    <div class="wrong-notebook" style="max-width: 900px; margin: 0 auto;">
+  <section class="section section-soft">
+    <div class="wrong-notebook card-wide">
       <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button></h3>
       
       <!-- 错因统计可视化 -->
-      <div id="errorStatsVisual" style="margin: 15px 0;"></div>
+      <div class="section-gap-y" id="errorStatsVisual"></div>
       
       <!-- 错题分析 -->
-      <div id="wrongAnalysis" style="display: none; background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e0e0e0;">
-        <h4 style="margin-top: 0; color: #667eea;">📊 错题分析</h4>
-        <div id="wrongStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;"></div>
-        <div id="wrongSuggestions" style="padding: 15px; background: #f0f4ff; border-radius: 8px;"></div>
+      <div id="wrongAnalysis" class="wrong-analysis is-hidden">
+        <h4>📊 错题分析</h4>
+        <div id="wrongStats" class="wrong-stats-grid"></div>
+        <div id="wrongSuggestions" class="wrong-suggestions"></div>
       </div>
       
       <!-- 分类筛选 -->
-      <div id="wrongFilter" style="display: none; margin-bottom: 15px;">
-        <span style="margin-right: 10px; color: #666;">分类筛选：</span>
-        <button class="filter-btn active" onclick="filterWrong('all')" style="padding: 8px 16px; margin-right: 8px; border: 1px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer;">全部</button>
-        <div id="filterButtons"></div>
+      <div id="wrongFilter" class="wrong-filter is-hidden">
+        <span class="wrong-filter-label">分类筛选：</span>
+        <button class="filter-btn active" data-filter-type="all" onclick="filterWrong('all', this)">全部</button>
+        <div class="filter-buttons-inline" id="filterButtons"></div>
       </div>
       
       <div id="wrongList">
         <!-- 错题列表由JS生成 -->
-        <p style="color: #666; text-align: center; padding: 20px;">暂无错题，继续加油！</p>
+        <p class="empty-state-note">暂无错题，继续加油！</p>
       </div>
     </div>
   </section>
 
   <!-- 每日打卡 -->
-  <section class="section" style="background: #f7f8fb;">
-    <div class="section-title" style="text-align: center;">
+  <section class="section section-soft">
+    <div class="section-title section-title-center">
       <p class="eyebrow">学习打卡</p>
       <h2>坚持学习，养成好习惯</h2>
     </div>
-    <div class="checkin-section" style="max-width: 600px; margin: 0 auto;">
+    <div class="checkin-section card-compact">
       <div class="checkin-days">
         <div class="checkin-day checked"><span class="day-name">一</span><span class="day-num">1</span></div>
         <div class="checkin-day checked"><span class="day-name">二</span><span class="day-num">2</span></div>
@@ -1281,12 +248,12 @@
   </section>
 
   <!-- 学习进度 -->
-  <section class="section" style="background: white;">
-    <div class="section-title" style="text-align: center;">
+  <section class="section section-white">
+    <div class="section-title section-title-center">
       <p class="eyebrow">学习进度</p>
       <h2>看看今天完成了什么</h2>
     </div>
-    <div class="progress-tracker" style="max-width: 600px; margin: 0 auto;">
+    <div class="progress-tracker card-compact">
       <div class="progress-row">
         <div class="progress-icon completed">&#10004;</div>
         <div class="progress-info">
@@ -1370,7 +337,7 @@
       <div class="section-title">
         <p class="eyebrow">年级长期训练</p>
         <h2>长期计划统一放在这里执行</h2>
-        <p style="color:#666;">年级页负责课堂精讲，练习页负责每日、每周和升年级衔接训练。按孩子当前年级选一行执行即可。</p>
+        <p class="section-note">年级页负责课堂精讲，练习页负责每日、每周和升年级衔接训练。按孩子当前年级选一行执行即可。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -1393,7 +360,7 @@
       <div class="section-title">
         <p class="eyebrow">阶段测评卷</p>
         <h2>月测、期中、期末三类卷：测一段时间后的真实掌握</h2>
-        <p style="color:#666;">特级教师一对一不会只看当天题目对不对，还会看孩子过一段时间后能否稳定迁移。每个年级按“月测看薄弱、期中看综合、期末看拔尖”的顺序执行。</p>
+        <p class="section-note">特级教师一对一不会只看当天题目对不对，还会看孩子过一段时间后能否稳定迁移。每个年级按“月测看薄弱、期中看综合、期末看拔尖”的顺序执行。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -1410,7 +377,7 @@
           </table>
         </div>
       </div>
-      <div class="content-grid" style="margin-top:18px;">
+      <div class="content-grid content-grid-spaced-top">
         <article class="study-block">
           <h2>月测卷样张</h2>
           <div class="routine">
@@ -1437,7 +404,7 @@
       <div class="section-title">
         <p class="eyebrow">错因精讲卡</p>
         <h2>每个错因都按“低分答案 → 错因 → 方法 → 满分答案 → 变式”讲透</h2>
-        <p style="color:#666;">这部分是给孩子真正上课用的，不是计划。每张卡都能直接拿来讲 5-8 分钟，讲完再进训练包做递进题。</p>
+        <p class="section-note">这部分是给孩子真正上课用的，不是计划。每张卡都能直接拿来讲 5-8 分钟，讲完再进训练包做递进题。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -1463,7 +430,7 @@
       <div class="section-title">
         <p class="eyebrow">阅读低分答案库</p>
         <h2>每道题都先给短文，再做低分答案和满分答案对照</h2>
-        <p style="color:#666;">避免“没有文章就讲答案”的问题。孩子必须先读材料，再看低分答案缺了哪一层，最后照标准答案改。</p>
+        <p class="section-note">避免“没有文章就讲答案”的问题。孩子必须先读材料，再看低分答案缺了哪一层，最后照标准答案改。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -1515,7 +482,7 @@
       <div class="section-title">
         <p class="eyebrow">家长一对一话术</p>
         <h2>家长不用讲大道理，只要会追问关键步骤</h2>
-        <p style="color:#666;">家长陪练最怕变成“快点写、再想想”。下面的话术能把孩子拉回题型、依据、方法和迁移。</p>
+        <p class="section-note">家长陪练最怕变成“快点写、再想想”。下面的话术能把孩子拉回题型、依据、方法和迁移。</p>
       </div>
       <div class="teacher-question-grid">
         <article class="teacher-question-card">
@@ -1539,7 +506,7 @@
           <p>你能不能把这题讲给我听，让我这个“大人学生”也听懂？</p>
         </article>
       </div>
-      <div class="table-card" style="margin-top:18px;">
+      <div class="table-card section-stack-top">
         <h2>一对一陪练 12 分钟流程</h2>
         <div class="responsive-table">
           <table>
@@ -1560,7 +527,7 @@
       <div class="section-title">
         <p class="eyebrow">打印训练单</p>
         <h2>线下一对一辅导闭环单：A卷答题、判码、训练、B卷复测、C卷迁移、家长签字</h2>
-        <p style="color:#666;">适合家长打印后陪孩子做：先完成 A 卷，再判错因码，选 1-2 个训练包集中练，用 B 卷复测同类迁移，最后用 C 卷检查混合题能否稳定过关。</p>
+        <p class="section-note">适合家长打印后陪孩子做：先完成 A 卷，再判错因码，选 1-2 个训练包集中练，用 B 卷复测同类迁移，最后用 C 卷检查混合题能否稳定过关。</p>
       </div>
       <div class="print-sheet-actions">
         <button class="flow-action-btn" type="button" onclick="document.body.classList.add('printing-training-sheet'); window.print();">打印本训练单</button>
@@ -1659,7 +626,7 @@
               <p>下次主攻：<span class="blank-line"></span></p>
               <p>家长签字：<span class="blank-line"></span></p>
             </div>
-            <p style="color:#666;margin:0;">复盘句式：我这次错在 <span class="blank-line"></span>，正确方法是 <span class="blank-line"></span>，下次先做 <span class="blank-line"></span>。</p>
+            <p class="section-note-tight">复盘句式：我这次错在 <span class="blank-line"></span>，正确方法是 <span class="blank-line"></span>，下次先做 <span class="blank-line"></span>。</p>
           </article>
           <article class="print-sheet-card wide">
             <h3>拔尖晋级记录</h3>
@@ -1696,7 +663,7 @@
       <div class="section-title">
         <p class="eyebrow">特级教师拔尖层</p>
         <h2>不是多刷题，而是让孩子会解释、会迁移、会反思</h2>
-        <p style="color:#666;">拔尖训练的标准不是“答案对了”，而是孩子能说清方法，换一篇材料还能用，错了能自己定位错因。</p>
+        <p class="section-note">拔尖训练的标准不是“答案对了”，而是孩子能说清方法，换一篇材料还能用，错了能自己定位错因。</p>
       </div>
       <div class="peak-ladder">
         <article class="peak-card">
@@ -1737,7 +704,7 @@
           <p><strong>拔尖答案：</strong>中心先定，重点段服务中心，结尾写变化和认识。</p>
         </article>
       </div>
-      <div class="table-card" style="margin-top:18px;">
+      <div class="table-card section-stack-top">
         <h2>拔尖压轴题组：一题三问，逼近满分边界</h2>
         <div class="responsive-table">
           <table>
@@ -1768,7 +735,7 @@
           </table>
         </div>
       </div>
-      <div class="content-grid" style="margin-top:18px;">
+      <div class="content-grid content-grid-spaced-top">
         <article class="study-block">
           <h2>孩子口头讲题卡</h2>
           <ul class="peak-task-list">
@@ -1798,7 +765,7 @@
       <div class="section-title">
         <p class="eyebrow">拔尖晋级测评</p>
         <h2>从“做对”到“拔尖”的四级晋级标准</h2>
-        <p style="color:#666;">每次训练后用这张表判断孩子处在哪一层。只有能讲方法、能找依据、能改答案、能做变式，才算真正进入拔尖层。</p>
+        <p class="section-note">每次训练后用这张表判断孩子处在哪一层。只有能讲方法、能找依据、能改答案、能做变式，才算真正进入拔尖层。</p>
       </div>
       <div class="promotion-grid">
         <article class="promotion-card">
@@ -1860,7 +827,7 @@
           </table>
         </div>
       </div>
-      <div class="content-grid" style="margin-top:18px;">
+      <div class="content-grid content-grid-spaced-top">
         <article class="study-block">
           <h2>晋级规则</h2>
           <div class="routine">
@@ -1885,9 +852,9 @@
       <div class="section-title">
         <p class="eyebrow">测后分流训练包</p>
         <h2>错因编码对应训练：A卷诊断，点码训练，B卷复测，C1/C2/C3混合迁移</h2>
-        <p style="color:#666;">年级页测完后，不再笼统说“多练”。先看错因编码，点击对应训练包，完成 3 道同类题，再用 B 卷验证同类迁移，最后依次用 C1 基础混合、C2 限时综合、C3 拔尖压轴检查能否换材料、换题型继续做对。</p>
+        <p class="section-note">年级页测完后，不再笼统说“多练”。先看错因编码，点击对应训练包，完成 3 道同类题，再用 B 卷验证同类迁移，最后依次用 C1 基础混合、C2 限时综合、C3 拔尖压轴检查能否换材料、换题型继续做对。</p>
       </div>
-      <div class="content-grid" style="margin-bottom:18px;">
+      <div class="content-grid content-grid-spaced-bottom">
         <article class="study-block">
           <h2>一对一闭环执行卡</h2>
           <div class="routine">
@@ -1909,7 +876,7 @@
           </div>
         </article>
       </div>
-      <div class="content-grid learning-profile-grid" style="margin-bottom:18px;">
+      <div class="content-grid learning-profile-grid content-grid-spaced-bottom">
         <article class="study-block" id="learning-profile-card">
           <h2>学习画像</h2>
           <div class="routine">
@@ -1925,7 +892,7 @@
           <div id="nextLessonPanel"></div>
         </article>
       </div>
-      <div class="table-card" style="margin-bottom:18px;">
+      <div class="table-card section-stack-bottom">
         <h2>按问题直接分流</h2>
         <div class="route-links">
           <a href="#pack-r1">概括照抄</a>
@@ -1939,9 +906,9 @@
           <a href="#pack-b1">字词不稳</a>
         </div>
       </div>
-      <div class="table-card" id="c-paper-materials" style="margin-bottom:18px;">
+      <div class="table-card section-stack-bottom" id="c-paper-materials">
         <h2>C1/C2/C3完整材料、答案解析和扣分细则</h2>
-        <p style="color:#666;margin-top:0;">C卷不是再刷同类题，而是看孩子能不能在混合材料中判断题型、切换方法。做题前先读材料，判卷时按扣分细则回到错因码。</p>
+        <p class="section-note section-description-no-gap">C卷不是再刷同类题，而是看孩子能不能在混合材料中判断题型、切换方法。做题前先读材料，判卷时按扣分细则回到错因码。</p>
         <div class="responsive-table">
           <table>
             <thead><tr><th>卷型</th><th>适用年级</th><th>完整材料</th><th>核心题目</th><th>标准答案/解析</th><th>扣分细则</th></tr></thead>
@@ -1990,7 +957,7 @@
           </table>
         </div>
       </div>
-      <div class="content-grid" style="margin-bottom:18px;">
+      <div class="content-grid content-grid-spaced-bottom">
         <article class="study-block">
           <h2>训练包完成状态</h2>
           <div id="flowStatusPanel"></div>
@@ -2003,7 +970,7 @@
           <div id="abScorePanel"></div>
         </article>
       </div>
-      <div class="table-card" style="margin-bottom:18px;">
+      <div class="table-card section-stack-bottom">
         <h2>错因编码速查</h2>
         <div class="responsive-table">
           <table>
@@ -2022,133 +989,46 @@
           </table>
         </div>
       </div>
-      <div class="content-grid">
-        <article class="study-block" id="pack-b1">
-          <h2>B1 字词拼音训练包</h2>
-          <div class="routine">
-            <p><strong>题1：</strong>拼读 h-uā、l-ǜ、q-ún，并说出声调。</p>
-            <p><strong>题2：</strong>清、晴、睛填空：雨后天空放（ ），小河很（ ），妹妹的眼（ ）亮亮的。</p>
-            <p><strong>题3：</strong>用“书、花、水”各说一句完整话。</p>
-            <p><strong>答案：</strong>huā、lǜ、qún；晴、清、睛；句子要有谁、在哪里、做什么。</p>
+      <div id="flow-pack-library"></div>
+      <div class="table-card section-stack-top">
+        <div class="exercise-pack-panel">
+          <div>
+            <h2>勾选加入训练包</h2>
+            <p class="exercise-pack-intro">这里会汇总训练题库。可以先按年级、题型、错因筛选，再勾选加入训练包，批量打印家长版或学生空白版。</p>
           </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>拼读 j-ǔ、x-üé、n-ǚ</td><td>jǔ、xué、nǚ</td><td>j、x 遇 ü 去两点，n 遇 ü 不去点。</td></tr>
-            <tr><td>提升</td><td>选字：公（园/圆）里有一个（园/圆）形花坛。</td><td>园、圆</td><td>看语境和字义。</td></tr>
-            <tr><td>拔尖</td><td>用“清、晴、睛”各写一句话</td><td>湖水很清。今天很晴朗。她的眼睛亮亮的。</td><td>每句词义准确。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block accent" id="pack-r1">
-          <h2>R1 概括训练包</h2>
-          <div class="routine">
-            <p><strong>材料：</strong>星期天，小雨和爸爸去图书馆借书。她选了一本科普书，还把看完的绘本放回书架。回家后，她把书里的有趣知识讲给妈妈听。</p>
-            <p><strong>题1：</strong>圈人物、事情、结果。</p>
-            <p><strong>题2：</strong>用一句话概括材料。</p>
-            <p><strong>答案：</strong>小雨和爸爸去图书馆借书，小雨整理书架，回家后分享书中知识。</p>
+          <div class="exercise-toolbar">
+            <input class="span-3" id="exerciseSearchInput" type="search" placeholder="搜索题目、答案、错因或能力点">
+            <select class="span-2" id="exerciseGradeFilter">
+              <option value="all">全部年级</option>
+            </select>
+            <select class="span-2" id="exerciseTypeFilter">
+              <option value="all">全部题型</option>
+            </select>
+            <select class="span-2" id="exerciseErrorFilter">
+              <option value="all">全部错因</option>
+            </select>
+            <select class="span-2" id="exerciseQualityFilter">
+              <option value="all">全部解析层级</option>
+            </select>
+            <select class="span-1" id="exercisePrintableFilter">
+              <option value="all">全部打印状态</option>
+              <option value="yes">可打印</option>
+              <option value="no">仅查看</option>
+            </select>
+            <button class="span-2" id="exerciseBuildAutoPlan" type="button">按错因自动组包</button>
+            <button class="span-2" id="exercisePrintSelected" type="button" disabled>打印训练包</button>
+            <button class="span-2 secondary" id="exercisePrintStudent" type="button" disabled>打印学生空白版</button>
+            <button class="span-2 secondary" id="exerciseResetFilters" type="button">重置筛选</button>
+            <div class="exercise-toolbar-meta span-12">
+              <strong id="exerciseSelectedCount">已选 0 题</strong>
+              <span id="exerciseAutoPlanHint" class="exercise-auto-plan-hint"></span>
+            </div>
           </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>圈出“谁、做什么、结果”</td><td>小雨；去图书馆借书、整理书架；分享知识。</td><td>三项都圈到。</td></tr>
-            <tr><td>提升</td><td>删掉次要细节后概括</td><td>小雨去图书馆借书并整理书架，回家分享知识。</td><td>不抄“科普书、绘本”等细节。</td></tr>
-            <tr><td>拔尖</td><td>用 25 字内概括</td><td>小雨借书、整理书架，并分享书中知识。</td><td>短而完整。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block" id="pack-r2">
-          <h2>R2 原文依据训练包</h2>
-          <div class="routine">
-            <p><strong>材料：</strong>雨越来越大，林老师把自己的伞递给没带伞的同学，自己站在屋檐下等雨小一些再走。</p>
-            <p><strong>题1：</strong>林老师是怎样的人？</p>
-            <p><strong>题2：</strong>从哪里看出来？</p>
-            <p><strong>答案：</strong>林老师关心学生、愿意为学生着想。从她把伞递给同学、自己留下等雨小可以看出。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>圈出能证明老师关心学生的动作</td><td>把伞递给同学，自己站在屋檐下等。</td><td>证据必须来自材料。</td></tr>
-            <tr><td>提升</td><td>用“特点 + 依据”回答</td><td>林老师关心学生，从她把伞递给没带伞的同学可以看出。</td><td>特点和依据对应。</td></tr>
-            <tr><td>拔尖</td><td>加一句分析</td><td>这说明她把学生的需要放在自己前面。</td><td>从细节推到品质。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block accent" id="pack-r3">
-          <h2>R3 赏析和说明文训练包</h2>
-          <div class="routine">
-            <p><strong>题1：</strong>“大约 50 米”中的“大约”能删吗？为什么？</p>
-            <p><strong>题2：</strong>赏析“树叶像一只只小船漂在水面上”。</p>
-            <p><strong>答案：</strong>不能删，“大约”表示估计，删后变成完全确定，体现语言准确；比喻把树叶比作小船，写出树叶轻轻漂浮的样子，画面更生动。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>“可能”能删吗？</td><td>不能，表示不确定，删后说法绝对。</td><td>先解释词义。</td></tr>
-            <tr><td>提升</td><td>“约 80%”体现什么？</td><td>体现说明文语言准确、严谨。</td><td>联系数字和限制。</td></tr>
-            <tr><td>拔尖</td><td>赏析“雨点像小鼓点”</td><td>用了比喻，写出雨声清脆、有节奏，画面更生动。</td><td>方法、特点、效果齐全。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block" id="pack-r4">
-          <h2>R4 非连续文本训练包</h2>
-          <div class="routine">
-            <p><strong>材料：</strong>每天阅读 30 分钟以上的学生，作文按时完成率为 78%；每周只阅读 1 次的学生，作文按时完成率为 46%。</p>
-            <p><strong>题1：</strong>比较两组数据。</p>
-            <p><strong>题2：</strong>给同学提一条建议。</p>
-            <p><strong>答案：</strong>每天阅读 30 分钟以上的学生作文按时完成率更高。建议同学每天固定阅读 30 分钟以上，因为材料显示稳定阅读和作文完成情况有关。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>找出最高数据</td><td>每天阅读 30 分钟以上，作文按时完成率 78%。</td><td>数据和对象都写。</td></tr>
-            <tr><td>提升</td><td>比较两组数据</td><td>78% 高于 46%，稳定阅读的学生作文完成情况更好。</td><td>必须比较。</td></tr>
-            <tr><td>拔尖</td><td>写一条建议并说明依据</td><td>建议每天阅读 30 分钟以上，因为材料中这类学生作文按时完成率更高。</td><td>建议有材料支撑。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block accent" id="pack-w1">
-          <h2>W1 写话和观察训练包</h2>
-          <div class="routine">
-            <p><strong>低分句：</strong>小鸟飞来了。</p>
-            <p><strong>升格：</strong>清晨，一只黄色的小鸟扑扇着翅膀，轻轻飞到窗台上，叽叽喳喳地叫着。</p>
-            <p><strong>二次练习：</strong>把“小狗跑来了”扩成 3 句，再补一句心情。</p>
-            <p><strong>检查：</strong>是否有样子、动作、声音或心情。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>把“小狗跑来了”补成一句具体话</td><td>一只黄色的小狗摇着尾巴跑来了。</td><td>补样子和动作。</td></tr>
-            <tr><td>提升</td><td>扩成 3 句话</td><td>一只黄色的小狗摇着尾巴跑来了。它围着我转了一圈。我的心里高兴极了。</td><td>动作连续。</td></tr>
-            <tr><td>拔尖</td><td>写观察变化：花苞开了</td><td>早上，花苞还是紧紧合着。中午，花瓣慢慢展开，露出嫩黄的花心。我惊喜地凑近看了又看。</td><td>有时间、变化、感受。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block" id="pack-w2">
-          <h2>W2 重点段升格训练包</h2>
-          <div class="routine">
-            <p><strong>低分段：</strong>我参加比赛，很紧张。后来我成功了，很开心。</p>
-            <p><strong>升格：</strong>轮到我上场时，我的手紧紧抓着号码牌，耳边的加油声忽远忽近。发令枪一响，我咬紧牙关冲了出去。冲过终点那一刻，我忽然明白，勇敢就是害怕时也往前一步。</p>
-            <p><strong>二次练习：</strong>把“第一次上台”写出害怕到开口的变化。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>给“我很紧张”补动作</td><td>我攥着衣角，手心里全是汗。</td><td>不用空泛心情词。</td></tr>
-            <tr><td>提升</td><td>写“害怕到开口”的变化</td><td>我低头盯着稿纸，声音卡在喉咙里。听见老师鼓励，我深吸一口气，说出了第一句话。</td><td>有前后变化。</td></tr>
-            <tr><td>拔尖</td><td>给重点段补中心句</td><td>那一刻我明白，勇敢不是不害怕，而是害怕时仍愿意尝试。</td><td>结尾有认识提升。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block accent" id="pack-w3">
-          <h2>W3 审题扣题训练包</h2>
-          <div class="routine">
-            <p><strong>题目：</strong>这一次，我做对了。</p>
-            <p><strong>审题：</strong>题眼是“这一次”和“做对了”，必须写一次具体选择。</p>
-            <p><strong>提纲：</strong>中心：从犹豫到主动承担；重点段：关键选择时的心理变化；结尾：点明“做对”的认识。</p>
-            <p><strong>二次练习：</strong>给《这一次，我没有逃避》列同样的四项提纲。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>圈题眼：《这一次，我没有逃避》</td><td>这一次、没有逃避。</td><td>必须写一次具体经历。</td></tr>
-            <tr><td>提升</td><td>定中心</td><td>从想躲开到主动面对，明白责任不能逃避。</td><td>有变化和认识。</td></tr>
-            <tr><td>拔尖</td><td>列重点段</td><td>详写想推脱、犹豫、最后主动承担的心理和动作。</td><td>重点段服务题眼。</td></tr>
-          </tbody></table></div>
-        </article>
-        <article class="study-block" id="pack-c1">
-          <h2>C1 综合题型训练包</h2>
-          <div class="routine">
-            <p><strong>题1：</strong>“这句话在文中有什么作用？”先判断题型。</p>
-            <p><strong>题2：</strong>“根据材料提出建议”先找什么？</p>
-            <p><strong>题3：</strong>5 分题至少答几层？</p>
-            <p><strong>答案：</strong>句段作用题；先找材料依据、数字或关键词；至少 2-3 层，按结论、依据、分析组织。</p>
-          </div>
-          <div class="responsive-table"><table><thead><tr><th>层级</th><th>题目</th><th>答案</th><th>检查点</th></tr></thead><tbody>
-            <tr><td>基础</td><td>判断题型：“这句话有什么作用？”</td><td>句段作用题。</td><td>先判断题型。</td></tr>
-            <tr><td>提升</td><td>作用题至少答哪几层？</td><td>内容、结构、中心或情感。</td><td>不只写“承上启下”。</td></tr>
-            <tr><td>拔尖</td><td>5 分综合题怎么分层？</td><td>先写结论，再写材料依据，最后补分析或中心。</td><td>按分值组织答案。</td></tr>
-          </tbody></table></div>
-        </article>
+          <div id="error-pack-container"></div>
+          <div id="exercises-index-container"></div>
+        </div>
       </div>
-      <div class="table-card" id="flow-record" style="margin-top:18px;">
+      <div class="table-card section-stack-top" id="flow-record">
         <h2>分流复盘记录表</h2>
         <div class="responsive-table">
           <table>
@@ -2167,7 +1047,7 @@
       <div class="section-title">
         <p class="eyebrow">词语学习</p>
         <h2>课后词语表</h2>
-        <p style="font-size: 16px; color: #666;">完整的课后词语表已集中到 <a href="vocabulary.html" style="color: #667eea;">词语学习页面</a>，包含一至六年级词语、辨析和运用训练。</p>
+        <p class="section-description">完整的课后词语表已集中到 <a class="inline-link" href="vocabulary.html">词语学习页面</a>，包含一至六年级词语、辨析和运用训练。</p>
       </div>
       <div class="table-card">
         <div class="responsive-table">
@@ -2198,146 +1078,17 @@
       <div class="section-title">
         <p class="eyebrow">作文训练</p>
         <h2>分层作文训练</h2>
-        <p style="font-size: 16px; color: #666; margin-top: 10px;">按年级循序渐进，从基础到提高</p>
+        <p class="section-description">按年级循序渐进，从基础到提高</p>
       </div>
-      
-      <!-- 年级选择 -->
-      <div style="text-align: center; margin-bottom: 30px;">
-        <button class="grade-filter-btn active" onclick="filterWriting(3)" style="padding: 10px 25px; margin: 0 10px; border: 2px solid #667eea; background: #667eea; color: white; border-radius: 25px; cursor: pointer; font-size: 16px;">三年级</button>
-        <button class="grade-filter-btn" onclick="filterWriting(4)" style="padding: 10px 25px; margin: 0 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 25px; cursor: pointer; font-size: 16px;">四年级</button>
-        <button class="grade-filter-btn" onclick="filterWriting(5)" style="padding: 10px 25px; margin: 0 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 25px; cursor: pointer; font-size: 16px;">五年级</button>
-      </div>
-
-      <!-- 三年级训练 -->
-      <div id="writing-grade-3" class="writing-content">
-        <div class="content-grid">
-          <article class="study-block">
-            <h3>🏆 三年级重点：把句子写具体</h3>
-            <div class="routine">
-              <p><strong>训练目标：</strong>写清时间、地点、人物、事情</p>
-              <p><strong>基础题：</strong>妈妈做饭。</p>
-              <p><strong>提优题：</strong>晚上，妈妈在厨房里做饭。</p>
-              <p><strong>拔高题：</strong>晚上，勤劳的妈妈在厨房里认真地做饭。</p>
-            </div>
-          </article>
-          <article class="study-block accent">
-            <h3>📝 三年级重点：把事情写完整</h3>
-            <div class="routine">
-              <p><strong>训练目标：</strong>学会六要素（时间、地点、人物、起因、经过、结果）</p>
-              <p><strong>例文：</strong>今天（时间），我和小明（人物）在公园里（地点）玩。因为我们比赛跑步（起因），结果我赢了（结果）。</p>
-              <p><strong>技巧：</strong>问自己"什么时候？谁？在哪里？为什么？做了什么？结果怎样？"</p>
-            </div>
-          </article>
-        </div>
-        
-        <div class="content-grid">
-          <article class="study-block">
-            <h3>✏️ 片段扩写训练</h3>
-            <div class="routine">
-              <p><strong>原句：</strong>小鸟飞。</p>
-              <p><strong>扩写1（基础）：</strong>一只小鸟在天上飞。</p>
-              <p><strong>扩写2（提高）：</strong>一只美丽的小鸟在蓝天上快乐地飞。</p>
-              <p><strong>扩写3（拔高）：</strong>早上，一只美丽的小鸟在蓝天上快乐地飞来飞去，唱着动听的歌。</p>
-            </div>
-          </article>
-          <article class="study-block accent">
-            <h3>📖 写作小课堂</h3>
-            <div class="routine">
-              <p><strong>技巧1：</strong>加上形容词，让事物更具体</p>
-              <p><strong>技巧2：</strong>加上时间、地点，让场景更清晰</p>
-              <p><strong>技巧3：</strong>加上动作、表情，让人物更生动</p>
-            </div>
-          </article>
-        </div>
-      </div>
-      
-      <!-- 四年级训练 -->
-      <div id="writing-grade-4" class="writing-content" style="display: none;">
-        <div class="content-grid">
-          <article class="study-block">
-            <h3>🏆 四年级重点：把过程写生动</h3>
-            <div class="routine">
-              <p><strong>训练目标：</strong>加入动作、语言、心理描写</p>
-              <p><strong>原句：</strong>我很着急。</p>
-              <p><strong>改写后：</strong>我急得直跺脚，嘴里念叨着："怎么办？怎么办？"心里像揣了只小兔子，怦怦直跳。</p>
-            </div>
-          </article>
-          <article class="study-block accent">
-            <h3>🎭 细节描写训练</h3>
-            <div class="routine">
-              <p><strong>动作描写：</strong>他迅速地跑过去，一把抓住了快要掉下来的杯子。</p>
-              <p><strong>语言描写：</strong>"小心！"他大声喊道，"别碰那个！"</p>
-              <p><strong>心理描写：</strong>我心想：要是能考一百分，妈妈一定会很高兴的。</p>
-            </div>
-          </article>
-        </div>
-        
-        <div class="content-grid">
-          <article class="study-block">
-            <h3>🌿 环境描写训练</h3>
-            <div class="routine">
-              <p><strong>描写心情的环境：</strong>阳光明媚，小鸟在枝头唱歌，我的心情也格外好。</p>
-              <p><strong>渲染气氛的环境：</strong>天空阴沉沉的，冷风呼呼地吹，让人感到有些害怕。</p>
-            </div>
-          </article>
-          <article class="study-block accent">
-            <h3>📝 句子润色训练</h3>
-            <div class="routine">
-              <p><strong>原句：</strong>我很开心。</p>
-              <p><strong>润色后：</strong>我的心里像吃了蜜一样甜，嘴角忍不住向上扬。</p>
-              <p><strong>技巧：</strong>用比喻和动作描写代替直接表达心情</p>
-            </div>
-          </article>
-        </div>
-      </div>
-      
-      <!-- 五年级训练 -->
-      <div id="writing-grade-5" class="writing-content" style="display: none;">
-        <div class="content-grid">
-          <article class="study-block">
-            <h3>🏆 五年级重点：围绕中心选材</h3>
-            <div class="routine">
-              <p><strong>训练目标：</strong>围绕一个中心，选择合适的材料，详略得当</p>
-              <p><strong>题目示例：</strong>一件难忘的事</p>
-              <p><strong>立意选择：</strong>通过这件事，我学会了勇敢/友情/坚持</p>
-            </div>
-          </article>
-          <article class="study-block accent">
-            <h3>⚖️ 详略安排技巧</h3>
-            <div class="routine">
-              <p><strong>详写（重点部分）：</strong>事情的经过、人物的动作和对话</p>
-              <p><strong>略写（次要部分）：</strong>事情的起因、结果、一般的环境描写</p>
-              <p><strong>原则：</strong>与中心有关的详写，与中心关系不大的略写</p>
-            </div>
-          </article>
-        </div>
-        
-        <div class="content-grid">
-          <article class="study-block">
-            <h3>🔄 开头结尾训练</h3>
-            <div class="routine">
-              <p><strong>精彩开头：</strong>往事像一颗颗珍珠，串起了我美好的童年，其中最闪亮的一颗，让我至今难忘。</p>
-              <p><strong>精彩结尾：</strong>这件事虽然过去很久了，但它深深印在我的脑海里，时刻提醒着我……</p>
-            </div>
-          </article>
-          <article class="study-block accent">
-            <h3>💡 立意提升训练</h3>
-            <div class="routine">
-              <p><strong>题目：</strong>蚂蚁搬食物</p>
-              <p><strong>立意1（基础）：</strong>蚂蚁真勤劳</p>
-              <p><strong>立意2（提高）：</strong>团结就是力量</p>
-              <p><strong>立意3（拔高）：</strong>小小的蚂蚁让我明白了，只要坚持，就能成功</p>
-            </div>
-          </article>
-        </div>
-      </div>
+      <div class="writing-filter-bar" id="writingFilterBar"></div>
+      <div id="writingContentContainer"></div>
     </section>
 
     <section class="section">
       <div class="section-title">
         <p class="eyebrow">提优训练</p>
         <h2>分层练习题</h2>
-        <p style="font-size: 16px; color: #666;">每个知识点都有基础→提优→拔高三个难度，帮孩子逐步提升</p>
+        <p class="section-description section-description-no-gap">每个知识点都有基础→提优→拔高三个难度，帮孩子逐步提升</p>
       </div>
 
       <div class="content-grid">
@@ -2468,7 +1219,7 @@
           </table>
         </div>
       </div>
-      <div class="table-card" style="margin-top: 18px;">
+      <div class="table-card section-stack-top">
         <h2>把普通答案改成满分答案</h2>
         <div class="responsive-table">
           <table>
@@ -2485,7 +1236,7 @@
           </table>
         </div>
       </div>
-      <div class="content-grid" style="margin-top: 18px;">
+      <div class="content-grid content-grid-spaced-top">
         <article class="study-block">
           <h3>满分答案自查四问</h3>
           <div class="routine">
@@ -2559,6 +1310,18 @@
     </div>
   </div>
 
+  <div class="exercise-detail-modal" id="exerciseDetailModal" aria-hidden="true">
+    <div class="exercise-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="exerciseDetailTitle">
+      <div class="exercise-detail-head">
+        <div>
+          <p class="exercise-detail-meta">训练包题目详情</p>
+        </div>
+        <button class="exercise-detail-close" id="exerciseDetailClose" type="button" aria-label="关闭">×</button>
+      </div>
+      <div id="exerciseDetailBody"></div>
+    </div>
+  </div>
+
   <script src="nav.js"></script>
   <script src="table-responsive.js"></script>
   <script>
@@ -2566,6 +1329,9 @@
       document.body.classList.remove('printing-training-sheet');
     });
   </script>
-  <script src="practice.js?v=76"></script>
+  <script src="practice-page-content.js?v=78"></script>
+  <script src="practice.js?v=78"></script>
+  <script src="practice-exercise-loader.js?v=77"></script>
 </body>
 </html>
+

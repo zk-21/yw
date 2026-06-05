@@ -359,7 +359,10 @@
     </section>
   </main>
 
+  <script src="data/search-engine.js"></script>
+  <script src="search-page.js"></script>
   <script>
+    if (!window.__searchPageExternalLoaded) {
     var currentFilter = 'all';
     var currentGrade = 'all';
     var RECENT_KEY = 'searchRecent';
@@ -814,6 +817,7 @@
     if (initialQuery) {
       document.getElementById('searchInput').value = initialQuery;
       doSearch();
+    }
     }
   </script>
   <script defer src="nav.js?v=115"></script>

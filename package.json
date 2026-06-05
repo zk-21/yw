@@ -1,4 +1,12 @@
 {
+  "private": true,
+  "scripts": {
+    "check": "node check-all.js",
+    "check:js": "node check-all.js js",
+    "check:links": "node check-all.js links",
+    "check:sw": "node check-all.js sw",
+    "audit:inline": "node audit-inline-assets.js"
+  },
   "dependencies": {
     "docx": "^9.6.1"
   }
