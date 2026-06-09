@@ -24,7 +24,17 @@
     '近义词': ['反义词', '同义词', '词语辨析'],
     '拼音': ['声母', '韵母', '整体认读', '声调'],
     '作文': ['写作', '范文', '写人', '记事', '写景'],
-    '阅读': ['阅读理解', '概括', '赏析', '中心思想']
+    '阅读': ['阅读理解', '概括', '赏析', '中心思想'],
+    '家长': ['家长陪学', '阅读追问', '作文追问', '错题复盘'],
+    '陪学': ['家长陪学', '陪练话术', '家长检查', '复盘'],
+    '追问': ['阅读追问', '作文追问', '家长陪学', '依据'],
+    '复盘': ['错题复盘', '家长陪学', '家长检查', '下次提醒'],
+    '陪练话术': ['家长陪学', '阅读追问', '作文追问', '家长检查'],
+    '家长检查': ['家长陪学', '错题复盘', '依据', '下次提醒'],
+    '一周陪学': ['家长陪学', '陪练话术', '错题复盘', '家长检查'],
+    '考前复盘': ['家长陪学', '一周陪学', '错题复盘', '阅读理解'],
+    '孩子说不会': ['家长陪学', '陪练话术', '家长检查', '错题复盘'],
+    '家长没时间': ['一周陪学', '家长陪学', '陪练话术', '复盘']
   };
 
   var ALL_QUICK_TERMS = Object.keys(RELATED_TERMS);
@@ -39,6 +49,15 @@
 
   function loadFallbackIndex() {
     if (fallbackIndexPromise) return fallbackIndexPromise;
+
+    if (window.SearchEngine && typeof window.SearchEngine.loadIndex === 'function') {
+      fallbackIndexPromise = window.SearchEngine.loadIndex('data/search-index.json')
+        .catch(function (error) {
+          fallbackIndexPromise = null;
+          throw error;
+        });
+      return fallbackIndexPromise;
+    }
 
     fallbackIndexPromise = fetch('data/search-index.json')
       .then(function (response) {
@@ -141,7 +160,10 @@
         if (!window.SearchEngine || typeof window.SearchEngine.searchIndexData !== 'function') {
           throw new Error('SearchEngine unavailable');
         }
-        return window.SearchEngine.searchIndexData(index.items, keyword, options);
+        var items = typeof window.SearchEngine.getIndexEntries === 'function'
+          ? window.SearchEngine.getIndexEntries(index)
+          : index.items;
+        return window.SearchEngine.searchIndexData(items, keyword, options);
       });
     }
 
@@ -220,7 +242,8 @@
       literary: '文学常识',
       mistake: '常见错误',
       essay: '作文方法',
-      exercise: '练习题库'
+      exercise: '练习题库',
+      parent: '家长陪学'
     };
     return labels[type] || type;
   }
@@ -272,15 +295,170 @@
     return base + joiner + 'q=' + encodeURIComponent(keyword) + hash;
   }
 
+  function buildRouteText(item, keyword) {
+    var parts = [
+      keyword,
+      item && item.title,
+      item && item.category,
+      item && item.summary,
+      item && item.content,
+      item && item.source
+    ];
+    if (item && Array.isArray(item.keywords)) {
+      parts = parts.concat(item.keywords);
+    }
+    return parts.filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function textIncludesAny(text, words) {
+    return words.some(function (word) {
+      return text.indexOf(String(word).toLowerCase()) >= 0;
+    });
+  }
+
+  function getGrammarHref(item, keyword) {
+    return withSearchParam('grammar.html#grammar-methods', keyword);
+  }
+
+  function getVocabularyHref(item, keyword) {
+    var routeText = buildRouteText(item, keyword);
+    if (textIncludesAny(routeText, ['答题模板', '模板', '方法', '步骤'])) {
+      return withSearchParam('vocabulary.html#word-answer-template', keyword);
+    }
+    if (textIncludesAny(routeText, ['造句', '搭配', '语境', '运用', '填词', '选词', '词语运用'])) {
+      return withSearchParam('vocabulary.html#word-usage', keyword);
+    }
+    if (textIncludesAny(routeText, ['近义', '反义', '同义', '辨析', '区别', '分辨', '易混', '混淆', '词义'])) {
+      return withSearchParam('vocabulary.html#word-discrimination', keyword);
+    }
+    if (textIncludesAny(routeText, ['错别字', '误用', '易错', '常见错误', '失误'])) {
+      return withSearchParam('vocabulary.html#word-mistakes', keyword);
+    }
+    return withSearchParam('vocabulary.html#word-overview', keyword);
+  }
+
+  function getMistakeHref(item, keyword) {
+    var routeText = buildRouteText(item, keyword);
+    if (textIncludesAny(routeText, ['拼音', '声调', '音节', '拼写', '读音', '平翘舌', '前后鼻音'])) {
+      return withSearchParam('pinyin.html#pinyin-mistakes', keyword);
+    }
+    if (textIncludesAny(routeText, ['标点', '病句', '语法', '搭配', '句式', '修改病句'])) {
+      return withSearchParam('grammar.html#grammar-methods', keyword);
+    }
+    if (textIncludesAny(routeText, ['错别字', '形近字', '同音字', '词语', '近义词', '反义词', '成语'])) {
+      return withSearchParam('practice.html#pack-b1', keyword);
+    }
+    if (textIncludesAny(routeText, ['概括', '中心句', '中心思想', '照抄', '概括题'])) {
+      return withSearchParam('practice.html#pack-r1', keyword);
+    }
+    if (textIncludesAny(routeText, ['依据', '原文', '人物', '情感', '原因', '找依据'])) {
+      return withSearchParam('practice.html#pack-r2', keyword);
+    }
+    if (textIncludesAny(routeText, ['赏析', '作用', '修辞', '表达效果', '语言特点', '说明文语言'])) {
+      return withSearchParam('practice.html#pack-r3', keyword);
+    }
+    if (textIncludesAny(routeText, ['图表', '材料', '数据', '非连续', '统计', '建议'])) {
+      return withSearchParam('practice.html#pack-r4', keyword);
+    }
+    if (textIncludesAny(routeText, ['写话', '片段', '太短', '观察', '画面'])) {
+      return withSearchParam('practice.html#pack-w1', keyword);
+    }
+    if (textIncludesAny(routeText, ['细节', '重点段', '中心浅', '详略', '描写'])) {
+      return withSearchParam('practice.html#pack-w2', keyword);
+    }
+    if (textIncludesAny(routeText, ['审题', '跑题', '扣题', '题眼', '提纲'])) {
+      return withSearchParam('practice.html#pack-w3', keyword);
+    }
+    if (textIncludesAny(routeText, ['综合', '题型', '分值', '层次', '迁移'])) {
+      return withSearchParam('practice.html#pack-c1', keyword);
+    }
+    return withSearchParam('practice.html#diagnosis', keyword);
+  }
+
+  function getEssayHref(item, keyword) {
+    var routeText = buildRouteText(item, keyword);
+    if (textIncludesAny(routeText, ['读后感'])) {
+      return withSearchParam('composition.html#reading-response', keyword);
+    }
+    if (textIncludesAny(routeText, ['失分', '跑题', '流水账', '结尾空泛', '扣分'])) {
+      return withSearchParam('composition.html#loss-points', keyword);
+    }
+    if (textIncludesAny(routeText, ['细节', '描写', '重点段', '升格', '首尾', '句段'])) {
+      return withSearchParam('composition.html#skill-upgrade', keyword);
+    }
+    if (textIncludesAny(routeText, ['审题', '提纲', '题眼', '立意', '选材'])) {
+      return withSearchParam('composition.html#topic-training-tasks', keyword);
+    }
+    return withSearchParam('composition.html#master-teacher', keyword);
+  }
+
+  function getExerciseHref(item, keyword) {
+    var routeText = buildRouteText(item, keyword);
+    if (textIncludesAny(routeText, ['拼音', '声母', '韵母', '声调', '整体认读'])) {
+      return withSearchParam('pinyin.html#pinyin-rules', keyword);
+    }
+    if (textIncludesAny(routeText, ['字词', '形近字', '同音字', '近义词', '反义词', '词语'])) {
+      return withSearchParam('practice.html#pack-b1', keyword);
+    }
+    if (textIncludesAny(routeText, ['标点', '病句', '语法', '搭配'])) {
+      return withSearchParam('grammar.html#grammar-methods', keyword);
+    }
+    if (textIncludesAny(routeText, ['概括', '中心句'])) {
+      return withSearchParam('practice.html#pack-r1', keyword);
+    }
+    if (textIncludesAny(routeText, ['依据', '原因', '情感', '原文'])) {
+      return withSearchParam('practice.html#pack-r2', keyword);
+    }
+    if (textIncludesAny(routeText, ['赏析', '修辞', '作用', '表达效果'])) {
+      return withSearchParam('practice.html#pack-r3', keyword);
+    }
+    if (textIncludesAny(routeText, ['图表', '数据', '材料', '非连续'])) {
+      return withSearchParam('practice.html#pack-r4', keyword);
+    }
+    if (textIncludesAny(routeText, ['写话', '看图写话', '扩句', '缩句', '观察'])) {
+      return withSearchParam('practice.html#pack-w1', keyword);
+    }
+    if (textIncludesAny(routeText, ['作文', '提纲', '审题', '重点段', '描写'])) {
+      return withSearchParam('composition.html#topic-training-tasks', keyword);
+    }
+    return withSearchParam('practice.html#flow-training', keyword);
+  }
+
+  function getParentHref(item, keyword) {
+    var routeText = buildRouteText(item, keyword);
+    if (textIncludesAny(routeText, ['不会', '卡壳', '放弃', '不开口'])) {
+      return withSearchParam('parent-guide.html#stuck', keyword);
+    }
+    if (textIncludesAny(routeText, ['话术', '追问', '怎么问', '开口'])) {
+      return withSearchParam('parent-guide.html#scripts', keyword);
+    }
+    if (textIncludesAny(routeText, ['检查', '清单', '会不会'])) {
+      return withSearchParam('parent-guide.html#checklist', keyword);
+    }
+    if (textIncludesAny(routeText, ['一周', '每周', '安排'])) {
+      return withSearchParam('parent-guide.html#weekly-plan', keyword);
+    }
+    if (textIncludesAny(routeText, ['考前', '考试'])) {
+      return withSearchParam('parent-guide.html#exam-week', keyword);
+    }
+    if (textIncludesAny(routeText, ['问题', '磨蹭', '答案', '没时间'])) {
+      return withSearchParam('parent-guide.html#faq', keyword);
+    }
+    return withSearchParam('parent-guide.html#coaching-loop', keyword);
+  }
+
   function getResultHref(item, keyword) {
+    if (item.url) return item.url;
+
     var source = item.source || '';
     var typePageMap = {
-      grammar: 'grammar.html',
-      vocabulary: 'vocabulary.html',
+      grammar: 'grammar.html#grammar-methods',
+      vocabulary: 'vocabulary.html#word-overview',
       literary: 'literary.html#data-library',
       mistake: 'practice.html#diagnosis',
-      essay: 'composition.html',
-      exercise: 'practice.html'
+      essay: 'composition.html#topic-training-tasks',
+      exercise: 'practice.html#flow-training',
+      parent: 'parent-guide.html#coaching-loop'
     };
 
     if (item.type === 'literary') {
@@ -295,13 +473,14 @@
       return withSearchParam('literary.html#data-library', keyword);
     }
 
+    if (item.type === 'parent') return getParentHref(item, keyword);
     if (source === 'literary-knowledge.json') return withSearchParam('literary.html#data-library', keyword);
-    if (source === 'grammar.json') return 'grammar.html';
-    if (source === 'vocabulary.json') return 'vocabulary.html';
-    if (source === 'common-mistakes.json') return 'practice.html#diagnosis';
-    if (source === 'model-essays.json') return 'composition.html';
-    if (source === 'exercises.json') return 'practice.html';
-    return typePageMap[item.type] || 'knowledge-map.html';
+    if (source === 'grammar.json') return getGrammarHref(item, keyword);
+    if (source === 'vocabulary.json') return getVocabularyHref(item, keyword);
+    if (source === 'common-mistakes.json') return getMistakeHref(item, keyword);
+    if (source === 'model-essays.json') return getEssayHref(item, keyword);
+    if (source === 'exercises.json') return getExerciseHref(item, keyword);
+    return withSearchParam(typePageMap[item.type] || 'knowledge-map.html#training-loop', keyword);
   }
 
   function getSuggestions(keyword) {
@@ -320,7 +499,7 @@
     });
 
     if (suggestions.length < 3) {
-      ['修辞手法', '修改病句', '成语故事', '古诗', '阅读理解'].forEach(function (term) {
+      ['家长陪学', '一周陪学', '陪练话术', '修辞手法', '修改病句', '古诗'].forEach(function (term) {
         if (term !== keyword && suggestions.indexOf(term) < 0) suggestions.push(term);
       });
     }

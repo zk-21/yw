@@ -31,6 +31,7 @@ var EXPRESSION_TOPIC_LINKS = [
 ];
 var TOOL_LINKS = [
   { href: 'practice.html', label: '练习计划' },
+  { href: 'parent-guide.html', label: '家长陪学' },
   { href: 'search.html', label: '资料搜索' },
   { href: 'report.html', label: '学习周报' },
   { href: 'advanced.html', label: '尖子生拓展' }
@@ -337,7 +338,7 @@ function addMobileBottomNav() {
   }
 
   var currentPage = getCurrentPage();
-  var practicePages = ['practice.html', 'report.html', 'search.html'];
+  var practicePages = ['practice.html', 'parent-guide.html', 'report.html', 'search.html'];
 
   var items = [
     {

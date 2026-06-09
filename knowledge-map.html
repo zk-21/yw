@@ -10,6 +10,142 @@
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .map-router {
+      background: linear-gradient(180deg, #f5fff8 0%, #ffffff 100%);
+    }
+    .map-router-shell {
+      background: white;
+      border: 1px solid #deefe2;
+      border-radius: 20px;
+      box-shadow: 0 10px 28px rgba(34, 197, 94, 0.08);
+      padding: 28px;
+    }
+    .map-router-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .map-router-intro p {
+      margin: 0;
+      color: var(--ink);
+      line-height: 1.9;
+    }
+    .map-router-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-content: start;
+    }
+    .map-router-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: #eefbf1;
+      border: 1px solid #ccebd4;
+      color: #15803d;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .map-router-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .map-router-card {
+      background: #f8fcf8;
+      border: 1px solid #e0ece3;
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .map-router-card h3 {
+      color: #15803d;
+      margin-bottom: 8px;
+    }
+    .map-router-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .map-router-list {
+      display: grid;
+      gap: 10px;
+    }
+    .map-router-link {
+      display: block;
+      text-decoration: none;
+      background: white;
+      border: 1px solid #dce7df;
+      border-radius: 12px;
+      padding: 14px 15px;
+      color: var(--ink);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+    .map-router-link:hover {
+      transform: translateY(-2px);
+      border-color: #22c55e;
+      box-shadow: 0 10px 20px rgba(34, 197, 94, 0.12);
+    }
+    .map-router-link strong,
+    .map-router-link span,
+    .map-router-link em {
+      display: block;
+    }
+    .map-router-link strong {
+      color: #1f2937;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .map-router-link span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .map-router-link em {
+      color: #15803d;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .map-router-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed #d7e7db;
+    }
+    .map-router-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      background: #14532d;
+      color: white;
+    }
+    .map-router-chip.secondary {
+      background: #eefbf1;
+      color: #15803d;
+      border: 1px solid #ccebd4;
+    }
+    @media (max-width: 980px) {
+      .map-router-intro,
+      .map-router-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -35,6 +171,142 @@
       <p class="eyebrow">小学语文总控台</p>
       <h1>先找入口，再进专题，最后用练习巩固</h1>
       <p>这页不再当成“所有资料堆在一起”的页面，而是整个语文学习站的总目录。孩子先在这里判断问题属于哪一类，再进入年级页、作文页、专项页或练习页。</p>
+    </section>
+
+    <section class="section map-router">
+      <div class="section-title">
+        <p class="eyebrow">总站执行导航台</p>
+        <h2>先判断孩子现在卡在哪一层，再进入对应页面</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这页最重要的作用不是“知识很多”，而是帮助家长和孩子少走弯路。先判断问题类型，再跳到最合适的页，才有总站分流价值。</p>
+      </div>
+      <div class="map-router-shell">
+        <div class="map-router-intro">
+          <p>大多数学习效率低，不是因为资料不够，而是因为入口选错了。比如作文问题进了基础页，基础错误又跑去刷整套阅读，结果看了很多、练得很多，提升却不集中。这个导航台就是用来先收口方向。</p>
+          <div class="map-router-badges">
+            <span class="map-router-badge">不会定位年级目标：先去年级页</span>
+            <span class="map-router-badge">基础薄弱：先去拼音/词语/语法页</span>
+            <span class="map-router-badge">不会答题：先去题型模板区</span>
+            <span class="map-router-badge">会看不会练：最后回训练闭环</span>
+          </div>
+        </div>
+
+        <div class="map-router-grid">
+          <article class="map-router-card">
+            <h3>按当前问题进入</h3>
+            <p>不要笼统地说“语文不行”。先抓最明显的问题类型，才知道该跳去哪一页。</p>
+            <div class="map-router-list">
+              <a class="map-router-link" href="grade4.html">
+                <strong>不知道这个年级到底该学什么</strong>
+                <span>先去对应年级页，看目标、薄弱点、自测层级和本周训练顺序。</span>
+                <em>先定年级主任务，再谈补弱。</em>
+              </a>
+              <a class="map-router-link" href="grammar.html">
+                <strong>基础题总丢分</strong>
+                <span>拼音、词语、病句、标点这些问题，先补专项，不要直接刷综合卷。</span>
+                <em>基础不稳时，先补专项页面。</em>
+              </a>
+              <a class="map-router-link" href="#template-index">
+                <strong>阅读题总答不到点</strong>
+                <span>先判断题型，再看模板和得分点，避免一上来就对答案。</span>
+                <em>先会分题型，再会组织答案。</em>
+              </a>
+              <a class="map-router-link" href="composition.html">
+                <strong>作文拿到题不知道怎么写</strong>
+                <span>这类问题不要在总控页停留，直接去作文专题做分流和升格。</span>
+                <em>作文问题单独收口处理。</em>
+              </a>
+              <a class="map-router-link" href="practice.html#diagnosis">
+                <strong>方法看过了，但成绩不稳定</strong>
+                <span>直接进入诊断、错题、训练包和复测闭环，别只停在“知道了”。</span>
+                <em>最终一定要回训练页验证。</em>
+              </a>
+            </div>
+          </article>
+
+          <article class="map-router-card">
+            <h3>按孩子层级进入</h3>
+            <p>同一个问题，基础层、提升层、拔尖层的入口并不一样。先判断层级，避免补得太散。</p>
+            <div class="map-router-list">
+              <a class="map-router-link" href="grade2.html">
+                <strong>达标层：先保基础和完整表达</strong>
+                <span>低年级或基础不稳时，重点放在识字、句子完整、顺序表达和基本阅读。</span>
+                <em>先站稳，不急着拔高。</em>
+              </a>
+              <a class="map-router-link" href="grade4.html">
+                <strong>提升层：先补题型判断和依据定位</strong>
+                <span>中段提分最常见的卡点，是知道大概意思但不会按得分点回答。</span>
+                <em>先补“会做题的方法”。</em>
+              </a>
+              <a class="map-router-link" href="grade6.html">
+                <strong>拔尖层：先补层次、迁移和稳定性</strong>
+                <span>高年级想拔尖，不是多看资料，而是能不能稳定迁移到新题、新文和限时场景。</span>
+                <em>从“会”进入“稳”。</em>
+              </a>
+              <a class="map-router-link" href="report.html">
+                <strong>已经有学习数据：先看报告再分流</strong>
+                <span>如果做过诊断或积累了错题，先看报告里的主弱项，再决定去哪个模块。</span>
+                <em>先看结论，再选入口。</em>
+              </a>
+            </div>
+          </article>
+
+          <article class="map-router-card">
+            <h3>按当下目标进入</h3>
+            <p>如果这周目标已经很明确，可以直接按目标选入口，不必重复看总说明。</p>
+            <div class="map-router-list">
+              <a class="map-router-link" href="#knowledge-index">
+                <strong>目标一：先找到知识点放在哪</strong>
+                <span>适合不知道该看哪个页面、总在站内来回找的人。</span>
+                <em>先用索引找对页面。</em>
+              </a>
+              <a class="map-router-link" href="#template-index">
+                <strong>目标二：先把题型模板背熟</strong>
+                <span>适合阅读、古诗文、应用文经常答不完整的人。</span>
+                <em>先练答题框架。</em>
+              </a>
+              <a class="map-router-link" href="composition.html#topic-methods">
+                <strong>目标三：先把作文写成篇</strong>
+                <span>适合审题、中心、重点段都不稳，想快速形成一篇完整作文的人。</span>
+                <em>直接进入作文分流页。</em>
+              </a>
+              <a class="map-router-link" href="practice.html#flow-training">
+                <strong>目标四：先做一轮训练闭环</strong>
+                <span>适合已经知道方法，但这周需要把“知道”变成“会做”的人。</span>
+                <em>诊断 → 训练 → 复测。</em>
+              </a>
+            </div>
+          </article>
+
+          <article class="map-router-card">
+            <h3>家长怎么配合进入</h3>
+            <p>总控页不负责陪练细节，但要明确告诉家长什么时候该换到陪学手册和 AI 陪练。</p>
+            <div class="map-router-list">
+              <a class="map-router-link" href="parent-guide.html#scripts">
+                <strong>不知道怎么追问孩子</strong>
+                <span>直接去家长话术区，不要一上来就讲答案。</span>
+                <em>先学会问，再去陪练。</em>
+              </a>
+              <a class="map-router-link" href="parent-guide.html#weekly-plan">
+                <strong>想安排这一周怎么练</strong>
+                <span>去家长周计划页，把训练节奏定下来，避免今天补这个明天换那个。</span>
+                <em>先定节奏，再定内容。</em>
+              </a>
+              <a class="map-router-link" href="agent.html?stage=%E5%AE%B6%E9%95%BF%E8%BE%85%E5%AF%BC&subject=%E8%AF%AD%E6%96%87&task=%E5%B8%AE%E5%8A%A9%E5%88%86%E6%B5%81&level=%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83&source=%E7%9F%A5%E8%AF%86%E6%80%BB%E6%8E%A7%E6%89%A7%E8%A1%8C%E5%AF%BC%E8%88%AA%E5%8F%B0&question=%E8%AF%B7%E5%85%88%E5%B8%AE%E6%88%91%E5%88%A4%E6%96%AD%E5%AD%A9%E5%AD%90%E5%BD%93%E4%B8%8B%E6%9B%B4%E8%AF%A5%E5%85%88%E8%A1%A5%E5%B9%B4%E7%BA%A7%E7%9B%AE%E6%A0%87%E3%80%81%E5%9F%BA%E7%A1%80%E4%B8%93%E9%A1%B9%E3%80%81%E9%98%85%E8%AF%BB%E7%AD%94%E9%A2%98%E6%A8%A1%E6%9D%BF%E3%80%81%E4%BD%9C%E6%96%87%E8%AE%AD%E7%BB%83%E8%BF%98%E6%98%AF%E7%BB%83%E4%B9%A0%E9%97%AD%E7%8E%AF%EF%BC%8C%E5%B9%B6%E7%BB%99%E5%87%BA%E6%9C%AC%E5%91%A8%E7%AC%AC%E4%B8%80%E6%AD%A5%E8%A1%8C%E5%8A%A8%E3%80%82">
+                <strong>想让 AI 先帮你分流</strong>
+                <span>适合家长还判断不准问题类型的时候，先用 AI 帮忙缩小方向。</span>
+                <em>先判方向，再看页面。</em>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="map-router-footer">
+          <a class="map-router-chip" href="practice.html#diagnosis">先做标准诊断</a>
+          <a class="map-router-chip secondary" href="report.html">先看学习报告</a>
+          <a class="map-router-chip secondary" href="composition.html">直接去作文专题</a>
+          <a class="map-router-chip secondary" href="parent-guide.html#scripts">直接去家长话术</a>
+        </div>
+      </div>
     </section>
 
     <section id="how-to-use" class="section teacher-note">
@@ -107,8 +379,10 @@
           <div class="route-links">
             <a href="practice.html#diagnosis">诊断测评</a>
             <a href="practice.html">练习计划</a>
+            <a href="parent-guide.html#weekly-plan">家长一周陪学安排</a>
             <a href="practice.html#templates">答题训练</a>
             <a href="#training-loop">复盘方法</a>
+            <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=安排练习复盘&amp;level=家长陪练&amp;source=知识总控台-练习复盘入口&amp;question=请按小学语文陪练闭环，先判断这道题属于什么题型，再安排今天怎么练、做完怎么复盘。">AI 分步陪练</a>
           </div>
         </article>
       </div>
@@ -150,6 +424,7 @@
               <tr><td>作文专题</td><td>作文审题、选材、结构、细节、升格和评分。</td><td>拿到作文题不知道从哪些方面写。</td><td>不处理拼音、词语等基础专项。</td></tr>
               <tr><td>拼音/语法/词语</td><td>专项知识、规则、易错点和专项题型。</td><td>基础知识不稳、考试基础题丢分。</td><td>不做完整年级规划。</td></tr>
               <tr><td>练习计划</td><td>诊断、训练、错题复盘和每周安排。</td><td>想把知识变成稳定得分能力。</td><td>不重复讲大量知识点。</td></tr>
+              <tr><td>家长陪学手册</td><td>家长提问、陪练流程、复盘模板。</td><td>想知道怎么陪、怎么问、怎么盯关键步骤。</td><td>不替代年级目标和专题知识页。</td></tr>
               <tr><td>AI Agent</td><td>输入题目、图片、语音后即时生成辅导建议。</td><td>具体某一道题、某篇作文、某个错因。</td><td>不替代系统知识学习。</td></tr>
             </tbody>
           </table>
@@ -178,6 +453,7 @@
               <tr><td>古诗文、现代诗、文言启蒙</td><td><a href="#classic-system">本页古诗文体系</a></td><td><a href="grade4.html">四年级</a> / <a href="grade5.html">五年级</a> / <a href="grade6.html">六年级</a></td><td>低年级看画面，高年级看意象、情感和手法。</td></tr>
               <tr><td>应用文、口语交际、综合性学习</td><td><a href="#application-writing-system">本页应用文模板</a></td><td><a href="#oral-communication">口语交际</a></td><td>按格式要素检查，不能只写大概意思。</td></tr>
               <tr><td>每周训练、错题复盘、诊断测评</td><td><a href="practice.html">练习计划</a></td><td><a href="#training-loop">本页训练闭环</a></td><td>学完知识后，用练习页安排训练。</td></tr>
+              <tr><td>家长追问、陪学流程、复盘句式</td><td><a href="parent-guide.html#scripts">家长陪学话术</a></td><td><a href="practice.html#parent-coaching-scripts">练习页话术</a></td><td>先学会提问，再陪孩子练题和复盘。</td></tr>
             </tbody>
           </table>
         </div>
@@ -514,6 +790,11 @@
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="route-links" style="margin-top:18px;">
+        <a href="practice.html#diagnosis">先做诊断测评</a>
+        <a href="parent-guide.html#coaching-loop">看家长陪练流程</a>
+        <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=训练闭环辅导&amp;level=家长陪练&amp;source=知识总控台-训练闭环&amp;question=请把这道小学语文题拆成诊断、方法、例题、练习、自查、复盘6步，并给家长每一步能直接照着问的话。">把这道题带进 AI 复盘</a>
       </div>
     </section>
 
@@ -1083,7 +1364,7 @@
       </div>
     </section>
   </main>
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js" defer></script>
+  <script src="table-responsive.js" defer></script>
 </body>
 </html>

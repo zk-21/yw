@@ -74,6 +74,12 @@
     }
     .rp-empty .rp-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(102,126,234,0.3); }
     .rp-empty .rp-demo-hint { margin-top: 24px; font-size: 12px; color: #ccc; }
+    .rp-empty .rp-demo-hint a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .rp-empty .rp-demo-hint a:hover { text-decoration: underline; }
 
     /* ── 概览卡片行 ── */
     .rp-stats { display: none; }
@@ -186,6 +192,191 @@
       text-align: center; transition: all 0.2s;
     }
     .rp-training-card .rp-tc-link:hover { background: #667eea; color: white; }
+    .rp-training-card .rp-tc-link.secondary {
+      background: #fff7ed;
+      color: #c2410c;
+    }
+    .rp-training-card .rp-tc-link.secondary:hover {
+      background: #fed7aa;
+      color: #9a3412;
+    }
+    .rp-tc-follow {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.7;
+      padding-top: 2px;
+    }
+    .rp-tc-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .rp-tc-actions .rp-tc-link {
+      margin-top: 0;
+    }
+
+    .rp-execution-hub {
+      margin-bottom: 20px;
+      padding: 22px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 52%, #fff7ed 100%);
+      border: 1px solid #dbeafe;
+      box-shadow: var(--rp-card-shadow);
+    }
+    .rp-execution-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .rp-execution-head h2 {
+      font-size: 20px;
+      color: #1f2937;
+      margin: 0 0 6px;
+    }
+    .rp-execution-head p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.8;
+      max-width: 620px;
+    }
+    .rp-execution-eyebrow {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: #4f46e5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .rp-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .rp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #c7d2fe;
+      color: #4338ca;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .rp-execution-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .rp-execution-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 190px;
+    }
+    .rp-execution-kicker {
+      color: #6366f1;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .rp-execution-value {
+      color: #111827;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .rp-execution-meta {
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .rp-execution-desc {
+      color: #374151;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .rp-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .rp-route-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .rp-route-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4338ca;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid #c7d2fe;
+      transition: all 0.2s;
+    }
+    .rp-route-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(79,70,229,0.12);
+    }
+    .rp-route-chip.primary {
+      background: #111827;
+      border-color: #111827;
+      color: white;
+    }
+    .rp-weak-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .rp-weak-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      background: #eef2ff;
+      color: #4338ca;
+      transition: all 0.2s;
+    }
+    .rp-weak-link:hover {
+      background: #667eea;
+      color: white;
+    }
+    .rp-weak-link.ghost {
+      background: #f9fafb;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+    }
+    .rp-weak-link.ghost:hover {
+      background: #fff7ed;
+      color: #c2410c;
+      border-color: #fed7aa;
+    }
 
     /* ── 底部操作栏 ── */
     .rp-actions {
@@ -225,6 +416,7 @@
       .rp-stats-grid { grid-template-columns: repeat(2, 1fr); }
       .rp-charts-row { grid-template-columns: 1fr; }
       .rp-training-cards { grid-template-columns: 1fr; }
+      .rp-execution-grid { grid-template-columns: 1fr 1fr; }
       .rp-hero h1 { font-size: 22px; }
       .rp-stat-card .rp-stat-value { font-size: 22px; }
     }
@@ -232,6 +424,8 @@
       .rp-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
       .rp-stat-card { padding: 12px 14px; }
       .rp-stat-card .rp-stat-value { font-size: 18px; }
+      .rp-execution-hub { padding: 16px; }
+      .rp-execution-grid { grid-template-columns: 1fr; }
     }
 
     /* ── 打印样式 ── */
@@ -254,6 +448,64 @@
       pointer-events: none;
     }
     .rp-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── 数据管理模态框 ── */
+    .dm-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .dm-overlay.open { opacity: 1; pointer-events: auto; }
+    .dm-modal {
+      background: #fff; border-radius: 16px; width: 92%; max-width: 520px;
+      max-height: 85vh; overflow-y: auto; padding: 28px 24px 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .dm-overlay.open .dm-modal { transform: translateY(0); }
+    .dm-modal h3 { margin: 0 0 6px; font-size: 18px; }
+    .dm-modal .dm-desc { color: #6b7280; font-size: 13px; margin-bottom: 18px; }
+    .dm-group { margin-bottom: 14px; }
+    .dm-group-title {
+      font-size: 14px; font-weight: 600; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .dm-group-title input[type=checkbox] { accent-color: var(--rp-primary); }
+    .dm-keys { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 26px; }
+    .dm-key-tag {
+      font-size: 12px; padding: 3px 10px; border-radius: 12px;
+      background: #f3f4f6; color: #374151; cursor: pointer;
+      border: 1px solid transparent; transition: all 0.15s;
+    }
+    .dm-key-tag.selected { background: #e0e7ff; border-color: var(--rp-primary); color: var(--rp-primary); }
+    .dm-key-tag.empty { opacity: 0.4; text-decoration: line-through; }
+    .dm-footer {
+      display: flex; gap: 10px; justify-content: flex-end;
+      margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb;
+    }
+    .dm-footer button {
+      padding: 8px 20px; border-radius: 8px; font-size: 14px;
+      cursor: pointer; border: none; font-weight: 500;
+    }
+    .dm-btn-cancel { background: #f3f4f6; color: #374151; }
+    .dm-btn-confirm { background: var(--rp-primary); color: #fff; }
+    .dm-btn-confirm:hover { opacity: 0.9; }
+    .dm-btn-danger { background: var(--rp-red); color: #fff; }
+    .dm-import-mode {
+      display: flex; gap: 12px; margin-bottom: 16px; font-size: 13px;
+    }
+    .dm-import-mode label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .dm-preview {
+      background: #f9fafb; border-radius: 10px; padding: 14px;
+      margin-bottom: 16px; font-size: 13px;
+    }
+    .dm-preview-row { display: flex; justify-content: space-between; padding: 4px 0; }
+    .dm-preview-row span:first-child { color: #6b7280; }
+    .dm-select-all {
+      font-size: 12px; color: var(--rp-primary); cursor: pointer;
+      margin-bottom: 12px; display: inline-block;
+    }
+    .dm-select-all:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -290,6 +542,7 @@
         <h2>还没有学习数据</h2>
         <p>让孩子完成一次诊断测评后，这里会自动生成专属学习报告。包括能力雷达图、错因分析、进步趋势和个性化训练建议。</p>
         <a class="rp-cta" href="practice.html#diagnosis">🎯 开始第一次诊断</a>
+        <p class="rp-demo-hint">还不知道陪练时怎么问？先看 <a href="parent-guide.html#scripts">家长陪练话术</a></p>
         <p class="rp-demo-hint">完成诊断后刷新本页即可看到报告</p>
       </div>
 
@@ -297,6 +550,7 @@
       <div class="rp-stats" id="rpStats">
         <!-- 概览卡片 -->
         <div class="rp-stats-grid" id="rpStatsGrid"></div>
+        <section class="rp-execution-hub" id="rpExecutionHub" aria-live="polite"></section>
 
         <!-- 图表行 -->
         <div class="rp-charts-row">
@@ -336,10 +590,11 @@
 
         <!-- 操作按钮 -->
         <div class="rp-actions">
-          <button class="rp-btn rp-btn-primary" onclick="window.print()" title="打印或保存为PDF">🖨️ 打印 / 导出PDF</button>
+          <button class="rp-btn rp-btn-primary" id="rpPrintBtn" title="打印或保存为PDF">🖨️ 打印 / 导出PDF</button>
           <button class="rp-btn rp-btn-outline" id="rpExportBtn" title="导出学习数据为JSON文件">💾 导出数据</button>
           <button class="rp-btn rp-btn-outline" id="rpImportBtn" title="从JSON文件导入学习数据">📥 导入数据</button>
           <a class="rp-btn rp-btn-outline" href="practice.html#diagnosis">📝 再做一次诊断</a>
+          <a class="rp-btn rp-btn-outline" href="parent-guide.html#coaching-loop">👪 家长 12 分钟陪练</a>
           <button class="rp-btn rp-btn-ghost" id="rpRefreshBtn">🔄 刷新数据</button>
           <input type="file" id="rpImportFile" accept=".json" style="display:none">
         </div>
@@ -347,12 +602,198 @@
     </div><!-- /report-main -->
   </main>
 
+  <!-- 数据管理模态框 -->
+  <div class="dm-overlay" id="dmOverlay">
+    <div class="dm-modal" id="dmModal">
+      <h3 id="dmTitle">导出数据</h3>
+      <p class="dm-desc" id="dmDesc">选择要备份的数据类别，点击确认后下载 JSON 文件。</p>
+
+      <!-- 导入模式选择（仅导入时显示） -->
+      <div class="dm-import-mode" id="dmImportMode" style="display:none;">
+        <label><input type="radio" name="dmMode" value="overwrite" checked> 覆盖导入（替换现有数据）</label>
+        <label><input type="radio" name="dmMode" value="merge"> 合并导入（仅补充缺失项）</label>
+      </div>
+
+      <!-- 导入预览（仅导入时显示） -->
+      <div class="dm-preview" id="dmPreview" style="display:none;"></div>
+
+      <!-- 全选/取消 -->
+      <span class="dm-select-all" id="dmSelectAll" onclick="window._dmToggleSelectAll()">全选 / 取消全选</span>
+
+      <!-- 数据分组复选框 -->
+      <div id="dmGroups"></div>
+
+      <!-- 底部按钮 -->
+      <div class="dm-footer">
+        <button class="dm-btn-cancel" onclick="window._dmClose()">取消</button>
+        <button class="dm-btn-danger" id="dmClearBtn" style="display:none;" onclick="window._dmClearAll()">清空所有数据</button>
+        <button class="dm-btn-confirm" id="dmConfirmBtn" onclick="window._dmConfirm()">确认导出</button>
+      </div>
+    </div>
+  </div>
+
   <script defer src="nav.js?v=115"></script>
   <script defer src="table-responsive.js?v=115"></script>
-  <script defer src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
   <script>
   (function() {
     'use strict';
+
+    var EXPORT_IMPORT_SRC = 'data/data-export-import.js?v=116';
+    var PLOTLY_SRC = 'https://cdn.plot.ly/plotly-2.32.0.min.js';
+    var CHART_IDS = ['chartRadar', 'chartDonut', 'chartTrend'];
+    var dataExportImportPromise = null;
+    var plotlyLoadPromise = null;
+    var chartRenderPromise = null;
+    var chartObserver = null;
+    var pendingChartData = null;
+    var chartsRendered = false;
+
+    function ensureDataExportImport() {
+      if (window.DataExportImport) return Promise.resolve(window.DataExportImport);
+      if (dataExportImportPromise) return dataExportImportPromise;
+
+      dataExportImportPromise = new Promise(function(resolve, reject) {
+        var script = document.createElement('script');
+        script.src = EXPORT_IMPORT_SRC;
+        script.async = true;
+        script.setAttribute('data-lazy-module', 'data-export-import');
+        script.onload = function() {
+          if (window.DataExportImport) {
+            resolve(window.DataExportImport);
+          } else {
+            reject(new Error('DataExportImport unavailable'));
+          }
+        };
+        script.onerror = function() {
+          reject(new Error('Failed to load data export/import module'));
+        };
+        document.head.appendChild(script);
+      }).catch(function(error) {
+        dataExportImportPromise = null;
+        throw error;
+      });
+
+      return dataExportImportPromise;
+    }
+
+    function setChartState(id, title, detail) {
+      var el = document.getElementById(id);
+      if (!el || el._fullLayout) return;
+
+      var html = '<div style="text-align:center;padding:50px 0;color:#ccc;">' + title;
+      if (detail) {
+        html += '<br><span style="font-size:12px;">' + detail + '</span>';
+      }
+      html += '</div>';
+      el.innerHTML = html;
+    }
+
+    function setDeferredChartState() {
+      setChartState('chartRadar', '图表将在需要时自动加载', '页面先完成数据渲染，图表会稍后显示');
+      setChartState('chartDonut', '图表将在需要时自动加载', '滚动到该区域后会自动展开');
+      setChartState('chartTrend', '图表将在需要时自动加载', '打印前也会自动补全图表');
+    }
+
+    function setChartLoadingState() {
+      CHART_IDS.forEach(function(id) {
+        setChartState(id, '图表加载中…', '正在拉取绘图库');
+      });
+    }
+
+    function setChartErrorState() {
+      CHART_IDS.forEach(function(id) {
+        setChartState(id, '图表加载失败', '当前网络不可用，刷新页面后可重试');
+      });
+    }
+
+    function ensurePlotly() {
+      if (window.Plotly) return Promise.resolve(window.Plotly);
+      if (plotlyLoadPromise) return plotlyLoadPromise;
+
+      setChartLoadingState();
+      plotlyLoadPromise = new Promise(function(resolve, reject) {
+        var script = document.createElement('script');
+        script.src = PLOTLY_SRC;
+        script.async = true;
+        script.setAttribute('data-lazy-module', 'plotly');
+        script.onload = function() {
+          if (window.Plotly) {
+            resolve(window.Plotly);
+          } else {
+            reject(new Error('Plotly unavailable'));
+          }
+        };
+        script.onerror = function() {
+          reject(new Error('Failed to load Plotly'));
+        };
+        document.head.appendChild(script);
+      }).catch(function(error) {
+        plotlyLoadPromise = null;
+        throw error;
+      });
+
+      return plotlyLoadPromise;
+    }
+
+    function disconnectChartObserver() {
+      if (!chartObserver) return;
+      chartObserver.disconnect();
+      chartObserver = null;
+    }
+
+    function renderPendingCharts() {
+      if (!pendingChartData) return;
+      renderRadarChart(pendingChartData.profile, true);
+      renderDonutChart(pendingChartData.errorDist);
+      renderTrendChart(pendingChartData.trendData);
+    }
+
+    function ensureChartsRendered() {
+      if (chartsRendered) return Promise.resolve(true);
+      if (!pendingChartData) return Promise.resolve(false);
+      if (chartRenderPromise) return chartRenderPromise;
+
+      chartRenderPromise = ensurePlotly()
+        .then(function() {
+          renderPendingCharts();
+          chartsRendered = true;
+          disconnectChartObserver();
+          return true;
+        })
+        .catch(function() {
+          chartRenderPromise = null;
+          setChartErrorState();
+          return false;
+        });
+
+      return chartRenderPromise;
+    }
+
+    function observeChartSection() {
+      if (chartsRendered || !pendingChartData) return;
+
+      var target = document.querySelector('.rp-charts-row') || document.getElementById('chartRadar');
+      if (!target) {
+        ensureChartsRendered();
+        return;
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        ensureChartsRendered();
+        return;
+      }
+
+      disconnectChartObserver();
+      chartObserver = new IntersectionObserver(function(entries) {
+        var shouldLoad = entries.some(function(entry) {
+          return entry.isIntersecting || entry.intersectionRatio > 0;
+        });
+        if (shouldLoad) {
+          ensureChartsRendered();
+        }
+      }, { rootMargin: '240px 0px' });
+      chartObserver.observe(target);
+    }
 
     // ── 读取本地数据 ──
     function loadLocalData() {
@@ -519,6 +960,26 @@
 
       var plans = [];
 
+      function buildParentGuidePlan() {
+        var focusLabel = weakItems.length > 0 ? '「' + weakItems[0].label + '」' : '当前最薄弱的题型';
+        var desc = '';
+
+        if (goalType === 'advance') {
+          desc = '把拔高训练变成可执行陪练：先让孩子说结论，再补依据和分析。围绕' + focusLabel + '只追一个关键空点，不直接讲答案。';
+        } else if (goalType === 'fill') {
+          desc = '先看家长检查重点和陪练话术，围绕' + focusLabel + '只问题型、依据、方法和下次提醒，避免陪练变成催促。';
+        } else {
+          desc = '先用手册建立家长陪学顺序：怎么开口、怎么追问、怎么做 12 分钟陪练，再决定补哪个专题。';
+        }
+
+        return {
+          title: '家长陪学动作',
+          duration: '8分钟',
+          desc: desc,
+          link: goalType === 'explore' ? 'parent-guide.html#coaching-loop' : 'parent-guide.html#checklist'
+        };
+      }
+
       // 根据目标生成不同计划
       if (goalType === 'fill') {
         plans.push({
@@ -542,6 +1003,7 @@
             link: 'grade' + gradeNum + '.html'
           });
         }
+        plans.push(buildParentGuidePlan());
         plans.push({
           title: '本周小练笔',
           duration: '20分钟',
@@ -561,11 +1023,19 @@
           desc: '阅读一篇短文，按"结论+依据+分析+中心"四层法完成全部题目，对照答案逐一复盘。',
           link: 'grade' + gradeNum + '.html'
         });
+        plans.push(buildParentGuidePlan());
         plans.push({
           title: 'AI一对一拔高',
           duration: '15分钟',
           desc: '将本周写的作文或阅读题发给AI辅导，获取个性化的一对一批改和升格建议。',
-          link: 'agent.html'
+          link: 'agent.html?' + new URLSearchParams({
+            stage: '家长辅导',
+            subject: weakItems.length > 0 && weakItems[0].cat === 'W' ? '作文/写作' : weakItems.length > 0 && weakItems[0].cat === 'R' ? '阅读理解' : '语文',
+            task: weakItems.length > 0 && weakItems[0].cat === 'W' ? '作文/表达升格' : '错因诊断',
+            level: '家长陪练',
+            source: '学习周报',
+            question: '请按家长陪练轨，围绕「' + (weakItems.length > 0 ? weakItems[0].label : '当前薄弱题型') + '」做一次拔高辅导：先判断孩子最缺的是题型判断、依据、分析还是表达，再给家长可直接照着问的话术、升级建议和 10 分钟复练。'
+          }).toString()
         });
       } else {
         plans.push({
@@ -580,6 +1050,7 @@
           desc: '通过诊断了解孩子当前的真实水平，获得详细的错因分析和能力评估报告。',
           link: 'practice.html#diagnosis'
         });
+        plans.push(buildParentGuidePlan());
         plans.push({
           title: '探索专题学习',
           duration: '15分钟',
@@ -632,6 +1103,358 @@
     }
 
     // ── 渲染 ──
+
+    function getPerformanceTier(score) {
+      if (score >= 13) {
+        return {
+          label: '拔尖冲刺段',
+          desc: '主体能力已经成型，本周重点是减少空泛表达和审题失误，把会做的题再追深一层。',
+          frequency: '建议 2 次拔尖训练 + 1 次复测'
+        };
+      }
+      if (score >= 10) {
+        return {
+          label: '稳步提分段',
+          desc: '基础已经过关，当前更需要围绕主弱项做定向补强，不要分散训练。',
+          frequency: '建议 2 次定向训练 + 1 次复测'
+        };
+      }
+      if (score >= 7) {
+        return {
+          label: '基础补强段',
+          desc: '先把最常见失分点练稳，再去做综合题，提分会更快。',
+          frequency: '建议 3 次短练 + 1 次复测'
+        };
+      }
+      if (score > 0) {
+        return {
+          label: '重建起步段',
+          desc: '先把题型判断、答题顺序和基础表达搭起来，暂时不要贪多。',
+          frequency: '建议 3 次基础短练 + 家长陪练'
+        };
+      }
+      return {
+        label: '待诊断定位',
+        desc: '先完成一次标准诊断，再根据结果收口训练方向。',
+        frequency: '建议先诊断，再定计划'
+      };
+    }
+
+    function getWeakActionMeta(item) {
+      var defaults = {
+        link: 'practice.html#wrong-notebook',
+        cta: '去补这一项',
+        retestLink: 'practice.html#diagnosis',
+        retestLabel: '练后做标准复测',
+        supportLink: 'parent-guide.html#coaching-loop',
+        supportLabel: '家长 12 分钟陪练',
+        desc: '先围绕这一类题做定向训练，再回到报告看变化。'
+      };
+
+      if (!item) return defaults;
+
+      var map = {
+        B1: {
+          link: 'vocabulary.html',
+          cta: '去补词语基础',
+          retestLink: 'practice.html#wrong-notebook',
+          retestLabel: '订正后回错题本验证',
+          supportLink: 'parent-guide.html#checklist',
+          supportLabel: '按清单做基础陪练',
+          desc: '先把字词辨析和常见混淆点补牢，再回错题里验证是否真正记住。'
+        },
+        B2: {
+          link: 'grammar.html',
+          cta: '去补标点判断',
+          retestLink: 'practice.html#wrong-notebook',
+          retestLabel: '订正后回错题本复查',
+          supportLink: 'parent-guide.html#checklist',
+          supportLabel: '家长陪改标点',
+          desc: '标点问题最怕只看不改，先专项练，再把旧错题重新做一遍。'
+        },
+        B3: {
+          link: 'pinyin.html',
+          cta: '去补拼音辨析',
+          retestLink: 'practice.html#wrong-notebook',
+          retestLabel: '练后回错题本复核',
+          supportLink: 'parent-guide.html#checklist',
+          supportLabel: '家长做听辨陪练',
+          desc: '先把声母、韵母和声调的混淆点补清，再回到错题里做二次判断。'
+        },
+        R1: {
+          link: 'practice.html#flow-training',
+          cta: '去练概括归纳',
+          retestLink: 'practice.html#diagnosis',
+          retestLabel: '练后做标准诊断',
+          supportLink: 'parent-guide.html#coaching-loop',
+          supportLabel: '家长追问主旨',
+          desc: '概括题提分关键是先找主干，再收口表达，不要一上来就抄原文。'
+        },
+        R2: {
+          link: 'practice.html#wrong-notebook',
+          cta: '去补依据定位',
+          retestLink: 'practice.html#abScorePanel',
+          retestLabel: '做完去 A/B/C 评分',
+          supportLink: 'parent-guide.html#coaching-loop',
+          supportLabel: '家长追问证据句',
+          desc: '先把“答案必须回到原文找证据”练成习惯，再谈表达完整度。'
+        },
+        R3: {
+          link: 'literary.html',
+          cta: '去练赏析表达',
+          retestLink: 'practice.html#abScorePanel',
+          retestLabel: '练后做赏析评分',
+          supportLink: 'parent-guide.html#scripts',
+          supportLabel: '家长照脚本追问',
+          desc: '赏析不是背术语，而是方法、特点、效果三层都说到位。'
+        },
+        R4: {
+          link: 'expository-reading.html',
+          cta: '去练推理判断',
+          retestLink: 'practice.html#diagnosis',
+          retestLabel: '练后做标准复测',
+          supportLink: 'parent-guide.html#coaching-loop',
+          supportLabel: '家长追问推理链',
+          desc: '推断题先守住文本依据，再补合理推理，避免凭感觉答题。'
+        },
+        W1: {
+          link: 'composition.html#topic-training-tasks',
+          cta: '去练结构成篇',
+          retestLink: 'composition.html#three-round-revision',
+          retestLabel: '写完带去三轮修改',
+          supportLink: 'parent-guide.html#scripts',
+          supportLabel: '家长陪写结构',
+          desc: '先把开头、重点段、结尾拉成完整文章，再考虑语言升级。'
+        },
+        W2: {
+          link: 'composition.html#skill-upgrade',
+          cta: '去补细节描写',
+          retestLink: 'composition.html#three-round-revision',
+          retestLabel: '写完做三轮升格',
+          supportLink: 'parent-guide.html#scripts',
+          supportLabel: '家长追问细节',
+          desc: '先把一段真正写厚，动作、语言、神态、心理补进去，整篇才会涨分。'
+        },
+        W3: {
+          link: 'composition.html#master-teacher',
+          cta: '去练审题判断',
+          retestLink: 'practice.html#pack-w3',
+          retestLabel: '练后再做 W3 审题包',
+          supportLink: 'parent-guide.html#scripts',
+          supportLabel: '家长追问题眼',
+          desc: '审题偏了，后面写得再多也难得高分，先把题眼和中心对准。'
+        },
+        C1: {
+          link: 'practice.html#flow-training',
+          cta: '去练综合迁移',
+          retestLink: 'practice.html#diagnosis',
+          retestLabel: '练后做综合复测',
+          supportLink: 'parent-guide.html#coaching-loop',
+          supportLabel: '家长做迁移追问',
+          desc: '先做混合题把方法串起来，再回报告看是否能稳定迁移。'
+        }
+      };
+
+      var meta = map[item.code] || {};
+      return {
+        link: meta.link || defaults.link,
+        cta: meta.cta || defaults.cta,
+        retestLink: meta.retestLink || defaults.retestLink,
+        retestLabel: meta.retestLabel || defaults.retestLabel,
+        supportLink: meta.supportLink || defaults.supportLink,
+        supportLabel: meta.supportLabel || defaults.supportLabel,
+        desc: meta.desc || defaults.desc
+      };
+    }
+
+    function buildPlanFollowUp(plan) {
+      if (!plan || !plan.link) {
+        return {
+          text: '做完后回到学习报告继续安排下一步。',
+          link: 'report.html',
+          cta: '回到报告'
+        };
+      }
+
+      var link = plan.link;
+      if (link.indexOf('wrong-notebook') !== -1) {
+        return {
+          text: '订正完成后，立刻做一次 A/B/C 评分或标准诊断，看看同类错误有没有收口。',
+          link: 'practice.html#abScorePanel',
+          cta: '去做评分'
+        };
+      }
+      if (link.indexOf('diagnosis') !== -1) {
+        return {
+          text: '拿到结果后立刻回本页，重新确认这周最该补的第一项。',
+          link: 'report.html',
+          cta: '回到报告'
+        };
+      }
+      if (link.indexOf('flow-training') !== -1) {
+        return {
+          text: '流动训练做完后，再做一次标准诊断，验证迁移是否稳定。',
+          link: 'practice.html#diagnosis',
+          cta: '去做复测'
+        };
+      }
+      if (link.indexOf('composition.html') !== -1) {
+        return {
+          text: '作文训练不要停在“写完”，把成稿带去三轮修改，才能真正看到升格差距。',
+          link: 'composition.html#three-round-revision',
+          cta: '去做三轮修改'
+        };
+      }
+      if (link.indexOf('parent-guide.html') !== -1) {
+        return {
+          text: '陪练结束后，安排 1 组诊断题或错题复练，把口头会说变成笔头会做。',
+          link: 'practice.html#diagnosis',
+          cta: '安排复测'
+        };
+      }
+      if (link.indexOf('grade') !== -1 || link.indexOf('knowledge-map') !== -1) {
+        return {
+          text: '看完知识地图后，立刻做一轮诊断题，避免只看不练。',
+          link: 'practice.html#diagnosis',
+          cta: '去做诊断'
+        };
+      }
+
+      return {
+        text: '做完后回学习报告，继续安排下一步训练。',
+        link: 'report.html',
+        cta: '回到报告'
+      };
+    }
+
+    function buildAgentSupportLink(d, weakItems) {
+      var topWeak = weakItems[0] || null;
+      var gradeLabel = d.lastResult.gradeLabel || d.quickDiag.grade || '小学阶段';
+      var subject = topWeak && topWeak.cat === 'W'
+        ? '作文/写作辅导'
+        : (topWeak && topWeak.cat === 'R' ? '阅读理解辅导' : '语文');
+      var task = topWeak && topWeak.cat === 'W' ? '片段修改升格' : '错因诊断';
+      var weakLabel = topWeak ? topWeak.label : '本周训练重点';
+
+      return 'agent.html?' + new URLSearchParams({
+        stage: gradeLabel,
+        subject: subject,
+        task: task,
+        level: '家长陪练',
+        source: '学习周报',
+        question: '请围绕“' + weakLabel + '”生成一份本周陪练脚本：先判断孩子当前缺的是题型判断、依据定位、分析表达还是结构细节，再给出可直接照着问的追问、示范和10分钟复练安排。'
+      }).toString();
+    }
+
+    function buildExecutionCard(kicker, value, meta, desc, actionsHTML) {
+      return '<article class="rp-execution-card">' +
+        '<div class="rp-execution-kicker">' + kicker + '</div>' +
+        '<div class="rp-execution-value">' + value + '</div>' +
+        '<div class="rp-execution-meta">' + meta + '</div>' +
+        '<div class="rp-execution-desc">' + desc + '</div>' +
+        (actionsHTML || '') +
+        '</article>';
+    }
+
+    function pushRoute(routes, href, label, primary) {
+      if (!href || !label) return;
+      for (var i = 0; i < routes.length; i++) {
+        if (routes[i].href === href) return;
+      }
+      routes.push({ href: href, label: label, primary: !!primary });
+    }
+
+    function renderReportExecutionHub(d, weakItems, plans) {
+      var el = document.getElementById('rpExecutionHub');
+      if (!el) return;
+
+      var score = d.lastResult.totalScore || 0;
+      var tier = getPerformanceTier(score);
+      var topWeak = weakItems[0] || null;
+      var weakMeta = getWeakActionMeta(topWeak);
+      var primaryPlan = plans[0] || {
+        title: '先做一次标准诊断',
+        duration: '15分钟',
+        desc: '先用一轮诊断把问题暴露出来，再决定本周补哪一层。',
+        link: 'practice.html#diagnosis'
+      };
+      var secondPlan = plans[1] || null;
+      var planFollowUp = buildPlanFollowUp(primaryPlan);
+      var retestTarget = topWeak ? {
+        link: weakMeta.retestLink,
+        label: weakMeta.retestLabel
+      } : {
+        link: planFollowUp.link,
+        label: planFollowUp.cta
+      };
+      var gradeLabel = d.lastResult.gradeLabel || d.quickDiag.grade || '当前阶段';
+      var focusValue = topWeak ? (topWeak.code + ' ' + topWeak.label) : '先建立训练基线';
+      var focusMeta = topWeak
+        ? ('当前相关错题 ' + topWeak.count + ' 道，建议这周先只收口这一项。')
+        : '当前还没有单一主弱项，建议先按第一动作进入。';
+      var focusDesc = topWeak ? weakMeta.desc : primaryPlan.desc;
+      var summary = topWeak
+        ? '当前最值得优先补的是「' + topWeak.label + '」。先把这一类题或这一类表达练透，再做第二步。'
+        : '当前建议先做一轮基线训练，再根据结果收口方向，不要同时铺开太多入口。';
+      var agentLink = buildAgentSupportLink(d, weakItems);
+      var routes = [];
+      var routesHTML = '';
+
+      pushRoute(routes, topWeak ? weakMeta.link : primaryPlan.link, topWeak ? ('先补：' + topWeak.label) : ('第一步：' + primaryPlan.title), true);
+      if (secondPlan) pushRoute(routes, secondPlan.link, '第二步：' + secondPlan.title, false);
+      pushRoute(routes, retestTarget.link, '练后：' + retestTarget.label, false);
+      pushRoute(routes, topWeak ? weakMeta.supportLink : 'parent-guide.html#coaching-loop', topWeak ? weakMeta.supportLabel : '家长闭环陪练', false);
+      pushRoute(routes, agentLink, '让 AI 按弱项讲评', false);
+
+      for (var i = 0; i < routes.length; i++) {
+        routesHTML += '<a class="rp-route-chip' + (routes[i].primary ? ' primary' : '') + '" href="' + routes[i].href + '">' + routes[i].label + '</a>';
+      }
+
+      el.innerHTML =
+        '<div class="rp-execution-head">' +
+          '<div>' +
+            '<span class="rp-execution-eyebrow">本周执行台</span>' +
+            '<h2>先看结论，再去训练</h2>' +
+            '<p>' + summary + '</p>' +
+          '</div>' +
+          '<div class="rp-badge-row">' +
+            '<span class="rp-badge">当前定位：' + tier.label + '</span>' +
+            '<span class="rp-badge">主弱项：' + (topWeak ? (topWeak.code + ' ' + topWeak.label) : '待进一步诊断') + '</span>' +
+            '<span class="rp-badge">本周节奏：' + tier.frequency + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rp-execution-grid">' +
+          buildExecutionCard(
+            '当前定位',
+            tier.label,
+            gradeLabel + ' · 最近诊断 ' + score + '/15',
+            tier.desc,
+            ''
+          ) +
+          buildExecutionCard(
+            '先补这一项',
+            focusValue,
+            focusMeta,
+            focusDesc,
+            '<div class="rp-inline-actions"><a class="rp-route-chip primary" href="' + (topWeak ? weakMeta.link : primaryPlan.link) + '">' + (topWeak ? weakMeta.cta : '进入第一动作') + '</a></div>'
+          ) +
+          buildExecutionCard(
+            '本周第一动作',
+            primaryPlan.title,
+            '建议时长 ' + (primaryPlan.duration || '15分钟'),
+            primaryPlan.desc,
+            '<div class="rp-inline-actions"><a class="rp-route-chip" href="' + primaryPlan.link + '">现在去做</a></div>'
+          ) +
+          buildExecutionCard(
+            '训练后闭环',
+            retestTarget.label,
+            '做完马上验证，不把训练停在“做过”',
+            '复测后回报告继续安排下一步；家长可同步做 12 分钟陪练，帮助孩子把方法真正讲出来。',
+            '<div class="rp-inline-actions"><a class="rp-route-chip" href="' + retestTarget.link + '">训练后去这里</a><a class="rp-route-chip" href="' + (topWeak ? weakMeta.supportLink : 'parent-guide.html#coaching-loop') + '">' + (topWeak ? weakMeta.supportLabel : '家长闭环陪练') + '</a></div>'
+          ) +
+        '</div>' +
+        '<div class="rp-route-chips">' + routesHTML + '</div>';
+    }
 
     function renderStatsGrid(d) {
       var el = document.getElementById('rpStatsGrid');
@@ -887,15 +1710,13 @@
 
       // 渲染各部分
       renderStatsGrid(d);
-
-      var profile = estimateAbilityProfile(d);
-      renderRadarChart(profile, true);
-
-      var errorDist = computeErrorDistribution(d);
-      renderDonutChart(errorDist);
-
-      var trendData = generateTrendData(d);
-      renderTrendChart(trendData);
+      pendingChartData = {
+        profile: estimateAbilityProfile(d),
+        errorDist: computeErrorDistribution(d),
+        trendData: generateTrendData(d)
+      };
+      setDeferredChartState();
+      observeChartSection();
 
       var weakItems = computeWeakItems(d);
       renderWeakCards(weakItems);
@@ -904,65 +1725,289 @@
       renderTrainingCards(plans);
     }
 
+    function renderWeakCards(weakItems) {
+      var el = document.getElementById('rpWeakCards');
+      if (!el) return;
+      if (weakItems.length === 0) {
+        el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;">暂无薄弱项数据</div>';
+        return;
+      }
+
+      var html = '';
+      weakItems.slice(0, 6).forEach(function(item) {
+        var action = getWeakActionMeta(item);
+        html += '<div class="rp-weak-card">' +
+          '<div><span class="rp-weak-code ' + item.cat + '">' + item.code + '</span></div>' +
+          '<div class="rp-weak-label">' + item.label + '</div>' +
+          '<div class="rp-weak-count">' + item.count + ' 道相关错题</div>' +
+          '<div class="rp-weak-suggestion">建议：' + item.suggestion + '</div>' +
+          '<div class="rp-weak-actions">' +
+            '<a class="rp-weak-link" href="' + action.link + '">' + action.cta + '</a>' +
+            '<a class="rp-weak-link ghost" href="' + action.retestLink + '">' + action.retestLabel + '</a>' +
+          '</div>' +
+          '</div>';
+      });
+      el.innerHTML = html;
+    }
+
+    function renderTrainingCards(plans) {
+      var el = document.getElementById('rpTrainingCards');
+      if (!el) return;
+
+      var html = '';
+      plans.forEach(function(p, i) {
+        var followUp = buildPlanFollowUp(p);
+        var actionLabel = i === 0 ? '先做这个' : (i === 1 ? '第二步训练' : '安排进本周');
+        html += '<div class="rp-training-card">' +
+          '<div class="rp-tc-num">' + (i + 1) + '</div>' +
+          '<div class="rp-tc-title">' + p.title + '</div>' +
+          '<div class="rp-tc-meta"><span>建议时长 ' + p.duration + '</span></div>' +
+          '<div class="rp-tc-desc">' + p.desc + '</div>' +
+          '<div class="rp-tc-follow">做完后：' + followUp.text + '</div>' +
+          '<div class="rp-tc-actions">' +
+            '<a class="rp-tc-link" href="' + p.link + '">' + actionLabel + '</a>' +
+            '<a class="rp-tc-link secondary" href="' + followUp.link + '">' + followUp.cta + '</a>' +
+          '</div>' +
+          '</div>';
+      });
+      el.innerHTML = html;
+    }
+
+    function init() {
+      var d = loadLocalData();
+
+      var now = new Date();
+      var monday = new Date(now);
+      monday.setDate(now.getDate() - now.getDay() + 1);
+      if (now.getDay() === 0) monday.setDate(now.getDate() - 6);
+      var sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      var weekStr = (monday.getMonth() + 1) + '/' + monday.getDate() + ' - ' + (sunday.getMonth() + 1) + '/' + sunday.getDate();
+      document.getElementById('rpWeekRange').textContent = weekStr;
+
+      if (!hasAnyData(d)) {
+        return;
+      }
+
+      document.getElementById('rpEmpty').style.display = 'none';
+      document.getElementById('rpStats').classList.add('visible');
+
+      var hasSimulated = (!d.wrongList.length && !d.progressLog.length);
+      document.getElementById('rpDataNote').innerHTML = hasSimulated
+        ? '<span class="simulated">部分图表基于诊断结果生成示例数据，完成更多练习后数据会更准确</span>'
+        : '数据来源：本地学习记录 | 每周更新';
+
+      renderStatsGrid(d);
+      pendingChartData = {
+        profile: estimateAbilityProfile(d),
+        errorDist: computeErrorDistribution(d),
+        trendData: generateTrendData(d)
+      };
+      setDeferredChartState();
+      observeChartSection();
+
+      var weakItems = computeWeakItems(d);
+      var plans = generateTrainingPlan(d, weakItems);
+      renderReportExecutionHub(d, weakItems, plans);
+      renderWeakCards(weakItems);
+      renderTrainingCards(plans);
+    }
+
+    document.getElementById('rpPrintBtn').addEventListener('click', function() {
+      ensureChartsRendered().then(function() {
+        window.print();
+      }, function() {
+        window.print();
+      });
+    });
+
     // 刷新按钮
     document.getElementById('rpRefreshBtn').addEventListener('click', function() {
       location.reload();
     });
 
-    // ── 数据导出/导入 ──
-    // 导出：打包所有 localStorage 学习数据为 JSON 文件下载
-    document.getElementById('rpExportBtn').addEventListener('click', function() {
-      var exportData = {};
-      var keys = ['lastDiagnosisResult','wrongAnswers','checkinStreak','rewardData',
-                  'quickDiagnosis','progressLog','scoreHistory','learningStats',
-                  'practiceHistory','checkinData','lastCheckin','studentLayer','pathType',
-                  'lastABScoreResult','recentDiagnosisVariantIds','flowPackStatus'];
-      try {
-        keys.forEach(function(k) {
-          var v = localStorage.getItem(k);
-          try { exportData[k] = v ? JSON.parse(v) : null; } catch(_) { exportData[k] = v; }
-        });
-      } catch(e) { /* skip inaccessible keys */ }
+    // ── 数据管理模态框 ──
+    var _dmMode = 'export'; // 'export' | 'import'
+    var _dmFileContent = null;
+    var _dmSelectedKeys = [];
 
-      var blob = new Blob([JSON.stringify({version:1, exportedAt:new Date().toISOString(), data:exportData}, null, 2)], {type:'application/json'});
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = '学习数据备份_' + new Date().toISOString().slice(0,10) + '.json';
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('数据已导出');
+    // 打开模态框
+    function _dmOpen(mode, fileContent, previewInfo) {
+      _dmMode = mode;
+      _dmFileContent = mode === 'import' ? (typeof fileContent === 'string' ? fileContent : null) : null;
+      var overlay = document.getElementById('dmOverlay');
+      document.getElementById('dmTitle').textContent = mode === 'export' ? '💾 导出学习数据' : '📥 导入学习数据';
+      document.getElementById('dmDesc').textContent = mode === 'export'
+        ? '选择要备份的数据类别，点击确认后下载 JSON 文件。'
+        : '选择要恢复的数据类别，支持覆盖或合并两种导入模式。';
+      document.getElementById('dmImportMode').style.display = mode === 'import' ? 'flex' : 'none';
+      document.getElementById('dmPreview').style.display = 'none';
+      document.getElementById('dmConfirmBtn').textContent = mode === 'export' ? '确认导出' : '确认导入';
+      document.getElementById('dmClearBtn').style.display = mode === 'export' ? 'inline-block' : 'none';
+      _dmRenderGroups(previewInfo);
+      overlay.classList.add('open');
+    }
+    window._dmClose = function() {
+      document.getElementById('dmOverlay').classList.remove('open');
+    };
+
+    // 渲染数据分组复选框
+    function _dmRenderGroups(previewInfo) {
+      if (!window.DataExportImport) return;
+      var groups = DataExportImport.getDataGroups();
+      var stats = DataExportImport.getLocalStats();
+      var html = '';
+      Object.keys(groups).forEach(function(g) {
+        var grp = groups[g];
+        var hasData = grp.keys.some(function(k) { return stats[k] && stats[k].exists; });
+        html += '<div class="dm-group">';
+        html += '<div class="dm-group-title">';
+        html += '<input type="checkbox" class="dm-grp-cb" data-group="' + g + '" checked> ';
+        html += grp.icon + ' ' + grp.label;
+        if (previewInfo) {
+          var pi = previewInfo.items.find(function(x) { return x.group === g; });
+          if (pi) html += ' <span style="color:#10b981;font-size:12px;">(' + pi.count + ' 项有数据)</span>';
+        }
+        html += '</div>';
+        html += '<div class="dm-keys">';
+        grp.keys.forEach(function(k) {
+          var s = stats[k];
+          var empty = !s || !s.exists;
+          var label = k;
+          if (s && s.count !== undefined) label += ' (' + s.count + ')';
+          html += '<span class="dm-key-tag' + (empty ? ' empty' : ' selected') + '" data-key="' + k + '" title="' + k + '">' + label + '</span>';
+        });
+        html += '</div></div>';
+      });
+      document.getElementById('dmGroups').innerHTML = html;
+
+      // 绑定事件
+      document.querySelectorAll('.dm-grp-cb').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          var g = this.dataset.group;
+          var checked = this.checked;
+          document.querySelectorAll('.dm-key-tag[data-key]').forEach(function(tag) {
+            var k = tag.dataset.key;
+            if (groups[g].keys.indexOf(k) !== -1) {
+              if (checked) tag.classList.add('selected');
+              else tag.classList.remove('selected');
+            }
+          });
+        });
+      });
+      document.querySelectorAll('.dm-key-tag').forEach(function(tag) {
+        tag.addEventListener('click', function() {
+          this.classList.toggle('selected');
+        });
+      });
+    }
+
+    // 获取选中的键
+    function _dmGetSelectedKeys() {
+      var keys = [];
+      document.querySelectorAll('.dm-key-tag.selected').forEach(function(tag) {
+        keys.push(tag.dataset.key);
+      });
+      return keys;
+    }
+
+    // 全选/取消
+    window._dmToggleSelectAll = function() {
+      var tags = document.querySelectorAll('.dm-key-tag');
+      var allSelected = Array.from(tags).every(function(t) { return t.classList.contains('selected'); });
+      tags.forEach(function(t) {
+        if (allSelected) t.classList.remove('selected');
+        else t.classList.add('selected');
+      });
+      document.querySelectorAll('.dm-grp-cb').forEach(function(cb) {
+        cb.checked = !allSelected;
+      });
+    };
+
+    // 确认操作
+    window._dmConfirm = function() {
+      var keys = _dmGetSelectedKeys();
+      if (keys.length === 0) { showToast('请至少选择一项数据'); return; }
+
+      ensureDataExportImport().then(function() {
+        if (_dmMode === 'export') {
+          var count = DataExportImport.exportData(keys);
+          showToast('已导出 ' + count + ' 项数据');
+          _dmClose();
+        } else if (_dmMode === 'import' && _dmFileContent) {
+          var modeEl = document.querySelector('input[name="dmMode"]:checked');
+          var mode = modeEl ? modeEl.value : 'overwrite';
+          var result = DataExportImport.importData(_dmFileContent, mode, keys);
+          showToast('已导入 ' + result.imported + ' 项' + (result.skipped ? '，跳过 ' + result.skipped + ' 项（本地已有）' : ''));
+          _dmClose();
+          setTimeout(function() { location.reload(); }, 800);
+        }
+      }).catch(function() {
+        alert('数据模块加载失败，请刷新后重试。');
+      });
+    };
+
+    // 清空所有数据
+    window._dmClearAll = function() {
+      if (!confirm('确定要清空所有学习数据吗？此操作不可撤销！\n建议先导出备份再清空。')) return;
+      ensureDataExportImport().then(function() {
+        var count = DataExportImport.clearAllData();
+        showToast('已清空 ' + count + ' 项数据，正在刷新...');
+        _dmClose();
+        setTimeout(function() { location.reload(); }, 800);
+      }).catch(function() {
+        alert('数据模块加载失败，请刷新后重试。');
+      });
+    };
+
+    // 导出按钮
+    document.getElementById('rpExportBtn').addEventListener('click', function() {
+      ensureDataExportImport().then(function() {
+        _dmOpen('export');
+      }).catch(function() {
+        alert('数据模块加载失败，请刷新后重试。');
+      });
     });
 
-    // 导入：从 JSON 文件恢复数据
+    // 导入按钮
     document.getElementById('rpImportBtn').addEventListener('click', function() {
       document.getElementById('rpImportFile').click();
     });
+
+    // 文件选择后预览
     document.getElementById('rpImportFile').addEventListener('change', function(e) {
       var file = e.target.files[0];
       if (!file) return;
       var reader = new FileReader();
       reader.onload = function(ev) {
-        try {
-          var raw = JSON.parse(ev.target.result);
-          var data = raw.data || raw;
-          var count = 0;
-          Object.keys(data).forEach(function(k) {
-            if (data[k] !== null && data[k] !== undefined) {
-              try {
-                localStorage.setItem(k, typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k]));
-                count++;
-              } catch(_) {}
-            }
-          });
-          showToast('已导入 ' + count + ' 项数据，正在刷新...');
-          setTimeout(function() { location.reload(); }, 800);
-        } catch(err) {
-          alert('文件格式不正确，请选择有效的备份文件。');
-        }
+        var fileContent = ev.target.result;
+        ensureDataExportImport().then(function() {
+          try {
+            var info = DataExportImport.previewImport(fileContent);
+
+            _dmOpen('import', fileContent, info);
+
+            // 渲染预览
+            var previewEl = document.getElementById('dmPreview');
+            var ph = '<div class="dm-preview-row"><span>导出时间</span><span>' + (info.exportedAt ? info.exportedAt.slice(0, 19).replace('T', ' ') : '未知') + '</span></div>';
+            ph += '<div class="dm-preview-row"><span>来源</span><span>' + (info.app || '语文成长地图') + '</span></div>';
+            ph += '<div class="dm-preview-row"><span>包含数据</span><span>' + info.items.reduce(function(s, x) { return s + x.count; }, 0) + ' 项</span></div>';
+            previewEl.innerHTML = ph;
+            previewEl.style.display = 'block';
+          } catch(err) {
+            alert('文件格式不正确，请选择有效的备份 JSON 文件。');
+          }
+        }).catch(function() {
+          alert('数据模块加载失败，请刷新后重试。');
+        });
       };
       reader.readAsText(file);
       this.value = '';
+    });
+
+    // 点击遮罩关闭
+    document.getElementById('dmOverlay').addEventListener('click', function(e) {
+      if (e.target === this) _dmClose();
     });
 
     // Toast 提示
@@ -978,20 +2023,15 @@
       }, 2000);
     }
 
-    // Plotly 加载完成后初始化
-    function waitForPlotly() {
-      if (typeof Plotly !== 'undefined') {
-        init();
-      } else {
-        setTimeout(waitForPlotly, 200);
-      }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', waitForPlotly);
-    } else {
-      waitForPlotly();
-    }
+    window.addEventListener('beforeprint', function() {
+      ensureChartsRendered();
+    });
 
     // 响应窗口大小变化，重新渲染图表
     var resizeTimer;
@@ -1001,7 +2041,7 @@
         var charts = ['chartRadar', 'chartDonut', 'chartTrend'];
         charts.forEach(function(id) {
           var el = document.getElementById(id);
-          if (el && el._fullLayout) {
+          if (el && el._fullLayout && typeof Plotly !== 'undefined') {
             Plotly.Plots.resize(el);
           }
         });

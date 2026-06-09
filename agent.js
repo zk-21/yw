@@ -11,10 +11,23 @@
         { value: 'deepseek-v4-flash', label: 'deepseek-v4-flash' },
         { value: 'deepseek-v4-pro', label: 'deepseek-v4-pro' }
       ]
+    },
+    qwen: {
+      label: '通义千问（阿里云）',
+      keyLabel: '阿里云百炼 API Key',
+      keyHelp: '千问使用阿里云百炼平台 API Key，格式为 sk-xxxxxxxx，接口地址为 https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions。',
+      apiUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
+      keyStorage: 'diandianAgentQwenKey',
+      format: 'chat',
+      models: [
+        { value: 'qwen3.7-plus', label: 'qwen3.7-plus（高性价比）' },
+        { value: 'qwen3.7-max', label: 'qwen3.7-max（最强能力）' }
+      ]
     }
   };
   const RECORD_STORAGE = 'diandianAgentRecords';
   const MAX_RECORDS = 20;
+  const urlPresetContext = parseUrlPreset();
 
   const form = document.getElementById('agent-form');
   const providerSelect = document.getElementById('agent-provider');
@@ -37,11 +50,113 @@
   const photoPreview = document.getElementById('agent-photo-preview');
   const photoImage = document.getElementById('agent-photo-image');
   const photoName = document.getElementById('agent-photo-name');
+  const modeSelect = document.getElementById('agent-mode');
+  const chatSection = document.getElementById('chat-section');
+  const chatHistory = document.getElementById('chat-history');
+  const chatReply = document.getElementById('chat-reply');
+  const chatSend = document.getElementById('chat-send');
+  const chatHint = document.getElementById('chat-hint');
+  const chatEnd = document.getElementById('chat-end');
+  const chatStatus = document.getElementById('chat-status');
 
   if (!form || !keyInput || !questionInput || !runButton || !output || !status) return;
 
+  // 多轮引导对话状态
+  let chatMessages = [];
+  let chatContext = null;
+
   function getProvider(providerId) {
     return PROVIDERS[providerId] || PROVIDERS.deepseek;
+  }
+
+  function parseUrlPreset() {
+    try {
+      const params = new URLSearchParams(window.location.search || '');
+      return {
+        provider: params.get('provider') || '',
+        model: params.get('model') || '',
+        mode: params.get('mode') || '',
+        stage: params.get('stage') || '',
+        subject: params.get('subject') || '',
+        task: params.get('task') || '',
+        question: params.get('question') || params.get('q') || '',
+        level: params.get('level') || '',
+        source: params.get('source') || ''
+      };
+    } catch (error) {
+      return {
+        provider: '',
+        model: '',
+        mode: '',
+        stage: '',
+        subject: '',
+        task: '',
+        question: '',
+        level: '',
+        source: ''
+      };
+    }
+  }
+
+  function setSelectValue(field, value) {
+    if (!field || !value) return false;
+    const options = Array.from(field.options || []);
+    const match = options.find((option) => option.value === value);
+    if (!match) return false;
+    field.value = value;
+    return true;
+  }
+
+  function normalizeStagePreset(stageValue, levelValue) {
+    const stage = String(stageValue || '').trim();
+    const level = String(levelValue || '').trim();
+    if (!stage) {
+      return level.indexOf('家长') >= 0 ? '家长辅导' : '';
+    }
+    if (stage === '小学主站') {
+      return level.indexOf('家长') >= 0 ? '家长辅导' : '不限/自动判断';
+    }
+    if (stage === '家长陪练') return '家长辅导';
+    return stage;
+  }
+
+  function applyUrlPreset() {
+    const preset = urlPresetContext;
+    let applied = false;
+
+    if (providerSelect && setSelectValue(providerSelect, preset.provider)) {
+      refreshProviderFields();
+      applied = true;
+    }
+
+    if (modeSelect && setSelectValue(modeSelect, preset.mode)) {
+      applied = true;
+    }
+
+    if (setSelectValue(form.elements.stage, normalizeStagePreset(preset.stage, preset.level))) {
+      applied = true;
+    }
+
+    if (setSelectValue(form.elements.subject, preset.subject)) {
+      applied = true;
+    }
+
+    if (setSelectValue(form.elements.task, preset.task)) {
+      applied = true;
+    }
+
+    if (preset.question) {
+      questionInput.value = preset.question;
+      applied = true;
+    }
+
+    if (modelSelect && setSelectValue(modelSelect, preset.model)) {
+      applied = true;
+    }
+
+    if (applied) {
+      setStatus('已根据页面场景预填 AI 参数，可直接生成或按真实题目再改一改。');
+    }
   }
 
   function getProviderId() {
@@ -210,6 +325,8 @@
       `学习阶段：${data.stage}`,
       `学科/内容：${data.subject}`,
       `辅导任务：${data.task}`,
+      data.level ? `辅导侧重：${data.level}` : '',
+      data.source ? `入口场景：${data.source}` : '',
       `题目/问题/任务：${data.question}`,
       '',
       '请直接输出学生和家长能照着做的辅导结果，不展示内部推理过程。',
@@ -230,6 +347,34 @@
     return '你是一位全学科特级教师和学习辅导 Agent。输出只给辅导结果，不展示内部推理。';
   }
 
+  function getGuidedSystemPrompt() {
+    return [
+      '你是一位经验丰富的特级教师，正在一对一辅导小学生。',
+      '你的核心原则是苏格拉底式教学：绝不直接给出答案，而是通过提问和提示，一步步引导学生自己想出来。',
+      '',
+      '规则：',
+      '1. 每次回复只走一小步，结尾必须抛出一个具体的引导性问题，等学生回答。',
+      '2. 如果学生答对了，肯定并追问下一步；如果答错了，不否定，用换个角度或给一个小提示再引导。',
+      '3. 语言亲切、鼓励性强，像一位耐心的好老师。',
+      '4. 每次回复控制在150字以内，简短有力。',
+      '5. 不要一次问多个问题，每次只问一个最关键的问题。',
+      '6. 适当使用类比、举例子，帮助孩子理解。'
+    ].join('\n');
+  }
+
+  function buildGuidedInitialPrompt(data) {
+    return [
+      `学生情况：${data.stage}，${data.subject}`,
+      `辅导任务：${data.task}`,
+      data.level ? `辅导侧重：${data.level}` : '',
+      data.source ? `入口场景：${data.source}` : '',
+      `题目/问题：${data.question}`,
+      '',
+      '请先用1-2句话简要说明这道题/这个问题考的是什么知识点，然后用一个引导性问题开始辅导。',
+      '注意：不要给出答案，只给出思考方向和问题。'
+    ].join('\n');
+  }
+
   function extractResponsesText(result) {
     if (!result) return '';
     if (typeof result.output_text === 'string') return result.output_text;
@@ -242,30 +387,21 @@
       .join('\n');
   }
 
-  async function requestAgent(data) {
+  // 通用 AI 请求函数，支持自定义 messages
+  async function requestAI(data, messages, options = {}) {
     const provider = getProvider(data.provider);
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), 90000);
-    const body = provider.format === 'responses'
-      ? {
-          model: data.model,
-          temperature: 0.35,
-          max_output_tokens: 3200,
-          input: [
-            { role: 'system', content: [{ type: 'input_text', text: getSystemPrompt() }] },
-            { role: 'user', content: [{ type: 'input_text', text: buildPrompt(data) }] }
-          ]
-        }
-      : {
-          model: data.model,
-          stream: false,
-          temperature: 0.35,
-          max_tokens: 3200,
-          messages: [
-            { role: 'system', content: getSystemPrompt() },
-            { role: 'user', content: buildPrompt(data) }
-          ]
-        };
+    const maxTokens = options.maxTokens || 3200;
+    const temperature = options.temperature !== undefined ? options.temperature : 0.35;
+
+    const body = {
+      model: data.model,
+      stream: false,
+      temperature: temperature,
+      max_tokens: maxTokens,
+      messages: messages
+    };
 
     try {
       const response = await fetch(provider.apiUrl, {
@@ -287,21 +423,25 @@
       }
 
       const choice = result && result.choices && result.choices[0];
-      const content = provider.format === 'responses'
-        ? extractResponsesText(result)
-        : choice && choice.message && choice.message.content;
+      const content = choice && choice.message && choice.message.content;
 
       if (!content) throw new Error(`${provider.label} API 没有返回有效内容。`);
 
       return {
         content: content.trim(),
-        finishReason: provider.format === 'responses'
-          ? (result.status === 'incomplete' ? 'length' : '')
-          : choice.finish_reason || ''
+        finishReason: choice.finish_reason || ''
       };
     } finally {
       window.clearTimeout(timeoutId);
     }
+  }
+
+  async function requestAgent(data) {
+    const messages = [
+      { role: 'system', content: getSystemPrompt() },
+      { role: 'user', content: buildPrompt(data) }
+    ];
+    return requestAI(data, messages, { maxTokens: 3200 });
   }
 
   function startVoiceInput(target, button) {
@@ -330,6 +470,223 @@
     recognition.start();
   }
 
+  function getMode() {
+    return modeSelect ? modeSelect.value : 'direct';
+  }
+
+  function isGuidedMode() {
+    return getMode() === 'guided';
+  }
+
+  function updateModeHelp() {
+    if (!modeHelp) return;
+    if (isGuidedMode()) {
+      modeHelp.textContent = '引导对话：AI 老师不直接给答案，通过提问一步步引导孩子自己思考。适合想培养孩子独立思考能力的场景。';
+    } else {
+      modeHelp.textContent = '直接辅导：一次给出完整诊断和方法。引导对话：AI 老师不直接给答案，通过提问一步步引导孩子自己想出来。';
+    }
+  }
+
+  // ===== 引导式对话核心逻辑 =====
+
+  function renderChatBubble(role, content) {
+    const bubble = document.createElement('div');
+    bubble.className = `chat-bubble ${role}`;
+    const label = document.createElement('span');
+    label.className = 'chat-role';
+    label.textContent = role === 'assistant' ? '🤖 AI 老师' : '👦 孩子';
+    bubble.appendChild(label);
+    bubble.appendChild(document.createTextNode(content));
+    chatHistory.appendChild(bubble);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  }
+
+  function setChatStatus(message, isError) {
+    if (!chatStatus) return;
+    chatStatus.textContent = message || '';
+    chatStatus.classList.toggle('error', Boolean(isError));
+  }
+
+  async function callGuidedAPI(messages, options = {}) {
+    const data = {
+      apiKey: keyInput.value.trim(),
+      provider: getProviderId(),
+      model: getFormValue('model')
+    };
+    return requestAI(data, messages, options);
+  }
+
+  async function startGuidedSession() {
+    const data = {
+      apiKey: keyInput.value.trim(),
+      provider: getProviderId(),
+      model: getFormValue('model'),
+      question: getFormValue('question'),
+      stage: getFormValue('stage'),
+      subject: getFormValue('subject'),
+      task: getFormValue('task'),
+      level: urlPresetContext.level,
+      source: urlPresetContext.source
+    };
+    const provider = getProvider(data.provider);
+
+    if (!data.apiKey) {
+      setStatus(`请先填写 ${provider.keyLabel}。`, true);
+      keyInput.focus();
+      return;
+    }
+    if (!data.question) {
+      setStatus('请先输入题目、问题或任务。', true);
+      questionInput.focus();
+      return;
+    }
+
+    // 保存 Key
+    if (saveKeyInput && saveKeyInput.checked) {
+      localStorage.setItem(provider.keyStorage, data.apiKey);
+    } else {
+      localStorage.removeItem(provider.keyStorage);
+    }
+
+    // 初始化对话状态
+    chatMessages = [
+      { role: 'system', content: getGuidedSystemPrompt() },
+      { role: 'user', content: buildGuidedInitialPrompt(data) }
+    ];
+    chatContext = { data, fullTranscript: [] };
+
+    // 显示对话区域，隐藏结果区
+    if (chatSection) chatSection.style.display = '';
+    if (chatHistory) chatHistory.innerHTML = '';
+    setOutput('引导对话模式已开启，请在下方查看 AI 老师的引导。', true);
+    document.getElementById('result').style.display = 'none';
+
+    runButton.disabled = true;
+    setStatus('AI 老师正在思考如何引导...');
+
+    try {
+      const result = await callGuidedAPI(chatMessages, { maxTokens: 300, temperature: 0.7 });
+      chatMessages.push({ role: 'assistant', content: result.content });
+      chatContext.fullTranscript.push({ role: 'AI 老师', content: result.content });
+      renderChatBubble('ai', result.content);
+      setStatus('');
+      if (chatReply) chatReply.focus();
+      if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+      const message = error && error.message ? error.message : '启动引导对话失败。';
+      setStatus(message, true);
+      chatSection && (chatSection.style.display = 'none');
+      document.getElementById('result').style.display = '';
+    } finally {
+      runButton.disabled = false;
+    }
+  }
+
+  async function sendChatReply() {
+    if (!chatReply) return;
+    const reply = chatReply.value.trim();
+    if (!reply) {
+      setChatStatus('请输入孩子的回答或想法。', true);
+      return;
+    }
+
+    renderChatBubble('user', reply);
+    chatMessages.push({ role: 'user', content: reply });
+    chatContext.fullTranscript.push({ role: '孩子', content: reply });
+    chatReply.value = '';
+    chatReply.disabled = true;
+    chatSend && (chatSend.disabled = true);
+    setChatStatus('AI 老师正在回应...');
+
+    try {
+      const result = await callGuidedAPI(chatMessages, { maxTokens: 300, temperature: 0.7 });
+      chatMessages.push({ role: 'assistant', content: result.content });
+      chatContext.fullTranscript.push({ role: 'AI 老师', content: result.content });
+      renderChatBubble('ai', result.content);
+      setChatStatus('');
+    } catch (error) {
+      const message = error && error.message ? error.message : '回复失败。';
+      setChatStatus(message, true);
+    } finally {
+      chatReply.disabled = false;
+      chatSend && (chatSend.disabled = false);
+      chatReply.focus();
+    }
+  }
+
+  async function requestHint() {
+    chatSend && (chatSend.disabled = true);
+    chatReply && (chatReply.disabled = true);
+    setChatStatus('AI 老师正在给提示...');
+
+    const hintMessages = chatMessages.concat([
+      { role: 'user', content: '请给孩子一个更简单、更具体的提示，帮助ta往正确答案靠近一步。不要直接给答案。' }
+    ]);
+
+    try {
+      const result = await callGuidedAPI(hintMessages, { maxTokens: 250, temperature: 0.7 });
+      chatMessages.push(
+        { role: 'user', content: '请给我一个提示' },
+        { role: 'assistant', content: result.content }
+      );
+      chatContext.fullTranscript.push(
+        { role: '系统', content: '孩子请求提示' },
+        { role: 'AI 老师', content: result.content }
+      );
+      renderChatBubble('ai', '💡 ' + result.content);
+      setChatStatus('');
+    } catch (error) {
+      const message = error && error.message ? error.message : '获取提示失败。';
+      setChatStatus(message, true);
+    } finally {
+      chatSend && (chatSend.disabled = false);
+      chatReply && (chatReply.disabled = false);
+      chatReply && chatReply.focus();
+    }
+  }
+
+  async function endGuidedChat() {
+    setChatStatus('AI 老师正在总结本次辅导...');
+    chatSend && (chatSend.disabled = true);
+    chatReply && (chatReply.disabled = true);
+
+    const summaryMessages = chatMessages.concat([
+      { role: 'user', content: '请对本次辅导做一个简短总结（150字内）：孩子哪些地方进步了？还有哪些需要继续练习？给家长2条具体建议。' }
+    ]);
+
+    try {
+      const result = await callGuidedAPI(summaryMessages, { maxTokens: 400, temperature: 0.35 });
+
+      // 构建完整对话记录
+      const transcript = chatContext.fullTranscript
+        .map(t => `【${t.role}】${t.content}`)
+        .join('\n\n');
+
+      const fullAnswer = '📝 引导对话记录\n\n' + transcript + '\n\n---\n\n📊 辅导总结\n\n' + result.content;
+
+      // 隐藏对话区域
+      if (chatSection) chatSection.style.display = 'none';
+      document.getElementById('result').style.display = '';
+
+      setOutput(fullAnswer, false);
+      setStatus('引导对话完成，总结已生成。');
+      addRecord(chatContext.data, fullAnswer);
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+      const message = error && error.message ? error.message : '生成总结失败。';
+      setChatStatus(message, true);
+    } finally {
+      chatSend && (chatSend.disabled = false);
+      chatReply && (chatReply.disabled = false);
+    }
+
+    // 重置对话状态
+    chatMessages = [];
+    chatContext = null;
+  }
+
+  // ===== 修改 runAgent 支持模式分叉 =====
+
   async function runAgent() {
     const data = {
       apiKey: keyInput.value.trim(),
@@ -338,8 +695,17 @@
       question: getFormValue('question'),
       stage: getFormValue('stage'),
       subject: getFormValue('subject'),
-      task: getFormValue('task')
+      task: getFormValue('task'),
+      level: urlPresetContext.level,
+      source: urlPresetContext.source
     };
+
+    // 引导模式：启动多轮对话
+    if (isGuidedMode()) {
+      return startGuidedSession();
+    }
+
+    // 直接辅导模式（原有逻辑）
     const provider = getProvider(data.provider);
 
     if (!data.apiKey) {
@@ -391,6 +757,7 @@
   refreshProviderFields();
   renderRecords();
   bindAgentBottomNav();
+  applyUrlPreset();
 
   if (providerSelect) providerSelect.addEventListener('change', refreshProviderFields);
   exampleButtons.forEach((button) => {
@@ -434,4 +801,19 @@
     if (photoName) photoName.textContent = file.name;
     if (photoPreview) photoPreview.classList.add('is-visible');
   });
+
+  // 引导对话事件绑定
+  if (modeSelect) {
+    modeSelect.addEventListener('change', updateModeHelp);
+    updateModeHelp();
+  }
+  if (chatSend) chatSend.addEventListener('click', sendChatReply);
+  if (chatReply) chatReply.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendChatReply();
+    }
+  });
+  if (chatHint) chatHint.addEventListener('click', requestHint);
+  if (chatEnd) chatEnd.addEventListener('click', endGuidedChat);
 })();

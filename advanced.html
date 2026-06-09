@@ -156,6 +156,69 @@
       background: #7b1fa2;
       transform: translateY(-2px);
     }
+    .advanced-jumpbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .advanced-jumpbar a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #f3e5f5;
+      color: #7b1fa2;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .compare-card {
+      background: #fff;
+      border: 1px solid #efe4f5;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    }
+    .compare-card h4 {
+      margin: 0 0 10px;
+      color: #7b1fa2;
+      font-size: 17px;
+    }
+    .compare-card p {
+      margin: 8px 0;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .weekly-plan {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .weekly-step {
+      background: linear-gradient(135deg, #faf5ff 0%, #fff 100%);
+      border: 1px solid #eadcf5;
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .weekly-step strong {
+      color: #7b1fa2;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    .weekly-step p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -191,6 +254,34 @@
       <p class="eyebrow">拔尖提升专区</p>
       <h1>突破瓶颈，冲刺更高水平</h1>
       <p>专为尖子生设计的拓展课程：深度阅读、思辨写作、文学鉴赏、文言文拓展、竞赛素养</p>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;" id="advanced-standards">
+      <div class="expand-card" style="border-top-color:#ff9800;">
+        <h3>🚦 先判断：现在是在达标、提优，还是已经进入拔尖层</h3>
+        <p class="subtitle">拔尖不是一上来就加难题，而是先确认孩子有没有形成“会判断、会迁移、会复盘”的证据。</p>
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr><th>层级</th><th>当前表现</th><th>可检查证据</th><th>下一步入口</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>达标</td><td>会按模板答常规题，但答案偏短、偏平。</td><td>能说出题型，能找到 1 处依据。</td><td><a href="knowledge-map.html#reading-templates">先回模板总控</a></td></tr>
+                <tr><td>提优</td><td>答案开始有“结论 + 依据”，但分析浅、迁移慢。</td><td>同一类题换一道材料，还能用同样步骤答。</td><td><a href="practice.html#flow-training">进入 C 卷迁移</a></td></tr>
+                <tr><td>拔尖</td><td>能比较普通答案和高分答案的差距，知道缺哪一层。</td><td>会主动补“分析、中心、表达效果”这一层。</td><td><a href="practice.html#peak-promotion">看晋级标准</a></td></tr>
+                <tr><td>冲刺</td><td>限时下也能判断题型、组织层次，并在新题中保持稳定。</td><td>能做完题后自己写出“错因 + 方法 + 下次提醒”。</td><td><a href="report.html">对照周报复盘</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="advanced-jumpbar">
+          <a href="#advanced-compare">看低分到高分对照</a>
+          <a href="#advanced-weekly-plan">看一周闭环</a>
+          <a href="practice.html#master-peak-training">进练习页拔尖层</a>
+          <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=拔尖训练分流&amp;level=小升初冲刺&amp;source=尖子生拓展-页首分流&amp;question=请先判断孩子当前更需要补深度阅读、思辨写作、文言文进阶还是综合探究，再给我今天先练哪里、怎么做 20 分钟闭环、做完如何判断有没有进入拔尖层。">让 AI 先分流</a>
+        </div>
+      </div>
     </section>
 
     <section class="section" style="max-width: 1200px; margin: 0 auto;">
@@ -544,6 +635,44 @@
       </div>
     </section>
 
+    <section class="section" style="max-width: 1200px; margin: 0 auto;" id="advanced-compare">
+      <div class="section-title">
+        <p class="eyebrow">低分到高分</p>
+        <h2>真正拉开差距的，不是题量，而是答案层次和迁移能力</h2>
+        <p style="color: #666;">下面四块内容最能区分“会做题”和“会思考”。每次只抓一个点，不要同时加四块。</p>
+      </div>
+      <div class="compare-grid">
+        <article class="compare-card">
+          <h4>深度阅读</h4>
+          <p><strong>普通表现：</strong>只会复述内容，或者只写“生动形象、表达喜爱”。</p>
+          <p><strong>拔尖表现：</strong>能写出“内容 + 手法 + 效果 + 中心”，还能比较两篇文章写法的差异。</p>
+          <p><strong>当天训练：</strong>同一主题找两篇短文，对比视角、情感和语言风格，再写 120 字比较结论。</p>
+          <p><a href="narrative-reading.html">记叙文</a> / <a href="expository-reading.html">说明文</a> / <a href="non-continuous-text.html">非连续文本</a></p>
+        </article>
+        <article class="compare-card">
+          <h4>思辨写作</h4>
+          <p><strong>普通表现：</strong>能举例，但中心模糊，例子和观点常常是分开的。</p>
+          <p><strong>拔尖表现：</strong>先写观点，再选最值钱的材料，能说明“为什么这件事最能证明中心”。</p>
+          <p><strong>当天训练：</strong>同一题列两个立意，删掉一个普通立意，只保留更能写出变化和认识的那个。</p>
+          <p><a href="composition.html#master-teacher">先学拆题</a> / <a href="composition.html#peak-writing">再做拔尖追问</a></p>
+        </article>
+        <article class="compare-card">
+          <h4>文言与文学</h4>
+          <p><strong>普通表现：</strong>只会翻句意、背作者作品，答题停在“意思对”。</p>
+          <p><strong>拔尖表现：</strong>能从句意走到人物、情感、道理和表达方式，文学常识还能连到时代脉络。</p>
+          <p><strong>当天训练：</strong>一首古诗先写画面，再写情感，再补“诗人怎样写出这种情感”。</p>
+          <p><a href="classical-reading.html">古诗文专题</a> / <a href="literary.html">文学常识专题</a></p>
+        </article>
+        <article class="compare-card">
+          <h4>综合探究</h4>
+          <p><strong>普通表现：</strong>把材料都看过了，但结论空、建议虚、方案不落地。</p>
+          <p><strong>拔尖表现：</strong>结论能从材料里长出来，建议具体，知道该引用哪组数据和关键词。</p>
+          <p><strong>当天训练：</strong>做一道图表或多材料题，要求答案里至少出现 1 个数据、1 个比较、1 个明确结论。</p>
+          <p><a href="integrated-learning.html">综合性学习</a> / <a href="practice.html#pack-r4">R4 训练包</a></p>
+        </article>
+      </div>
+    </section>
+
     <section class="section" style="max-width: 1200px; margin: 0 auto;">
       <div class="expand-card">
         <h3>🎯 尖子生成长路径</h3>
@@ -577,6 +706,45 @@
           <a href="composition.html">作文专题</a>
           <a href="knowledge-map.html">知识总控</a>
           <a href="practice.html">练习计划</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="max-width: 1200px; margin: 0 auto;" id="advanced-weekly-plan">
+      <div class="expand-card" style="border-top-color:#4caf50;">
+        <h3>🗓️ 尖子生一周闭环：每周只抓 1 到 2 个高阶能力</h3>
+        <p class="subtitle">不要把“拔尖”做成每天加码。更稳的方式是：先定位，再专项，再输出，最后复盘。</p>
+        <div class="weekly-plan">
+          <article class="weekly-step">
+            <strong>周一：定位</strong>
+            <p>先看 <a href="report.html">学习周报</a> 或最近一次错题，判断本周是补“答案层次”、补“写作立意”，还是补“材料整合”。</p>
+          </article>
+          <article class="weekly-step">
+            <strong>周二：专题精练</strong>
+            <p>只练 1 个专题 15 到 20 分钟。读完或写完后，必须口头讲清“我用了什么方法”。</p>
+          </article>
+          <article class="weekly-step">
+            <strong>周三：低分改高分</strong>
+            <p>找一份普通答案，补上缺的那一层：依据、分析、表达效果、中心或立意，不要重写整题。</p>
+          </article>
+          <article class="weekly-step">
+            <strong>周四：跨题迁移</strong>
+            <p>换材料、换问法、换主题再做 1 次，检查自己会不会只是记住原题。</p>
+          </article>
+          <article class="weekly-step">
+            <strong>周五：限时输出</strong>
+            <p>做 1 次 12 到 15 分钟限时训练，逼自己在真实压力下判断题型和组织层次。</p>
+          </article>
+          <article class="weekly-step">
+            <strong>周末：复盘与展示</strong>
+            <p>写“这周我最常缺哪一层、现在会先做什么、下周继续补哪里”，再做 1 次口头展示或短评输出。</p>
+          </article>
+        </div>
+        <div class="resource-links" style="margin-top:20px;">
+          <a href="practice.html#flow-training">去做 C 卷迁移</a>
+          <a href="practice.html#peak-promotion">查看拔尖晋级</a>
+          <a href="composition.html#three-round-revision">做三轮批改</a>
+          <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=拔尖周计划&amp;level=小升初冲刺&amp;source=尖子生拓展-周计划&amp;question=请按小学语文拔尖闭环，帮我安排一周计划：周一定位、周中专项、周五限时、周末复盘。优先围绕我当前最薄弱的一项高阶能力设计。">让 AI 生成周计划</a>
         </div>
       </div>
     </section>

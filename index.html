@@ -3,14 +3,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="面向小学一至六年级学生和家长的语文学习平台，涵盖字词、阅读、写作、古诗文五大主线，提供诊断测评、年级路线、AI辅导和每日练习。">
+  <meta name="keywords" content="小学语文,语文学习,拼音,阅读,作文,古诗文,语法,词语,练习,年级">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="语文成长地图">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="小学语文学习平台 - 语文成长地图">
+  <meta property="og:description" content="把语文知识拆成孩子看得懂、练得动的小任务，围绕字词、句段、阅读、习作、古诗文五条主线。">
+  <meta property="og:image" content="agent-icon-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="小学语文学习平台 - 语文成长地图">
+  <meta name="twitter:description" content="面向小学一至六年级的语文学习导航与专项训练工具。">
   <title>小学语文学习平台 - 知识导航</title>
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="nav.js" as="script">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "语文成长地图",
+    "description": "面向小学一至六年级学生和家长的语文学习平台",
+    "areaServed": "CN",
+    "url": "https://your-domain.com",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student",
+      "audienceType": "小学生（一至六年级）"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "语文学习课程",
+      "itemListElement": [
+        {"@type": "Course", "name": "拼音学习", "url": "https://your-domain.com/pinyin.html"},
+        {"@type": "Course", "name": "语法知识", "url": "https://your-domain.com/grammar.html"},
+        {"@type": "Course", "name": "作文专题", "url": "https://your-domain.com/composition.html"},
+        {"@type": "Course", "name": "词语学习", "url": "https://your-domain.com/vocabulary.html"}
+      ]
+    }
+  }
+  </script>
   <style>
     /* 诊断和任务模块 */
     .diagnosis-section {
@@ -99,6 +135,12 @@
       flex: 1;
       color: #333;
     }
+    .task-text.task-link {
+      text-decoration: none;
+    }
+    .task-text.task-link:hover {
+      color: #667eea;
+    }
     .task-text.completed {
       text-decoration: line-through;
       color: #999;
@@ -106,6 +148,17 @@
     .task-time {
       color: #999;
       font-size: 14px;
+    }
+    .task-item.parent-task .task-time {
+      color: #667eea;
+      font-weight: 600;
+    }
+    .timeline a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .timeline a:hover {
+      color: #4f46e5;
     }
     
     /* 学习闭环模块 */
@@ -224,6 +277,91 @@
       color: #666;
       font-size: 14px;
     }
+    .home-router-section {
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+    .home-router-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px;
+      border: 1px solid rgba(24, 33, 47, 0.08);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(232, 243, 255, 0.9), rgba(255, 247, 219, 0.82) 58%, rgba(236, 247, 239, 0.95)),
+        #ffffff;
+      box-shadow: 0 20px 42px rgba(24, 33, 47, 0.08);
+    }
+    .home-router-shell .section-title {
+      max-width: 840px;
+      margin-bottom: 22px;
+    }
+    .home-router-lead {
+      color: #405064;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    .home-router-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .home-router-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(24, 33, 47, 0.1);
+    }
+    .home-router-tag {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(11, 107, 203, 0.1);
+      color: #0b6bcb;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .home-router-note {
+      margin: 0;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(24, 33, 47, 0.12);
+      color: #59677a;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .home-router-quickbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .home-router-quick {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border: 1px solid rgba(24, 33, 47, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      color: #21405f;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .home-router-quick.primary {
+      color: #fff;
+      background: #21405f;
+      border-color: #21405f;
+    }
+    .home-router-quick:hover {
+      background: #21405f;
+      border-color: #21405f;
+      color: #fff;
+    }
     
     @media (max-width: 768px) {
       .diagnosis-container {
@@ -235,6 +373,16 @@
       .roadmap-table th, .roadmap-table td {
         padding: 12px 8px;
         font-size: 13px;
+      }
+      .home-router-shell {
+        padding: 20px;
+        border-radius: 18px;
+      }
+      .home-router-grid {
+        grid-template-columns: 1fr;
+      }
+      .home-router-lead {
+        font-size: 15px;
       }
     }
   </style>
@@ -346,12 +494,12 @@
       </div>
       <!-- 年级选项卡 -->
       <div class="grade-tabs">
-        <button class="tab-btn" onclick="showGrade(1)">一年级</button>
-        <button class="tab-btn" onclick="showGrade(2)">二年级</button>
-        <button class="tab-btn active" onclick="showGrade(3)">三年级</button>
-        <button class="tab-btn" onclick="showGrade(4)">四年级</button>
-        <button class="tab-btn" onclick="showGrade(5)">五年级</button>
-        <button class="tab-btn" onclick="showGrade(6)">六年级</button>
+        <button class="tab-btn" onclick="showGrade(1, event)">一年级</button>
+        <button class="tab-btn" onclick="showGrade(2, event)">二年级</button>
+        <button class="tab-btn active" onclick="showGrade(3, event)">三年级</button>
+        <button class="tab-btn" onclick="showGrade(4, event)">四年级</button>
+        <button class="tab-btn" onclick="showGrade(5, event)">五年级</button>
+        <button class="tab-btn" onclick="showGrade(6, event)">六年级</button>
       </div>
       
       <!-- 年级内容卡片 -->
@@ -471,22 +619,93 @@
         <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
         <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
         <div class="hero-actions">
-          <a class="button primary" href="agent.html">打开 AI Agent</a>
+          <a class="button primary" href="agent.html?stage=%E5%AE%B6%E9%95%BF%E8%BE%85%E5%AF%BC&amp;subject=%E8%AF%AD%E6%96%87&amp;task=%E8%AE%B2%E6%B8%85%E7%9F%A5%E8%AF%86%E7%82%B9&amp;level=%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83&amp;source=%E9%A6%96%E9%A1%B5%E5%BF%AB%E9%80%9F%E5%85%A5%E5%8F%A3&amp;question=%E8%AF%B7%E6%8C%89%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83%E8%BD%A8%EF%BC%8C%E8%BE%85%E5%AF%BC%E4%B8%80%E9%81%93%E5%B0%8F%E5%AD%A6%E8%AF%AD%E6%96%87%E9%A2%98%EF%BC%9A%E5%85%88%E5%88%A4%E6%96%AD%E9%A2%98%E5%9E%8B%EF%BC%8C%E5%86%8D%E7%BB%99%E6%88%91%E5%8F%AF%E7%9B%B4%E6%8E%A5%E7%85%A7%E7%9D%80%E9%97%AE%E7%9A%84%E8%AF%9D%E6%9C%AF%E3%80%81%E5%AD%A9%E5%AD%90%E8%AF%A5%E5%9C%88%E7%9A%84%E4%BE%9D%E6%8D%AE%E5%92%8C%E5%81%9A%E5%AE%8C%E5%90%8E%E7%9A%84%E5%A4%8D%E7%9B%98%E9%97%AE%E9%A2%98%E3%80%82">打开 AI Agent</a>
           <a class="button primary" href="practice.html">查看今日练习</a>
+          <a class="button ghost" href="parent-guide.html#weekly-plan">家长陪学手册</a>
           <a class="button ghost" href="knowledge-map.html">打开知识总控台</a>
         </div>
       </div>
       <div class="learning-card" aria-label="今日学习卡片">
         <div class="card-header">
-          <span>今日 35 分钟</span>
-          <strong>轻量学习</strong>
+          <span id="heroTaskTotal">今日 35 分钟</span>
+          <strong id="heroTaskLabel">轻量学习</strong>
         </div>
-        <ol class="timeline">
+        <ol class="timeline" id="heroTimeline">
           <li><span>08 分钟</span>朗读一段课文，标出停顿</li>
           <li><span>10 分钟</span>积累 3 个词语并造句</li>
           <li><span>12 分钟</span>做一篇短阅读</li>
           <li><span>05 分钟</span>复述文章主要内容</li>
         </ol>
+      </div>
+    </section>
+
+    <section class="section home-router-section" id="home-router">
+      <div class="home-router-shell">
+        <div class="section-title">
+          <p class="eyebrow">首页第一分流台</p>
+          <h2>先判断今天属于哪种情况，再进对应页面</h2>
+          <p class="home-router-lead">这块不讲全站内容，只解决第一步：继续上次训练、按当前问题进、按身份进、按目标进。拿不准时，先做一次诊断，再看报告决定。</p>
+        </div>
+        <div class="home-router-grid">
+          <article class="route-card home-router-card">
+            <span class="home-router-tag">继续上次学习</span>
+            <h3>先把昨天那一步走完，不重新开新坑</h3>
+            <p>如果已经做过诊断、练习或周报，今天优先回报告、错题本和分流训练，不要重新从首页乱翻。</p>
+            <div class="route-links">
+              <a href="report.html">先看学习报告</a>
+              <a href="practice.html#wrong-notebook">回错题本</a>
+              <a href="practice.html#flow-training">继续分流训练</a>
+              <a href="parent-guide.html#weekly-plan">同步本周安排</a>
+            </div>
+            <p class="home-router-note">推荐顺序：报告定主攻点 → 错题复盘 2 题 → 分流包重练。</p>
+          </article>
+          <article class="route-card home-router-card">
+            <span class="home-router-tag">按当前问题进入</span>
+            <h3>先抓正在丢分的那一类，不要平均用力</h3>
+            <p>基础丢分先补字词语法，阅读答不到点先看模板，作文写不出来先拆题和片段，不会练再回诊断与分流。</p>
+            <div class="route-links">
+              <a href="vocabulary.html#word-overview">字词不稳</a>
+              <a href="grammar.html#grammar-methods">语法病句</a>
+              <a href="knowledge-map.html#reading-templates">阅读答不到点</a>
+              <a href="composition.html#topic-training-tasks">作文写不出来</a>
+              <a href="practice.html#diagnosis">学了不会练</a>
+              <a href="practice.html#flow-training">直接进训练包</a>
+            </div>
+            <p class="home-router-note">不要同时补三类问题，本周只抓一个主攻点，其他先维持。</p>
+          </article>
+          <article class="route-card home-router-card">
+            <span class="home-router-tag">按身份 / 场景进入</span>
+            <h3>谁来主导今天这次学习，就走谁的入口</h3>
+            <p>孩子自己练，直接进练习页；家长陪练，先看话术和闭环；已经有数据，先看周报，不必重复看总览介绍。</p>
+            <div class="route-links">
+              <a href="practice.html">孩子自己练</a>
+              <a href="parent-guide.html#scripts">家长先学怎么问</a>
+              <a href="parent-guide.html#coaching-loop">12 分钟陪练闭环</a>
+              <a href="report.html">已有数据先看报告</a>
+              <a href="knowledge-map.html">先看全站总控台</a>
+            </div>
+            <p class="home-router-note">家长页面解决“怎么陪”，练习页面解决“练什么”，报告页面解决“下一步补哪里”。</p>
+          </article>
+          <article class="route-card home-router-card">
+            <span class="home-router-tag">按目标进入</span>
+            <h3>达标、提分、拔尖、考前收口，入口不一样</h3>
+            <p>先达标先稳基础和闭环，稳提分去分流训练，冲拔尖去高阶页和晋级标准，考前收口回报告和打印训练单。</p>
+            <div class="route-links">
+              <a href="knowledge-map.html#training-loop">先达标</a>
+              <a href="practice.html#flow-training">稳提分</a>
+              <a href="advanced.html">冲拔尖</a>
+              <a href="practice.html#peak-promotion">看晋级标准</a>
+              <a href="report.html#rpWeakSection">考前收口</a>
+              <a href="practice.html#print-training">打印训练单</a>
+            </div>
+            <p class="home-router-note">常规题还不稳定时先别跳太多拔尖页；先把“结论 + 依据 + 分析”做稳，再去追高分边界。</p>
+          </article>
+        </div>
+        <div class="home-router-quickbar" aria-label="快捷分流">
+          <a class="home-router-quick primary" href="practice.html#diagnosis">完全拿不准：先做 15 分钟诊断</a>
+          <a class="home-router-quick" href="knowledge-map.html#training-loop">想看完整闭环：去知识总控台</a>
+          <a class="home-router-quick" href="advanced.html">常规题已稳定：直接去拔尖拓展</a>
+        </div>
       </div>
     </section>
 
@@ -513,6 +732,7 @@
           <p>不要每天乱练。每周只抓一个阅读点、一个表达点、一个错题复盘点。</p>
           <div class="route-links">
             <a href="practice.html">练习计划</a>
+            <a href="parent-guide.html#weekly-plan">家长一周陪学安排</a>
             <a href="knowledge-map.html#training-loop">训练闭环</a>
           </div>
         </article>
@@ -520,7 +740,7 @@
           <h3>3. 具体题目进 AI</h3>
           <p>遇到阅读题、作文片段、错题原因，再把题目发给 AI 辅导，得到可执行步骤。</p>
           <div class="route-links">
-            <a href="agent.html">打开 AI 辅导</a>
+            <a href="agent.html?stage=%E5%AE%B6%E9%95%BF%E8%BE%85%E5%AF%BC&amp;subject=%E8%AF%AD%E6%96%87&amp;task=%E8%AE%B2%E6%B8%85%E7%9F%A5%E8%AF%86%E7%82%B9&amp;level=%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83&amp;source=%E9%A6%96%E9%A1%B5%E8%B7%AF%E7%BA%BF%E5%85%A5%E5%8F%A3&amp;question=%E8%AF%B7%E6%8C%89%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83%E8%BD%A8%EF%BC%8C%E8%BE%85%E5%AF%BC%E4%B8%80%E9%81%93%E5%B0%8F%E5%AD%A6%E8%AF%AD%E6%96%87%E9%A2%98%EF%BC%9A%E5%85%88%E5%88%A4%E6%96%AD%E9%A2%98%E5%9E%8B%EF%BC%8C%E5%86%8D%E7%BB%99%E5%AE%B6%E9%95%BF%E5%8F%AF%E7%9B%B4%E6%8E%A5%E7%85%A7%E7%9D%80%E9%97%AE%E7%9A%84%E8%AF%9D%E6%9C%AF%E3%80%81%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E6%9F%A5%E8%A1%A8%E5%92%8C%E5%81%9A%E5%AE%8C%E5%90%8E%E7%9A%84%E5%A4%8D%E7%9B%98%E9%97%AE%E9%A2%98%E3%80%82">打开 AI 辅导</a>
             <a href="composition.html">作文专题</a>
           </div>
         </article>
@@ -531,7 +751,7 @@
       <div class="section-title">
         <p class="eyebrow">入口分工</p>
         <h2>先选页面，再开始学</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按“总控台、年级页、作文页、专项页、练习页”分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按"总控台、年级页、作文页、专项页、练习页"分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
       </div>
       <div class="route-grid">
         <article class="route-card">
@@ -579,6 +799,7 @@
           <div class="route-links">
             <a href="practice.html#diagnosis">诊断</a>
             <a href="practice.html#templates">阅读模板</a>
+            <a href="parent-guide.html#coaching-loop">家长陪练流程</a>
             <a href="practice.html">练习计划</a>
           </div>
         </article>
@@ -861,6 +1082,261 @@
     </section>
 
     <script>
+      let currentTaskSignature = '';
+
+      const HOME_ERROR_CODE_INFO = {
+        B1: { label: '字词混淆', shortLabel: '字词辨析', category: '基础', link: 'practice.html#pack-b1', introLink: 'vocabulary.html#word-overview', advanceLink: 'vocabulary.html#word-answer-template', practice: '先做 B1 训练包，再把 3 组易混字词放进句子里', aiSubject: '字词积累与运用', aiTask: '字词辨析巩固' },
+        B2: { label: '标点错误', shortLabel: '标点训练', category: '基础', link: 'grammar.html#grammar-methods', introLink: 'grammar.html#grammar-methods', advanceLink: 'grammar.html#grammar-methods', practice: '完成 1 组标点辨析，再说出停顿或引用为什么这样用', aiSubject: '基础语法与标点', aiTask: '标点和病句辨析' },
+        B3: { label: '拼音拼写', shortLabel: '拼音辨析', category: '基础', link: 'pinyin.html#pinyin-mistakes', introLink: 'pinyin.html#pinyin-rules', advanceLink: 'pinyin.html#pinyin-rules', parentLink: 'pinyin.html#pinyin-parent-coaching', practice: '先过易错音节，再口头拼读 3 组同类音节', aiSubject: '拼音识记', aiTask: '拼音纠错巩固' },
+        R1: { label: '概括不全', shortLabel: '概括训练', category: '阅读', link: 'practice.html#pack-r1', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '按“谁做什么，结果怎样”概括 1 段，再删掉照抄句', aiSubject: '阅读理解', aiTask: '概括题训练' },
+        R2: { label: '依据缺失', shortLabel: '找依据', category: '阅读', link: 'practice.html#pack-r2', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '做 1 题依据题，先圈原文句，再写结论', aiSubject: '阅读理解', aiTask: '依据题训练' },
+        R3: { label: '赏析空泛', shortLabel: '赏析训练', category: '阅读', link: 'practice.html#pack-r3', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '用“手法+特点+效果”补全 1 题赏析，别只写术语', aiSubject: '阅读理解', aiTask: '赏析题训练' },
+        R4: { label: '推断错误', shortLabel: '推断训练', category: '阅读', link: 'practice.html#pack-r4', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '先看材料编号和数据，再写 1 条有依据的结论', aiSubject: '阅读理解', aiTask: '非连续文本训练' },
+        W1: { label: '结构松散', shortLabel: '结构提纲', category: '表达', link: 'practice.html#pack-w1', introLink: 'composition.html#topic-training-tasks', advanceLink: 'composition.html#skill-upgrade', practice: '把片段补足时间、地点、动作和变化，写到 3-5 句', aiSubject: '作文/写作', aiTask: '片段扩写训练' },
+        W2: { label: '细节不足', shortLabel: '细节描写', category: '表达', link: 'practice.html#pack-w2', introLink: 'composition.html#skill-upgrade', advanceLink: 'composition.html#master-teacher', practice: '放大关键一幕，补上动作、心理和结果', aiSubject: '作文/写作', aiTask: '重点段升格' },
+        W3: { label: '审题偏差', shortLabel: '审题训练', category: '表达', link: 'practice.html#pack-w3', introLink: 'composition.html#topic-training-tasks', advanceLink: 'composition.html#master-teacher', practice: '先圈题眼、定中心，再列 3 点提纲', aiSubject: '作文/写作', aiTask: '审题立意训练' },
+        C1: { label: '综合迁移', shortLabel: '综合迁移', category: '综合', link: 'practice.html#pack-c1', introLink: 'knowledge-map.html#training-loop', advanceLink: 'extra-topics.html#quick-templates', practice: '做 1 组综合题，先判断题型再按分值分层作答', aiSubject: '综合学习', aiTask: '综合题型迁移' }
+      };
+
+      const HOME_SKILL_FALLBACKS = {
+        '基础知识': { label: '基础知识', shortLabel: '基础巩固', category: '基础', link: 'practice.html#pack-b1', introLink: 'vocabulary.html#word-overview', advanceLink: 'grammar.html#grammar-methods', practice: '先过一组字词基础，再回看标点和病句的通用判断方法', aiSubject: '基础字词与语法', aiTask: '基础知识巩固' },
+        '阅读理解': { label: '阅读理解', shortLabel: '阅读训练', category: '阅读', link: 'knowledge-map.html#reading-templates', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '先看阅读模板，再做 1 题回原文找依据', aiSubject: '阅读理解', aiTask: '阅读方法巩固' },
+        '写作表达': { label: '写作表达', shortLabel: '表达训练', category: '表达', link: 'composition.html#topic-training-tasks', introLink: 'composition.html#topic-training-tasks', advanceLink: 'composition.html#skill-upgrade', practice: '先拆题再写 1 段，写完对照提纲自改 1 轮', aiSubject: '作文/写作', aiTask: '写作表达升格' }
+      };
+
+      function safeParseStorage(key, fallback) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : fallback;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      function escapeHtml(text) {
+        return String(text).replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[char]));
+      }
+
+      function parseGradeValue(value) {
+        if (typeof value === 'number' && value >= 1 && value <= 6) return value;
+        const text = String(value || '').trim();
+        const digitMatch = text.match(/[1-6]/);
+        if (digitMatch) return parseInt(digitMatch[0], 10);
+        const chineseMap = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6 };
+        const chineseMatch = text.match(/[一二三四五六]/);
+        return chineseMatch ? chineseMap[chineseMatch[0]] : 0;
+      }
+
+      function getGradeLabel(gradeNum) {
+        const labels = ['', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级'];
+        return labels[gradeNum] || '三年级';
+      }
+
+      function resolveGoalType(goal, score) {
+        if (goal === 'fill' || goal === 'advance' || goal === 'explore') return goal;
+        if (score && score <= 8) return 'fill';
+        if (score && score >= 13) return 'advance';
+        return 'explore';
+      }
+
+      function resolveTaskLink(template, gradeNum) {
+        return String(template || 'practice.html').replace('{grade}', gradeNum);
+      }
+
+      function resolveOptionalTaskLink(template, gradeNum) {
+        return template ? String(template).replace('{grade}', gradeNum) : '';
+      }
+
+      function getFocusStarterLink(focus) {
+        if (focus && focus.introLink) return focus.introLink;
+        if (!focus) return 'knowledge-map.html#training-loop';
+        if (focus.category === '基础') return 'vocabulary.html#word-overview';
+        if (focus.category === '阅读') return 'knowledge-map.html#reading-templates';
+        if (focus.category === '表达') return 'composition.html#topic-training-tasks';
+        return 'knowledge-map.html#training-loop';
+      }
+
+      function getFocusAdvanceLink(focus) {
+        if (focus && focus.advanceLink) return focus.advanceLink;
+        if (!focus) return 'practice.html#flow-training';
+        if (focus.category === '基础') return 'grammar.html#grammar-methods';
+        if (focus.category === '表达') return 'composition.html#skill-upgrade';
+        return 'practice.html#flow-training';
+      }
+
+      function getFocusParentLink(focus, fallbackLink) {
+        if (focus && focus.parentLink) return focus.parentLink;
+        return fallbackLink;
+      }
+
+      function getHomeLearningState() {
+        return {
+          lastResult: safeParseStorage('lastDiagnosisResult', {}),
+          wrongList: safeParseStorage('wrongAnswers', []),
+          quickDiag: safeParseStorage('quickDiagnosis', {})
+        };
+      }
+
+      function getPrimaryFocus(state, gradeNum) {
+        const codeCounts = {};
+        (state.wrongList || []).forEach((item) => {
+          const code = String(item && item.errorCode ? item.errorCode : '').trim().toUpperCase();
+          if (!HOME_ERROR_CODE_INFO[code]) return;
+          codeCounts[code] = (codeCounts[code] || 0) + 1;
+        });
+
+        const topCode = Object.entries(codeCounts).sort((a, b) => b[1] - a[1])[0];
+        if (topCode) {
+          const focus = HOME_ERROR_CODE_INFO[topCode[0]];
+          return {
+            label: focus.label,
+            shortLabel: focus.shortLabel,
+            category: focus.category,
+            link: resolveTaskLink(focus.link, gradeNum),
+            introLink: resolveOptionalTaskLink(focus.introLink, gradeNum),
+            advanceLink: resolveOptionalTaskLink(focus.advanceLink, gradeNum),
+            parentLink: resolveOptionalTaskLink(focus.parentLink, gradeNum),
+            practice: focus.practice,
+            aiSubject: focus.aiSubject,
+            aiTask: focus.aiTask
+          };
+        }
+
+        const skillScores = state.lastResult && state.lastResult.skills ? state.lastResult.skills : {};
+        const weakestSkill = Object.keys(HOME_SKILL_FALLBACKS)
+          .map((name) => ({ name, score: Number(skillScores[name]) }))
+          .filter((item) => Number.isFinite(item.score))
+          .sort((a, b) => a.score - b.score)[0];
+
+        if (weakestSkill) {
+          const focus = HOME_SKILL_FALLBACKS[weakestSkill.name];
+          return {
+            label: focus.label,
+            shortLabel: focus.shortLabel,
+            category: focus.category,
+            link: resolveTaskLink(focus.link, gradeNum),
+            introLink: resolveOptionalTaskLink(focus.introLink, gradeNum),
+            advanceLink: resolveOptionalTaskLink(focus.advanceLink, gradeNum),
+            parentLink: resolveOptionalTaskLink(focus.parentLink, gradeNum),
+            practice: focus.practice,
+            aiSubject: focus.aiSubject,
+            aiTask: focus.aiTask
+          };
+        }
+
+        return {
+          label: '本周主线',
+          shortLabel: '综合巩固',
+          category: '综合',
+          link: 'grade' + gradeNum + '.html',
+          introLink: 'knowledge-map.html#training-loop',
+          advanceLink: 'practice.html#flow-training',
+          parentLink: 'parent-guide.html#coaching-loop',
+          practice: '打开本年级路线，先确定今天最该练的一个点',
+          aiSubject: '语文',
+          aiTask: '综合巩固'
+        };
+      }
+
+      function buildDynamicTasks() {
+        const state = getHomeLearningState();
+        const gradeNum = parseGradeValue(state.lastResult.grade) || parseGradeValue(state.quickDiag.grade) || 3;
+        const gradeLabel = getGradeLabel(gradeNum);
+        const score = Number(state.lastResult.totalScore) || 0;
+        const hasHistory = score > 0 || (state.wrongList || []).length > 0;
+        const goalType = resolveGoalType(state.quickDiag.goal, score);
+        const focus = getPrimaryFocus(state, gradeNum);
+        const tasks = [];
+        const focusSubject = focus.aiSubject || (focus.category === '表达' ? '作文/写作' : focus.category === '阅读' ? '阅读理解' : '语文');
+        const aiUpgradeHref = 'agent.html?' + new URLSearchParams({
+          stage: '家长辅导',
+          subject: focusSubject,
+          task: focus.aiTask || (focus.category === '表达' ? '作文/表达升格' : '错因诊断'),
+          level: '家长陪练',
+          source: '首页今日任务/' + focus.shortLabel,
+          question: '请按家长陪练轨，辅导一道小学语文「' + focus.label + '」相关题：先判断孩子当前缺的是题型判断、依据、分析还是表达，再给家长可直接照着问的话术、升级建议和 10 分钟复练。今天优先围绕：' + focus.practice + '。'
+        }).toString();
+
+        if (!hasHistory) {
+          tasks.push(
+            { text: '做一次 15 分钟入门诊断，先定位薄弱点', timeline: '做一次入门诊断', minutes: 15, href: 'practice.html#diagnosis' },
+            { text: '打开' + gradeLabel + '路线图，确认本周重点', timeline: '看本年级路线图', minutes: 8, href: 'grade' + gradeNum + '.html' },
+            { text: '选一个阅读、表达或基础专题做短练习', timeline: '选一个专题短练', minutes: 10, href: getFocusStarterLink(focus) },
+            { text: '家长先看陪学闭环，学会怎么问、不怎么讲', timeline: '家长先学陪练闭环', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#coaching-loop'), audience: 'parent' }
+          );
+        } else if (goalType === 'fill') {
+          tasks.push(
+            { text: '打开学习报告，先确定今天主攻「' + focus.label + '」', timeline: '先看报告定主攻点', minutes: 6, href: 'report.html' },
+            { text: focus.practice, timeline: '专项练「' + focus.shortLabel + '」', minutes: 12, href: focus.link },
+            { text: '回到错题本，复盘今天最容易重复错的 2 题', timeline: '错题本复盘 2 题', minutes: 10, href: 'practice.html#wrong-notebook' },
+            { text: '家长按检查清单追问 3 句，只复盘「' + focus.label + '」', timeline: '家长按清单追问 3 句', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#checklist'), audience: 'parent' }
+          );
+        } else if (goalType === 'advance') {
+          tasks.push(
+            { text: '查看' + gradeLabel + '提优重点，先决定今天挑战哪一类题', timeline: '先看年级提优重点', minutes: 8, href: 'grade' + gradeNum + '.html' },
+            { text: '围绕「' + focus.label + '」做 1 组拔高训练，先说结论再补依据', timeline: '拔高练「' + focus.shortLabel + '」', minutes: 15, href: getFocusAdvanceLink(focus) },
+            { text: '把今天答案发给 AI，让它指出还能升级哪一步', timeline: '把答案交给 AI 升级', minutes: 10, href: aiUpgradeHref },
+            { text: '家长按陪练闭环追问，不直接给标准答案', timeline: '家长按闭环陪练', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#coaching-loop'), audience: 'parent' }
+          );
+        } else {
+          tasks.push(
+            { text: '查看' + gradeLabel + '知识路线，先确定本周主线', timeline: '先看本年级路线图', minutes: 8, href: 'grade' + gradeNum + '.html' },
+            { text: '围绕「' + focus.label + '」做 1 个短练习，看看卡点在哪', timeline: '短练「' + focus.shortLabel + '」', minutes: 10, href: getFocusStarterLink(focus) },
+            { text: score > 0 ? '对照学习报告，确认下一步该补基础还是提优' : '完成一次标准诊断，拿到第一份学习报告', timeline: score > 0 ? '对照报告定下一步' : '完成一次标准诊断', minutes: score > 0 ? 10 : 15, href: score > 0 ? 'report.html' : 'practice.html#diagnosis' },
+            { text: '家长先看陪学手册，统一今天怎么问、怎么收尾', timeline: '家长先统一陪学方法', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#coaching-loop'), audience: 'parent' }
+          );
+        }
+
+        const totalMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0);
+        const taskMode = !hasHistory
+          ? '轻量起步'
+          : goalType === 'fill'
+            ? '补弱巩固 · ' + focus.category
+            : goalType === 'advance'
+              ? '拔高冲刺 · ' + focus.category
+              : '综合梳理 · ' + focus.category;
+
+        return { tasks, totalMinutes, taskMode };
+      }
+
+      function buildTaskSignature(tasks) {
+        return tasks.map((task) => [task.text, task.minutes, task.href].join('|')).join('||');
+      }
+
+      function renderDynamicHomeTasks() {
+        const taskList = document.getElementById('taskList');
+        const heroTimeline = document.getElementById('heroTimeline');
+        const heroTaskTotal = document.getElementById('heroTaskTotal');
+        const heroTaskLabel = document.getElementById('heroTaskLabel');
+        if (!taskList) return;
+
+        const plan = buildDynamicTasks();
+        currentTaskSignature = buildTaskSignature(plan.tasks);
+
+        taskList.innerHTML = plan.tasks.map((task) => `
+          <li class="task-item${task.audience === 'parent' ? ' parent-task' : ''}">
+            <div class="task-checkbox" onclick="toggleTask(this)" onkeydown="handleTaskKeydown(event, this)" role="button" tabindex="0" aria-label="标记任务完成">✓</div>
+            <a class="task-text task-link" href="${task.href}">${escapeHtml(task.text)}</a>
+            <span class="task-time">${escapeHtml(task.minutes)}分钟</span>
+          </li>
+        `).join('');
+
+        if (heroTimeline) {
+          heroTimeline.innerHTML = plan.tasks.map((task) => `
+            <li><span>${escapeHtml(String(task.minutes).padStart(2, '0'))} 分钟</span><a href="${task.href}">${escapeHtml(task.timeline)}</a></li>
+          `).join('');
+        }
+
+        if (heroTaskTotal) heroTaskTotal.textContent = '今日 ' + plan.totalMinutes + ' 分钟';
+        if (heroTaskLabel) heroTaskLabel.textContent = plan.taskMode;
+      }
+
       // 页面加载动画
       document.addEventListener('DOMContentLoaded', () => {
         const cards = document.querySelectorAll('.grade-panel, .mini-card, .plan-card');
@@ -874,11 +1350,18 @@
           }, index * 100);
         });
         
+        renderDynamicHomeTasks();
         // 初始化任务状态
         initTasks();
       });
       
       // 任务切换功能
+      function handleTaskKeydown(event, checkbox) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleTask(checkbox);
+      }
+
       function toggleTask(checkbox) {
         const taskItem = checkbox.parentElement;
         const taskText = taskItem.querySelector('.task-text');
@@ -890,30 +1373,49 @@
         saveTasks();
       }
       
-      // 从localStorage加载任务状态
+      // 从localStorage加载任务状态（按日期重置）
       function initTasks() {
-        const savedTasks = localStorage.getItem('dailyTasks');
-        if (savedTasks) {
-          const tasks = JSON.parse(savedTasks);
-          const taskItems = document.querySelectorAll('#taskList .task-item');
-          taskItems.forEach((item, index) => {
-            if (tasks[index]) {
-              const checkbox = item.querySelector('.task-checkbox');
-              const taskText = item.querySelector('.task-text');
-              checkbox.classList.add('completed');
-              taskText.classList.add('completed');
-            }
-          });
+        try {
+          const today = new Date().toDateString();
+          const savedDate = localStorage.getItem('dailyTasksDate');
+          const savedSignature = localStorage.getItem('dailyTasksSignature');
+          if (savedDate !== today || savedSignature !== currentTaskSignature) {
+            localStorage.setItem('dailyTasksDate', today);
+            localStorage.setItem('dailyTasksSignature', currentTaskSignature);
+            localStorage.removeItem('dailyTasks');
+            return;
+          }
+          const savedTasks = localStorage.getItem('dailyTasks');
+          if (savedTasks) {
+            const tasks = JSON.parse(savedTasks);
+            const taskItems = document.querySelectorAll('#taskList .task-item');
+            taskItems.forEach((item, index) => {
+              if (tasks[index]) {
+                const checkbox = item.querySelector('.task-checkbox');
+                const taskText = item.querySelector('.task-text');
+                checkbox.classList.add('completed');
+                taskText.classList.add('completed');
+              }
+            });
+          }
+        } catch (e) {
+          // localStorage 不可用时静默降级
         }
       }
       
       // 保存任务状态到localStorage
       function saveTasks() {
-        const taskItems = document.querySelectorAll('#taskList .task-item');
-        const tasks = Array.from(taskItems).map(item => 
-          item.querySelector('.task-checkbox').classList.contains('completed')
-        );
-        localStorage.setItem('dailyTasks', JSON.stringify(tasks));
+        try {
+          const taskItems = document.querySelectorAll('#taskList .task-item');
+          const tasks = Array.from(taskItems).map(item => 
+            item.querySelector('.task-checkbox').classList.contains('completed')
+          );
+          localStorage.setItem('dailyTasks', JSON.stringify(tasks));
+          localStorage.setItem('dailyTasksDate', new Date().toDateString());
+          localStorage.setItem('dailyTasksSignature', currentTaskSignature);
+        } catch (e) {
+          // localStorage 不可用时静默降级
+        }
       }
       
       // 年级卡片点击效果
@@ -927,7 +1429,7 @@
       });
       
       // 年级选项卡切换
-      function showGrade(grade) {
+      function showGrade(grade, evt) {
         document.querySelectorAll('.tab-btn').forEach(btn => {
           btn.classList.remove('active');
         });
@@ -935,12 +1437,12 @@
           card.classList.remove('active');
         });
         
-        event.target.classList.add('active');
+        (evt ? evt.target : event.target).classList.add('active');
         document.getElementById('grade-' + grade).classList.add('active');
       }
     </script>
   </main>
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js" defer></script>
+  <script src="table-responsive.js" defer></script>
 </body>
 </html>

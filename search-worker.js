@@ -5,6 +5,15 @@ var searchIndexPromise = null;
 function loadSearchIndex() {
   if (searchIndexPromise) return searchIndexPromise;
 
+  if (self.SearchEngine && typeof self.SearchEngine.loadIndex === 'function') {
+    searchIndexPromise = self.SearchEngine.loadIndex('data/search-index.json')
+      .catch(function (error) {
+        searchIndexPromise = null;
+        throw error;
+      });
+    return searchIndexPromise;
+  }
+
   searchIndexPromise = fetch('data/search-index.json')
     .then(function (response) {
       if (!response.ok) throw new Error('Failed to load search index: ' + response.status);
@@ -52,7 +61,10 @@ self.addEventListener('message', function (event) {
   if (data.type === 'search') {
     loadSearchIndex()
       .then(function (index) {
-        return SearchEngine.searchIndexData(index.items, data.keyword, data.options);
+        var items = typeof SearchEngine.getIndexEntries === 'function'
+          ? SearchEngine.getIndexEntries(index)
+          : index.items;
+        return SearchEngine.searchIndexData(items, data.keyword, data.options);
       })
       .then(function (results) {
         post('search:done', {

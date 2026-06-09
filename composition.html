@@ -467,6 +467,132 @@
     .teacher-note {
       background: #fff7ed;
     }
+    .composition-router {
+      background: linear-gradient(180deg, #f7f8ff 0%, #ffffff 100%);
+    }
+    .router-shell {
+      background: white;
+      border: 1px solid #e8ecf4;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(79, 70, 229, 0.08);
+      padding: 28px;
+    }
+    .router-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .router-intro p {
+      color: var(--ink);
+      line-height: 1.9;
+      margin: 0;
+    }
+    .router-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-content: start;
+    }
+    .router-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eef2ff;
+      color: #4f46e5;
+      border: 1px solid #c7d2fe;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .router-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .router-card {
+      background: #f8f9ff;
+      border: 1px solid #e6e9fb;
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .router-card h3 {
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+    .router-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      margin: 0 0 12px;
+    }
+    .router-list {
+      display: grid;
+      gap: 10px;
+    }
+    .router-link {
+      display: block;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 15px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+    .router-link:hover {
+      border-color: #667eea;
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.12);
+      transform: translateY(-2px);
+    }
+    .router-link strong,
+    .router-link span,
+    .router-link em {
+      display: block;
+    }
+    .router-link strong {
+      color: #334155;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .router-link span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .router-link em {
+      color: #4f46e5;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .router-footer {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed #dbe2ea;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .router-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #111827;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .router-chip.secondary {
+      background: #eef2ff;
+      color: #4f46e5;
+    }
     @media (max-width: 980px) {
       .grade-req,
       .diagnosis-grid,
@@ -480,7 +606,9 @@
       .teacher-grid,
       .prompt-lab,
       .revision-list,
-      .ai-tool {
+      .ai-tool,
+      .router-intro,
+      .router-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -522,6 +650,152 @@
       <p class="eyebrow">写作能力专项训练</p>
       <h1>作文专题 · 特级教师拔尖辅导系统</h1>
       <p>覆盖小学全学段 · 审题、立意、选材、结构、细节、升格、冲刺满分完整训练</p>
+    </section>
+
+    <section class="section composition-router">
+      <div class="section-title">
+        <p class="eyebrow">作文分流导航台</p>
+        <h2>先判断现在该补哪一层，再进入对应训练</h2>
+        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">不要从头看到尾。先选“这周最急的一步”，练完再回来接第二步，才更容易真正把作文拉到拔尖层。</p>
+      </div>
+      <div class="router-shell">
+        <div class="router-intro">
+          <p>作文提分不是把所有技巧都学一遍，而是先收口最关键的问题。现在最常见的四种卡点是：文章写不完整、重点段写不厚、审题容易偏、会写但不够亮。先把自己放进对应入口，再去练，效率会比盲目刷范文高很多。</p>
+          <div class="router-badges">
+            <span class="router-badge">达标层：先保完整和顺序</span>
+            <span class="router-badge">成篇层：先把结构站稳</span>
+            <span class="router-badge">提升层：先把重点段写厚</span>
+            <span class="router-badge">拔尖层：先把立意和表达再追一层</span>
+          </div>
+        </div>
+
+        <div class="router-grid">
+          <article class="router-card">
+            <h3>继续上次作文训练</h3>
+            <p>如果家里已经有题目、草稿或旧作文，不要重新学一遍，直接从最接近产出的入口接上次继续。</p>
+            <div class="router-list">
+              <a class="router-link" href="#topic-training-tasks">
+                <strong>从题型训练单接着练</strong>
+                <span>刚写完一篇同类作文，最适合顺着题型训练把“成篇能力”写稳。</span>
+                <em>先把这一类题写顺，再谈升格。</em>
+              </a>
+              <a class="router-link" href="#three-round-revision">
+                <strong>拿旧作文做三轮修改</strong>
+                <span>已经有老师批改稿或家里旧作文时，这是最快看到提分差距的入口。</span>
+                <em>原稿 → 补重点段 → 升格定稿。</em>
+              </a>
+              <a class="router-link" href="#peak-writing">
+                <strong>继续冲拔尖表达</strong>
+                <span>已经能写完整文章，就去做高分追问、立意升格和句段提亮。</span>
+                <em>从“写对”进入“写亮”。</em>
+              </a>
+              <a class="router-link" href="#ai-tutor">
+                <strong>把题目或作文交给 AI 先点破问题</strong>
+                <span>适合不知道自己到底卡在审题、结构、细节还是语言的人。</span>
+                <em>题目、草稿、拍照稿都能直接用。</em>
+              </a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <h3>按年级进入</h3>
+            <p>不同年级真正该练的重点不一样。先对准年级主任务，再补共通技巧，提分路径会更清晰。</p>
+            <div class="router-list">
+              <a class="router-link" href="#picture-writing">
+                <strong>1-2年级：先保完整和顺序</strong>
+                <span>重点不是华丽词句，而是看图说清、句子通顺、前后有顺序。</span>
+                <em>先练完整，再慢慢加细节。</em>
+              </a>
+              <a class="router-link" href="#master-teacher">
+                <strong>3-4年级：先学审题、选材和中心</strong>
+                <span>这个阶段最容易“有事可写，但写偏重点”，先把判断力搭起来。</span>
+                <em>会判断，才会写得贴题。</em>
+              </a>
+              <a class="router-link" href="#topic-training-tasks">
+                <strong>3-4年级：把一篇作文真正写成篇</strong>
+                <span>从开头、重点段、结尾一步一步拉通，不让文章停在零碎片段。</span>
+                <em>先成篇，后升格。</em>
+              </a>
+              <a class="router-link" href="#score-rubric">
+                <strong>5-6年级：按阅卷标准冲高分</strong>
+                <span>重点转向立意、重点段层次、语言表现和考场稳定性。</span>
+                <em>从“能得分”过渡到“能拔尖”。</em>
+              </a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <h3>按当前问题进入</h3>
+            <p>不要笼统地说“作文不好”。先抓一个最明显的失分点去补，往往比学一堆方法更见效。</p>
+            <div class="router-list">
+              <a class="router-link" href="practice.html#pack-w3">
+                <strong>审题老偏：先做 W3 审题训练包</strong>
+                <span>题目读懂了，后面的结构、细节、语言才不会白写。</span>
+                <em>先把题眼圈准，再动笔。</em>
+              </a>
+              <a class="router-link" href="practice.html#pack-w2">
+                <strong>重点段太薄：先补 W2 细节训练</strong>
+                <span>动作、语言、神态、心理和环境补进去，文章才会有画面。</span>
+                <em>先把一段写厚，再扩成整篇。</em>
+              </a>
+              <a class="router-link" href="#topic-angle-bank">
+                <strong>不会列提纲：先找角度和三段结构</strong>
+                <span>提纲不是形式，而是帮你判断“写哪三段最值分”。</span>
+                <em>先定中心，再选材料，再排顺序。</em>
+              </a>
+              <a class="router-link" href="#three-round-revision">
+                <strong>旧作文不会改：直接按三轮修改重写</strong>
+                <span>多数孩子不是不会写，而是不知道怎样把普通稿改成高分稿。</span>
+                <em>改一篇，比重写三篇更有价值。</em>
+              </a>
+              <a class="router-link" href="practice.html#master-peak-training">
+                <strong>想冲拔尖：先做特级训练，再回峰值追问</strong>
+                <span>适合基础已经稳定，想把表达、立意和审题精度再往上推的人。</span>
+                <em>拔尖不是多写，而是多追一层。</em>
+              </a>
+            </div>
+          </article>
+
+          <article class="router-card">
+            <h3>按目标进入</h3>
+            <p>如果你已经知道这周要达到什么结果，可以直接按目标选入口，不必重复看说明。</p>
+            <div class="router-list">
+              <a class="router-link" href="#picture-writing">
+                <strong>目标一：先写完整</strong>
+                <span>适合低年级或作文经常写不完、写不顺的人。</span>
+                <em>先保证有头有尾。</em>
+              </a>
+              <a class="router-link" href="#topic-training-tasks">
+                <strong>目标二：把一篇作文真正写成</strong>
+                <span>适合会写片段、不会写整篇的人。</span>
+                <em>先练成篇，再练精细。</em>
+              </a>
+              <a class="router-link" href="#skill-upgrade">
+                <strong>目标三：把重点段写厚</strong>
+                <span>适合文章总是平、空、短，重点段撑不起分数的人。</span>
+                <em>先把一段拉出层次。</em>
+              </a>
+              <a class="router-link" href="#topic-methods">
+                <strong>目标四：让中心更鲜明、材料更贴题</strong>
+                <span>适合文章不算差，但“没有亮点、没有主心骨”的情况。</span>
+                <em>先改中心，再提语言。</em>
+              </a>
+              <a class="router-link" href="#final-check">
+                <strong>目标五：考前做满分闭环</strong>
+                <span>适合考场前最后一轮收口，避免丢掉本不该丢的分。</span>
+                <em>写前、写中、写后都要有检查点。</em>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="router-footer">
+          <a class="router-chip" href="practice.html#print-training">打印作文训练单</a>
+          <a class="router-chip secondary" href="practice.html#pack-w2">直接练 W2 细节包</a>
+          <a class="router-chip secondary" href="practice.html#master-peak-training">直接进拔尖作文特训</a>
+          <a class="router-chip secondary" href="parent-guide.html#scripts">家长陪练话术</a>
+        </div>
+      </div>
     </section>
 
     <section class="section coach-section">
@@ -579,12 +853,19 @@
         <div class="ai-panel">
           <h3>智能辅导输入</h3>
           <form id="composition-ai-form" class="ai-form-grid">
+            <div class="ai-field">
+              <label for="ai-provider">模型供应商</label>
+              <select id="ai-provider" name="provider">
+                <option value="deepseek" selected>DeepSeek</option>
+                <option value="qwen">通义千问（阿里云百炼）</option>
+              </select>
+            </div>
             <div class="ai-field full">
-              <label for="deepseek-key">DeepSeek API Key</label>
+              <label for="deepseek-key" id="ai-key-label">DeepSeek API Key</label>
               <input id="deepseek-key" name="apiKey" type="password" autocomplete="off" placeholder="sk-..." required>
-              <p class="ai-help">API Key 只用于本次浏览器请求。勾选保存时，仅保存在你当前浏览器本机。</p>
+              <p class="ai-help" id="ai-key-help">API Key 只用于本次浏览器请求。勾选保存时，仅保存在你当前浏览器本机。</p>
               <div class="ai-security-note">
-                <strong>安全提示：</strong>不要把 API Key 写进网页源码或公开仓库。如果这个 Key 已经在聊天、截图或公开页面中出现过，请到 DeepSeek 控制台重新生成新 Key，并删除或禁用旧 Key。公开部署时建议改成后端代理调用。
+                <strong>安全提示：</strong>不要把 API Key 写进网页源码或公开仓库。如果这个 Key 已经在聊天、截图或公开页面中出现过，请到对应平台控制台重新生成新 Key。公开部署时建议改成后端代理调用。
               </div>
             </div>
             <div class="ai-field">
@@ -655,6 +936,8 @@
               <select id="ai-model" name="model">
                 <option value="deepseek-v4-flash" selected>deepseek-v4-flash</option>
                 <option value="deepseek-v4-pro">deepseek-v4-pro</option>
+                <option value="qwen3.7-plus">qwen3.7-plus（千问高性价比）</option>
+                <option value="qwen3.7-max">qwen3.7-max（千问最强）</option>
               </select>
             </div>
             <div class="ai-field">
@@ -1940,6 +2223,8 @@
           <a href="practice.html#print-training">打印作文批改记录</a>
           <a href="practice.html#pack-w2">W2重点段训练包</a>
           <a href="practice.html#pack-w3">W3审题扣题训练包</a>
+          <a href="parent-guide.html#scripts">家长作文追问话术</a>
+          <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=作文三轮批改&amp;level=家长陪练&amp;source=作文页-三轮批改&amp;question=我会发一篇小学作文，请按原稿诊断、改中心、改重点段、改结尾的顺序批改，并给家长可直接照着问的追问话术和本轮修改任务。">带旧作文进 AI 批改</a>
         </div>
       </div>
       <div class="table-card" style="margin-top:18px;">
@@ -2111,6 +2396,9 @@
         <a href="practice.html#print-training">打印训练单</a>
         <a href="practice.html#master-peak-training">练习页拔尖层</a>
         <a href="#three-round-revision">回到三轮批改</a>
+        <a href="parent-guide.html#exam-week">作文考前陪练清单</a>
+        <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=作文拔尖追问&amp;level=家长陪练&amp;source=作文页-拔尖追问&amp;question=请把这篇小学作文按拔尖标准再追问一层：先判断题眼、中心、重点段、结尾是否闭环，再给我家长可直接照着问的4个追问、升格建议和10分钟复练。">拔尖作文进 AI</a>
+        <a href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=作文考前模拟&amp;level=考前陪练&amp;source=作文页-考前冲刺&amp;question=请按考前陪练方式，围绕这道小学作文题做一次10分钟模拟：先审题，再列三行提纲，再提醒重点段和结尾怎么扣题，最后给家长收尾检查清单。">考前模拟进 AI</a>
       </div>
     </section>
 
@@ -2288,8 +2576,8 @@
     </section>
   </main>
 
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
-  <script src="composition-ai.js"></script>
+  <script src="nav.js?v=1" defer></script>
+  <script src="table-responsive.js?v=1" defer></script>
+  <script src="composition-ai-loader.js?v=1" defer></script>
 </body>
 </html>

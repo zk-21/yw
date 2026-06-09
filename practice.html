@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#63d676">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css?v=77">
-  <link rel="stylesheet" href="practice-page.css?v=78">
+  <link rel="stylesheet" href="practice-page.css?v=79">
 </head>
 <body>
   <header class="topbar">
@@ -94,6 +94,16 @@
         
         <div class="suggestions" id="suggestions"></div>
         
+        <!-- 能力雷达图 -->
+        <div class="radar-section" id="radarSection">
+          <h4>🎯 能力雷达图</h4>
+          <p class="radar-note">六边形越大越强，对比上次测评看进步</p>
+          <div class="radar-container">
+            <canvas id="radarChart" width="300" height="300"></canvas>
+            <div class="radar-legend" id="radarLegend"></div>
+          </div>
+        </div>
+        
         <div class="result-actions">
           <button class="quiz-btn" onclick="resetDiagnosis()">重新测评</button>
           <button class="quiz-btn primary" onclick="goToPractice()">开始针对性练习</button>
@@ -122,6 +132,17 @@
       <button class="mode-btn level-btn active" data-level="easy">简单</button>
       <button class="mode-btn level-btn" data-level="medium">中等</button>
       <button class="mode-btn level-btn" data-level="hard">困难</button>
+    </div>
+
+    <!-- 限时训练开关 -->
+    <div class="timer-toolbar" id="timerToolbar" style="display:none;">
+      <span class="level-toolbar-label">⏱️ 限时：</span>
+      <button class="mode-btn timer-btn" data-time="60">1分钟</button>
+      <button class="mode-btn timer-btn" data-time="120">2分钟</button>
+      <button class="mode-btn timer-btn active" data-time="300">5分钟</button>
+      <button class="mode-btn timer-btn" data-time="600">10分钟</button>
+      <div class="timer-display" id="timerDisplay">05:00</div>
+      <button class="mode-btn" id="timerToggle" style="background:#f0fdf4;color:#166534;border:1px solid #86efac;">开启限时模式</button>
     </div>
     
     <div class="practice-container" id="practiceArea">
@@ -200,11 +221,29 @@
 
   <!-- 错题本 -->
   <section class="section section-soft">
-    <div class="wrong-notebook card-wide">
-      <h3>📝 我的错题本 <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button></h3>
+    <div class="wrong-notebook card-wide" id="wrong-notebook">
+      <h3>📝 我的错题本
+        <span class="wrong-notebook-actions">
+          <button class="clear-wrong-btn" onclick="clearWrongAnswers()">清空错题</button>
+          <button class="clear-wrong-btn" id="prExportBtn" style="background:#e0e7ff;color:#4f46e5;">💾 导出</button>
+          <button class="clear-wrong-btn" id="prImportBtn" style="background:#f0fdf4;color:#16a34a;">📥 导入</button>
+        </span>
+      </h3>
+      <input type="file" id="prImportFile" accept=".json" style="display:none">
       
       <!-- 错因统计可视化 -->
       <div class="section-gap-y" id="errorStatsVisual"></div>
+      
+      <!-- 间隔重练提醒 -->
+      <div class="review-reminder card-wide" id="reviewReminder" style="display:none;">
+        <h4>🔄 今日待复习</h4>
+        <p class="review-reminder-desc">根据艾宾浩斯遗忘曲线，以下错题今天需要重新练习，巩固记忆。</p>
+        <div id="reviewList"></div>
+        <div class="review-actions">
+          <button class="quiz-btn primary" id="startReviewBtn" onclick="startIntervalReview()">开始间隔重练</button>
+          <button class="quiz-btn" onclick="dismissReviewReminder()">稍后复习</button>
+        </div>
+      </div>
       
       <!-- 错题分析 -->
       <div id="wrongAnalysis" class="wrong-analysis is-hidden">
@@ -292,6 +331,15 @@
       <p class="eyebrow">每日练习</p>
       <h1>用 30 到 45 分钟完成一次有效复习</h1>
       <p>时间不需要很长，关键是每天覆盖朗读、积累、阅读和表达，让语文能力持续生长。</p>
+    </section>
+
+    <section class="section practice-router-section" id="practice-router">
+      <div class="section-title">
+        <p class="eyebrow">智能分流导航台</p>
+        <h2>先判断现在该走哪条训练线，再开始往下练</h2>
+        <p class="section-note">如果你刚从年级页、专题页或诊断结果跳过来，不要整页往下翻。先在这里按上次记录、年级、目标或错因直接进入。</p>
+      </div>
+      <div id="practiceRouterPanel"></div>
     </section>
 
     <section class="section plan-grid">
@@ -520,6 +568,12 @@
             </tbody>
           </table>
         </div>
+      </div>
+      <div class="print-sheet-actions" style="margin-top:18px;">
+        <a class="flow-action-btn" href="parent-guide.html#coaching-loop">打开 12 分钟陪练流程</a>
+        <a class="flow-action-btn" href="parent-guide.html#checklist">看家长检查重点</a>
+        <a class="flow-action-btn" href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=陪孩子做题复盘&amp;level=家长陪练&amp;source=练习计划-家长话术&amp;question=请按家长陪练闭环，带我辅导一道小学语文题：先判断题型，再圈依据，再口头说出结论、依据、分析，最后给我3句复盘追问。">直接进 AI 陪练</a>
+        <a class="flow-action-btn" href="agent.html?stage=家长辅导&amp;subject=语文&amp;task=错因诊断与复盘&amp;level=家长陪练&amp;source=练习计划-错题复盘&amp;question=我会发一道孩子做错的小学语文题，请先帮我判断错因，再给家长可直接照着问的追问顺序和复盘收尾话术。">错题复盘进 AI</a>
       </div>
     </section>
 
@@ -1074,6 +1128,70 @@
 
 
 
+    <!-- 特级教师三阶训练：示范→模仿→独立 -->
+    <section class="section" id="three-stage-training">
+      <div class="section-title">
+        <p class="eyebrow">特级教师训练法</p>
+        <h2>"示范→模仿→独立"三阶训练</h2>
+        <p class="section-description">特级教师教阅读/作文的经典方法：第一步老师带着做，第二步孩子模仿做类似题，第三步孩子独立完成只给反馈</p>
+      </div>
+      <div class="stage-tabs" id="stageTabs">
+        <button class="stage-tab active" data-stage="1">🔍 第一阶：示范</button>
+        <button class="stage-tab" data-stage="2">✏️ 第二阶：模仿</button>
+        <button class="stage-tab" data-stage="3">🏆 第三阶：独立</button>
+      </div>
+      <div class="stage-content" id="stageContent">
+        <!-- 由JS动态渲染 -->
+      </div>
+    </section>
+
+    <!-- 答题模板刻意练习 -->
+    <section class="section" id="template-practice">
+      <div class="section-title">
+        <p class="eyebrow">答题模板</p>
+        <h2>答题模板刻意练习</h2>
+        <p class="section-description">填空式训练 → 模板迁移 → 模板脱离，三步掌握阅读答题模板</p>
+      </div>
+      <div class="stage-tabs" id="templateTabs">
+        <button class="stage-tab active" data-stage="1">📝 填空式训练</button>
+        <button class="stage-tab" data-stage="2">🔄 模板迁移</button>
+        <button class="stage-tab" data-stage="3">🚀 模板脱离</button>
+      </div>
+      <div class="stage-content" id="templateContent">
+        <!-- 由JS动态渲染 -->
+      </div>
+    </section>
+
+    <!-- 苏格拉底式引导对话（练习页专用） -->
+    <section class="section" id="guided-practice-section">
+      <div class="section-title">
+        <p class="eyebrow">互动引导</p>
+        <h2>苏格拉底式引导对话</h2>
+        <p class="section-description">AI 老师不直接给答案，通过多轮提问一步步引导孩子自己想出来。适合阅读理解和作文审题。</p>
+      </div>
+      <div class="guided-practice-container" id="guidedPracticeContainer">
+        <div class="guided-scenario-pick" id="guidedScenarioPick">
+          <h4>选择练习场景：</h4>
+          <div class="guided-scenario-grid" id="guidedScenarioGrid">
+            <!-- 由JS动态渲染 -->
+          </div>
+        </div>
+        <div class="guided-chat-area is-hidden" id="guidedChatArea">
+          <div class="guided-chat-history" id="guidedChatHistory"></div>
+          <div class="guided-chat-input-row">
+            <textarea id="guidedChatReply" placeholder="孩子的回答..." rows="3"></textarea>
+            <button class="quiz-btn primary" id="guidedChatSend">发送</button>
+          </div>
+          <div class="guided-chat-actions">
+            <button class="quiz-btn" id="guidedChatHint">💡 给个提示</button>
+            <button class="quiz-btn" id="guidedChatReveal">👀 实在想不出</button>
+            <button class="quiz-btn" id="guidedChatEnd">✅ 结束对话</button>
+          </div>
+          <div class="guided-chat-status" id="guidedChatStatus"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="templates">
       <div class="section-title">
         <p class="eyebrow">作文训练</p>
@@ -1322,16 +1440,245 @@
     </div>
   </div>
 
-  <script src="nav.js"></script>
-  <script src="table-responsive.js"></script>
+  <script src="nav.js" defer></script>
+  <script src="table-responsive.js" defer></script>
   <script>
     window.addEventListener('afterprint', function () {
       document.body.classList.remove('printing-training-sheet');
     });
   </script>
-  <script src="practice-page-content.js?v=78"></script>
-  <script src="practice.js?v=78"></script>
+  <script src="practice.js?v=79"></script>
+  <script src="practice-deferred-loader.js?v=1"></script>
   <script src="practice-exercise-loader.js?v=77"></script>
+
+  <!-- 数据管理模态框 -->
+  <style>
+    .wrong-notebook-actions { display: inline-flex; gap: 6px; margin-left: 8px; vertical-align: middle; }
+    .dm-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .dm-overlay.open { opacity: 1; pointer-events: auto; }
+    .dm-modal {
+      background: #fff; border-radius: 16px; width: 92%; max-width: 520px;
+      max-height: 85vh; overflow-y: auto; padding: 28px 24px 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .dm-overlay.open .dm-modal { transform: translateY(0); }
+    .dm-modal h3 { margin: 0 0 6px; font-size: 18px; }
+    .dm-modal .dm-desc { color: #6b7280; font-size: 13px; margin-bottom: 18px; }
+    .dm-group { margin-bottom: 14px; }
+    .dm-group-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .dm-group-title input[type=checkbox] { accent-color: #63d676; }
+    .dm-keys { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 26px; }
+    .dm-key-tag {
+      font-size: 12px; padding: 3px 10px; border-radius: 12px;
+      background: #f3f4f6; color: #374151; cursor: pointer;
+      border: 1px solid transparent; transition: all 0.15s;
+    }
+    .dm-key-tag.selected { background: #dcfce7; border-color: #63d676; color: #16a34a; }
+    .dm-key-tag.empty { opacity: 0.4; text-decoration: line-through; }
+    .dm-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb; }
+    .dm-footer button { padding: 8px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; border: none; font-weight: 500; }
+    .dm-btn-cancel { background: #f3f4f6; color: #374151; }
+    .dm-btn-confirm { background: #63d676; color: #fff; }
+    .dm-btn-confirm:hover { opacity: 0.9; }
+    .dm-import-mode { display: flex; gap: 12px; margin-bottom: 16px; font-size: 13px; }
+    .dm-import-mode label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .dm-preview { background: #f9fafb; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 13px; }
+    .dm-preview-row { display: flex; justify-content: space-between; padding: 4px 0; }
+    .dm-preview-row span:first-child { color: #6b7280; }
+    .dm-select-all { font-size: 12px; color: #63d676; cursor: pointer; margin-bottom: 12px; display: inline-block; }
+    .dm-select-all:hover { text-decoration: underline; }
+  </style>
+  <div class="dm-overlay" id="dmOverlay">
+    <div class="dm-modal" id="dmModal">
+      <h3 id="dmTitle">导出数据</h3>
+      <p class="dm-desc" id="dmDesc">选择要备份的数据类别。</p>
+      <div class="dm-import-mode" id="dmImportMode" style="display:none;">
+        <label><input type="radio" name="dmMode" value="overwrite" checked> 覆盖导入</label>
+        <label><input type="radio" name="dmMode" value="merge"> 合并导入（仅补充缺失项）</label>
+      </div>
+      <div class="dm-preview" id="dmPreview" style="display:none;"></div>
+      <span class="dm-select-all" id="dmSelectAll" onclick="window._dmToggleSelectAll()">全选 / 取消全选</span>
+      <div id="dmGroups"></div>
+      <div class="dm-footer">
+        <button class="dm-btn-cancel" onclick="window._dmClose()">取消</button>
+        <button class="dm-btn-confirm" id="dmConfirmBtn" onclick="window._dmConfirm()">确认导出</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var EXPORT_IMPORT_SRC = 'data/data-export-import.js?v=116';
+    var _dmMode = 'export';
+    var _dmFileContent = null;
+    var dataExportImportPromise = null;
+
+    function ensureDataExportImport() {
+      if (window.DataExportImport) return Promise.resolve(window.DataExportImport);
+      if (dataExportImportPromise) return dataExportImportPromise;
+
+      dataExportImportPromise = new Promise(function(resolve, reject) {
+        var script = document.createElement('script');
+        script.src = EXPORT_IMPORT_SRC;
+        script.async = true;
+        script.setAttribute('data-module', 'data-export-import');
+        script.onload = function() {
+          if (window.DataExportImport) {
+            resolve(window.DataExportImport);
+          } else {
+            reject(new Error('DataExportImport unavailable'));
+          }
+        };
+        script.onerror = function() {
+          reject(new Error('Failed to load data export/import module'));
+        };
+        document.head.appendChild(script);
+      }).catch(function(error) {
+        dataExportImportPromise = null;
+        throw error;
+      });
+
+      return dataExportImportPromise;
+    }
+
+    function handleDataModuleError() {
+      alert('数据模块加载失败，请刷新后重试。');
+    }
+
+    function _dmOpen(mode, fileContent, previewInfo) {
+      _dmMode = mode;
+      _dmFileContent = mode === 'import' ? (typeof fileContent === 'string' ? fileContent : null) : null;
+      document.getElementById('dmTitle').textContent = mode === 'export' ? '💾 导出学习数据' : '📥 导入学习数据';
+      document.getElementById('dmDesc').textContent = mode === 'export'
+        ? '选择要备份的数据类别，点击确认后下载 JSON 文件。'
+        : '选择要恢复的数据类别，支持覆盖或合并两种导入模式。';
+      document.getElementById('dmImportMode').style.display = mode === 'import' ? 'flex' : 'none';
+      document.getElementById('dmPreview').style.display = 'none';
+      document.getElementById('dmConfirmBtn').textContent = mode === 'export' ? '确认导出' : '确认导入';
+      _dmRenderGroups(previewInfo);
+      document.getElementById('dmOverlay').classList.add('open');
+    }
+    window._dmClose = function() { document.getElementById('dmOverlay').classList.remove('open'); };
+
+    function _dmRenderGroups(previewInfo) {
+      if (!window.DataExportImport) return;
+      var groups = DataExportImport.getDataGroups();
+      var stats = DataExportImport.getLocalStats();
+      var html = '';
+      Object.keys(groups).forEach(function(g) {
+        var grp = groups[g];
+        html += '<div class="dm-group"><div class="dm-group-title">';
+        html += '<input type="checkbox" class="dm-grp-cb" data-group="' + g + '" checked> ';
+        html += grp.icon + ' ' + grp.label;
+        if (previewInfo) {
+          var pi = previewInfo.items.find(function(x) { return x.group === g; });
+          if (pi) html += ' <span style="color:#10b981;font-size:12px;">(' + pi.count + ' 项有数据)</span>';
+        }
+        html += '</div><div class="dm-keys">';
+        grp.keys.forEach(function(k) {
+          var s = stats[k];
+          var empty = !s || !s.exists;
+          var label = k;
+          if (s && s.count !== undefined) label += ' (' + s.count + ')';
+          html += '<span class="dm-key-tag' + (empty ? ' empty' : ' selected') + '" data-key="' + k + '">' + label + '</span>';
+        });
+        html += '</div></div>';
+      });
+      document.getElementById('dmGroups').innerHTML = html;
+      document.querySelectorAll('.dm-grp-cb').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          var g = this.dataset.group, checked = this.checked;
+          document.querySelectorAll('.dm-key-tag[data-key]').forEach(function(tag) {
+            if (groups[g].keys.indexOf(tag.dataset.key) !== -1) {
+              if (checked) tag.classList.add('selected'); else tag.classList.remove('selected');
+            }
+          });
+        });
+      });
+      document.querySelectorAll('.dm-key-tag').forEach(function(tag) {
+        tag.addEventListener('click', function() { this.classList.toggle('selected'); });
+      });
+    }
+
+    function _dmGetSelectedKeys() {
+      var keys = [];
+      document.querySelectorAll('.dm-key-tag.selected').forEach(function(t) { keys.push(t.dataset.key); });
+      return keys;
+    }
+
+    window._dmToggleSelectAll = function() {
+      var tags = document.querySelectorAll('.dm-key-tag');
+      var all = Array.from(tags).every(function(t) { return t.classList.contains('selected'); });
+      tags.forEach(function(t) { if (all) t.classList.remove('selected'); else t.classList.add('selected'); });
+      document.querySelectorAll('.dm-grp-cb').forEach(function(cb) { cb.checked = !all; });
+    };
+
+    window._dmConfirm = function() {
+      var keys = _dmGetSelectedKeys();
+      if (keys.length === 0) { alert('请至少选择一项数据'); return; }
+      ensureDataExportImport().then(function() {
+        if (_dmMode === 'export') {
+          var count = DataExportImport.exportData(keys);
+          alert('已导出 ' + count + ' 项数据');
+          _dmClose();
+        } else if (_dmMode === 'import' && _dmFileContent) {
+          var modeEl = document.querySelector('input[name="dmMode"]:checked');
+          var mode = modeEl ? modeEl.value : 'overwrite';
+          var result = DataExportImport.importData(_dmFileContent, mode, keys);
+          alert('已导入 ' + result.imported + ' 项' + (result.skipped ? '，跳过 ' + result.skipped + ' 项' : ''));
+          _dmClose();
+          setTimeout(function() { location.reload(); }, 800);
+        }
+      }).catch(handleDataModuleError);
+    };
+
+    // 导出按钮
+    document.getElementById('prExportBtn').addEventListener('click', function() {
+      ensureDataExportImport().then(function() {
+        _dmOpen('export');
+      }).catch(handleDataModuleError);
+    });
+
+    // 导入按钮
+    document.getElementById('prImportBtn').addEventListener('click', function() {
+      document.getElementById('prImportFile').click();
+    });
+
+    // 文件选择后预览
+    document.getElementById('prImportFile').addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        var fileContent = ev.target.result;
+        ensureDataExportImport().then(function() {
+          try {
+            var info = DataExportImport.previewImport(fileContent);
+            var previewEl = document.getElementById('dmPreview');
+            _dmOpen('import', fileContent, info);
+            previewEl.innerHTML =
+              '<div class="dm-preview-row"><span>导出时间</span><span>' + (info.exportedAt ? info.exportedAt.slice(0,19).replace('T',' ') : '未知') + '</span></div>' +
+              '<div class="dm-preview-row"><span>来源</span><span>' + (info.app || '语文成长地图') + '</span></div>' +
+              '<div class="dm-preview-row"><span>包含数据</span><span>' + info.items.reduce(function(s,x){return s+x.count;},0) + ' 项</span></div>';
+            previewEl.style.display = 'block';
+          } catch(err) {
+            alert('文件格式不正确，请选择有效的备份 JSON 文件。');
+          }
+        }).catch(handleDataModuleError);
+      };
+      reader.readAsText(file);
+      this.value = '';
+    });
+
+    document.getElementById('dmOverlay').addEventListener('click', function(e) {
+      if (e.target === this) _dmClose();
+    });
+  })();
+  </script>
 </body>
 </html>
-

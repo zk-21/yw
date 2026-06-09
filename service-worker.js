@@ -1,23 +1,66 @@
-const CACHE_VERSION = 78;
+const CACHE_VERSION = 111;
 const CACHE_PREFIX = 'diandian-agent';
 const PRECACHE = [
   './index.html',
   './search.html',
   './practice.html',
+  './parent-guide.html',
+  './agent.html',
+  './knowledge-map.html',
+  './composition.html',
+  './pinyin.html',
+  './grammar.html',
+  './vocabulary.html',
+  './grade1.html',
+  './grade2.html',
+  './grade3.html',
+  './grade4.html',
+  './grade5.html',
+  './grade6.html',
+  './extra-topics.html',
+  './literary.html',
+  './modern-poetry.html',
+  './classical-reading.html',
+  './narrative-reading.html',
+  './expository-reading.html',
+  './non-continuous-text.html',
+  './book-reading.html',
+  './oral-communication.html',
+  './application-writing.html',
+  './integrated-learning.html',
+  './report.html',
+  './advanced.html',
   './styles.css',
   './practice-page.css',
   './nav.js',
   './table-responsive.js',
   './search-page.js',
+  './vocabulary-page.js',
   './search-worker.js',
   './practice-page-content.js',
+  './practice-deferred-loader.js',
   './practice.js',
   './practice-exercise-loader.js',
+  './practice-exercise-tools.js',
+  './page-toc.js',
+  './composition-ai-loader.js',
+  './agent.js',
+  './index-home-core.js',
+  './index-home-role.js',
   './manifest.json',
   './agent-icon.svg',
   './apple-touch-icon.png',
   './data/search-engine.js',
-  './data/search-index.json'
+  './data/search-index.json',
+  './data/grades.json',
+  './data/data-loader-core.js',
+  './data/data-loader-global.js',
+  './data/grade-page-renderer.js',
+  './data/smart-wrong-notebook.js',
+  './data/data-export-import.js',
+  './practice-three-stage.js',
+  './practice-template-drill.js',
+  './practice-guided-chat.js'
 ];
 
 const CACHE_NAMES = {
@@ -35,6 +78,7 @@ const CACHE_LIMITS = {
   [CACHE_NAMES.data]: 24,
   [CACHE_NAMES.images]: 48
 };
+const CACHE_BUST_PARAM_RE = /^(?:v|ver|version|cache|cachebust|cb|t|ts|timestamp)$/i;
 
 function isManagedCache(name) {
   return name.indexOf(`${CACHE_PREFIX}-`) === 0;
@@ -66,6 +110,30 @@ function isImageRequest(url) {
   return /\.(?:png|jpe?g|gif|webp|svg|ico)$/i.test(url.pathname);
 }
 
+function shouldNormalizeCacheKey(request, url) {
+  if (!isSameOrigin(url) || !url.search) return false;
+
+  if (isNavigationRequest(request)) {
+    return true;
+  }
+
+  if (isStaticAssetRequest(url) || isImageRequest(url) || isDataRequest(url)) {
+    const keys = Array.from(url.searchParams.keys());
+    return keys.length > 0 && keys.every((key) => CACHE_BUST_PARAM_RE.test(key));
+  }
+
+  return false;
+}
+
+// Canonicalize same-origin cache-busted URLs so precache and runtime cache share one entry.
+function getCacheKey(request) {
+  const url = new URL(request.url);
+  if (!shouldNormalizeCacheKey(request, url)) {
+    return request;
+  }
+  return new Request(`${url.origin}${url.pathname}`, request);
+}
+
 async function trimCache(cacheName, maxEntries) {
   if (!maxEntries) return;
   const cache = await caches.open(cacheName);
@@ -79,7 +147,7 @@ async function trimCache(cacheName, maxEntries) {
 async function putInCache(cacheName, request, response) {
   if (!isCacheableResponse(response)) return response;
   const cache = await caches.open(cacheName);
-  await cache.put(request, response.clone());
+  await cache.put(getCacheKey(request), response.clone());
   await trimCache(cacheName, CACHE_LIMITS[cacheName]);
   return response;
 }
@@ -91,7 +159,8 @@ async function precacheAssets() {
 
 async function staleWhileRevalidate(request, cacheName) {
   const cache = await caches.open(cacheName);
-  const cached = await cache.match(request);
+  const cacheKey = getCacheKey(request);
+  const cached = await cache.match(cacheKey);
   const networkPromise = fetch(request)
     .then((response) => putInCache(cacheName, request, response))
     .catch(() => null);
@@ -103,11 +172,12 @@ async function staleWhileRevalidate(request, cacheName) {
   const networkResponse = await networkPromise;
   if (networkResponse) return networkResponse;
 
-  return caches.match(request);
+  return caches.match(cacheKey);
 }
 
 async function cacheFirst(request, cacheName) {
-  const cached = await caches.match(request);
+  const cacheKey = getCacheKey(request);
+  const cached = await caches.match(cacheKey);
   if (cached) return cached;
 
   const response = await fetch(request);
@@ -115,12 +185,13 @@ async function cacheFirst(request, cacheName) {
 }
 
 async function networkFirst(request, cacheName, fallbackUrl) {
+  const cacheKey = getCacheKey(request);
   try {
     const response = await fetch(request);
     await putInCache(cacheName, request, response);
     return response;
   } catch (error) {
-    const cached = await caches.match(request);
+    const cached = await caches.match(cacheKey);
     if (cached) return cached;
 
     if (fallbackUrl) {

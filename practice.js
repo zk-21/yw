@@ -1112,6 +1112,192 @@ let currentVocab = 0;
 let currentLevel = 'easy';
 let correctCount = 0;
 let currentThinking = 0;
+const SMART_WRONG_NOTEBOOK_SRC = 'data/smart-wrong-notebook.js?v=79';
+let smartWrongNotebookPromise = null;
+
+function buildWrongItemKey(wrongItem, index) {
+  if (!wrongItem) return `wrong-${index}`;
+  if (wrongItem.flowKey) return `flow:${wrongItem.flowKey}`;
+  if (wrongItem.variantId && wrongItem.diagnosisPaper && wrongItem.diagnosisGrade) {
+    return `diag:${wrongItem.diagnosisGrade}:${wrongItem.diagnosisPaper}:${wrongItem.variantId}`;
+  }
+  if (wrongItem.timestamp && wrongItem.question && wrongItem.type) {
+    return `wrong:${wrongItem.type}:${wrongItem.question}:${wrongItem.timestamp}`;
+  }
+  return `wrong:${index}:${wrongItem.question || ''}:${wrongItem.type || ''}`;
+}
+
+function inferSmartErrorCode(wrongItem) {
+  if (wrongItem && wrongItem.errorCode) return wrongItem.errorCode;
+
+  const category = normalizeErrorCategoryId(wrongItem && wrongItem.errorCategory);
+  const categoryMap = {
+    b1: 'B1',
+    r1: 'R1',
+    r2: 'R2',
+    r3: 'R3',
+    r4: 'R4',
+    w1: 'W1',
+    w2: 'W2',
+    w3: 'W3',
+    c1: 'C1'
+  };
+
+  return categoryMap[category] || 'C1';
+}
+
+function buildSmartWrongPayload(wrongItem, index) {
+  const sourceWrongKey = buildWrongItemKey(wrongItem, index);
+  return {
+    exerciseId: wrongItem.flowKey || wrongItem.variantId || `${wrongItem.type || 'practice'}-${index + 1}`,
+    wrongAnswer: wrongItem.userAnswer || '',
+    correctAnswer: wrongItem.correctAnswer || '',
+    errorCode: inferSmartErrorCode(wrongItem),
+    additionalData: {
+      timestamp: wrongItem.timestamp,
+      errorCategory: normalizeErrorCategoryId(wrongItem.errorCategory) || undefined,
+      sourceWrongKey,
+      timeSpent: wrongItem.timeSpent || 0,
+      difficulty: wrongItem.difficulty || (wrongItem.diagnosisPaper ? 'exam' : 'basic')
+    }
+  };
+}
+
+function syncSmartWrongNotebookFromWrongAnswers() {
+  if (!window.SmartWrongNotebook) return [];
+
+  const wrongAnswers = getWrongAnswers();
+  const existingItems = getSmartWrongList();
+  const existingMap = new Map();
+
+  existingItems.forEach((item) => {
+    if (item && item.sourceWrongKey) {
+      existingMap.set(item.sourceWrongKey, item);
+    }
+  });
+
+  const nextSmartList = wrongAnswers.map((wrongItem, index) => {
+    const payload = buildSmartWrongPayload(wrongItem, index);
+    const existing = existingMap.get(payload.additionalData.sourceWrongKey);
+
+    if (existing) {
+      existing.exerciseId = payload.exerciseId;
+      existing.wrongAnswer = payload.wrongAnswer;
+      existing.correctAnswer = payload.correctAnswer;
+      existing.errorCode = payload.errorCode;
+      existing.errorCategory = payload.additionalData.errorCategory || existing.errorCategory;
+      existing.timestamp = payload.additionalData.timestamp || existing.timestamp;
+      existing.timeSpent = payload.additionalData.timeSpent;
+      existing.difficulty = payload.additionalData.difficulty;
+      existing.sourceWrongKey = payload.additionalData.sourceWrongKey;
+      if (window.SmartWrongNotebook.findRelatedKnowledgePoints) {
+        existing.knowledgePoints = window.SmartWrongNotebook.findRelatedKnowledgePoints({ errorCode: existing.errorCode });
+      }
+      if (window.SmartWrongNotebook.performAIAnalysis) {
+        existing.aiAnalysis = window.SmartWrongNotebook.performAIAnalysis(existing);
+      }
+      return existing;
+    }
+
+    return window.SmartWrongNotebook.addWrongItem(
+      payload.exerciseId,
+      payload.wrongAnswer,
+      payload.correctAnswer,
+      payload.errorCode,
+      payload.additionalData
+    );
+  });
+
+  localStorage.setItem('wrongList', JSON.stringify(nextSmartList));
+  return nextSmartList;
+}
+
+function ensureSmartWrongNotebook() {
+  if (window.SmartWrongNotebook) {
+    syncSmartWrongNotebookFromWrongAnswers();
+    return Promise.resolve(window.SmartWrongNotebook);
+  }
+
+  if (smartWrongNotebookPromise) return smartWrongNotebookPromise;
+
+  smartWrongNotebookPromise = new Promise((resolve, reject) => {
+    const existingScript = document.querySelector('script[data-module="smart-wrong-notebook"]');
+
+    function handleLoad() {
+      if (!window.SmartWrongNotebook) {
+        reject(new Error('SmartWrongNotebook unavailable'));
+        return;
+      }
+      syncSmartWrongNotebookFromWrongAnswers();
+      resolve(window.SmartWrongNotebook);
+    }
+
+    function handleError() {
+      reject(new Error('Failed to load SmartWrongNotebook'));
+    }
+
+    if (existingScript) {
+      existingScript.addEventListener('load', handleLoad, { once: true });
+      existingScript.addEventListener('error', handleError, { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = SMART_WRONG_NOTEBOOK_SRC;
+    script.async = true;
+    script.setAttribute('data-module', 'smart-wrong-notebook');
+    script.addEventListener('load', handleLoad, { once: true });
+    script.addEventListener('error', handleError, { once: true });
+    document.head.appendChild(script);
+  }).catch((error) => {
+    smartWrongNotebookPromise = null;
+    throw error;
+  });
+
+  return smartWrongNotebookPromise;
+}
+
+function queueSmartWrongNotebookSync() {
+  if (window.SmartWrongNotebook) {
+    syncSmartWrongNotebookFromWrongAnswers();
+    renderIntervalReview();
+    return;
+  }
+
+  ensureSmartWrongNotebook()
+    .then(() => {
+      renderIntervalReview();
+    })
+    .catch((error) => {
+      console.warn('智能错题本加载失败:', error);
+    });
+}
+
+function warmSmartWrongNotebook() {
+  const load = () => {
+    ensureSmartWrongNotebook()
+      .then(() => {
+        renderIntervalReview();
+      })
+      .catch((error) => {
+        console.warn('智能错题本预加载失败:', error);
+      });
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(load, { timeout: 1500 });
+  } else {
+    window.setTimeout(load, 600);
+  }
+}
+
+function persistWrongAnswers(wrongList, options = {}) {
+  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+
+  if (options.syncSmart) {
+    queueSmartWrongNotebookSync();
+  }
+}
 
 // 从localStorage加载进度
 function loadProgress() {
@@ -1134,7 +1320,7 @@ function saveProgress() {
 
 // 错题本功能
 function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip) {
-  const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  const wrongList = getWrongAnswers();
   const wrongItem = {
     type: type,
     question: question,
@@ -1148,19 +1334,158 @@ function saveWrongAnswer(type, question, userAnswer, correctAnswer, tip) {
   if (wrongList.length > 50) {
     wrongList.shift();
   }
-  
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+
+  persistWrongAnswers(wrongList, { syncSmart: true });
 }
 
 function getWrongAnswers() {
-  return JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  try {
+    return JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  } catch (error) {
+    return [];
+  }
 }
 
 function clearWrongAnswers() {
   if (confirm('确定要清空所有错题吗？')) {
     localStorage.removeItem('wrongAnswers');
+    localStorage.removeItem('wrongList');
     renderWrongList();
+    renderIntervalReview();
+    refreshRoutePlanningPanels();
   }
+}
+
+// ==================== 间隔重练功能 ====================
+
+function getSmartWrongList() {
+  try {
+    return JSON.parse(localStorage.getItem('wrongList') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function renderIntervalReview() {
+  const reminder = document.getElementById('reviewReminder');
+  const reviewList = document.getElementById('reviewList');
+  if (!reminder || !reviewList) return;
+
+  let dueItems = [];
+  if (window.SmartWrongNotebook) {
+    const smartList = getSmartWrongList();
+    dueItems = window.SmartWrongNotebook.getDueWrongItems(smartList);
+  }
+
+  if (!dueItems.length) {
+    reminder.style.display = 'none';
+    return;
+  }
+
+  reminder.style.display = '';
+  reviewList.innerHTML = dueItems.slice(0, 5).map((item, idx) => {
+    const reviewCount = item.reviewCount || 0;
+    const severity = (item.aiAnalysis && item.aiAnalysis.severity) || 'medium';
+    const severityLabel = { high: '⚠️', medium: '📌', low: '📎' }[severity] || '📌';
+    return `
+      <div class="review-item">
+        <span class="review-severity">${severityLabel}</span>
+        <span class="review-question">${(item.exerciseId || '错题').slice(0, 30)}</span>
+        <span class="review-count">已复习 ${reviewCount} 次</span>
+      </div>
+    `;
+  }).join('');
+
+  const startBtn = document.getElementById('startReviewBtn');
+  if (startBtn) {
+    startBtn.textContent = dueItems.length > 1
+      ? `开始间隔重练（${dueItems.length} 题待复习）`
+      : '开始间隔重练（1 题待复习）';
+  }
+}
+
+function startIntervalReview() {
+  ensureSmartWrongNotebook()
+    .then(() => {
+      const smartList = getSmartWrongList();
+      const dueItems = window.SmartWrongNotebook.getDueWrongItems(smartList);
+
+      if (!dueItems.length) {
+        alert('当前没有需要复习的错题，继续加油！');
+        return;
+      }
+
+      const item = dueItems[0];
+      const msg = [
+        '📝 间隔重练模式',
+        '',
+        `错题：${item.exerciseId || '未知题目'}`,
+        `上次复习：${item.reviewCount || 0} 次`,
+        `错误类型：${item.errorCategory || '未知'}`,
+        '',
+        '请在下方错题本中找到对应题目进行重做。',
+        '完成后点击"标记已复习"按钮记录结果。'
+      ].join('\n');
+
+      alert(msg);
+
+      const notebook = document.querySelector('.wrong-notebook');
+      if (notebook) {
+        notebook.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      ensureReviewButtons();
+    })
+    .catch(() => {
+      alert('智能错题本模块加载失败，请稍后重试。');
+    });
+}
+
+function ensureReviewButtons() {
+  // 在错题本中给每条错题增加"已复习"按钮
+  const items = document.querySelectorAll('#wrongList .wrong-item');
+  items.forEach((el, index) => {
+    if (el.querySelector('.mark-reviewed-btn')) return;
+    const btn = document.createElement('button');
+    btn.className = 'quiz-btn mark-reviewed-btn';
+    btn.textContent = '✅ 标记已复习';
+    btn.style.cssText = 'margin-top:6px;font-size:12px;min-height:30px;';
+    btn.addEventListener('click', () => markWrongReviewed(index));
+    el.appendChild(btn);
+  });
+}
+
+function markWrongReviewed(index) {
+  const wrongList = getWrongAnswers();
+  if (index < 0 || index >= wrongList.length) return;
+
+  wrongList[index].lastReviewed = new Date().toISOString();
+  wrongList[index].reviewCount = (wrongList[index].reviewCount || 0) + 1;
+  persistWrongAnswers(wrongList, { syncSmart: false });
+
+  ensureSmartWrongNotebook()
+    .then(() => {
+      const payload = buildSmartWrongPayload(wrongList[index], index);
+      const smartItem = getSmartWrongList().find((item) => item.sourceWrongKey === payload.additionalData.sourceWrongKey);
+      if (smartItem) {
+        window.SmartWrongNotebook.updateWrongItemReview(smartItem.id, { correct: true, timeSpent: 30 });
+      }
+      renderWrongList();
+      renderIntervalReview();
+      alert('已记录复习！系统会根据艾宾浩斯曲线自动安排下次复习时间。');
+    })
+    .catch(() => {
+      renderWrongList();
+      renderIntervalReview();
+      alert('已记录复习，智能复习计划稍后会自动同步。');
+    });
+}
+
+function dismissReviewReminder() {
+  const reminder = document.getElementById('reviewReminder');
+  if (reminder) reminder.style.display = 'none';
+  // 记录推迟时间
+  localStorage.setItem('reviewDismissedAt', new Date().toISOString());
 }
 
 // ==================== 错因分类系统 ====================
@@ -1233,8 +1558,9 @@ function saveErrorCategory(wrongIndex, categoryId) {
   const wrongList = getWrongAnswers();
   if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
     wrongList[wrongIndex].errorCategory = normalizeErrorCategoryId(categoryId);
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    persistWrongAnswers(wrongList, { syncSmart: true });
     renderWrongList();
+    refreshRoutePlanningPanels();
   }
 }
 
@@ -1246,7 +1572,7 @@ function saveReviewField(wrongIndex, field, value) {
       ...(wrongList[wrongIndex].review || {}),
       [field]: value
     };
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    persistWrongAnswers(wrongList);
   }
 }
 
@@ -1255,7 +1581,7 @@ function saveRetryAnswer(wrongIndex, value) {
   const wrongList = getWrongAnswers();
   if (wrongIndex >= 0 && wrongIndex < wrongList.length) {
     wrongList[wrongIndex].retryAnswer = value;
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    persistWrongAnswers(wrongList);
   }
 }
 
@@ -1558,8 +1884,10 @@ function filterWrong(type, trigger) {
 function removeWrong(index) {
   const wrongList = getWrongAnswers();
   wrongList.splice(index, 1);
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  persistWrongAnswers(wrongList, { syncSmart: true });
   renderWrongList();
+  renderIntervalReview();
+  refreshRoutePlanningPanels();
 }
 
 function retryWrong(index) {
@@ -1568,7 +1896,7 @@ function retryWrong(index) {
     wrongList[index].retryMode = true;
     wrongList[index].retryRevealed = false;
     wrongList[index].retryAnswer = '';
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    persistWrongAnswers(wrongList);
     renderWrongList();
   }
 }
@@ -1577,7 +1905,7 @@ function revealRetryAnswer(index) {
   const wrongList = getWrongAnswers();
   if (index >= 0 && index < wrongList.length) {
     wrongList[index].retryRevealed = true;
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    persistWrongAnswers(wrongList);
     renderWrongList();
   }
 }
@@ -1588,7 +1916,7 @@ function cancelRetry(index) {
     wrongList[index].retryMode = false;
     wrongList[index].retryRevealed = false;
     wrongList[index].retryAnswer = '';
-    localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+    persistWrongAnswers(wrongList);
     renderWrongList();
   }
 }
@@ -1616,6 +1944,121 @@ function initModeSwitch() {
       }
     });
   });
+}
+
+// ==================== 限时训练模式 ====================
+
+let timerActive = false;
+let timerSeconds = 300;
+let timerInterval = null;
+let timerStartTime = null;
+
+function initTimer() {
+  const timerToolbar = document.getElementById('timerToolbar');
+  const timerToggle = document.getElementById('timerToggle');
+  const timerDisplay = document.getElementById('timerDisplay');
+  if (!timerToolbar || !timerToggle) return;
+
+  // 默认显示计时工具栏（在思维进阶模式下显示）
+  timerToolbar.style.display = '';
+
+  // 时间选择按钮
+  document.querySelectorAll('.timer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (timerActive) {
+        alert('请先停止当前计时再更改时间。');
+        return;
+      }
+      document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      timerSeconds = parseInt(btn.dataset.time, 10);
+      updateTimerDisplay();
+    });
+  });
+
+  // 开关按钮
+  timerToggle.addEventListener('click', () => {
+    if (timerActive) {
+      stopTimer();
+      timerToggle.textContent = '开启限时模式';
+      timerToggle.style.background = '#f0fdf4';
+      timerToggle.style.color = '#166534';
+    } else {
+      startTimer();
+      timerToggle.textContent = '关闭限时模式';
+      timerToggle.style.background = '#fef2f2';
+      timerToggle.style.color = '#dc2626';
+    }
+  });
+}
+
+function updateTimerDisplay() {
+  const display = document.getElementById('timerDisplay');
+  if (!display) return;
+  const mins = Math.floor(timerSeconds / 60);
+  const secs = timerSeconds % 60;
+  display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  // 警告状态
+  display.classList.remove('warning', 'danger');
+  if (timerActive) {
+    if (timerSeconds <= 30) display.classList.add('danger');
+    else if (timerSeconds <= 60) display.classList.add('warning');
+  }
+}
+
+function startTimer() {
+  if (timerActive) return;
+  timerActive = true;
+  timerStartTime = Date.now();
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+
+    if (timerSeconds <= 0) {
+      stopTimer();
+      onTimerEnd();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  timerActive = false;
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  updateTimerDisplay();
+  const display = document.getElementById('timerDisplay');
+  if (display) display.classList.remove('warning', 'danger');
+}
+
+function onTimerEnd() {
+  const display = document.getElementById('timerDisplay');
+  if (display) display.textContent = '00:00';
+
+  // 记录用时
+  const elapsed = Math.round((Date.now() - timerStartTime) / 1000);
+  localStorage.setItem('lastTimedPractice', JSON.stringify({
+    elapsed: elapsed,
+    date: new Date().toISOString()
+  }));
+
+  alert(`⏰ 时间到！本次练习用时 ${elapsed} 秒。\n\n建议：限时练习后，对照答案检查哪些题目因时间压力而出错，这是提升考试能力的关键。`);
+
+  const toggle = document.getElementById('timerToggle');
+  if (toggle) {
+    toggle.textContent = '开启限时模式';
+    toggle.style.background = '#f0fdf4';
+    toggle.style.color = '#166534';
+  }
+}
+
+function getTimerStats() {
+  const last = localStorage.getItem('lastTimedPractice');
+  if (!last) return null;
+  try { return JSON.parse(last); } catch (e) { return null; }
 }
 
 // 句式转换练习
@@ -2360,8 +2803,9 @@ function markFlowPack(codeOrId, status = 'done', options = {}) {
   saveFlowPackStatus(flowStatus);
   renderFlowStatusPanel();
   injectFlowPackControls();
-  renderLearningProfilePanel();
-  renderNextLessonPanel();
+  if (!options.skipRefresh) {
+    refreshRoutePlanningPanels();
+  }
 
   if (!options.silent) {
     showFeedback(true, `${pack.code} 已标记为“${FLOW_STATUS_LABELS[nextStatus]}”。`);
@@ -2538,7 +2982,7 @@ function saveFlowWrongItems(grade, paper, wrongItems) {
     wrongList.shift();
   }
 
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+  persistWrongAnswers(wrongList, { syncSmart: true });
   renderWrongList();
   renderErrorStats();
 }
@@ -2561,9 +3005,9 @@ function calculateABScore() {
   const wrongCodes = [...new Set(wrongItems.map(item => item.code))];
 
   if ((paper === 'b' || isCPaper(paper)) && wrongItems.length === 0) {
-    [...new Set(questions.map(item => item.code))].forEach(code => markFlowPack(code, 'passed', { silent: true }));
+    [...new Set(questions.map(item => item.code))].forEach(code => markFlowPack(code, 'passed', { silent: true, skipRefresh: true }));
   } else {
-    wrongCodes.forEach(code => markFlowPack(code, 'retry', { silent: true }));
+    wrongCodes.forEach(code => markFlowPack(code, 'retry', { silent: true, skipRefresh: true }));
   }
 
   saveFlowWrongItems(grade, paper, wrongItems);
@@ -2586,8 +3030,7 @@ function calculateABScore() {
   renderABScoreResult(result);
   renderFlowStatusPanel();
   injectFlowPackControls();
-  renderLearningProfilePanel();
-  renderNextLessonPanel();
+  refreshRoutePlanningPanels();
 
   if (wrongItems.length === 0) {
     const passText = isCPaper(paper)
@@ -2651,6 +3094,16 @@ function readLastABScoreResult() {
     return result && typeof result === 'object' ? result : null;
   } catch (error) {
     localStorage.removeItem('lastABScoreResult');
+    return null;
+  }
+}
+
+function readLastDiagnosisResult() {
+  try {
+    const result = JSON.parse(localStorage.getItem('lastDiagnosisResult') || 'null');
+    return result && typeof result === 'object' ? result : null;
+  } catch (error) {
+    localStorage.removeItem('lastDiagnosisResult');
     return null;
   }
 }
@@ -2906,6 +3359,477 @@ function buildNextLessonPath() {
   };
 }
 
+function dedupeRouteActions(actions) {
+  const seen = new Set();
+  return (actions || []).filter((action) => {
+    if (!action) return false;
+    const key = action.href
+      ? `href:${action.href}`
+      : `paper:${action.grade || ''}-${action.paper || ''}-${action.label || ''}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function renderRouteActions(actions) {
+  return dedupeRouteActions(actions).map((action) => {
+    if (action.href) {
+      return `<a href="${action.href}">${escapeHTML(action.label)}</a>`;
+    }
+    if (action.grade && action.paper) {
+      return `<button type="button" class="flow-action-btn" onclick="selectABPaper('${action.grade}', '${action.paper}')">${escapeHTML(action.label)}</button>`;
+    }
+    return '';
+  }).join('');
+}
+
+const GRADE_FOCUS_SUMMARY = {
+  '1': '拼音识字、看图说话、朗读表达',
+  '2': '形近字、原因题、短文扩写',
+  '3': '中心句、段意概括、观察写话',
+  '4': '概括主干、原文依据、重点段描写',
+  '5': '说明文语言、人物分析、作文提纲',
+  '6': '综合题型、材料整合、限时作文'
+};
+
+function getGradePageHref(grade) {
+  return grade ? `grade${grade}.html` : '';
+}
+
+function getPreferredGrade() {
+  const lastAB = readLastABScoreResult();
+  const lastDiagnosis = readLastDiagnosisResult();
+  const grade = String(lastAB?.grade || lastDiagnosis?.grade || '');
+  return AB_TEST_MAP[grade] ? grade : '';
+}
+
+function getWeakestDiagnosisSkill(lastDiagnosis) {
+  if (!lastDiagnosis?.skills) return null;
+
+  const skillMap = [
+    { key: '字词基础', label: '字词基础', goalKey: 'foundation', desc: '先稳拼音、识字和词语语境。' },
+    { key: '阅读理解', label: '阅读理解', goalKey: 'reading', desc: '先补概括、依据、赏析和材料题。' },
+    { key: '写作表达', label: '写作表达', goalKey: 'writing', desc: '先补写话长度、重点段和审题扣题。' }
+  ];
+
+  return skillMap
+    .map((item) => ({ ...item, score: Number(lastDiagnosis.skills[item.key] || 0) }))
+    .sort((a, b) => a.score - b.score)[0] || null;
+}
+
+function getWeakSkillByPack(packId) {
+  switch (packId) {
+    case 'b1':
+      return { label: '字词基础', goalKey: 'foundation', desc: '先稳拼音、识字和词语语境。' };
+    case 'r1':
+    case 'r2':
+    case 'r3':
+    case 'r4':
+      return { label: '阅读理解', goalKey: 'reading', desc: '先补概括、依据、赏析和材料题。' };
+    case 'w1':
+    case 'w2':
+    case 'w3':
+      return { label: '写作表达', goalKey: 'writing', desc: '先补写话长度、重点段和审题扣题。' };
+    case 'c1':
+      return { label: '迁移应用', goalKey: 'retest', desc: '先做混合题型判断，再回卷验证迁移。' };
+    default:
+      return null;
+  }
+}
+
+function getTopicActionsForPack(packId) {
+  switch (packId) {
+    case 'b1':
+      return [
+        { label: '拼音学习', href: 'pinyin.html' },
+        { label: '词语学习', href: 'vocabulary.html' }
+      ];
+    case 'r1':
+    case 'r2':
+      return [
+        { label: '记叙文专题', href: 'narrative-reading.html' },
+        { label: '阅读答案库', href: '#reading-answer-bank' }
+      ];
+    case 'r3':
+      return [
+        { label: '说明文专题', href: 'expository-reading.html' },
+        { label: '错因精讲卡', href: '#error-masterclass' }
+      ];
+    case 'r4':
+      return [
+        { label: '非连续文本', href: 'non-continuous-text.html' },
+        { label: '材料题答案库', href: '#reading-answer-bank' }
+      ];
+    case 'w1':
+      return [
+        { label: '三阶写作训练', href: '#three-stage-training' },
+        { label: '模板仿写', href: '#template-practice' }
+      ];
+    case 'w2':
+      return [
+        { label: '重点段升格', href: '#guided-practice-section' },
+        { label: '作文三轮批改', href: 'composition.html#three-round-revision' }
+      ];
+    case 'w3':
+      return [
+        { label: '审题扣题', href: '#template-practice' },
+        { label: '作文三轮批改', href: 'composition.html#three-round-revision' }
+      ];
+    case 'c1':
+      return [
+        { label: 'A/B/C评分器', href: '#abScorePanel' },
+        { label: '尖子生拓展', href: 'advanced.html' }
+      ];
+    default:
+      return [];
+  }
+}
+
+function getActionsForWeakSkill(skill, preferredGrade) {
+  const gradeLabel = preferredGrade ? AB_TEST_MAP[preferredGrade].label : '当前年级';
+
+  if (!skill) {
+    return [
+      { label: '开始15分钟诊断', href: '#diagnosis' },
+      { label: '看年级入口', href: '#practice-router-grades' }
+    ];
+  }
+
+  if (skill.goalKey === 'foundation') {
+    return dedupeRouteActions([
+      preferredGrade ? { label: `去${gradeLabel}A卷`, href: getGradePageHref(preferredGrade) } : { label: '开始15分钟诊断', href: '#diagnosis' },
+      { label: 'B1字词拼音', href: '#pack-b1' },
+      { label: '拼音学习', href: 'pinyin.html' },
+      { label: '词语学习', href: 'vocabulary.html' }
+    ]);
+  }
+
+  if (skill.goalKey === 'reading') {
+    return dedupeRouteActions([
+      { label: '阅读答案库', href: '#reading-answer-bank' },
+      { label: '记叙文专题', href: 'narrative-reading.html' },
+      { label: '说明文专题', href: 'expository-reading.html' },
+      { label: '非连续文本', href: 'non-continuous-text.html' }
+    ]);
+  }
+
+  if (skill.goalKey === 'writing') {
+    return dedupeRouteActions([
+      { label: '三阶写作训练', href: '#three-stage-training' },
+      { label: '模板仿写', href: '#template-practice' },
+      { label: '引导式练笔', href: '#guided-practice-section' },
+      { label: '作文三轮批改', href: 'composition.html#three-round-revision' }
+    ]);
+  }
+
+  return dedupeRouteActions([
+    { label: 'A/B/C评分器', href: '#abScorePanel' },
+    preferredGrade ? { label: `${gradeLabel}B卷复测`, href: AB_TEST_MAP[preferredGrade].retest } : { label: '开始15分钟诊断', href: '#diagnosis' },
+    { label: '尖子生拓展', href: 'advanced.html' }
+  ]);
+}
+
+function getRecommendedGoalKey(topPack, lastAB, weakestSkill) {
+  if (lastAB && (lastAB.paper === 'c2' || lastAB.paper === 'c3')) return 'peak';
+  if (topPack?.id === 'b1') return 'foundation';
+  if (topPack?.id?.startsWith('r')) return 'reading';
+  if (topPack?.id?.startsWith('w')) return 'writing';
+  if (topPack?.id === 'c1') return 'retest';
+  if (weakestSkill?.goalKey) return weakestSkill.goalKey;
+  return 'foundation';
+}
+
+function buildContinueTrainingState() {
+  const profile = buildLearningProfile();
+  const lastAB = readLastABScoreResult();
+  const lastDiagnosis = readLastDiagnosisResult();
+  const preferredGrade = getPreferredGrade();
+  const topPack = profile.mainIssue;
+
+  if (lastAB) {
+    const path = buildNextLessonPath();
+    return {
+      title: path.title,
+      desc: lastAB.wrongCount > 0
+        ? `${lastAB.gradeLabel}${lastAB.paperLabel}最近错了 ${lastAB.wrongCount} 题。先处理主攻错因，再回卷验证，不直接跳去混刷。`
+        : `${lastAB.gradeLabel}${lastAB.paperLabel}最近已经通过。下一步直接按闭环路径推进，不重复刷旧题。`,
+      tags: [
+        `最近测评：${lastAB.gradeLabel}${lastAB.paperLabel}`,
+        `得分：${lastAB.score}/${lastAB.totalPoints}`,
+        `当前层级：${profile.level}`,
+        topPack ? `主攻错因：${topPack.code} ${topPack.title}` : '主攻错因：待生成'
+      ],
+      actions: dedupeRouteActions([
+        ...path.actions,
+        topPack ? { label: `进${topPack.code}训练包`, href: topPack.href } : null,
+        { label: '看自动下一课', href: '#next-lesson-card' }
+      ])
+    };
+  }
+
+  if (lastDiagnosis) {
+    const weakestSkill = getWeakestDiagnosisSkill(lastDiagnosis);
+    return {
+      title: `继续${lastDiagnosis.gradeLabel}${lastDiagnosis.paperLabel}后的补强`,
+      desc: weakestSkill
+        ? `${weakestSkill.label}在最近诊断里最弱（${weakestSkill.score}/5）。先沿同一方向补强，不要一会儿练阅读一会儿练作文。`
+        : '最近诊断已经生成基础画像，下一步要沿着同一短板连续练。',
+      tags: [
+        `最近诊断：${lastDiagnosis.gradeLabel}${lastDiagnosis.paperLabel}`,
+        `总分：${lastDiagnosis.totalScore}/15`,
+        weakestSkill ? `最低项：${weakestSkill.label}` : '最低项：待判定',
+        `当前层级：${profile.level}`
+      ],
+      actions: dedupeRouteActions([
+        ...getActionsForWeakSkill(weakestSkill, preferredGrade),
+        { label: '看错因精讲卡', href: '#error-masterclass' }
+      ])
+    };
+  }
+
+  return {
+    title: '先建立起点，再进入闭环训练',
+    desc: '如果还没有最近记录，不直接往下刷题。先做15分钟诊断或进入当前年级A卷，系统才知道该往哪里分流。',
+    tags: ['先判起点', '再定主攻', '最后复测'],
+    actions: [
+      { label: '开始15分钟诊断', href: '#diagnosis' },
+      { label: '看年级入口', href: '#practice-router-grades' }
+    ]
+  };
+}
+
+function buildPrioritySnapshot() {
+  const profile = buildLearningProfile();
+  const lastAB = readLastABScoreResult();
+  const lastDiagnosis = readLastDiagnosisResult();
+  const topPack = profile.mainIssue;
+  const weakestSkill = getWeakestDiagnosisSkill(lastDiagnosis) || getWeakSkillByPack(topPack?.id);
+
+  let note = '还没有足够数据时，先做诊断，不直接混刷题。';
+  let actions = [{ label: '开始15分钟诊断', href: '#diagnosis' }];
+
+  if (topPack) {
+    note = `${topPack.code} ${topPack.title} 是当前最高优先级：${topPack.problem}。先讲方法，再做递进题，最后回卷复测。`;
+    actions = dedupeRouteActions([
+      { label: `先补${topPack.code}`, href: topPack.href },
+      ...getTopicActionsForPack(topPack.id).slice(0, 2),
+      { label: '看自动下一课', href: '#next-lesson-card' }
+    ]);
+  } else if (weakestSkill) {
+    note = `${weakestSkill.label} 是当前更需要连续补强的方向。先沿一条线练透，再切换到别的板块。`;
+    actions = getActionsForWeakSkill(weakestSkill, getPreferredGrade());
+  }
+
+  return {
+    note,
+    actions,
+    items: [
+      { label: '当前层级', value: profile.level },
+      { label: '主攻错因', value: topPack ? `${topPack.code} ${topPack.title}` : '先做诊断生成' },
+      { label: '诊断短板', value: weakestSkill ? weakestSkill.label : '暂无诊断记录' },
+      { label: '复测状态', value: lastAB ? `${lastAB.gradeLabel}${lastAB.paperLabel}${lastAB.wrongCount === 0 ? '已通过' : `错${lastAB.wrongCount}题`}` : '还未进入A/B/C卷闭环' }
+    ]
+  };
+}
+
+function buildGoalRouteGroups(preferredGrade, topPack, lastAB) {
+  const gradeLabel = preferredGrade ? AB_TEST_MAP[preferredGrade].label : '当前年级';
+  const nextPath = lastAB ? buildNextLessonPath() : null;
+  const readingPack = topPack?.id?.startsWith('r') ? topPack : null;
+  const writingPack = topPack?.id?.startsWith('w') ? topPack : null;
+
+  return [
+    {
+      key: 'foundation',
+      title: '保基础',
+      desc: preferredGrade
+        ? `先用${gradeLabel}A卷稳住基础，再回 B1 字词和 R1 主干，不跳步骤。`
+        : '先做诊断，再回对应年级A卷，不盲练。',
+      actions: dedupeRouteActions([
+        preferredGrade ? { label: `去${gradeLabel}A卷`, href: getGradePageHref(preferredGrade) } : { label: '开始15分钟诊断', href: '#diagnosis' },
+        { label: 'B1字词拼音', href: '#pack-b1' },
+        { label: '拼音学习', href: 'pinyin.html' }
+      ])
+    },
+    {
+      key: 'reading',
+      title: '补阅读',
+      desc: readingPack
+        ? `当前更建议先从 ${readingPack.code} 开始，做完再去专题页补同类方法。`
+        : '按“概括 → 依据 → 赏析/材料”顺序补，避免题型乱跳。',
+      actions: dedupeRouteActions([
+        readingPack ? { label: `先补${readingPack.code}`, href: readingPack.href } : null,
+        { label: '记叙文专题', href: 'narrative-reading.html' },
+        { label: '说明文专题', href: 'expository-reading.html' },
+        { label: '非连续文本', href: 'non-continuous-text.html' },
+        { label: '阅读答案库', href: '#reading-answer-bank' }
+      ])
+    },
+    {
+      key: 'writing',
+      title: '补作文',
+      desc: writingPack
+        ? `当前更建议先从 ${writingPack.code} 开始，把“长度、层次、扣题”做成稳定步骤。`
+        : '先补写话长度、重点段厚度和审题扣题，再去整篇作文。',
+      actions: dedupeRouteActions([
+        writingPack ? { label: `先补${writingPack.code}`, href: writingPack.href } : null,
+        { label: '三阶写作训练', href: '#three-stage-training' },
+        { label: '模板仿写', href: '#template-practice' },
+        { label: '引导式练笔', href: '#guided-practice-section' },
+        { label: '作文三轮批改', href: 'composition.html#three-round-revision' }
+      ])
+    },
+    {
+      key: 'peak',
+      title: '冲拔尖',
+      desc: '不是多刷题，而是做低分答案升格、变式迁移和压轴复测，让方法能换材料继续成立。',
+      actions: [
+        { label: '拔尖晋级', href: '#peak-promotion' },
+        { label: '尖子生拓展', href: 'advanced.html' },
+        { label: '错因精讲卡', href: '#error-masterclass' },
+        { label: '打印闭环单', href: '#print-training' }
+      ]
+    },
+    {
+      key: 'retest',
+      title: '做复测',
+      desc: lastAB
+        ? `最近一次是${lastAB.gradeLabel}${lastAB.paperLabel}。训练后要立刻回卷验证，不停留在“听懂了”。`
+        : (preferredGrade ? `完成训练后，回${gradeLabel}B卷看同类变式是否过关。` : '先确定年级或先做诊断，再进入复测。'),
+      actions: dedupeRouteActions([
+        ...(nextPath ? nextPath.actions : (preferredGrade ? [{ label: `${gradeLabel}B卷复测`, href: AB_TEST_MAP[preferredGrade].retest }] : [{ label: '开始15分钟诊断', href: '#diagnosis' }])),
+        { label: '打开A/B/C评分器', href: '#abScorePanel' }
+      ])
+    }
+  ];
+}
+
+function renderAutoRoutingPanel() {
+  const panel = document.getElementById('practiceRouterPanel');
+  if (!panel) return;
+
+  const profile = buildLearningProfile();
+  const lastAB = readLastABScoreResult();
+  const lastDiagnosis = readLastDiagnosisResult();
+  const preferredGrade = getPreferredGrade();
+  const continueState = buildContinueTrainingState();
+  const priority = buildPrioritySnapshot();
+  const topPack = profile.mainIssue;
+  const weakestSkill = getWeakestDiagnosisSkill(lastDiagnosis) || getWeakSkillByPack(topPack?.id);
+  const goalGroups = buildGoalRouteGroups(preferredGrade, topPack, lastAB);
+  const recommendedGoalKey = getRecommendedGoalKey(topPack, lastAB, weakestSkill);
+  const flowStatus = getFlowPackStatus();
+  const gradeCards = Object.entries(AB_TEST_MAP).map(([grade, data]) => ({
+    grade,
+    label: data.label,
+    focus: GRADE_FOCUS_SUMMARY[grade] || 'A卷诊断、训练包、B卷复测',
+    pageHref: getGradePageHref(grade),
+    retestHref: data.retest
+  }));
+
+  panel.innerHTML = `
+    <div class="practice-router-shell">
+      <div class="practice-router-hero-grid">
+        <article class="study-block accent practice-router-hero">
+          <p class="practice-router-kicker">继续上次训练</p>
+          <h2>${escapeHTML(continueState.title)}</h2>
+          <p>${escapeHTML(continueState.desc)}</p>
+          <div class="practice-router-tags">
+            ${continueState.tags.map(tag => `<span>${escapeHTML(tag)}</span>`).join('')}
+          </div>
+          <div class="route-links">${renderRouteActions(continueState.actions)}</div>
+        </article>
+        <article class="study-block practice-router-glance">
+          <p class="practice-router-kicker">现在最该补哪里</p>
+          <h2>一眼看清当前层级、主攻错因和复测状态</h2>
+          <div class="practice-router-glance-grid">
+            ${priority.items.map(item => `
+              <div class="practice-router-glance-item">
+                <strong>${escapeHTML(item.label)}</strong>
+                <span>${escapeHTML(item.value)}</span>
+              </div>
+            `).join('')}
+          </div>
+          <p class="practice-router-note">${escapeHTML(priority.note)}</p>
+          <div class="route-links">${renderRouteActions(priority.actions)}</div>
+        </article>
+      </div>
+
+      <div class="practice-router-grid">
+        <article class="study-block practice-router-card" id="practice-router-grades">
+          <h3>按年级进入</h3>
+          <p>年级页负责 A 卷诊断与课堂精讲，这里负责把你快速送回最合适的年级闭环入口。</p>
+          <div class="practice-router-grade-grid">
+            ${gradeCards.map(card => `
+              <article class="practice-router-grade-card ${preferredGrade === card.grade ? 'active' : ''}">
+                <div class="practice-router-grade-head">
+                  <strong>${escapeHTML(card.label)}</strong>
+                  ${preferredGrade === card.grade ? '<span class="practice-router-current">当前推荐</span>' : ''}
+                </div>
+                <span>${escapeHTML(card.focus)}</span>
+                <div class="route-links">
+                  <a href="${card.pageHref}">进年级页</a>
+                  <a href="${card.retestHref}">B卷复测</a>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        </article>
+
+        <article class="study-block practice-router-card">
+          <h3>按当前目标进入</h3>
+          <p>不要把“保基础、补阅读、补作文、冲拔尖、做复测”混在一起。每次只走一条主线。</p>
+          <div class="practice-router-goal-list">
+            ${goalGroups.map(group => `
+              <article class="practice-router-goal-item ${recommendedGoalKey === group.key ? 'active' : ''}">
+                <div class="practice-router-goal-head">
+                  <strong>${escapeHTML(group.title)}</strong>
+                  ${recommendedGoalKey === group.key ? '<span class="practice-router-current">当前推荐</span>' : ''}
+                </div>
+                <p>${escapeHTML(group.desc)}</p>
+                <div class="route-links">${renderRouteActions(group.actions)}</div>
+              </article>
+            `).join('')}
+          </div>
+        </article>
+
+        <article class="study-block practice-router-card">
+          <h3>按错因直接进入</h3>
+          <p>${topPack ? `当前最高频错因是 ${topPack.code} ${topPack.title}。先补这一类，再做别的。` : '错因码会在完成诊断、A卷或错题归类后自动生成。'}</p>
+          <div class="practice-router-code-grid">
+            ${FLOW_PACKS.map(pack => {
+              const status = flowStatus[pack.id] || 'todo';
+              return `
+                <a class="practice-router-code-card ${topPack?.id === pack.id ? 'active' : ''}" href="${pack.href}">
+                  <div class="practice-router-code-head">
+                    <strong>${pack.code} ${escapeHTML(pack.title)}</strong>
+                    <span class="status-pill ${FLOW_STATUS_CLASS[status] || FLOW_STATUS_CLASS.todo}">${FLOW_STATUS_LABELS[status] || FLOW_STATUS_LABELS.todo}</span>
+                  </div>
+                  <p>${escapeHTML(pack.problem)}</p>
+                </a>
+              `;
+            }).join('')}
+          </div>
+          <div class="route-links">
+            ${renderRouteActions(topPack ? [
+              { label: `先看${topPack.code}精讲`, href: '#error-masterclass' },
+              { label: `进${topPack.code}训练包`, href: topPack.href },
+              ...getTopicActionsForPack(topPack.id)
+            ] : getActionsForWeakSkill(weakestSkill, preferredGrade))}
+          </div>
+        </article>
+      </div>
+    </div>
+  `;
+}
+
+function refreshRoutePlanningPanels() {
+  renderLearningProfilePanel();
+  renderNextLessonPanel();
+  renderAutoRoutingPanel();
+}
+
 function renderNextLessonPanel() {
   const panel = document.getElementById('nextLessonPanel');
   if (!panel) return;
@@ -2918,12 +3842,7 @@ function renderNextLessonPanel() {
       <ol class="next-lesson-steps">
         ${path.steps.map(step => `<li>${escapeHTML(step)}</li>`).join('')}
       </ol>
-      <div class="route-links">
-        ${path.actions.map(action => action.href
-          ? `<a href="${action.href}">${escapeHTML(action.label)}</a>`
-          : `<button type="button" class="flow-action-btn" onclick="selectABPaper('${action.grade}', '${action.paper}')">${escapeHTML(action.label)}</button>`
-        ).join('')}
-      </div>
+      <div class="route-links">${renderRouteActions(path.actions)}</div>
     </div>
   `;
 }
@@ -2939,14 +3858,15 @@ document.addEventListener('DOMContentLoaded', () => {
   initVocab();
   initThinking();
   initCheckin();
+  initTimer();
   renderWrongList();
   renderErrorStats();
   renderFlowStatusPanel();
   injectFlowPackControls();
   initABScorePanel();
-  renderLearningProfilePanel();
-  renderNextLessonPanel();
-  renderAutoRoutingPanel();
+  refreshRoutePlanningPanels();
+  renderIntervalReview(); // 间隔重练提醒
+  warmSmartWrongNotebook();
   updateDiagnosisPaperCopy();
   document.getElementById('diagnosisGradeSelect')?.addEventListener('change', updateDiagnosisPaperCopy);
   document.getElementById('diagnosisPaperSelect')?.addEventListener('change', updateDiagnosisPaperCopy);
@@ -3716,6 +4636,107 @@ function submitDiagnosis() {
   showDiagnosisResult(totalScore);
 }
 
+// ==================== 能力雷达图 ====================
+
+function drawRadarChart(skills) {
+  const canvas = document.getElementById('radarChart');
+  const legend = document.getElementById('radarLegend');
+  if (!canvas || !legend) return;
+
+  const ctx = canvas.getContext('2d');
+  const centerX = 150, centerY = 150, radius = 110;
+  const n = skills.length;
+  if (n === 0) return;
+
+  ctx.clearRect(0, 0, 300, 300);
+
+  // 背景网格
+  for (let level = 1; level <= 5; level++) {
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+      const r = (radius / 5) * level;
+      const x = centerX + r * Math.cos(angle);
+      const y = centerY + r * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = level === 5 ? '#d1d5db' : '#e5e7eb';
+    ctx.lineWidth = level === 5 ? 1.5 : 0.5;
+    ctx.stroke();
+  }
+
+  // 轴线
+  for (let i = 0; i < n; i++) {
+    const angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.lineTo(centerX + radius * Math.cos(angle), centerY + radius * Math.sin(angle));
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+
+  // 数据多边形
+  const colors = ['#4f46e5', '#059669', '#d97706', '#dc2626', '#7c3aed', '#0891b2'];
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+    const ratio = Math.min(skills[i].score / skills[i].max, 1);
+    const r = radius * ratio;
+    const x = centerX + r * Math.cos(angle);
+    const y = centerY + r * Math.sin(angle);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(79, 70, 229, 0.15)';
+  ctx.fill();
+  ctx.strokeStyle = '#4f46e5';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 数据点
+  for (let i = 0; i < n; i++) {
+    const angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+    const ratio = Math.min(skills[i].score / skills[i].max, 1);
+    const r = radius * ratio;
+    const x = centerX + r * Math.cos(angle);
+    const y = centerY + r * Math.sin(angle);
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = colors[i % colors.length];
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 标签
+    const labelAngle = (Math.PI * 2 / n) * i - Math.PI / 2;
+    const labelR = radius + 22;
+    const lx = centerX + labelR * Math.cos(labelAngle);
+    const ly = centerY + labelR * Math.sin(labelAngle);
+    ctx.fillStyle = '#374151';
+    ctx.font = 'bold 12px system-ui';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(skills[i].name, lx, ly);
+  }
+
+  // 图例
+  legend.innerHTML = skills.map((skill, i) => {
+    const pct = Math.round((skill.score / skill.max) * 100);
+    return `
+      <div class="radar-legend-item">
+        <span class="radar-legend-dot" style="background:${colors[i % colors.length]}"></span>
+        <span>${skill.name}</span>
+        <span class="radar-legend-score">${pct}% (${skill.score}/${skill.max})</span>
+      </div>
+    `;
+  }).join('');
+}
+
 // 保存诊断错题
 function saveDiagnosisMistakes() {
   const wrongList = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
@@ -3743,9 +4764,10 @@ function saveDiagnosisMistakes() {
   if (wrongList.length > 50) {
     wrongList.splice(0, wrongList.length - 50);
   }
-  
-  localStorage.setItem('wrongAnswers', JSON.stringify(wrongList));
+
+  persistWrongAnswers(wrongList, { syncSmart: true });
   renderWrongList();
+  renderIntervalReview();
 }
 
 // 显示诊断结果
@@ -3789,6 +4811,9 @@ function showDiagnosisResult(totalScore) {
   
   // 生成学习建议
   generateSuggestions(skills);
+
+  // 绘制能力雷达图
+  drawRadarChart(skills);
   
   // 保存诊断结果
   localStorage.setItem('lastDiagnosisResult', JSON.stringify({
@@ -3801,6 +4826,8 @@ function showDiagnosisResult(totalScore) {
     questionIds: diagnosisQuestions.map(q => q.id),
     date: new Date().toISOString()
   }));
+
+  refreshRoutePlanningPanels();
 }
 
 // 生成学习建议
@@ -3871,8 +4898,7 @@ function resetDiagnosis() {
 
 // 跳转到练习
 function goToPractice() {
-  // 滚动到练习区域
-  document.querySelector('.interactive-practice').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('practice-router')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // 作文筛选功能

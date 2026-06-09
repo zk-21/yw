@@ -9,10 +9,10 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#63d676">
   <title>资料库搜索 | 语文成长地图</title>
-  <meta name="description" content="全站资料库搜索，支持语法、词语、文学常识、常见错误、作文方法和练习题库的一站式检索。">
-  <meta name="keywords" content="语文搜索,资料库搜索,语法搜索,成语搜索,文学常识搜索">
+  <meta name="description" content="全站资料库搜索，支持语法、词语、文学常识、常见错误、作文方法、练习题库和家长陪学手册的一站式检索。">
+  <meta name="keywords" content="语文搜索,资料库搜索,语法搜索,成语搜索,文学常识搜索,家长陪学搜索">
   <meta property="og:title" content="资料库搜索 | 语文成长地图">
-  <meta property="og:description" content="搜索语法、词语、文学常识、常见错误、作文方法和练习题库。">
+  <meta property="og:description" content="搜索语法、词语、文学常识、常见错误、作文方法、练习题库和家长陪学手册。">
   <meta property="og:type" content="website">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css?v=115">
@@ -262,12 +262,12 @@
   <main>
     <section class="search-hero">
       <h1>资料库搜索</h1>
-      <p>一键检索语法、词语、文学常识、作文方法、错题与练习题库。</p>
+      <p>一键检索语法、词语、文学常识、作文方法、错题、练习题库和家长陪学手册。</p>
     </section>
 
     <div class="search-box-wrap">
       <div class="search-box-inner">
-        <input type="text" id="searchInput" placeholder="输入关键词，例如：比喻、成语、李白、病句" autofocus>
+        <input type="text" id="searchInput" placeholder="输入关键词，例如：比喻、成语、李白、病句、家长陪学" autofocus>
         <button id="searchBtn">搜索</button>
       </div>
     </div>
@@ -281,6 +281,7 @@
       <span class="filter-chip" data-type="mistake">错题</span>
       <span class="filter-chip" data-type="essay">作文</span>
       <span class="filter-chip" data-type="exercise">题库</span>
+      <span class="filter-chip" data-type="parent">家长</span>
     </div>
 
     <div class="grade-filter-bar" id="gradeFilterBar">
@@ -313,6 +314,32 @@
         <button class="quick-link" data-keyword="缩句">缩句</button>
         <button class="quick-link" data-keyword="四大名著">四大名著</button>
         <button class="quick-link" data-keyword="读后感">读后感</button>
+        <button class="quick-link" data-keyword="家长陪学">家长陪学</button>
+        <button class="quick-link" data-keyword="错题复盘">错题复盘</button>
+      </div>
+    </div>
+
+    <div class="quick-link-pack">
+      <div class="pack-title">家长陪学热词</div>
+      <div class="pack-row">
+        <button class="pack-chip" data-keyword="家长陪学">家长陪学</button>
+        <button class="pack-chip" data-keyword="阅读追问">阅读追问</button>
+        <button class="pack-chip" data-keyword="作文追问">作文追问</button>
+        <button class="pack-chip" data-keyword="家长检查">家长检查</button>
+        <button class="pack-chip" data-keyword="错题复盘">错题复盘</button>
+        <button class="pack-chip" data-keyword="陪练话术">陪练话术</button>
+      </div>
+    </div>
+
+    <div class="quick-link-pack">
+      <div class="pack-title">家长高频场景</div>
+      <div class="pack-row">
+        <button class="pack-chip" data-keyword="孩子说不会">孩子说不会</button>
+        <button class="pack-chip" data-keyword="一周陪学">一周陪学</button>
+        <button class="pack-chip" data-keyword="考前复盘">考前复盘</button>
+        <button class="pack-chip" data-keyword="家长没时间">家长没时间</button>
+        <button class="pack-chip" data-keyword="家长检查">做完怎么检查</button>
+        <button class="pack-chip" data-keyword="陪练话术">怎么开口问</button>
       </div>
     </div>
 
@@ -328,6 +355,20 @@
       </div>
     </div>
 
+    <div class="quick-link-pack">
+      <div class="pack-title">基础与错因高频入口</div>
+      <div class="pack-row">
+        <button class="pack-chip" data-keyword="拼音">拼音规则</button>
+        <button class="pack-chip" data-keyword="近义词">近义词辨析</button>
+        <button class="pack-chip" data-keyword="标点">标点判断</button>
+        <button class="pack-chip" data-keyword="病句">病句修改</button>
+        <button class="pack-chip" data-keyword="概括">概括题</button>
+        <button class="pack-chip" data-keyword="找依据">阅读找依据</button>
+        <button class="pack-chip" data-keyword="赏析">赏析题</button>
+        <button class="pack-chip" data-keyword="审题">作文审题</button>
+      </div>
+    </div>
+
     <div class="topic-entry-card">
       <div class="card-inner">
         <div>
@@ -335,6 +376,26 @@
           <p>如果你主要想查作家作品、四大名著、典故、古诗词或体裁判断，直接进入专题会更快。</p>
         </div>
         <a href="literary.html">打开文学常识专题</a>
+      </div>
+    </div>
+
+    <div class="topic-entry-card">
+      <div class="card-inner">
+        <div>
+          <h3>直接前往家长陪学手册</h3>
+          <p>如果你主要想找家长追问话术、陪练顺序、现场卡壳处理或复盘检查重点，直接进入手册会更快。</p>
+        </div>
+        <a href="parent-guide.html#scripts">打开家长陪练话术</a>
+      </div>
+    </div>
+
+    <div class="topic-entry-card">
+      <div class="card-inner">
+        <div>
+          <h3>直接前往错因训练包</h3>
+          <p>如果你已经知道自己卡在 B1、R1、R2、R3、R4、W1、W2、W3 或 C1，直接进入训练包会比逐条搜索更快。</p>
+        </div>
+        <a href="practice.html#flow-training">打开错因训练包</a>
       </div>
     </div>
 
@@ -359,467 +420,8 @@
     </section>
   </main>
 
-  <script src="data/search-engine.js"></script>
-  <script src="search-page.js"></script>
-  <script>
-    if (!window.__searchPageExternalLoaded) {
-    var currentFilter = 'all';
-    var currentGrade = 'all';
-    var RECENT_KEY = 'searchRecent';
-    var MAX_RECENT = 8;
-    var SEARCH_INDEX_URL = 'data/search-index.json';
-    var searchIndexPromise = null;
-
-    var RELATED_TERMS = {
-      '比喻': ['修辞', '拟人', '排比', '夸张'],
-      '李白': ['唐诗', '杜甫', '静夜思', '望庐山瀑布'],
-      '病句': ['修改病句', '语病', '搭配不当', '语法'],
-      '成语': ['四字词语', '典故', '寓言', '成语故事'],
-      '修辞': ['比喻', '拟人', '排比', '夸张', '反问'],
-      '唐诗': ['李白', '杜甫', '古诗', '绝句'],
-      '标点': ['逗号', '句号', '引号', '分号'],
-      '缩句': ['扩句', '缩句练习', '句子成分'],
-      '四大名著': ['西游记', '三国演义', '水浒传', '红楼梦'],
-      '读后感': ['读书笔记', '心得体会', '写作方法'],
-      '近义词': ['反义词', '同义词', '词语辨析'],
-      '拼音': ['声母', '韵母', '整体认读', '声调'],
-      '作文': ['写作', '范文', '写人', '记事', '写景'],
-      '阅读': ['阅读理解', '概括', '赏析', '中心思想']
-    };
-
-    var ALL_QUICK_TERMS = Object.keys(RELATED_TERMS);
-
-    function escapeHTML(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
-
-    function loadSearchIndex() {
-      if (searchIndexPromise) return searchIndexPromise;
-      searchIndexPromise = fetch(SEARCH_INDEX_URL).then(function (response) {
-        if (!response.ok) throw new Error('Failed to load search index: ' + response.status);
-        return response.json();
-      }).then(function (index) {
-        if (!index || !Array.isArray(index.items)) throw new Error('Invalid search index payload');
-        return index;
-      }).catch(function (err) {
-        searchIndexPromise = null;
-        throw err;
-      });
-      return searchIndexPromise;
-    }
-
-    function getSearchText(item) {
-      var typeKeywords = {
-        grammar: '语法 知识',
-        vocabulary: '词汇 词语',
-        literary: '文学 常识',
-        mistake: '错题 常见错误 易错',
-        essay: '作文 写作 范文 方法',
-        exercise: '题库 练习 习题'
-      };
-
-      return [
-        item.title,
-        item.summary,
-        item.content,
-        item.category,
-        item.source,
-        typeKeywords[item.type] || item.type,
-        item.difficulty,
-        (item.abilities || []).join(' '),
-        (item.keywords || []).join(' ')
-      ].filter(Boolean).join(' ').toLowerCase();
-    }
-
-    function parseGradeRange(text) {
-      var raw = String(text || '');
-      var rangeMatch = raw.match(/([1-6])\s*(?:-|—|~|至|到)\s*([1-6])\s*年?级?/);
-      if (rangeMatch) {
-        return {
-          min: Math.min(parseInt(rangeMatch[1], 10), parseInt(rangeMatch[2], 10)),
-          max: Math.max(parseInt(rangeMatch[1], 10), parseInt(rangeMatch[2], 10))
-        };
-      }
-      var singleMatch = raw.match(/([1-6])\s*年级/);
-      if (singleMatch) {
-        var value = parseInt(singleMatch[1], 10);
-        return { min: value, max: value };
-      }
-      return null;
-    }
-
-    function matchGrade(item, gradeValue) {
-      if (!gradeValue || gradeValue === 'all') return true;
-      var target = parseInt(gradeValue, 10);
-      if (!target) return true;
-
-      var minGrade = parseInt(item.minGrade, 10);
-      var maxGrade = parseInt(item.maxGrade, 10);
-      if (minGrade && maxGrade) return target >= minGrade && target <= maxGrade;
-
-      var range = parseGradeRange(item.gradeRange) || parseGradeRange(item.category);
-      if (!range && item.content) {
-        var applicable = String(item.content).match(/适用年级["']?\s*[:：]?\s*["']?\s*([1-6]\s*(?:-|—|~|至|到)\s*[1-6]\s*年级|[1-6]\s*年级)/);
-        range = applicable ? parseGradeRange(applicable[1]) : null;
-      }
-      if (range) return target >= range.min && target <= range.max;
-
-      var grade = parseInt(item.grade, 10);
-      return !grade || grade === target;
-    }
-
-    function searchIndexInternal(keyword, options) {
-      var opts = options || {};
-      var filterType = opts.type || null;
-      var filterGrade = opts.grade || null;
-      var keywordText = String(keyword || '').toLowerCase().trim();
-      var keywords = keywordText.split(/\s+/).filter(function (item) { return item.length > 0; });
-
-      if (!keywords.length) return Promise.resolve([]);
-
-      return loadSearchIndex().then(function (index) {
-        var results = index.items.filter(function (item) {
-          var content = getSearchText(item);
-          var matchAll = keywords.every(function (part) {
-            return content.indexOf(part) >= 0;
-          });
-          if (!matchAll) return false;
-          if (filterType && item.type !== filterType) return false;
-          if (!matchGrade(item, filterGrade)) return false;
-          return true;
-        });
-
-        results.sort(function (a, b) {
-          var aTitleMatch = a.title.toLowerCase().indexOf(keywordText) >= 0 ? 0 : 1;
-          var bTitleMatch = b.title.toLowerCase().indexOf(keywordText) >= 0 ? 0 : 1;
-          if (aTitleMatch !== bTitleMatch) return aTitleMatch - bTitleMatch;
-          return (a.grade || 0) - (b.grade || 0);
-        });
-
-        return results;
-      });
-    }
-
-    function getQueryParam(name) {
-      return new URLSearchParams(window.location.search).get(name) || '';
-    }
-
-    function warmSearchIndex() {
-      loadSearchIndex().catch(function () {});
-    }
-
-    function getRecentSearches() {
-      try {
-        return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveRecentSearch(keyword) {
-      var recent = getRecentSearches().filter(function (item) {
-        return item !== keyword;
-      });
-      recent.unshift(keyword);
-      if (recent.length > MAX_RECENT) recent.length = MAX_RECENT;
-      localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
-      renderRecentSearches();
-    }
-
-    function renderRecentSearches() {
-      var container = document.getElementById('recentSearches');
-      var tagsEl = document.getElementById('recentTags');
-      var recent = getRecentSearches();
-      if (recent.length === 0) {
-        container.classList.remove('visible');
-        tagsEl.innerHTML = '';
-        return;
-      }
-      container.classList.add('visible');
-      tagsEl.innerHTML = recent.map(function (kw) {
-        return '<span class="recent-tag" data-kw="' + escapeHTML(kw) + '">' + escapeHTML(kw) + '</span>';
-      }).join('');
-    }
-
-    function getTypeLabel(type) {
-      var labels = {
-        grammar: '语法知识',
-        vocabulary: '词语学习',
-        literary: '文学常识',
-        mistake: '常见错误',
-        essay: '作文方法',
-        exercise: '练习题库'
-      };
-      return labels[type] || type;
-    }
-
-    function getGradeLabel(grade) {
-      if (!grade || grade === 0 || grade === '0') return '通用';
-      return grade + '年级';
-    }
-
-    function getItemGradeLabel(item) {
-      return item.gradeRange || getGradeLabel(item.grade);
-    }
-
-    function getDifficultyLabel(difficulty) {
-      var labels = {
-        basic: '基础',
-        improve: '提高',
-        advanced: '拔尖',
-        exam: '小升初'
-      };
-      return labels[difficulty] || difficulty || '';
-    }
-
-    function getSummaryText(item) {
-      var summaryText = item.summary || item.content || item.title || '';
-      summaryText = String(summaryText)
-        .replace(/\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ' ')
-        .replace(/[{}\[\]"]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      if (!summaryText || summaryText === item.title) {
-        summaryText = String(item.content || item.title || '')
-          .replace(/\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ' ')
-          .replace(/[{}\[\]"]/g, ' ')
-          .replace(/\s+/g, ' ')
-          .trim();
-      }
-      return (summaryText || String(item.title || '')).substring(0, 150);
-    }
-
-    function withSearchParam(url, keyword) {
-      if (!keyword) return url;
-      var parts = url.split('#');
-      var base = parts[0];
-      var hash = parts[1] ? '#' + parts[1] : '';
-      var joiner = base.indexOf('?') >= 0 ? '&' : '?';
-      return base + joiner + 'q=' + encodeURIComponent(keyword) + hash;
-    }
-
-    function getResultHref(item, keyword) {
-      var source = item.source || '';
-      var typePageMap = {
-        grammar: 'grammar.html',
-        vocabulary: 'vocabulary.html',
-        literary: 'literary.html#data-library',
-        mistake: 'practice.html#diagnosis',
-        essay: 'composition.html',
-        exercise: 'practice.html'
-      };
-
-      if (item.type === 'literary') {
-        var category = item.category || '';
-        if (category.indexOf('必背古诗词') >= 0) return withSearchParam('literary.html#must-know', keyword);
-        if (category.indexOf('必读名著') >= 0 || item.title === '四大名著') return withSearchParam('literary.html#must-know', keyword);
-        if (category.indexOf('典故') >= 0) return withSearchParam('literary.html#memory-frames', keyword);
-        if (category.indexOf('体裁') >= 0) return withSearchParam('literary.html#genre-table', keyword);
-        if (category.indexOf('中国古代文学') >= 0 || category.indexOf('中国现当代文学') >= 0 || category.indexOf('外国文学') >= 0) {
-          return withSearchParam('literary.html#timeline', keyword);
-        }
-        return withSearchParam('literary.html#data-library', keyword);
-      }
-
-      if (source === 'literary-knowledge.json') return withSearchParam('literary.html#data-library', keyword);
-      if (source === 'grammar.json') return 'grammar.html';
-      if (source === 'vocabulary.json') return 'vocabulary.html';
-      if (source === 'common-mistakes.json') return 'practice.html#diagnosis';
-      if (source === 'model-essays.json') return 'composition.html';
-      if (source === 'exercises.json') return 'practice.html';
-      return typePageMap[item.type] || 'knowledge-map.html';
-    }
-
-    function getSuggestions(keyword) {
-      var suggestions = [];
-      var related = RELATED_TERMS[keyword];
-      if (related) {
-        related.forEach(function (item) {
-          suggestions.push(item);
-        });
-      }
-      ALL_QUICK_TERMS.forEach(function (term) {
-        if (term !== keyword && term.indexOf(keyword) >= 0 && suggestions.indexOf(term) < 0) {
-          suggestions.push(term);
-        }
-      });
-      if (suggestions.length < 3) {
-        ['修辞手法', '修改病句', '成语故事', '古诗', '阅读理解'].forEach(function (term) {
-          if (term !== keyword && suggestions.indexOf(term) < 0) suggestions.push(term);
-        });
-      }
-      return suggestions.slice(0, 6);
-    }
-
-    function highlightText(text, keyword) {
-      var escaped = escapeHTML(text);
-      var safeKeyword = escapeHTML(keyword).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return escaped.replace(new RegExp('(' + safeKeyword + ')', 'gi'), '<mark>$1</mark>');
-    }
-
-    function doSearch() {
-      var keyword = document.getElementById('searchInput').value.trim();
-      if (!keyword) return;
-
-      var resultsEl = document.getElementById('results');
-      var searchBtn = document.getElementById('searchBtn');
-      var options = {
-        type: currentFilter === 'all' ? null : currentFilter,
-        grade: currentGrade
-      };
-
-      resultsEl.innerHTML = '<div class="loading-spinner">正在搜索六大资料库...</div>';
-      searchBtn.disabled = true;
-      searchBtn.textContent = '搜索中...';
-
-      searchIndexInternal(keyword, options).then(function (allResults) {
-        searchBtn.disabled = false;
-        searchBtn.textContent = '搜索';
-        saveRecentSearch(keyword);
-
-        if (!allResults || allResults.length === 0) {
-          var suggestions = getSuggestions(keyword);
-          var suggestHtml = '';
-          if (suggestions.length > 0) {
-            suggestHtml = '<div class="suggested-search"><p>试试这些相关内容：</p>' +
-              suggestions.map(function (item) {
-                return '<span class="suggested-tag" data-kw="' + escapeHTML(item) + '">' + escapeHTML(item) + '</span>';
-              }).join('') +
-              '</div>';
-          }
-          resultsEl.innerHTML = '<div class="result-empty"><div class="icon">🔍</div><p>没有找到「' + escapeHTML(keyword) + '」相关内容</p><p style="font-size:12px;color:#bbb;">试试调整年级筛选或换一个关键词。</p>' + suggestHtml + '</div>';
-          document.querySelectorAll('.suggested-tag').forEach(function (tag) {
-            tag.addEventListener('click', function () {
-              document.getElementById('searchInput').value = tag.dataset.kw;
-              doSearch();
-            });
-          });
-          return;
-        }
-
-        var grouped = {};
-        allResults.forEach(function (item) {
-          if (!grouped[item.type]) grouped[item.type] = [];
-          grouped[item.type].push(item);
-        });
-
-        var gradeLabel = currentGrade === 'all' ? '' : ' · ' + currentGrade + '年级';
-        var html = '<p style="color:#888;font-size:13px;text-align:center;margin-bottom:16px;">找到 <strong>' + allResults.length + '</strong> 条与「<strong>' + escapeHTML(keyword) + '</strong>」相关的结果' + gradeLabel + '</p>';
-
-        Object.keys(grouped).forEach(function (type) {
-          var items = grouped[type];
-          html += '<div class="result-db-label">' + getTypeLabel(type) + '<span class="result-count">' + items.length + '条</span></div>';
-          items.slice(0, 20).forEach(function (item) {
-            var summaryText = getSummaryText(item);
-            var metaParts = [getItemGradeLabel(item), item.category, getDifficultyLabel(item.difficulty)].filter(Boolean);
-            var href = getResultHref(item, keyword);
-            html += '<a class="result-item" href="' + escapeHTML(href) + '">' +
-              '<div><strong>' + highlightText(item.title, keyword) + '</strong></div>' +
-              '<div>' + highlightText(summaryText, keyword) + '</div>' +
-              '<div class="result-path">' + escapeHTML(metaParts.join(' · ')) + ' · ' + escapeHTML(item.source || '') + '</div>' +
-              '</a>';
-          });
-          if (items.length > 20) {
-            html += '<p style="color:#999;font-size:12px;text-align:center;">还有 ' + (items.length - 20) + ' 条结果未展开</p>';
-          }
-        });
-
-        resultsEl.innerHTML = html;
-      }).catch(function (err) {
-        searchBtn.disabled = false;
-        searchBtn.textContent = '搜索';
-        resultsEl.innerHTML = '<div class="result-empty"><div class="icon">⚠️</div><p>搜索出错，请稍后再试</p></div>';
-        console.error(err);
-      });
-    }
-
-    document.getElementById('recentTags').addEventListener('click', function (event) {
-      var tag = event.target.closest('.recent-tag');
-      if (!tag || !tag.dataset.kw) return;
-      document.getElementById('searchInput').value = tag.dataset.kw;
-      doSearch();
-    });
-
-    document.getElementById('clearRecent').addEventListener('click', function () {
-      localStorage.removeItem(RECENT_KEY);
-      renderRecentSearches();
-    });
-
-    document.getElementById('filterBar').addEventListener('click', function (event) {
-      var chip = event.target.closest('.filter-chip');
-      if (!chip) return;
-      document.querySelectorAll('.filter-chip').forEach(function (item) {
-        item.classList.remove('active');
-      });
-      chip.classList.add('active');
-      currentFilter = chip.dataset.type;
-      if (document.getElementById('searchInput').value.trim()) doSearch();
-    });
-
-    document.getElementById('gradeFilterBar').addEventListener('click', function (event) {
-      var chip = event.target.closest('.grade-filter-chip');
-      if (!chip) return;
-      document.querySelectorAll('.grade-filter-chip').forEach(function (item) {
-        item.classList.remove('active');
-      });
-      chip.classList.add('active');
-      currentGrade = chip.dataset.grade;
-      if (document.getElementById('searchInput').value.trim()) doSearch();
-    });
-
-    document.getElementById('searchInput').addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') doSearch();
-      if (event.key === 'Escape') {
-        this.value = '';
-        this.focus();
-      }
-    });
-
-    document.getElementById('searchInput').addEventListener('focus', warmSearchIndex, { once: true });
-
-    document.addEventListener('keydown', function (event) {
-      if (
-        event.key === '/' &&
-        document.activeElement !== document.getElementById('searchInput') &&
-        event.target.tagName !== 'INPUT' &&
-        event.target.tagName !== 'TEXTAREA'
-      ) {
-        event.preventDefault();
-        document.getElementById('searchInput').focus();
-      }
-    });
-
-    document.querySelector('.quick-link-grid').addEventListener('click', function (event) {
-      var btn = event.target.closest('.quick-link');
-      if (!btn || !btn.dataset.keyword) return;
-      document.getElementById('searchInput').value = btn.dataset.keyword;
-      doSearch();
-    });
-
-    document.querySelectorAll('.quick-link-pack').forEach(function (pack) {
-      pack.addEventListener('click', function (event) {
-        var btn = event.target.closest('.pack-chip');
-        if (!btn || !btn.dataset.keyword) return;
-        document.getElementById('searchInput').value = btn.dataset.keyword;
-        doSearch();
-      });
-    });
-
-    document.getElementById('searchBtn').addEventListener('click', doSearch);
-
-    renderRecentSearches();
-
-    var initialQuery = getQueryParam('q').trim();
-    if (initialQuery) {
-      document.getElementById('searchInput').value = initialQuery;
-      doSearch();
-    }
-    }
-  </script>
+  <script defer src="data/search-engine.js"></script>
+  <script defer src="search-page.js"></script>
   <script defer src="nav.js?v=115"></script>
   <script defer src="table-responsive.js?v=115"></script>
 </body>
