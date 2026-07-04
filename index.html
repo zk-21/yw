@@ -1,1448 +1,412 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="面向小学一至六年级学生和家长的语文学习平台，涵盖字词、阅读、写作、古诗文五大主线，提供诊断测评、年级路线、AI辅导和每日练习。">
-  <meta name="keywords" content="小学语文,语文学习,拼音,阅读,作文,古诗文,语法,词语,练习,年级">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="语文成长地图">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#63d676">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="小学语文学习平台 - 语文成长地图">
-  <meta property="og:description" content="把语文知识拆成孩子看得懂、练得动的小任务，围绕字词、句段、阅读、习作、古诗文五条主线。">
-  <meta property="og:image" content="agent-icon-512.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="小学语文学习平台 - 语文成长地图">
-  <meta name="twitter:description" content="面向小学一至六年级的语文学习导航与专项训练工具。">
-  <title>小学语文学习平台 - 知识导航</title>
-  <link rel="preload" href="styles.css" as="style">
-  <link rel="preload" href="nav.js" as="script">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "语文成长地图",
-    "description": "面向小学一至六年级学生和家长的语文学习平台",
-    "areaServed": "CN",
-    "url": "https://your-domain.com",
-    "audience": {
-      "@type": "EducationalAudience",
-      "educationalRole": "student",
-      "audienceType": "小学生（一至六年级）"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "语文学习课程",
-      "itemListElement": [
-        {"@type": "Course", "name": "拼音学习", "url": "https://your-domain.com/pinyin.html"},
-        {"@type": "Course", "name": "语法知识", "url": "https://your-domain.com/grammar.html"},
-        {"@type": "Course", "name": "作文专题", "url": "https://your-domain.com/composition.html"},
-        {"@type": "Course", "name": "词语学习", "url": "https://your-domain.com/vocabulary.html"}
-      ]
-    }
-  }
-  </script>
-  <style>
-    /* 诊断和任务模块 */
-    .diagnosis-section {
-      padding: 40px 5vw;
-      background: #f7f8fb;
-    }
-    .diagnosis-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-    .diagnosis-card {
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-    .diagnosis-card h3 {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .diagnosis-card p {
-      color: #666;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-    .diagnosis-btn {
-      display: inline-block;
-      padding: 12px 24px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .diagnosis-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-    }
-    .diagnosis-btn.secondary {
-      background: #f0f0f0;
-      color: #333;
-    }
-    .task-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .task-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .task-item:last-child {
-      border-bottom: none;
-    }
-    .task-checkbox {
-      width: 24px;
-      height: 24px;
-      border: 2px solid #ddd;
-      border-radius: 6px;
-      margin-right: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .task-checkbox.completed {
-      background: #4caf50;
-      border-color: #4caf50;
-      color: white;
-    }
-    .task-text {
-      flex: 1;
-      color: #333;
-    }
-    .task-text.task-link {
-      text-decoration: none;
-    }
-    .task-text.task-link:hover {
-      color: #667eea;
-    }
-    .task-text.completed {
-      text-decoration: line-through;
-      color: #999;
-    }
-    .task-time {
-      color: #999;
-      font-size: 14px;
-    }
-    .task-item.parent-task .task-time {
-      color: #667eea;
-      font-weight: 600;
-    }
-    .timeline a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .timeline a:hover {
-      color: #4f46e5;
-    }
-    
-    /* 学习闭环模块 */
-    .cycle-section {
-      padding: 50px 5vw;
-      background: white;
-    }
-    .cycle-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .cycle-title {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .cycle-title h2 {
-      font-size: 28px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .cycle-title p {
-      color: #666;
-      font-size: 16px;
-    }
-    .cycle-steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-    }
-    .step-card {
-      text-align: center;
-      padding: 25px 15px;
-      background: #f8f9fa;
-      border-radius: 12px;
-      transition: all 0.3s;
-    }
-    .step-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .step-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: bold;
-      margin: 0 auto 15px;
-    }
-    .step-card h4 {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-    .step-card p {
-      font-size: 13px;
-      color: #666;
-      margin: 0;
-      line-height: 1.5;
-    }
-    
-    /* 年级路线表 */
-    .roadmap-section {
-      padding: 50px 5vw;
-      background: #f7f8fb;
-    }
-    .roadmap-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .roadmap-title {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .roadmap-title h2 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .roadmap-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-    .roadmap-table th, .roadmap-table td {
-      padding: 18px 15px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
-    .roadmap-table th {
-      background: #667eea;
-      color: white;
-      font-weight: 600;
-      font-size: 15px;
-    }
-    .roadmap-table td {
-      font-size: 14px;
-      color: #555;
-    }
-    .roadmap-table tr:last-child td {
-      border-bottom: none;
-    }
-    .roadmap-table tr:hover td {
-      background: #f9f9f9;
-    }
-    .roadmap-note {
-      text-align: center;
-      margin-top: 20px;
-      color: #666;
-      font-size: 14px;
-    }
-    .home-router-section {
-      padding-top: 28px;
-      padding-bottom: 28px;
-    }
-    .home-router-shell {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 28px;
-      border: 1px solid rgba(24, 33, 47, 0.08);
-      border-radius: 24px;
-      background:
-        linear-gradient(135deg, rgba(232, 243, 255, 0.9), rgba(255, 247, 219, 0.82) 58%, rgba(236, 247, 239, 0.95)),
-        #ffffff;
-      box-shadow: 0 20px 42px rgba(24, 33, 47, 0.08);
-    }
-    .home-router-shell .section-title {
-      max-width: 840px;
-      margin-bottom: 22px;
-    }
-    .home-router-lead {
-      color: #405064;
-      font-size: 16px;
-      line-height: 1.75;
-    }
-    .home-router-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .home-router-card {
-      position: relative;
-      overflow: hidden;
-      border-color: rgba(24, 33, 47, 0.1);
-    }
-    .home-router-tag {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(11, 107, 203, 0.1);
-      color: #0b6bcb;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-    }
-    .home-router-note {
-      margin: 0;
-      padding-top: 10px;
-      border-top: 1px dashed rgba(24, 33, 47, 0.12);
-      color: #59677a;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-    .home-router-quickbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .home-router-quick {
-      display: inline-flex;
-      min-height: 38px;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 14px;
-      border: 1px solid rgba(24, 33, 47, 0.12);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.76);
-      color: #21405f;
-      font-size: 14px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-    .home-router-quick.primary {
-      color: #fff;
-      background: #21405f;
-      border-color: #21405f;
-    }
-    .home-router-quick:hover {
-      background: #21405f;
-      border-color: #21405f;
-      color: #fff;
-    }
-    
-    @media (max-width: 768px) {
-      .diagnosis-container {
-        grid-template-columns: 1fr;
-      }
-      .cycle-steps {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .roadmap-table th, .roadmap-table td {
-        padding: 12px 8px;
-        font-size: 13px;
-      }
-      .home-router-shell {
-        padding: 20px;
-        border-radius: 18px;
-      }
-      .home-router-grid {
-        grid-template-columns: 1fr;
-      }
-      .home-router-lead {
-        font-size: 15px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="index.html" aria-label="回到首页">
-      <span class="brand-mark">文</span>
-      <span>语文成长地图</span>
-    </a>
-    <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
-    <nav class="nav" aria-label="主导航">
-      <a class="active" href="index.html">总览</a>
-      <a href="agent.html">AI Agent</a>
-      <a href="pinyin.html">拼音学习</a>
-      <a href="grammar.html">语法知识</a>
-      <a href="composition.html">作文专题</a>
-      <a href="grade1.html">一年级</a>
-      <a href="grade2.html">二年级</a>
-      <a href="grade3.html">三年级</a>
-      <a href="grade4.html">四年级</a>
-      <a href="grade5.html">五年级</a>
-      <a href="grade6.html">六年级</a>
-      <a href="practice.html">练习计划</a>
-      <a href="vocabulary.html">词语学习</a>
-    </nav>
-  </header>
-
-  <!-- 诊断和今日任务模块 -->
-  <section class="diagnosis-section">
-    <div class="diagnosis-container">
-      <!-- 入门诊断 -->
-      <div class="diagnosis-card">
-        <h3>🔍 入门诊断测评</h3>
-        <p>通过15分钟的测评，快速了解孩子的语文薄弱环节，包括字词、阅读、写作等方面，为个性化学习提供依据。</p>
-        <a href="practice.html#diagnosis" class="diagnosis-btn">开始诊断测评</a>
-      </div>
-      <!-- 今日任务 -->
-      <div class="diagnosis-card">
-        <h3>📋 今日学习任务</h3>
-        <ul class="task-list" id="taskList">
-          <li class="task-item">
-            <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">朗读课文并标出停顿</span>
-            <span class="task-time">8分钟</span>
-          </li>
-          <li class="task-item">
-            <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">积累3个词语并造句</span>
-            <span class="task-time">10分钟</span>
-          </li>
-          <li class="task-item">
-            <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">完成一篇阅读理解</span>
-            <span class="task-time">12分钟</span>
-          </li>
-          <li class="task-item">
-            <div class="task-checkbox" onclick="toggleTask(this)">✓</div>
-            <span class="task-text">复述文章主要内容</span>
-            <span class="task-time">5分钟</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 学习闭环模块 -->
-  <section class="cycle-section">
-    <div class="cycle-container">
-      <div class="cycle-title">
-        <h2>科学学习闭环</h2>
-        <p>诊断 → 学习 → 练习 → 反馈 → 复盘</p>
-      </div>
-      <div class="cycle-steps">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <h4>诊断</h4>
-          <p>找出薄弱环节<br>确定学习重点</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>选号 Agent</title>
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="选号Agent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+    <link rel="shortcut icon" type="image/png" href="icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css?v=20260611-layout-9" />
+  </head>
+  <body>
+    <section id="appLock" class="app-lock">
+      <div class="lock-panel">
+        <span class="brand-mark"></span>
+        <h1>选号模拟</h1>
+        <p>请输入密码打开页面。</p>
+        <div class="lock-form">
+          <input id="appPassword" type="password" maxlength="32" placeholder="页面密码" autocomplete="current-password" />
+          <button id="toggleAppPasswordButton" type="button">显示</button>
+          <button id="unlockAppButton" type="button">进入</button>
         </div>
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <h4>学习</h4>
-          <p>知识点讲解<br>典型例题分析</p>
-        </div>
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <h4>练习</h4>
-          <p>基础→提优→拔高<br>分层递进训练</p>
-        </div>
-        <div class="step-card">
-          <div class="step-number">4</div>
-          <h4>反馈</h4>
-          <p>正确答案解析<br>错因归类总结</p>
-        </div>
-        <div class="step-card">
-          <div class="step-number">5</div>
-          <h4>复盘</h4>
-          <p>错题自动归类<br>生成复习建议</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 年级提优路线表 -->
-  <section class="roadmap-section">
-    <div class="roadmap-container">
-      <div class="roadmap-title">
-        <h2>年级提优路线表</h2>
-      </div>
-      <!-- 年级选项卡 -->
-      <div class="grade-tabs">
-        <button class="tab-btn" onclick="showGrade(1, event)">一年级</button>
-        <button class="tab-btn" onclick="showGrade(2, event)">二年级</button>
-        <button class="tab-btn active" onclick="showGrade(3, event)">三年级</button>
-        <button class="tab-btn" onclick="showGrade(4, event)">四年级</button>
-        <button class="tab-btn" onclick="showGrade(5, event)">五年级</button>
-        <button class="tab-btn" onclick="showGrade(6, event)">六年级</button>
-      </div>
-      
-      <!-- 年级内容卡片 -->
-      <div class="grade-content">
-        <!-- 一年级 -->
-        <div id="grade-1" class="grade-card">
-          <h3>一年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">拼音、笔画、简单识字</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">拼读熟练、认字量增加</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">能独立拼读、朗读短文</span>
-          </div>
-        </div>
-        
-        <!-- 二年级 -->
-        <div id="grade-2" class="grade-card">
-          <h3>二年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">形近字、多音字、词语积累</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">阅读理解起步、写一段话</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">能说完整、写清楚</span>
-          </div>
-        </div>
-        
-        <!-- 三年级 -->
-        <div id="grade-3" class="grade-card active">
-          <h3>三年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">字词句、自然段</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">写具体、找中心句</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">能写完整片段</span>
-          </div>
-        </div>
-        
-        <!-- 四年级 -->
-        <div id="grade-4" class="grade-card">
-          <h3>四年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">概括、修辞、描写</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">找依据、析作用</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">阅读答案有层次</span>
-          </div>
-        </div>
-        
-        <!-- 五年级 -->
-        <div id="grade-5" class="grade-card">
-          <h3>五年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">中心、人物、说明文</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">分析主题和结构</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">作文有中心有详略</span>
-          </div>
-        </div>
-        
-        <!-- 六年级 -->
-        <div id="grade-6" class="grade-card">
-          <h3>六年级学习重点</h3>
-          <div class="grade-item">
-            <span class="item-label">基础重点</span>
-            <span class="item-value">综合阅读、非连续性文本、文言文</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">提优重点</span>
-            <span class="item-value">四层答题法、作文升格</span>
-          </div>
-          <div class="grade-item">
-            <span class="item-label">拔高目标</span>
-            <span class="item-value">冲刺衔接中学、综合运用</span>
-          </div>
-        </div>
-      </div>
-      <p class="roadmap-note">
-        <strong>梯度特点：</strong>一年级重拼音识字基础，二年级重词语积累和阅读起步，三年级重表达完整，四年级重阅读依据，五年级重分析深度，六年级重综合运用与小升初冲刺
-      </p>
-    </div>
-  </section>
-
-  <main>
-    <section class="hero dashboard-hero">
-      <div class="hero-copy">
-        <p class="eyebrow">小学一至六年级</p>
-        <h1>把语文知识拆成孩子看得懂、练得动的小任务</h1>
-        <p class="lead">围绕字词、句段、阅读、习作、古诗文五条主线，帮助孩子先建立知识框架，再用短练习逐步巩固。</p>
-        <div class="hero-actions">
-          <a class="button primary" href="agent.html?stage=%E5%AE%B6%E9%95%BF%E8%BE%85%E5%AF%BC&amp;subject=%E8%AF%AD%E6%96%87&amp;task=%E8%AE%B2%E6%B8%85%E7%9F%A5%E8%AF%86%E7%82%B9&amp;level=%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83&amp;source=%E9%A6%96%E9%A1%B5%E5%BF%AB%E9%80%9F%E5%85%A5%E5%8F%A3&amp;question=%E8%AF%B7%E6%8C%89%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83%E8%BD%A8%EF%BC%8C%E8%BE%85%E5%AF%BC%E4%B8%80%E9%81%93%E5%B0%8F%E5%AD%A6%E8%AF%AD%E6%96%87%E9%A2%98%EF%BC%9A%E5%85%88%E5%88%A4%E6%96%AD%E9%A2%98%E5%9E%8B%EF%BC%8C%E5%86%8D%E7%BB%99%E6%88%91%E5%8F%AF%E7%9B%B4%E6%8E%A5%E7%85%A7%E7%9D%80%E9%97%AE%E7%9A%84%E8%AF%9D%E6%9C%AF%E3%80%81%E5%AD%A9%E5%AD%90%E8%AF%A5%E5%9C%88%E7%9A%84%E4%BE%9D%E6%8D%AE%E5%92%8C%E5%81%9A%E5%AE%8C%E5%90%8E%E7%9A%84%E5%A4%8D%E7%9B%98%E9%97%AE%E9%A2%98%E3%80%82">打开 AI Agent</a>
-          <a class="button primary" href="practice.html">查看今日练习</a>
-          <a class="button ghost" href="parent-guide.html#weekly-plan">家长陪学手册</a>
-          <a class="button ghost" href="knowledge-map.html">打开知识总控台</a>
-        </div>
-      </div>
-      <div class="learning-card" aria-label="今日学习卡片">
-        <div class="card-header">
-          <span id="heroTaskTotal">今日 35 分钟</span>
-          <strong id="heroTaskLabel">轻量学习</strong>
-        </div>
-        <ol class="timeline" id="heroTimeline">
-          <li><span>08 分钟</span>朗读一段课文，标出停顿</li>
-          <li><span>10 分钟</span>积累 3 个词语并造句</li>
-          <li><span>12 分钟</span>做一篇短阅读</li>
-          <li><span>05 分钟</span>复述文章主要内容</li>
-        </ol>
+        <p id="appAuthMessage" class="auth-message"></p>
       </div>
     </section>
 
-    <section class="section home-router-section" id="home-router">
-      <div class="home-router-shell">
-        <div class="section-title">
-          <p class="eyebrow">首页第一分流台</p>
-          <h2>先判断今天属于哪种情况，再进对应页面</h2>
-          <p class="home-router-lead">这块不讲全站内容，只解决第一步：继续上次训练、按当前问题进、按身份进、按目标进。拿不准时，先做一次诊断，再看报告决定。</p>
-        </div>
-        <div class="home-router-grid">
-          <article class="route-card home-router-card">
-            <span class="home-router-tag">继续上次学习</span>
-            <h3>先把昨天那一步走完，不重新开新坑</h3>
-            <p>如果已经做过诊断、练习或周报，今天优先回报告、错题本和分流训练，不要重新从首页乱翻。</p>
-            <div class="route-links">
-              <a href="report.html">先看学习报告</a>
-              <a href="practice.html#wrong-notebook">回错题本</a>
-              <a href="practice.html#flow-training">继续分流训练</a>
-              <a href="parent-guide.html#weekly-plan">同步本周安排</a>
+    <main id="appRoot" class="app" hidden>
+      <section id="agentHomePanel" class="agent-shell" data-agent-section aria-label="手机 Agent 工作台">
+        <div class="agent-shell-top">
+          <div class="agent-copy">
+            <span class="agent-badge">Mobile Agent</span>
+            <h2>选号 Agent</h2>
+            <p>为手机单手操作重新包装，支持桌面安装、离线打开和快速跳转到核心工作区。</p>
+          </div>
+          <div class="agent-sidecard">
+            <span class="agent-sidecard-title">Runtime Status</span>
+            <div class="agent-status">
+              <span id="displayModeBadge" class="agent-pill">浏览器模式</span>
+              <span id="networkStatusBadge" class="agent-pill">在线</span>
+              <span class="agent-pill">草稿自动保存在本机</span>
             </div>
-            <p class="home-router-note">推荐顺序：报告定主攻点 → 错题复盘 2 题 → 分流包重练。</p>
-          </article>
-          <article class="route-card home-router-card">
-            <span class="home-router-tag">按当前问题进入</span>
-            <h3>先抓正在丢分的那一类，不要平均用力</h3>
-            <p>基础丢分先补字词语法，阅读答不到点先看模板，作文写不出来先拆题和片段，不会练再回诊断与分流。</p>
-            <div class="route-links">
-              <a href="vocabulary.html#word-overview">字词不稳</a>
-              <a href="grammar.html#grammar-methods">语法病句</a>
-              <a href="knowledge-map.html#reading-templates">阅读答不到点</a>
-              <a href="composition.html#topic-training-tasks">作文写不出来</a>
-              <a href="practice.html#diagnosis">学了不会练</a>
-              <a href="practice.html#flow-training">直接进训练包</a>
+            <p id="installHint" class="agent-hint">在浏览器菜单里也可以选择“添加到主屏幕”。</p>
+          </div>
+        </div>
+        <div class="agent-actions">
+          <button id="installAppButton" class="agent-primary-action" type="button" hidden data-accent="ruby" data-nav-tag="APP">安装到手机</button>
+          <button class="agent-jump" type="button" data-target="#agentBoardPanel" data-accent="cobalt" data-nav-tag="BOARD">打开选号盘</button>
+          <button id="openComparePageFromHome" class="agent-jump" type="button" data-accent="violet" data-nav-tag="LAB">180行对比页</button>
+          <button id="openCompare90PageFromHome" class="agent-jump" type="button" data-accent="mint" data-nav-tag="90">90行对比页</button>
+          <button class="agent-jump" type="button" data-target="#agentVersionPanel" data-accent="amber" data-nav-tag="VAULT">查看版本库</button>
+          <button class="agent-jump" type="button" data-target="#agentImportPanel" data-accent="mint" data-nav-tag="DRAW">导入开奖号</button>
+        </div>
+      </section>
+
+      <section id="agentControlPanel" class="toolbar" data-agent-section aria-label="操作栏">
+        <div class="toolbar-top">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <div>
+              <h1>选号模拟</h1>
+              <p>点击格子添加球，颜色和编号都可以自定义。</p>
             </div>
-            <p class="home-router-note">不要同时补三类问题，本周只抓一个主攻点，其他先维持。</p>
-          </article>
-          <article class="route-card home-router-card">
-            <span class="home-router-tag">按身份 / 场景进入</span>
-            <h3>谁来主导今天这次学习，就走谁的入口</h3>
-            <p>孩子自己练，直接进练习页；家长陪练，先看话术和闭环；已经有数据，先看周报，不必重复看总览介绍。</p>
-            <div class="route-links">
-              <a href="practice.html">孩子自己练</a>
-              <a href="parent-guide.html#scripts">家长先学怎么问</a>
-              <a href="parent-guide.html#coaching-loop">12 分钟陪练闭环</a>
-              <a href="report.html">已有数据先看报告</a>
-              <a href="knowledge-map.html">先看全站总控台</a>
+          </div>
+          <div class="toolbar-note">
+            <span class="toolbar-kicker">Quick Control</span>
+            <strong>顶部控制台</strong>
+            <p>行、区、号码、颜色、缩放都集中在这里，单手切换更快。</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label>
+            <span>行</span>
+            <input id="rowInput" type="number" min="1" max="45" value="1" />
+          </label>
+          <label>
+            <span>区</span>
+            <select id="zoneInput">
+              <option value="front">前区</option>
+              <option value="back">后区</option>
+            </select>
+          </label>
+          <label>
+            <span>号码</span>
+            <input id="numberInput" type="number" min="1" max="35" value="1" />
+          </label>
+          <label>
+            <span>球色</span>
+            <input id="colorInput" type="color" value="#d6202a" />
+          </label>
+          <label>
+            <span>大小</span>
+            <input id="sizeInput" type="range" min="20" max="34" value="25" />
+          </label>
+          <label>
+            <span>缩放</span>
+            <input id="zoomInput" type="range" min="30" max="130" value="100" />
+          </label>
+          <button id="addBallButton" type="button">添加球</button>
+          <button id="eraseButton" type="button" aria-pressed="false">擦除</button>
+          <button id="deleteColorButton" type="button">删此颜色</button>
+          <button id="addDividerButton" type="button">添加线条</button>
+          <button id="clearButton" type="button">清空</button>
+        </div>
+        <div class="text-add">
+          <div class="text-add-wrapper">
+            <textarea
+              id="descInput"
+              rows="3"
+              placeholder="如：前区1行 8,10,15红球，或粘贴 Markdown 表格批量添加"
+            ></textarea>
+            <label class="file-import-button text-file-import">
+              <input id="descFileInput" type="file" accept=".xlsx,.xls,.csv,.tsv" />
+              导入Excel
+            </label>
+            <button id="descAddButton" type="button">按描述添加</button>
+            <button id="descHelpButton" type="button" class="help-btn" title="查看语法规则">?</button>
+          </div>
+          <div id="descHelpTip" class="desc-help-tip" hidden>
+            <strong>语法规则：</strong><br />
+            <code>前区/后区</code> + <code>行号</code> + <code>号码</code> + <code>颜色</code><br /><br />
+            <strong>单条示例：</strong><br />
+            <code>前区1行 8,10,15红球</code><br />
+            <code>后区3行 2蓝球</code><br />
+            <code>前区第5行 13号红</code><br /><br />
+            <strong>表格批量导入（先选颜色）：</strong><br />
+            <code>| 顺序 | 前区号码 | 后区号码 |</code><br />
+            <code>| 1 | 12 17 20 26 35 | 04 09 |</code><br />
+            <code>| 2 | 04 10 15 22 27 | 06 10 |</code><br /><br />
+            <strong>制表符分隔格式（如从Excel复制）：</strong><br />
+            <code>顺序 前区号码 后区号码</code><br />
+            <code>1 12 17 20 26 35 04 09</code><br />
+            <code>2 04 10 15 22 27 06 10</code><br /><br />
+            <strong>Excel导入：</strong>读取前区/后区列，按倒序添加，表格最下面一行放到第1行。<br /><br />
+            <strong>彩虹球：</strong>同位置多颜色显示彩虹。<br /><br />
+            <strong>支持：</strong>中文数字、多行、分号分隔。
+          </div>
+        </div>
+      </section>
+
+      <section id="agentPalettePanel" class="palette" data-agent-section aria-label="颜色选择">
+        <button class="swatch active" type="button" data-color="#d6202a" style="--swatch: #d6202a">红</button>
+        <button class="swatch" type="button" data-color="#1768b7" style="--swatch: #1768b7">蓝</button>
+        <button class="swatch" type="button" data-color="#14a365" style="--swatch: #14a365">绿</button>
+        <button class="swatch" type="button" data-color="#f59e0b" style="--swatch: #f59e0b">橙</button>
+        <button class="swatch" type="button" data-color="#7c3aed" style="--swatch: #7c3aed">紫</button>
+        <button class="swatch" type="button" data-color="#111827" style="--swatch: #111827">黑</button>
+      </section>
+
+      <section id="agentBoardPanel" class="board-shell" data-agent-section aria-label="选号面板">
+        <div class="board-top">
+          <div class="status">
+            <strong id="ballCount">0</strong>
+            <span>个球</span>
+          </div>
+          <div class="board-actions">
+            <label class="board-option" for="sampleRatioModeInput">
+              <span>区间比</span>
+              <select id="sampleRatioModeInput">
+                <option value="">请选择区间比</option>
+                <option value="0-0-5">0:0:5</option>
+                <option value="0-1-4">0:1:4</option>
+                <option value="0-2-3">0:2:3</option>
+                <option value="0-3-2">0:3:2</option>
+                <option value="0-4-1">0:4:1</option>
+                <option value="0-5-0">0:5:0</option>
+                <option value="1-0-4">1:0:4</option>
+                <option value="1-1-3">1:1:3</option>
+                <option value="1-2-2">1:2:2</option>
+                <option value="1-3-1">1:3:1</option>
+                <option value="1-4-0">1:4:0</option>
+                <option value="2-0-3">2:0:3</option>
+                <option value="2-1-2">2:1:2</option>
+                <option value="2-2-1">2:2:1</option>
+                <option value="2-3-0">2:3:0</option>
+                <option value="3-0-2">3:0:2</option>
+                <option value="3-1-1">3:1:1</option>
+                <option value="3-2-0">3:2:0</option>
+                <option value="4-0-1">4:0:1</option>
+                <option value="4-1-0">4:1:0</option>
+                <option value="5-0-0">5:0:0</option>
+                <option value="break1">断一区</option>
+                <option value="break2">断二区</option>
+                <option value="break3">断三区</option>
+              </select>
+            </label>
+            <label class="board-option" for="sampleVersionInput">
+              <span>版本</span>
+              <select id="sampleVersionInput">
+                <option value="v3">v3</option>
+                <option value="v4">v4.1</option>
+              </select>
+            </label>
+            <label class="board-option" for="sampleDisplayModeInput">
+              <span>展示</span>
+              <select id="sampleDisplayModeInput">
+                <option value="single">单组五行</option>
+                <option value="variants">五组候选</option>
+              </select>
+            </label>
+            <label class="board-option tail-selector" for="tailSelectorWrap">
+              <span>尾号</span>
+              <div id="tailSelectorWrap" class="tail-selector-wrap">
+                <button class="tail-btn" type="button" data-tail="0">0</button>
+                <button class="tail-btn" type="button" data-tail="1">1</button>
+                <button class="tail-btn" type="button" data-tail="2">2</button>
+                <button class="tail-btn" type="button" data-tail="3">3</button>
+                <button class="tail-btn" type="button" data-tail="4">4</button>
+                <button class="tail-btn" type="button" data-tail="5">5</button>
+                <button class="tail-btn" type="button" data-tail="6">6</button>
+                <button class="tail-btn" type="button" data-tail="7">7</button>
+                <button class="tail-btn" type="button" data-tail="8">8</button>
+                <button class="tail-btn" type="button" data-tail="9">9</button>
+              </div>
+            </label>
+            <span id="tailPoolInfo" class="tail-pool-info"></span>
+            <button id="sampleButton" class="ghost" type="button">生成示例</button>
+            <button id="clearSampleButton" class="ghost" type="button">清空示例球</button>
+            <button id="exportSampleExcelButton" class="ghost" type="button" style="display:none;">导出Excel</button>
+            <button id="saveVersionButton" class="ghost" type="button">保存版本</button>
+            <button id="openComparePageButton" class="ghost" type="button">180行对比页</button>
+            <button id="openCompare90PageButton" class="ghost" type="button">90行对比页</button>
+            <button id="captureBoardButton" class="ghost" type="button">截图</button>
+            <button id="clearMainBoardButton" class="ghost" type="button">清空主选号区</button>
+          </div>
+          <span id="currentBaseLabel" class="base-label">当前编辑：空白画面</span>
+        </div>
+        <div id="predictionPanel" class="prediction-panel">
+          <div class="prediction-header">
+            <h3>智能预测</h3>
+            <button id="refreshPredictionButton" class="ghost" type="button">刷新预测</button>
+          </div>
+          <div class="prediction-content">
+            <div class="prediction-section">
+              <h4>区间比预测</h4>
+              <div id="intervalRatioPrediction" class="prediction-display">
+                <span class="prediction-placeholder">点击"生成示例"后显示预测结果</span>
+              </div>
             </div>
-            <p class="home-router-note">家长页面解决“怎么陪”，练习页面解决“练什么”，报告页面解决“下一步补哪里”。</p>
-          </article>
-          <article class="route-card home-router-card">
-            <span class="home-router-tag">按目标进入</span>
-            <h3>达标、提分、拔尖、考前收口，入口不一样</h3>
-            <p>先达标先稳基础和闭环，稳提分去分流训练，冲拔尖去高阶页和晋级标准，考前收口回报告和打印训练单。</p>
-            <div class="route-links">
-              <a href="knowledge-map.html#training-loop">先达标</a>
-              <a href="practice.html#flow-training">稳提分</a>
-              <a href="advanced.html">冲拔尖</a>
-              <a href="practice.html#peak-promotion">看晋级标准</a>
-              <a href="report.html#rpWeakSection">考前收口</a>
-              <a href="practice.html#print-training">打印训练单</a>
+            <div class="prediction-section prediction-section-wide">
+              <h4>尾号预测</h4>
+              <div id="tailPrediction" class="prediction-display">
+                <span class="prediction-placeholder">点击"生成示例"后显示预测结果</span>
+              </div>
+              <button id="backtestTailModesBtn" class="ghost btn-sm" type="button" style="margin-top:6px;">模式回测对比</button>
+              <div id="tailModeBacktest" class="backtest-container"></div>
             </div>
-            <p class="home-router-note">常规题还不稳定时先别跳太多拔尖页；先把“结论 + 依据 + 分析”做稳，再去追高分边界。</p>
-          </article>
-        </div>
-        <div class="home-router-quickbar" aria-label="快捷分流">
-          <a class="home-router-quick primary" href="practice.html#diagnosis">完全拿不准：先做 15 分钟诊断</a>
-          <a class="home-router-quick" href="knowledge-map.html#training-loop">想看完整闭环：去知识总控台</a>
-          <a class="home-router-quick" href="advanced.html">常规题已稳定：直接去拔尖拓展</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section teacher-note">
-      <div class="section-title">
-        <p class="eyebrow">第一次使用</p>
-        <h2>家长先按三步走，不用一次看完所有内容</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">这个网站不是知识大全目录，而是学习路线图。先定位年级，再选一条本周路线，最后把具体题目交给 AI 或练习页处理。</p>
-      </div>
-      <div class="route-grid">
-        <article class="route-card">
-          <h3>1. 先选年级</h3>
-          <p>从孩子当前年级进入，看本年级目标、容易掉分的地方和家长检查清单。</p>
-          <div class="route-links">
-            <a href="grade1.html">低年级</a>
-            <a href="grade3.html">三年级</a>
-            <a href="grade4.html">四年级</a>
-            <a href="grade5.html">五年级</a>
-            <a href="grade6.html">六年级</a>
-          </div>
-        </article>
-        <article class="route-card">
-          <h3>2. 再看本周路线</h3>
-          <p>不要每天乱练。每周只抓一个阅读点、一个表达点、一个错题复盘点。</p>
-          <div class="route-links">
-            <a href="practice.html">练习计划</a>
-            <a href="parent-guide.html#weekly-plan">家长一周陪学安排</a>
-            <a href="knowledge-map.html#training-loop">训练闭环</a>
-          </div>
-        </article>
-        <article class="route-card">
-          <h3>3. 具体题目进 AI</h3>
-          <p>遇到阅读题、作文片段、错题原因，再把题目发给 AI 辅导，得到可执行步骤。</p>
-          <div class="route-links">
-            <a href="agent.html?stage=%E5%AE%B6%E9%95%BF%E8%BE%85%E5%AF%BC&amp;subject=%E8%AF%AD%E6%96%87&amp;task=%E8%AE%B2%E6%B8%85%E7%9F%A5%E8%AF%86%E7%82%B9&amp;level=%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83&amp;source=%E9%A6%96%E9%A1%B5%E8%B7%AF%E7%BA%BF%E5%85%A5%E5%8F%A3&amp;question=%E8%AF%B7%E6%8C%89%E5%AE%B6%E9%95%BF%E9%99%AA%E7%BB%83%E8%BD%A8%EF%BC%8C%E8%BE%85%E5%AF%BC%E4%B8%80%E9%81%93%E5%B0%8F%E5%AD%A6%E8%AF%AD%E6%96%87%E9%A2%98%EF%BC%9A%E5%85%88%E5%88%A4%E6%96%AD%E9%A2%98%E5%9E%8B%EF%BC%8C%E5%86%8D%E7%BB%99%E5%AE%B6%E9%95%BF%E5%8F%AF%E7%9B%B4%E6%8E%A5%E7%85%A7%E7%9D%80%E9%97%AE%E7%9A%84%E8%AF%9D%E6%9C%AF%E3%80%81%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E6%9F%A5%E8%A1%A8%E5%92%8C%E5%81%9A%E5%AE%8C%E5%90%8E%E7%9A%84%E5%A4%8D%E7%9B%98%E9%97%AE%E9%A2%98%E3%80%82">打开 AI 辅导</a>
-            <a href="composition.html">作文专题</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section teacher-note">
-      <div class="section-title">
-        <p class="eyebrow">入口分工</p>
-        <h2>先选页面，再开始学</h2>
-        <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">现在内容按"总控台、年级页、作文页、专项页、练习页"分工。这样家长不用到处翻，孩子也知道下一步该去哪。</p>
-      </div>
-      <div class="route-grid">
-        <article class="route-card">
-          <h3>知识总控台</h3>
-          <p>查知识分类、题型模板、页面索引，先判断问题属于哪一类。</p>
-          <div class="route-links">
-            <a href="knowledge-map.html">打开总控台</a>
-            <a href="knowledge-map.html#knowledge-index">知识索引</a>
-            <a href="knowledge-map.html#template-index">模板总表</a>
-          </div>
-        </article>
-        <article class="route-card">
-          <h3>年级学习</h3>
-          <p>按一至六年级看目标、易错点、提优重点和每周训练。</p>
-          <div class="route-links">
-            <a href="grade1.html">一年级</a>
-            <a href="grade2.html">二年级</a>
-            <a href="grade3.html">三年级</a>
-            <a href="grade4.html">四年级</a>
-            <a href="grade5.html">五年级</a>
-            <a href="grade6.html">六年级</a>
-          </div>
-        </article>
-        <article class="route-card">
-          <h3>作文专题</h3>
-          <p>解决作文审题、选材、结构、重点段、语言升格和评分自查。</p>
-          <div class="route-links">
-            <a href="composition.html">作文专题</a>
-            <a href="composition.html#topic-methods">题材方法</a>
-            <a href="composition.html#teacher-records">批改实录</a>
-          </div>
-        </article>
-        <article class="route-card">
-          <h3>基础专项</h3>
-          <p>拼音、语法、词语各自独立补弱，不和年级规划混在一起。</p>
-          <div class="route-links">
-            <a href="pinyin.html">拼音</a>
-            <a href="grammar.html">语法</a>
-            <a href="vocabulary.html">词语</a>
-          </div>
-        </article>
-        <article class="route-card">
-          <h3>练习复盘</h3>
-          <p>用诊断、训练和错题复盘把知识变成稳定得分能力。</p>
-          <div class="route-links">
-            <a href="practice.html#diagnosis">诊断</a>
-            <a href="practice.html#templates">阅读模板</a>
-            <a href="parent-guide.html#coaching-loop">家长陪练流程</a>
-            <a href="practice.html">练习计划</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="map" class="section">
-      <div class="section-title">
-        <p class="eyebrow">年级路径</p>
-        <h2>三步找到孩子当前要补的点</h2>
-      </div>
-      <div class="grade-grid">
-        <a class="grade-panel grade-one" href="grade1.html">
-          <span class="grade-number">1</span>
-          <h3>一年级：零基础起步</h3>
-          <p>重点打好拼音基础、认识常见字、养成朗读习惯，从"不会"到"会读"。</p>
-          <span class="panel-link">进入一年级</span>
-        </a>
-        <a class="grade-panel grade-two" href="grade2.html">
-          <span class="grade-number">2</span>
-          <h3>二年级：从会读到会用</h3>
-          <p>重点扩大识字量、积累词语、学会阅读方法，从"一句话"到"一段话"。</p>
-          <span class="panel-link">进入二年级</span>
-        </a>
-        <a class="grade-panel grade-three" href="grade3.html">
-          <span class="grade-number">3</span>
-          <h3>三年级：从会读到会说</h3>
-          <p>重点建立段落意识、词句积累和观察表达，作文从"写完整"开始。</p>
-          <span class="panel-link">进入三年级</span>
-        </a>
-        <a class="grade-panel grade-four" href="grade4.html">
-          <span class="grade-number">4</span>
-          <h3>四年级：从理解到归纳</h3>
-          <p>训练概括、修辞、人物描写和文章结构，让阅读答案有依据。</p>
-          <span class="panel-link">进入四年级</span>
-        </a>
-        <a class="grade-panel grade-five" href="grade5.html">
-          <span class="grade-number">5</span>
-          <h3>五年级：从积累到表达</h3>
-          <p>加强主题理解、说明方法、文言启蒙和有层次的习作表达。</p>
-          <span class="panel-link">进入五年级</span>
-        </a>
-        <a class="grade-panel grade-six" href="grade6.html">
-          <span class="grade-number">6</span>
-          <h3>六年级：小升初冲刺</h3>
-          <p>综合阅读、非连续性文本、文言文、古诗赏析、作文升格、综合运用全面冲刺。</p>
-          <span class="panel-link">进入六年级</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">能力成长路径</p>
-        <h2>一至六年级语文能力发展路径</h2>
-      </div>
-      <div class="table-card">
-        <div class="responsive-table">
-          <table>
-            <thead>
-              <tr><th>年级</th><th>一句话目标</th><th>学习重点</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>一年级</td><td>学会拼音，认识常用字，能朗读短文</td><td>拼音拼读、基本笔画、简单识字、朗读入门</td></tr>
-              <tr><td>二年级</td><td>识字量扩大，会阅读短文，会写一段话</td><td>形近字辨析、词语积累、阅读方法、写话训练</td></tr>
-              <tr><td>三年级</td><td>把句子写具体，把一件事说完整</td><td>字词积累、句子训练、自然段理解、基础习作</td></tr>
-              <tr><td>四年级</td><td>读文章会概括，答题能找依据</td><td>概括内容、修辞理解、细节描写、阅读答题</td></tr>
-              <tr><td>五年级</td><td>理解文章主题，表达有结构</td><td>中心思想、人物分析、说明文、文言启蒙、作文结构</td></tr>
-              <tr><td>六年级</td><td>综合阅读与运用，为小升初冲刺</td><td>综合阅读、非连续性文本、文言文、古诗赏析、作文升格、综合性学习</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">
-        <p class="eyebrow">核心目标</p>
-        <h2>每个年级孩子要逐步做到</h2>
-      </div>
-      <div class="cards-row">
-        <article class="mini-card grade-one">
-          <span class="grade-number">1</span>
-          <h3>一年级</h3>
-          <ul>
-            <li>能准确拼读音节，能独立拼读</li>
-            <li>认识 400 个常用字，会写 200 个</li>
-            <li>能正确朗读课文，不拖读不唱读</li>
-          </ul>
-        </article>
-        <article class="mini-card grade-two">
-          <span class="grade-number">2</span>
-          <h3>二年级</h3>
-          <ul>
-            <li>能辨析形近字和多音字</li>
-            <li>能读懂短文并回答简单问题</li>
-            <li>能写一段通顺的话（3-5句）</li>
-          </ul>
-        </article>
-        <article class="mini-card grade-three">
-          <span class="grade-number">3</span>
-          <h3>三年级</h3>
-          <ul>
-            <li>读懂一段话，能找到中心句</li>
-            <li>写清一件事的时间、地点、人物、经过和结果</li>
-            <li>正确使用逗号、句号、冒号和引号</li>
-          </ul>
-        </article>
-        <article class="mini-card grade-four">
-          <span class="grade-number">4</span>
-          <h3>四年级</h3>
-          <ul>
-            <li>读完文章能概括主要内容</li>
-            <li>回答阅读题时能说出"从哪里看出来"</li>
-            <li>能识别比喻、拟人、排比等修辞手法</li>
-          </ul>
-        </article>
-        <article class="mini-card grade-five">
-          <span class="grade-number">5</span>
-          <h3>五年级</h3>
-          <ul>
-            <li>能理解文章想表达的意思</li>
-            <li>作文有开头、中间、结尾，详略比较清楚</li>
-            <li>能读懂简单说明文和文言文</li>
-          </ul>
-        </article>
-        <article class="mini-card grade-six">
-          <span class="grade-number">6</span>
-          <h3>六年级</h3>
-          <ul>
-            <li>能综合阅读记叙文、说明文、非连续性文本、古诗文</li>
-            <li>能用四层法组织答案：结论+依据+分析+情感</li>
-            <li>作文有审题、选材、详略、细节、点题</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">知识总览</p>
-        <h2>各年级必考知识点</h2>
-      </div>
-      <div class="table-card">
-        <div class="responsive-table">
-          <table>
-            <thead>
-              <tr><th>模块</th><th>一年级</th><th>二年级</th><th>三年级</th><th>四年级</th><th>五年级</th><th>六年级</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>字词</td><td>拼音、基本笔画、简单识字</td><td>形近字、多音字、近反义词</td><td>多音字、形近字、词语运用</td><td>词语理解、词语搭配</td><td>词语运用、语境理解</td><td>多音字、同义词辨析、成语运用</td></tr>
-              <tr><td>句子</td><td>说完整一句话</td><td>用逗号句号，写通顺句子</td><td>扩句、缩句、标点符号</td><td>把字句、被字句、病句修改</td><td>句子作用、句式变换</td><td>病句修改、仿写、句式转换</td></tr>
-              <tr><td>阅读</td><td>正确朗读、简单理解</td><td>读懂短文、找到信息</td><td>找中心句、找关键词</td><td>概括内容、理解词语、找依据</td><td>中心思想、人物形象、情感变化</td><td>记叙文+说明文+非连续性文本+古诗文综合</td></tr>
-              <tr><td>修辞</td><td>-</td><td>感受比喻、拟人的句子</td><td>比喻、拟人（认识）</td><td>比喻、拟人、排比、夸张、反问</td><td>修辞赏析、表达效果</td><td>修辞综合运用与赏析</td></tr>
-              <tr><td>描写</td><td>-</td><td>观察写话</td><td>观察描写</td><td>动作、语言、神态、心理、环境</td><td>环境作用、人物对比</td><td>多角度综合描写分析</td></tr>
-              <tr><td>作文</td><td>写一句完整的话</td><td>写一段通顺的话（3-5句）</td><td>六要素、观察日记</td><td>详写经过、细节描写</td><td>详略安排、过渡句、点题</td><td>审题立意、选材组材、细节升格、结尾点题</td></tr>
-              <tr><td>说明文</td><td>-</td><td>-</td><td>-</td><td>-</td><td>说明方法、说明顺序、准确性</td><td>说明方法+语言准确性+段落作用</td></tr>
-              <tr><td>文言文</td><td>-</td><td>-</td><td>-</td><td>-</td><td>朗读停顿、注释理解、常见实词</td><td>实词虚词、翻译、概括、道理启示</td></tr>
-              <tr><td>非连续性文本</td><td colspan="6">六年级新增：图表提取、多材料比较、判断信息正误、提建议写结论</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">家长诊断</p>
-        <h2>怎么判断孩子卡在哪个环节</h2>
-      </div>
-      <div class="table-card">
-        <div class="responsive-table">
-          <table>
-            <thead>
-              <tr><th>表现</th><th>可能卡点</th><th>可以怎么观察</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>听写常错，作文错别字多</td><td>字词基础</td><td>看孩子是否能读准、写对、会组词</td></tr>
-              <tr><td>阅读题答不全</td><td>阅读理解</td><td>问孩子"答案在文章哪里"</td></tr>
-              <tr><td>作文像流水账</td><td>表达能力</td><td>看是否有具体动作、语言、心理或景物描写</td></tr>
-              <tr><td>会读但说不出意思</td><td>概括能力</td><td>让孩子用一句话说文章讲了什么</td></tr>
-              <tr><td>答案凭感觉</td><td>答题习惯</td><td>让孩子先圈题目关键词，再回原文找依据</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">
-        <p class="eyebrow">学习流程</p>
-        <h2>诊断-练习-复盘三步法</h2>
-      </div>
-      <div class="plan-grid">
-        <article class="plan-card">
-          <span class="time-pill">5分钟</span>
-          <h3>诊断</h3>
-          <p>读一段短文，回答2个问题，找出卡点</p>
-        </article>
-        <article class="plan-card">
-          <span class="time-pill">20-30分钟</span>
-          <h3>练习</h3>
-          <p>只练一个薄弱点，例如词语、概括、修辞或作文片段</p>
-        </article>
-        <article class="plan-card">
-          <span class="time-pill">5分钟</span>
-          <h3>复盘</h3>
-          <p>看错在哪里，说出下次怎么改</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">核心能力</p>
-        <h2>每个年级都围绕五条线反复练</h2>
-      </div>
-      <div class="skill-list">
-        <article>
-          <span class="skill-icon">字</span>
-          <h3>字词基础</h3>
-          <p>生字、多音字、近反义词、成语与词语搭配。</p>
-        </article>
-        <article>
-          <span class="skill-icon">句</span>
-          <h3>句段运用</h3>
-          <p>扩句缩句、修辞、病句、过渡句和中心句。</p>
-        </article>
-        <article>
-          <span class="skill-icon">读</span>
-          <h3>阅读理解</h3>
-          <p>概括内容、提取信息、理解人物与体会情感。</p>
-        </article>
-        <article>
-          <span class="skill-icon">写</span>
-          <h3>习作表达</h3>
-          <p>观察、选材、结构、细节描写和修改习惯。</p>
-        </article>
-        <article>
-          <span class="skill-icon">诗</span>
-          <h3>古诗文</h3>
-          <p>背诵默写、关键词理解、画面想象和文言启蒙。</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- 学习小贴士 -->
-    <section class="tips-section">
-      <h2>&#127891; 学习小贴士</h2>
-      <div class="tips-grid">
-        <div class="tip-card">
-          <div class="tip-icon">&#128214;</div>
-          <div class="tip-content">
-            <h4>每天朗读10分钟</h4>
-            <p>朗读可以帮助你更好地理解和记忆课文内容</p>
+            <div class="prediction-section">
+              <h4>首位球预测</h4>
+              <div id="firstBallPrediction" class="prediction-display">
+                <span class="prediction-placeholder">点击"生成示例"后显示预测结果</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="tip-card">
-          <div class="tip-icon">&#128221;</div>
-          <div class="tip-content">
-            <h4>学习3个新词语</h4>
-            <p>每天积累3个新词语，试着在生活中使用它们</p>
+        <div id="versionBanner" class="version-banner" hidden>
+          <span class="version-banner-label">版本</span>
+          <span id="versionBannerText" class="version-banner-text"></span>
+        </div>
+        <div class="board-wrap">
+          <div id="board" class="board" aria-label="选号走势表">
+            <div>
+              <div class="zone-title front-title">前区 1-35</div>
+              <div id="frontBoard" class="zone-board front-board" aria-label="前区 1 到 35"></div>
+            </div>
+            <div>
+              <div class="zone-title back-title">后区 1-12</div>
+              <div id="backBoard" class="zone-board back-board" aria-label="后区 1 到 12"></div>
+            </div>
           </div>
         </div>
-        <div class="tip-card">
-          <div class="tip-icon">&#128172;</div>
-          <div class="tip-content">
-            <h4>大声说出答案</h4>
-            <p>回答问题时大声说出来，可以加深记忆</p>
+        <div id="agentPoolPanel" class="pool-panel" data-agent-section aria-label="候选号码池" hidden>
+          <div class="pool-header">
+            <h2>候选号码池</h2>
+            <span id="poolStats" class="pool-stats"></span>
+          </div>
+          <div id="poolDisplay" class="pool-display"></div>
+          <div id="poolCoverageInfo" class="pool-coverage-info"></div>
+        </div>
+      </section>
+
+      <section id="agentVersionPanel" class="version-shell" data-agent-section aria-label="历史版本">
+        <div class="history-top">
+          <h2>历史版本</h2>
+          <div class="version-tools">
+            <input id="versionPassword" type="password" placeholder="输入密码查看版本" autocomplete="current-password" />
+            <button id="unlockVersionsButton" type="button">验证</button>
+            <button id="lockVersionsButton" type="button" hidden>锁定</button>
+            <input id="versionSearch" type="search" placeholder="查找时间、号码、颜色" />
+            <button id="downloadVersionsButton" type="button">下载版本信息</button>
+            <label class="file-import-button">
+              <input id="importVersionsInput" type="file" accept=".json,application/json" />
+              导入版本信息
+            </label>
+            <button id="compareVersionsButton" type="button">三版本对比图</button>
+            <button id="clearVersionsButton" type="button">清空版本</button>
           </div>
         </div>
-        <div class="tip-card">
-          <div class="tip-icon">&#128564;</div>
-          <div class="tip-content">
-            <h4>劳逸结合</h4>
-            <p>学习30分钟后休息一下，效率更高</p>
+        <p id="versionAuthMessage" class="version-auth-message">请输入密码后查看历史版本。</p>
+        <div class="version-layout">
+          <ol id="versionList" class="version-list"></ol>
+          <div class="version-preview">
+            <h3 id="versionPreviewTitle">未选择版本</h3>
+            <div id="versionPreview" class="history-balls"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="agentImportPanel" class="draw-import-shell" data-agent-section aria-label="生成开奖号版本">
+        <div class="history-top">
+          <h2>生成开奖号版本</h2>
+          <div class="draw-version-actions">
+            <label class="file-import-button">
+              <input id="drawFileInput" type="file" accept=".xlsx,.xls,.csv,.tsv" />
+              导入Excel
+            </label>
+            <button id="generateDrawVersionButton" type="button">生成版本</button>
+            <button id="cancelEditDrawVersionButton" type="button" hidden>取消修改</button>
+          </div>
+        </div>
+        <div class="draw-import-body">
+          <label>
+            <span>开奖日期</span>
+            <input id="drawDateInput" type="date" />
+          </label>
+          <textarea
+            id="drawDataInput"
+            placeholder="粘贴开奖数据，每行一期。例如：&#10;2026052 2026-05-13 前区 01 02 03 04 05 后区 06 07&#10;2026051 2026-05-11 13 18 28 32 33 02 11"
+          ></textarea>
+          <p id="drawImportMessage" class="version-auth-message">支持粘贴或导入 Excel：读取期号、序号、前区号码、后区号码后生成版本。</p>
+        </div>
+      </section>
+
+      <nav id="mobileDock" class="mobile-dock" aria-label="手机快捷导航">
+        <button class="dock-item" type="button" data-target="#agentHomePanel" data-accent="cobalt">
+          <span class="dock-item-icon" aria-hidden="true">⌂</span>
+          <span class="dock-item-kicker">首页</span>
+          <strong>Agent</strong>
+        </button>
+        <button class="dock-item" type="button" data-target="#agentControlPanel" data-accent="ruby">
+          <span class="dock-item-icon" aria-hidden="true">◎</span>
+          <span class="dock-item-kicker">控制</span>
+          <strong>工作台</strong>
+        </button>
+        <button class="dock-item active" type="button" data-target="#agentBoardPanel" data-accent="violet">
+          <span class="dock-item-icon" aria-hidden="true">●</span>
+          <span class="dock-item-kicker">核心</span>
+          <strong>选号盘</strong>
+        </button>
+        <button class="dock-item" type="button" data-target="#agentVersionPanel" data-accent="amber">
+          <span class="dock-item-icon" aria-hidden="true">▣</span>
+          <span class="dock-item-kicker">记录</span>
+          <strong>版本库</strong>
+        </button>
+        <button class="dock-item" type="button" data-target="#agentImportPanel" data-accent="mint">
+          <span class="dock-item-icon" aria-hidden="true">↥</span>
+          <span class="dock-item-kicker">数据</span>
+          <strong>开奖号</strong>
+        </button>
+      </nav>
+
+      <div id="versionModal" class="version-modal" hidden>
+        <div class="version-dialog" role="dialog" aria-modal="true" aria-labelledby="versionModalTitle">
+          <div class="version-dialog-top">
+            <h2 id="versionModalTitle">版本详情</h2>
+            <button id="closeVersionModalButton" type="button">关闭</button>
+          </div>
+          <div id="versionModalBody" class="version-detail-list"></div>
+        </div>
+      </div>
+
+      <div id="compareModal" class="version-modal" hidden>
+        <div class="version-dialog compare-dialog" role="dialog" aria-modal="true" aria-labelledby="compareModalTitle">
+          <div class="version-dialog-top">
+            <h2 id="compareModalTitle">三版本对比图</h2>
+            <button id="closeCompareModalButton" type="button">关闭</button>
+          </div>
+          <div class="compare-form">
+            <label>
+              <span>版本一</span>
+              <select id="compareVersionOne"></select>
+            </label>
+            <label>
+              <span>版本二</span>
+              <select id="compareVersionTwo"></select>
+            </label>
+            <label>
+              <span>版本三</span>
+              <select id="compareVersionThree"></select>
+            </label>
+          </div>
+          <p id="compareHint" class="version-auth-message">将每个版本的第 16-30 行映射到主选号区行 1-15、16-30、31-45，前区和后区的选球都会按原号码落位。</p>
+          <div class="compare-actions">
+            <button id="applyCompareButton" type="button">加载到主选号区</button>
+            <button id="saveCompareButton" class="ghost" type="button">一键保存为版本</button>
           </div>
         </div>
       </div>
-    </section>
+    </main>
 
-    <script>
-      let currentTaskSignature = '';
-
-      const HOME_ERROR_CODE_INFO = {
-        B1: { label: '字词混淆', shortLabel: '字词辨析', category: '基础', link: 'practice.html#pack-b1', introLink: 'vocabulary.html#word-overview', advanceLink: 'vocabulary.html#word-answer-template', practice: '先做 B1 训练包，再把 3 组易混字词放进句子里', aiSubject: '字词积累与运用', aiTask: '字词辨析巩固' },
-        B2: { label: '标点错误', shortLabel: '标点训练', category: '基础', link: 'grammar.html#grammar-methods', introLink: 'grammar.html#grammar-methods', advanceLink: 'grammar.html#grammar-methods', practice: '完成 1 组标点辨析，再说出停顿或引用为什么这样用', aiSubject: '基础语法与标点', aiTask: '标点和病句辨析' },
-        B3: { label: '拼音拼写', shortLabel: '拼音辨析', category: '基础', link: 'pinyin.html#pinyin-mistakes', introLink: 'pinyin.html#pinyin-rules', advanceLink: 'pinyin.html#pinyin-rules', parentLink: 'pinyin.html#pinyin-parent-coaching', practice: '先过易错音节，再口头拼读 3 组同类音节', aiSubject: '拼音识记', aiTask: '拼音纠错巩固' },
-        R1: { label: '概括不全', shortLabel: '概括训练', category: '阅读', link: 'practice.html#pack-r1', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '按“谁做什么，结果怎样”概括 1 段，再删掉照抄句', aiSubject: '阅读理解', aiTask: '概括题训练' },
-        R2: { label: '依据缺失', shortLabel: '找依据', category: '阅读', link: 'practice.html#pack-r2', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '做 1 题依据题，先圈原文句，再写结论', aiSubject: '阅读理解', aiTask: '依据题训练' },
-        R3: { label: '赏析空泛', shortLabel: '赏析训练', category: '阅读', link: 'practice.html#pack-r3', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '用“手法+特点+效果”补全 1 题赏析，别只写术语', aiSubject: '阅读理解', aiTask: '赏析题训练' },
-        R4: { label: '推断错误', shortLabel: '推断训练', category: '阅读', link: 'practice.html#pack-r4', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '先看材料编号和数据，再写 1 条有依据的结论', aiSubject: '阅读理解', aiTask: '非连续文本训练' },
-        W1: { label: '结构松散', shortLabel: '结构提纲', category: '表达', link: 'practice.html#pack-w1', introLink: 'composition.html#topic-training-tasks', advanceLink: 'composition.html#skill-upgrade', practice: '把片段补足时间、地点、动作和变化，写到 3-5 句', aiSubject: '作文/写作', aiTask: '片段扩写训练' },
-        W2: { label: '细节不足', shortLabel: '细节描写', category: '表达', link: 'practice.html#pack-w2', introLink: 'composition.html#skill-upgrade', advanceLink: 'composition.html#master-teacher', practice: '放大关键一幕，补上动作、心理和结果', aiSubject: '作文/写作', aiTask: '重点段升格' },
-        W3: { label: '审题偏差', shortLabel: '审题训练', category: '表达', link: 'practice.html#pack-w3', introLink: 'composition.html#topic-training-tasks', advanceLink: 'composition.html#master-teacher', practice: '先圈题眼、定中心，再列 3 点提纲', aiSubject: '作文/写作', aiTask: '审题立意训练' },
-        C1: { label: '综合迁移', shortLabel: '综合迁移', category: '综合', link: 'practice.html#pack-c1', introLink: 'knowledge-map.html#training-loop', advanceLink: 'extra-topics.html#quick-templates', practice: '做 1 组综合题，先判断题型再按分值分层作答', aiSubject: '综合学习', aiTask: '综合题型迁移' }
-      };
-
-      const HOME_SKILL_FALLBACKS = {
-        '基础知识': { label: '基础知识', shortLabel: '基础巩固', category: '基础', link: 'practice.html#pack-b1', introLink: 'vocabulary.html#word-overview', advanceLink: 'grammar.html#grammar-methods', practice: '先过一组字词基础，再回看标点和病句的通用判断方法', aiSubject: '基础字词与语法', aiTask: '基础知识巩固' },
-        '阅读理解': { label: '阅读理解', shortLabel: '阅读训练', category: '阅读', link: 'knowledge-map.html#reading-templates', introLink: 'knowledge-map.html#reading-templates', advanceLink: 'practice.html#flow-training', practice: '先看阅读模板，再做 1 题回原文找依据', aiSubject: '阅读理解', aiTask: '阅读方法巩固' },
-        '写作表达': { label: '写作表达', shortLabel: '表达训练', category: '表达', link: 'composition.html#topic-training-tasks', introLink: 'composition.html#topic-training-tasks', advanceLink: 'composition.html#skill-upgrade', practice: '先拆题再写 1 段，写完对照提纲自改 1 轮', aiSubject: '作文/写作', aiTask: '写作表达升格' }
-      };
-
-      function safeParseStorage(key, fallback) {
-        try {
-          const raw = localStorage.getItem(key);
-          return raw ? JSON.parse(raw) : fallback;
-        } catch (e) {
-          return fallback;
-        }
-      }
-
-      function escapeHtml(text) {
-        return String(text).replace(/[&<>"']/g, (char) => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-        }[char]));
-      }
-
-      function parseGradeValue(value) {
-        if (typeof value === 'number' && value >= 1 && value <= 6) return value;
-        const text = String(value || '').trim();
-        const digitMatch = text.match(/[1-6]/);
-        if (digitMatch) return parseInt(digitMatch[0], 10);
-        const chineseMap = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6 };
-        const chineseMatch = text.match(/[一二三四五六]/);
-        return chineseMatch ? chineseMap[chineseMatch[0]] : 0;
-      }
-
-      function getGradeLabel(gradeNum) {
-        const labels = ['', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级'];
-        return labels[gradeNum] || '三年级';
-      }
-
-      function resolveGoalType(goal, score) {
-        if (goal === 'fill' || goal === 'advance' || goal === 'explore') return goal;
-        if (score && score <= 8) return 'fill';
-        if (score && score >= 13) return 'advance';
-        return 'explore';
-      }
-
-      function resolveTaskLink(template, gradeNum) {
-        return String(template || 'practice.html').replace('{grade}', gradeNum);
-      }
-
-      function resolveOptionalTaskLink(template, gradeNum) {
-        return template ? String(template).replace('{grade}', gradeNum) : '';
-      }
-
-      function getFocusStarterLink(focus) {
-        if (focus && focus.introLink) return focus.introLink;
-        if (!focus) return 'knowledge-map.html#training-loop';
-        if (focus.category === '基础') return 'vocabulary.html#word-overview';
-        if (focus.category === '阅读') return 'knowledge-map.html#reading-templates';
-        if (focus.category === '表达') return 'composition.html#topic-training-tasks';
-        return 'knowledge-map.html#training-loop';
-      }
-
-      function getFocusAdvanceLink(focus) {
-        if (focus && focus.advanceLink) return focus.advanceLink;
-        if (!focus) return 'practice.html#flow-training';
-        if (focus.category === '基础') return 'grammar.html#grammar-methods';
-        if (focus.category === '表达') return 'composition.html#skill-upgrade';
-        return 'practice.html#flow-training';
-      }
-
-      function getFocusParentLink(focus, fallbackLink) {
-        if (focus && focus.parentLink) return focus.parentLink;
-        return fallbackLink;
-      }
-
-      function getHomeLearningState() {
-        return {
-          lastResult: safeParseStorage('lastDiagnosisResult', {}),
-          wrongList: safeParseStorage('wrongAnswers', []),
-          quickDiag: safeParseStorage('quickDiagnosis', {})
-        };
-      }
-
-      function getPrimaryFocus(state, gradeNum) {
-        const codeCounts = {};
-        (state.wrongList || []).forEach((item) => {
-          const code = String(item && item.errorCode ? item.errorCode : '').trim().toUpperCase();
-          if (!HOME_ERROR_CODE_INFO[code]) return;
-          codeCounts[code] = (codeCounts[code] || 0) + 1;
-        });
-
-        const topCode = Object.entries(codeCounts).sort((a, b) => b[1] - a[1])[0];
-        if (topCode) {
-          const focus = HOME_ERROR_CODE_INFO[topCode[0]];
-          return {
-            label: focus.label,
-            shortLabel: focus.shortLabel,
-            category: focus.category,
-            link: resolveTaskLink(focus.link, gradeNum),
-            introLink: resolveOptionalTaskLink(focus.introLink, gradeNum),
-            advanceLink: resolveOptionalTaskLink(focus.advanceLink, gradeNum),
-            parentLink: resolveOptionalTaskLink(focus.parentLink, gradeNum),
-            practice: focus.practice,
-            aiSubject: focus.aiSubject,
-            aiTask: focus.aiTask
-          };
-        }
-
-        const skillScores = state.lastResult && state.lastResult.skills ? state.lastResult.skills : {};
-        const weakestSkill = Object.keys(HOME_SKILL_FALLBACKS)
-          .map((name) => ({ name, score: Number(skillScores[name]) }))
-          .filter((item) => Number.isFinite(item.score))
-          .sort((a, b) => a.score - b.score)[0];
-
-        if (weakestSkill) {
-          const focus = HOME_SKILL_FALLBACKS[weakestSkill.name];
-          return {
-            label: focus.label,
-            shortLabel: focus.shortLabel,
-            category: focus.category,
-            link: resolveTaskLink(focus.link, gradeNum),
-            introLink: resolveOptionalTaskLink(focus.introLink, gradeNum),
-            advanceLink: resolveOptionalTaskLink(focus.advanceLink, gradeNum),
-            parentLink: resolveOptionalTaskLink(focus.parentLink, gradeNum),
-            practice: focus.practice,
-            aiSubject: focus.aiSubject,
-            aiTask: focus.aiTask
-          };
-        }
-
-        return {
-          label: '本周主线',
-          shortLabel: '综合巩固',
-          category: '综合',
-          link: 'grade' + gradeNum + '.html',
-          introLink: 'knowledge-map.html#training-loop',
-          advanceLink: 'practice.html#flow-training',
-          parentLink: 'parent-guide.html#coaching-loop',
-          practice: '打开本年级路线，先确定今天最该练的一个点',
-          aiSubject: '语文',
-          aiTask: '综合巩固'
-        };
-      }
-
-      function buildDynamicTasks() {
-        const state = getHomeLearningState();
-        const gradeNum = parseGradeValue(state.lastResult.grade) || parseGradeValue(state.quickDiag.grade) || 3;
-        const gradeLabel = getGradeLabel(gradeNum);
-        const score = Number(state.lastResult.totalScore) || 0;
-        const hasHistory = score > 0 || (state.wrongList || []).length > 0;
-        const goalType = resolveGoalType(state.quickDiag.goal, score);
-        const focus = getPrimaryFocus(state, gradeNum);
-        const tasks = [];
-        const focusSubject = focus.aiSubject || (focus.category === '表达' ? '作文/写作' : focus.category === '阅读' ? '阅读理解' : '语文');
-        const aiUpgradeHref = 'agent.html?' + new URLSearchParams({
-          stage: '家长辅导',
-          subject: focusSubject,
-          task: focus.aiTask || (focus.category === '表达' ? '作文/表达升格' : '错因诊断'),
-          level: '家长陪练',
-          source: '首页今日任务/' + focus.shortLabel,
-          question: '请按家长陪练轨，辅导一道小学语文「' + focus.label + '」相关题：先判断孩子当前缺的是题型判断、依据、分析还是表达，再给家长可直接照着问的话术、升级建议和 10 分钟复练。今天优先围绕：' + focus.practice + '。'
-        }).toString();
-
-        if (!hasHistory) {
-          tasks.push(
-            { text: '做一次 15 分钟入门诊断，先定位薄弱点', timeline: '做一次入门诊断', minutes: 15, href: 'practice.html#diagnosis' },
-            { text: '打开' + gradeLabel + '路线图，确认本周重点', timeline: '看本年级路线图', minutes: 8, href: 'grade' + gradeNum + '.html' },
-            { text: '选一个阅读、表达或基础专题做短练习', timeline: '选一个专题短练', minutes: 10, href: getFocusStarterLink(focus) },
-            { text: '家长先看陪学闭环，学会怎么问、不怎么讲', timeline: '家长先学陪练闭环', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#coaching-loop'), audience: 'parent' }
-          );
-        } else if (goalType === 'fill') {
-          tasks.push(
-            { text: '打开学习报告，先确定今天主攻「' + focus.label + '」', timeline: '先看报告定主攻点', minutes: 6, href: 'report.html' },
-            { text: focus.practice, timeline: '专项练「' + focus.shortLabel + '」', minutes: 12, href: focus.link },
-            { text: '回到错题本，复盘今天最容易重复错的 2 题', timeline: '错题本复盘 2 题', minutes: 10, href: 'practice.html#wrong-notebook' },
-            { text: '家长按检查清单追问 3 句，只复盘「' + focus.label + '」', timeline: '家长按清单追问 3 句', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#checklist'), audience: 'parent' }
-          );
-        } else if (goalType === 'advance') {
-          tasks.push(
-            { text: '查看' + gradeLabel + '提优重点，先决定今天挑战哪一类题', timeline: '先看年级提优重点', minutes: 8, href: 'grade' + gradeNum + '.html' },
-            { text: '围绕「' + focus.label + '」做 1 组拔高训练，先说结论再补依据', timeline: '拔高练「' + focus.shortLabel + '」', minutes: 15, href: getFocusAdvanceLink(focus) },
-            { text: '把今天答案发给 AI，让它指出还能升级哪一步', timeline: '把答案交给 AI 升级', minutes: 10, href: aiUpgradeHref },
-            { text: '家长按陪练闭环追问，不直接给标准答案', timeline: '家长按闭环陪练', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#coaching-loop'), audience: 'parent' }
-          );
-        } else {
-          tasks.push(
-            { text: '查看' + gradeLabel + '知识路线，先确定本周主线', timeline: '先看本年级路线图', minutes: 8, href: 'grade' + gradeNum + '.html' },
-            { text: '围绕「' + focus.label + '」做 1 个短练习，看看卡点在哪', timeline: '短练「' + focus.shortLabel + '」', minutes: 10, href: getFocusStarterLink(focus) },
-            { text: score > 0 ? '对照学习报告，确认下一步该补基础还是提优' : '完成一次标准诊断，拿到第一份学习报告', timeline: score > 0 ? '对照报告定下一步' : '完成一次标准诊断', minutes: score > 0 ? 10 : 15, href: score > 0 ? 'report.html' : 'practice.html#diagnosis' },
-            { text: '家长先看陪学手册，统一今天怎么问、怎么收尾', timeline: '家长先统一陪学方法', minutes: 8, href: getFocusParentLink(focus, 'parent-guide.html#coaching-loop'), audience: 'parent' }
-          );
-        }
-
-        const totalMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0);
-        const taskMode = !hasHistory
-          ? '轻量起步'
-          : goalType === 'fill'
-            ? '补弱巩固 · ' + focus.category
-            : goalType === 'advance'
-              ? '拔高冲刺 · ' + focus.category
-              : '综合梳理 · ' + focus.category;
-
-        return { tasks, totalMinutes, taskMode };
-      }
-
-      function buildTaskSignature(tasks) {
-        return tasks.map((task) => [task.text, task.minutes, task.href].join('|')).join('||');
-      }
-
-      function renderDynamicHomeTasks() {
-        const taskList = document.getElementById('taskList');
-        const heroTimeline = document.getElementById('heroTimeline');
-        const heroTaskTotal = document.getElementById('heroTaskTotal');
-        const heroTaskLabel = document.getElementById('heroTaskLabel');
-        if (!taskList) return;
-
-        const plan = buildDynamicTasks();
-        currentTaskSignature = buildTaskSignature(plan.tasks);
-
-        taskList.innerHTML = plan.tasks.map((task) => `
-          <li class="task-item${task.audience === 'parent' ? ' parent-task' : ''}">
-            <div class="task-checkbox" onclick="toggleTask(this)" onkeydown="handleTaskKeydown(event, this)" role="button" tabindex="0" aria-label="标记任务完成">✓</div>
-            <a class="task-text task-link" href="${task.href}">${escapeHtml(task.text)}</a>
-            <span class="task-time">${escapeHtml(task.minutes)}分钟</span>
-          </li>
-        `).join('');
-
-        if (heroTimeline) {
-          heroTimeline.innerHTML = plan.tasks.map((task) => `
-            <li><span>${escapeHtml(String(task.minutes).padStart(2, '0'))} 分钟</span><a href="${task.href}">${escapeHtml(task.timeline)}</a></li>
-          `).join('');
-        }
-
-        if (heroTaskTotal) heroTaskTotal.textContent = '今日 ' + plan.totalMinutes + ' 分钟';
-        if (heroTaskLabel) heroTaskLabel.textContent = plan.taskMode;
-      }
-
-      // 页面加载动画
-      document.addEventListener('DOMContentLoaded', () => {
-        const cards = document.querySelectorAll('.grade-panel, .mini-card, .plan-card');
-        cards.forEach((card, index) => {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          setTimeout(() => {
-            card.style.transition = 'all 0.5s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, index * 100);
-        });
-        
-        renderDynamicHomeTasks();
-        // 初始化任务状态
-        initTasks();
-      });
-      
-      // 任务切换功能
-      function handleTaskKeydown(event, checkbox) {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        toggleTask(checkbox);
-      }
-
-      function toggleTask(checkbox) {
-        const taskItem = checkbox.parentElement;
-        const taskText = taskItem.querySelector('.task-text');
-        
-        checkbox.classList.toggle('completed');
-        taskText.classList.toggle('completed');
-        
-        // 保存任务状态到localStorage
-        saveTasks();
-      }
-      
-      // 从localStorage加载任务状态（按日期重置）
-      function initTasks() {
-        try {
-          const today = new Date().toDateString();
-          const savedDate = localStorage.getItem('dailyTasksDate');
-          const savedSignature = localStorage.getItem('dailyTasksSignature');
-          if (savedDate !== today || savedSignature !== currentTaskSignature) {
-            localStorage.setItem('dailyTasksDate', today);
-            localStorage.setItem('dailyTasksSignature', currentTaskSignature);
-            localStorage.removeItem('dailyTasks');
-            return;
-          }
-          const savedTasks = localStorage.getItem('dailyTasks');
-          if (savedTasks) {
-            const tasks = JSON.parse(savedTasks);
-            const taskItems = document.querySelectorAll('#taskList .task-item');
-            taskItems.forEach((item, index) => {
-              if (tasks[index]) {
-                const checkbox = item.querySelector('.task-checkbox');
-                const taskText = item.querySelector('.task-text');
-                checkbox.classList.add('completed');
-                taskText.classList.add('completed');
-              }
-            });
-          }
-        } catch (e) {
-          // localStorage 不可用时静默降级
-        }
-      }
-      
-      // 保存任务状态到localStorage
-      function saveTasks() {
-        try {
-          const taskItems = document.querySelectorAll('#taskList .task-item');
-          const tasks = Array.from(taskItems).map(item => 
-            item.querySelector('.task-checkbox').classList.contains('completed')
-          );
-          localStorage.setItem('dailyTasks', JSON.stringify(tasks));
-          localStorage.setItem('dailyTasksDate', new Date().toDateString());
-          localStorage.setItem('dailyTasksSignature', currentTaskSignature);
-        } catch (e) {
-          // localStorage 不可用时静默降级
-        }
-      }
-      
-      // 年级卡片点击效果
-      document.querySelectorAll('.grade-panel').forEach(panel => {
-        panel.addEventListener('click', () => {
-          panel.style.transform = 'scale(0.98)';
-          setTimeout(() => {
-            panel.style.transform = 'scale(1)';
-          }, 100);
-        });
-      });
-      
-      // 年级选项卡切换
-      function showGrade(grade, evt) {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-          btn.classList.remove('active');
-        });
-        document.querySelectorAll('.grade-card').forEach(card => {
-          card.classList.remove('active');
-        });
-        
-        (evt ? evt.target : event.target).classList.add('active');
-        document.getElementById('grade-' + grade).classList.add('active');
-      }
-    </script>
-  </main>
-  <script src="nav.js" defer></script>
-  <script src="table-responsive.js" defer></script>
-</body>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="vendor/html2canvas.min.js"></script>
+    <script src="all_draws.js"></script>
+    <script src="script.js?v=20260701-back-v6"></script>
+  </body>
 </html>
